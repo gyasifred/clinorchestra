@@ -303,12 +303,27 @@ class FunctionRegistry:
             if 'age' in transformed and 'age_months' not in transformed:
                 transformed['age_months'] = transformed['age']
                 transformed.pop('age', None)
-            
+
+            # Handle sex parameter - convert string to number
+            # CDC/WHO convention: 1 = male, 2 = female
+            if 'sex' in transformed:
+                sex_value = transformed['sex']
+                if isinstance(sex_value, str):
+                    sex_lower = sex_value.lower().strip()
+                    if sex_lower in ['male', 'm', 'boy', 'man']:
+                        transformed['sex'] = 1
+                        logger.info(f"Converted sex '{sex_value}' to 1 (male)")
+                    elif sex_lower in ['female', 'f', 'girl', 'woman']:
+                        transformed['sex'] = 2
+                        logger.info(f"Converted sex '{sex_value}' to 2 (female)")
+                    else:
+                        logger.warning(f"Unknown sex value '{sex_value}', cannot convert")
+
             # Handle weight/height parameters
             if 'weight' in transformed and 'weight_kg' not in transformed:
                 transformed['weight_kg'] = transformed['weight']
                 transformed.pop('weight', None)
-            
+
             if 'height' in transformed and 'height_cm' not in transformed:
                 transformed['height_cm'] = transformed['height']
                 transformed.pop('height', None)
