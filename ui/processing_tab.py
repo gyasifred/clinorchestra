@@ -281,7 +281,8 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                 
                 clinical_text = str(row[text_column])
                 label_value = row[label_column] if has_labels and label_column in row.index else None
-                label_context = app_state.data_config.label_mapping.get(str(label_value), None) if label_value else None
+                # FIXED: Check for None explicitly, not truthiness (allows 0, False, "" as valid labels)
+                label_context = app_state.data_config.label_mapping.get(str(label_value), None) if label_value is not None else None
                 
                 log_lines.append(f"[Row {idx+1}/{total_rows}] Processing...")
                 process_state.add_log(process_id, f"Processing row {idx+1}/{total_rows}")
