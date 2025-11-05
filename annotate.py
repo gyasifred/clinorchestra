@@ -192,7 +192,7 @@ def create_main_interface() -> gr.Blocks:
 
             # Restore prompt config
             prompt_config = app_state.prompt_config
-            base_prompt = prompt_config.base_prompt if prompt_config else ""
+            main_prompt = prompt_config.base_prompt if prompt_config else ""
             minimal_prompt = prompt_config.minimal_prompt if prompt_config else ""
 
             return (
@@ -201,7 +201,7 @@ def create_main_interface() -> gr.Blocks:
                 model_name,  # model dropdown
                 temperature,  # temperature slider
                 max_tokens,  # max_tokens slider
-                base_prompt,  # main prompt textbox
+                main_prompt,  # main prompt textbox
                 minimal_prompt  # minimal prompt textbox
             )
 
@@ -210,11 +210,11 @@ def create_main_interface() -> gr.Blocks:
             inputs=None,
             outputs=[
                 global_status,
-                config_components.get('provider_dropdown'),
-                config_components.get('model_dropdown'),
-                config_components.get('temperature_slider'),
-                config_components.get('max_tokens_slider'),
-                prompt_components.get('base_prompt'),
+                config_components.get('provider'),
+                config_components.get('model_name'),
+                config_components.get('temperature'),
+                config_components.get('max_tokens'),
+                prompt_components.get('main_prompt'),
                 prompt_components.get('minimal_prompt')
             ]
         )
