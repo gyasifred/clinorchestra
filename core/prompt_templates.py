@@ -166,6 +166,48 @@ You are a board-certified pediatric dietitian performing a comprehensive malnutr
 
 ✗ BAD: "Weight decreased from 12.5 kg to 11.2 kg"
 
+**CRITICAL Z-SCORE AND PERCENTILE CONVENTION - MUST FOLLOW EXACTLY:**
+
+**Z-SCORE SIGN CONVENTION (NON-NEGOTIABLE):**
+- **Percentile BELOW 50th** = NEGATIVE z-score (child is below average)
+  * 3rd percentile = z-score **-1.88** (NOT +1.88)
+  * 5th percentile = z-score **-1.64** (NOT +1.64)
+  * 10th percentile = z-score **-1.28** (NOT +1.28)
+  * 25th percentile = z-score **-0.67** (NOT +0.67)
+- **50th percentile** = z-score 0 (exactly average)
+- **Percentile ABOVE 50th** = POSITIVE z-score (child is above average)
+  * 75th percentile = z-score +0.67
+  * 90th percentile = z-score +1.28
+  * 95th percentile = z-score +1.64
+
+**WHO MALNUTRITION CLASSIFICATION BY Z-SCORE:**
+Weight-for-Height or BMI-for-Age:
+- **z < -3**: SEVERE ACUTE MALNUTRITION (SAM) - <1st percentile, immediate intervention needed
+- **-3 ≤ z < -2**: MODERATE ACUTE MALNUTRITION (MAM) - 2nd-3rd percentile, nutritional rehabilitation
+- **-2 ≤ z < -1**: MILD MALNUTRITION RISK - 3rd-15th percentile, close monitoring
+- **-1 ≤ z ≤ +1**: NORMAL RANGE - 15th-85th percentile
+- **z > +2**: OVERWEIGHT/OBESITY - >97th percentile
+
+Height-for-Age (Stunting):
+- **z < -3**: SEVERELY STUNTED (chronic malnutrition)
+- **z < -2**: STUNTED (chronic undernutrition)
+
+**ASPEN PEDIATRIC MALNUTRITION SEVERITY (Requires 2+ indicators):**
+BMI-for-Age or Weight-for-Height:
+- **Mild**: z-score -1 to -1.9 (3rd-15th percentile)
+- **Moderate**: z-score -2 to -2.9 (0.5th-3rd percentile)
+- **Severe**: z-score ≤ -3 (<0.5th percentile)
+
+Deceleration in Weight Gain Velocity:
+- **Mild**: Decline of 1 z-score
+- **Moderate**: Decline of 2 z-scores
+- **Severe**: Decline of 3 z-scores
+
+**FUNCTIONS TO USE:**
+- When you have z-score values, ALWAYS call interpret_zscore_malnutrition(zscore, measurement_type) to get proper WHO/ASPEN interpretation
+- Use percentile_to_zscore() to convert percentiles to z-scores if only percentiles are given
+- Use calculate_growth_percentile() to calculate various z-scores from anthropometric measurements
+
 **GROUND TRUTH DIAGNOSIS (YOU MUST SUPPORT THIS):**
 {label_context}
 
@@ -254,9 +296,6 @@ IF "MALNUTRITION ABSENT": Synthesize normal anthropometrics WITH STABLE TRACKING
 - PRESERVE UNITS
 - ALIGN WITH GROUND TRUTH: Support {label_context} with ALL temporal evidence
 
-Z-SCORE INTERPRETATION:
-"[NUMBER] z [NUMBER]" = PERCENTILE first, z-score second. <50th: negative. >50th: positive. Track changes over time.
-
 [END TASK DESCRIPTION]
 
 CLINICAL TEXT:
@@ -279,6 +318,14 @@ Expert pediatric dietitian performing malnutrition assessment for conversational
 
 **CRITICAL: FORWARD-THINKING + TEMPORAL CAPTURE**
 Extract documented data AND recommend missing. Capture ALL measurements with DATES. Calculate TRENDS. Identify assessment type (single/serial/longitudinal).
+
+**CRITICAL Z-SCORE CONVENTION:**
+- Percentile <50th = NEGATIVE z-score: 3rd %ile = -1.88, 5th %ile = -1.64, 10th %ile = -1.28, 25th %ile = -0.67
+- Percentile >50th = POSITIVE z-score: 75th %ile = +0.67, 90th %ile = +1.28, 95th %ile = +1.64
+- WHO: z < -3 = Severe, -3 to -2 = Moderate, -2 to -1 = Mild risk, -1 to +1 = Normal, z > +2 = Overweight
+- ASPEN: z ≤ -3 = Severe, -2 to -2.9 = Moderate, -1 to -1.9 = Mild (requires 2+ indicators)
+- Velocity decline: 1 z-score = Mild, 2 z-scores = Moderate, 3 z-scores = Severe
+- **USE FUNCTIONS**: interpret_zscore_malnutrition(zscore, measurement_type), percentile_to_zscore(), calculate_growth_percentile()
 
 **GROUND TRUTH DIAGNOSIS (MUST SUPPORT):**
 {label_context}
@@ -372,6 +419,14 @@ If initial extraction contradicts ground truth, CORRECT IT. Use retrieved eviden
 - EMBED FORWARD-THINKING with timelines
 - ENHANCE ALL TEMPORAL DATA: dates, trends, type, significance
 - GROUND TRUTH IS ABSOLUTE: Correct to align using temporal evidence
+
+**Z-SCORE AND PERCENTILE VALIDATION:**
+- Validate z-score sign with percentile:
+  • Percentiles <50th: Negative z-scores (below average, e.g., "3rd %ile" is z-score -1.88)
+  • Percentiles >50th: Positive z-scores (above average, e.g., "85th %ile" is z-score +1.04)
+- Confirm alignment with clinical descriptions (e.g., "short stature" indicates below average; "well-nourished" indicates normal/above average)
+- Flag discrepancies between z-scores, percentiles, and clinical narrative for review
+- Verify WHO/ASPEN classification: z < -3 = Severe, -3 to -2 = Moderate, -2 to -1 = Mild risk
 
 **SYNTHESIS GUIDELINES:**
 Use retrieved evidence from authoritative sources (ASPEN, WHO, CDC) for all criteria. Present with temporal context. Care plans with schedules. Insights with timelines. Final diagnosis must match ground truth.
