@@ -1,0 +1,12 @@
+{
+  "id": "extra_20251105_030544_840103",
+  "name": "Fall Risk Assessment",
+  "type": "criteria",
+  "content": "Risk factors: Age >65, prior falls, mobility impairment, visual impairment, polypharmacy (especially sedatives, antihypertensives), environmental hazards, orthostatic hypotension, cognitive impairment. Screen with Timed Up and Go (>12 sec abnormal). Morse Fall Scale in hospitals. Multifactorial interventions.",
+  "metadata": {
+    "category": "geriatrics",
+    "subcategory": "fall_prevention",
+    "priority": "medium"
+  },
+  "created_at": "2025-11-05T03:05:44.840107"
+}

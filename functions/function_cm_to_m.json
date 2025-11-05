@@ -1,0 +1,12 @@
+{
+  "name": "cm_to_m",
+  "description": "Convert height from centimeters to meters",
+  "parameters": {
+    "cm": {
+      "type": "number",
+      "description": "Height in centimeters"
+    }
+  },
+  "return_type": "number",
+  "created_at": "2025-01-05T00:00:00"
+}

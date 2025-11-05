@@ -1,0 +1,20 @@
+{
+  "name": "calculate_anion_gap",
+  "description": "Calculate serum anion gap",
+  "parameters": {
+    "sodium": {
+      "type": "number",
+      "description": "Serum sodium (mEq/L)"
+    },
+    "chloride": {
+      "type": "number",
+      "description": "Serum chloride (mEq/L)"
+    },
+    "bicarbonate": {
+      "type": "number",
+      "description": "Serum bicarbonate (mEq/L)"
+    }
+  },
+  "return_type": "number",
+  "created_at": "2025-01-05T00:00:00"
+}

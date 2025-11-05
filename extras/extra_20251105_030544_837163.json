@@ -1,0 +1,12 @@
+{
+  "id": "extra_20251105_030544_837163",
+  "name": "Stroke Assessment - NIHSS",
+  "type": "reference",
+  "content": "NIH Stroke Scale assesses: Level of consciousness, gaze, visual fields, facial palsy, motor arm/leg, limb ataxia, sensory, language, dysarthria, extinction/inattention. Score 0-42. >25 severe, 15-24 moderate-severe, 5-14 moderate, <5 minor. Helps triage for thrombolytics/thrombectomy.",
+  "metadata": {
+    "category": "neurology",
+    "subcategory": "stroke",
+    "priority": "medium"
+  },
+  "created_at": "2025-11-05T03:05:44.837166"
+}

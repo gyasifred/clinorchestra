@@ -1,0 +1,20 @@
+{
+  "name": "calculate_osmolality",
+  "description": "Calculate serum osmolality from electrolytes",
+  "parameters": {
+    "sodium": {
+      "type": "number",
+      "description": "Serum sodium (mEq/L)"
+    },
+    "glucose": {
+      "type": "number",
+      "description": "Serum glucose (mg/dL)"
+    },
+    "bun": {
+      "type": "number",
+      "description": "Blood urea nitrogen (mg/dL)"
+    }
+  },
+  "return_type": "number",
+  "created_at": "2025-01-05T00:00:00"
+}

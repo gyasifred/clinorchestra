@@ -1,0 +1,16 @@
+{
+  "name": "calculate_pack_years",
+  "description": "Calculate smoking history in pack-years",
+  "parameters": {
+    "packs_per_day": {
+      "type": "number",
+      "description": "Average packs smoked per day"
+    },
+    "years_smoked": {
+      "type": "number",
+      "description": "Number of years smoking"
+    }
+  },
+  "return_type": "number",
+  "created_at": "2025-01-05T00:00:00"
+}

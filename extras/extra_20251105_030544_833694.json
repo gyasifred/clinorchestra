@@ -1,0 +1,12 @@
+{
+  "id": "extra_20251105_030544_833694",
+  "name": "CKD Staging by GFR",
+  "type": "criteria",
+  "content": "Stage 1: GFR \u226590 with kidney damage. Stage 2: GFR 60-89 with damage. Stage 3a: GFR 45-59. Stage 3b: GFR 30-44. Stage 4: GFR 15-29. Stage 5: GFR <15 or dialysis. Also classify by albuminuria: A1 <30 mg/g, A2 30-300, A3 >300 mg/g.",
+  "metadata": {
+    "category": "nephrology",
+    "subcategory": "ckd",
+    "priority": "medium"
+  },
+  "created_at": "2025-11-05T03:05:44.833698"
+}

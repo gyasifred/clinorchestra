@@ -1,0 +1,16 @@
+{
+  "name": "calculate_ideal_body_weight",
+  "description": "Calculate Ideal Body Weight using Devine formula",
+  "parameters": {
+    "height_cm": {
+      "type": "number",
+      "description": "Height in centimeters"
+    },
+    "sex": {
+      "type": "string",
+      "description": "Sex: 'male' or 'female'"
+    }
+  },
+  "return_type": "number",
+  "created_at": "2025-01-05T00:00:00"
+}

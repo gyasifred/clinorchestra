@@ -1,0 +1,16 @@
+{
+  "name": "calculate_body_surface_area",
+  "description": "Calculate Body Surface Area using Mosteller formula",
+  "parameters": {
+    "weight_kg": {
+      "type": "number",
+      "description": "Weight in kilograms"
+    },
+    "height_cm": {
+      "type": "number",
+      "description": "Height in centimeters"
+    }
+  },
+  "return_type": "number",
+  "created_at": "2025-01-05T00:00:00"
+}

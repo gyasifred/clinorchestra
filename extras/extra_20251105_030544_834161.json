@@ -1,0 +1,12 @@
+{
+  "id": "extra_20251105_030544_834161",
+  "name": "Dehydration Assessment",
+  "type": "criteria",
+  "content": "Mild (3-5% weight loss): Slightly dry mucous membranes, normal vital signs. Moderate (6-9%): Dry mucous membranes, decreased skin turgor, tachycardia, decreased urine output. Severe (\u226510%): Sunken eyes/fontanelle, poor perfusion, hypotension, lethargy. Infants and elderly at higher risk.",
+  "metadata": {
+    "category": "fluid_management",
+    "subcategory": "dehydration",
+    "priority": "medium"
+  },
+  "created_at": "2025-11-05T03:05:44.834166"
+}
