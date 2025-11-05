@@ -1308,23 +1308,40 @@ Extract the required information and respond with ONLY a JSON object."""
         return result
     
     def _get_label_context_string(self, label_value: Any) -> Optional[str]:
-        """Get label context from mapping"""
-        if not label_value:
+        """
+        Get label context from mapping
+
+        FIXED: Now properly handles falsy label values (0, False, empty string)
+        For binary classification, label 0 or False are valid and should have context.
+        """
+        # Check for None explicitly, not truthiness
+        # This allows 0, False, "" as valid label values
+        if label_value is None:
             return None
-        
+
         label_mapping = self.app_state.data_config.label_mapping
-        
+
+        # Try string key first
         label_key = str(label_value)
         if label_key in label_mapping:
             return label_mapping[label_key]
-        
+
+        # Try numeric key if conversion is possible
         try:
             numeric_value = int(label_value)
             if numeric_value in label_mapping:
                 return label_mapping[numeric_value]
         except (ValueError, TypeError):
             pass
-        
+
+        # Try float key
+        try:
+            float_value = float(label_value)
+            if float_value in label_mapping:
+                return label_mapping[float_value]
+        except (ValueError, TypeError):
+            pass
+
         return None
     
     def _preprocess_clinical_text(self, text: str) -> str:
