@@ -160,7 +160,7 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
             )
         
         app_state.set_processing_config(
-            batch_size=int(batch_sz),
+            batch_size=int(batch_sz) if batch_sz is not None else 1,
             error_strategy=error_strat,
             output_path=out_dir,
             dry_run=is_dry_run
