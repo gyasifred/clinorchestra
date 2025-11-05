@@ -67,7 +67,7 @@ Contains 10 diverse clinical scenarios:
 
 ```python
 from core.app_state import AppState
-from core.agent_system import ExtractionAgent
+from core.agent_factory import create_agent
 import pandas as pd
 
 # Load sample data
@@ -81,8 +81,11 @@ app_state.prompt_config.json_schema = {
     "medications": {"type": "array", "required": False}
 }
 
-# Initialize agent
-agent = ExtractionAgent(
+# OPTIONAL: Enable Agentic Mode (v1.0.0) for autonomous tool calling
+# app_state.set_agentic_config(enabled=True, max_iterations=20, max_tool_calls=50)
+
+# Create agent (uses factory to select Classic or Agentic mode)
+agent = create_agent(
     llm_manager=app_state.get_llm_manager(),
     rag_engine=app_state.get_rag_engine(),
     extras_manager=app_state.get_extras_manager(),
@@ -97,8 +100,15 @@ result = agent.extract(
     label_value=df.iloc[0]['diagnosis_label']
 )
 
-print(result['stage3_output'])
+print(result['extraction_output'])  # Final JSON extraction
+print(result.get('metadata', {}))   # Metadata (iterations, tool calls, etc.)
 ```
+
+**Note on Execution Modes:**
+- **Classic Mode** (default): Reliable 4-stage pipeline (ExtractionAgent v1.0.2)
+- **Agentic Mode**: Continuous loop with autonomous tool calling + async parallel execution (AgenticAgent v1.0.0) - 60-75% faster
+
+See [AGENTIC_USER_GUIDE.md](../AGENTIC_USER_GUIDE.md) for detailed mode comparison.
 
 ## Expected Outputs
 

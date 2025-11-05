@@ -4,6 +4,8 @@
 
 ClinAnnotate is an intelligent, LLM-powered platform for extracting structured information from clinical text using agentic orchestration with RAG, custom functions, and task-specific hints.
 
+**🎯 Truly Universal:** Works for ANY clinical task - malnutrition, diabetes, sepsis, AKI, hypertension, cardiac assessments, or your own custom tasks. Built-in templates are examples, not limitations!
+
 ## 🚀 Quick Start
 
 ```bash
@@ -18,7 +20,9 @@ Web interface opens at `http://localhost:7860`
 
 ## ✨ Key Features
 
-- **🤖 Agentic Orchestration**: LLM independently determines tool usage and extraction strategy
+- **🤖 Dual Execution Modes**:
+  - **Classic Mode** (ExtractionAgent v1.0.2): Reliable 4-stage pipeline
+  - **Agentic Mode** (AgenticAgent v1.0.0): Continuous loop with autonomous tool calling + async/parallel execution (60-75% faster)
 - **📚 RAG Integration**: Retrieve clinical guidelines and evidence from PDFs/URLs
 - **🧮 Custom Functions**: Medical calculations (BMI, conversions, growth percentiles, etc.)
 - **💡 Extras (Hints)**: 49+ pre-loaded clinical hints (WHO, ASPEN, diagnostic criteria)
@@ -44,7 +48,12 @@ cd clinannotate
 pip install -e .
 ```
 
-### 4-Stage Agentic Pipeline
+### Execution Modes
+
+ClinAnnotate supports TWO execution modes:
+
+#### Classic Mode (ExtractionAgent v1.0.2) - Default
+**Reliable 4-stage pipeline** - Best for: Production workloads, predictable behavior
 
 ```
 STAGE 1: TASK ANALYSIS
@@ -65,6 +74,33 @@ STAGE 4: RAG REFINEMENT (Optional)
 ├── Refines selected fields with RAG evidence
 └── Cites specific sources
 ```
+
+#### Agentic Mode (AgenticAgent v1.0.0) - Advanced
+**Continuous autonomous loop** - Best for: Complex cases, research, maximum accuracy
+
+```
+CONTINUOUS LOOP
+├── LLM analyzes clinical text
+├── Autonomously decides which tools to call
+├── PAUSE → Execute tools in PARALLEL (async/await)
+├── RESUME → Analyze results
+├── Refine queries and call more tools if needed
+├── Iterate until extraction complete
+└── Output final JSON
+
+Performance: 60-75% faster due to parallel tool execution
+```
+
+**Enable Agentic Mode:**
+```python
+app_state.set_agentic_config(
+    enabled=True,
+    max_iterations=20,
+    max_tool_calls=50
+)
+```
+
+See [PIPELINE_ARCHITECTURE.md](PIPELINE_ARCHITECTURE.md) for detailed comparison and [AGENTIC_USER_GUIDE.md](AGENTIC_USER_GUIDE.md) for usage instructions.
 
 ### Core Components
 

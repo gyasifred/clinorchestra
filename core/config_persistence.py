@@ -30,6 +30,7 @@ class ConfigurationPersistenceManager:
         self.data_config_path = self.persistence_dir / "data_config.json"
         self.rag_config_path = self.persistence_dir / "rag_config.json"
         self.processing_config_path = self.persistence_dir / "processing_config.json"
+        self.agentic_config_path = self.persistence_dir / "agentic_config.json"
         self.session_state_path = self.persistence_dir / "session_state.json"
         self.functions_backup_path = self.persistence_dir / "functions_backup.json"
         
@@ -256,7 +257,38 @@ class ConfigurationPersistenceManager:
         except Exception as e:
             logger.error(f"Failed to load processing config: {e}")
             return None
-    
+
+    def save_agentic_config(self, agentic_config) -> bool:
+        """Save agentic configuration to disk"""
+        try:
+            with self.lock:
+                config_dict = {
+                    'enabled': agentic_config.enabled,
+                    'max_iterations': agentic_config.max_iterations,
+                    'max_tool_calls': agentic_config.max_tool_calls,
+                    'iteration_logging': agentic_config.iteration_logging,
+                    'tool_call_logging': agentic_config.tool_call_logging,
+                    'saved_at': datetime.now().isoformat()
+                }
+
+                self._save_config_file(self.agentic_config_path, config_dict)
+                self._save_config_to_db('agentic_config', config_dict)
+
+                logger.info(f"Agentic configuration saved (enabled={config_dict['enabled']})")
+                return True
+
+        except Exception as e:
+            logger.error(f"Failed to save agentic config: {e}", exc_info=True)
+            return False
+
+    def load_agentic_config(self) -> Optional[Dict[str, Any]]:
+        """Load agentic configuration from disk"""
+        try:
+            return self._load_config_file(self.agentic_config_path)
+        except Exception as e:
+            logger.error(f"Failed to load agentic config: {e}")
+            return None
+
     def save_session_state(self, session_data: Dict[str, Any]) -> bool:
         """Save session state data"""
         try:
@@ -601,7 +633,24 @@ class ConfigurationPersistenceManager:
                         loaded_any = True
                 except Exception as e:
                     logger.warning(f"Failed to restore processing config: {e}")
-            
+
+            # Load agentic config
+            agentic_config_data = self.load_agentic_config()
+            if agentic_config_data:
+                try:
+                    success = app_state.set_agentic_config(
+                        enabled=agentic_config_data.get('enabled', False),
+                        max_iterations=agentic_config_data.get('max_iterations', 20),
+                        max_tool_calls=agentic_config_data.get('max_tool_calls', 50),
+                        iteration_logging=agentic_config_data.get('iteration_logging', True),
+                        tool_call_logging=agentic_config_data.get('tool_call_logging', True)
+                    )
+                    if success:
+                        logger.info("Agentic configuration restored")
+                        loaded_any = True
+                except Exception as e:
+                    logger.warning(f"Failed to restore agentic config: {e}")
+
             return loaded_any
             
         except Exception as e:
@@ -630,7 +679,10 @@ class ConfigurationPersistenceManager:
             
             if self.save_processing_config(app_state.processing_config):
                 success_count += 1
-            
+
+            if self.save_agentic_config(app_state.agentic_config):
+                success_count += 1
+
             logger.info(f"Saved {success_count} configurations")
             return success_count > 0
             
@@ -648,7 +700,8 @@ class ConfigurationPersistenceManager:
                 ('prompt', self.prompt_config_path),
                 ('data', self.data_config_path),
                 ('rag', self.rag_config_path),
-                ('processing', self.processing_config_path)
+                ('processing', self.processing_config_path),
+                ('agentic', self.agentic_config_path)
             ]
             
             for config_name, config_path in configs:
