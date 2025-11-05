@@ -1,0 +1,11 @@
+{
+  "id": "extra_20251025_135448_591655",
+  "type": "guideline",
+  "content": "CRITICAL EXTRACTION RULES: 1) Always quote exact text in quotation marks, 2) Never infer/calculate values not documented, 3) Mark missing data as 'not documented' or null, 4) Preserve all units (kg, cm, g/dL, kcal/kg/day)",
+  "metadata": {
+    "category": "extraction_guidelines",
+    "priority": "high",
+    "subcategory": "critical_rules"
+  },
+  "created_at": "2025-10-25T13:54:48.591666"
+}

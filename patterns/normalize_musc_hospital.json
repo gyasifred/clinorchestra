@@ -1,0 +1,7 @@
+{
+  "name": "normalize_musc_hospital",
+  "pattern": "\\b(MUSC|musc|Medical\\s+University\\s+of\\s+South\\s+Carolina)\\b",
+  "replacement": "MUSC",
+  "description": "Standardize hospital name",
+  "enabled": true
+}

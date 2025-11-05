@@ -1,0 +1,7 @@
+{
+  "name": "normalize_birth_weight",
+  "pattern": "\\b(birth\\s+weight|birthweight|BW)[\\s:]*(\\d+\\.?\\d*)\\s*(g|kg|grams?|kilograms?)",
+  "replacement": "Birth weight: \\2 \\3",
+  "description": "Standardize birth weight notation",
+  "enabled": true
+}

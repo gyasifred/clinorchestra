@@ -1,0 +1,11 @@
+{
+  "id": "extra_20251025_135448_584846",
+  "type": "guideline",
+  "content": "Z-score extraction and interpretation: When extracting z-scores from format '[NUMBER] z [NUMBER]', the FIRST number is the percentile and the SECOND number is the z-score value. For percentiles below 50th, add a negative sign to the z-score value and interpret as below average for age; for percentiles above 50th, z-scores remain positive and indicate above average for age. Always cross-check against clinical context like 'short stature,' 'underweight,' or 'appears small for age' to validate interpretation.",
+  "metadata": {
+    "category": "extraction_guidelines",
+    "priority": "CRITICAL",
+    "subcategory": "anthropometrics"
+  },
+  "created_at": "2025-10-25T13:54:48.584852"
+}

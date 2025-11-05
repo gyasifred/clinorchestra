@@ -1,0 +1,11 @@
+{
+  "id": "extra_20251025_135448_587070",
+  "type": "pattern",
+  "content": "Intake adequacy phrases: 'consuming [X]% of estimated needs', 'inadequate intake \u00d7 [X] days/weeks', 'tolerating [X]% of goal feeds', 'refusing most/all PO intake'",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "high",
+    "subcategory": "dietary_intake"
+  },
+  "created_at": "2025-10-25T13:54:48.587075"
+}

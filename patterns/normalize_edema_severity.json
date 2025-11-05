@@ -1,0 +1,7 @@
+{
+  "name": "normalize_edema_severity",
+  "pattern": "(\\d+)\\s*\\+\\s*(?:pitting)?\\s*edema",
+  "replacement": "\\1+ pitting edema",
+  "description": "Standardize edema severity grading",
+  "enabled": true
+}

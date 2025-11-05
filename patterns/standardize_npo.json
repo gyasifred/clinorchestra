@@ -1,0 +1,7 @@
+{
+  "name": "standardize_npo",
+  "pattern": "\\b(NPO|npo|nothing\\s+by\\s+mouth|nil\\s+per\\s+os)\\b",
+  "replacement": "NPO",
+  "description": "Standardize nothing by mouth to NPO",
+  "enabled": true
+}

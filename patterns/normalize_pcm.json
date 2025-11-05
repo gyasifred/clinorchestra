@@ -1,0 +1,7 @@
+{
+  "name": "normalize_pcm",
+  "pattern": "\\b(PCM|pcm|PEM|pem|protein[\\s\\-]energy|protein[\\s\\-]calorie)\\s*malnutrition\\b",
+  "replacement": "protein-calorie malnutrition (PCM)",
+  "description": "Standardize protein-calorie malnutrition notation",
+  "enabled": true
+}

@@ -1,0 +1,7 @@
+{
+  "name": "normalize_rule_out",
+  "pattern": "\\b(r\\/o|R\\/O|rule\\s+out|ruling\\s+out)\\b",
+  "replacement": "rule out",
+  "description": "Standardize rule-out language",
+  "enabled": true
+}

@@ -1,0 +1,11 @@
+{
+  "id": "extra_20251025_135448_587649",
+  "type": "pattern",
+  "content": "Prealbumin format: prealbumin [value] mg/dL. Normal: 20-40 mg/dL. Short half-life marker but affected by inflammation, not diagnostic of malnutrition alone",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "medium",
+    "subcategory": "laboratory"
+  },
+  "created_at": "2025-10-25T13:54:48.587654"
+}

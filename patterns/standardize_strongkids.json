@@ -1,0 +1,7 @@
+{
+  "name": "standardize_strongkids",
+  "pattern": "\\b(STRONGkids|strongkids|STRONG[\\s\\-]?kids)\\s*(score)?[\\s:]*(\\d+)",
+  "replacement": "STRONGkids score: \\3",
+  "description": "Standardize STRONGkids screening tool notation",
+  "enabled": true
+}

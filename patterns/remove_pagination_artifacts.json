@@ -1,0 +1,7 @@
+{
+  "name": "remove_pagination_artifacts",
+  "pattern": "pediatric progress note medical university of south carolina",
+  "replacement": "",
+  "description": "Remove repeated header artifacts",
+  "enabled": true
+}

@@ -1,0 +1,7 @@
+{
+  "name": "standardize_bp",
+  "pattern": "BP[\\s:]*(\\d+)\\s*/\\s*(\\d+)",
+  "replacement": "BP: \\1/\\2",
+  "description": "Standardize blood pressure: 'BP 120 / 80' -> 'BP: 120/80'",
+  "enabled": true
+}

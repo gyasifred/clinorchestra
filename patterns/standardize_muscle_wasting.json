@@ -1,0 +1,7 @@
+{
+  "name": "standardize_muscle_wasting",
+  "pattern": "(temporal|clavicle|scapula|rib|quadricep|calf)\\s*(?:muscle)?\\s*wasting",
+  "replacement": "\\1 muscle wasting",
+  "description": "Standardize muscle wasting site notation",
+  "enabled": true
+}

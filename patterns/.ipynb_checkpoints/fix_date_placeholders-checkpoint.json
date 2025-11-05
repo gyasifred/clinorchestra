@@ -1,0 +1,7 @@
+{
+  "name": "fix_date_placeholders",
+  "pattern": "_date_",
+  "replacement": "[DATE]",
+  "description": "Replace date placeholders with readable marker",
+  "enabled": true
+}

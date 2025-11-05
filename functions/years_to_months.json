@@ -1,0 +1,13 @@
+{
+  "name": "years_to_months",
+  "code": "def years_to_months(age_years):\n    '''Convert age from years to months'''\n    if age_years is None or age_years < 0:\n        return None\n    return round(age_years * 12, 1)\n",
+  "description": "Convert age from years to months",
+  "parameters": {
+    "age_years": {
+      "type": "number",
+      "description": "Age in years"
+    }
+  },
+  "returns": "Age in months (number)",
+  "signature": "(age_years)"
+}

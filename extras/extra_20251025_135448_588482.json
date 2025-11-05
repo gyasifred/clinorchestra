@@ -1,0 +1,11 @@
+{
+  "id": "extra_20251025_135448_588482",
+  "type": "pattern",
+  "content": "Enteral formula format: [Formula name] [caloric density] at [rate] [route]. Example: 'Pediasure 1.5 Cal at 40mL/hr via NG tube', 'Elecare 20cal/oz PO'",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "high",
+    "subcategory": "nutrition_support"
+  },
+  "created_at": "2025-10-25T13:54:48.588487"
+}

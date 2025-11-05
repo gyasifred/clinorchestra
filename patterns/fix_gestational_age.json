@@ -1,0 +1,7 @@
+{
+  "name": "fix_gestational_age",
+  "pattern": "(\\d+)\\s*(?:weeks?|wks?)\\s*(?:gestation|gestational\\s+age|GA)",
+  "replacement": "\\1 weeks gestational age",
+  "description": "Standardize gestational age format",
+  "enabled": true
+}

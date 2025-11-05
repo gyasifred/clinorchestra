@@ -1,0 +1,7 @@
+{
+  "name": "standardize_height_format",
+  "pattern": "([Hh]eight|[Hh]t|[Ll]ength)[\\s:]*(\\d+\\.?\\d*)\\s*(cm|m|in|inches)",
+  "replacement": "Height: \\2 \\3",
+  "description": "Standardize height/length notation",
+  "enabled": true
+}

@@ -1,0 +1,7 @@
+{
+  "name": "clean_multiple_periods",
+  "pattern": "\\.{2,}",
+  "replacement": ".",
+  "description": "Replace multiple periods with single period",
+  "enabled": true
+}

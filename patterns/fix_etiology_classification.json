@@ -1,0 +1,7 @@
+{
+  "name": "fix_etiology_classification",
+  "pattern": "(illness[\\s\\-]related|non[\\s\\-]illness[\\s\\-]related)\\s*malnutrition",
+  "replacement": "\\1 malnutrition",
+  "description": "Standardize malnutrition etiology classification format",
+  "enabled": true
+}

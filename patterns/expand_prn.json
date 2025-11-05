@@ -1,0 +1,7 @@
+{
+  "name": "expand_prn",
+  "pattern": "\\b(prn|PRN)\\b",
+  "replacement": "as needed",
+  "description": "Expand prn abbreviation",
+  "enabled": true
+}

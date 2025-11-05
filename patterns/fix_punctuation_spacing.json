@@ -1,0 +1,7 @@
+{
+  "name": "fix_punctuation_spacing",
+  "pattern": "\\s+([.,;:!?])",
+  "replacement": "\\1",
+  "description": "Remove spaces before punctuation",
+  "enabled": true
+}

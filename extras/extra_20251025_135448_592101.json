@@ -1,0 +1,11 @@
+{
+  "id": "extra_20251025_135448_592101",
+  "type": "pattern",
+  "content": "GI abbreviations: GERD = gastroesophageal reflux disease, IBD = inflammatory bowel disease, NEC = necrotizing enterocolitis, SBS = short bowel syndrome, FPIES = food protein-induced enterocolitis syndrome",
+  "metadata": {
+    "category": "abbreviations",
+    "priority": "medium",
+    "subcategory": "gastrointestinal"
+  },
+  "created_at": "2025-10-25T13:54:48.592106"
+}

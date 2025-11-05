@@ -1,0 +1,11 @@
+{
+  "id": "extra_20251025_135448_589664",
+  "type": "pattern",
+  "content": "Nutrition goals format: 'goal [parameter] [value] over [timeframe]'. Example: 'goal weight gain 20-30g/day', 'goal intake 120% RDA', 'target BMI z-score >-1 by 3 months'",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "high",
+    "subcategory": "recommendations"
+  },
+  "created_at": "2025-10-25T13:54:48.589669"
+}

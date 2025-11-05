@@ -1,0 +1,7 @@
+{
+  "name": "standardize_cf",
+  "pattern": "\\b(CF|cf|cystic\\s+fibrosis)\\b",
+  "replacement": "cystic fibrosis (CF)",
+  "description": "Standardize cystic fibrosis notation",
+  "enabled": true
+}

@@ -1,0 +1,11 @@
+{
+  "id": "extra_20251025_135448_584727",
+  "type": "pattern",
+  "content": "Z-score documentation format variations: The format '[NUMBER] z [NUMBER]' shows PERCENTILE first, then z-score value second (e.g., '1 z 2.36' = 1st percentile, z-score should be interpreted as -2.36 indicating severely below average; '85 ile z 1.04' = 85th percentile where 'ile' means percentile, z-score +1.04 indicating above average). Other formats include 'z-score: -2.3' (z-score only with sign), '1st percentile (z=-2.3)' (percentile with z-score in parentheses). Note: The 'z' in the format is a SEPARATOR between percentile and z-score value, NOT the z-score itself.",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "CRITICAL",
+    "subcategory": "anthropometrics"
+  },
+  "created_at": "2025-10-25T13:54:48.584735"
+}

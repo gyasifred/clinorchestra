@@ -1,0 +1,7 @@
+{
+  "name": "standardize_age_format",
+  "pattern": "(\\d+)\\s*(?:year|yr|y)[\\s\\-]?old",
+  "replacement": "\\1-year-old",
+  "description": "Standardize age notation (e.g., 5-year-old)",
+  "enabled": true
+}

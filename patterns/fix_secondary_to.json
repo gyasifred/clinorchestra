@@ -1,0 +1,7 @@
+{
+  "name": "fix_secondary_to",
+  "pattern": "\\b(2\u00b0|secondary\\s+to|sec\\s+to|due\\s+to)\\b",
+  "replacement": "secondary to",
+  "description": "Standardize secondary to notation",
+  "enabled": true
+}

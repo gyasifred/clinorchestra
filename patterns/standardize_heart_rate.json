@@ -1,0 +1,7 @@
+{
+  "name": "standardize_heart_rate",
+  "pattern": "([Hh]eart\\s+[Rr]ate|HR)[\\s:]*(\\d+)\\s*bpm?",
+  "replacement": "HR: \\2 bpm",
+  "description": "Standardize heart rate notation",
+  "enabled": true
+}

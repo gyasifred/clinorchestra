@@ -1,0 +1,7 @@
+{
+  "name": "fix_ftt_notation",
+  "pattern": "\\b(FTT|ftt|failure\\s+to\\s+thrive)\\b",
+  "replacement": "failure to thrive (FTT)",
+  "description": "Expand FTT abbreviation on first use",
+  "enabled": true
+}

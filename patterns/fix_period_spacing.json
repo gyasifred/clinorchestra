@@ -1,0 +1,7 @@
+{
+  "name": "fix_period_spacing",
+  "pattern": "\\.\\s*\\.",
+  "replacement": ". ",
+  "description": "Fix spacing between sentences",
+  "enabled": true
+}

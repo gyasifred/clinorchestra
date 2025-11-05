@@ -1,0 +1,7 @@
+{
+  "name": "normalize_weight_change_timeframe",
+  "pattern": "(over|in|across|within)\\s+(past|last|previous)?\\s*(\\d+)\\s*(days?|weeks?|months?|d|wk|mo)",
+  "replacement": "over \\3 \\4",
+  "description": "Standardize timeframe language for weight changes",
+  "enabled": true
+}

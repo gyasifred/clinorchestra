@@ -1,0 +1,7 @@
+{
+  "name": "fix_stool_frequency",
+  "pattern": "(\\d+)[\\s\\-](\\d+)\\s*(large\\s+volume|watery|loose|formed)?\\s*stools?\\s*(per\\s+day|daily|\\/day|\\/d)",
+  "replacement": "\\1-\\2 \\3 stools per day",
+  "description": "Standardize stool frequency and character",
+  "enabled": true
+}

@@ -1,0 +1,7 @@
+{
+  "name": "standardize_weight_loss_percent",
+  "pattern": "(\\d+\\.?\\d*)\\s*%\\s*(weight\\s+loss|wt\\s+loss|body\\s+weight\\s+loss)",
+  "replacement": "\\1% weight loss",
+  "description": "Standardize weight loss percentage format",
+  "enabled": true
+}

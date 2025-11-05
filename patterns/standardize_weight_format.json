@@ -1,0 +1,7 @@
+{
+  "name": "standardize_weight_format",
+  "pattern": "([Ww]eight|[Ww]t)[\\s:]*(\\d+\\.?\\d*)\\s*(kg|g|lb|lbs|oz)",
+  "replacement": "Weight: \\2 \\3",
+  "description": "Standardize weight notation with consistent format",
+  "enabled": true
+}

@@ -1,0 +1,7 @@
+{
+  "name": "standardize_tpn_notation",
+  "pattern": "\\b(TPN|tpn|total\\s+parenteral\\s+nutrition|parenteral\\s+nutrition)\\b",
+  "replacement": "TPN",
+  "description": "Standardize total parenteral nutrition",
+  "enabled": true
+}

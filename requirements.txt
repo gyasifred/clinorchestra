@@ -1,0 +1,91 @@
+# ClinAnnotate - Universal Medical Data Curation Platform
+# Complete requirements with versions for all enhancements
+# Author: Frederick Gyasi (gyasi@musc.edu)
+
+# Core Web Framework
+gradio==4.16.0
+
+# LLM Providers
+openai==1.12.0
+anthropic==0.18.1
+google-generativeai==0.3.2
+
+# Local Model Support
+unsloth==2025.9.7
+torch>=2.0.0
+transformers>=4.36.0
+accelerate>=0.25.0
+bitsandbytes>=0.41.0
+
+# Data Processing
+pandas>=2.0.0
+numpy>=1.24.0
+openpyxl>=3.1.0  # Excel support
+
+# RAG and Embeddings
+sentence-transformers>=2.3.0
+faiss-cpu>=1.7.4  # or faiss-gpu for GPU support
+chromadb>=0.4.20  # Alternative vector DB
+
+# Document Processing
+PyPDF2>=3.0.1
+PyMuPDF>=1.26.1  # fitz for PDF processing
+python-docx>=1.1.0
+markdown>=3.5.0
+
+# Clinical NLP and PHI Detection
+medspacy>=1.3.1
+spacy>=3.7.0
+scispacy>=0.5.3
+
+# Retry Mechanism
+tenacity==9.1.2
+
+# Schema Validation
+jsonschema==4.17.0
+
+# Token Counting (precise)
+tokenizers==0.21.4
+tiktoken>=0.5.0  # OpenAI tokenizer
+
+# Testing
+pytest==8.4.1
+pytest-asyncio==1.0.0
+pytest-mock==3.14.1
+pytest-cov>=4.1.0
+
+# Async Support
+asyncio-extras>=1.3.2
+aiofiles>=23.2.0
+
+# HTTP Requests (for RAG URL fetching)
+requests==2.33.0
+aiohttp>=3.9.0
+
+# Configuration Management
+pyyaml>=6.0
+python-dotenv>=1.0.0
+
+# Logging and Monitoring
+loguru>=0.7.2
+tqdm>=4.66.0
+
+# CLI Support
+click>=8.1.0
+rich>=13.7.0  # Rich terminal output
+
+# Utilities
+pathlib2>=2.3.7
+python-dateutil>=2.8.2
+
+# Optional: Advanced Features
+# pinecone-client>=2.2.0  # Alternative vector DB
+# weaviate-client>=3.25.0  # Alternative vector DB
+# cohere>=4.37.0  # Alternative LLM provider
+# huggingface-hub>=0.20.0  # Model downloads
+
+# Development Tools (optional)
+# black>=23.12.0  # Code formatting
+# flake8>=7.0.0  # Linting
+# mypy>=1.8.0  # Type checking
+# pre-commit>=3.6.0  # G

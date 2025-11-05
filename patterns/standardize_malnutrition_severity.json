@@ -1,0 +1,7 @@
+{
+  "name": "standardize_malnutrition_severity",
+  "pattern": "\\b(mild|moderate|severe)\\s*(acute|chronic)?\\s*(protein[\\s\\-]calorie)?\\s*malnutrition\\b",
+  "replacement": "\\1 \\2 malnutrition",
+  "description": "Standardize malnutrition severity classification",
+  "enabled": true
+}

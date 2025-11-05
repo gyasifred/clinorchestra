@@ -1,0 +1,7 @@
+{
+  "name": "expand_qhs",
+  "pattern": "\\b(qhs|QHS)\\b",
+  "replacement": "at bedtime",
+  "description": "Expand qhs abbreviation",
+  "enabled": true
+}

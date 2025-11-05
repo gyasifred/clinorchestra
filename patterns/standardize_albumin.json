@@ -1,0 +1,7 @@
+{
+  "name": "standardize_albumin",
+  "pattern": "\\b(albumin|alb)[\\s:]*(\\d+\\.?\\d*)\\s*(g\\s*/\\s*dL|g\\/dL|gm\\/dL)",
+  "replacement": "Albumin: \\2 g/dL",
+  "description": "Standardize albumin lab format",
+  "enabled": true
+}

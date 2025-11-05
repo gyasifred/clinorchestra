@@ -1,0 +1,7 @@
+{
+  "name": "normalize_vitamin_d",
+  "pattern": "\\b(25[\\s\\-]?OH\\s+)?vitamin\\s+D[\\s:]*(\\d+\\.?\\d*)\\s*(ng\\s*/\\s*mL|ng\\/mL)",
+  "replacement": "25-OH vitamin D: \\2 ng/mL",
+  "description": "Standardize vitamin D lab format",
+  "enabled": true
+}

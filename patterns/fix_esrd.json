@@ -1,0 +1,7 @@
+{
+  "name": "fix_esrd",
+  "pattern": "\\b(ESRD|esrd|end[\\s\\-]?stage\\s+renal\\s+disease)\\b",
+  "replacement": "end-stage renal disease (ESRD)",
+  "description": "Standardize ESRD notation",
+  "enabled": true
+}

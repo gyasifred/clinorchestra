@@ -1,0 +1,11 @@
+{
+  "id": "extra_20251025_135448_591923",
+  "type": "pattern",
+  "content": "Pediatric abbreviations: FTT = failure to thrive, PCM = protein-calorie malnutrition, IUGR = intrauterine growth restriction, SGA = small for gestational age, AGA = appropriate for gestational age, LGA = large for gestational age",
+  "metadata": {
+    "category": "abbreviations",
+    "priority": "high",
+    "subcategory": "pediatric"
+  },
+  "created_at": "2025-10-25T13:54:48.591928"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "extra_20251025_135448_585172",
+  "type": "reference",
+  "content": "Percentile to z-score relationship: Below 50th percentile = negative z-score (below average), 50th percentile = z-score 0 (average), Above 50th percentile = positive z-score (above average). Examples: 3rd percentile \u2248 z-score -1.88, 10th percentile \u2248 z-score -1.28, 25th percentile \u2248 z-score -0.67, 50th percentile = z-score 0, 75th percentile \u2248 z-score +0.67, 90th percentile \u2248 z-score +1.28, 97th percentile \u2248 z-score +1.88.",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "HIGH",
+    "subcategory": "anthropometrics"
+  },
+  "created_at": "2025-10-25T13:54:48.585178"
+}

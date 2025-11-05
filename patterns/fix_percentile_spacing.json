@@ -1,0 +1,7 @@
+{
+  "name": "fix_percentile_spacing",
+  "pattern": "(\\d+)\\s*th\\s+percentile",
+  "replacement": "\\1th percentile",
+  "description": "Remove extra spaces in ordinal percentiles",
+  "enabled": true
+}
