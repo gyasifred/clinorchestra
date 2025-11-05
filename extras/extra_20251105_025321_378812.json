@@ -1,0 +1,12 @@
+{
+  "id": "extra_20251105_025321_378812",
+  "name": "Laboratory Value Normal Ranges",
+  "type": "reference",
+  "content": "Sodium 136-145 mEq/L, Potassium 3.5-5.0 mEq/L, Chloride 98-106 mEq/L, Bicarbonate 22-29 mEq/L, BUN 7-20 mg/dL, Creatinine 0.6-1.2 mg/dL, Glucose 70-100 mg/dL (fasting), Calcium 8.5-10.5 mg/dL, Albumin 3.5-5.5 g/dL, Hemoglobin 13.5-17.5 g/dL (M), 12-16 g/dL (F).",
+  "metadata": {
+    "category": "laboratory",
+    "subcategory": "chemistry",
+    "priority": "high"
+  },
+  "created_at": "2025-11-05T02:53:21.378828"
+}

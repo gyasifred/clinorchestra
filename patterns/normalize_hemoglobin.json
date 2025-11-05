@@ -1,0 +1,7 @@
+{
+  "name": "normalize_hemoglobin",
+  "pattern": "(?:Hgb|Hb):?\\s*(\\d{1,2}\\.?\\d*)\\s*g/dL",
+  "replacement": "hemoglobin \\1 g/dL",
+  "description": "Normalize hemoglobin",
+  "enabled": true
+}

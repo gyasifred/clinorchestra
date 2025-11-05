@@ -1,0 +1,7 @@
+{
+  "name": "normalize_frequency_qd",
+  "pattern": "\\b(?:QD|qd|q\\.d\\.)\\b",
+  "replacement": "once daily",
+  "description": "Normalize QD to once daily",
+  "enabled": true
+}

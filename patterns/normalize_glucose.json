@@ -1,0 +1,7 @@
+{
+  "name": "normalize_glucose",
+  "pattern": "(?:glucose|BG):?\\s*(\\d{2,4})\\s*mg/dL",
+  "replacement": "glucose \\1 mg/dL",
+  "description": "Normalize blood glucose",
+  "enabled": true
+}

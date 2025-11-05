@@ -1,0 +1,12 @@
+{
+  "id": "extra_20251105_025321_374788",
+  "name": "WHO Growth Standards",
+  "type": "guideline",
+  "content": "WHO Child Growth Standards (0-5 years): Weight-for-age, length/height-for-age, weight-for-length/height, and BMI-for-age. Z-scores classify nutritional status: <-3 SD severely wasted, <-2 SD wasted, -2 to +1 SD normal, >+1 SD possible risk of overweight, >+2 SD overweight, >+3 SD obese.",
+  "metadata": {
+    "category": "pediatrics",
+    "subcategory": "growth",
+    "priority": "high"
+  },
+  "created_at": "2025-11-05T02:53:21.374824"
+}

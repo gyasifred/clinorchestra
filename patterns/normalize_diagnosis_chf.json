@@ -1,0 +1,7 @@
+{
+  "name": "normalize_diagnosis_chf",
+  "pattern": "\\bCHF\\b",
+  "replacement": "congestive heart failure",
+  "description": "Expand CHF to congestive heart failure",
+  "enabled": true
+}

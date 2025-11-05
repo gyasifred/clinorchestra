@@ -64,7 +64,7 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            "clinannotate=clinannotate.main:main",
+            "clinannotate=annotate:main",
         ],
     },
     include_package_data=True,

@@ -914,27 +914,39 @@ def format_tool_outputs_for_prompt(
             continue
         
         if tool_type == 'rag' and include_rag:
-            # Format RAG chunks
+            # Format RAG chunks with clear source attribution
             results_list = result.get('results', [])
             if results_list:
                 if not rag_output:
-                    rag_output = "\n[RETRIEVED EVIDENCE FROM GUIDELINES]\n"
-                
+                    rag_output = "\n[RETRIEVED EVIDENCE FROM AUTHORITATIVE SOURCES]\n"
+                    rag_output += "Use the following evidence to support your clinical interpretation.\n"
+                    rag_output += "IMPORTANT: When referencing this evidence, cite the specific source document.\n\n"
+
                 for i, chunk in enumerate(results_list, 1):
                     # Handle both dict and object formats
                     if isinstance(chunk, dict):
                         text = chunk.get('text', '') or chunk.get('content', '')
-                        source = chunk.get('source', 'Unknown')
+                        source = chunk.get('source', 'Unknown Source')
                         score = chunk.get('score', 0)
+                        metadata = chunk.get('metadata', {})
                     else:
                         text = getattr(chunk, 'text', '') or getattr(chunk, 'content', '')
-                        source = getattr(chunk, 'source', 'Unknown')
+                        source = getattr(chunk, 'source', 'Unknown Source')
                         score = getattr(chunk, 'score', 0)
-                    
+                        metadata = getattr(chunk, 'metadata', {})
+
                     if text:
-                        rag_output += f"\n--- Evidence {i} (relevance: {score:.2f}) ---\n"
-                        rag_output += f"{text[:1000]}\n"  # Limit length
-                        rag_output += f"Source: {source}\n"
+                        # Extract more descriptive source name if available
+                        source_filename = metadata.get('source_filename', '') if isinstance(metadata, dict) else ''
+                        source_type = metadata.get('type', '') if isinstance(metadata, dict) else ''
+
+                        rag_output += f"\n{'='*60}\n"
+                        rag_output += f"EVIDENCE #{i} - Relevance Score: {score:.2f}\n"
+                        rag_output += f"SOURCE: {source}\n"
+                        if source_filename and source_filename != source:
+                            rag_output += f"FILE: {source_filename}\n"
+                        rag_output += f"{'='*60}\n\n"
+                        rag_output += f"{text[:1500]}\n\n"  # Increased limit for more context
         
         elif tool_type == 'function' and include_functions:
             func_name = result.get('name', 'unknown')

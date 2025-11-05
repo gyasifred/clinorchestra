@@ -1,0 +1,12 @@
+{
+  "id": "extra_20251105_025321_383120",
+  "name": "Asthma Severity Classification",
+  "type": "criteria",
+  "content": "Intermittent: Symptoms \u22642 days/week, nighttime \u22642x/month, no interference, FEV1 \u226580%. Mild persistent: >2 days/week but not daily. Moderate: Daily symptoms, nighttime >1x/week. Severe: Throughout day, often at night, extremely limited, FEV1 <60%. Step up therapy based on severity and control.",
+  "metadata": {
+    "category": "respiratory",
+    "subcategory": "asthma",
+    "priority": "medium"
+  },
+  "created_at": "2025-11-05T02:53:21.383127"
+}

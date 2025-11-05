@@ -1,0 +1,7 @@
+{
+  "name": "normalize_frequency_qid",
+  "pattern": "\\b(?:QID|qid|q\\.i\\.d\\.)\\b",
+  "replacement": "four times daily",
+  "description": "Normalize QID to four times daily",
+  "enabled": true
+}

@@ -1,0 +1,12 @@
+{
+  "id": "extra_20251105_025321_379765",
+  "name": "HbA1c Target Goals",
+  "type": "guideline",
+  "content": "ADA targets: <7% for most adults, <6.5% if achieved safely without hypoglycemia, <8% for elderly/limited life expectancy/hypoglycemia risk/advanced complications. Pediatric: <7% (ADA), <7.5% (ISPAD). Pregnancy: <6% if safe, <7% otherwise. Individualize based on patient factors.",
+  "metadata": {
+    "category": "endocrinology",
+    "subcategory": "diabetes_management",
+    "priority": "medium"
+  },
+  "created_at": "2025-11-05T02:53:21.379777"
+}

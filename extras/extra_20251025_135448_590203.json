@@ -7,5 +7,6 @@
     "priority": "low",
     "subcategory": "documentation"
   },
-  "created_at": "2025-10-25T13:54:48.590207"
+  "created_at": "2025-10-25T13:54:48.590207",
+  "name": "Pattern: ICD-10 format in notes: ICD-10 [code], [..."
 }
