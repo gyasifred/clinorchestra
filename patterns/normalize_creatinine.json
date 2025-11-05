@@ -1,0 +1,7 @@
+{
+  "name": "normalize_creatinine",
+  "pattern": "(?:creat|Cr):?\\s*(\\d{1}\\.?\\d*)\\s*mg/dL",
+  "replacement": "creatinine \\1 mg/dL",
+  "description": "Normalize creatinine",
+  "enabled": true
+}

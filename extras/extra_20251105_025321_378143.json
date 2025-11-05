@@ -1,0 +1,12 @@
+{
+  "id": "extra_20251105_025321_378143",
+  "name": "Normal Vital Sign Ranges - Adult",
+  "type": "reference",
+  "content": "Heart rate: 60-100 bpm. Respiratory rate: 12-20/min. Blood pressure: <120/<80 normal, 120-129/<80 elevated, 130-139/80-89 Stage 1 HTN, \u2265140/\u226590 Stage 2 HTN. Temperature: 97-99\u00b0F (36.1-37.2\u00b0C) oral. SpO2: \u226595% normal.",
+  "metadata": {
+    "category": "vitals",
+    "subcategory": "adults",
+    "priority": "medium"
+  },
+  "created_at": "2025-11-05T02:53:21.378157"
+}

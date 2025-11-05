@@ -136,7 +136,14 @@ class DocumentLoader:
             if cache_path.exists() and path.exists() and path.stat().st_mtime <= cache_path.stat().st_mtime:
                 with open(cache_path, 'r', encoding='utf-8') as f:
                     content = f.read()
-                metadata = {'source': path.name, 'type': 'file', 'path': str(path), 'length': len(content)}
+                source_name = str(path) if len(str(path)) < 100 else path.name
+                metadata = {
+                    'source': source_name,
+                    'source_filename': path.name,
+                    'type': 'file',
+                    'path': str(path),
+                    'length': len(content)
+                }
                 logger.info(f"Loaded cached document from {file_path}")
                 return Document(
                     id=hashlib.md5(file_path.encode()).hexdigest(),
@@ -192,12 +199,16 @@ class DocumentLoader:
                 f.write(content)
             
             logger.info(f"✅ Successfully loaded and cached file {path.name}: {len(content)} characters")
-            
+
+            # Use full path for source to be more descriptive
+            source_name = str(path) if len(str(path)) < 100 else path.name
+
             return Document(
                 id=doc_id,
                 content=content,
                 metadata={
-                    'source': path.name,
+                    'source': source_name,
+                    'source_filename': path.name,
                     'type': 'file',
                     'path': str(path),
                     'length': len(content)

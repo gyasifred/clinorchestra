@@ -1,0 +1,7 @@
+{
+  "name": "normalize_wbc",
+  "pattern": "WBC:?\\s*(\\d{1,2}\\.?\\d*)\\s*(?:k/uL|\u00d710\u00b3/\u00b5L)?",
+  "replacement": "white blood cell count \\1 k/uL",
+  "description": "Normalize WBC count",
+  "enabled": true
+}

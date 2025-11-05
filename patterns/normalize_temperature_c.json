@@ -1,0 +1,7 @@
+{
+  "name": "normalize_temperature_c",
+  "pattern": "(\\d{2}\\.?\\d*)\\s*\u00b0?C",
+  "replacement": "\\1\u00b0C",
+  "description": "Normalize temperature in Celsius",
+  "enabled": true
+}

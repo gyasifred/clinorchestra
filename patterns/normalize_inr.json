@@ -1,0 +1,7 @@
+{
+  "name": "normalize_inr",
+  "pattern": "INR:?\\s*(\\d{1}\\.?\\d*)",
+  "replacement": "INR \\1",
+  "description": "Normalize INR format",
+  "enabled": true
+}

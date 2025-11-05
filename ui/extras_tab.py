@@ -56,9 +56,16 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
                 visible=False
             )
             components['extra_id'] = extra_id
-            
+
+            extra_name = gr.Textbox(
+                label="Name (Optional - will be auto-generated if empty)",
+                placeholder="e.g., 'WHO Malnutrition Criteria' or 'Z-score Interpretation Guide'",
+                lines=1
+            )
+            components['extra_name'] = extra_name
+
             extra_type = gr.Dropdown(
-                choices=["pattern", "definition", "guideline", "example", "reference"],
+                choices=["pattern", "definition", "guideline", "example", "reference", "criteria", "tip"],
                 value="pattern",
                 label="Extra Type"
             )
@@ -94,7 +101,7 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
             gr.Markdown("#### Registered Extras")
             
             extras_list = gr.Dataframe(
-                headers=["ID", "Type", "Content Preview"],
+                headers=["Name", "Type", "Content Preview"],
                 datatype=["str", "str", "str"],
                 label="Available Extras",
                 interactive=False
@@ -107,8 +114,8 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
             gr.Markdown("#### Manage")
             
             selected_extra_id = gr.Textbox(
-                label="Extra ID to View/Edit/Remove",
-                placeholder="extra_20250101_120000_123456"
+                label="Extra Name or ID to View/Edit/Remove",
+                placeholder="Enter name or ID (e.g., 'WHO Malnutrition Criteria' or 'extra_...')"
             )
             components['selected_extra_id'] = selected_extra_id
             
@@ -209,11 +216,11 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
     
     # Event handlers
     
-    def add_extra(extra_type_val, content, metadata_str):
+    def add_extra(extra_name_val, extra_type_val, content, metadata_str):
         """Add extra to manager"""
         if not content or not content.strip():
-            return "", "", "", "No content provided", gr.update()
-        
+            return "", "", "", "", "No content provided", gr.update()
+
         metadata = {}
         if metadata_str and metadata_str.strip():
             try:
@@ -221,55 +228,55 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
             except json.JSONDecodeError:
                 logger.warning("Invalid metadata JSON provided")
                 pass
-        
+
         extras_manager = app_state.get_extras_manager()
         if not extras_manager:
             extras_manager = ExtrasManager()
             app_state.set_extras_manager(extras_manager)
             logger.warning("ExtrasManager was not set; initialized new instance")
-        
-        success = extras_manager.add_extra(extra_type_val, content.strip(), metadata)
-        
+
+        success = extras_manager.add_extra(extra_type_val, content.strip(), metadata, name=extra_name_val)
+
         if success:
             extras_list_data = [
-                [e['id'], e['type'], e['content'][:50] + '...']
+                [e.get('name', e['id']), e['type'], e['content'][:50] + '...']
                 for e in extras_manager.list_extras()
             ]
-            return "", "", "", "Extra added", gr.update(value=extras_list_data)
+            return "", "", "", "", "Extra added successfully", gr.update(value=extras_list_data)
         else:
-            return "", "", "", "Failed to add extra", gr.update()
+            return "", "", "", "", "Failed to add extra", gr.update()
     
-    def save_extra(extra_id_val, extra_type_val, content, metadata_str):
+    def save_extra(extra_id_val, extra_name_val, extra_type_val, content, metadata_str):
         """Save edited extra"""
         if not extra_id_val:
-            return "", "", "", "No ID provided", gr.update()
+            return "", "", "", "", "", "No ID provided", gr.update()
         if not content or not content.strip():
-            return extra_id_val, extra_type_val, "", metadata_str, "No content provided", gr.update()
-        
+            return extra_id_val, extra_name_val, extra_type_val, "", metadata_str, "No content provided", gr.update()
+
         metadata = {}
         if metadata_str and metadata_str.strip():
             try:
                 metadata = json.loads(metadata_str)
             except json.JSONDecodeError:
                 logger.warning("Invalid metadata JSON provided")
-                return extra_id_val, extra_type_val, content, metadata_str, "Invalid metadata JSON", gr.update()
-        
+                return extra_id_val, extra_name_val, extra_type_val, content, metadata_str, "Invalid metadata JSON", gr.update()
+
         extras_manager = app_state.get_extras_manager()
         if not extras_manager:
             extras_manager = ExtrasManager()
             app_state.set_extras_manager(extras_manager)
             logger.warning("ExtrasManager was not set; initialized new instance")
-        
-        success = extras_manager.update_extra(extra_id_val, extra_type_val, content.strip(), metadata)
-        
+
+        success = extras_manager.update_extra(extra_id_val, extra_type_val, content.strip(), metadata, name=extra_name_val)
+
         if success:
             extras_list_data = [
-                [e['id'], e['type'], e['content'][:50] + '...']
+                [e.get('name', e['id']), e['type'], e['content'][:50] + '...']
                 for e in extras_manager.list_extras()
             ]
-            return "", "", "", "", f"Extra {extra_id_val} updated", gr.update(value=extras_list_data)
+            return "", "", "", "", "", f"Extra updated successfully", gr.update(value=extras_list_data)
         else:
-            return extra_id_val, extra_type_val, content, metadata_str, "Failed to update extra", gr.update()
+            return extra_id_val, extra_name_val, extra_type_val, content, metadata_str, "Failed to update extra", gr.update()
     
     def refresh_extras_list():
         """Refresh extras list"""
@@ -278,64 +285,89 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
             extras_manager = ExtrasManager()
             app_state.set_extras_manager(extras_manager)
             logger.warning("ExtrasManager was not set; initialized new instance")
-        
+
         extras_list_data = [
-            [e['id'], e['type'], e['content'][:50] + '...']
+            [e.get('name', e['id']), e['type'], e['content'][:50] + '...']
             for e in extras_manager.list_extras()
         ]
         return gr.update(value=extras_list_data)
     
-    def view_extra(extra_id):
-        """View extra for editing"""
-        if not extra_id or not extra_id.strip():
-            return "", "", "", "", "No ID provided", gr.update()
-        
+    def view_extra(extra_name_or_id):
+        """View extra for editing - search by name or ID"""
+        if not extra_name_or_id or not extra_name_or_id.strip():
+            return "", "", "", "", "", "No name or ID provided", gr.update()
+
         extras_manager = app_state.get_extras_manager()
         if not extras_manager:
             extras_manager = ExtrasManager()
             app_state.set_extras_manager(extras_manager)
             logger.warning("ExtrasManager was not set; initialized new instance")
-        
-        extra = extras_manager.get_extra(extra_id.strip())
+
+        # Try to find by ID first
+        extra = extras_manager.get_extra(extra_name_or_id.strip())
+
+        # If not found by ID, try to find by name
         if not extra:
-            return "", "", "", "", f"Extra '{extra_id}' not found", gr.update()
-        
+            for e in extras_manager.list_extras():
+                if e.get('name', '').lower() == extra_name_or_id.strip().lower():
+                    extra = e
+                    break
+
+        if not extra:
+            return "", "", "", "", "", f"Extra '{extra_name_or_id}' not found", gr.update()
+
         metadata_str = json.dumps(extra.get('metadata', {}), indent=2) if extra.get('metadata') else ""
-        
+
         return (
-            extra_id,
+            extra['id'],
+            extra.get('name', ''),
             extra.get('type', 'pattern'),
             extra.get('content', ''),
             metadata_str,
-            f"Loaded: {extra_id}",
+            f"Loaded: {extra.get('name', extra['id'])}",
             gr.update()
         )
     
-    def remove_extra(extra_id):
-        """Remove extra"""
-        if not extra_id or not extra_id.strip():
-            return "", "", "", "", "No ID provided", gr.update()
-        
+    def remove_extra(extra_name_or_id):
+        """Remove extra by name or ID"""
+        if not extra_name_or_id or not extra_name_or_id.strip():
+            return "", "", "", "", "", "No name or ID provided", gr.update()
+
         extras_manager = app_state.get_extras_manager()
         if not extras_manager:
             extras_manager = ExtrasManager()
             app_state.set_extras_manager(extras_manager)
             logger.warning("ExtrasManager was not set; initialized new instance")
-        
-        success = extras_manager.remove_extra(extra_id.strip())
-        
+
+        # Try to find by ID first
+        extra = extras_manager.get_extra(extra_name_or_id.strip())
+        extra_id_to_remove = extra_name_or_id.strip() if extra else None
+
+        # If not found by ID, try to find by name
+        if not extra:
+            for e in extras_manager.list_extras():
+                if e.get('name', '').lower() == extra_name_or_id.strip().lower():
+                    extra_id_to_remove = e['id']
+                    extra = e
+                    break
+
+        if not extra_id_to_remove:
+            return "", "", "", "", "", f"Extra '{extra_name_or_id}' not found", gr.update()
+
+        success = extras_manager.remove_extra(extra_id_to_remove)
+
         if success:
             extras_list_data = [
-                [e['id'], e['type'], e['content'][:50] + '...']
+                [e.get('name', e['id']), e['type'], e['content'][:50] + '...']
                 for e in extras_manager.list_extras()
             ]
-            return "", "", "", "", f"Removed {extra_id}", gr.update(value=extras_list_data)
+            return "", "", "", "", "", f"Removed '{extra.get('name', extra_id_to_remove)}'", gr.update(value=extras_list_data)
         else:
-            return "", "", "", "", "Failed to remove extra", gr.update()
+            return "", "", "", "", "", "Failed to remove extra", gr.update()
     
     def clear_fields():
         """Clear input fields"""
-        return "", "", "", "", "Cleared", gr.update()
+        return "", "", "", "", "", "Cleared", gr.update()
     
     def load_extras_from_file(file_path):
         """Load extras from YAML or JSON file"""
@@ -386,12 +418,12 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
                         
                 except Exception as e:
                     errors.append(f"Error processing extra: {str(e)}")
-            
+
             extras_list_data = [
-                [e['id'], e['type'], e['content'][:50] + '...']
+                [e.get('name', e['id']), e['type'], e['content'][:50] + '...']
                 for e in extras_manager.list_extras()
             ]
-            
+
             status_msg = f"Loaded {added_count} extras from file"
             if errors:
                 status_msg += f"\n\nWarnings:\n" + "\n".join(errors[:5])
@@ -429,7 +461,7 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
         
         if success:
             extras_list_data = [
-                [e['id'], e['type'], e['content'][:50] + '...']
+                [e.get('name', e['id']), e['type'], e['content'][:50] + '...']
                 for e in extras_manager.list_extras()
             ]
             return "Extras imported", gr.update(value=extras_list_data)
@@ -439,14 +471,14 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
     # Connect handlers
     add_extra_btn.click(
         fn=add_extra,
-        inputs=[extra_type, extra_content, extra_metadata],
-        outputs=[extra_id, extra_type, extra_content, extra_metadata, extra_status, extras_list]
+        inputs=[extra_name, extra_type, extra_content, extra_metadata],
+        outputs=[extra_id, extra_name, extra_type, extra_content, extra_metadata, extra_status, extras_list]
     )
-    
+
     save_extra_btn.click(
         fn=save_extra,
-        inputs=[extra_id, extra_type, extra_content, extra_metadata],
-        outputs=[extra_id, extra_type, extra_content, extra_metadata, extra_status, extras_list]
+        inputs=[extra_id, extra_name, extra_type, extra_content, extra_metadata],
+        outputs=[extra_id, extra_name, extra_type, extra_content, extra_metadata, extra_status, extras_list]
     )
     
     refresh_extras_btn.click(
@@ -457,18 +489,18 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
     view_extra_btn.click(
         fn=view_extra,
         inputs=[selected_extra_id],
-        outputs=[extra_id, extra_type, extra_content, extra_metadata, extra_status, extras_list]
+        outputs=[extra_id, extra_name, extra_type, extra_content, extra_metadata, extra_status, extras_list]
     )
-    
+
     remove_extra_btn.click(
         fn=remove_extra,
         inputs=[selected_extra_id],
-        outputs=[extra_id, extra_type, extra_content, extra_metadata, extra_status, extras_list]
+        outputs=[extra_id, extra_name, extra_type, extra_content, extra_metadata, extra_status, extras_list]
     )
-    
+
     clear_btn.click(
         fn=clear_fields,
-        outputs=[extra_id, extra_type, extra_content, extra_metadata, extra_status, extras_list]
+        outputs=[extra_id, extra_name, extra_type, extra_content, extra_metadata, extra_status, extras_list]
     )
     
     load_extras_file_btn.click(

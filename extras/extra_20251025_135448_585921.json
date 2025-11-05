@@ -7,5 +7,6 @@
     "priority": "high",
     "subcategory": "screening_tools"
   },
-  "created_at": "2025-10-25T13:54:48.585925"
+  "created_at": "2025-10-25T13:54:48.585925",
+  "name": "Pattern: Screening tool format: [Tool name] score..."
 }

@@ -1,0 +1,7 @@
+{
+  "name": "normalize_route_po",
+  "pattern": "\\b(?:PO|p\\.o\\.)\\b",
+  "replacement": "by mouth",
+  "description": "Normalize PO to by mouth",
+  "enabled": true
+}

@@ -1,0 +1,12 @@
+{
+  "id": "extra_20251105_025321_379110",
+  "name": "Anemia Classification",
+  "type": "criteria",
+  "content": "WHO criteria: Hemoglobin <13 g/dL (adult M), <12 g/dL (adult F), <11 g/dL (pregnant F), <11 g/dL (children 6mo-5yr), <11.5 g/dL (children 5-11yr), <12 g/dL (children 12-14yr). Severity: Mild 10-normal, Moderate 8-10, Severe <8 g/dL.",
+  "metadata": {
+    "category": "hematology",
+    "subcategory": "anemia",
+    "priority": "medium"
+  },
+  "created_at": "2025-11-05T02:53:21.379119"
+}

@@ -1,0 +1,7 @@
+{
+  "name": "normalize_route_sc",
+  "pattern": "\\b(?:SC|SQ|s\\.c\\.|subcutaneous)\\b",
+  "replacement": "subcutaneously",
+  "description": "Normalize SC/SQ to subcutaneously",
+  "enabled": true
+}

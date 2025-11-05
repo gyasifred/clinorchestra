@@ -1,0 +1,7 @@
+{
+  "name": "normalize_temperature_f",
+  "pattern": "(\\d{2,3}\\.?\\d*)\\s*\u00b0?F",
+  "replacement": "\\1\u00b0F",
+  "description": "Normalize temperature in Fahrenheit",
+  "enabled": true
+}

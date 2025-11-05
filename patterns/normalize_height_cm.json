@@ -1,0 +1,7 @@
+{
+  "name": "normalize_height_cm",
+  "pattern": "ht:?\\s*(\\d{2,3})\\s*cm",
+  "replacement": "height \\1cm",
+  "description": "Normalize height in centimeters",
+  "enabled": true
+}

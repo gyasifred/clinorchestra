@@ -1,0 +1,7 @@
+{
+  "name": "normalize_sodium",
+  "pattern": "Na:?\\s*(\\d{2,3})\\s*(?:mEq/L|mmol/L)?",
+  "replacement": "sodium \\1 mEq/L",
+  "description": "Normalize sodium level",
+  "enabled": true
+}

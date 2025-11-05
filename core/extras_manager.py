@@ -45,26 +45,49 @@ class ExtrasManager:
         
         logger.info(f"ExtrasManager initialized with {len(self.extras)} extras")
     
-    def add_extra(self, extra_type: str, content: str, metadata: Optional[Dict] = None) -> bool:
-        """Add extra (hint/tip/pattern) to storage"""
+    def add_extra(self, extra_type: str, content: str, metadata: Optional[Dict] = None, name: Optional[str] = None) -> bool:
+        """Add extra (hint/tip/pattern) to storage with optional name"""
         try:
+            # Auto-generate name from content if not provided
+            if not name or not name.strip():
+                name = self._generate_name_from_content(content, extra_type)
+
             extra = {
                 'id': f"extra_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}",
+                'name': name.strip(),
                 'type': extra_type,
                 'content': content,
                 'metadata': metadata or {},
                 'created_at': datetime.now().isoformat()
             }
-            
+
             self.extras.append(extra)
             self._save_extra(extra)
-            
-            logger.info(f"Added extra: {extra['id']}")
+
+            logger.info(f"Added extra: {name} ({extra['id']})")
             return True
-            
+
         except Exception as e:
             logger.error(f"Failed to add extra: {e}")
             return False
+
+    def _generate_name_from_content(self, content: str, extra_type: str) -> str:
+        """Generate a meaningful name from content"""
+        # Take first 40 chars and clean up
+        name = content[:40].strip()
+
+        # Remove newlines and extra spaces
+        name = ' '.join(name.split())
+
+        # Add ellipsis if truncated
+        if len(content) > 40:
+            name += "..."
+
+        # Prefix with type for clarity
+        type_prefix = extra_type.capitalize()
+        name = f"{type_prefix}: {name}"
+
+        return name
     
     def match_extras_by_keywords(self, keywords: List[str]) -> List[Dict[str, Any]]:
         """
@@ -265,18 +288,47 @@ class ExtrasManager:
                 return extra
         return None
     
+    def update_extra(self, extra_id: str, extra_type: str, content: str, metadata: Optional[Dict] = None, name: Optional[str] = None) -> bool:
+        """Update an existing extra"""
+        try:
+            # Find the extra
+            extra = self.get_extra(extra_id)
+            if not extra:
+                logger.error(f"Extra {extra_id} not found")
+                return False
+
+            # Auto-generate name if not provided
+            if not name or not name.strip():
+                name = self._generate_name_from_content(content, extra_type)
+
+            # Update the extra
+            extra['name'] = name.strip()
+            extra['type'] = extra_type
+            extra['content'] = content
+            extra['metadata'] = metadata or {}
+
+            # Save updated extra
+            self._save_extra(extra)
+
+            logger.info(f"Updated extra: {name} ({extra_id})")
+            return True
+
+        except Exception as e:
+            logger.error(f"Failed to update extra: {e}")
+            return False
+
     def remove_extra(self, extra_id: str) -> bool:
         """Remove extra by ID"""
         try:
             self.extras = [e for e in self.extras if e['id'] != extra_id]
-            
+
             extra_file = self.storage_path / f"{extra_id}.json"
             if extra_file.exists():
                 extra_file.unlink()
-            
+
             logger.info(f"Removed extra: {extra_id}")
             return True
-            
+
         except Exception as e:
             logger.error(f"Failed to remove extra: {e}")
             return False
@@ -288,11 +340,21 @@ class ExtrasManager:
             json.dump(extra, f, indent=2)
     
     def _load_all_extras(self):
-        """Load all extras from storage"""
+        """Load all extras from storage with backward compatibility for name field"""
         for extra_file in self.storage_path.glob("*.json"):
             try:
                 with open(extra_file, 'r') as f:
                     extra = json.load(f)
+
+                    # Backward compatibility: add name if missing
+                    if 'name' not in extra:
+                        extra['name'] = self._generate_name_from_content(
+                            extra.get('content', ''),
+                            extra.get('type', 'hint')
+                        )
+                        # Save with new name field
+                        self._save_extra(extra)
+
                     self.extras.append(extra)
             except Exception as e:
                 logger.error(f"Failed to load {extra_file}: {e}")

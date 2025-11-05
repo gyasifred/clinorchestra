@@ -1,0 +1,7 @@
+{
+  "name": "normalize_diagnosis_htn",
+  "pattern": "\\bHTN\\b",
+  "replacement": "hypertension",
+  "description": "Expand HTN to hypertension",
+  "enabled": true
+}

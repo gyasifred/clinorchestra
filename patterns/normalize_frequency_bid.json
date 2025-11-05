@@ -1,0 +1,7 @@
+{
+  "name": "normalize_frequency_bid",
+  "pattern": "\\b(?:BID|bid|b\\.i\\.d\\.)\\b",
+  "replacement": "twice daily",
+  "description": "Normalize BID to twice daily",
+  "enabled": true
+}

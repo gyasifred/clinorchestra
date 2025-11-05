@@ -7,5 +7,6 @@
     "priority": "CRITICAL",
     "subcategory": "quality_control"
   },
-  "created_at": "2025-10-25T13:54:48.584964"
+  "created_at": "2025-10-25T13:54:48.584964",
+  "name": "Guideline: Z-score verification step: After extract..."
 }

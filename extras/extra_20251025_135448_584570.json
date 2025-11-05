@@ -7,5 +7,6 @@
     "priority": "high",
     "subcategory": "anthropometrics"
   },
-  "created_at": "2025-10-25T13:54:48.584580"
+  "created_at": "2025-10-25T13:54:48.584580",
+  "name": "Pattern: Percentile format: [measurement] at [X]t..."
 }

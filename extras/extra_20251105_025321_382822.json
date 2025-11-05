@@ -1,0 +1,12 @@
+{
+  "id": "extra_20251105_025321_382822",
+  "name": "Respiratory Distress Signs",
+  "type": "criteria",
+  "content": "Signs: Tachypnea, nasal flaring, retractions (intercostal, subcostal, suprasternal), grunting, head bobbing, cyanosis, altered mental status, inability to speak in full sentences. Assess oxygenation (SpO2), work of breathing, and air movement. Consider oxygen therapy, positioning, bronchodilators.",
+  "metadata": {
+    "category": "respiratory",
+    "subcategory": "assessment",
+    "priority": "high"
+  },
+  "created_at": "2025-11-05T02:53:21.382829"
+}

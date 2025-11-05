@@ -328,6 +328,8 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                     output_handler.add_record(
                         row=row,
                         llm_output=final_output,
+                        redacted_text=result.get('redacted_text'),
+                        normalized_text=result.get('normalized_text'),
                         label_context=label_context,
                         metadata={
                             'processing_timestamp': datetime.now().isoformat(),
@@ -409,6 +411,8 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                                 output_handler.add_record(
                                     row=row,
                                     llm_output=final_output,
+                                    redacted_text=result.get('redacted_text'),
+                                    normalized_text=result.get('normalized_text'),
                                     label_context=label_context,
                                     metadata={
                                         'processing_timestamp': datetime.now().isoformat(),
