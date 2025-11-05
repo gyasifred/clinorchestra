@@ -1,0 +1,14 @@
+{
+  "name": "percentile_to_zscore",
+  "description": "Convert growth percentile to z-score for malnutrition assessment. Lower percentiles = negative z-scores. Used for growth chart interpretation.",
+  "parameters": {
+    "percentile": {
+      "type": "number",
+      "description": "Growth percentile (0-100). Common values: 3rd, 5th, 10th, 25th, 50th, 75th, 90th, 95th, 97th percentile"
+    }
+  },
+  "returns": {
+    "type": "number",
+    "description": "Z-score (standard deviations from mean). Negative z-scores indicate below average."
+  }
+}
