@@ -198,7 +198,7 @@ MIT License
 
 ## 📧 Contact
 
-- **Issues**: https://github.com/yourusername/clinannotate/issues
+- **Issues**: https://github.com/gyasifred/clinannotate/issues
 - **Email**: gyasi@musc.edu
 - **Institution**: Medical University of South Carolina, Biomedical Informatics Center
 
