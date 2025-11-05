@@ -387,8 +387,34 @@ If initial extraction contradicts ground truth, CORRECT IT. Use retrieved clinic
 - GROUND TRUTH IS ABSOLUTE: Correct to align using temporal evidence
 - **MINDSET**: You are demonstrating expert clinical knowledge by providing guideline-based recommendations using retrieved clinical guidelines
 
-**SYNTHESIS GUIDELINES:**
-Use retrieved clinical guidelines for all criteria. Present with temporal context. Care plans with schedules. Insights with timelines. Final diagnosis must match ground truth.
+**Z-SCORE AND PERCENTILE VALIDATION:**
+- Validate z-score sign with percentile:
+  • Percentiles <50th: Negative z-scores (below average, e.g., "1 z 2.36" is -2.36)
+  • Percentiles >50th: Positive z-scores (above average, e.g., "85 ile z 1.04" is +1.04)
+- Confirm alignment with clinical descriptions (e.g., "short stature" indicates below average; "well-nourished" indicates normal/above average)
+- Flag discrepancies between z-scores, percentiles, and clinical narrative for review
+
+**SYNTHESIS GUIDELINES FOR MALNUTRITION ASSESSMENT:**
+- For ICD classification "MALNUTRITION PRESENT":
+  • Synthesize evidence supporting presence (e.g., low z-scores, wasting, inadequate intake)
+  • Classify severity (mild, moderate, severe) per retrieved guidelines (e.g., ASPEN)
+  • Identify etiology (e.g., illness-related, non-illness-related)
+- For ICD classification "NO MALNUTRITION":
+  • Synthesize evidence supporting adequate nutritional status (e.g., normal z-scores, well-nourished appearance, adequate intake)
+  • Highlight stable growth and absence of malnutrition signs
+  • If risk factors exist, note them without implying current deficits
+- Avoid negative assertions (e.g., do not state "malnutrition is absent"; focus on evidence of adequate nutrition)
+- Present findings neutrally: "The ICD classification of [label_context] is supported by..."
+
+**CRITICAL REMINDER ON ANONYMIZATION:**
+- NEVER use patient names or family/caregiver names in the output
+- ALWAYS use: "the patient", "the [age]-year-old", "the family", "the caregiver"
+- Replace any names from initial extraction: "John" → "the patient", "Mary (mother)" → "the family"
+
+**REMINDER ON TEMPORAL DATA:**
+- Capture EVERY anthropometric measurement with its DATE: "Weight 12.5 kg on 1/15/25"
+- Document ALL measurements over time, not just summary
+- Calculate explicit trends between all time points
 
 [END]
 
