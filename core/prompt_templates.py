@@ -1130,56 +1130,71 @@ This section defines HOW to use tools ITERATIVELY to gather the information you 
    - Helps understand domain concepts and best practices
    - Example: query_extras({{"keywords": ["malnutrition", "pediatric", "assessment"]}})
 
-**AGENTIC EXECUTION WORKFLOW:**
+**UNIVERSAL ITERATIVE EXECUTION WORKFLOW:**
 
-1. **ANALYZE**: Read the task description above and the clinical text carefully
-2. **DISCOVER**: Based on task requirements, identify what information/calculations you need
-3. **REQUEST TOOLS**: Call tools to gather information (call tools MULTIPLE times!)
-4. **LEARN**: Analyze the results from tool calls
-5. **ITERATE**: Based on what you learned, call MORE tools if needed to complete the task
-6. **EXTRACT**: Once you have sufficient information, output the final JSON
+**PHASE 1 - INITIAL ANALYSIS:**
+1. Read the task prompt → Understand what needs to be extracted
+2. Read the clinical text → Identify key metrics, measurements, words, entities
+3. Execute INITIAL tool calls:
+   - Call functions for calculations (BMI, z-scores, etc.)
+   - Call query_extras for task-specific hints
+
+**PHASE 2 - BUILD CONTEXT:**
+4. Review function results and extras hints
+5. Build RAG keywords based on what you learned (domain, criteria needed, guidelines)
+6. Call query_rag to fetch clinical guidelines and standards
+
+**PHASE 3 - ASSESS INFORMATION GAPS:**
+7. Determine: Do I have ALL information needed to complete the task?
+   - ✅ YES: Proceed to Phase 4
+   - ❌ NO: Go to Phase 3b
+
+**PHASE 3b - FILL GAPS:**
+8. Identify what other information is needed
+9. Determine which tools to call again (can call same tool with different queries)
+10. Fetch additional information → Return to Phase 3
+
+**PHASE 4 - COMPLETION:**
+11. When you have all necessary information → Output final JSON extraction
 
 **CRITICAL PRINCIPLES:**
 
 - ✅ **Follow Task Definition Above**: The task description above specifies your requirements - follow them exactly
-- ✅ **Iterative Not Batch**: Don't plan all tools upfront. Call tools → Learn → Call more tools as needed
-- ✅ **Adaptive Strategy**: Let results guide next steps. "I got X, now I need Y to complete the task"
+- ✅ **Iterative Rounds**: Call tools across multiple rounds, using results to inform next steps
+- ✅ **Self-Assessment**: After each round, assess if you have enough information or need more
 - ✅ **Multiple Tool Calls**: Call the same tool multiple times with different queries/parameters
 - ✅ **Parallel Execution**: Tools execute in parallel (async) for performance - request multiple at once when possible
 - ✅ **Support Ground Truth**: Ensure your extraction supports the ground truth diagnosis
-- ✅ **Complete Before Output**: Gather sufficient information before outputting JSON
+- ✅ **Complete Before Output**: Only output JSON when you have ALL necessary information
 
-**EXAMPLE AGENTIC EXECUTION:**
+**EXAMPLE PHASED EXECUTION:**
 
 ```
-[Iteration 1]
-"I see the task requirements defined above. Let me analyze the clinical text..."
-"The text contains specific measurements and clinical findings. Based on task requirements,
-I need to gather guidelines and perform relevant calculations."
-→ Call tools: query_rag("relevant clinical guidelines criteria"), call_[relevant_function]({{"parameter": value}})
+[PHASE 1 - Initial Analysis]
+"Analyzing task: Need to extract malnutrition assessment with z-scores and ASPEN criteria"
+"Clinical text shows: 3-year-old, weight 12.5kg (10th percentile), height 92cm (25th percentile)"
+"Initial tool calls needed: Convert percentiles to z-scores, get task hints"
+→ Call: call_percentile_to_zscore({{"percentile": 10}})
+→ Call: call_percentile_to_zscore({{"percentile": 25}})
+→ Call: query_extras({{"keywords": ["malnutrition", "pediatric", "z-score", "ASPEN"]}})
 
-[Tools execute in parallel, return results]
+[Tools return: 10th percentile = -1.28 z-score, 25th percentile = -0.67 z-score, plus task hints]
 
-[Iteration 2]
-"Good! I received guidelines and calculation results. The guidelines indicate specific
-classification criteria. I need to interpret these results using the appropriate method."
-→ Call tool: call_[interpretation_function]({{"value": result, "type": "measurement_type"}})
+[PHASE 2 - Build Context]
+"Good! Now I have z-scores: weight -1.28, height -0.67. Extras hint ASPEN criteria needed."
+"Building RAG query based on what I learned: need ASPEN pediatric malnutrition severity criteria"
+→ Call: query_rag("ASPEN pediatric malnutrition severity classification criteria z-scores", "need severity thresholds")
 
-[Tool returns interpretation]
+[RAG returns: ASPEN criteria with z-score cutoffs and multi-indicator requirements]
 
-[Iteration 3]
-"Perfect! I have the interpretation. The text also mentions additional clinical factors.
-Let me get relevant management or assessment guidelines to complete the task."
-→ Call tool: query_rag("relevant management assessment guidelines")
+[PHASE 3 - Assess Gaps]
+"Assessing: Do I have all info needed?"
+"✓ Have: z-scores, ASPEN criteria, clinical symptoms from text, physical exam findings"
+"✓ Can determine: severity classification, diagnosis reasoning"
+"Assessment: YES - I have all necessary information to complete the task"
 
-[Tool returns guidelines]
-
-[Iteration 4]
-"Excellent! Now I have all information needed per task requirements:
-- Clinical measurements with interpretations
-- Guideline-based classifications
-- Management/assessment guidelines
-Ready to output final JSON per the schema and synthesis structure defined in task."
+[PHASE 4 - Completion]
+"Ready to output final JSON with comprehensive malnutrition assessment"
 → Output JSON
 ```
 

@@ -648,26 +648,41 @@ You have access to tools:
 - call_[function]: Perform medical calculations (BMI, z-scores, creatinine clearance, etc.)
 - query_extras: Get supplementary hints and reference ranges
 
-**MANDATORY AGENTIC WORKFLOW:**
+**UNIVERSAL ITERATIVE WORKFLOW:**
 
-🔴 CRITICAL: You MUST call tools BEFORE outputting final JSON! 🔴
+🔴 CRITICAL: You MUST use an iterative, self-reflective approach! 🔴
 
-1. **ANALYZE**: Read the clinical text and understand what information is needed
-2. **CALL TOOLS**: Request tools to gather guidelines, perform calculations, get hints
-3. **LEARN**: Examine tool results and determine if you need more information
-4. **ITERATE**: Call additional tools with refined queries if needed
-5. **EXTRACT**: Only after gathering sufficient information, output the final JSON
+**PHASE 1 - INITIAL ANALYSIS:**
+1. Read the task prompt → Understand what needs to be extracted
+2. Read the clinical text → Identify key metrics, measurements, words, entities
+3. Build queries and execute INITIAL tool calls:
+   - Call functions for calculations (BMI, z-scores, etc.)
+   - Call query_extras for task-specific hints
 
-**Requirements:**
+**PHASE 2 - BUILD CONTEXT:**
+4. Review function results and extras hints
+5. Build RAG keywords based on what you learned (domain, criteria needed, guidelines)
+6. Call query_rag to fetch clinical guidelines and standards
+
+**PHASE 3 - ASSESS INFORMATION GAPS:**
+7. Determine: Do I have ALL information needed to complete the task?
+   - ✅ YES: Proceed to Phase 4
+   - ❌ NO: Go to Phase 3b
+
+**PHASE 3b - FILL GAPS:**
+8. Identify what other information is needed
+9. Determine which tools to call again (can call same tool with different queries)
+10. Fetch additional information → Return to Phase 3
+
+**PHASE 4 - COMPLETION:**
+11. When you have all necessary information → Output final JSON extraction
+
+**Key Principles:**
 - ❌ DO NOT output final JSON immediately
-- ✅ MUST call tools first (RAG for guidelines, functions for calculations, extras for hints)
-- ✅ Call tools MULTIPLE times if needed with different queries
-- ✅ Adapt your strategy based on what you learn from tool results
-- ✅ Only output JSON when you have gathered all necessary information
-
-**Example Flow:**
-[Iteration 1] Read text → Call query_rag("relevant guidelines") + call_calculate_bmi(...)
-[Iteration 2] Analyze results → Call more tools if needed OR output final JSON if complete"""
+- ✅ Call tools iteratively across multiple rounds
+- ✅ Use tool results to inform next tool calls
+- ✅ Assess information gaps after each round
+- ✅ Only complete task when confident you have everything needed"""
 
     def _format_tool_result_for_llm(self, result: ToolResult) -> str:
         """Format tool result for LLM consumption"""
@@ -822,61 +837,25 @@ You have access to tools:
 
         # Add comprehensive tool guide
         lines.append("\n" + "=" * 80)
-        lines.append("📚 COMPREHENSIVE TOOL GUIDE (GENERAL FOR ANY CLINICAL TASK)")
+        lines.append("📚 TOOL GUIDE - Use Tools Before Final Extraction")
         lines.append("=" * 80)
 
         lines.append("\n🔍 **THREE TOOL CATEGORIES:**\n")
 
         lines.append("1️⃣ **RAG (Retrieval-Augmented Generation)** - query_rag()")
-        lines.append("   PURPOSE: Retrieve clinical guidelines, diagnostic criteria, standards from authoritative sources")
-        lines.append("   SOURCES: Any indexed guidelines (ASPEN, WHO, CDC, ADA, ACC/AHA, KDIGO, etc.)")
-        lines.append("   WHEN TO USE: Need classification criteria, diagnostic thresholds, reference standards")
-        lines.append("   HOW TO BUILD QUERIES:")
-        lines.append("   • STEP 1 - Extract medical domain from YOUR task:")
-        lines.append("     Examples: 'diabetes', 'hypertension', 'sepsis', 'AKI', 'heart failure', 'growth assessment'")
-        lines.append("   • STEP 2 - Add specificity from clinical context:")
-        lines.append("     'type 2 diabetes', 'pediatric sepsis', 'acute kidney injury stage', 'systolic heart failure'")
-        lines.append("   • STEP 3 - Include what you need:")
-        lines.append("     'diagnostic criteria', 'severity classification', 'treatment guidelines', 'reference ranges'")
-        lines.append("   • STEP 4 - Use guideline organizations (if known):")
-        lines.append("     'ADA diabetes', 'KDIGO AKI', 'Sepsis-3', 'JNC hypertension', 'WHO growth standards'")
-        lines.append("   • EXAMPLES across different domains:")
-        lines.append("     - Diabetes task: 'ADA diabetes diagnostic criteria HbA1c fasting glucose'")
-        lines.append("     - Cardiac task: 'ACC AHA heart failure classification ejection fraction staging'")
-        lines.append("     - Sepsis task: 'Sepsis-3 definition qSOFA SIRS criteria'")
-        lines.append("     - Renal task: 'KDIGO acute kidney injury staging creatinine criteria'\n")
+        lines.append("   • Retrieves clinical guidelines, diagnostic criteria, standards")
+        lines.append("   • Build queries from: medical domain + specificity + what you need")
+        lines.append("   • Example: 'ASPEN pediatric malnutrition severity criteria'\n")
 
         lines.append("2️⃣ **FUNCTIONS (Medical Calculations)** - call_[function_name]()")
-        lines.append("   PURPOSE: Perform medical calculations relevant to YOUR task")
-        lines.append("   WHEN TO USE: Clinical text contains measurements that need calculation")
-        lines.append("   HOW TO FIND PARAMETERS:")
-        lines.append("   • STEP 1 - Scan clinical text for numeric values and measurements")
-        lines.append("   • STEP 2 - Look at function list below to see what calculations are available")
-        lines.append("   • STEP 3 - Match text values to function parameters")
-        lines.append("   • EXAMPLES across different domains:")
-        lines.append("     - Text: 'Height 165cm, Weight 70kg' → call_calculate_bmi(height_cm=165, weight_kg=70)")
-        lines.append("     - Text: 'BP 140/90, 135/85, 130/80' → call_calculate_mean_arterial_pressure(systolic=140, diastolic=90)")
-        lines.append("     - Text: 'Creatinine 1.2 then 1.8' → call_calculate_creatinine_clearance(...)")
-        lines.append("     - Text: 'HbA1c 8.5%' → [Extract value for comparison with guidelines from RAG]")
-        lines.append("   • IMPORTANT: Check function descriptions below for required parameters")
+        lines.append("   • Performs medical calculations (see full list below)")
+        lines.append("   • Scan text for measurements, match to function parameters")
         lines.append("   • CRITICAL: Call functions BEFORE making clinical interpretations\n")
 
         lines.append("3️⃣ **EXTRAS (Supplementary Hints)** - query_extras()")
-        lines.append("   PURPOSE: Get task-specific hints, reference ranges, interpretation guides for YOUR task")
-        lines.append("   WHEN TO USE: Need help understanding task requirements or clinical context")
-        lines.append("   HOW TO BUILD KEYWORDS:")
-        lines.append("   • STEP 1 - Extract from YOUR schema field names:")
-        lines.append("     Schema: {'diabetes_type': ...} → keywords: 'diabetes', 'type', 'classification'")
-        lines.append("     Schema: {'aki_stage': ...} → keywords: 'aki', 'acute kidney injury', 'stage'")
-        lines.append("     Schema: {'sepsis_severity': ...} → keywords: 'sepsis', 'severity', 'organ dysfunction'")
-        lines.append("   • STEP 2 - Add clinical domain specifics:")
-        lines.append("     Patient population: 'pediatric', 'adult', 'geriatric'")
-        lines.append("     Clinical system: 'cardiac', 'renal', 'respiratory', 'endocrine'")
-        lines.append("     Assessment type: 'screening', 'diagnostic', 'monitoring', 'prognostic'")
-        lines.append("   • STEP 3 - Include guideline sources if relevant:")
-        lines.append("     'ADA', 'KDIGO', 'WHO', 'ACC', 'AHA', 'CDC', 'ASPEN', etc.")
-        lines.append("   • Use 3-5 specific medical terms from YOUR task domain")
-        lines.append("   • AVOID generic words: 'patient', 'data', 'information', 'medical', 'clinical'\n")
+        lines.append("   • Task-specific hints, reference ranges, interpretation guides")
+        lines.append("   • Build keywords from: schema field names + clinical domain + guidelines")
+        lines.append("   • Use 3-5 specific medical terms, avoid generic words\n")
 
         # Add detailed tool descriptions
         lines.append("=" * 80)
@@ -904,39 +883,32 @@ You have access to tools:
         lines.append("📝 HOW TO CALL TOOLS:")
         lines.append("=" * 80)
         lines.append("\n⚠️ CRITICAL: Each TOOL_CALL must be complete, valid JSON on a single line!\n")
-        lines.append("FORMAT (must have closing braces!):")
+        lines.append("FORMAT:")
         lines.append('TOOL_CALL: {"tool": "tool_name", "parameters": {...}}')
         lines.append("")
-        lines.append("✅ CORRECT EXAMPLES (from different clinical domains):")
-        lines.append("")
-        lines.append("Diabetes task:")
-        lines.append('TOOL_CALL: {"tool": "query_rag", "parameters": {"query": "ADA diabetes diagnostic criteria HbA1c", "purpose": "need diagnostic thresholds"}}')
-        lines.append('TOOL_CALL: {"tool": "query_extras", "parameters": {"keywords": ["diabetes", "diagnostic", "HbA1c", "fasting glucose", "ADA"]}}')
-        lines.append("")
-        lines.append("Cardiac task:")
-        lines.append('TOOL_CALL: {"tool": "query_rag", "parameters": {"query": "ACC AHA heart failure classification", "purpose": "need staging criteria"}}')
-        lines.append('TOOL_CALL: {"tool": "call_calculate_mean_arterial_pressure", "parameters": {"systolic": 140, "diastolic": 90}}')
-        lines.append("")
-        lines.append("Renal task:")
-        lines.append('TOOL_CALL: {"tool": "query_rag", "parameters": {"query": "KDIGO AKI staging creatinine criteria", "purpose": "need classification"}}')
-        lines.append('TOOL_CALL: {"tool": "call_calculate_creatinine_clearance", "parameters": {"creatinine": 1.5, "age": 65, "weight": 70, "sex": "male"}}')
-        lines.append("")
-        lines.append("Growth assessment task:")
-        lines.append('TOOL_CALL: {"tool": "call_calculate_bmi", "parameters": {"height_cm": 165, "weight_kg": 45.5}}')
-        lines.append('TOOL_CALL: {"tool": "call_percentile_to_zscore", "parameters": {"percentile": 14}}')
+        lines.append("✅ CORRECT EXAMPLES:")
+        lines.append('TOOL_CALL: {"tool": "query_rag", "parameters": {"query": "ASPEN pediatric malnutrition criteria", "purpose": "need severity thresholds"}}')
+        lines.append('TOOL_CALL: {"tool": "call_percentile_to_zscore", "parameters": {"percentile": 10}}')
+        lines.append('TOOL_CALL: {"tool": "query_extras", "parameters": {"keywords": ["malnutrition", "pediatric", "z-score", "WHO", "ASPEN"]}}')
         lines.append("")
         lines.append("❌ WRONG (missing closing brace):")
         lines.append('TOOL_CALL: {"tool": "query_rag", "parameters": {"query": "test"}  ← MISSING }')
         lines.append("")
-        lines.append("💡 GENERAL WORKFLOW (adapts to YOUR task):")
-        lines.append("1. Read YOUR task schema and clinical text")
-        lines.append("2. Identify what calculations are needed → call available functions")
-        lines.append("3. Identify what guidelines/criteria are needed → call query_rag with YOUR domain")
-        lines.append("4. If confused about YOUR task requirements → call query_extras with YOUR keywords")
-        lines.append("5. List ALL tool calls you need (can call same tool multiple times)")
-        lines.append("6. After receiving results, analyze and either:")
-        lines.append("   - Call MORE tools with refined queries if needed, OR")
-        lines.append("   - Output final JSON extraction when you have sufficient information")
+        lines.append("💡 ITERATIVE WORKFLOW:")
+        lines.append("ROUND 1 - Initial Analysis:")
+        lines.append("  • Analyze task prompt + clinical text")
+        lines.append("  • Identify key metrics/measurements/words")
+        lines.append("  • Call functions (calculations) + query_extras (hints)")
+        lines.append("")
+        lines.append("ROUND 2 - Build Context:")
+        lines.append("  • Review function/extras results")
+        lines.append("  • Build RAG keywords from what you learned")
+        lines.append("  • Call query_rag (fetch guidelines/criteria)")
+        lines.append("")
+        lines.append("ROUND 3+ - Assess & Fill Gaps:")
+        lines.append("  • Assess: Do I have ALL info needed?")
+        lines.append("  • If NO: Identify gaps → Call more tools → Reassess")
+        lines.append("  • If YES: Output final JSON extraction")
         lines.append("=" * 80 + "\n")
 
         # Add conversation history
