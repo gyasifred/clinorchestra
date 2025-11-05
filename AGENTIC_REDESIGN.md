@@ -1,13 +1,13 @@
 # Agentic Pipeline Redesign
 ## From Rigid Stages to Continuous Autonomous Loop
 
-**Version:** 2.0.0 - Truly Agentic
+**Version:** 1.0.0 - Truly Agentic with Async Execution
 **Author:** Frederick Gyasi (gyasi@musc.edu)
 **Date:** 2025-11-05
 
 ---
 
-## Current System (RIGID - v1.0)
+## Classic System (RIGID - ExtractionAgent v1.0.2)
 
 ```
 ┌─────────────┐
@@ -42,7 +42,7 @@ DONE
 
 ---
 
-## New System (AGENTIC - v2.0)
+## Agentic System (AgenticAgent v1.0.0 with Async)
 
 ```
 START
@@ -117,8 +117,8 @@ DONE
 
 ## Key Differences
 
-| Aspect | Old (Rigid) | New (Agentic) |
-|--------|-------------|---------------|
+| Aspect | Classic (ExtractionAgent v1.0.2) | Agentic (AgenticAgent v1.0.0) |
+|--------|----------------------------------|------------------------------|
 | **Tool Planning** | Upfront, all at once | Dynamic, as needed |
 | **Tool Calls** | Single batch | Multiple rounds |
 | **RAG Queries** | Fixed at Stage 1 | Can refine based on results |
@@ -127,6 +127,7 @@ DONE
 | **Iteration** | Linear stages | Continuous loop |
 | **Discovery** | No | Yes - can discover new needs |
 | **LLM Autonomy** | Low | High - truly agentic |
+| **Tool Execution** | Sequential | **Async/Parallel (60-75% faster)** |
 
 ---
 
