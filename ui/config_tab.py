@@ -444,19 +444,23 @@ Status: Model is ready for processing."""
                 # Save to persistence manager
                 persistence_manager.save_model_config(config)
 
-                # Save agentic configuration
-                app_state.set_agentic_config(
+                # Save agentic configuration to app_state
+                agentic_success = app_state.set_agentic_config(
                     enabled=agen_enabled,
                     max_iterations=int(agen_max_iter),
                     max_tool_calls=int(agen_max_tools)
                 )
+
+                # Save agentic configuration to disk
+                if agentic_success:
+                    persistence_manager.save_agentic_config(app_state.agentic_config)
 
                 # FIXED: DON'T initialize LLM automatically - only on demand
                 logger.info(f"Model configuration saved (LLM will be initialized on first use)")
                 logger.info(f"Agentic mode: {'ENABLED' if agen_enabled else 'DISABLED'} (max_iterations={agen_max_iter}, max_tool_calls={agen_max_tools})")
 
                 mode = "Agentic Mode (AgenticAgent v1.0.0)" if agen_enabled else "Classic Mode (ExtractionAgent v1.0.2)"
-                return f"✓ Model configuration saved successfully!\n\n**Execution Mode**: {mode}\n\nLLM will be initialized when you start processing."
+                return f"✓ Model configuration saved successfully!\n\n**Execution Mode**: {mode}\n\nLLM will be initialized when you start processing.\n\n✓ Configuration persisted to disk."
             else:
                 return "✗ Failed to save configuration"
 
