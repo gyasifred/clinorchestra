@@ -97,7 +97,56 @@ def create_config_tab(app_state) -> Dict[str, Any]:
                 label="Model Type"
             )
             components['model_type'] = model_type
-    
+
+    gr.Markdown("---")
+    gr.Markdown("### Execution Mode Settings")
+    gr.Markdown("""
+    **Choose between Classic and Agentic execution modes:**
+    - **Classic Mode** (Default): Reliable 4-stage pipeline with predictable behavior
+    - **Agentic Mode** (Advanced): Continuous loop with autonomous tool calling + async parallel execution (60-75% faster)
+    """)
+
+    with gr.Row():
+        with gr.Column():
+            agentic_enabled_value = app_state.agentic_config.enabled if hasattr(app_state, 'agentic_config') else False
+            agentic_enabled = gr.Checkbox(
+                label="Enable Agentic Mode (AgenticAgent v1.0.0)",
+                value=agentic_enabled_value,
+                info="Use continuous autonomous loop instead of 4-stage pipeline"
+            )
+            components['agentic_enabled'] = agentic_enabled
+
+        with gr.Column():
+            max_iterations_value = app_state.agentic_config.max_iterations if hasattr(app_state, 'agentic_config') else 20
+            agentic_max_iterations = gr.Number(
+                value=max_iterations_value,
+                label="Max Iterations",
+                precision=0,
+                minimum=5,
+                maximum=100,
+                info="Maximum conversation iterations in agentic loop"
+            )
+            components['agentic_max_iterations'] = agentic_max_iterations
+
+            max_tool_calls_value = app_state.agentic_config.max_tool_calls if hasattr(app_state, 'agentic_config') else 50
+            agentic_max_tool_calls = gr.Number(
+                value=max_tool_calls_value,
+                label="Max Tool Calls",
+                precision=0,
+                minimum=10,
+                maximum=200,
+                info="Maximum total tool calls per extraction"
+            )
+            components['agentic_max_tool_calls'] = agentic_max_tool_calls
+
+    agentic_info = gr.Markdown("""
+    **ℹ️ Execution Mode Info:**
+    - Classic Mode (ExtractionAgent v1.0.2): Fixed 4-stage pipeline - best for production
+    - Agentic Mode (AgenticAgent v1.0.0): Iterative loop with tool calling - best for complex cases and research
+    - See [AGENTIC_USER_GUIDE.md](https://github.com/yourusername/clinannotate/blob/main/AGENTIC_USER_GUIDE.md) for detailed comparison
+    """)
+    components['agentic_info'] = agentic_info
+
     gr.Markdown("---")
     gr.Markdown("### Provider-Specific Settings")
     
@@ -369,8 +418,9 @@ Status: Model is ready for processing."""
     def save_configuration(*args):
         """Save configuration to app state and persistence manager - DON'T auto-initialize LLM"""
         (prov, model, api_k, temp, max_tok, m_type,
-         az_endpoint, az_deploy, g_proj_id, l_path, max_seq, quant, gpu) = args
-        
+         az_endpoint, az_deploy, g_proj_id, l_path, max_seq, quant, gpu,
+         agen_enabled, agen_max_iter, agen_max_tools) = args
+
         try:
             config = ModelConfig(
                 provider=prov,
@@ -387,20 +437,29 @@ Status: Model is ready for processing."""
                 quantization=quant if prov == "local" else None,
                 gpu_layers=int(gpu) if prov == "local" else -1
             )
-            
-            # Save to app state
+
+            # Save model config to app state
             success = app_state.set_model_config(config)
             if success:
                 # Save to persistence manager
                 persistence_manager.save_model_config(config)
-                
+
+                # Save agentic configuration
+                app_state.set_agentic_config(
+                    enabled=agen_enabled,
+                    max_iterations=int(agen_max_iter),
+                    max_tool_calls=int(agen_max_tools)
+                )
+
                 # FIXED: DON'T initialize LLM automatically - only on demand
-                logger.info("Model configuration saved (LLM will be initialized on first use)")
-                
-                return "✓ Model configuration saved successfully!\n\nLLM will be initialized when you start processing."
+                logger.info(f"Model configuration saved (LLM will be initialized on first use)")
+                logger.info(f"Agentic mode: {'ENABLED' if agen_enabled else 'DISABLED'} (max_iterations={agen_max_iter}, max_tool_calls={agen_max_tools})")
+
+                mode = "Agentic Mode (AgenticAgent v1.0.0)" if agen_enabled else "Classic Mode (ExtractionAgent v1.0.2)"
+                return f"✓ Model configuration saved successfully!\n\n**Execution Mode**: {mode}\n\nLLM will be initialized when you start processing."
             else:
                 return "✗ Failed to save configuration"
-                
+
         except Exception as e:
             logger.error(f"Save configuration error: {e}")
             return f"Error: {str(e)}"
@@ -455,7 +514,8 @@ Status: Model is ready for processing."""
         inputs=[
             provider, model_name, api_key, temperature, max_tokens, model_type,
             azure_endpoint, azure_deployment, google_project_id,
-            local_model_path, max_seq_length, quantization, gpu_layers
+            local_model_path, max_seq_length, quantization, gpu_layers,
+            agentic_enabled, agentic_max_iterations, agentic_max_tool_calls
         ],
         outputs=[validation_result]
     )
