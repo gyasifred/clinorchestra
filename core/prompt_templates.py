@@ -1050,3 +1050,124 @@ def format_tool_outputs_for_prompt(
         'function_outputs': function_output,
         'extras_outputs': extras_output
     }
+
+
+# ============================================================================
+# AGENTIC EXTRACTION PROMPT (v2.0.0 - Truly Agentic)
+# ============================================================================
+
+def get_agentic_extraction_prompt(clinical_text: str, label_context: str,
+                                   json_schema: str, schema_instructions: str,
+                                   base_prompt: str = "") -> str:
+    """
+    Build agentic extraction prompt for continuous loop with tool calling
+
+    This prompt enables LLM to autonomously:
+    - Analyze clinical text
+    - Decide what tools to call
+    - Iterate based on results
+    - Adapt strategy dynamically
+    """
+
+    prompt = f"""You are a board-certified clinical expert performing structured information extraction from medical text.
+
+**YOUR TASK:**
+Extract structured clinical information to create comprehensive, expert-level annotations. Your extraction must support the ground truth diagnosis provided below.
+
+**GROUND TRUTH DIAGNOSIS (YOU MUST SUPPORT THIS):**
+{label_context}
+
+This is definitive. Your extraction must support and align with this diagnosis using evidence from the clinical text.
+
+**CLINICAL TEXT TO ANALYZE:**
+{clinical_text}
+
+**AVAILABLE TOOLS (call as many times as needed):**
+
+You have access to tools that help you gather information and perform calculations:
+
+1. **query_rag(query, purpose)**: Retrieve clinical guidelines, standards, and reference information from authoritative sources (ASPEN, WHO, CDC, ADA, etc.)
+   - Call MULTIPLE times with different queries to gather comprehensive information
+   - Refine queries based on what you learn
+   - Example: query_rag("ASPEN pediatric malnutrition severity criteria", "need classification thresholds")
+
+2. **call_[function_name](parameters)**: Perform medical calculations
+   - Available for z-scores, BMI, percentiles, growth calculations, lab interpretations, etc.
+   - Call same function multiple times for serial measurements at different time points
+   - Example: call_percentile_to_zscore({{"percentile": 3}})
+
+3. **query_extras(keywords)**: Get supplementary hints/tips/patterns
+   - Helps understand task-specific concepts and best practices
+   - Example: query_extras({{"keywords": ["malnutrition", "pediatric", "assessment"]}})
+
+**AGENTIC WORKFLOW (How to work):**
+
+1. **ANALYZE**: Carefully read the clinical text and ground truth diagnosis
+2. **DISCOVER**: Identify what information you need to complete the extraction
+3. **REQUEST TOOLS**: Call tools to gather information (you can call tools multiple times!)
+4. **LEARN**: Analyze the results from tool calls
+5. **ITERATE**: Based on what you learned, call more tools if needed OR continue extraction
+6. **EXTRACT**: Once you have enough information, output the final JSON
+
+**CRITICAL PRINCIPLES:**
+
+- **Iterative**: Don't plan all tools upfront. Analyze → Call tools → Learn → Call more tools if needed
+- **Adaptive**: Let initial results guide what else you need. "I got these guidelines, now I need to calculate this value"
+- **Thorough**: Gather enough information before finalizing. Don't rush to output JSON if you're missing key data
+- **Efficient**: Only call tools you actually need. Don't call unnecessary tools
+- **Aligned**: Ensure your final extraction supports the ground truth diagnosis
+
+**EXAMPLE AGENTIC WORKFLOW:**
+
+Initial analysis:
+"I see the ground truth is 'MALNUTRITION PRESENT'. Let me analyze the text..."
+"The text mentions '3rd percentile' for weight. I need to:"
+"1. Get ASPEN/WHO criteria for malnutrition classification"
+"2. Convert 3rd percentile to z-score"
+"3. Interpret the z-score for malnutrition severity"
+
+Tool call 1:
+→ query_rag("ASPEN WHO pediatric malnutrition criteria z-score thresholds")
+[Receives guideline information]
+
+"Good! The guidelines say z < -2 is moderate malnutrition. Now let me convert the percentile..."
+
+Tool call 2:
+→ call_percentile_to_zscore({{"percentile": 3}})
+[Receives z-score = -1.88]
+
+"The z-score is -1.88. Now let me get the WHO/ASPEN interpretation..."
+
+Tool call 3:
+→ call_interpret_zscore_malnutrition({{"zscore": -1.88, "measurement_type": "weight-for-height"}})
+[Receives interpretation: "Mild malnutrition risk per WHO classification"]
+
+"Perfect! I also notice the text mentions inadequate intake. Let me get management guidelines..."
+
+Tool call 4:
+→ query_rag("mild malnutrition pediatric management nutritional intervention")
+[Receives management guidelines]
+
+"Excellent! Now I have all the information I need to complete the extraction."
+→ Output final JSON
+
+**EXPECTED OUTPUT SCHEMA:**
+{json_schema}
+
+**SCHEMA INSTRUCTIONS:**
+{schema_instructions}
+
+**ADDITIONAL INSTRUCTIONS FROM BASE PROMPT:**
+{base_prompt}
+
+**CRITICAL RULES:**
+- **ANONYMIZE**: NEVER use patient or family names. Use "the patient", "the [age]-year-old", "the family"
+- **SUPPORT GROUND TRUTH**: Your extraction MUST align with and support the ground truth diagnosis
+- **ITERATE**: Call tools, learn, call more tools if needed
+- **ADAPT**: Let results guide your next steps
+- **COMPLETE**: Output JSON only when you have sufficient information
+
+**Begin your analysis. Call tools as needed. When ready, provide the final JSON in the exact schema format specified above.**
+"""
+
+    return prompt

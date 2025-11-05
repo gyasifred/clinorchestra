@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Tuple, Dict, Any
 from core.output_handler import OutputHandler
 from core.process_persistence import get_process_state
-from core.agent_system import ExtractionAgent
+from core.agent_factory import create_agent, get_agent_info
 from core.app_state import StateEvent
 from core.logging_config import get_logger
 
@@ -227,17 +227,28 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
             log_lines.append("=" * 80)
             log_lines.append("")
             process_state.add_log(process_id, "Initializing agent")
-            
-            agent = ExtractionAgent(
+
+            # Get agent info for logging
+            agent_info = get_agent_info(app_state)
+            log_lines.append(f"Agent Version: {agent_info['version']}")
+            log_lines.append(f"Agent Type: {agent_info['name']}")
+            log_lines.append(f"Execution Mode: {agent_info['mode']}")
+            if app_state.agentic_config.enabled:
+                log_lines.append(f"Max Iterations: {agent_info['config']['max_iterations']}")
+                log_lines.append(f"Max Tool Calls: {agent_info['config']['max_tool_calls']}")
+            log_lines.append("")
+
+            # Create agent using factory
+            agent = create_agent(
                 llm_manager=llm_manager,
-                rag_engine=rag_engine,
+                rag_engine=rag_engine if app_state.rag_config.enabled else None,
                 extras_manager=extras_manager,
                 function_registry=function_registry,
                 regex_preprocessor=regex_preprocessor,
                 app_state=app_state
             )
-            log_lines.append("✅ Agent initialized")
-            process_state.add_log(process_id, "Agent initialized")
+            log_lines.append(f"✅ {agent_info['name']} initialized")
+            process_state.add_log(process_id, f"{agent_info['name']} initialized")
             
             output_handler = OutputHandler(
                 data_config=app_state.data_config,

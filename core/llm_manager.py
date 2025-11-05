@@ -8,6 +8,7 @@ Institution: Medical University of South Carolina, Biomedical Informatics Center
 
 import os
 import torch
+import json
 from typing import Dict, Any, Optional
 from dotenv import load_dotenv
 from core.logging_config import get_logger
@@ -430,11 +431,172 @@ class LLMManager:
             )
             
             return response.strip()
-            
+
         except Exception as e:
             logger.error(f"Local generation failed: {e}")
             raise
-    
+
+    def generate_with_tool_calling(self, messages: list, tools: list, max_tokens: Optional[int] = None) -> dict:
+        """
+        Generate with native tool calling support (OpenAI/Anthropic)
+
+        Args:
+            messages: Conversation history in API format
+            tools: List of tool definitions in OpenAI function calling format
+            max_tokens: Max tokens to generate
+
+        Returns:
+            dict with:
+                - content: str (response content)
+                - tool_calls: list (tool calls if any)
+                - finish_reason: str ('stop', 'tool_calls', etc.)
+        """
+        max_tok = max_tokens or self.max_tokens
+
+        try:
+            if self.provider == "openai":
+                return self._generate_with_tools_openai(messages, tools, max_tok)
+            elif self.provider == "anthropic":
+                return self._generate_with_tools_anthropic(messages, tools, max_tok)
+            else:
+                # Fallback for providers that don't support native tool calling
+                logger.warning(f"Provider {self.provider} doesn't support native tool calling, using text generation")
+                # Convert messages to text
+                prompt = self._messages_to_text(messages)
+                response = self.generate(prompt, max_tok)
+                return {
+                    'content': response,
+                    'tool_calls': [],
+                    'finish_reason': 'stop'
+                }
+        except Exception as e:
+            logger.error(f"Tool calling generation failed: {e}")
+            raise
+
+    def _generate_with_tools_openai(self, messages: list, tools: list, max_tokens: int) -> dict:
+        """Generate with OpenAI tool calling"""
+        try:
+            params = {
+                "model": self.model_name,
+                "messages": messages,
+                "temperature": self.temperature
+            }
+
+            # Add tools if provided
+            if tools:
+                params["tools"] = tools
+                params["tool_choice"] = "auto"
+
+            # Use correct parameter based on model
+            if self._uses_completion_tokens():
+                params["max_completion_tokens"] = max_tokens
+            else:
+                params["max_tokens"] = max_tokens
+
+            response = self.client.chat.completions.create(**params)
+
+            message = response.choices[0].message
+            finish_reason = response.choices[0].finish_reason
+
+            # Parse response
+            result = {
+                'content': message.content or '',
+                'tool_calls': [],
+                'finish_reason': finish_reason
+            }
+
+            # Check for tool calls
+            if message.tool_calls:
+                for tc in message.tool_calls:
+                    result['tool_calls'].append({
+                        'id': tc.id,
+                        'type': 'function',
+                        'function': {
+                            'name': tc.function.name,
+                            'arguments': tc.function.arguments
+                        }
+                    })
+
+            return result
+
+        except Exception as e:
+            logger.error(f"OpenAI tool calling failed: {e}")
+            raise
+
+    def _generate_with_tools_anthropic(self, messages: list, tools: list, max_tokens: int) -> dict:
+        """Generate with Anthropic tool calling"""
+        try:
+            # Convert OpenAI tool format to Anthropic format
+            anthropic_tools = []
+            if tools:
+                for tool in tools:
+                    anthropic_tools.append({
+                        'name': tool['function']['name'],
+                        'description': tool['function']['description'],
+                        'input_schema': tool['function']['parameters']
+                    })
+
+            # Separate system message from conversation
+            system_msg = None
+            conv_messages = []
+            for msg in messages:
+                if msg['role'] == 'system':
+                    system_msg = msg['content']
+                else:
+                    conv_messages.append(msg)
+
+            params = {
+                "model": self.model_name,
+                "max_tokens": max_tokens,
+                "temperature": self.temperature,
+                "messages": conv_messages
+            }
+
+            if system_msg:
+                params["system"] = system_msg
+
+            if anthropic_tools:
+                params["tools"] = anthropic_tools
+
+            response = self.client.messages.create(**params)
+
+            # Parse response
+            result = {
+                'content': '',
+                'tool_calls': [],
+                'finish_reason': response.stop_reason
+            }
+
+            # Extract content and tool calls
+            for block in response.content:
+                if block.type == 'text':
+                    result['content'] += block.text
+                elif block.type == 'tool_use':
+                    result['tool_calls'].append({
+                        'id': block.id,
+                        'type': 'function',
+                        'function': {
+                            'name': block.name,
+                            'arguments': json.dumps(block.input)
+                        }
+                    })
+
+            return result
+
+        except Exception as e:
+            logger.error(f"Anthropic tool calling failed: {e}")
+            raise
+
+    def _messages_to_text(self, messages: list) -> str:
+        """Convert message history to text (fallback for non-tool-calling providers)"""
+        lines = []
+        for msg in messages:
+            role = msg.get('role', '').upper()
+            content = msg.get('content', '')
+            if content:
+                lines.append(f"{role}: {content}")
+        return "\n\n".join(lines)
+
     def cleanup(self):
         """Clean up resources"""
         if self.provider == "local" and self.model is not None:

@@ -113,6 +113,15 @@ class ProcessingConfig:
     dry_run: bool = False
     output_path: Optional[str] = None
 
+@dataclass
+class AgenticConfig:
+    """Agentic execution configuration (v2.0.0)"""
+    enabled: bool = False  # Use agentic agent instead of rigid pipeline
+    max_iterations: int = 20  # Max conversation iterations
+    max_tool_calls: int = 50  # Max total tool calls per extraction
+    iteration_logging: bool = True  # Log each iteration
+    tool_call_logging: bool = True  # Log each tool call
+
 class StateObserver:
     """Observer for state changes"""
     
@@ -144,31 +153,32 @@ class AppState:
         self.data_config = DataConfig()
         self.rag_config = RAGConfig()  # rag_top_k auto-initialized
         self.processing_config = ProcessingConfig()
-        
+        self.agentic_config = AgenticConfig()  # v2.0.0 - Agentic mode config
+
         self.config_valid = False
         self.prompt_valid = False
         self.data_valid = False
-        
+
         self.is_processing = False
         self.processed_rows = 0
         self.failed_rows = 0
         self.current_progress = 0.0
         self.is_using_minimal_prompt = False
-        
+
         self.observer = StateObserver()
-        
+
         # Persistent components - LLM initialized on demand
         self._llm_manager = None
         self._rag_engine = None
         self._regex_preprocessor = None
         self._extras_manager = None
         self._function_registry = None
-        
+
         # Cache management
         self._cache_db_path = Path(self.rag_config.cache_dir) / "rag_cache.db"
         self._initialize_cache()
-        
-        logger.info("AppState initialized (v1.0.1 - RAG fix applied)")
+
+        logger.info("AppState initialized (v2.0.0 - Agentic mode available)")
 
     def _initialize_cache(self):
         """Initialize SQLite cache for RAG documents and embeddings"""
@@ -485,6 +495,36 @@ class AppState:
             logger.error(f"Error setting RAG config: {e}")
             return False
 
+    def set_agentic_config(self, enabled: bool = None, max_iterations: int = None,
+                          max_tool_calls: int = None, iteration_logging: bool = None,
+                          tool_call_logging: bool = None) -> bool:
+        """Set agentic execution configuration (v2.0.0)"""
+        try:
+            if enabled is not None:
+                self.agentic_config.enabled = enabled
+
+            if max_iterations is not None:
+                self.agentic_config.max_iterations = max_iterations
+
+            if max_tool_calls is not None:
+                self.agentic_config.max_tool_calls = max_tool_calls
+
+            if iteration_logging is not None:
+                self.agentic_config.iteration_logging = iteration_logging
+
+            if tool_call_logging is not None:
+                self.agentic_config.tool_call_logging = tool_call_logging
+
+            logger.info(f"Agentic config set: enabled={self.agentic_config.enabled}, "
+                       f"max_iterations={self.agentic_config.max_iterations}, "
+                       f"max_tool_calls={self.agentic_config.max_tool_calls}")
+
+            return True
+
+        except Exception as e:
+            logger.error(f"Error setting agentic config: {e}")
+            return False
+
     def start_processing(self):
         """Start processing session"""
         self.is_processing = True
@@ -605,8 +645,19 @@ class AppState:
         summary += f"  Batch Size: {self.processing_config.batch_size}\n"
         summary += f"  Error Strategy: {self.processing_config.error_strategy}\n"
         summary += f"  Output Path: {self.processing_config.output_path or 'Not set'}\n"
-        summary += f"  Dry Run: {self.processing_config.dry_run}\n"
-        
+        summary += f"  Dry Run: {self.processing_config.dry_run}\n\n"
+
+        summary += "Agentic Execution (v2.0.0):\n"
+        summary += f"  Enabled: {self.agentic_config.enabled}\n"
+        if self.agentic_config.enabled:
+            summary += f"  Max Iterations: {self.agentic_config.max_iterations}\n"
+            summary += f"  Max Tool Calls: {self.agentic_config.max_tool_calls}\n"
+            summary += f"  Iteration Logging: {self.agentic_config.iteration_logging}\n"
+            summary += f"  Tool Call Logging: {self.agentic_config.tool_call_logging}\n"
+            summary += f"  Mode: Continuous Agentic Loop with PAUSE/RESUME\n"
+        else:
+            summary += f"  Mode: Classic 4-Stage Pipeline (v1.0)\n"
+
         return summary
 
     def is_rag_refinement_enabled(self) -> bool:

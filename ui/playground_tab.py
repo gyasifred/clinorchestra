@@ -186,7 +186,7 @@ def create_playground_tab(app_state) -> Dict[str, Any]:
         try:
             start_time = time.time()
             
-            from core.agent_system import ExtractionAgent
+            from core.agent_factory import create_agent, get_agent_info
             
             llm_manager = app_state.get_llm_manager()
             log.append(f"Using LLM Manager: {llm_manager.provider}/{llm_manager.model_name}")
@@ -213,16 +213,27 @@ def create_playground_tab(app_state) -> Dict[str, Any]:
             log.append("STARTING AGENT EXECUTION")
             log.append("=" * 60)
             log.append("")
-            
-            agent = ExtractionAgent(
+
+            # Get agent info
+            agent_info = get_agent_info(app_state)
+            log.append(f"Agent Version: {agent_info['version']}")
+            log.append(f"Agent Type: {agent_info['name']}")
+            log.append(f"Execution Mode: {agent_info['mode']}")
+            if app_state.agentic_config.enabled:
+                log.append(f"Max Iterations: {agent_info['config']['max_iterations']}")
+                log.append(f"Max Tool Calls: {agent_info['config']['max_tool_calls']}")
+            log.append("")
+
+            # Create agent using factory
+            agent = create_agent(
                 llm_manager=llm_manager,
-                rag_engine=rag_engine,
+                rag_engine=rag_engine if app_state.rag_config.enabled else None,
                 extras_manager=extras_manager,
                 function_registry=function_registry,
                 regex_preprocessor=regex_preprocessor,
                 app_state=app_state
             )
-            log.append("Agent initialized")
+            log.append(f"{agent_info['name']} initialized")
             
             label_value = label_val if use_label else None
             log.append(f"Processing text ({len(text)} chars) with label: {label_value}")
