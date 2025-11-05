@@ -648,26 +648,41 @@ You have access to tools:
 - call_[function]: Perform medical calculations (BMI, z-scores, creatinine clearance, etc.)
 - query_extras: Get supplementary hints and reference ranges
 
-**MANDATORY AGENTIC WORKFLOW:**
+**UNIVERSAL ITERATIVE WORKFLOW:**
 
-🔴 CRITICAL: You MUST call tools BEFORE outputting final JSON! 🔴
+🔴 CRITICAL: You MUST use an iterative, self-reflective approach! 🔴
 
-1. **ANALYZE**: Read the clinical text and understand what information is needed
-2. **CALL TOOLS**: Request tools to gather guidelines, perform calculations, get hints
-3. **LEARN**: Examine tool results and determine if you need more information
-4. **ITERATE**: Call additional tools with refined queries if needed
-5. **EXTRACT**: Only after gathering sufficient information, output the final JSON
+**PHASE 1 - INITIAL ANALYSIS:**
+1. Read the task prompt → Understand what needs to be extracted
+2. Read the clinical text → Identify key metrics, measurements, words, entities
+3. Build queries and execute INITIAL tool calls:
+   - Call functions for calculations (BMI, z-scores, etc.)
+   - Call query_extras for task-specific hints
 
-**Requirements:**
+**PHASE 2 - BUILD CONTEXT:**
+4. Review function results and extras hints
+5. Build RAG keywords based on what you learned (domain, criteria needed, guidelines)
+6. Call query_rag to fetch clinical guidelines and standards
+
+**PHASE 3 - ASSESS INFORMATION GAPS:**
+7. Determine: Do I have ALL information needed to complete the task?
+   - ✅ YES: Proceed to Phase 4
+   - ❌ NO: Go to Phase 3b
+
+**PHASE 3b - FILL GAPS:**
+8. Identify what other information is needed
+9. Determine which tools to call again (can call same tool with different queries)
+10. Fetch additional information → Return to Phase 3
+
+**PHASE 4 - COMPLETION:**
+11. When you have all necessary information → Output final JSON extraction
+
+**Key Principles:**
 - ❌ DO NOT output final JSON immediately
-- ✅ MUST call tools first (RAG for guidelines, functions for calculations, extras for hints)
-- ✅ Call tools MULTIPLE times if needed with different queries
-- ✅ Adapt your strategy based on what you learn from tool results
-- ✅ Only output JSON when you have gathered all necessary information
-
-**Example Flow:**
-[Iteration 1] Read text → Call query_rag("relevant guidelines") + call_calculate_bmi(...)
-[Iteration 2] Analyze results → Call more tools if needed OR output final JSON if complete"""
+- ✅ Call tools iteratively across multiple rounds
+- ✅ Use tool results to inform next tool calls
+- ✅ Assess information gaps after each round
+- ✅ Only complete task when confident you have everything needed"""
 
     def _format_tool_result_for_llm(self, result: ToolResult) -> str:
         """Format tool result for LLM consumption"""
@@ -879,12 +894,21 @@ You have access to tools:
         lines.append("❌ WRONG (missing closing brace):")
         lines.append('TOOL_CALL: {"tool": "query_rag", "parameters": {"query": "test"}  ← MISSING }')
         lines.append("")
-        lines.append("💡 WORKFLOW:")
-        lines.append("1. Read task schema and clinical text carefully")
-        lines.append("2. Call functions for needed calculations")
-        lines.append("3. Call query_rag for guidelines/criteria")
-        lines.append("4. Call query_extras if confused about task")
-        lines.append("5. After tool results: call MORE tools OR output final JSON")
+        lines.append("💡 ITERATIVE WORKFLOW:")
+        lines.append("ROUND 1 - Initial Analysis:")
+        lines.append("  • Analyze task prompt + clinical text")
+        lines.append("  • Identify key metrics/measurements/words")
+        lines.append("  • Call functions (calculations) + query_extras (hints)")
+        lines.append("")
+        lines.append("ROUND 2 - Build Context:")
+        lines.append("  • Review function/extras results")
+        lines.append("  • Build RAG keywords from what you learned")
+        lines.append("  • Call query_rag (fetch guidelines/criteria)")
+        lines.append("")
+        lines.append("ROUND 3+ - Assess & Fill Gaps:")
+        lines.append("  • Assess: Do I have ALL info needed?")
+        lines.append("  • If NO: Identify gaps → Call more tools → Reassess")
+        lines.append("  • If YES: Output final JSON extraction")
         lines.append("=" * 80 + "\n")
 
         # Add conversation history
