@@ -4,6 +4,8 @@
 
 ClinAnnotate is an intelligent, LLM-powered platform for extracting structured information from clinical text using agentic orchestration with RAG, custom functions, and task-specific hints.
 
+**🎯 Truly Universal:** Works for ANY clinical task - malnutrition, diabetes, sepsis, AKI, hypertension, cardiac assessments, or your own custom tasks. Built-in templates are examples, not limitations!
+
 ## 🚀 Quick Start
 
 ```bash

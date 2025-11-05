@@ -5,6 +5,8 @@
 **Institution:** Medical University of South Carolina, Biomedical Informatics Center
 **Date:** 2025-11-05
 
+**🎯 IMPORTANT:** This document uses malnutrition assessment as illustrative examples throughout. The architecture and both execution modes (Classic and Agentic) work for **ANY** clinical task - malnutrition, diabetes, sepsis, AKI, cardiac assessments, or custom tasks you define.
+
 ---
 
 ## Table of Contents

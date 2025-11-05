@@ -5,6 +5,8 @@
 **Author:** Frederick Gyasi (gyasi@musc.edu)
 **Date:** 2025-11-05
 
+**🎯 IMPORTANT:** This guide uses malnutrition and diabetes as illustrative examples, but the agentic system works for **ANY** clinical task. The framework is completely general - you define your task via prompts and schema, and the agentic execution adapts accordingly.
+
 ---
 
 ## Table of Contents
