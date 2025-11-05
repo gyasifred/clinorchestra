@@ -433,16 +433,21 @@ class ExtractionAgent:
     def _convert_task_understanding_to_tool_requests(self):
         """Convert task understanding to tool requests"""
         task_understanding = self.context.task_understanding
-        
+
         # Add function requests
         for func_info in task_understanding.get('functions_needed', []):
-            self.context.tool_requests.append({
+            tool_request = {
                 'type': 'function',
                 'name': func_info.get('name'),
                 'parameters': func_info.get('parameters', {}),
                 'reason': func_info.get('reason', '')
-            })
-        
+            }
+            # Preserve date_context for serial measurements
+            if 'date_context' in func_info:
+                tool_request['date_context'] = func_info.get('date_context')
+
+            self.context.tool_requests.append(tool_request)
+
         # Add RAG requests
         for query_info in task_understanding.get('rag_queries', []):
             query = query_info.get('query', '').strip()
@@ -452,7 +457,7 @@ class ExtractionAgent:
                     'query': query,
                     'purpose': query_info.get('purpose', '')
                 })
-        
+
         # Add extras request
         keywords = task_understanding.get('extras_keywords', [])
         if keywords:
@@ -482,31 +487,46 @@ class ExtractionAgent:
         try:
             func_name = tool_request.get('name')
             parameters = tool_request.get('parameters', {})
-            
+            date_context = tool_request.get('date_context', '')
+
             logger.info(f"Executing function: {func_name}")
+            if date_context:
+                logger.info(f"Date context: {date_context}")
             logger.debug(f"Parameters: {parameters}")
-            
+
             success, result, message = self.function_registry.execute_function(
                 func_name, **parameters
             )
-            
-            return {
+
+            result_dict = {
                 'type': 'function',
                 'name': func_name,
                 'success': success,
                 'result': result,
                 'message': message
             }
-            
+
+            # Preserve date_context for serial measurements
+            if date_context:
+                result_dict['date_context'] = date_context
+
+            return result_dict
+
         except Exception as e:
             logger.error(f"Function execution error: {e}", exc_info=True)
-            return {
+            result_dict = {
                 'type': 'function',
                 'name': tool_request.get('name'),
                 'success': False,
                 'result': None,
                 'message': str(e)
             }
+
+            # Preserve date_context even on error
+            if 'date_context' in tool_request:
+                result_dict['date_context'] = tool_request.get('date_context')
+
+            return result_dict
     
     def _execute_rag_tool(self, tool_request: Dict[str, Any]) -> Dict[str, Any]:
         """Execute a RAG query using correct rag_top_k from RAGConfig"""
@@ -771,23 +791,55 @@ YOUR TASK:
    - What domain or context is this? (Extract from label/classification)
 
 2. IDENTIFY FUNCTIONS TO CALL (WITH SMART PARAMETER EXTRACTION):
-   - Scan the input text for ALL numeric values, measurements, and dates
+
+   A. SCAN FOR ALL MEASUREMENTS (INCLUDING SERIAL/TEMPORAL DATA):
+   - Identify ALL numeric values, measurements, and dates in the text
+   - Detect SERIAL MEASUREMENTS: Multiple instances of the same measurement type at different time points
+   - Examples of serial measurements:
+     * Multiple creatinine values: "Cr 1.2 (Jan), 1.5 (Mar), 1.8 (June)"
+     * Multiple weights: "Weight 12.5 kg (today), 13.0 kg (3 months ago)"
+     * Multiple BPs: "BP 140/90 (visit 1), 135/85 (visit 2), 130/80 (visit 3)"
+     * Multiple labs over time: "HbA1c 8.5% (baseline), 7.2% (3 months), 6.8% (6 months)"
+
+   B. CALL FUNCTIONS MULTIPLE TIMES FOR SERIAL MEASUREMENTS:
+   *** CRITICAL: If there are multiple measurements of the same type at different time points,
+       call the SAME function MULTIPLE times (once for each time point) ***
+
+   Examples:
+   - Text: "Creatinine 1.2 mg/dL on 1/15, 1.5 mg/dL on 3/20, 1.8 mg/dL on 6/10"
+     → Call calculate_creatinine_clearance() THREE times (once for each Cr value)
+
+   - Text: "Weight 12.5 kg today, was 13.0 kg 3 months ago, and 13.5 kg 6 months ago"
+     → Call calculate_bmi() THREE times (once for each weight measurement)
+
+   - Text: "BP readings: 140/90 (visit 1), 135/85 (visit 2), 130/80 (visit 3)"
+     → Call calculate_mean_arterial_pressure() THREE times (once per reading)
+
+   C. MAP VALUES TO FUNCTION PARAMETERS:
    - Map values to function parameters based on context:
      * "45.5 kg" → weight_kg parameter
      * "165 cm" or "5'5\"" → height parameter (convert inches if needed)
      * "65 year old" or "age 65" → age parameter
      * "BP 140/90" → systolic=140, diastolic=90
      * "male" or "female" → sex parameter
-   - Handle unit conversions within parameters:
-     * If function needs kg but text has lbs → call lbs_to_kg first
-     * If function needs meters but text has cm → call cm_to_m first
-   - Chain functions when needed:
-     * Example: calculate_bmi needs weight_kg and height_m
-     * If text has "150 cm", first call cm_to_m(150), then use result in calculate_bmi
-   - Extract dates and calculate intervals:
-     * "DOB 01/15/2020, today 10/25/2025" → can calculate age
-   - IMPORTANT: Extract parameters with high precision from actual text values
+
+   D. HANDLE UNIT CONVERSIONS:
+   - If function needs kg but text has lbs → call lbs_to_kg first
+   - If function needs meters but text has cm → call cm_to_m first
+
+   E. CHAIN FUNCTIONS WHEN NEEDED:
+   - Example: calculate_bmi needs weight_kg and height_m
+   - If text has "150 cm", first call cm_to_m(150), then use result in calculate_bmi
+
+   F. EXTRACT DATES AND TEMPORAL CONTEXT:
+   - Extract date/time for each measurement: "01/15/2024", "3 months ago", "baseline", "follow-up"
+   - Include date context in the function call metadata
+   - Calculate intervals between measurements for trend analysis
+
+   G. PRECISION AND RELEVANCE:
+   - Extract parameters with high precision from actual text values
    - Only call functions that are truly needed for the extraction schema
+   - For serial data, ALL time points are usually relevant for trend analysis
 
 3. BUILD MULTIPLE INTELLIGENT RAG QUERIES (3-5 queries):
    - Create MULTIPLE focused queries, each targeting different aspects:
@@ -839,6 +891,7 @@ RESPONSE FORMAT (JSON only):
     {{
       "name": "function_name",
       "parameters": {{"param1": "value1", "param2": "value2"}},
+      "date_context": "date/time of this measurement (e.g., '2024-01-15', '3 months ago', 'baseline', 'follow-up visit 2')",
       "reason": "why this function is needed for extraction"
     }}
   ],
@@ -857,7 +910,36 @@ RESPONSE FORMAT (JSON only):
   "extras_keywords": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"]
 }}
 
+EXAMPLE WITH SERIAL MEASUREMENTS:
+If text contains: "Creatinine was 1.2 mg/dL on 1/15/2024, increased to 1.5 mg/dL on 3/20/2024, and now 1.8 mg/dL on 6/10/2024. Patient is 65yo male, 70kg."
+
+Response should include:
+{{
+  "functions_needed": [
+    {{
+      "name": "calculate_creatinine_clearance",
+      "parameters": {{"creatinine": 1.2, "age": 65, "weight": 70, "sex": "male"}},
+      "date_context": "2024-01-15 (baseline)",
+      "reason": "Calculate eGFR for baseline creatinine to assess renal function"
+    }},
+    {{
+      "name": "calculate_creatinine_clearance",
+      "parameters": {{"creatinine": 1.5, "age": 65, "weight": 70, "sex": "male"}},
+      "date_context": "2024-03-20 (follow-up)",
+      "reason": "Calculate eGFR for follow-up creatinine to track renal function decline"
+    }},
+    {{
+      "name": "calculate_creatinine_clearance",
+      "parameters": {{"creatinine": 1.8, "age": 65, "weight": 70, "sex": "male"}},
+      "date_context": "2024-06-10 (current)",
+      "reason": "Calculate eGFR for most recent creatinine to assess current renal function"
+    }}
+  ]
+}}
+
 CRITICAL REQUIREMENTS:
+- *** FOR SERIAL MEASUREMENTS: Call the same function MULTIPLE times (once per time point) ***
+- Include "date_context" for each function call to track temporal sequence
 - Provide 3-5 RAG queries, each targeting different aspects (guidelines, diagnostics, assessment, etc.)
 - Each RAG query MUST have 4-8 specific medical keywords
 - Extract function parameters with precision from actual text values
@@ -865,6 +947,7 @@ CRITICAL REQUIREMENTS:
 - Extras keywords (5-8 total): specific medical terminology, not generic words
 - Do NOT use generic queries like "help", "information", or "guidelines" alone
 - Reference known medical standards/organizations (WHO, CDC, ADA, etc.) in RAG queries
+- When you see multiple measurements over time, this is SERIAL DATA - calculate for ALL time points
 
 Respond with ONLY the JSON object."""
 

@@ -951,11 +951,17 @@ def format_tool_outputs_for_prompt(
         elif tool_type == 'function' and include_functions:
             func_name = result.get('name', 'unknown')
             func_result = result.get('result', {})
-            
+            date_context = result.get('date_context', '')
+
             if not function_output:
                 function_output = "\n[CALCULATED VALUES FROM FUNCTIONS]\n"
-            
-            function_output += f"\n{func_name}:\n"
+
+            # Include date context for serial measurements
+            if date_context:
+                function_output += f"\n{func_name} [{date_context}]:\n"
+            else:
+                function_output += f"\n{func_name}:\n"
+
             if isinstance(func_result, dict):
                 for key, value in func_result.items():
                     function_output += f"  - {key}: {value}\n"
