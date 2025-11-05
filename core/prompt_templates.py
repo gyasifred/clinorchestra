@@ -1053,7 +1053,7 @@ def format_tool_outputs_for_prompt(
 
 
 # ============================================================================
-# AGENTIC EXTRACTION PROMPT (v2.0.0 - Truly Agentic)
+# AGENTIC EXTRACTION PROMPT (v1.0.0 - Agentic with Async)
 # ============================================================================
 
 def get_agentic_extraction_prompt(clinical_text: str, label_context: str,
@@ -1067,6 +1067,7 @@ def get_agentic_extraction_prompt(clinical_text: str, label_context: str,
     - Decide what tools to call
     - Iterate based on results
     - Adapt strategy dynamically
+    - Tools execute in parallel (async) for performance
     """
 
     prompt = f"""You are a board-certified clinical expert performing structured information extraction from medical text.

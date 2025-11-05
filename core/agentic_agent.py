@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Agentic Agent - Truly Agentic Continuous Loop Extraction System
-Version: 2.0.0 - Truly Agentic
+Version: 1.0.0 - Agentic with Async Tool Execution
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 
@@ -12,16 +12,25 @@ learning, and adapts strategy dynamically.
 Architecture:
 - Continuous loop with PAUSE/RESUME
 - Native tool calling (OpenAI/Anthropic function calling)
+- **ASYNC TOOL EXECUTION** - Tools run in parallel for performance
 - Multiple calls to same tool with different queries
 - Dynamic discovery: "That result tells me I need X"
 - Context-aware chaining based on previous results
+
+Phase 2 Features:
+- Async/await for parallel tool execution
+- Concurrent RAG queries
+- Concurrent function calls
+- Maintains conversation order while parallelizing execution
 """
 
 import json
 import time
+import asyncio
 from typing import Dict, Any, Optional, List, Tuple
 from dataclasses import dataclass, field
 from enum import Enum
+from concurrent.futures import ThreadPoolExecutor
 
 from core.json_parser import JSONParser
 from core.prompt_templates import format_schema_as_instructions
@@ -118,7 +127,7 @@ class AgenticAgent:
         self.context: Optional[AgenticContext] = None
         self.json_parser = JSONParser()
 
-        logger.info("AgenticAgent initialized (v2.0.0 - Truly Agentic)")
+        logger.info("AgenticAgent initialized (v1.0.0 - Agentic with Async)")
 
     def extract(self, clinical_text: str, label_value: Optional[Any] = None) -> Dict[str, Any]:
         """
@@ -146,7 +155,7 @@ class AgenticAgent:
             )
 
             logger.info("=" * 80)
-            logger.info("AGENTIC EXTRACTION STARTED (v2.0.0)")
+            logger.info("AGENTIC EXTRACTION STARTED (v1.0.0 - Async Tools)")
             logger.info("=" * 80)
 
             # Build initial prompt
@@ -371,30 +380,73 @@ class AgenticAgent:
         return tools
 
     def _execute_tools(self, tool_calls: List[ToolCall]) -> List[ToolResult]:
-        """Execute all tool calls and return results"""
-        results = []
+        """
+        Execute all tool calls in PARALLEL using async
 
-        for tool_call in tool_calls:
-            logger.info(f"Executing tool: {tool_call.type}/{tool_call.name}")
+        Phase 2: Tools run concurrently for better performance
+        - Multiple RAG queries can run simultaneously
+        - Multiple function calls can run simultaneously
+        - Results returned in original order for conversation coherence
+        """
+        logger.info(f"Executing {len(tool_calls)} tools in PARALLEL (async)")
 
-            if tool_call.type == 'rag' or tool_call.name == 'query_rag':
-                result = self._execute_rag_tool(tool_call)
-            elif tool_call.type == 'function' or tool_call.name.startswith('call_'):
-                result = self._execute_function_tool(tool_call)
-            elif tool_call.type == 'extras' or tool_call.name == 'query_extras':
-                result = self._execute_extras_tool(tool_call)
+        # Run async execution in event loop
+        try:
+            # Try to get existing event loop
+            loop = asyncio.get_event_loop()
+            if loop.is_running():
+                # If loop is already running (e.g., in Jupyter), use nest_asyncio or run_until_complete
+                results = loop.run_until_complete(self._execute_tools_async(tool_calls))
             else:
-                result = ToolResult(
-                    tool_call_id=tool_call.id,
-                    type=tool_call.type,
-                    success=False,
-                    result=None,
-                    message=f"Unknown tool type: {tool_call.type}"
-                )
+                results = loop.run_until_complete(self._execute_tools_async(tool_calls))
+        except RuntimeError:
+            # No event loop, create new one
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            results = loop.run_until_complete(self._execute_tools_async(tool_calls))
 
-            results.append(result)
+        # Update tracking
+        for result in results:
             self.context.tool_results.append(result)
             self.context.total_tool_calls += 1
+
+        return results
+
+    async def _execute_tools_async(self, tool_calls: List[ToolCall]) -> List[ToolResult]:
+        """
+        Async execution of tool calls - runs in parallel
+
+        This is the Phase 2 enhancement that significantly improves performance
+        """
+        # Create tasks for all tools
+        tasks = []
+        for tool_call in tool_calls:
+            if tool_call.type == 'rag' or tool_call.name == 'query_rag':
+                task = self._execute_rag_tool_async(tool_call)
+            elif tool_call.type == 'function' or tool_call.name.startswith('call_'):
+                task = self._execute_function_tool_async(tool_call)
+            elif tool_call.type == 'extras' or tool_call.name == 'query_extras':
+                task = self._execute_extras_tool_async(tool_call)
+            else:
+                # Unknown tool type - create a coroutine that returns error
+                async def unknown_tool():
+                    return ToolResult(
+                        tool_call_id=tool_call.id,
+                        type=tool_call.type,
+                        success=False,
+                        result=None,
+                        message=f"Unknown tool type: {tool_call.type}"
+                    )
+                task = unknown_tool()
+
+            tasks.append(task)
+
+        # Execute all tasks in parallel
+        start_time = time.time()
+        results = await asyncio.gather(*tasks)
+        elapsed = time.time() - start_time
+
+        logger.info(f"✅ Executed {len(tool_calls)} tools in {elapsed:.2f}s (parallel)")
 
         return results
 
@@ -495,6 +547,58 @@ class AgenticAgent:
                 result=[],
                 message=str(e)
             )
+
+    # ========================================================================
+    # ASYNC VERSIONS OF TOOL EXECUTION (Phase 2)
+    # ========================================================================
+
+    async def _execute_rag_tool_async(self, tool_call: ToolCall) -> ToolResult:
+        """Execute RAG query asynchronously"""
+        logger.info(f"[ASYNC] Executing RAG: {tool_call.parameters.get('query', '')[:50]}...")
+
+        # Run in thread pool since RAG engine is synchronous
+        loop = asyncio.get_event_loop()
+        result = await loop.run_in_executor(
+            None,  # Use default executor
+            self._execute_rag_tool,
+            tool_call
+        )
+        return result
+
+    async def _execute_function_tool_async(self, tool_call: ToolCall) -> ToolResult:
+        """Execute function call asynchronously"""
+        func_name = tool_call.name
+        if func_name.startswith('call_'):
+            func_name = func_name[5:]
+
+        logger.info(f"[ASYNC] Executing function: {func_name}")
+
+        # Run in thread pool since function registry is synchronous
+        loop = asyncio.get_event_loop()
+        result = await loop.run_in_executor(
+            None,
+            self._execute_function_tool,
+            tool_call
+        )
+        return result
+
+    async def _execute_extras_tool_async(self, tool_call: ToolCall) -> ToolResult:
+        """Execute extras query asynchronously"""
+        keywords = tool_call.parameters.get('keywords', [])
+        logger.info(f"[ASYNC] Executing extras: {keywords}")
+
+        # Run in thread pool since extras manager is synchronous
+        loop = asyncio.get_event_loop()
+        result = await loop.run_in_executor(
+            None,
+            self._execute_extras_tool,
+            tool_call
+        )
+        return result
+
+    # ========================================================================
+    # END ASYNC TOOL EXECUTION
+    # ========================================================================
 
     def _build_agentic_initial_prompt(self) -> str:
         """Build initial agentic prompt"""
@@ -697,7 +801,8 @@ You have access to tools:
             'stage3_output': self.context.final_output or {},
             'stage4_final_output': self.context.final_output or {},
             'agentic_metadata': {
-                'version': '2.0.0',
+                'version': '1.0.0',
+                'execution_mode': 'agentic_async',
                 'iterations': self.context.iteration,
                 'total_tool_calls': self.context.total_tool_calls,
                 'final_state': self.context.state.value,
@@ -720,7 +825,8 @@ You have access to tools:
             'stage3_output': {},
             'stage4_final_output': {},
             'agentic_metadata': {
-                'version': '2.0.0',
+                'version': '1.0.0',
+                'execution_mode': 'agentic_async',
                 'iterations': self.context.iteration if self.context else 0,
                 'total_tool_calls': self.context.total_tool_calls if self.context else 0,
                 'final_state': 'failed',

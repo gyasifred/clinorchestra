@@ -115,7 +115,7 @@ class ProcessingConfig:
 
 @dataclass
 class AgenticConfig:
-    """Agentic execution configuration (v2.0.0)"""
+    """Agentic execution configuration (v1.0.0)"""
     enabled: bool = False  # Use agentic agent instead of rigid pipeline
     max_iterations: int = 20  # Max conversation iterations
     max_tool_calls: int = 50  # Max total tool calls per extraction
@@ -153,7 +153,7 @@ class AppState:
         self.data_config = DataConfig()
         self.rag_config = RAGConfig()  # rag_top_k auto-initialized
         self.processing_config = ProcessingConfig()
-        self.agentic_config = AgenticConfig()  # v2.0.0 - Agentic mode config
+        self.agentic_config = AgenticConfig()  # v1.0.0 - Agentic mode config
 
         self.config_valid = False
         self.prompt_valid = False
@@ -178,7 +178,7 @@ class AppState:
         self._cache_db_path = Path(self.rag_config.cache_dir) / "rag_cache.db"
         self._initialize_cache()
 
-        logger.info("AppState initialized (v2.0.0 - Agentic mode available)")
+        logger.info("AppState initialized (v1.0.0 - Agentic mode with async available)")
 
     def _initialize_cache(self):
         """Initialize SQLite cache for RAG documents and embeddings"""
@@ -498,7 +498,7 @@ class AppState:
     def set_agentic_config(self, enabled: bool = None, max_iterations: int = None,
                           max_tool_calls: int = None, iteration_logging: bool = None,
                           tool_call_logging: bool = None) -> bool:
-        """Set agentic execution configuration (v2.0.0)"""
+        """Set agentic execution configuration (v1.0.0 with async)"""
         try:
             if enabled is not None:
                 self.agentic_config.enabled = enabled
@@ -647,16 +647,16 @@ class AppState:
         summary += f"  Output Path: {self.processing_config.output_path or 'Not set'}\n"
         summary += f"  Dry Run: {self.processing_config.dry_run}\n\n"
 
-        summary += "Agentic Execution (v2.0.0):\n"
+        summary += "Agentic Execution (v1.0.0):\n"
         summary += f"  Enabled: {self.agentic_config.enabled}\n"
         if self.agentic_config.enabled:
             summary += f"  Max Iterations: {self.agentic_config.max_iterations}\n"
             summary += f"  Max Tool Calls: {self.agentic_config.max_tool_calls}\n"
             summary += f"  Iteration Logging: {self.agentic_config.iteration_logging}\n"
             summary += f"  Tool Call Logging: {self.agentic_config.tool_call_logging}\n"
-            summary += f"  Mode: Continuous Agentic Loop with PAUSE/RESUME\n"
+            summary += f"  Mode: Continuous Agentic Loop with PAUSE/RESUME + ASYNC Tools\n"
         else:
-            summary += f"  Mode: Classic 4-Stage Pipeline (v1.0)\n"
+            summary += f"  Mode: Classic 4-Stage Pipeline (v1.0.2)\n"
 
         return summary
 

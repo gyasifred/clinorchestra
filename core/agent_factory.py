@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """
 Agent Factory - Create appropriate agent based on configuration
-Version: 2.0.0
+Version: 1.0.0
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 
 Provides backward compatibility between:
-- Classic ExtractionAgent (v1.0 - Rigid 4-stage pipeline)
-- AgenticAgent (v2.0 - Truly agentic continuous loop)
+- Classic ExtractionAgent (v1.0.2 - Rigid 4-stage pipeline)
+- AgenticAgent (v1.0.0 - Agentic with async tool execution)
+
+Selection based on app_state.agentic_config.enabled
 """
 
 from typing import Union
@@ -36,8 +38,8 @@ def create_agent(llm_manager, rag_engine, extras_manager, function_registry,
     # Check if agentic mode is enabled
     if app_state.agentic_config.enabled:
         logger.info("=" * 80)
-        logger.info("CREATING AGENTIC AGENT (v2.0.0)")
-        logger.info("Mode: Continuous Loop with PAUSE/RESUME")
+        logger.info("CREATING AGENTIC AGENT (v1.0.0)")
+        logger.info("Mode: Continuous Loop with PAUSE/RESUME + Async Tool Execution")
         logger.info(f"Max Iterations: {app_state.agentic_config.max_iterations}")
         logger.info(f"Max Tool Calls: {app_state.agentic_config.max_tool_calls}")
         logger.info("=" * 80)
@@ -88,12 +90,13 @@ def get_agent_info(app_state) -> dict:
     """
     if app_state.agentic_config.enabled:
         return {
-            'version': '2.0.0',
+            'version': '1.0.0',
             'name': 'AgenticAgent',
-            'mode': 'Continuous Agentic Loop',
+            'mode': 'Continuous Agentic Loop with Async',
             'features': [
                 'Native tool calling',
                 'PAUSE/RESUME execution',
+                'ASYNC parallel tool execution',
                 'Multiple tool iterations',
                 'Dynamic adaptation',
                 'Context-aware chaining'
