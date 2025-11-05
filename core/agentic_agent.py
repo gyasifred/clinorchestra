@@ -810,9 +810,9 @@ You have access to tools:
 
     def _convert_history_to_text_with_tools(self) -> str:
         """
-        Convert conversation history to text WITH tool descriptions
+        Convert conversation history to text WITH comprehensive tool descriptions
 
-        CRITICAL for local models to understand what tools are available
+        CRITICAL for local models to understand what tools are available and how to use them
         """
         lines = []
 
@@ -820,23 +820,123 @@ You have access to tools:
         system_msg = self._build_system_message()
         lines.append(f"SYSTEM: {system_msg}")
 
-        # Add detailed tool descriptions
+        # Add comprehensive tool guide
         lines.append("\n" + "=" * 80)
-        lines.append("AVAILABLE TOOLS:")
+        lines.append("📚 COMPREHENSIVE TOOL GUIDE (GENERAL FOR ANY CLINICAL TASK)")
         lines.append("=" * 80)
+
+        lines.append("\n🔍 **THREE TOOL CATEGORIES:**\n")
+
+        lines.append("1️⃣ **RAG (Retrieval-Augmented Generation)** - query_rag()")
+        lines.append("   PURPOSE: Retrieve clinical guidelines, diagnostic criteria, standards from authoritative sources")
+        lines.append("   SOURCES: Any indexed guidelines (ASPEN, WHO, CDC, ADA, ACC/AHA, KDIGO, etc.)")
+        lines.append("   WHEN TO USE: Need classification criteria, diagnostic thresholds, reference standards")
+        lines.append("   HOW TO BUILD QUERIES:")
+        lines.append("   • STEP 1 - Extract medical domain from YOUR task:")
+        lines.append("     Examples: 'diabetes', 'hypertension', 'sepsis', 'AKI', 'heart failure', 'growth assessment'")
+        lines.append("   • STEP 2 - Add specificity from clinical context:")
+        lines.append("     'type 2 diabetes', 'pediatric sepsis', 'acute kidney injury stage', 'systolic heart failure'")
+        lines.append("   • STEP 3 - Include what you need:")
+        lines.append("     'diagnostic criteria', 'severity classification', 'treatment guidelines', 'reference ranges'")
+        lines.append("   • STEP 4 - Use guideline organizations (if known):")
+        lines.append("     'ADA diabetes', 'KDIGO AKI', 'Sepsis-3', 'JNC hypertension', 'WHO growth standards'")
+        lines.append("   • EXAMPLES across different domains:")
+        lines.append("     - Diabetes task: 'ADA diabetes diagnostic criteria HbA1c fasting glucose'")
+        lines.append("     - Cardiac task: 'ACC AHA heart failure classification ejection fraction staging'")
+        lines.append("     - Sepsis task: 'Sepsis-3 definition qSOFA SIRS criteria'")
+        lines.append("     - Renal task: 'KDIGO acute kidney injury staging creatinine criteria'\n")
+
+        lines.append("2️⃣ **FUNCTIONS (Medical Calculations)** - call_[function_name]()")
+        lines.append("   PURPOSE: Perform medical calculations relevant to YOUR task")
+        lines.append("   WHEN TO USE: Clinical text contains measurements that need calculation")
+        lines.append("   HOW TO FIND PARAMETERS:")
+        lines.append("   • STEP 1 - Scan clinical text for numeric values and measurements")
+        lines.append("   • STEP 2 - Look at function list below to see what calculations are available")
+        lines.append("   • STEP 3 - Match text values to function parameters")
+        lines.append("   • EXAMPLES across different domains:")
+        lines.append("     - Text: 'Height 165cm, Weight 70kg' → call_calculate_bmi(height_cm=165, weight_kg=70)")
+        lines.append("     - Text: 'BP 140/90, 135/85, 130/80' → call_calculate_mean_arterial_pressure(systolic=140, diastolic=90)")
+        lines.append("     - Text: 'Creatinine 1.2 then 1.8' → call_calculate_creatinine_clearance(...)")
+        lines.append("     - Text: 'HbA1c 8.5%' → [Extract value for comparison with guidelines from RAG]")
+        lines.append("   • IMPORTANT: Check function descriptions below for required parameters")
+        lines.append("   • CRITICAL: Call functions BEFORE making clinical interpretations\n")
+
+        lines.append("3️⃣ **EXTRAS (Supplementary Hints)** - query_extras()")
+        lines.append("   PURPOSE: Get task-specific hints, reference ranges, interpretation guides for YOUR task")
+        lines.append("   WHEN TO USE: Need help understanding task requirements or clinical context")
+        lines.append("   HOW TO BUILD KEYWORDS:")
+        lines.append("   • STEP 1 - Extract from YOUR schema field names:")
+        lines.append("     Schema: {'diabetes_type': ...} → keywords: 'diabetes', 'type', 'classification'")
+        lines.append("     Schema: {'aki_stage': ...} → keywords: 'aki', 'acute kidney injury', 'stage'")
+        lines.append("     Schema: {'sepsis_severity': ...} → keywords: 'sepsis', 'severity', 'organ dysfunction'")
+        lines.append("   • STEP 2 - Add clinical domain specifics:")
+        lines.append("     Patient population: 'pediatric', 'adult', 'geriatric'")
+        lines.append("     Clinical system: 'cardiac', 'renal', 'respiratory', 'endocrine'")
+        lines.append("     Assessment type: 'screening', 'diagnostic', 'monitoring', 'prognostic'")
+        lines.append("   • STEP 3 - Include guideline sources if relevant:")
+        lines.append("     'ADA', 'KDIGO', 'WHO', 'ACC', 'AHA', 'CDC', 'ASPEN', etc.")
+        lines.append("   • Use 3-5 specific medical terms from YOUR task domain")
+        lines.append("   • AVOID generic words: 'patient', 'data', 'information', 'medical', 'clinical'\n")
+
+        # Add detailed tool descriptions
+        lines.append("=" * 80)
+        lines.append("🔧 AVAILABLE TOOLS WITH PARAMETERS:")
+        lines.append("=" * 80 + "\n")
 
         tools = self._get_tool_schema()
         for tool in tools:
             func = tool['function']
-            lines.append(f"\n🔧 **{func['name']}**")
-            lines.append(f"   Description: {func['description']}")
-            lines.append(f"   Parameters: {json.dumps(func['parameters'], indent=2)}")
+            lines.append(f"📌 **{func['name']}**")
+            lines.append(f"   {func['description']}")
 
-        lines.append("\n" + "=" * 80)
-        lines.append("TO CALL A TOOL, respond with:")
+            # Format parameters more clearly
+            params = func['parameters'].get('properties', {})
+            if params:
+                lines.append("   PARAMETERS:")
+                for param_name, param_info in params.items():
+                    param_type = param_info.get('type', 'any')
+                    param_desc = param_info.get('description', 'No description')
+                    lines.append(f"     • {param_name} ({param_type}): {param_desc}")
+            lines.append("")
+
+        # Add clear instructions with examples
+        lines.append("=" * 80)
+        lines.append("📝 HOW TO CALL TOOLS:")
+        lines.append("=" * 80)
+        lines.append("\n⚠️ CRITICAL: Each TOOL_CALL must be complete, valid JSON on a single line!\n")
+        lines.append("FORMAT (must have closing braces!):")
         lines.append('TOOL_CALL: {"tool": "tool_name", "parameters": {...}}')
-        lines.append("You can call MULTIPLE tools by listing multiple TOOL_CALL lines.")
-        lines.append("After tools are executed, you'll receive results and can call more tools or output final JSON.")
+        lines.append("")
+        lines.append("✅ CORRECT EXAMPLES (from different clinical domains):")
+        lines.append("")
+        lines.append("Diabetes task:")
+        lines.append('TOOL_CALL: {"tool": "query_rag", "parameters": {"query": "ADA diabetes diagnostic criteria HbA1c", "purpose": "need diagnostic thresholds"}}')
+        lines.append('TOOL_CALL: {"tool": "query_extras", "parameters": {"keywords": ["diabetes", "diagnostic", "HbA1c", "fasting glucose", "ADA"]}}')
+        lines.append("")
+        lines.append("Cardiac task:")
+        lines.append('TOOL_CALL: {"tool": "query_rag", "parameters": {"query": "ACC AHA heart failure classification", "purpose": "need staging criteria"}}')
+        lines.append('TOOL_CALL: {"tool": "call_calculate_mean_arterial_pressure", "parameters": {"systolic": 140, "diastolic": 90}}')
+        lines.append("")
+        lines.append("Renal task:")
+        lines.append('TOOL_CALL: {"tool": "query_rag", "parameters": {"query": "KDIGO AKI staging creatinine criteria", "purpose": "need classification"}}')
+        lines.append('TOOL_CALL: {"tool": "call_calculate_creatinine_clearance", "parameters": {"creatinine": 1.5, "age": 65, "weight": 70, "sex": "male"}}')
+        lines.append("")
+        lines.append("Growth assessment task:")
+        lines.append('TOOL_CALL: {"tool": "call_calculate_bmi", "parameters": {"height_cm": 165, "weight_kg": 45.5}}')
+        lines.append('TOOL_CALL: {"tool": "call_percentile_to_zscore", "parameters": {"percentile": 14}}')
+        lines.append("")
+        lines.append("❌ WRONG (missing closing brace):")
+        lines.append('TOOL_CALL: {"tool": "query_rag", "parameters": {"query": "test"}  ← MISSING }')
+        lines.append("")
+        lines.append("💡 GENERAL WORKFLOW (adapts to YOUR task):")
+        lines.append("1. Read YOUR task schema and clinical text")
+        lines.append("2. Identify what calculations are needed → call available functions")
+        lines.append("3. Identify what guidelines/criteria are needed → call query_rag with YOUR domain")
+        lines.append("4. If confused about YOUR task requirements → call query_extras with YOUR keywords")
+        lines.append("5. List ALL tool calls you need (can call same tool multiple times)")
+        lines.append("6. After receiving results, analyze and either:")
+        lines.append("   - Call MORE tools with refined queries if needed, OR")
+        lines.append("   - Output final JSON extraction when you have sufficient information")
         lines.append("=" * 80 + "\n")
 
         # Add conversation history
@@ -845,11 +945,17 @@ You have access to tools:
                 # Already added above with tools
                 continue
             elif msg.role == 'user':
-                lines.append(f"\nUSER: {msg.content}")
+                lines.append(f"\n{'=' * 80}")
+                lines.append("USER REQUEST:")
+                lines.append(f"{'=' * 80}")
+                lines.append(msg.content)
             elif msg.role == 'assistant':
                 lines.append(f"\nASSISTANT: {msg.content}")
             elif msg.role == 'tool':
-                lines.append(f"\nTOOL RESULT ({msg.name}): {msg.content}")
+                lines.append(f"\n{'=' * 40}")
+                lines.append(f"TOOL RESULT ({msg.name}):")
+                lines.append(f"{'=' * 40}")
+                lines.append(msg.content)
 
         return "\n".join(lines)
 
@@ -857,35 +963,53 @@ You have access to tools:
         """
         Parse text response for tool calls or JSON (fallback for non-tool-calling providers)
 
-        ENHANCED: Detects TOOL_CALL requests in text format
+        ENHANCED: Detects TOOL_CALL requests in text format with proper nested JSON handling
         """
         tool_calls = []
 
-        # Look for TOOL_CALL patterns
-        tool_call_pattern = r'TOOL_CALL:\s*(\{[^}]+\})'
-        matches = re.findall(tool_call_pattern, text, re.IGNORECASE | re.MULTILINE)
+        # FIXED: Better pattern that handles nested JSON braces
+        # Look for TOOL_CALL: followed by balanced braces
+        tool_call_lines = re.findall(r'TOOL_CALL:\s*(.+?)(?=\n|$)', text, re.IGNORECASE | re.MULTILINE)
 
-        if matches:
+        if tool_call_lines:
             # Parse tool calls
-            for i, match in enumerate(matches):
+            for i, match_text in enumerate(tool_call_lines):
+                match_text = match_text.strip()
+
+                # Try to extract complete JSON (handles nested braces)
                 try:
-                    tool_request = json.loads(match)
+                    # Find the complete JSON object by counting braces
+                    json_str = self._extract_complete_json(match_text)
+
+                    if not json_str:
+                        logger.warning(f"Could not extract complete JSON from: {match_text[:100]}")
+                        continue
+
+                    tool_request = json.loads(json_str)
                     tool_name = tool_request.get('tool', '')
                     parameters = tool_request.get('parameters', {})
 
+                    if not tool_name:
+                        logger.warning(f"Tool call missing 'tool' field: {json_str}")
+                        continue
+
                     tool_calls.append({
-                        'id': f"call_{time.time()}_{i}",
+                        'id': f"call_{int(time.time() * 1000)}_{i}",
                         'type': 'function',
                         'function': {
                             'name': tool_name,
                             'arguments': json.dumps(parameters)
                         }
                     })
-                except json.JSONDecodeError:
-                    logger.warning(f"Failed to parse tool call: {match}")
+                    logger.info(f"✓ Parsed tool call: {tool_name}")
+
+                except json.JSONDecodeError as e:
+                    logger.warning(f"Failed to parse tool call (invalid JSON): {match_text[:100]}... | Error: {e}")
+                except Exception as e:
+                    logger.warning(f"Failed to parse tool call: {match_text[:100]}... | Error: {e}")
 
             if tool_calls:
-                logger.info(f"Parsed {len(tool_calls)} tool calls from text response")
+                logger.info(f"✅ Successfully parsed {len(tool_calls)} tool calls from text response")
                 return {
                     'content': text,
                     'tool_calls': tool_calls,
@@ -902,6 +1026,48 @@ You have access to tools:
         # Otherwise, assume it's analysis/thinking
         logger.info("LLM is thinking/analyzing")
         return {'content': text, 'tool_calls': [], 'finish_reason': 'continue'}
+
+    def _extract_complete_json(self, text: str) -> Optional[str]:
+        """
+        Extract complete JSON object from text by counting balanced braces
+
+        Handles nested JSON like: {"tool": "x", "parameters": {"a": "b", "c": "d"}}
+        """
+        text = text.strip()
+        if not text.startswith('{'):
+            return None
+
+        brace_count = 0
+        in_string = False
+        escape_next = False
+
+        for i, char in enumerate(text):
+            if escape_next:
+                escape_next = False
+                continue
+
+            if char == '\\':
+                escape_next = True
+                continue
+
+            if char == '"' and not escape_next:
+                in_string = not in_string
+                continue
+
+            if in_string:
+                continue
+
+            if char == '{':
+                brace_count += 1
+            elif char == '}':
+                brace_count -= 1
+
+            # Found complete JSON object
+            if brace_count == 0:
+                return text[:i+1]
+
+        # Incomplete JSON
+        return None
 
     def _build_extraction_result(self) -> Dict[str, Any]:
         """Build final extraction result"""
