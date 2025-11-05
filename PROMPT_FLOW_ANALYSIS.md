@@ -472,4 +472,83 @@ The integration point is only in `get_agentic_extraction_prompt()`. The rest of 
 
 ---
 
-**Ready to implement the fix?** Let me know if you want me to restructure the agentic prompt function!
+## ✅ FIX IMPLEMENTED (2025-11-05)
+
+The fix has been implemented in commit `cb860bf`.
+
+### Changes Made:
+
+#### 1. core/agentic_agent.py: `_build_agentic_initial_prompt()`
+
+**BEFORE:**
+```python
+base_prompt = self.app_state.prompt_config.base_prompt or ""
+prompt = get_agentic_extraction_prompt(..., base_prompt=base_prompt)
+```
+
+**AFTER:**
+```python
+# Get user's task-specific prompt (main or minimal as fallback)
+use_minimal = self.app_state.prompt_config.use_minimal
+if use_minimal and self.app_state.prompt_config.minimal_prompt:
+    user_task_prompt = self.app_state.prompt_config.minimal_prompt
+    logger.info("Using MINIMAL prompt as primary task definition")
+elif self.app_state.prompt_config.main_prompt:
+    user_task_prompt = self.app_state.prompt_config.main_prompt
+    logger.info("Using MAIN prompt as primary task definition")
+else:
+    user_task_prompt = self.app_state.prompt_config.base_prompt
+    logger.info("Using BASE prompt as fallback")
+
+prompt = get_agentic_extraction_prompt(..., user_task_prompt=user_task_prompt)
+```
+
+#### 2. core/prompt_templates.py: `get_agentic_extraction_prompt()`
+
+**BEFORE:**
+```
+[Generic agentic intro - 100 lines]
+[YOUR TASK: generic]
+[TOOLS: descriptions]
+[WORKFLOW: generic]
+[SCHEMA]
+**ADDITIONAL INSTRUCTIONS:** {base_prompt}  ← User's malnutrition prompt here
+```
+
+**AFTER:**
+```
+{user_task_prompt}  ← USER'S MALNUTRITION PROMPT FIRST (PRIMARY)
+  ├─ All z-score rules
+  ├─ WHO/ASPEN criteria
+  ├─ Synthesis structure
+  ├─ Temporal requirements
+  └─ Domain expertise
+
+{"=" * 80}
+AGENTIC TOOL-CALLING EXECUTION FRAMEWORK
+{"=" * 80}
+  ├─ Available tools
+  ├─ Execution workflow
+  ├─ Critical principles
+  └─ Example flow
+```
+
+### Key Improvements:
+
+✅ **User's prompt is PRIMARY** - Appears first, not buried as "additional"
+✅ **Respects use_minimal flag** - Uses minimal prompt when appropriate
+✅ **Fills placeholders correctly** - {clinical_text}, {label_context}, etc.
+✅ **Handles tool output placeholders** - Explains to call tools for rag_outputs, function_outputs, extras_outputs
+✅ **Clear separation** - WHAT to extract (top) vs HOW to use tools (bottom)
+✅ **Preserves user prompts exactly** - No parsing or modification
+✅ **Includes fallback** - Generic prompt if no user prompt provided
+
+### Result:
+
+The agentic agent now properly uses your task-specific prompts (like MALNUTRITION_MAIN_PROMPT) as the PRIMARY task definition, ensuring all your domain expertise, requirements, z-score rules, WHO/ASPEN criteria, and synthesis structure are front and center.
+
+The agentic tool-calling framework is clearly positioned as the execution mechanism explaining HOW to gather information through tools, not WHAT to extract or HOW to synthesize.
+
+---
+
+**Status:** ✅ FIXED - Ready for testing
