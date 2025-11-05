@@ -89,7 +89,7 @@ class AgenticContext:
     state: AgenticState
     conversation_history: List[ConversationMessage] = field(default_factory=list)
     iteration: int = 0
-    max_iterations: int = 20
+    max_iterations: int = 10  # CHANGED: Reduced from 20 to 10
     total_tool_calls: int = 0
     max_tool_calls: int = 50
     tool_calls_this_iteration: List[ToolCall] = field(default_factory=list)
@@ -101,6 +101,11 @@ class AgenticContext:
     original_text: Optional[str] = None
     redacted_text: Optional[str] = None
     normalized_text: Optional[str] = None
+
+    # Stall detection - track repeated tool calls
+    tool_call_history: List[str] = field(default_factory=list)
+    stall_counter: int = 0
+    consecutive_no_progress: int = 0
 
 
 class AgenticAgent:
@@ -200,11 +205,23 @@ class AgenticAgent:
                     logger.info(f"LLM requested {len(self.context.tool_calls_this_iteration)} tools")
                     self.context.state = AgenticState.AWAITING_TOOL_RESULTS
 
+                    # Track tool calls for stall detection
+                    tool_signature = self._get_tool_calls_signature(self.context.tool_calls_this_iteration)
+                    self.context.tool_call_history.append(tool_signature)
+
+                    # Check for repeated tool calls (stall detection)
+                    if len(self.context.tool_call_history) >= 3:
+                        last_three = self.context.tool_call_history[-3:]
+                        if last_three[0] == last_three[1] == last_three[2]:
+                            self.context.stall_counter += 1
+                            logger.warning(f"⚠️ STALL DETECTED: Same tools called 3 times in a row (stall count: {self.context.stall_counter})")
+
                     tool_results = self._execute_tools(self.context.tool_calls_this_iteration)
 
                     # RESUME - Add tool results to conversation
                     logger.info(f"Tools executed, resuming with {len(tool_results)} results")
                     self.context.state = AgenticState.CONTINUING
+                    self.context.consecutive_no_progress = 0  # Reset no-progress counter
 
                     # Add tool result messages
                     for result in tool_results:
@@ -220,24 +237,50 @@ class AgenticAgent:
                     # Clear tool calls for next iteration
                     self.context.tool_calls_this_iteration = []
 
+                    # If stalled too many times, force completion
+                    if self.context.stall_counter >= 2:
+                        logger.warning("🔴 FORCING COMPLETION: Agent stalled - same tools called repeatedly")
+                        self.context.conversation_history.append(
+                            ConversationMessage(
+                                role='user',
+                                content="You have called the same tools multiple times. You now have sufficient information. OUTPUT THE FINAL JSON EXTRACTION IMMEDIATELY using the schema provided. Do not call any more tools."
+                            )
+                        )
+                        # Give it one more chance to complete
+                        self.context.stall_counter = 0
+
                     # Loop continues - LLM can request more tools or finish
 
                 elif has_json_output:
                     # Extraction complete
-                    logger.info("LLM provided final JSON output")
+                    logger.info("✅ LLM provided final JSON output - extraction complete")
                     self.context.state = AgenticState.COMPLETED
                     extraction_complete = True
 
                 else:
-                    # LLM is thinking/analyzing - continue
-                    logger.info("LLM thinking, continuing conversation")
-                    # Add a prompt to encourage completion
-                    self.context.conversation_history.append(
-                        ConversationMessage(
-                            role='user',
-                            content="Continue your analysis and call tools as needed, or provide the final JSON when ready."
+                    # LLM is thinking/analyzing without calling tools or outputting JSON
+                    self.context.consecutive_no_progress += 1
+                    logger.info(f"LLM thinking/analyzing without progress (count: {self.context.consecutive_no_progress})")
+
+                    # If too many iterations with no progress, force completion
+                    if self.context.consecutive_no_progress >= 2:
+                        logger.warning("🔴 FORCING COMPLETION: Too many iterations with no tool calls or output")
+                        self.context.conversation_history.append(
+                            ConversationMessage(
+                                role='user',
+                                content="You must now complete the task. OUTPUT THE FINAL JSON EXTRACTION based on the information you have gathered. Use the JSON schema provided. Do not explain - just output the JSON."
+                            )
                         )
-                    )
+                        self.context.consecutive_no_progress = 0
+                    else:
+                        # Add a prompt to encourage either tool use or completion
+                        remaining_iters = self.context.max_iterations - self.context.iteration
+                        self.context.conversation_history.append(
+                            ConversationMessage(
+                                role='user',
+                                content=f"Continue: Either (1) call tools to gather more information, OR (2) output the final JSON if you have sufficient information. {remaining_iters} iterations remaining."
+                            )
+                        )
 
             if self.context.iteration >= self.context.max_iterations:
                 logger.warning(f"Max iterations ({self.context.max_iterations}) reached")
@@ -321,13 +364,13 @@ class AgenticAgent:
                 'type': 'function',
                 'function': {
                     'name': 'query_rag',
-                    'description': 'Query retrieval system for clinical guidelines, standards, and reference information from authoritative sources (ASPEN, WHO, CDC). Can be called MULTIPLE times with different queries to refine information.',
+                    'description': 'Query retrieval system for guidelines, standards, criteria, and reference information from authoritative sources. Can be called MULTIPLE times with different queries to refine information.',
                     'parameters': {
                         'type': 'object',
                         'properties': {
                             'query': {
                                 'type': 'string',
-                                'description': 'Focused query with 4-8 specific medical keywords targeting guidelines, diagnostic criteria, or standards'
+                                'description': 'Focused query with 4-8 specific keywords targeting guidelines, diagnostic criteria, standards, or reference information'
                             },
                             'purpose': {
                                 'type': 'string',
@@ -348,7 +391,7 @@ class AgenticAgent:
                     'type': 'function',
                     'function': {
                         'name': f"call_{func['name']}",
-                        'description': f"{func.get('description', 'Medical calculation function')}. Can be called multiple times for serial measurements.",
+                        'description': f"{func.get('description', 'Calculation or transformation function')}. Can be called multiple times with different inputs.",
                         'parameters': {
                             'type': 'object',
                             'properties': func.get('parameters', {}),
@@ -363,14 +406,14 @@ class AgenticAgent:
                 'type': 'function',
                 'function': {
                     'name': 'query_extras',
-                    'description': 'Query supplementary hints/tips/patterns that help understand the task. Use specific medical keywords to match relevant hints.',
+                    'description': 'Query supplementary hints/tips/patterns that help understand the task. Use specific keywords to match relevant hints and guidance.',
                     'parameters': {
                         'type': 'object',
                         'properties': {
                             'keywords': {
                                 'type': 'array',
                                 'items': {'type': 'string'},
-                                'description': '3-5 specific medical keywords related to your task (e.g., task-specific terms, clinical concepts, assessment types)'
+                                'description': '3-5 specific keywords related to your task (e.g., domain-specific terms, concepts, assessment types, field names from schema)'
                             }
                         },
                         'required': ['keywords']
@@ -379,6 +422,21 @@ class AgenticAgent:
             })
 
         return tools
+
+    def _get_tool_calls_signature(self, tool_calls: List[ToolCall]) -> str:
+        """
+        Create a signature for tool calls to detect repeated patterns
+
+        Returns a string representing the tools and their key parameters
+        """
+        signatures = []
+        for tc in tool_calls:
+            # Create signature: tool_name + sorted parameter keys
+            param_keys = sorted(tc.parameters.keys()) if tc.parameters else []
+            sig = f"{tc.name}({','.join(param_keys)})"
+            signatures.append(sig)
+
+        return ";".join(sorted(signatures))
 
     def _execute_tools(self, tool_calls: List[ToolCall]) -> List[ToolResult]:
         """
@@ -457,6 +515,7 @@ class AgenticAgent:
             query = tool_call.parameters.get('query', '')
 
             if not query or len(query) < 5:
+                logger.warning(f"❌ RAG query rejected: Query too short or empty (length={len(query)})")
                 return ToolResult(
                     tool_call_id=tool_call.id,
                     type='rag',
@@ -465,10 +524,15 @@ class AgenticAgent:
                     message='Query too short or empty'
                 )
 
-            logger.info(f"RAG query: {query}")
+            logger.info(f"🔍 RAG query: '{query}'")
 
             top_k = self.app_state.rag_config.rag_top_k
             results = self.rag_engine.query(query_text=query, k=top_k)
+
+            if len(results) > 0:
+                logger.info(f"✅ RAG retrieved {len(results)} documents (top_k={top_k})")
+            else:
+                logger.warning(f"⚠️ RAG found no results for query: '{query}'")
 
             return ToolResult(
                 tool_call_id=tool_call.id,
@@ -479,7 +543,7 @@ class AgenticAgent:
             )
 
         except Exception as e:
-            logger.error(f"RAG execution failed: {e}", exc_info=True)
+            logger.error(f"❌ RAG execution failed: {e}", exc_info=True)
             return ToolResult(
                 tool_call_id=tool_call.id,
                 type='rag',
@@ -498,11 +562,16 @@ class AgenticAgent:
 
             parameters = tool_call.parameters
 
-            logger.info(f"Calling function: {func_name} with {parameters}")
+            logger.info(f"⚙️ Calling function: {func_name}({', '.join(f'{k}={v}' for k, v in parameters.items())})")
 
             success, result, message = self.function_registry.execute_function(
                 func_name, **parameters
             )
+
+            if success:
+                logger.info(f"✅ Function {func_name} executed successfully: {result}")
+            else:
+                logger.warning(f"❌ Function {func_name} failed: {message}")
 
             return ToolResult(
                 tool_call_id=tool_call.id,
@@ -513,7 +582,7 @@ class AgenticAgent:
             )
 
         except Exception as e:
-            logger.error(f"Function execution failed: {e}", exc_info=True)
+            logger.error(f"❌ Function execution failed with exception: {e}", exc_info=True)
             return ToolResult(
                 tool_call_id=tool_call.id,
                 type='function',
@@ -527,9 +596,19 @@ class AgenticAgent:
         try:
             keywords = tool_call.parameters.get('keywords', [])
 
-            logger.info(f"Querying extras with keywords: {keywords}")
+            logger.info(f"💡 Querying extras with keywords: {keywords}")
 
             matched_extras = self.extras_manager.match_extras_by_keywords(keywords)
+
+            if len(matched_extras) > 0:
+                logger.info(f"✅ Matched {len(matched_extras)} extras hints/patterns")
+                # Log first few matched extras for debugging
+                for i, extra in enumerate(matched_extras[:3]):
+                    extra_id = extra.get('id', 'N/A')
+                    extra_type = extra.get('type', 'unknown')
+                    logger.debug(f"   • Extra [{i+1}]: {extra_id} ({extra_type})")
+            else:
+                logger.warning(f"⚠️ No extras matched for keywords: {keywords}")
 
             return ToolResult(
                 tool_call_id=tool_call.id,
@@ -540,7 +619,7 @@ class AgenticAgent:
             )
 
         except Exception as e:
-            logger.error(f"Extras execution failed: {e}", exc_info=True)
+            logger.error(f"❌ Extras execution failed: {e}", exc_info=True)
             return ToolResult(
                 tool_call_id=tool_call.id,
                 type='extras',
@@ -641,12 +720,12 @@ class AgenticAgent:
 
     def _build_system_message(self) -> str:
         """Build system message for providers that support it"""
-        return """You are a board-certified clinical expert performing information extraction from medical text.
+        return """You are an expert assistant performing information extraction from text.
 
 You have access to tools:
-- query_rag: Retrieve clinical guidelines and standards from authoritative sources
-- call_[function]: Perform medical calculations (BMI, z-scores, creatinine clearance, etc.)
-- query_extras: Get supplementary hints and reference ranges
+- query_rag: Retrieve guidelines, standards, and reference information from authoritative sources
+- call_[function]: Perform calculations and transformations
+- query_extras: Get supplementary hints, patterns, and reference information
 
 **UNIVERSAL ITERATIVE WORKFLOW:**
 
@@ -654,15 +733,15 @@ You have access to tools:
 
 **PHASE 1 - INITIAL ANALYSIS:**
 1. Read the task prompt → Understand what needs to be extracted
-2. Read the clinical text → Identify key metrics, measurements, words, entities
+2. Read the input text → Identify key metrics, measurements, entities, and information
 3. Build queries and execute INITIAL tool calls:
-   - Call functions for calculations (BMI, z-scores, etc.)
-   - Call query_extras for task-specific hints
+   - Call functions for calculations or data transformations
+   - Call query_extras for task-specific hints and patterns
 
 **PHASE 2 - BUILD CONTEXT:**
 4. Review function results and extras hints
 5. Build RAG keywords based on what you learned (domain, criteria needed, guidelines)
-6. Call query_rag to fetch clinical guidelines and standards
+6. Call query_rag to fetch relevant guidelines, standards, or reference information
 
 **PHASE 3 - ASSESS INFORMATION GAPS:**
 7. Determine: Do I have ALL information needed to complete the task?
@@ -675,14 +754,15 @@ You have access to tools:
 10. Fetch additional information → Return to Phase 3
 
 **PHASE 4 - COMPLETION:**
-11. When you have all necessary information → Output final JSON extraction
+11. When you have all necessary information → Output final JSON extraction using the provided schema
 
 **Key Principles:**
-- ❌ DO NOT output final JSON immediately
+- ❌ DO NOT output final JSON immediately without gathering information
 - ✅ Call tools iteratively across multiple rounds
 - ✅ Use tool results to inform next tool calls
 - ✅ Assess information gaps after each round
 - ✅ Only complete task when confident you have everything needed
+- ✅ Output ONLY valid JSON - no explanations or markdown
 
 **CRITICAL: Tool Call Format**
 - Tool calls MUST start with "TOOL_CALL:" prefix
@@ -888,19 +968,19 @@ You have access to tools:
         lines.append("\n🔍 **THREE TOOL CATEGORIES:**\n")
 
         lines.append("1️⃣ **RAG (Retrieval-Augmented Generation)** - query_rag()")
-        lines.append("   • Retrieves clinical guidelines, diagnostic criteria, standards")
-        lines.append("   • Build queries from: medical domain + specificity + what you need")
-        lines.append("   • Example: 'ASPEN pediatric malnutrition severity criteria'\n")
+        lines.append("   • Retrieves guidelines, diagnostic criteria, standards, and reference information")
+        lines.append("   • Build queries from: domain + specificity + what you need")
+        lines.append("   • Example: 'diagnostic criteria for condition X' or 'reference standards for metric Y'\n")
 
-        lines.append("2️⃣ **FUNCTIONS (Medical Calculations)** - call_[function_name]()")
-        lines.append("   • Performs medical calculations (see full list below)")
-        lines.append("   • Scan text for measurements, match to function parameters")
-        lines.append("   • CRITICAL: Call functions BEFORE making clinical interpretations\n")
+        lines.append("2️⃣ **FUNCTIONS (Calculations & Transformations)** - call_[function_name]()")
+        lines.append("   • Performs calculations and data transformations (see full list below)")
+        lines.append("   • Scan text for measurements and data, match to function parameters")
+        lines.append("   • CRITICAL: Call functions BEFORE making interpretations\n")
 
         lines.append("3️⃣ **EXTRAS (Supplementary Hints)** - query_extras()")
-        lines.append("   • Task-specific hints, reference ranges, interpretation guides")
-        lines.append("   • Build keywords from: schema field names + clinical domain + guidelines")
-        lines.append("   • Use 3-5 specific medical terms, avoid generic words\n")
+        lines.append("   • Task-specific hints, patterns, reference ranges, and interpretation guides")
+        lines.append("   • Build keywords from: schema field names + domain + relevant terms")
+        lines.append("   • Use 3-5 specific terms relevant to your task, avoid generic words\n")
 
         # Add detailed tool descriptions
         lines.append("=" * 80)
@@ -932,9 +1012,9 @@ You have access to tools:
         lines.append('TOOL_CALL: {"tool": "tool_name", "parameters": {...}}')
         lines.append("")
         lines.append("✅ CORRECT EXAMPLES (note the 'TOOL_CALL:' prefix):")
-        lines.append('TOOL_CALL: {"tool": "query_rag", "parameters": {"query": "ASPEN pediatric malnutrition criteria", "purpose": "need severity thresholds"}}')
-        lines.append('TOOL_CALL: {"tool": "call_percentile_to_zscore", "parameters": {"percentile": 10}}')
-        lines.append('TOOL_CALL: {"tool": "query_extras", "parameters": {"keywords": ["malnutrition", "pediatric", "z-score", "WHO", "ASPEN"]}}')
+        lines.append('TOOL_CALL: {"tool": "query_rag", "parameters": {"query": "diagnostic criteria for condition", "purpose": "need classification thresholds"}}')
+        lines.append('TOOL_CALL: {"tool": "call_calculate_bmi", "parameters": {"weight_kg": 70, "height_m": 1.75}}')
+        lines.append('TOOL_CALL: {"tool": "query_extras", "parameters": {"keywords": ["assessment", "criteria", "classification", "guidelines"]}}')
         lines.append("")
         lines.append("❌ WRONG (missing 'TOOL_CALL:' prefix):")
         lines.append('{"tool": "query_rag", ...}  ← MISSING TOOL_CALL: prefix!')
@@ -944,19 +1024,19 @@ You have access to tools:
         lines.append("")
         lines.append("💡 ITERATIVE WORKFLOW:")
         lines.append("ROUND 1 - Initial Analysis:")
-        lines.append("  • Analyze task prompt + clinical text")
-        lines.append("  • Identify key metrics/measurements/words")
-        lines.append("  • Call functions (calculations) + query_extras (hints)")
+        lines.append("  • Analyze task prompt + input text")
+        lines.append("  • Identify key metrics/measurements/entities/information")
+        lines.append("  • Call functions (calculations/transformations) + query_extras (hints)")
         lines.append("")
         lines.append("ROUND 2 - Build Context:")
         lines.append("  • Review function/extras results")
         lines.append("  • Build RAG keywords from what you learned")
-        lines.append("  • Call query_rag (fetch guidelines/criteria)")
+        lines.append("  • Call query_rag (fetch guidelines/standards/criteria)")
         lines.append("")
         lines.append("ROUND 3+ - Assess & Fill Gaps:")
         lines.append("  • Assess: Do I have ALL info needed?")
         lines.append("  • If NO: Identify gaps → Call more tools → Reassess")
-        lines.append("  • If YES: Output final JSON extraction")
+        lines.append("  • If YES: Output final JSON extraction using provided schema")
         lines.append("=" * 80 + "\n")
 
         # Add conversation history
@@ -1090,7 +1170,56 @@ You have access to tools:
         return None
 
     def _build_extraction_result(self) -> Dict[str, Any]:
-        """Build final extraction result"""
+        """Build final extraction result with detailed tracking"""
+        # Count tool usage by type
+        extras_count = 0
+        rag_count = 0
+        function_count = 0
+        extras_details = []
+        rag_details = []
+        function_details = []
+
+        for result in self.context.tool_results:
+            if result.type == 'extras':
+                extras_count += 1
+                if result.success and result.result:
+                    for extra in result.result:
+                        extras_details.append({
+                            'id': extra.get('id', 'N/A'),
+                            'type': extra.get('type', 'unknown'),
+                            'content': extra.get('content', ''),
+                            'relevance_score': extra.get('relevance_score', 0),
+                            'matched_keywords': extra.get('matched_keywords', [])
+                        })
+            elif result.type == 'rag':
+                rag_count += 1
+                if result.success and result.result:
+                    for chunk in result.result:
+                        rag_details.append({
+                            'content': chunk.get('content', '') or chunk.get('text', ''),
+                            'source': chunk.get('metadata', {}).get('source', 'unknown') if isinstance(chunk.get('metadata'), dict) else 'unknown',
+                            'score': chunk.get('score', 0)
+                        })
+            elif result.type == 'function':
+                function_count += 1
+                if result.success:
+                    # Extract function name from tool call history
+                    func_name = 'unknown'
+                    for msg in self.context.conversation_history:
+                        if msg.role == 'assistant' and msg.tool_calls:
+                            for tc in msg.tool_calls:
+                                if tc.id == result.tool_call_id:
+                                    func_name = tc.name.replace('call_', '')
+                                    break
+
+                    function_details.append({
+                        'name': func_name,
+                        'result': result.result,
+                        'message': result.message or ''
+                    })
+
+        logger.info(f"📊 TOOL USAGE SUMMARY: Extras={extras_count}, RAG={rag_count}, Functions={function_count}")
+
         return {
             'original_clinical_text': self.context.original_text,
             'clinical_text': self.context.clinical_text,
@@ -1100,6 +1229,12 @@ You have access to tools:
             'label_context': self.context.label_context,
             'stage3_output': self.context.final_output or {},
             'stage4_final_output': self.context.final_output or {},
+
+            # Usage counts for playground display (FIXED)
+            'extras_used': extras_count,
+            'rag_used': rag_count,
+            'functions_called': function_count,
+
             'agentic_metadata': {
                 'version': '1.0.0',
                 'execution_mode': 'agentic_async',
@@ -1107,12 +1242,26 @@ You have access to tools:
                 'total_tool_calls': self.context.total_tool_calls,
                 'final_state': self.context.state.value,
                 'tool_results_count': len(self.context.tool_results),
-                'conversation_length': len(self.context.conversation_history)
+                'conversation_length': len(self.context.conversation_history),
+                'stall_counter': self.context.stall_counter,
+                'consecutive_no_progress': self.context.consecutive_no_progress
             },
             'processing_metadata': {
                 'had_label': self.context.label_context is not None,
                 'final_state': self.context.state.value,
-                'agentic_execution': True
+                'agentic_execution': True,
+
+                # Detailed tracking for playground display (FIXED)
+                'extras_details': extras_details,
+                'rag_details': rag_details,
+                'function_calls_details': function_details,
+
+                # Tool results summary
+                'tool_results_summary': {
+                    'extras': extras_count,
+                    'rag': rag_count,
+                    'functions': function_count
+                }
             }
         }
 
