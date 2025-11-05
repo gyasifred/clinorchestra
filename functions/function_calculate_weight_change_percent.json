@@ -1,0 +1,16 @@
+{
+  "name": "calculate_weight_change_percent",
+  "description": "Calculate percentage weight change between two timepoints",
+  "parameters": {
+    "initial_weight": {
+      "type": "number",
+      "description": "Initial weight in any unit"
+    },
+    "final_weight": {
+      "type": "number",
+      "description": "Final weight in same unit"
+    }
+  },
+  "return_type": "number",
+  "created_at": "2025-01-05T00:00:00"
+}

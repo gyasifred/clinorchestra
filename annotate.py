@@ -174,11 +174,45 @@ def create_main_interface() -> gr.Blocks:
             except Exception as e:
                 logger.error(f"Auto-save failed: {e}")
         
-        # Refresh global status on interface load
+        # Refresh global status and restore UI state on interface load
+        def load_ui_state():
+            """Load UI state from persisted config"""
+            status = get_initial_status()
+
+            # Restore model config
+            model_config = app_state.model_config
+            model_provider = model_config.provider if model_config else "openai"
+            model_name = model_config.model_name if model_config else "gpt-4"
+            temperature = model_config.temperature if model_config else 0.0
+            max_tokens = model_config.max_tokens if model_config else 4000
+
+            # Restore prompt config
+            prompt_config = app_state.prompt_config
+            base_prompt = prompt_config.base_prompt if prompt_config else ""
+            minimal_prompt = prompt_config.minimal_prompt if prompt_config else ""
+
+            return (
+                status,  # global_status
+                model_provider,  # provider dropdown
+                model_name,  # model dropdown
+                temperature,  # temperature slider
+                max_tokens,  # max_tokens slider
+                base_prompt,  # main prompt textbox
+                minimal_prompt  # minimal prompt textbox
+            )
+
         app.load(
-            fn=get_initial_status,
+            fn=load_ui_state,
             inputs=None,
-            outputs=global_status
+            outputs=[
+                global_status,
+                config_components.get('provider_dropdown'),
+                config_components.get('model_dropdown'),
+                config_components.get('temperature_slider'),
+                config_components.get('max_tokens_slider'),
+                prompt_components.get('base_prompt'),
+                prompt_components.get('minimal_prompt')
+            ]
         )
         
         # Set up periodic auto-save (every 30 seconds)

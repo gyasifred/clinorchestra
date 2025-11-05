@@ -10,14 +10,19 @@ Run this to populate the platform with medical domain knowledge.
 
 import json
 import sys
+import os
 from pathlib import Path
 
 # Add parent to path
-sys.path.insert(0, str(Path(__file__).parent.parent))
+script_dir = Path(__file__).parent
+parent_dir = script_dir.parent
+sys.path.insert(0, str(parent_dir))
+
+# Change to parent directory for proper paths
+os.chdir(parent_dir)
 
 from core.function_registry import FunctionRegistry
 from core.extras_manager import ExtrasManager
-from core.regex_preprocessor import RegexPreprocessor
 
 
 # ============================================================================

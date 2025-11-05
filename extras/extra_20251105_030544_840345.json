@@ -1,0 +1,12 @@
+{
+  "id": "extra_20251105_030544_840345",
+  "name": "Pressure Injury Staging",
+  "type": "criteria",
+  "content": "Stage 1: Non-blanchable erythema, intact skin. Stage 2: Partial-thickness skin loss, shallow ulcer. Stage 3: Full-thickness skin loss, subcutaneous fat visible. Stage 4: Full-thickness tissue loss, bone/tendon/muscle exposed. Unstageable: Depth unknown due to slough/eschar. DTI: Purple/maroon intact skin or blood blister.",
+  "metadata": {
+    "category": "wound_care",
+    "subcategory": "pressure_injuries",
+    "priority": "medium"
+  },
+  "created_at": "2025-11-05T03:05:44.840349"
+}

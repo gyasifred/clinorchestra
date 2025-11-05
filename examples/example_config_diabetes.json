@@ -1,0 +1,63 @@
+{
+  "task_name": "Diabetes Assessment and Monitoring",
+  "description": "Extract diabetes-related clinical information including diagnosis, lab values, medications, and complications",
+  "prompt": "You are a clinical expert extracting diabetes-related information from medical notes.\n\nYour task is to extract comprehensive diabetes assessment data including:\n- Diabetes diagnosis and type\n- Laboratory values (HbA1c, glucose, lipids)\n- Current medications and dosages\n- Complications and risk factors\n- Blood pressure and vital signs\n\nExtract all available information accurately and completely.",
+  "json_schema": {
+    "diabetes_diagnosis": {
+      "type": "string",
+      "description": "Primary diabetes diagnosis (Type 1, Type 2, Prediabetes, Gestational, etc.)",
+      "required": true
+    },
+    "hba1c_value": {
+      "type": "number",
+      "description": "Most recent HbA1c percentage value",
+      "required": false
+    },
+    "hba1c_date": {
+      "type": "string",
+      "description": "Date of HbA1c measurement",
+      "required": false
+    },
+    "fasting_glucose": {
+      "type": "number",
+      "description": "Fasting blood glucose in mg/dL",
+      "required": false
+    },
+    "current_medications": {
+      "type": "array",
+      "description": "List of diabetes medications with dosages",
+      "required": false
+    },
+    "blood_pressure": {
+      "type": "string",
+      "description": "Blood pressure reading in format systolic/diastolic mmHg",
+      "required": false
+    },
+    "complications": {
+      "type": "array",
+      "description": "Documented diabetes complications (retinopathy, nephropathy, neuropathy, etc.)",
+      "required": false
+    },
+    "control_status": {
+      "type": "string",
+      "description": "Assessment of glycemic control (Well-controlled, Uncontrolled, etc.)",
+      "required": false
+    }
+  },
+  "enable_rag": false,
+  "enable_pattern_normalization": true,
+  "enable_phi_redaction": false,
+  "expected_output_example": {
+    "patient_id": "P001",
+    "diabetes_diagnosis": "Type 2 Diabetes Mellitus",
+    "hba1c_value": 8.2,
+    "hba1c_date": "Current visit",
+    "fasting_glucose": null,
+    "current_medications": [
+      "Metformin 1000mg twice daily"
+    ],
+    "blood_pressure": "145/92 mmHg",
+    "complications": [],
+    "control_status": "Uncontrolled (HbA1c 8.2% above target)"
+  }
+}

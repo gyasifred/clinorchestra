@@ -1,0 +1,16 @@
+{
+  "name": "calculate_mean_arterial_pressure",
+  "description": "Calculate Mean Arterial Pressure from systolic and diastolic BP",
+  "parameters": {
+    "systolic": {
+      "type": "number",
+      "description": "Systolic blood pressure (mmHg)"
+    },
+    "diastolic": {
+      "type": "number",
+      "description": "Diastolic blood pressure (mmHg)"
+    }
+  },
+  "return_type": "number",
+  "created_at": "2025-01-05T00:00:00"
+}

@@ -766,55 +766,101 @@ YOUR TASK:
    - What are the key concepts in the task? (Extract from schema field names and descriptions)
    - What domain or context is this? (Extract from label/classification)
 
-2. IDENTIFY FUNCTIONS TO CALL:
-   - Which functions will help extract or compute required values?
-   - Determined  the  parameters of the  functions and  any necessary conventions eg, some parameters  may require you to convert sex to numeric, others may require you to call another function first, and  the  output used as input of  the function, etc
-   - Extract numeric parameters from the input text
-   - Only request functions that are genuinely needed
+2. IDENTIFY FUNCTIONS TO CALL (WITH SMART PARAMETER EXTRACTION):
+   - Scan the input text for ALL numeric values, measurements, and dates
+   - Map values to function parameters based on context:
+     * "45.5 kg" → weight_kg parameter
+     * "165 cm" or "5'5\"" → height parameter (convert inches if needed)
+     * "65 year old" or "age 65" → age parameter
+     * "BP 140/90" → systolic=140, diastolic=90
+     * "male" or "female" → sex parameter
+   - Handle unit conversions within parameters:
+     * If function needs kg but text has lbs → call lbs_to_kg first
+     * If function needs meters but text has cm → call cm_to_m first
+   - Chain functions when needed:
+     * Example: calculate_bmi needs weight_kg and height_m
+     * If text has "150 cm", first call cm_to_m(150), then use result in calculate_bmi
+   - Extract dates and calculate intervals:
+     * "DOB 01/15/2020, today 10/25/2025" → can calculate age
+   - IMPORTANT: Extract parameters with high precision from actual text values
+   - Only call functions that are truly needed for the extraction schema
 
-3. BUILD INTELLIGENT RAG QUERIES:
-   - Extract 3-7 meaningful keywords from:
-     * Schema field names (e.g., "assessment" → assessment criteria, guidelines)
-     * Schema descriptions (e.g., "nutritional status" → nutrition assessment guidelines)
-     * Label/classification (e.g., "diabetes" → diabetes management guidelines)
-     * Key concepts in input text (e.g., medical conditions, procedures)
-   - Combine keywords into focused queries
-   - Target: guidelines, standards, criteria, protocols, reference information
-   - Example good query: "pediatric growth assessment WHO standards"
-   - Example bad query: "information" or "help"
+3. BUILD MULTIPLE INTELLIGENT RAG QUERIES (3-5 queries):
+   - Create MULTIPLE focused queries, each targeting different aspects:
 
-4. IDENTIFY EXTRAS KEYWORDS (HINTS/TIPS):
-   - Extras are supplementary hints that help you better understand the task
-   - They may contain patterns, tips, explanations, or breakdown guidance
-   - Extract 3-5 keywords from schema field names and label/classification
-   - These keywords will match relevant hints stored in the extras manager
-   - Example: ["diagnosis", "assessment", "criteria", "classification"]
+   Query Strategy:
+   a) GUIDELINE QUERY: Target clinical guidelines/standards
+      - Extract from: diagnosis, condition, assessment type
+      - Example: "WHO pediatric growth standards malnutrition criteria"
+
+   b) DIAGNOSTIC QUERY: Target diagnostic criteria
+      - Extract from: diagnosis fields, classification fields
+      - Example: "diabetes diagnostic criteria HbA1c fasting glucose"
+
+   c) ASSESSMENT QUERY: Target assessment methods/scoring
+      - Extract from: assessment fields, severity fields
+      - Example: "sepsis assessment qSOFA SIRS criteria scoring"
+
+   d) TREATMENT QUERY: Target treatment guidelines (if relevant)
+      - Extract from: treatment/management fields
+      - Example: "hypertension blood pressure management ACC AHA guidelines"
+
+   e) DOMAIN-SPECIFIC QUERY: Target specialized knowledge
+      - Extract from: specific medical domain in text/label
+      - Example: "pediatric developmental milestones age assessment"
+
+   - Each query should have 4-8 specific keywords
+   - Use medical terminology from the input text
+   - Reference known standards (WHO, CDC, ADA, ACC/AHA, ASPEN, etc.)
+   - Avoid generic terms like "information", "help", "guidelines" alone
+
+4. IDENTIFY EXTRAS KEYWORDS (5-8 SPECIFIC KEYWORDS):
+   - Extras provide task-specific hints, reference ranges, criteria
+   - Extract from multiple sources:
+     * Schema field names: ["malnutrition", "status", "diagnosis"]
+     * Label classification: ["pediatric", "diabetes", "hypertension"]
+     * Medical conditions in text: ["growth", "assessment", "z-score"]
+     * Assessment types: ["screening", "diagnostic", "monitoring"]
+   - Use specific medical terminology (not generic words)
+   - Include age group if relevant: ["pediatric", "geriatric", "adult"]
+   - Include system if relevant: ["cardiac", "respiratory", "renal"]
+   - Example good keywords: ["malnutrition", "pediatric", "z-score", "WHO", "assessment"]
+   - Example bad keywords: ["patient", "information", "data"]
 
 RESPONSE FORMAT (JSON only):
 {{
-  "required_information": ["list of fields from schema"],
+  "required_information": ["field1", "field2", "field3"],
+  "task_analysis": "Brief analysis of what needs to be extracted and clinical context",
   "functions_needed": [
     {{
       "name": "function_name",
-      "parameters": {{"param": "value"}},
-      "reason": "why needed"
+      "parameters": {{"param1": "value1", "param2": "value2"}},
+      "reason": "why this function is needed for extraction"
     }}
   ],
   "rag_queries": [
     {{
-      "query": "specific focused query with 3-7 keywords",
-      "purpose": "what information this retrieves"
+      "query": "specific focused query with 4-8 keywords",
+      "query_type": "guideline|diagnostic|assessment|treatment|domain_specific",
+      "purpose": "what specific information this retrieves"
+    }},
+    {{
+      "query": "another focused query targeting different aspect",
+      "query_type": "guideline|diagnostic|assessment|treatment|domain_specific",
+      "purpose": "complementary information for extraction"
     }}
   ],
-  "extras_keywords": ["keyword1", "keyword2", "keyword3"]
+  "extras_keywords": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"]
 }}
 
-CRITICAL:
-- RAG queries MUST be specific with 3-7 meaningful keywords
-- Extract keywords from schema, label, and text
-- Do NOT use generic queries like "help" or "information"
-- Extras keywords are for finding HINTS/TIPS that explain the task better
-- Combine related concepts into focused queries
+CRITICAL REQUIREMENTS:
+- Provide 3-5 RAG queries, each targeting different aspects (guidelines, diagnostics, assessment, etc.)
+- Each RAG query MUST have 4-8 specific medical keywords
+- Extract function parameters with precision from actual text values
+- Chain functions if needed (e.g., unit conversion before calculation)
+- Extras keywords (5-8 total): specific medical terminology, not generic words
+- Do NOT use generic queries like "help", "information", or "guidelines" alone
+- Reference known medical standards/organizations (WHO, CDC, ADA, etc.) in RAG queries
 
 Respond with ONLY the JSON object."""
 

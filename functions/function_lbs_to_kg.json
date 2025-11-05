@@ -1,0 +1,12 @@
+{
+  "name": "lbs_to_kg",
+  "description": "Convert weight from pounds to kilograms",
+  "parameters": {
+    "lbs": {
+      "type": "number",
+      "description": "Weight in pounds"
+    }
+  },
+  "return_type": "number",
+  "created_at": "2025-01-05T00:00:00"
+}

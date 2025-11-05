@@ -1,0 +1,78 @@
+{
+  "task_name": "Pediatric Malnutrition Assessment",
+  "description": "Extract malnutrition assessment data following ASPEN criteria with growth parameters and temporal tracking",
+  "prompt": "You are a pediatric nutrition specialist extracting malnutrition assessment information.\n\nYour task is to:\n1. Extract all anthropometric measurements with dates and percentiles/z-scores\n2. Document symptoms and their temporal progression\n3. Assess nutritional intake patterns over time\n4. Identify physical exam findings related to malnutrition\n5. Determine malnutrition diagnosis and severity using ASPEN criteria\n\nProvide comprehensive temporal documentation of growth trends and symptom evolution.",
+  "json_schema": {
+    "malnutrition_status": {
+      "type": "string",
+      "description": "Malnutrition classification per ASPEN: Malnutrition Present (Mild/Moderate/Severe) or Malnutrition Absent",
+      "required": true
+    },
+    "age_years": {
+      "type": "number",
+      "description": "Patient age in years",
+      "required": true
+    },
+    "weight_measurements": {
+      "type": "string",
+      "description": "All weight measurements with dates, percentiles, and z-scores. Include trends and velocity.",
+      "required": true
+    },
+    "height_measurements": {
+      "type": "string",
+      "description": "All height/length measurements with dates, percentiles, and z-scores. Include trends.",
+      "required": true
+    },
+    "bmi_wfl_measurements": {
+      "type": "string",
+      "description": "BMI or weight-for-length measurements with dates, percentiles, and z-scores",
+      "required": false
+    },
+    "symptoms_timeline": {
+      "type": "string",
+      "description": "Clinical symptoms with onset dates and progression (vomiting, diarrhea, poor appetite, etc.)",
+      "required": false
+    },
+    "intake_pattern": {
+      "type": "string",
+      "description": "Nutritional intake pattern over time with percentages and dates",
+      "required": false
+    },
+    "physical_exam_findings": {
+      "type": "string",
+      "description": "Physical exam findings: muscle wasting, subcutaneous fat loss, edema",
+      "required": true
+    },
+    "laboratory_values": {
+      "type": "string",
+      "description": "Relevant labs (albumin, prealbumin, hemoglobin) with dates and trends",
+      "required": false
+    },
+    "diagnosis_reasoning": {
+      "type": "string",
+      "description": "Clinical reasoning for malnutrition diagnosis using ASPEN criteria (requires 2+ indicators)",
+      "required": true
+    }
+  },
+  "enable_rag": true,
+  "rag_query_fields": ["malnutrition_status", "diagnosis_reasoning"],
+  "rag_documents": [
+    "Guideline: Upload ASPEN pediatric malnutrition criteria PDF",
+    "Guideline: Upload WHO child growth standards PDF"
+  ],
+  "enable_pattern_normalization": true,
+  "enable_phi_redaction": false,
+  "expected_output_example": {
+    "patient_id": "P003",
+    "malnutrition_status": "Malnutrition Present - Moderate Severity",
+    "age_years": 3,
+    "weight_measurements": "12.5 kg (10th percentile, z-score -1.28)",
+    "height_measurements": "92 cm (25th percentile, z-score -0.67)",
+    "bmi_wfl_measurements": "BMI 14.8 kg/m² (calculated from weight 12.5kg, height 92cm)",
+    "symptoms_timeline": "Poor appetite for 2 months, eating 40-50% of meals. Vomiting 2-3 times daily (duration not specified).",
+    "intake_pattern": "Currently 40-50% of meals for past 2 months (progressive decline)",
+    "physical_exam_findings": "Mild muscle wasting present, no edema noted",
+    "laboratory_values": "Albumin 3.2 g/dL (low, normal >3.5), Hemoglobin 10.5 g/dL (mild anemia)",
+    "diagnosis_reasoning": "Meets ASPEN criteria for moderate malnutrition with 3+ indicators: (1) Insufficient intake 40-50% for 2 months, (2) Weight at 10th percentile with likely deceleration, (3) Mild muscle wasting on exam, (4) Low albumin 3.2 g/dL. Z-scores between -1 to -2 SD indicate moderate severity."
+  }
+}
