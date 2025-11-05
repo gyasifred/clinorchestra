@@ -72,6 +72,8 @@ START
 
 ### Example Flow:
 
+**Note:** This shows malnutrition assessment as an illustrative example. The agentic system works for ANY clinical task (diabetes, sepsis, AKI, etc.) with the same iterative, adaptive workflow.
+
 ```
 LLM: "Let me analyze this clinical text..."
 LLM: "I see malnutrition mentioned. I need RAG on ASPEN criteria."
@@ -314,16 +316,16 @@ This is definitive. Your extraction must support this diagnosis.
 1. **query_rag(query, purpose)**: Retrieve guidelines, standards, criteria from authoritative sources
    - Call MULTIPLE times with different queries
    - Refine queries based on what you learn
-   - Example: query_rag("ASPEN malnutrition criteria", "need severity classification")
+   - Example: query_rag("relevant clinical guidelines criteria", "need classification/assessment standards")
 
 2. **call_medical_function(function_name, parameters)**: Perform medical calculations
-   - Call for z-scores, BMI, percentiles, etc.
+   - Call for various calculations based on your task
    - Can call same function multiple times for serial data
-   - Example: call_medical_function("percentile_to_zscore", {"percentile": 3})
+   - Example: call_medical_function("relevant_calculation_function", {"parameter": value})
 
 3. **query_extras(keywords)**: Get supplementary hints/patterns
    - Helps understand task-specific patterns
-   - Example: query_extras(["malnutrition", "pediatric", "z-score"])
+   - Example: query_extras(["task_domain", "assessment_type", "relevant_concept"])
 
 **AGENTIC WORKFLOW:**
 
@@ -342,6 +344,8 @@ This is definitive. Your extraction must support this diagnosis.
 - **Efficient**: Don't call unnecessary tools, but don't hesitate to call multiple times.
 
 **EXAMPLE WORKFLOW:**
+
+(Note: Using malnutrition as illustrative example - works for any clinical task)
 
 "I see 'malnutrition' mentioned. Let me get ASPEN criteria."
 → query_rag("ASPEN pediatric malnutrition criteria")

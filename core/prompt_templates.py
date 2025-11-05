@@ -1153,32 +1153,33 @@ This section defines HOW to use tools ITERATIVELY to gather the information you 
 
 ```
 [Iteration 1]
-"I see the task requires malnutrition assessment with z-score interpretation.
-The text mentions '3rd percentile' for weight. I need WHO/ASPEN criteria and calculations."
-→ Call tools: query_rag("ASPEN WHO malnutrition z-score criteria"), call_percentile_to_zscore({{"percentile": 3}})
+"I see the task requirements defined above. Let me analyze the clinical text..."
+"The text contains specific measurements and clinical findings. Based on task requirements,
+I need to gather guidelines and perform relevant calculations."
+→ Call tools: query_rag("relevant clinical guidelines criteria"), call_[relevant_function]({{"parameter": value}})
 
 [Tools execute in parallel, return results]
 
 [Iteration 2]
-"Good! Got z-score = -1.88 and criteria showing z<-2 is moderate malnutrition.
-The guidelines mention I should interpret this z-score using specific classification."
-→ Call tool: call_interpret_zscore_malnutrition({{"zscore": -1.88, "measurement_type": "weight-for-height"}})
+"Good! I received guidelines and calculation results. The guidelines indicate specific
+classification criteria. I need to interpret these results using the appropriate method."
+→ Call tool: call_[interpretation_function]({{"value": result, "type": "measurement_type"}})
 
 [Tool returns interpretation]
 
 [Iteration 3]
-"Perfect! Classification shows mild malnutrition risk. Text also mentions inadequate intake.
-Let me get management guidelines to complete the synthesis."
-→ Call tool: query_rag("mild malnutrition pediatric management nutritional intervention")
+"Perfect! I have the interpretation. The text also mentions additional clinical factors.
+Let me get relevant management or assessment guidelines to complete the task."
+→ Call tool: query_rag("relevant management assessment guidelines")
 
 [Tool returns guidelines]
 
 [Iteration 4]
 "Excellent! Now I have all information needed per task requirements:
-- Anthropometric data with z-scores
-- WHO/ASPEN classification
-- Management guidelines
-Ready to output final JSON per the schema."
+- Clinical measurements with interpretations
+- Guideline-based classifications
+- Management/assessment guidelines
+Ready to output final JSON per the schema and synthesis structure defined in task."
 → Output JSON
 ```
 

@@ -369,7 +369,7 @@ class AgenticAgent:
                             'keywords': {
                                 'type': 'array',
                                 'items': {'type': 'string'},
-                                'description': '3-5 specific medical keywords (e.g., "malnutrition", "pediatric", "z-score")'
+                                'description': '3-5 specific medical keywords related to your task (e.g., task-specific terms, clinical concepts, assessment types)'
                             }
                         },
                         'required': ['keywords']
