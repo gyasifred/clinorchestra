@@ -5,7 +5,6 @@ Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 Version: 1.0.2
 """
-import logging
 import gradio as gr
 import pandas as pd
 import json
@@ -16,8 +15,9 @@ from core.output_handler import OutputHandler
 from core.process_persistence import get_process_state
 from core.agent_system import ExtractionAgent
 from core.app_state import StateEvent
+from core.logging_config import get_logger
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 def create_processing_tab(app_state) -> Dict[str, Any]:
     """Create processing tab with enhanced logging and complete functionality"""

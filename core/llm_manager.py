@@ -7,13 +7,13 @@ Institution: Medical University of South Carolina, Biomedical Informatics Center
 """
 
 import os
-import logging
 import torch
 from typing import Dict, Any, Optional
 from dotenv import load_dotenv
+from core.logging_config import get_logger
 
 load_dotenv()
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 try:
     import openai

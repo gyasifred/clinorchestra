@@ -4,7 +4,6 @@ RAG Engine - Complete implementation with document loading, chunking, embedding,
 Enhanced with persistent caching of documents and embeddings
 """
 
-import logging
 import requests
 from pathlib import Path
 from typing import List, Dict, Any, Optional
@@ -19,8 +18,9 @@ from io import BytesIO
 import sqlite3
 import json
 import pickle
+from core.logging_config import get_logger
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 @dataclass
 class Document:
