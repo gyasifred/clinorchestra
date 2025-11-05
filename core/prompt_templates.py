@@ -1058,117 +1058,176 @@ def format_tool_outputs_for_prompt(
 
 def get_agentic_extraction_prompt(clinical_text: str, label_context: str,
                                    json_schema: str, schema_instructions: str,
-                                   base_prompt: str = "") -> str:
+                                   user_task_prompt: str = "") -> str:
     """
-    Build agentic extraction prompt for continuous loop with tool calling
+    Build agentic extraction prompt using USER'S task-specific prompt as PRIMARY
 
-    This prompt enables LLM to autonomously:
-    - Analyze clinical text
-    - Decide what tools to call
-    - Iterate based on results
-    - Adapt strategy dynamically
-    - Tools execute in parallel (async) for performance
+    This function:
+    1. Uses the user's main/minimal prompt as the PRIMARY task definition
+    2. Fills in {clinical_text} and {label_context} placeholders
+    3. Handles {rag_outputs}, {function_outputs}, {extras_outputs} placeholders
+    4. Appends agentic tool-calling framework as the execution mechanism
+
+    The user's task-specific prompts (like MALNUTRITION_MAIN_PROMPT) contain
+    all the domain expertise, guidelines, synthesis structure, and requirements.
+    The agentic framework explains HOW to use tools to complete that task.
     """
 
-    prompt = f"""You are a board-certified clinical expert performing structured information extraction from medical text.
+    # If user provided a task-specific prompt, use it as PRIMARY
+    if user_task_prompt:
+        # Fill in the placeholders that we have values for
+        try:
+            # Try to format the user's prompt with available values
+            # Note: User prompts may have {rag_outputs}, {function_outputs}, {extras_outputs}
+            # which we don't have yet in agentic mode (they come from tool calls)
+            # So we replace them with instructions to use tools
 
-**YOUR TASK:**
-Extract structured clinical information to create comprehensive, expert-level annotations. Your extraction must support the ground truth diagnosis provided below.
+            user_prompt_filled = user_task_prompt.format(
+                clinical_text=clinical_text,
+                label_context=label_context,
+                rag_outputs="[You will retrieve guidelines/evidence by calling query_rag() tool multiple times]",
+                function_outputs="[You will perform calculations by calling call_[function_name]() tools as needed]",
+                extras_outputs="[You will get supplementary hints by calling query_extras() tool if needed]"
+            )
+        except KeyError as e:
+            # If there are other placeholders we don't know about, leave them
+            import re
+            user_prompt_filled = user_task_prompt
+            # Fill known placeholders using regex to avoid KeyError
+            user_prompt_filled = re.sub(r'\{clinical_text\}', clinical_text, user_prompt_filled)
+            user_prompt_filled = re.sub(r'\{label_context\}', label_context, user_prompt_filled)
+            user_prompt_filled = re.sub(r'\{rag_outputs\}', '[You will retrieve guidelines/evidence by calling query_rag() tool]', user_prompt_filled)
+            user_prompt_filled = re.sub(r'\{function_outputs\}', '[You will perform calculations by calling call_[function_name]() tools]', user_prompt_filled)
+            user_prompt_filled = re.sub(r'\{extras_outputs\}', '[You will get supplementary hints by calling query_extras() tool]', user_prompt_filled)
 
-**GROUND TRUTH DIAGNOSIS (YOU MUST SUPPORT THIS):**
-{label_context}
+        # Build the complete prompt: USER'S TASK PROMPT + AGENTIC FRAMEWORK
+        prompt = f"""{user_prompt_filled}
 
-This is definitive. Your extraction must support and align with this diagnosis using evidence from the clinical text.
+{"=" * 80}
+AGENTIC TOOL-CALLING EXECUTION FRAMEWORK
+{"=" * 80}
 
-**CLINICAL TEXT TO ANALYZE:**
-{clinical_text}
+The task description above defines WHAT to extract and HOW to synthesize the information.
+This section defines HOW to use tools ITERATIVELY to gather the information you need.
 
 **AVAILABLE TOOLS (call as many times as needed):**
 
-You have access to tools that help you gather information and perform calculations:
-
-1. **query_rag(query, purpose)**: Retrieve clinical guidelines, standards, and reference information from authoritative sources (ASPEN, WHO, CDC, ADA, etc.)
+1. **query_rag(query, purpose)**
+   - Retrieve clinical guidelines, standards, and evidence from authoritative sources
+   - Sources include: ASPEN, WHO, CDC, ADA, AHA, and other clinical guidelines
    - Call MULTIPLE times with different queries to gather comprehensive information
    - Refine queries based on what you learn
    - Example: query_rag("ASPEN pediatric malnutrition severity criteria", "need classification thresholds")
 
-2. **call_[function_name](parameters)**: Perform medical calculations
-   - Available for z-scores, BMI, percentiles, growth calculations, lab interpretations, etc.
+2. **call_[function_name](parameters)**
+   - Perform medical calculations: z-scores, BMI, percentiles, growth calculations, lab interpretations
    - Call same function multiple times for serial measurements at different time points
+   - Available functions are dynamically listed based on your registry
    - Example: call_percentile_to_zscore({{"percentile": 3}})
 
-3. **query_extras(keywords)**: Get supplementary hints/tips/patterns
-   - Helps understand task-specific concepts and best practices
+3. **query_extras(keywords)**
+   - Get supplementary hints, tips, patterns, and task-specific guidance
+   - Helps understand domain concepts and best practices
    - Example: query_extras({{"keywords": ["malnutrition", "pediatric", "assessment"]}})
 
-**AGENTIC WORKFLOW (How to work):**
+**AGENTIC EXECUTION WORKFLOW:**
 
-1. **ANALYZE**: Carefully read the clinical text and ground truth diagnosis
-2. **DISCOVER**: Identify what information you need to complete the extraction
-3. **REQUEST TOOLS**: Call tools to gather information (you can call tools multiple times!)
+1. **ANALYZE**: Read the task description above and the clinical text carefully
+2. **DISCOVER**: Based on task requirements, identify what information/calculations you need
+3. **REQUEST TOOLS**: Call tools to gather information (call tools MULTIPLE times!)
 4. **LEARN**: Analyze the results from tool calls
-5. **ITERATE**: Based on what you learned, call more tools if needed OR continue extraction
-6. **EXTRACT**: Once you have enough information, output the final JSON
+5. **ITERATE**: Based on what you learned, call MORE tools if needed to complete the task
+6. **EXTRACT**: Once you have sufficient information, output the final JSON
 
 **CRITICAL PRINCIPLES:**
 
-- **Iterative**: Don't plan all tools upfront. Analyze → Call tools → Learn → Call more tools if needed
-- **Adaptive**: Let initial results guide what else you need. "I got these guidelines, now I need to calculate this value"
-- **Thorough**: Gather enough information before finalizing. Don't rush to output JSON if you're missing key data
-- **Efficient**: Only call tools you actually need. Don't call unnecessary tools
-- **Aligned**: Ensure your final extraction supports the ground truth diagnosis
+- ✅ **Follow Task Definition Above**: The task description above specifies your requirements - follow them exactly
+- ✅ **Iterative Not Batch**: Don't plan all tools upfront. Call tools → Learn → Call more tools as needed
+- ✅ **Adaptive Strategy**: Let results guide next steps. "I got X, now I need Y to complete the task"
+- ✅ **Multiple Tool Calls**: Call the same tool multiple times with different queries/parameters
+- ✅ **Parallel Execution**: Tools execute in parallel (async) for performance - request multiple at once when possible
+- ✅ **Support Ground Truth**: Ensure your extraction supports the ground truth diagnosis
+- ✅ **Complete Before Output**: Gather sufficient information before outputting JSON
 
-**EXAMPLE AGENTIC WORKFLOW:**
+**EXAMPLE AGENTIC EXECUTION:**
 
-Initial analysis:
-"I see the ground truth is 'MALNUTRITION PRESENT'. Let me analyze the text..."
-"The text mentions '3rd percentile' for weight. I need to:"
-"1. Get ASPEN/WHO criteria for malnutrition classification"
-"2. Convert 3rd percentile to z-score"
-"3. Interpret the z-score for malnutrition severity"
+```
+[Iteration 1]
+"I see the task requires malnutrition assessment with z-score interpretation.
+The text mentions '3rd percentile' for weight. I need WHO/ASPEN criteria and calculations."
+→ Call tools: query_rag("ASPEN WHO malnutrition z-score criteria"), call_percentile_to_zscore({{"percentile": 3}})
 
-Tool call 1:
-→ query_rag("ASPEN WHO pediatric malnutrition criteria z-score thresholds")
-[Receives guideline information]
+[Tools execute in parallel, return results]
 
-"Good! The guidelines say z < -2 is moderate malnutrition. Now let me convert the percentile..."
+[Iteration 2]
+"Good! Got z-score = -1.88 and criteria showing z<-2 is moderate malnutrition.
+The guidelines mention I should interpret this z-score using specific classification."
+→ Call tool: call_interpret_zscore_malnutrition({{"zscore": -1.88, "measurement_type": "weight-for-height"}})
 
-Tool call 2:
-→ call_percentile_to_zscore({{"percentile": 3}})
-[Receives z-score = -1.88]
+[Tool returns interpretation]
 
-"The z-score is -1.88. Now let me get the WHO/ASPEN interpretation..."
+[Iteration 3]
+"Perfect! Classification shows mild malnutrition risk. Text also mentions inadequate intake.
+Let me get management guidelines to complete the synthesis."
+→ Call tool: query_rag("mild malnutrition pediatric management nutritional intervention")
 
-Tool call 3:
-→ call_interpret_zscore_malnutrition({{"zscore": -1.88, "measurement_type": "weight-for-height"}})
-[Receives interpretation: "Mild malnutrition risk per WHO classification"]
+[Tool returns guidelines]
 
-"Perfect! I also notice the text mentions inadequate intake. Let me get management guidelines..."
-
-Tool call 4:
-→ query_rag("mild malnutrition pediatric management nutritional intervention")
-[Receives management guidelines]
-
-"Excellent! Now I have all the information I need to complete the extraction."
-→ Output final JSON
+[Iteration 4]
+"Excellent! Now I have all information needed per task requirements:
+- Anthropometric data with z-scores
+- WHO/ASPEN classification
+- Management guidelines
+Ready to output final JSON per the schema."
+→ Output JSON
+```
 
 **EXPECTED OUTPUT SCHEMA:**
 {json_schema}
 
-**SCHEMA INSTRUCTIONS:**
 {schema_instructions}
 
-**ADDITIONAL INSTRUCTIONS FROM BASE PROMPT:**
-{base_prompt}
-
 **CRITICAL RULES:**
-- **ANONYMIZE**: NEVER use patient or family names. Use "the patient", "the [age]-year-old", "the family"
-- **SUPPORT GROUND TRUTH**: Your extraction MUST align with and support the ground truth diagnosis
-- **ITERATE**: Call tools, learn, call more tools if needed
-- **ADAPT**: Let results guide your next steps
-- **COMPLETE**: Output JSON only when you have sufficient information
+- Follow the task-specific requirements and synthesis structure defined at the top
+- Use tools iteratively to gather needed information
+- Support the ground truth diagnosis with evidence
+- Output JSON only when you have completed the task requirements
 
-**Begin your analysis. Call tools as needed. When ready, provide the final JSON in the exact schema format specified above.**
+**Begin your analysis. Call tools as needed to gather information. When ready, provide the final JSON in the exact schema format specified above.**
+"""
+
+    else:
+        # Fallback: If no user prompt provided, use generic agentic prompt
+        prompt = f"""You are a board-certified clinical expert performing structured information extraction from medical text.
+
+**GROUND TRUTH DIAGNOSIS (YOU MUST SUPPORT THIS):**
+{label_context}
+
+**CLINICAL TEXT TO ANALYZE:**
+{clinical_text}
+
+**YOUR TASK:**
+Extract structured clinical information to create comprehensive, expert-level annotations.
+Your extraction must support the ground truth diagnosis using evidence from the clinical text.
+
+**AVAILABLE TOOLS (call as many times as needed):**
+
+1. **query_rag(query, purpose)**: Retrieve clinical guidelines and evidence
+2. **call_[function_name](parameters)**: Perform medical calculations
+3. **query_extras(keywords)**: Get supplementary hints
+
+**AGENTIC WORKFLOW:**
+1. Analyze the clinical text and ground truth
+2. Call tools to gather needed information (iteratively!)
+3. Learn from results, call more tools if needed
+4. Complete extraction when you have sufficient information
+
+**EXPECTED OUTPUT SCHEMA:**
+{json_schema}
+
+{schema_instructions}
+
+**Begin your analysis. Call tools as needed. Output final JSON when ready.**
 """
 
     return prompt

@@ -601,19 +601,41 @@ class AgenticAgent:
     # ========================================================================
 
     def _build_agentic_initial_prompt(self) -> str:
-        """Build initial agentic prompt"""
+        """
+        Build initial agentic prompt using USER'S task-specific prompt as PRIMARY
+
+        Uses main_prompt (or fallback to minimal_prompt) from user's configuration
+        as the primary task definition, then appends agentic tool-calling framework.
+        """
         from core.prompt_templates import get_agentic_extraction_prompt
 
         schema_instructions = format_schema_as_instructions(
             self.app_state.prompt_config.json_schema
         )
 
+        # Get user's task-specific prompt (main or minimal as fallback)
+        use_minimal = self.app_state.prompt_config.use_minimal
+        user_task_prompt = None
+
+        if use_minimal and self.app_state.prompt_config.minimal_prompt:
+            user_task_prompt = self.app_state.prompt_config.minimal_prompt
+            logger.info("Using MINIMAL prompt as primary task definition")
+        elif self.app_state.prompt_config.main_prompt:
+            user_task_prompt = self.app_state.prompt_config.main_prompt
+            logger.info("Using MAIN prompt as primary task definition")
+        elif self.app_state.prompt_config.base_prompt:
+            user_task_prompt = self.app_state.prompt_config.base_prompt
+            logger.info("Using BASE prompt as primary task definition (fallback)")
+        else:
+            user_task_prompt = ""
+            logger.warning("No user task-specific prompt found - using generic agentic prompt")
+
         prompt = get_agentic_extraction_prompt(
             clinical_text=self.context.clinical_text,
             label_context=self.context.label_context or "No label provided",
             json_schema=json.dumps(self.app_state.prompt_config.json_schema, indent=2),
             schema_instructions=schema_instructions,
-            base_prompt=self.app_state.prompt_config.base_prompt or ""
+            user_task_prompt=user_task_prompt
         )
 
         return prompt
