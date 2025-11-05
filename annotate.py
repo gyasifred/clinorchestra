@@ -6,7 +6,6 @@ Institution: Medical University of South Carolina, Biomedical Informatics Center
 Lab: HeiderLab
 Version: 1.0.0
 """
-import logging
 import gradio as gr
 import argparse
 from pathlib import Path
@@ -23,13 +22,18 @@ from ui.processing_tab import create_processing_tab
 from ui.footer import create_footer
 from core.app_state import AppState, StateEvent
 from core.config_persistence import get_persistence_manager
+from core.logging_config import setup_logging, get_logger
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
-    datefmt="%Y-%m-%d %H:%M:%S"
+# Initialize enhanced logging system
+setup_logging(
+    log_dir="logs",
+    log_level="INFO",
+    console_level="INFO",
+    file_level="DEBUG",
+    enable_file_logging=True,
+    enable_colors=True
 )
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 def create_main_interface() -> gr.Blocks:
     """Create main Gradio interface with persistence integration"""

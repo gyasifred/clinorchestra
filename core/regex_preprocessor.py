@@ -6,12 +6,12 @@ Version: 1.0.1 - FIXED: Escape sequence errors, pattern validation
 
 import re
 import json
-import logging
 from typing import Dict, Any, List, Optional, Tuple
 from pathlib import Path
 from dataclasses import dataclass
+from core.logging_config import get_logger
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 @dataclass

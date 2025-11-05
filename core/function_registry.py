@@ -5,12 +5,12 @@ Version: 1.0.2
 """
 import sys
 import json
-import logging
 from typing import Dict, Any, Tuple, List, Callable, Optional
 from pathlib import Path
 import inspect
+from core.logging_config import get_logger
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 class FunctionRegistry:
     """Registry for custom functions with robust parameter validation"""

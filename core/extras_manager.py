@@ -12,12 +12,12 @@ FIXES:
 """
 
 import json
-import logging
 from typing import Dict, Any, List, Optional
 from pathlib import Path
 from datetime import datetime
+from core.logging_config import get_logger
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 class ExtrasManager:

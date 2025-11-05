@@ -16,12 +16,12 @@ v2.1 - Added MRN and ORGANIZATION entity types for backward compatibility
 """
 
 import re
-import logging
 from typing import List, Dict, Any, Tuple, Optional, Set
 from dataclasses import dataclass, field
 from enum import Enum
+from core.logging_config import get_logger
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 class RedactionMethod(Enum):
     """Enumeration of redaction methods"""

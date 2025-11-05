@@ -14,7 +14,6 @@ FIXES:
 """
 
 import json
-import logging
 import time
 import re
 from typing import Dict, Any, Optional, List, Tuple
@@ -28,8 +27,9 @@ from core.prompt_templates import (
     format_schema_as_instructions,
     format_tool_outputs_for_prompt
 )
+from core.logging_config import get_logger, log_extraction_stage
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 
 class ExtractionAgentState(Enum):
@@ -166,6 +166,7 @@ class ExtractionAgent:
                 self.context.state = ExtractionAgentState.FAILED
             return self._build_failure_result(f"Extraction error: {str(e)}")
     
+    @log_extraction_stage("Stage 1: Task Analysis & Tool Planning")
     def _execute_stage1_analysis(self) -> bool:
         """
         Stage 1: LLM analyzes task and determines:
@@ -460,6 +461,7 @@ class ExtractionAgent:
                 'keywords': keywords
             })
     
+    @log_extraction_stage("Stage 2: Tool Execution")
     def _execute_stage2_tools(self):
         """Execute all tool requests"""
         for tool_request in self.context.tool_requests:
@@ -598,6 +600,7 @@ class ExtractionAgent:
                 'error': str(e)
             }
     
+    @log_extraction_stage("Stage 3: JSON Extraction")
     def _execute_stage3_extraction(self) -> bool:
         """Execute Stage 3: extraction with tool results"""
         try:
@@ -667,6 +670,7 @@ class ExtractionAgent:
         
         return has_rag_results
     
+    @log_extraction_stage("Stage 4: RAG Refinement")
     def _execute_stage4_rag_refinement_with_retry(self) -> Dict[str, Any]:
         """
         Execute Stage 4: RAG refinement for SELECTED fields only
