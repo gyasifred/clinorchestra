@@ -821,7 +821,9 @@ YOUR TASK:
      * "165 cm" or "5'5\"" → height parameter (convert inches if needed)
      * "65 year old" or "age 65" → age parameter
      * "BP 140/90" → systolic=140, diastolic=90
-     * "male" or "female" → sex parameter
+     * "male" or "female" or "boy" or "girl" → sex parameter (pass as string 'male' or 'female')
+     * IMPORTANT: For growth percentile functions, sex can be passed as string ('male'/'female')
+       and will be automatically converted to numbers (1=male, 2=female) by the system
 
    D. HANDLE UNIT CONVERSIONS:
    - If function needs kg but text has lbs → call lbs_to_kg first
