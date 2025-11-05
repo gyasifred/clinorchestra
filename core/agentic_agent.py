@@ -682,7 +682,12 @@ You have access to tools:
 - ✅ Call tools iteratively across multiple rounds
 - ✅ Use tool results to inform next tool calls
 - ✅ Assess information gaps after each round
-- ✅ Only complete task when confident you have everything needed"""
+- ✅ Only complete task when confident you have everything needed
+
+**CRITICAL: Tool Call Format**
+- Tool calls MUST start with "TOOL_CALL:" prefix
+- Format: TOOL_CALL: {{"tool": "name", "parameters": {{...}}}}
+- Do NOT output bare JSON without the TOOL_CALL: prefix"""
 
     def _format_tool_result_for_llm(self, result: ToolResult) -> str:
         """Format tool result for LLM consumption"""
@@ -758,20 +763,60 @@ You have access to tools:
                 )
                 return False, True
             else:
-                # Just thinking/analyzing
+                # Just thinking/analyzing OR invalid JSON was rejected
                 self.context.conversation_history.append(
                     ConversationMessage(role='assistant', content=content)
                 )
+
+                # Check if this looks like a malformed tool call or invalid JSON
+                if '{' in content and '}' in content:
+                    # Looks like JSON but was rejected - provide feedback
+                    logger.info("LLM output contains JSON but was rejected (schema validation failed)")
+                    # The loop will continue and prompt the LLM again
+
                 return False, False
 
         return False, False
 
     def _try_parse_json(self, text: str) -> Optional[Dict[str, Any]]:
-        """Try to parse JSON from text"""
+        """
+        Try to parse JSON from text with schema validation
+
+        CRITICAL: Validates that parsed JSON matches expected schema fields
+        to prevent accidentally accepting tool call JSON as final output
+        """
         parsed, method = self.json_parser.parse_json_response(
             text,
             self.app_state.prompt_config.json_schema
         )
+
+        if not parsed:
+            return None
+
+        # CRITICAL VALIDATION: Check if this is actually a tool call JSON (wrong format)
+        # Tool calls have format: {"tool": "...", "parameters": {...}}
+        if isinstance(parsed, dict) and 'tool' in parsed and 'parameters' in parsed:
+            logger.warning("⚠️ Detected tool call JSON without TOOL_CALL: prefix - rejecting as final output")
+            logger.warning(f"LLM must use format: TOOL_CALL: {{\"tool\": \"...\", \"parameters\": {{...}}}}")
+            return None
+
+        # CRITICAL VALIDATION: Verify parsed JSON has expected schema fields
+        schema = self.app_state.prompt_config.json_schema
+        if schema and isinstance(parsed, dict):
+            # Get required fields from schema
+            required_fields = [
+                field for field, props in schema.items()
+                if isinstance(props, dict) and props.get('required', False)
+            ]
+
+            # Check if at least one required field is present
+            if required_fields:
+                has_required = any(field in parsed for field in required_fields)
+                if not has_required:
+                    logger.warning(f"⚠️ Parsed JSON missing all required fields: {required_fields}")
+                    logger.warning(f"Parsed JSON keys: {list(parsed.keys())}")
+                    return None
+
         return parsed
 
     def _convert_history_to_api_format(self) -> List[Dict[str, Any]]:
@@ -882,14 +927,17 @@ You have access to tools:
         lines.append("=" * 80)
         lines.append("📝 HOW TO CALL TOOLS:")
         lines.append("=" * 80)
-        lines.append("\n⚠️ CRITICAL: Each TOOL_CALL must be complete, valid JSON on a single line!\n")
-        lines.append("FORMAT:")
+        lines.append("\n🔴 CRITICAL: Tool calls MUST start with 'TOOL_CALL:' prefix! 🔴\n")
+        lines.append("REQUIRED FORMAT:")
         lines.append('TOOL_CALL: {"tool": "tool_name", "parameters": {...}}')
         lines.append("")
-        lines.append("✅ CORRECT EXAMPLES:")
+        lines.append("✅ CORRECT EXAMPLES (note the 'TOOL_CALL:' prefix):")
         lines.append('TOOL_CALL: {"tool": "query_rag", "parameters": {"query": "ASPEN pediatric malnutrition criteria", "purpose": "need severity thresholds"}}')
         lines.append('TOOL_CALL: {"tool": "call_percentile_to_zscore", "parameters": {"percentile": 10}}')
         lines.append('TOOL_CALL: {"tool": "query_extras", "parameters": {"keywords": ["malnutrition", "pediatric", "z-score", "WHO", "ASPEN"]}}')
+        lines.append("")
+        lines.append("❌ WRONG (missing 'TOOL_CALL:' prefix):")
+        lines.append('{"tool": "query_rag", ...}  ← MISSING TOOL_CALL: prefix!')
         lines.append("")
         lines.append("❌ WRONG (missing closing brace):")
         lines.append('TOOL_CALL: {"tool": "query_rag", "parameters": {"query": "test"}  ← MISSING }')
