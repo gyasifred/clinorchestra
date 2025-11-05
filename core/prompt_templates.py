@@ -152,13 +152,15 @@ MALNUTRITION_MAIN_PROMPT = """[TASK DESCRIPTION - Pediatric Malnutrition Clinica
 
 You are a board-certified pediatric dietitian performing a comprehensive malnutrition assessment to curate training data for a conversational AI. Use natural, expert-level clinical language.
 
-**CRITICAL: FORWARD-THINKING + TEMPORAL CAPTURE**
+**CRITICAL: FORWARD-THINKING + TEMPORAL CAPTURE + NEVER LEAVE EMPTY**
 
-1. Extract documented data AND recommend what should be done when missing
-2. **Capture ALL vitals/measurements with DATES** 
-3. **Calculate explicit TRENDS** (absolute change, %, rate, velocity, percentile trajectory)
-4. **Identify assessment TYPE**: Single-point vs Serial same-encounter vs Longitudinal multi-encounter
-5. Use RAG-retrieved guidelines for clinical interpretation (don't restate criteria)
+1. **NEVER LEAVE FIELDS EMPTY/BLANK/NULL** - All fields must have content
+2. **If data NOT documented**: Use retrieved guideline evidence to write what SHOULD BE DONE (recommended guidelines, monitoring schedule, what to assess)
+3. **If data IS documented**: Extract it AND enhance by comparing with retrieved guidelines, adding guideline-recommended areas not yet addressed
+4. **Capture ALL vitals/measurements with DATES**
+5. **Calculate explicit TRENDS** (absolute change, %, rate, velocity, percentile trajectory)
+6. **Identify assessment TYPE**: Single-point vs Serial same-encounter vs Longitudinal multi-encounter
+7. Use retrieved clinical guidelines for interpretation (don't restate criteria)
 
 **TEMPORAL DATA FORMAT EXAMPLES:**
 
@@ -169,9 +171,9 @@ You are a board-certified pediatric dietitian performing a comprehensive malnutr
 **GROUND TRUTH DIAGNOSIS (YOU MUST SUPPORT THIS):**
 {label_context}
 
-This is definitive. Extract and synthesize ALL evidence supporting this diagnosis. Use RAG-retrieved guidelines for interpretation.
+This is definitive. Extract and synthesize ALL evidence supporting this diagnosis. Use retrieved clinical guidelines for interpretation.
 
-IF "MALNUTRITION PRESENT": Synthesize anthropometric deficits WITH TRENDS, exam findings WITH SERIAL CHANGES, inadequate intake WITH DURATION, growth faltering WITH VELOCITY, labs WITH TRENDS, severity/etiology per guidelines.
+IF "MALNUTRITION PRESENT": Synthesize anthropometric deficits WITH TRENDS, exam findings WITH SERIAL CHANGES, inadequate intake WITH DURATION, growth faltering WITH VELOCITY, labs WITH TRENDS, severity/etiology per retrieved guidelines.
 
 IF "MALNUTRITION ABSENT": Synthesize normal anthropometrics WITH STABLE TRACKING, well-nourished appearance WITH CONSISTENCY, adequate intake WITH SUSTAINABILITY, stable growth OVER TIME, normal labs WITH STABLE TRENDS.
 
@@ -181,45 +183,38 @@ IF "MALNUTRITION ABSENT": Synthesize normal anthropometrics WITH STABLE TRACKING
 
 1. **CASE PRESENTATION**: Setting, chief concern, timeline, family perspective. **Identify assessment type** (single/serial/longitudinal) and temporal context.
 
-2. CLINICAL SYMPTOMS - TEMPORAL:
-   - Document ALL symptoms with DATES: "Vomiting 3-4 episodes daily since 1/15/25, increased to 6-8 by 2/15/25"
+2. CLINICAL SYMPTOMS - TEMPORAL (NEVER LEAVE EMPTY):
+   - **If symptoms ARE documented**: Document ALL with DATES: "Vomiting 3-4 episodes daily since 1/15/25, increased to 6-8 by 2/15/25"
    - Categories: GI (vomiting, diarrhea, reflux, pain), Systemic (fever, fatigue, irritability), Feeding (poor appetite, refusal), Functional (weakness, decreased activity)
    - Describe trajectory: New onset, progressive, stable, improving, resolved
-   - Quote exact descriptions with dates
-   - Relate to nutrition: "Vomiting limits intake to <50%"
+   - Quote exact descriptions with dates, relate to nutrition
    - For serial: Document changes across visits
-   - IF NOT DOCUMENTED: "No symptoms documented. Recommend systematic review
+   - **If symptoms NOT documented**: Write guideline-based recommendations using retrieved evidence: "No specific symptoms documented in the record. Per [GUIDELINE NAME from retrieved evidence], comprehensive symptom assessment should include: (1) GI symptoms: frequency/severity of vomiting, diarrhea, reflux, abdominal pain; (2) Systemic: fever patterns, fatigue, irritability; (3) Feeding: appetite changes, food refusal; (4) Functional: activity level, developmental regression. Recommend systematic symptom review at each encounter with [INTERVAL] monitoring."
+   - **If symptoms ARE documented**: Also compare with retrieved guidelines and add any guideline-recommended symptom categories not yet assessed
    
-3. **GROWTH & ANTHROPOMETRICS - TEMPORAL CAPTURE**:
-   - ALL measurements with DATES: "Weight 12.5 kg on 1/15 (5th %ile, z-score -1.8)"
-   - Calculate TRENDS: Absolute change, %, rate, velocity, percentile trajectory
-   - Describe trajectory: "Progressive decline" or "Stable tracking 25th %ile across 11/1, 12/15, 2/1"
-   - Interpret using RAG guidelines (don't restate thresholds)
-   - IF MISSING: State what's missing, recommend obtaining with rationale
+3. **GROWTH & ANTHROPOMETRICS - TEMPORAL CAPTURE (NEVER LEAVE EMPTY)**:
+   - **If measurements ARE documented**: Extract ALL with DATES: "Weight 12.5 kg on 1/15 (5th %ile, z-score -1.8)", calculate TRENDS (absolute change, %, rate, velocity, trajectory), describe pattern, interpret using retrieved guidelines. Then compare with retrieved evidence to identify missing parameters (e.g., "Head circumference not documented - per [GUIDELINE NAME from retrieved evidence], should be measured at each visit for children <36 months")
+   - **If measurements NOT documented**: Use retrieved guideline evidence to write comprehensive recommendations: "Growth parameters not documented in this encounter. Per [GUIDELINE NAME from retrieved evidence] for [diagnosis], baseline anthropometric assessment should include: Weight-for-age with percentile/z-score, Height/length-for-age with percentile/z-score, BMI-for-age or weight-for-length with percentile/z-score, Head circumference (if <36 months), Mid-upper arm circumference (if malnutrition suspected). Recommend obtaining complete growth assessment with serial measurements at [INTERVAL] to establish growth trajectory and percentile tracking patterns."
 
-4. **PHYSICAL EXAM - TEMPORAL**:
-   - If serial exams: Describe progression with dates
-   - Quote exact findings
-   - Interpret using RAG guidelines
-   - IF INCOMPLETE: Recommend exam with rationale
+4. **PHYSICAL EXAM - TEMPORAL (NEVER LEAVE EMPTY)**:
+   - **If exam documented**: Describe findings with dates, if serial exams show progression, quote exact findings, interpret using retrieved guidelines. Compare with retrieved evidence to identify missing exam components
+   - **If exam NOT documented or incomplete**: Use retrieved guideline evidence: "Physical examination not fully documented. Per [GUIDELINE NAME from retrieved evidence] for malnutrition assessment, comprehensive exam should evaluate: (1) General appearance: alertness, hydration status; (2) Muscle wasting: temporalis, deltoids, quadriceps, interosseous; (3) Subcutaneous fat loss: orbital, triceps, subscapular; (4) Edema: periorbital, pedal, sacral; (5) Skin/hair changes; (6) Growth chart plotting. For serial assessment, recommend documenting these findings at each encounter to track progression or improvement."
 
-5. **NUTRITION & INTAKE - TEMPORAL**:
-   - Document patterns over time: "Intake declined: 80-90% in Dec, 60-70% in Jan, 40-50% by Feb"
-   - Quote with timeframes
-   - IF MISSING: Use clinical reasoning about trajectory, recommend quantification
+5. **NUTRITION & INTAKE - TEMPORAL (NEVER LEAVE EMPTY)**:
+   - **If intake documented**: Extract patterns over time: "Intake declined: 80-90% in Dec, 60-70% in Jan, 40-50% by Feb". Quote with timeframes, relate to needs
+   - **If intake NOT documented**: Use retrieved guideline evidence: "Nutritional intake not quantified in the record. Per [GUIDELINE NAME from retrieved evidence], comprehensive intake assessment should document: (1) Percentage of estimated needs consumed; (2) Duration of inadequate intake; (3) Types of foods accepted/refused; (4) Feeding route (oral/enteral); (5) Appetite patterns with timing. For [diagnosis], recommend 3-day food diary or 24-hour recall with serial monitoring to quantify intake and identify patterns. Target intake: [XX] kcal/kg/day, [XX] g protein/kg/day per [GUIDELINE NAME from retrieved evidence]."
 
 6. **DIAGNOSIS & REASONING**:
    - State diagnosis consistent with ground truth
    - Synthesize evidence WITH TEMPORAL PATTERNS supporting ground truth
-   - Integrate RAG guidelines for criteria
+   - Integrate retrieved guideline criteria
    - Specify severity/etiology with guideline reference
    - Reason with incomplete data using convergent temporal evidence
 
-7. **LABS & SCREENING - TEMPORAL**:
-   - ALL labs with DATES: "Albumin: 3.8 on 1/15, 3.5 on 2/15, 3.2 on 3/15"
-   - Describe TRENDS: "Albumin declining 16% over 2 months"
-   - Interpret using RAG guidelines
-   - **IF MISSING**: For malnutrition, recommend specific labs WITH serial monitoring schedule per guidelines. For adequate nutrition, explain appropriateness.
+7. **LABS & SCREENING - TEMPORAL (NEVER LEAVE EMPTY)**:
+   - **If labs ARE documented**: Extract ALL with DATES: "Albumin: 3.8 on 1/15, 3.5 on 2/15, 3.2 on 3/15", describe TRENDS: "Albumin declining 16% over 2 months", interpret using retrieved guidelines. Compare with retrieved evidence to identify missing lab work
+   - **If labs NOT documented AND diagnosis is MALNUTRITION PRESENT**: Use retrieved guideline evidence to recommend: "Laboratory investigations not documented. Per [GUIDELINE NAME from retrieved evidence] for [severity] malnutrition, comprehensive metabolic assessment should include: BASELINE PANEL: (1) Complete blood count (assess anemia, immune function); (2) Comprehensive metabolic panel (electrolytes, renal, hepatic function); (3) Albumin and prealbumin (protein status - note limitations for acute illness); (4) Vitamins/minerals: Iron studies, Vitamin D 25-OH, Zinc, B12, folate; (5) Other: Thyroid function if growth faltering, Celiac screening if indicated. SERIAL MONITORING: Recommend weekly labs for first 2 weeks (electrolytes for refeeding syndrome risk), then every 2-4 weeks until nutritional rehabilitation. Specific monitoring intervals per [GUIDELINE NAME from retrieved evidence]: [schedule]."
+   - **If labs NOT documented AND diagnosis is MALNUTRITION ABSENT**: Use clinical reasoning with retrieved evidence: "No laboratory investigations documented in this encounter. Given the clinical presentation of adequate nutritional status with [supporting evidence: normal growth trajectory, adequate intake, well-nourished appearance], extensive lab work may not be clinically indicated at this time per [GUIDELINE NAME from retrieved evidence]. Routine screening labs (CBC, CMP) could be considered at next well-child visit or if clinical status changes. If growth faltering develops, would recommend malnutrition-specific lab panel as outlined in [GUIDELINE NAME from retrieved evidence]."
 
 8. **CARE PLAN - WITH TEMPORAL MONITORING**:
    - Goals, interventions with doses
@@ -231,12 +226,11 @@ IF "MALNUTRITION ABSENT": Synthesize normal anthropometrics WITH STABLE TRACKING
    - Justify with temporal reasoning
 
 9. **SOCIAL CONTEXT - TEMPORAL**:
-   - Note temporal changes in circumstances with dates
-   - Describe intervention progression
-   - IF MISSING: Recommend assessment with rationale
+   - **If documented**: Extract temporal changes in circumstances with dates, describe intervention progression
+   - **If NOT documented**: State "Social determinants and family context not documented in the record."
 
 10. **CLINICAL INSIGHTS - TEMPORAL SYNTHESIS**:
-   - Summarize with TEMPORAL INTEGRATION and RAG guideline references
+   - Summarize with TEMPORAL INTEGRATION and retrieved guideline references
    - **Prognosis with timeline**
    - **Decision points with dates**
    - **Risk factors with timeframes**
@@ -244,15 +238,20 @@ IF "MALNUTRITION ABSENT": Synthesize normal anthropometrics WITH STABLE TRACKING
    - **Pearls about temporal monitoring**
 
 **CRITICAL RULES:**
+- **NEVER LEAVE ANY FIELD EMPTY/BLANK/NULL**: Every field must have substantive content (except social context may say "not documented")
+- **DATA NOT DOCUMENTED**: Use retrieved guideline evidence to write what SHOULD BE DONE (recommended assessments, monitoring, guidelines)
+- **DATA IS DOCUMENTED**: Extract it AND enhance with retrieved guidelines (compare to guidelines, add missing recommended elements)
 - ANONYMIZE: Use "the patient", "the [age]-year-old", "the family"
 - CAPTURE ALL TEMPORAL DATA: Every measurement/lab/exam/intake with date
 - CALCULATE EXPLICIT TRENDS: Change, %, rate, velocity, trajectory
 - IDENTIFY ASSESSMENT TYPE: Single/serial/longitudinal
 - QUOTE EXACTLY: All values with dates
 - REASON FORWARD: Recommend what should be done with timeline
-- USE RAG GUIDELINES: For thresholds and criteria (don't restate in narrative)
+- USE RETRIEVED GUIDELINES: For thresholds, criteria, and recommendations (reference guideline names like ASPEN, WHO, CDC)
 - PRESERVE UNITS
 - ALIGN WITH GROUND TRUTH: Support {label_context} with ALL temporal evidence
+
+**REMEMBER**: The goal is comprehensive, guideline-based clinical documentation. Missing data is an opportunity to demonstrate expert knowledge by recommending evidence-based assessment and monitoring per retrieved clinical guidelines.
 
 Z-SCORE INTERPRETATION:
 "[NUMBER] z [NUMBER]" = PERCENTILE first, z-score second. <50th: negative. >50th: positive. Track changes over time.
@@ -275,17 +274,17 @@ CLINICAL TEXT:
 
 MALNUTRITION_MINIMAL_PROMPT = """[TASK DESCRIPTION - Pediatric Malnutrition Assessment]
 
-Expert pediatric dietitian performing malnutrition assessment for conversational AI training. Natural, expert-level clinical language. Use RAG guidelines for interpretation.
+Expert pediatric dietitian performing malnutrition assessment for conversational AI training. Natural, expert-level clinical language. Use retrieved clinical guidelines for interpretation.
 
-**CRITICAL: FORWARD-THINKING + TEMPORAL CAPTURE**
-Extract documented data AND recommend missing. Capture ALL measurements with DATES. Calculate TRENDS. Identify assessment type (single/serial/longitudinal).
+**CRITICAL: NEVER LEAVE EMPTY + FORWARD-THINKING + TEMPORAL CAPTURE**
+**NEVER LEAVE FIELDS EMPTY**: If data NOT documented → use retrieved guideline evidence to write recommendations. If data IS documented → extract AND enhance with retrieved guidelines. Capture ALL measurements with DATES. Calculate TRENDS. Identify assessment type (single/serial/longitudinal).
 
 **GROUND TRUTH DIAGNOSIS (MUST SUPPORT):**
 {label_context}
 
-IF "MALNUTRITION PRESENT": Synthesize deficits WITH TRENDS, exam WITH SERIAL CHANGES, intake WITH DURATION, growth WITH VELOCITY, labs WITH TRENDS per RAG guidelines.
+IF "MALNUTRITION PRESENT": Synthesize deficits WITH TRENDS, exam WITH SERIAL CHANGES, intake WITH DURATION, growth WITH VELOCITY, labs WITH TRENDS per retrieved guidelines.
 
-IF "MALNUTRITION ABSENT": Synthesize normal WITH STABLE TRACKING, well-nourished WITH CONSISTENCY, adequate intake WITH SUSTAINABILITY, stable growth OVER TIME per RAG guidelines.
+IF "MALNUTRITION ABSENT": Synthesize normal WITH STABLE TRACKING, well-nourished WITH CONSISTENCY, adequate intake WITH SUSTAINABILITY, stable growth OVER TIME per retrieved guidelines.
 
 **ANONYMIZE:** "the patient", "the [age]-year-old", "the family"
 
@@ -293,33 +292,36 @@ IF "MALNUTRITION ABSENT": Synthesize normal WITH STABLE TRACKING, well-nourished
 
 1. **CASE**: Setting, chief concern, timeline. **Identify type** (single/serial/longitudinal), temporal context.
 
-2. SYMPTOMS - TEMPORAL: Document ALL with DATES. Categories: GI, Systemic, Feeding, Functional. Trajectory: new/progressive/stable/improving/resolved. Quote with dates. For serial: changes across visits. Relate to nutrition. IF NOT DOCUMENTED: State it.
+2. SYMPTOMS - TEMPORAL (NEVER EMPTY): **If documented**: Extract ALL with DATES, categories (GI/Systemic/Feeding/Functional), trajectory, quote. **If NOT**: Use retrieved evidence for recommendations: "Not documented. Per [GUIDELINE NAME from retrieved evidence], assess: GI, systemic, feeding, functional symptoms with [interval] monitoring." **If documented**: Also compare with retrieved guidelines for missing categories.
 
-3. **GROWTH - TEMPORAL**: ALL measurements with DATES. Calculate TRENDS (absolute, %, rate, velocity, trajectory). Describe pattern. Interpret with RAG. IF MISSING: Recommend with rationale.
+3. **GROWTH - TEMPORAL (NEVER EMPTY)**: **If documented**: Extract ALL with DATES, calculate TRENDS, describe pattern, interpret with retrieved guidelines, identify missing parameters. **If NOT**: Use retrieved evidence: "Not documented. Per [GUIDELINE NAME from retrieved evidence], obtain weight/height/BMI-for-age with percentiles/z-scores, serial measurements at [interval]."
 
-4. **EXAM - TEMPORAL**: If serial, describe progression with dates. Quote findings. Interpret with RAG. IF INCOMPLETE: Recommend.
+4. **EXAM - TEMPORAL (NEVER EMPTY)**: **If documented**: Describe with dates, progression if serial, quote, interpret with retrieved guidelines, note missing components. **If NOT**: Use retrieved evidence: "Not documented. Per [GUIDELINE NAME from retrieved evidence], examine: appearance, muscle/fat, edema, skin/hair, growth plotting at each visit."
 
-5. **INTAKE - TEMPORAL**: Patterns over time with dates. Quote with timeframes. IF MISSING: Reason about trajectory, recommend quantification.
+5. **INTAKE - TEMPORAL (NEVER EMPTY)**: **If documented**: Extract patterns with dates, timeframes. **If NOT**: Use retrieved evidence: "Not quantified. Per [GUIDELINE NAME from retrieved evidence], assess: % needs, duration, foods, route, appetite. Recommend food diary, target [XX] kcal/kg/day per [GUIDELINE NAME from retrieved evidence]."
 
-6. **DIAGNOSIS**: State consistent with ground truth. Synthesize evidence WITH TEMPORAL PATTERNS. Use RAG criteria. Specify severity/etiology. Reason with incomplete data.
+6. **DIAGNOSIS (NEVER EMPTY)**: State consistent with ground truth. Synthesize evidence WITH TEMPORAL PATTERNS. Use retrieved guideline criteria. Specify severity/etiology. Reason with incomplete data using convergent evidence.
 
-7. **LABS - TEMPORAL**: ALL with DATES. Describe TRENDS. Interpret with RAG. **IF MISSING**: For malnutrition, recommend specific labs WITH schedule. For adequate, explain appropriateness.
+7. **LABS - TEMPORAL (NEVER EMPTY)**: **If documented**: Extract ALL with DATES, trends, interpret with retrieved guidelines, note missing labs. **If NOT + malnutrition**: Use retrieved evidence: "Not documented. Per [GUIDELINE NAME from retrieved evidence], obtain: CBC, CMP, albumin, vitamins. Serial monitoring: weekly x2, then q2-4wks." **If NOT + adequate**: "Not documented. Given adequate status, may not be indicated. Consider routine screening at well-child per [GUIDELINE NAME from retrieved evidence]."
 
 8. **CARE PLAN - TEMPORAL MONITORING**: Goals, interventions. **Schedule**: Week 1 (Day 7), Week 2, Weeks 3-4, Months 2-3. **Labs schedule**: Baseline, serial frequency. **Follow-up**: Dates. **Escalation**: With timepoints. **Trajectory**: Recovery timeline.
 
-9. **SOCIAL - TEMPORAL**: Changes with dates. Intervention progression. IF MISSING: Recommend.
+9. **SOCIAL - TEMPORAL**: **If documented**: Extract changes with dates, intervention progression. **If NOT**: State "Social determinants and family context not documented in the record."
 
-10. **INSIGHTS - TEMPORAL**: Summarize with TEMPORAL INTEGRATION and RAG references. Prognosis with timeline. Decision points with dates. Risks with timeframes. Teaching. Pearls.
+10. **INSIGHTS - TEMPORAL (NEVER EMPTY)**: Summarize with TEMPORAL INTEGRATION and retrieved guideline references. Prognosis with timeline. Decision points with dates. Risks with timeframes. Teaching. Pearls.
 
 **RULES:**
+- **NEVER LEAVE FIELDS EMPTY**: If not documented → use retrieved guideline evidence. If documented → extract + enhance with retrieved guidelines (except social context may say "not documented")
 - ANONYMIZE
 - CAPTURE ALL TEMPORAL DATA with dates
 - CALCULATE TRENDS explicitly
 - IDENTIFY TYPE
 - QUOTE EXACTLY with dates
 - REASON FORWARD with timeline
-- USE RAG for criteria
+- USE RETRIEVED GUIDELINES for criteria and recommendations (ASPEN, WHO, CDC)
 - ALIGN WITH GROUND TRUTH
+
+**REMEMBER**: Missing data = opportunity to show guideline-based recommendations using retrieved clinical guidelines.
 
 [END]
 
@@ -341,40 +343,52 @@ MALNUTRITION_RAG_REFINEMENT_PROMPT = """[RAG REFINEMENT TASK - Malnutrition Asse
 
 Refining preliminary malnutrition assessment using evidence from authoritative guidelines. Clinical expert curating training data for conversational AI.
 
-**CRITICAL: ENHANCE FORWARD-THINKING + TEMPORAL CAPTURE**
-Refined output must recommend what SHOULD BE DONE when missing. Ensure comprehensive temporal capture: ALL measurements with dates, explicit trend calculations, assessment type, temporal significance.
+**CRITICAL: NEVER LEAVE EMPTY + ENHANCE FORWARD-THINKING + TEMPORAL CAPTURE**
+**NEVER LEAVE ANY FIELD EMPTY/BLANK/NULL**: Every field in refined output must have substantive content. If initial extraction has empty/null fields, FILL THEM using retrieved guideline evidence. If initial extraction has content, ENHANCE it using retrieved guidelines. Ensure comprehensive temporal capture: ALL measurements with dates, explicit trend calculations, assessment type, temporal significance.
 
 **GROUND TRUTH DIAGNOSIS (MUST SUPPORT):**
 {label_context}
 
-If initial extraction contradicts ground truth, CORRECT IT. Use RAG guidelines for justification.
+If initial extraction contradicts ground truth, CORRECT IT. Use retrieved clinical guidelines for justification.
 
 **ANONYMIZE:** "the patient", "the [age]-year-old", "the family"
 
 **REFINEMENT OBJECTIVES:**
 
-1. **VALIDATE**: Confirm interpretations against RAG guideline thresholds and criteria. Validate temporal trend calculations.
+1. **VALIDATE**: Confirm interpretations against retrieved guideline thresholds and criteria. Validate temporal trend calculations.
 
-2. **CORRECT**: Fix misclassifications with RAG citations. Correct temporal calculations. Align with ground truth. If initial said "Absent" but ground truth is "Present", reframe with temporal decline. If initial said "Present" but ground truth is "Absent", reframe with temporal stability.
+2. **CORRECT**: Fix misclassifications with citations to retrieved guidelines. Correct temporal calculations. Align with ground truth. If initial said "Absent" but ground truth is "Present", reframe with temporal decline. If initial said "Present" but ground truth is "Absent", reframe with temporal stability.
 
-3. **ENHANCE**: Add RAG guideline references. **Add temporal detail**: Transform vague into specific with dates. Calculate missing trends. Identify assessment type. Add temporal interpretation. **Add forward-thinking**: Labs with serial schedule, care plan with monitoring intervals, insights with timeline.
+3. **ENHANCE**: Add retrieved guideline references. **Add temporal detail**: Transform vague into specific with dates. Calculate missing trends. Identify assessment type. Add temporal interpretation. **Add forward-thinking**: Labs with serial schedule, care plan with monitoring intervals, insights with timeline.
 
-4. **FILL GAPS**: Specify severity. Calculate trends if data present. Add recommendations with timeframes. Transform "not documented" into recommendations with RAG citations and schedules.
+4. **FILL GAPS - PRIMARY OBJECTIVE**:
+   - **EMPTY/NULL FIELDS**: If initial extraction has empty, null, blank, or "not documented" fields, THIS IS YOUR PRIMARY TASK - FILL THEM using retrieved guideline evidence
+   - **Symptoms field empty?** → Write: "Symptoms not documented in record. Per [GUIDELINE NAME from retrieved evidence], comprehensive symptom assessment should include: [detailed guideline-based symptom list with monitoring intervals]"
+   - **Labs field empty?** → Write: "Labs not documented. Per [GUIDELINE NAME from retrieved evidence] for [severity] malnutrition, recommend: [detailed lab panel with specific tests and serial monitoring schedule from guidelines]"
+   - **Growth field empty?** → Write: "Growth parameters not documented. Per [GUIDELINE NAME from retrieved evidence], obtain: [specific anthropometric measurements with percentile/z-score interpretation and monitoring frequency]"
+   - **Exam field empty?** → Write: "Physical exam not documented. Per [GUIDELINE NAME from retrieved evidence], malnutrition exam should assess: [specific exam components from guidelines with serial documentation recommendations]"
+   - **Intake field empty?** → Write: "Intake not quantified. Per [GUIDELINE NAME from retrieved evidence], assess: [specific intake assessment methods and target requirements from guidelines]"
+   - **Social field empty?** → State: "Social determinants and family context not documented in the record."
+   - **FIELDS WITH CONTENT**: Enhance by adding guideline-recommended elements not yet addressed, specify severity using retrieved guideline criteria, calculate missing trends, add monitoring schedules from guidelines
 
 5. **ENSURE CONSISTENCY**: Verify diagnosis matches ground truth with temporal evidence. Check temporal consistency (dates, intervals, calculations). Care plan must have actionable timeline.
 
 6. **HANDLE MISSING**: For labs with adequate nutrition: Explain appropriateness. For labs with malnutrition: Recommend specific labs WITH schedule. For anthropometrics: Recommend obtaining. For intake: Recommend quantification. For incomplete temporal: Recommend establishing trend.
 
 **CRITICAL PRINCIPLES:**
-- Preserve fidelity
-- Quote RAG guidelines
-- Flag discrepancies
-- EMBED FORWARD-THINKING with timelines
+- **ABSOLUTE RULE: NO EMPTY FIELDS**: Every field must have substantive content in your refined output (except social context may say "not documented")
+- **EMPTY FIELDS ARE YOUR PRIMARY TASK**: Use retrieved guideline evidence to fill with evidence-based recommendations
+- **FILLED FIELDS ALSO NEED WORK**: Enhance with retrieved guidelines, add missing guideline-recommended elements
+- Preserve fidelity (don't remove correct documented data)
+- Quote retrieved guidelines explicitly (include guideline names like ASPEN, WHO, CDC)
+- Flag discrepancies between initial extraction and ground truth
+- EMBED FORWARD-THINKING with timelines and monitoring schedules from retrieved evidence
 - ENHANCE ALL TEMPORAL DATA: dates, trends, type, significance
 - GROUND TRUTH IS ABSOLUTE: Correct to align using temporal evidence
+- **MINDSET**: You are demonstrating expert clinical knowledge by providing guideline-based recommendations using retrieved clinical guidelines
 
 **SYNTHESIS GUIDELINES:**
-Use RAG guidelines for all criteria. Present with temporal context. Care plans with schedules. Insights with timelines. Final diagnosis must match ground truth.
+Use retrieved clinical guidelines for all criteria. Present with temporal context. Care plans with schedules. Insights with timelines. Final diagnosis must match ground truth.
 
 [END]
 
@@ -609,32 +623,32 @@ PROMPT_TEMPLATE_REGISTRY_V1 = {
             },
             "clinical_symptoms_and_signs": {
                         "type": "string",
-                        "description": "TEMPORAL SYMPTOM CAPTURE: Document ALL clinical symptoms and signs with ONSET DATES and PROGRESSION. Include: (1) GI symptoms: vomiting, diarrhea, constipation, reflux, abdominal pain with frequency/severity/timing ('Vomiting 3-4 episodes daily since 1/15/25, worsening to 6-8 episodes by 2/15/25'); (2) Systemic symptoms: fever, fatigue, irritability, lethargy with onset/duration; (3) Feeding symptoms: poor appetite, food refusal, early satiety with temporal pattern; (4) Functional symptoms: weakness, decreased activity, developmental regression with onset; (5) Other relevant symptoms with dates. Describe SYMPTOM TRAJECTORY: new onset, progressive, stable, improving, resolved. Quote exact descriptions from note. If symptoms not documented, state 'No specific symptoms documented' rather than leaving blank.",
+                        "description": "TEMPORAL SYMPTOM CAPTURE (NEVER LEAVE EMPTY): If documented: Extract ALL with ONSET DATES and PROGRESSION: (1) GI: vomiting, diarrhea, reflux, pain with frequency/severity/timing; (2) Systemic: fever, fatigue, irritability; (3) Feeding: appetite, refusal, satiety; (4) Functional: weakness, activity, development; (5) Trajectory: new/progressive/stable/improving/resolved. Quote exact descriptions. If NOT documented: Use retrieved guideline evidence to write symptom assessment recommendations with monitoring intervals. NEVER leave this field empty/null.",
                         "required": False
-            },                
+            },
             "growth_and_anthropometrics": {
                 "type": "string",
-                "description": "TEMPORAL CAPTURE: ALL measurements with DATES ('Weight: 12.5 kg on 1/15/25 (25th %ile, z-score -0.7), 11.8 kg on 2/14/25 (10th %ile, z-score -1.3)'). Calculate EXPLICIT TRENDS: absolute change, %, rate, velocity, percentile trajectory. Describe pattern (progressive/stable). Use RAG guidelines for interpretation. If missing, recommend with rationale.",
+                "description": "TEMPORAL CAPTURE (NEVER LEAVE EMPTY): If documented: Extract ALL with DATES, calculate EXPLICIT TRENDS (absolute, %, rate, velocity, trajectory), describe pattern, interpret using retrieved guidelines, note missing parameters. If NOT documented: Use retrieved guideline evidence to write comprehensive anthropometric assessment recommendations with specific measurements, percentile/z-score interpretation, and serial monitoring frequency. NEVER leave empty.",
                 "required": True
             },
             "physical_exam": {
                 "type": "string",
-                "description": "TEMPORAL: General impression, muscle, fat, edema. If SERIAL exams, describe progression with dates. Quote findings. Use RAG guidelines. If incomplete, recommend.",
+                "description": "TEMPORAL (NEVER LEAVE EMPTY): If documented: Extract findings with dates, progression if serial, quote exactly, interpret using retrieved guidelines, note missing exam components. If NOT documented: Use retrieved guideline evidence to write comprehensive exam recommendations covering appearance, muscle/fat assessment, edema, skin/hair, with serial documentation guidance. NEVER leave empty.",
                 "required": True
             },
             "nutrition_and_intake": {
                 "type": "string",
-                "description": "TEMPORAL: Document patterns over time with dates ('Declined: 80-90% Dec, 60-70% Jan, 40-50% Feb' or 'Consistently 95-100% across encounters'). Quote with timeframes. If missing, reason about trajectory, recommend quantification.",
+                "description": "TEMPORAL (NEVER LEAVE EMPTY): If documented: Extract patterns with dates and timeframes, relate to requirements. If NOT documented: Use retrieved guideline evidence to write intake assessment recommendations with methods (food diary, recall), target requirements (kcal/kg, protein/kg), and quantification strategy. NEVER leave empty.",
                 "required": True
             },
             "diagnosis_and_reasoning": {
                 "type": "string",
-                "description": "TEMPORAL INTEGRATION: Diagnosis (aligned with ground truth), severity, etiology. Synthesize evidence WITH TEMPORAL PATTERNS. Use RAG criteria. Reason with incomplete data using convergent temporal evidence.",
+                "description": "TEMPORAL INTEGRATION: Diagnosis (aligned with ground truth), severity, etiology. Synthesize evidence WITH TEMPORAL PATTERNS. Use retrieved guideline criteria. Reason with incomplete data using convergent temporal evidence.",
                 "required": True
             },
             "labs_and_screening": {
                 "type": "string",
-                "description": "TEMPORAL: ALL labs with DATES ('Albumin: 3.8 on 1/15, 3.5 on 2/15, 3.2 on 3/15'). Describe TRENDS ('16% decline over 2 months'). Use RAG guidelines. IF MISSING: For malnutrition, recommend specific labs WITH serial schedule. For adequate, explain appropriateness.",
+                "description": "TEMPORAL (NEVER LEAVE EMPTY): If documented: Extract ALL with DATES, describe TRENDS, interpret using retrieved guidelines, note missing labs. If NOT documented + malnutrition: Use retrieved guideline evidence to write comprehensive lab recommendations (CBC, CMP, albumin, vitamins, etc.) WITH serial monitoring schedule (weekly x2, then q2-4wks). If NOT documented + adequate nutrition: Use retrieved evidence to explain appropriateness and recommend routine screening schedule. NEVER leave empty - always provide guideline-based content.",
                 "required": False
             },
             "care_plan": {
@@ -644,12 +658,12 @@ PROMPT_TEMPLATE_REGISTRY_V1 = {
             },
             "social_context": {
                 "type": "string",
-                "description": "TEMPORAL: Social situation, barriers. Note changes with dates. Describe intervention progression. If missing, recommend.",
+                "description": "TEMPORAL: If documented: Extract situation, barriers, changes with dates, intervention progression. If NOT documented: State 'Social determinants and family context not documented in the record.'",
                 "required": False
             },
             "clinical_insights": {
                 "type": "string",
-                "description": "TEMPORAL SYNTHESIS: Summary with TEMPORAL INTEGRATION and RAG references. Prognosis with timeline. Decision points with dates. Risk factors with timeframes. Teaching about temporal patterns. Pearls about temporal monitoring.",
+                "description": "TEMPORAL SYNTHESIS: Summary with TEMPORAL INTEGRATION and retrieved guideline references. Prognosis with timeline. Decision points with dates. Risk factors with timeframes. Teaching about temporal patterns. Pearls about temporal monitoring.",
                 "required": True
             }
         }
