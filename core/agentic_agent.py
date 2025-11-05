@@ -26,6 +26,7 @@ Phase 2 Features:
 
 import json
 import time
+import re
 import asyncio
 from typing import Dict, Any, Optional, List, Tuple
 from dataclasses import dataclass, field
@@ -294,10 +295,10 @@ class AgenticAgent:
         """
         Fallback: Text-based tool calling for providers that don't support native tools
 
-        LLM describes tools to call in structured text, we parse it
+        ENHANCED: Includes tool descriptions in prompt so LLM knows what tools exist
         """
-        # Build prompt with tool descriptions
-        messages = self._convert_history_to_text()
+        # Build comprehensive prompt with tool descriptions
+        messages = self._convert_history_to_text_with_tools()
 
         # Generate
         response_text = self.llm_manager.generate(
@@ -604,8 +605,7 @@ class AgenticAgent:
         """
         Build initial agentic prompt using USER'S task-specific prompt as PRIMARY
 
-        Uses main_prompt (or fallback to minimal_prompt) from user's configuration
-        as the primary task definition, then appends agentic tool-calling framework.
+        ALWAYS tries main_prompt first, falls back to minimal_prompt only if main is missing.
         """
         from core.prompt_templates import get_agentic_extraction_prompt
 
@@ -613,22 +613,21 @@ class AgenticAgent:
             self.app_state.prompt_config.json_schema
         )
 
-        # Get user's task-specific prompt (main or minimal as fallback)
-        use_minimal = self.app_state.prompt_config.use_minimal
+        # FIXED: Always try MAIN prompt first, fall back to MINIMAL only if MAIN is missing
         user_task_prompt = None
 
-        if use_minimal and self.app_state.prompt_config.minimal_prompt:
-            user_task_prompt = self.app_state.prompt_config.minimal_prompt
-            logger.info("Using MINIMAL prompt as primary task definition")
-        elif self.app_state.prompt_config.main_prompt:
+        if self.app_state.prompt_config.main_prompt:
             user_task_prompt = self.app_state.prompt_config.main_prompt
-            logger.info("Using MAIN prompt as primary task definition")
+            logger.info("✓ Using MAIN prompt as primary task definition")
+        elif self.app_state.prompt_config.minimal_prompt:
+            user_task_prompt = self.app_state.prompt_config.minimal_prompt
+            logger.info("⚠ Using MINIMAL prompt as fallback (main_prompt not set)")
         elif self.app_state.prompt_config.base_prompt:
             user_task_prompt = self.app_state.prompt_config.base_prompt
-            logger.info("Using BASE prompt as primary task definition (fallback)")
+            logger.info("⚠ Using BASE prompt as fallback (main and minimal not set)")
         else:
             user_task_prompt = ""
-            logger.warning("No user task-specific prompt found - using generic agentic prompt")
+            logger.warning("❌ No user task-specific prompt found - using generic agentic prompt")
 
         prompt = get_agentic_extraction_prompt(
             clinical_text=self.context.clinical_text,
@@ -645,21 +644,30 @@ class AgenticAgent:
         return """You are a board-certified clinical expert performing information extraction from medical text.
 
 You have access to tools:
-- query_rag: Retrieve clinical guidelines and standards
-- call_[function]: Perform medical calculations
-- query_extras: Get supplementary hints
+- query_rag: Retrieve clinical guidelines and standards from authoritative sources
+- call_[function]: Perform medical calculations (BMI, z-scores, creatinine clearance, etc.)
+- query_extras: Get supplementary hints and reference ranges
 
-**Agentic Workflow:**
-1. Analyze the clinical text
-2. Call tools as needed to gather information
-3. Learn from results, call more tools if needed
-4. When you have enough information, output the final JSON
+**MANDATORY AGENTIC WORKFLOW:**
 
-**Critical:**
-- Call tools MULTIPLE times if needed
-- Iterate based on what you learn
-- Don't request all tools at once - adapt as you go
-- Output JSON only when extraction is complete"""
+🔴 CRITICAL: You MUST call tools BEFORE outputting final JSON! 🔴
+
+1. **ANALYZE**: Read the clinical text and understand what information is needed
+2. **CALL TOOLS**: Request tools to gather guidelines, perform calculations, get hints
+3. **LEARN**: Examine tool results and determine if you need more information
+4. **ITERATE**: Call additional tools with refined queries if needed
+5. **EXTRACT**: Only after gathering sufficient information, output the final JSON
+
+**Requirements:**
+- ❌ DO NOT output final JSON immediately
+- ✅ MUST call tools first (RAG for guidelines, functions for calculations, extras for hints)
+- ✅ Call tools MULTIPLE times if needed with different queries
+- ✅ Adapt your strategy based on what you learn from tool results
+- ✅ Only output JSON when you have gathered all necessary information
+
+**Example Flow:**
+[Iteration 1] Read text → Call query_rag("relevant guidelines") + call_calculate_bmi(...)
+[Iteration 2] Analyze results → Call more tools if needed OR output final JSON if complete"""
 
     def _format_tool_result_for_llm(self, result: ToolResult) -> str:
         """Format tool result for LLM consumption"""
@@ -800,15 +808,99 @@ You have access to tools:
                 lines.append(f"TOOL RESULT: {msg.content}")
         return "\n\n".join(lines)
 
+    def _convert_history_to_text_with_tools(self) -> str:
+        """
+        Convert conversation history to text WITH tool descriptions
+
+        CRITICAL for local models to understand what tools are available
+        """
+        lines = []
+
+        # Add system message with tool descriptions
+        system_msg = self._build_system_message()
+        lines.append(f"SYSTEM: {system_msg}")
+
+        # Add detailed tool descriptions
+        lines.append("\n" + "=" * 80)
+        lines.append("AVAILABLE TOOLS:")
+        lines.append("=" * 80)
+
+        tools = self._get_tool_schema()
+        for tool in tools:
+            func = tool['function']
+            lines.append(f"\n🔧 **{func['name']}**")
+            lines.append(f"   Description: {func['description']}")
+            lines.append(f"   Parameters: {json.dumps(func['parameters'], indent=2)}")
+
+        lines.append("\n" + "=" * 80)
+        lines.append("TO CALL A TOOL, respond with:")
+        lines.append('TOOL_CALL: {"tool": "tool_name", "parameters": {...}}')
+        lines.append("You can call MULTIPLE tools by listing multiple TOOL_CALL lines.")
+        lines.append("After tools are executed, you'll receive results and can call more tools or output final JSON.")
+        lines.append("=" * 80 + "\n")
+
+        # Add conversation history
+        for msg in self.context.conversation_history:
+            if msg.role == 'system':
+                # Already added above with tools
+                continue
+            elif msg.role == 'user':
+                lines.append(f"\nUSER: {msg.content}")
+            elif msg.role == 'assistant':
+                lines.append(f"\nASSISTANT: {msg.content}")
+            elif msg.role == 'tool':
+                lines.append(f"\nTOOL RESULT ({msg.name}): {msg.content}")
+
+        return "\n".join(lines)
+
     def _parse_text_response_for_tools(self, text: str) -> Dict[str, Any]:
-        """Parse text response for tool calls or JSON (fallback for non-tool-calling providers)"""
-        # Simple heuristic: check if it looks like JSON
+        """
+        Parse text response for tool calls or JSON (fallback for non-tool-calling providers)
+
+        ENHANCED: Detects TOOL_CALL requests in text format
+        """
+        tool_calls = []
+
+        # Look for TOOL_CALL patterns
+        tool_call_pattern = r'TOOL_CALL:\s*(\{[^}]+\})'
+        matches = re.findall(tool_call_pattern, text, re.IGNORECASE | re.MULTILINE)
+
+        if matches:
+            # Parse tool calls
+            for i, match in enumerate(matches):
+                try:
+                    tool_request = json.loads(match)
+                    tool_name = tool_request.get('tool', '')
+                    parameters = tool_request.get('parameters', {})
+
+                    tool_calls.append({
+                        'id': f"call_{time.time()}_{i}",
+                        'type': 'function',
+                        'function': {
+                            'name': tool_name,
+                            'arguments': json.dumps(parameters)
+                        }
+                    })
+                except json.JSONDecodeError:
+                    logger.warning(f"Failed to parse tool call: {match}")
+
+            if tool_calls:
+                logger.info(f"Parsed {len(tool_calls)} tool calls from text response")
+                return {
+                    'content': text,
+                    'tool_calls': tool_calls,
+                    'finish_reason': 'tool_calls'
+                }
+
+        # Check if it looks like final JSON output
         if '{' in text and '}' in text:
             parsed = self._try_parse_json(text)
             if parsed:
+                logger.info("Detected final JSON output")
                 return {'content': text, 'tool_calls': [], 'finish_reason': 'stop'}
 
         # Otherwise, assume it's analysis/thinking
+        logger.info("LLM is thinking/analyzing")
         return {'content': text, 'tool_calls': [], 'finish_reason': 'continue'}
 
     def _build_extraction_result(self) -> Dict[str, Any]:
