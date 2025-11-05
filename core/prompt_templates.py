@@ -158,7 +158,7 @@ You are a board-certified pediatric dietitian performing a comprehensive malnutr
 2. **Capture ALL vitals/measurements with DATES**
 3. **Calculate explicit TRENDS** (absolute change, %, rate, velocity, percentile trajectory)
 4. **Identify assessment TYPE**: Single-point vs Serial same-encounter vs Longitudinal multi-encounter
-5. Use RAG-retrieved guidelines for clinical interpretation (don't restate criteria)
+5. Use retrieved evidence from authoritative sources (ASPEN, WHO, CDC) for clinical interpretation (don't restate criteria)
 
 **TEMPORAL DATA FORMAT EXAMPLES:**
 
@@ -166,12 +166,54 @@ You are a board-certified pediatric dietitian performing a comprehensive malnutr
 
 ✗ BAD: "Weight decreased from 12.5 kg to 11.2 kg"
 
+**CRITICAL Z-SCORE AND PERCENTILE CONVENTION - MUST FOLLOW EXACTLY:**
+
+**Z-SCORE SIGN CONVENTION (NON-NEGOTIABLE):**
+- **Percentile BELOW 50th** = NEGATIVE z-score (child is below average)
+  * 3rd percentile = z-score **-1.88** (NOT +1.88)
+  * 5th percentile = z-score **-1.64** (NOT +1.64)
+  * 10th percentile = z-score **-1.28** (NOT +1.28)
+  * 25th percentile = z-score **-0.67** (NOT +0.67)
+- **50th percentile** = z-score 0 (exactly average)
+- **Percentile ABOVE 50th** = POSITIVE z-score (child is above average)
+  * 75th percentile = z-score +0.67
+  * 90th percentile = z-score +1.28
+  * 95th percentile = z-score +1.64
+
+**WHO MALNUTRITION CLASSIFICATION BY Z-SCORE:**
+Weight-for-Height or BMI-for-Age:
+- **z < -3**: SEVERE ACUTE MALNUTRITION (SAM) - <1st percentile, immediate intervention needed
+- **-3 ≤ z < -2**: MODERATE ACUTE MALNUTRITION (MAM) - 2nd-3rd percentile, nutritional rehabilitation
+- **-2 ≤ z < -1**: MILD MALNUTRITION RISK - 3rd-15th percentile, close monitoring
+- **-1 ≤ z ≤ +1**: NORMAL RANGE - 15th-85th percentile
+- **z > +2**: OVERWEIGHT/OBESITY - >97th percentile
+
+Height-for-Age (Stunting):
+- **z < -3**: SEVERELY STUNTED (chronic malnutrition)
+- **z < -2**: STUNTED (chronic undernutrition)
+
+**ASPEN PEDIATRIC MALNUTRITION SEVERITY (Requires 2+ indicators):**
+BMI-for-Age or Weight-for-Height:
+- **Mild**: z-score -1 to -1.9 (3rd-15th percentile)
+- **Moderate**: z-score -2 to -2.9 (0.5th-3rd percentile)
+- **Severe**: z-score ≤ -3 (<0.5th percentile)
+
+Deceleration in Weight Gain Velocity:
+- **Mild**: Decline of 1 z-score
+- **Moderate**: Decline of 2 z-scores
+- **Severe**: Decline of 3 z-scores
+
+**FUNCTIONS TO USE:**
+- When you have z-score values, ALWAYS call interpret_zscore_malnutrition(zscore, measurement_type) to get proper WHO/ASPEN interpretation
+- Use percentile_to_zscore() to convert percentiles to z-scores if only percentiles are given
+- Use calculate_growth_percentile() to calculate various z-scores from anthropometric measurements
+
 **GROUND TRUTH DIAGNOSIS (YOU MUST SUPPORT THIS):**
 {label_context}
 
-This is definitive. Extract and synthesize ALL evidence supporting this diagnosis. Use RAG-retrieved guidelines for interpretation.
+This is definitive. Extract and synthesize ALL evidence supporting this diagnosis. Use retrieved evidence from authoritative sources (ASPEN, WHO, CDC) for interpretation.
 
-IF "MALNUTRITION PRESENT": Synthesize anthropometric deficits WITH TRENDS, exam findings WITH SERIAL CHANGES, inadequate intake WITH DURATION, growth faltering WITH VELOCITY, labs WITH TRENDS, severity/etiology per guidelines.
+IF "MALNUTRITION PRESENT": Synthesize anthropometric deficits WITH TRENDS, exam findings WITH SERIAL CHANGES, inadequate intake WITH DURATION, growth faltering WITH VELOCITY, labs WITH TRENDS, severity/etiology per retrieved guidelines (cite specific sources: ASPEN, WHO, CDC).
 
 IF "MALNUTRITION ABSENT": Synthesize normal anthropometrics WITH STABLE TRACKING, well-nourished appearance WITH CONSISTENCY, adequate intake WITH SUSTAINABILITY, stable growth OVER TIME, normal labs WITH STABLE TRENDS.
 
@@ -194,13 +236,13 @@ IF "MALNUTRITION ABSENT": Synthesize normal anthropometrics WITH STABLE TRACKING
    - ALL measurements with DATES: "Weight 12.5 kg on 1/15 (5th %ile, z-score -1.8)"
    - Calculate TRENDS: Absolute change, %, rate, velocity, percentile trajectory
    - Describe trajectory: "Progressive decline" or "Stable tracking 25th %ile across 11/1, 12/15, 2/1"
-   - Interpret using RAG guidelines (don't restate thresholds)
+   - Interpret using retrieved guidelines from authoritative sources (cite ASPEN, WHO, CDC as appropriate; don't restate thresholds)
    - IF MISSING: State what's missing, recommend obtaining with rationale
 
 4. **PHYSICAL EXAM - TEMPORAL**:
    - If serial exams: Describe progression with dates
    - Quote exact findings
-   - Interpret using RAG guidelines
+   - Interpret using retrieved guidelines (cite specific sources: ASPEN, WHO)
    - IF INCOMPLETE: Recommend exam with rationale
 
 5. **NUTRITION & INTAKE - TEMPORAL**:
@@ -211,15 +253,15 @@ IF "MALNUTRITION ABSENT": Synthesize normal anthropometrics WITH STABLE TRACKING
 6. **DIAGNOSIS & REASONING**:
    - State diagnosis consistent with ground truth
    - Synthesize evidence WITH TEMPORAL PATTERNS supporting ground truth
-   - Integrate RAG guidelines for criteria
-   - Specify severity/etiology with guideline reference
+   - Integrate retrieved guideline criteria (cite specific sources: ASPEN, WHO, CDC)
+   - Specify severity/etiology with guideline reference from retrieved evidence
    - Reason with incomplete data using convergent temporal evidence
 
 7. **LABS & SCREENING - TEMPORAL**:
    - ALL labs with DATES: "Albumin: 3.8 on 1/15, 3.5 on 2/15, 3.2 on 3/15"
    - Describe TRENDS: "Albumin declining 16% over 2 months"
-   - Interpret using RAG guidelines
-   - **IF MISSING**: For malnutrition, recommend specific labs WITH serial monitoring schedule per guidelines. For adequate nutrition, explain appropriateness.
+   - Interpret using retrieved guidelines from authoritative sources
+   - **IF MISSING**: For malnutrition, recommend specific labs WITH serial monitoring schedule per retrieved guidelines. For adequate nutrition, explain appropriateness.
 
 8. **CARE PLAN - WITH TEMPORAL MONITORING**:
    - Goals, interventions with doses
@@ -236,7 +278,7 @@ IF "MALNUTRITION ABSENT": Synthesize normal anthropometrics WITH STABLE TRACKING
    - IF MISSING: Recommend assessment with rationale
 
 10. **CLINICAL INSIGHTS - TEMPORAL SYNTHESIS**:
-   - Summarize with TEMPORAL INTEGRATION and RAG guideline references
+   - Summarize with TEMPORAL INTEGRATION and references to retrieved guidelines (cite specific sources: ASPEN, WHO, CDC)
    - **Prognosis with timeline**
    - **Decision points with dates**
    - **Risk factors with timeframes**
@@ -250,12 +292,9 @@ IF "MALNUTRITION ABSENT": Synthesize normal anthropometrics WITH STABLE TRACKING
 - IDENTIFY ASSESSMENT TYPE: Single/serial/longitudinal
 - QUOTE EXACTLY: All values with dates
 - REASON FORWARD: Recommend what should be done with timeline
-- USE RAG GUIDELINES: For thresholds and criteria (don't restate in narrative)
+- USE RETRIEVED GUIDELINES: Cite specific authoritative sources (ASPEN, WHO, CDC) for thresholds and criteria (don't restate in narrative)
 - PRESERVE UNITS
 - ALIGN WITH GROUND TRUTH: Support {label_context} with ALL temporal evidence
-
-Z-SCORE INTERPRETATION:
-"[NUMBER] z [NUMBER]" = PERCENTILE first, z-score second. <50th: negative. >50th: positive. Track changes over time.
 
 [END TASK DESCRIPTION]
 
@@ -275,17 +314,25 @@ CLINICAL TEXT:
 
 MALNUTRITION_MINIMAL_PROMPT = """[TASK DESCRIPTION - Pediatric Malnutrition Assessment]
 
-Expert pediatric dietitian performing malnutrition assessment for conversational AI training. Natural, expert-level clinical language. Use RAG guidelines for interpretation.
+Expert pediatric dietitian performing malnutrition assessment for conversational AI training. Natural, expert-level clinical language. Use retrieved evidence from authoritative sources (ASPEN, WHO, CDC) for interpretation.
 
 **CRITICAL: FORWARD-THINKING + TEMPORAL CAPTURE**
 Extract documented data AND recommend missing. Capture ALL measurements with DATES. Calculate TRENDS. Identify assessment type (single/serial/longitudinal).
 
+**CRITICAL Z-SCORE CONVENTION:**
+- Percentile <50th = NEGATIVE z-score: 3rd %ile = -1.88, 5th %ile = -1.64, 10th %ile = -1.28, 25th %ile = -0.67
+- Percentile >50th = POSITIVE z-score: 75th %ile = +0.67, 90th %ile = +1.28, 95th %ile = +1.64
+- WHO: z < -3 = Severe, -3 to -2 = Moderate, -2 to -1 = Mild risk, -1 to +1 = Normal, z > +2 = Overweight
+- ASPEN: z ≤ -3 = Severe, -2 to -2.9 = Moderate, -1 to -1.9 = Mild (requires 2+ indicators)
+- Velocity decline: 1 z-score = Mild, 2 z-scores = Moderate, 3 z-scores = Severe
+- **USE FUNCTIONS**: interpret_zscore_malnutrition(zscore, measurement_type), percentile_to_zscore(), calculate_growth_percentile()
+
 **GROUND TRUTH DIAGNOSIS (MUST SUPPORT):**
 {label_context}
 
-IF "MALNUTRITION PRESENT": Synthesize deficits WITH TRENDS, exam WITH SERIAL CHANGES, intake WITH DURATION, growth WITH VELOCITY, labs WITH TRENDS per RAG guidelines.
+IF "MALNUTRITION PRESENT": Synthesize deficits WITH TRENDS, exam WITH SERIAL CHANGES, intake WITH DURATION, growth WITH VELOCITY, labs WITH TRENDS per retrieved guidelines (cite ASPEN, WHO, CDC).
 
-IF "MALNUTRITION ABSENT": Synthesize normal WITH STABLE TRACKING, well-nourished WITH CONSISTENCY, adequate intake WITH SUSTAINABILITY, stable growth OVER TIME per RAG guidelines.
+IF "MALNUTRITION ABSENT": Synthesize normal WITH STABLE TRACKING, well-nourished WITH CONSISTENCY, adequate intake WITH SUSTAINABILITY, stable growth OVER TIME per retrieved guidelines.
 
 **ANONYMIZE:** "the patient", "the [age]-year-old", "the family"
 
@@ -295,21 +342,21 @@ IF "MALNUTRITION ABSENT": Synthesize normal WITH STABLE TRACKING, well-nourished
 
 2. SYMPTOMS - TEMPORAL: Document ALL with DATES. Categories: GI, Systemic, Feeding, Functional. Trajectory: new/progressive/stable/improving/resolved. Quote with dates. For serial: changes across visits. Relate to nutrition. IF NOT DOCUMENTED: State it.
 
-3. **GROWTH - TEMPORAL**: ALL measurements with DATES. Calculate TRENDS (absolute, %, rate, velocity, trajectory). Describe pattern. Interpret with RAG. IF MISSING: Recommend with rationale.
+3. **GROWTH - TEMPORAL**: ALL measurements with DATES. Calculate TRENDS (absolute, %, rate, velocity, trajectory). Describe pattern. Interpret using retrieved guidelines (cite ASPEN, WHO, CDC). IF MISSING: Recommend with rationale.
 
-4. **EXAM - TEMPORAL**: If serial, describe progression with dates. Quote findings. Interpret with RAG. IF INCOMPLETE: Recommend.
+4. **EXAM - TEMPORAL**: If serial, describe progression with dates. Quote findings. Interpret using retrieved guidelines. IF INCOMPLETE: Recommend.
 
 5. **INTAKE - TEMPORAL**: Patterns over time with dates. Quote with timeframes. IF MISSING: Reason about trajectory, recommend quantification.
 
-6. **DIAGNOSIS**: State consistent with ground truth. Synthesize evidence WITH TEMPORAL PATTERNS. Use RAG criteria. Specify severity/etiology. Reason with incomplete data.
+6. **DIAGNOSIS**: State consistent with ground truth. Synthesize evidence WITH TEMPORAL PATTERNS. Use retrieved guideline criteria (cite ASPEN, WHO, CDC). Specify severity/etiology. Reason with incomplete data.
 
-7. **LABS - TEMPORAL**: ALL with DATES. Describe TRENDS. Interpret with RAG. **IF MISSING**: For malnutrition, recommend specific labs WITH schedule. For adequate, explain appropriateness.
+7. **LABS - TEMPORAL**: ALL with DATES. Describe TRENDS. Interpret using retrieved guidelines. **IF MISSING**: For malnutrition, recommend specific labs WITH schedule. For adequate, explain appropriateness.
 
 8. **CARE PLAN - TEMPORAL MONITORING**: Goals, interventions. **Schedule**: Week 1 (Day 7), Week 2, Weeks 3-4, Months 2-3. **Labs schedule**: Baseline, serial frequency. **Follow-up**: Dates. **Escalation**: With timepoints. **Trajectory**: Recovery timeline.
 
 9. **SOCIAL - TEMPORAL**: Changes with dates. Intervention progression. IF MISSING: Recommend.
 
-10. **INSIGHTS - TEMPORAL**: Summarize with TEMPORAL INTEGRATION and RAG references. Prognosis with timeline. Decision points with dates. Risks with timeframes. Teaching. Pearls.
+10. **INSIGHTS - TEMPORAL**: Summarize with TEMPORAL INTEGRATION and references to retrieved guidelines (cite ASPEN, WHO, CDC). Prognosis with timeline. Decision points with dates. Risks with timeframes. Teaching. Pearls.
 
 **RULES:**
 - ANONYMIZE
@@ -318,7 +365,7 @@ IF "MALNUTRITION ABSENT": Synthesize normal WITH STABLE TRACKING, well-nourished
 - IDENTIFY TYPE
 - QUOTE EXACTLY with dates
 - REASON FORWARD with timeline
-- USE RAG for criteria
+- USE RETRIEVED GUIDELINES: Cite specific authoritative sources (ASPEN, WHO, CDC) for criteria
 - ALIGN WITH GROUND TRUTH
 
 [END]
@@ -347,19 +394,19 @@ Refined output must recommend what SHOULD BE DONE when missing. Ensure comprehen
 **GROUND TRUTH DIAGNOSIS (MUST SUPPORT):**
 {label_context}
 
-If initial extraction contradicts ground truth, CORRECT IT. Use RAG guidelines for justification.
+If initial extraction contradicts ground truth, CORRECT IT. Use retrieved evidence from authoritative sources (ASPEN, WHO, CDC) for justification.
 
 **ANONYMIZE:** "the patient", "the [age]-year-old", "the family"
 
 **REFINEMENT OBJECTIVES:**
 
-1. **VALIDATE**: Confirm interpretations against RAG guideline thresholds and criteria. Validate temporal trend calculations.
+1. **VALIDATE**: Confirm interpretations against retrieved guideline thresholds and criteria from authoritative sources. Validate temporal trend calculations.
 
-2. **CORRECT**: Fix misclassifications with RAG citations. Correct temporal calculations. Align with ground truth. If initial said "Absent" but ground truth is "Present", reframe with temporal decline. If initial said "Present" but ground truth is "Absent", reframe with temporal stability.
+2. **CORRECT**: Fix misclassifications with citations from retrieved guidelines (cite specific sources: ASPEN, WHO, CDC). Correct temporal calculations. Align with ground truth. If initial said "Absent" but ground truth is "Present", reframe with temporal decline. If initial said "Present" but ground truth is "Absent", reframe with temporal stability.
 
-3. **ENHANCE**: Add RAG guideline references. **Add temporal detail**: Transform vague into specific with dates. Calculate missing trends. Identify assessment type. Add temporal interpretation. **Add forward-thinking**: Labs with serial schedule, care plan with monitoring intervals, insights with timeline.
+3. **ENHANCE**: Add references to retrieved guidelines (cite ASPEN, WHO, CDC as appropriate). **Add temporal detail**: Transform vague into specific with dates. Calculate missing trends. Identify assessment type. Add temporal interpretation. **Add forward-thinking**: Labs with serial schedule, care plan with monitoring intervals, insights with timeline.
 
-4. **FILL GAPS**: Specify severity. Calculate trends if data present. Add recommendations with timeframes. Transform "not documented" into recommendations with RAG citations and schedules.
+4. **FILL GAPS**: Specify severity. Calculate trends if data present. Add recommendations with timeframes. Transform "not documented" into recommendations citing retrieved guidelines and schedules.
 
 5. **ENSURE CONSISTENCY**: Verify diagnosis matches ground truth with temporal evidence. Check temporal consistency (dates, intervals, calculations). Care plan must have actionable timeline.
 
@@ -367,14 +414,22 @@ If initial extraction contradicts ground truth, CORRECT IT. Use RAG guidelines f
 
 **CRITICAL PRINCIPLES:**
 - Preserve fidelity
-- Quote RAG guidelines
+- Quote retrieved guidelines (cite specific authoritative sources: ASPEN, WHO, CDC)
 - Flag discrepancies
 - EMBED FORWARD-THINKING with timelines
 - ENHANCE ALL TEMPORAL DATA: dates, trends, type, significance
 - GROUND TRUTH IS ABSOLUTE: Correct to align using temporal evidence
 
+**Z-SCORE AND PERCENTILE VALIDATION:**
+- Validate z-score sign with percentile:
+  • Percentiles <50th: Negative z-scores (below average, e.g., "3rd %ile" is z-score -1.88)
+  • Percentiles >50th: Positive z-scores (above average, e.g., "85th %ile" is z-score +1.04)
+- Confirm alignment with clinical descriptions (e.g., "short stature" indicates below average; "well-nourished" indicates normal/above average)
+- Flag discrepancies between z-scores, percentiles, and clinical narrative for review
+- Verify WHO/ASPEN classification: z < -3 = Severe, -3 to -2 = Moderate, -2 to -1 = Mild risk
+
 **SYNTHESIS GUIDELINES:**
-Use RAG guidelines for all criteria. Present with temporal context. Care plans with schedules. Insights with timelines. Final diagnosis must match ground truth.
+Use retrieved evidence from authoritative sources (ASPEN, WHO, CDC) for all criteria. Present with temporal context. Care plans with schedules. Insights with timelines. Final diagnosis must match ground truth.
 
 [END]
 
