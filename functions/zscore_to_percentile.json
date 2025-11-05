@@ -1,0 +1,14 @@
+{
+  "name": "zscore_to_percentile",
+  "description": "Convert z-score to growth percentile for malnutrition assessment. Negative z-scores = lower percentiles. Used to interpret standard deviation scores.",
+  "parameters": {
+    "zscore": {
+      "type": "number",
+      "description": "Z-score (standard deviations from mean). Common values: -3, -2, -1.88, -1, 0, +1, +2"
+    }
+  },
+  "returns": {
+    "type": "number",
+    "description": "Growth percentile (0-100). Lower percentiles indicate below average growth."
+  }
+}
