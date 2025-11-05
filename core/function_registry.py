@@ -504,24 +504,38 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
         """Load all functions from storage directory"""
         if not self.storage_path.exists():
             return
-        
+
         for func_file in self.storage_path.glob("*.json"):
             try:
                 with open(func_file, 'r', encoding='utf-8') as f:
                     func_data = json.load(f)
-                
+
+                # Check if code is in JSON or separate .py file
+                if 'code' in func_data:
+                    # Old format: code embedded in JSON
+                    code = func_data['code']
+                else:
+                    # New format: code in separate .py file
+                    py_file = func_file.with_suffix('.py')
+                    if py_file.exists():
+                        with open(py_file, 'r', encoding='utf-8') as pf:
+                            code = pf.read()
+                    else:
+                        logger.warning(f"No code found for {func_file} (no 'code' field and no .py file)")
+                        continue
+
                 # Register the function
                 success, message = self.register_function(
                     func_data['name'],
-                    func_data['code'],
-                    func_data['description'],
-                    func_data['parameters'],
-                    func_data['returns']
+                    code,
+                    func_data.get('description', ''),
+                    func_data.get('parameters', {}),
+                    func_data.get('returns', {})
                 )
-                
+
                 if not success:
                     logger.warning(f"Failed to load function from {func_file}: {message}")
-                    
+
             except Exception as e:
                 logger.error(f"Failed to load function from {func_file}: {e}")
     
