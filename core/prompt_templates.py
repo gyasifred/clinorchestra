@@ -974,8 +974,12 @@ def format_tool_outputs_for_prompt(
             if results_list:
                 if not rag_output:
                     rag_output = "\n[RETRIEVED EVIDENCE FROM AUTHORITATIVE SOURCES]\n"
-                    rag_output += "Use the following evidence to support your clinical interpretation.\n"
-                    rag_output += "IMPORTANT: When referencing this evidence, cite the specific source document.\n\n"
+                    rag_output += "🔴 CRITICAL: Use the following evidence to support your interpretation.\n"
+                    rag_output += "REQUIREMENTS:\n"
+                    rag_output += "  • CITE specific sources in your output\n"
+                    rag_output += "  • APPLY criteria and guidelines from these documents\n"
+                    rag_output += "  • REFERENCE evidence when making decisions\n"
+                    rag_output += "  • DO NOT ignore this evidence - it was retrieved for your use\n\n"
 
                 for i, chunk in enumerate(results_list, 1):
                     # Handle both dict and object formats
@@ -1010,6 +1014,11 @@ def format_tool_outputs_for_prompt(
 
             if not function_output:
                 function_output = "\n[CALCULATED VALUES FROM FUNCTIONS]\n"
+                function_output += "🔴 CRITICAL: Include ALL calculated values in your JSON output.\n"
+                function_output += "REQUIREMENTS:\n"
+                function_output += "  • USE exact calculated values (do not recalculate)\n"
+                function_output += "  • INCLUDE all function results in your extraction\n"
+                function_output += "  • REFERENCE these values in your reasoning\n\n"
 
             # Include date context for serial measurements
             if date_context:
@@ -1031,7 +1040,12 @@ def format_tool_outputs_for_prompt(
             if items:
                 if not extras_output:
                     extras_output = "\n[SUPPLEMENTARY HINTS & TIPS]\n"
-                    extras_output += f"(Retrieved based on keywords: {', '.join(keywords)})\n\n"
+                    extras_output += "🔴 CRITICAL: Apply these hints and patterns to your extraction.\n"
+                    extras_output += f"Retrieved based on keywords: {', '.join(keywords)}\n"
+                    extras_output += "REQUIREMENTS:\n"
+                    extras_output += "  • APPLY guidance from these hints to your task\n"
+                    extras_output += "  • USE patterns and examples shown\n"
+                    extras_output += "  • FOLLOW recommendations provided\n\n"
                 
                 for i, item in enumerate(items, 1):
                     content = item.get('content', '')
