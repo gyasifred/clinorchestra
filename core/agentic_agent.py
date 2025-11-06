@@ -237,17 +237,38 @@ class AgenticAgent:
                     # Clear tool calls for next iteration
                     self.context.tool_calls_this_iteration = []
 
-                    # If stalled too many times, force completion
+                    # If stalled too many times, force completion aggressively
                     if self.context.stall_counter >= 2:
                         logger.warning("🔴 FORCING COMPLETION: Agent stalled - same tools called repeatedly")
-                        self.context.conversation_history.append(
-                            ConversationMessage(
-                                role='user',
-                                content="You have called the same tools multiple times. You now have sufficient information. OUTPUT THE FINAL JSON EXTRACTION IMMEDIATELY using the schema provided. Do not call any more tools."
+                        logger.warning("🔴 Next response MUST be valid JSON - no tool calls allowed")
+
+                        # Try to extract JSON from current responses first
+                        extracted = self._extract_json_from_conversation()
+                        if extracted:
+                            logger.info("✅ Extracted JSON during force - completing immediately")
+                            self.context.final_output = extracted
+                            self.context.state = AgenticState.COMPLETED
+                            extraction_complete = True
+                        else:
+                            # Send very strong forcing message
+                            self.context.conversation_history.append(
+                                ConversationMessage(
+                                    role='user',
+                                    content="""STOP CALLING TOOLS. You have all the information you need.
+
+OUTPUT ONLY VALID JSON matching the schema. NO TOOL CALLS. NO EXPLANATIONS. ONLY JSON.
+
+Format:
+{
+  "field1": "value1",
+  "field2": "value2"
+}
+
+If you call tools again, the task will FAIL. Output JSON NOW."""
+                                )
                             )
-                        )
-                        # Give it one more chance to complete
-                        self.context.stall_counter = 0
+                            # Set flag to refuse tool calls on next iteration
+                            self.context.stall_counter = 0  # Reset but next iteration will check for JSON only
 
                     # Loop continues - LLM can request more tools or finish
 
@@ -262,19 +283,39 @@ class AgenticAgent:
                     self.context.consecutive_no_progress += 1
                     logger.info(f"LLM thinking/analyzing without progress (count: {self.context.consecutive_no_progress})")
 
-                    # If too many iterations with no progress, force completion
-                    if self.context.consecutive_no_progress >= 2:
-                        logger.warning("🔴 FORCING COMPLETION: Too many iterations with no tool calls or output")
-                        self.context.conversation_history.append(
-                            ConversationMessage(
-                                role='user',
-                                content="You must now complete the task. OUTPUT THE FINAL JSON EXTRACTION based on the information you have gathered. Use the JSON schema provided. Do not explain - just output the JSON."
+                    remaining_iters = self.context.max_iterations - self.context.iteration
+
+                    # If too many iterations with no progress OR near max iterations, force completion
+                    if self.context.consecutive_no_progress >= 2 or remaining_iters <= 1:
+                        logger.warning(f"🔴 FORCING COMPLETION: No progress detected (consecutive={self.context.consecutive_no_progress}, remaining={remaining_iters})")
+
+                        # Try to extract any existing JSON
+                        extracted = self._extract_json_from_conversation()
+                        if extracted:
+                            logger.info("✅ Extracted JSON during no-progress force - completing")
+                            self.context.final_output = extracted
+                            self.context.state = AgenticState.COMPLETED
+                            extraction_complete = True
+                        else:
+                            self.context.conversation_history.append(
+                                ConversationMessage(
+                                    role='user',
+                                    content="""You must complete the task NOW.
+
+OUTPUT FINAL JSON using the schema provided.
+NO MORE TOOL CALLS.
+NO EXPLANATIONS.
+ONLY JSON.
+
+Example format:
+{
+  "field_name": "extracted_value"
+}"""
+                                )
                             )
-                        )
-                        self.context.consecutive_no_progress = 0
+                            self.context.consecutive_no_progress = 0
                     else:
                         # Add a prompt to encourage either tool use or completion
-                        remaining_iters = self.context.max_iterations - self.context.iteration
                         self.context.conversation_history.append(
                             ConversationMessage(
                                 role='user',
@@ -283,9 +324,20 @@ class AgenticAgent:
                         )
 
             if self.context.iteration >= self.context.max_iterations:
-                logger.warning(f"Max iterations ({self.context.max_iterations}) reached")
-                self.context.state = AgenticState.FAILED
-                self.context.error = "Max iterations reached"
+                logger.warning(f"⚠️ Max iterations ({self.context.max_iterations}) reached")
+
+                # Try to extract any JSON from the last few responses
+                logger.info("🔍 Attempting to extract JSON from conversation history...")
+                extracted_json = self._extract_json_from_conversation()
+
+                if extracted_json:
+                    logger.info("✅ Successfully extracted JSON from conversation")
+                    self.context.final_output = extracted_json
+                    self.context.state = AgenticState.COMPLETED
+                else:
+                    logger.warning("❌ No valid JSON found in conversation - marking as failed")
+                    self.context.state = AgenticState.FAILED
+                    self.context.error = "Max iterations reached without valid JSON output"
 
             return self._build_extraction_result()
 
@@ -423,6 +475,23 @@ class AgenticAgent:
 
         return tools
 
+    def _extract_json_from_conversation(self) -> Optional[Dict[str, Any]]:
+        """
+        Try to extract valid JSON from conversation history (last 3 assistant messages)
+
+        This is a fallback when max iterations is reached
+        """
+        # Check last 3 assistant messages for any JSON
+        for msg in reversed(self.context.conversation_history[-6:]):  # Check last 6 messages
+            if msg.role == 'assistant' and msg.content:
+                parsed = self._try_parse_json(msg.content)
+                if parsed:
+                    logger.info(f"📝 Found valid JSON in assistant message: {str(parsed)[:100]}...")
+                    return parsed
+
+        # No valid JSON found
+        return None
+
     def _get_tool_calls_signature(self, tool_calls: List[ToolCall]) -> str:
         """
         Create a signature for tool calls to detect repeated patterns
@@ -480,12 +549,14 @@ class AgenticAgent:
         # Create tasks for all tools
         tasks = []
         for tool_call in tool_calls:
-            if tool_call.type == 'rag' or tool_call.name == 'query_rag':
+            # CRITICAL: Check by NAME first! All tools have type='function' from native APIs
+            # So we must check specific names (query_rag, query_extras) before checking call_ prefix
+            if tool_call.name == 'query_rag':
                 task = self._execute_rag_tool_async(tool_call)
-            elif tool_call.type == 'function' or tool_call.name.startswith('call_'):
-                task = self._execute_function_tool_async(tool_call)
-            elif tool_call.type == 'extras' or tool_call.name == 'query_extras':
+            elif tool_call.name == 'query_extras':
                 task = self._execute_extras_tool_async(tool_call)
+            elif tool_call.name.startswith('call_') or tool_call.type == 'function':
+                task = self._execute_function_tool_async(tool_call)
             else:
                 # Unknown tool type - create a coroutine that returns error
                 async def unknown_tool():
