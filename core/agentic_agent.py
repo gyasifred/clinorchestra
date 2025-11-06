@@ -205,9 +205,16 @@ class AgenticAgent:
                     logger.info(f"LLM requested {len(self.context.tool_calls_this_iteration)} tools")
                     self.context.state = AgenticState.AWAITING_TOOL_RESULTS
 
-                    # Track tool calls for stall detection
+                    # Track tool calls for stall detection and duplicate detection
                     tool_signature = self._get_tool_calls_signature(self.context.tool_calls_this_iteration)
                     self.context.tool_call_history.append(tool_signature)
+
+                    # Detect duplicate function calls with same parameters
+                    duplicates = self._detect_duplicate_function_calls(self.context.tool_calls_this_iteration)
+                    if duplicates:
+                        logger.warning(f"⚠️ DUPLICATE CALCULATIONS DETECTED: {len(duplicates)} functions called with same parameters as before")
+                        for dup in duplicates:
+                            logger.warning(f"   • {dup['function']}({dup['params']}) - already calculated in previous iteration")
 
                     # Check for repeated tool calls (stall detection)
                     if len(self.context.tool_call_history) >= 3:
@@ -491,6 +498,49 @@ Example format:
 
         # No valid JSON found
         return None
+
+    def _detect_duplicate_function_calls(self, current_calls: List[ToolCall]) -> List[Dict[str, str]]:
+        """
+        Detect if any function calls are duplicates of previous calls
+
+        Returns list of duplicates with function name and parameters
+        """
+        duplicates = []
+
+        # Get all previous function calls from tool_results
+        previous_calls = {}
+        for result in self.context.tool_results:
+            if result.type == 'function' and result.success:
+                # Find the original tool call
+                for msg in self.context.conversation_history:
+                    if msg.role == 'assistant' and msg.tool_calls:
+                        for tc in msg.tool_calls:
+                            if tc.id == result.tool_call_id:
+                                # Create signature: function_name + sorted parameters
+                                func_name = tc.name.replace('call_', '')
+                                param_sig = json.dumps(tc.parameters, sort_keys=True)
+                                call_sig = f"{func_name}:{param_sig}"
+                                previous_calls[call_sig] = {
+                                    'function': func_name,
+                                    'params': tc.parameters,
+                                    'result': result.result
+                                }
+
+        # Check current calls against previous
+        for tc in current_calls:
+            if tc.name.startswith('call_'):
+                func_name = tc.name.replace('call_', '')
+                param_sig = json.dumps(tc.parameters, sort_keys=True)
+                call_sig = f"{func_name}:{param_sig}"
+
+                if call_sig in previous_calls:
+                    duplicates.append({
+                        'function': func_name,
+                        'params': str(tc.parameters),
+                        'previous_result': previous_calls[call_sig]['result']
+                    })
+
+        return duplicates
 
     def _get_tool_calls_signature(self, tool_calls: List[ToolCall]) -> str:
         """
@@ -827,12 +877,33 @@ You have access to tools:
 **PHASE 4 - COMPLETION:**
 11. When you have all necessary information → Output final JSON extraction using the provided schema
 
+**🔴 CRITICAL REQUIREMENTS - MUST FOLLOW:**
+
+**1. USE ALL TOOL RESULTS IN YOUR FINAL OUTPUT:**
+   - EVERY function result MUST appear in your JSON output
+   - EVERY RAG document MUST inform your reasoning and content
+   - EVERY extras hint MUST be applied to your extraction
+   - ❌ DO NOT call tools "for fun" - use every result!
+
+**2. NO DUPLICATE CALCULATIONS:**
+   - TRACK what you've already calculated
+   - DO NOT call the same function with the same parameters twice
+   - If you need a value you already calculated, REMEMBER it from the tool result
+   - Example: If you called percentile_to_zscore(14) and got 0.72, DO NOT call it again
+
+**3. INCORPORATE RETRIEVED INFORMATION:**
+   - When RAG returns criteria/guidelines → CITE them in your output
+   - When extras returns hints → APPLY them to your extraction
+   - When functions return values → INCLUDE the exact values in your JSON
+
 **Key Principles:**
 - ❌ DO NOT output final JSON immediately without gathering information
+- ❌ DO NOT recalculate values you already have
+- ❌ DO NOT ignore tool results - USE EVERY ONE
 - ✅ Call tools iteratively across multiple rounds
 - ✅ Use tool results to inform next tool calls
-- ✅ Assess information gaps after each round
-- ✅ Only complete task when confident you have everything needed
+- ✅ Remember and reuse calculated values
+- ✅ Cite RAG sources and apply extras guidance
 - ✅ Output ONLY valid JSON - no explanations or markdown
 
 **CRITICAL: Tool Call Format**
@@ -1100,14 +1171,33 @@ You have access to tools:
         lines.append("  • Call functions (calculations/transformations) + query_extras (hints)")
         lines.append("")
         lines.append("ROUND 2 - Build Context:")
-        lines.append("  • Review function/extras results")
+        lines.append("  • Review function/extras results - REMEMBER these values!")
         lines.append("  • Build RAG keywords from what you learned")
         lines.append("  • Call query_rag (fetch guidelines/standards/criteria)")
         lines.append("")
         lines.append("ROUND 3+ - Assess & Fill Gaps:")
         lines.append("  • Assess: Do I have ALL info needed?")
-        lines.append("  • If NO: Identify gaps → Call more tools → Reassess")
-        lines.append("  • If YES: Output final JSON extraction using provided schema")
+        lines.append("  • If NO: Identify gaps → Call NEW tools (not duplicates!) → Reassess")
+        lines.append("  • If YES: Output final JSON using ALL tool results")
+        lines.append("")
+        lines.append("=" * 80)
+        lines.append("🔴 CRITICAL REQUIREMENTS:")
+        lines.append("=" * 80)
+        lines.append("")
+        lines.append("1. USE EVERY TOOL RESULT:")
+        lines.append("   • Function results → Include exact values in JSON output")
+        lines.append("   • RAG documents → Cite and apply criteria/guidelines")
+        lines.append("   • Extras hints → Apply patterns and guidance")
+        lines.append("")
+        lines.append("2. NO DUPLICATE CALCULATIONS:")
+        lines.append("   • Track what you've calculated")
+        lines.append("   • DO NOT call same function with same parameters twice")
+        lines.append("   • Remember results from previous tool calls")
+        lines.append("")
+        lines.append("3. INCORPORATE ALL RETRIEVED INFO:")
+        lines.append("   • Reference RAG sources in your reasoning")
+        lines.append("   • Apply extras guidance to your extraction")
+        lines.append("   • Include ALL calculated values in final JSON")
         lines.append("=" * 80 + "\n")
 
         # Add conversation history
