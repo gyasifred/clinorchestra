@@ -117,7 +117,7 @@ class ProcessingConfig:
 class AgenticConfig:
     """Agentic execution configuration (v1.0.0)"""
     enabled: bool = False  # Use agentic agent instead of rigid pipeline
-    max_iterations: int = 20  # Max conversation iterations
+    max_iterations: int = 10  # Max conversation iterations (CHANGED: Reduced from 20 to 10)
     max_tool_calls: int = 50  # Max total tool calls per extraction
     iteration_logging: bool = True  # Log each iteration
     tool_call_logging: bool = True  # Log each tool call
