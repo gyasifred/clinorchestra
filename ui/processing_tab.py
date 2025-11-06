@@ -314,8 +314,21 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                         final_output = result.get('stage4_final_output', {})
                     else:
                         final_output = result.get('stage3_output', {})
-                    
-                    log_lines.append(f"  ✅ Success")
+
+                    # Check if agent actually succeeded
+                    agent_metadata = result.get('agentic_metadata', {})
+                    final_state = agent_metadata.get('final_state', metadata.get('final_state', 'unknown'))
+
+                    if final_state == 'completed' and final_output:
+                        log_lines.append(f"  ✅ SUCCESS - Extraction completed with valid JSON output")
+                    elif final_state == 'completed':
+                        log_lines.append(f"  ⚠️ COMPLETED - Agent completed but no JSON output generated")
+                    elif final_state == 'failed':
+                        log_lines.append(f"  ❌ FAILED - Agent reached final state: {final_state}")
+                        log_lines.append(f"     Error: {agent_metadata.get('error', 'Unknown error')}")
+                    else:
+                        log_lines.append(f"  ℹ️ FINISHED - Agent state: {final_state}")
+
                     log_lines.append(f"     Extras: {extras_used} | RAG: {rag_used} | Functions: {functions_called}")
                     process_state.add_log(process_id, f"Row {idx+1} processed: Extras={extras_used}, RAG={rag_used}, Functions={functions_called}")
                     
@@ -397,8 +410,21 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                                     final_output = result.get('stage4_final_output', {})
                                 else:
                                     final_output = result.get('stage3_output', {})
-                                
-                                log_lines.append(f"  ✅ Success on retry (Attempt {attempt})")
+
+                                # Check if agent actually succeeded on retry
+                                agent_metadata = result.get('agentic_metadata', {})
+                                final_state = agent_metadata.get('final_state', metadata.get('final_state', 'unknown'))
+
+                                if final_state == 'completed' and final_output:
+                                    log_lines.append(f"  ✅ SUCCESS on retry (Attempt {attempt}) - Extraction completed with valid JSON output")
+                                elif final_state == 'completed':
+                                    log_lines.append(f"  ⚠️ COMPLETED on retry (Attempt {attempt}) - Agent completed but no JSON output")
+                                elif final_state == 'failed':
+                                    log_lines.append(f"  ❌ FAILED on retry (Attempt {attempt}) - Agent state: {final_state}")
+                                    log_lines.append(f"     Error: {agent_metadata.get('error', 'Unknown error')}")
+                                else:
+                                    log_lines.append(f"  ℹ️ FINISHED on retry (Attempt {attempt}) - Agent state: {final_state}")
+
                                 log_lines.append(f"     Extras: {extras_used} | RAG: {rag_used} | Functions: {functions_called}")
                                 process_state.add_log(process_id, f"Row {idx+1} retry success: Extras={extras_used}, RAG={rag_used}, Functions={functions_called}")
                                 
