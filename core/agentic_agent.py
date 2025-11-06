@@ -351,6 +351,25 @@ Example format:
                     self.context.state = AgenticState.FAILED
                     self.context.error = "Max iterations reached without valid JSON output"
 
+            # Final state logging for clear indication of success/failure
+            logger.info("=" * 80)
+            if self.context.state == AgenticState.COMPLETED:
+                if self.context.final_output:
+                    logger.info("🎉 EXTRACTION SUCCESS - Agent completed with valid JSON output")
+                    logger.info(f"   Iterations: {self.context.iteration}/{self.context.max_iterations}")
+                    logger.info(f"   Tool calls: {self.context.total_tool_calls}")
+                    logger.info(f"   Final JSON fields: {list(self.context.final_output.keys()) if isinstance(self.context.final_output, dict) else 'N/A'}")
+                else:
+                    logger.warning("⚠️ EXTRACTION INCOMPLETE - Agent completed but no JSON output generated")
+                    logger.warning(f"   Iterations: {self.context.iteration}/{self.context.max_iterations}")
+            elif self.context.state == AgenticState.FAILED:
+                logger.error("❌ EXTRACTION FAILED - Agent did not complete successfully")
+                logger.error(f"   Reason: {self.context.error}")
+                logger.error(f"   Iterations: {self.context.iteration}/{self.context.max_iterations}")
+            else:
+                logger.info(f"ℹ️ EXTRACTION ENDED - Agent state: {self.context.state.value}")
+            logger.info("=" * 80)
+
             return self._build_extraction_result()
 
         except Exception as e:
@@ -1301,7 +1320,8 @@ You have access to tools:
                     json_str = self._extract_complete_json(match_text)
 
                     if not json_str:
-                        logger.warning(f"Could not extract complete JSON from: {match_text[:100]}")
+                        logger.info(f"ℹ️ Skipping incomplete tool call JSON (LLM response may have been truncated): {match_text[:100]}...")
+                        logger.info("   → Continuing with other valid tool calls (this is handled gracefully)")
                         continue
 
                     tool_request = json.loads(json_str)
@@ -1323,9 +1343,11 @@ You have access to tools:
                     logger.info(f"✓ Parsed tool call: {tool_name}")
 
                 except json.JSONDecodeError as e:
-                    logger.warning(f"Failed to parse tool call (invalid JSON): {match_text[:100]}... | Error: {e}")
+                    logger.info(f"ℹ️ Skipping malformed tool call JSON: {match_text[:100]}... | Error: {e}")
+                    logger.info("   → Continuing with other valid tool calls")
                 except Exception as e:
-                    logger.warning(f"Failed to parse tool call: {match_text[:100]}... | Error: {e}")
+                    logger.info(f"ℹ️ Skipping unparseable tool call: {match_text[:100]}... | Error: {e}")
+                    logger.info("   → Continuing with other valid tool calls")
 
             if tool_calls:
                 logger.info(f"✅ Successfully parsed {len(tool_calls)} tool calls from text response")
