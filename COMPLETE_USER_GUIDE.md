@@ -29,6 +29,8 @@
 
 ## Introduction
 
+**🎯 IMPORTANT:** This guide uses malnutrition and diabetes as **illustrative examples**. ClinAnnotate is a **universal system** that works for **ANY clinical extraction task** - not just the examples shown! The examples help you understand the framework; apply the same principles to YOUR specific use case (sepsis, AKI, medications, oncology, etc.).
+
 ClinAnnotate provides **9 configuration tabs** for complete control over clinical data extraction:
 
 ```
@@ -36,14 +38,14 @@ ClinAnnotate provides **9 configuration tabs** for complete control over clinica
 │ TAB WORKFLOW                                                │
 ├─────────────────────────────────────────────────────────────┤
 │ 1. Model Configuration    → Set LLM provider & execution mode│
-│ 2. Prompt Configuration   → Define extraction task          │
+│ 2. Prompt Configuration   → Define YOUR extraction task     │
 │ 3. Data Configuration     → Load input data                 │
 │ 4. Regex Patterns         → Text normalization rules        │
-│ 5. Extras (Hints)         → Task-specific hints             │
-│ 6. Custom Functions       → Medical calculations            │
-│ 7. RAG                    → Clinical guidelines retrieval   │
-│ 8. Playground             → Test single extractions         │
-│ 9. Processing             → Batch process dataset           │
+│ 5. Extras (Hints)         → Task-specific hints for YOUR task│
+│ 6. Custom Functions       → Medical calculations YOU need   │
+│ 7. RAG                    → Clinical guidelines for YOUR domain│
+│ 8. Playground             → Test YOUR extractions           │
+│ 9. Processing             → Batch process YOUR dataset      │
 └─────────────────────────────────────────────────────────────┘
 ```
 

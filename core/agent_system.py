@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
 """
-Agent System - Universal Agentic Processing
-Version: 1.0.2 - FIXED: RAG query building and Extras matching
+Agent System - Universal Agentic Processing for ANY Clinical Task
+Version: 1.0.2 - Task-agnostic extraction with RAG query & Extras optimization
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 
-FIXES:
-1. Enhanced Stage 1 analysis prompt with better keyword extraction guidance
-2. Improved RAG query building to extract meaningful terms from text
-3. Added fallback query generation when LLM fails to provide good queries
-4. Better tool request parsing and validation
-5. Extras now correctly used as supplementary hints to help LLM understand task
+🎯 UNIVERSAL SYSTEM: This agent adapts to ANY clinical extraction task defined by
+   your prompts and JSON schema. Not limited to specific conditions.
+
+KEY FEATURES:
+1. Task-agnostic Stage 1 analysis with intelligent tool selection
+2. Dynamic RAG query building based on YOUR task's schema and context
+3. Autonomous function calling from registry based on YOUR needs
+4. Extras system for task-specific hints matching YOUR keywords
+5. Adapts to both labeled and unlabeled data scenarios
 """
 
 import json
@@ -68,11 +71,16 @@ class ExtractionAgentContext:
 
 class ExtractionAgent:
     """
-    Universal agentic system that dynamically determines:
-    - Required information based on task
-    - Functions to call from registry
-    - Queries for RAG and extras
-    - Execution strategy
+    🎯 UNIVERSAL AGENTIC SYSTEM - Works for ANY clinical extraction task
+
+    This agent is task-agnostic and dynamically determines:
+    - Required information based on YOUR task (defined in schema/prompts)
+    - Which functions to call from registry (based on YOUR task needs)
+    - Optimal RAG queries for YOUR clinical domain
+    - Extras keywords matching YOUR task context
+    - Execution strategy tailored to YOUR extraction goals
+
+    Not hardcoded for any specific condition - adapts to YOUR use case!
     """
     def __init__(self, llm_manager, rag_engine, extras_manager, function_registry, 
                  regex_preprocessor, app_state):
@@ -88,7 +96,7 @@ class ExtractionAgent:
         self.max_retries = 3
         self.json_parser = JSONParser()
         
-        logger.info("ExtractionAgent initialized (v1.0.2 - RAG query & Extras fix)")
+        logger.info("🎯 ExtractionAgent v1.0.2 initialized - Universal task-agnostic system ready")
         
     
     def extract(self, clinical_text: str, label_value: Optional[Any] = None) -> Dict[str, Any]:
@@ -749,18 +757,26 @@ class ExtractionAgent:
             
     
     def _build_stage1_analysis_prompt(self) -> str:
-        """Build prompt for task analysis with ENHANCED keyword extraction guidance"""
+        """
+        Build prompt for task analysis with ENHANCED keyword extraction guidance
+
+        UNIVERSAL SYSTEM: This prompt is task-agnostic and works for ANY clinical extraction task.
+        Examples provided are illustrative only - the system adapts to YOUR task definition.
+        """
         # Get available functions
         available_functions = self.function_registry.get_all_functions_info()
         function_descriptions = self._build_available_tools_description(available_functions)
-        
+
         # Get task description
         task_description = self._extract_task_description()
-        
+
         # Get schema as JSON string for analysis
         schema_json = json.dumps(self.app_state.prompt_config.json_schema, indent=2)
-        
-        prompt = f"""You are an intelligent agent analyzing an extraction task to determine which tools to use.
+
+        prompt = f"""You are an intelligent agent analyzing a clinical data extraction task to determine which tools to use.
+
+🎯 UNIVERSAL SYSTEM: This works for ANY clinical task (not just the examples shown below).
+The examples are illustrative - adapt your strategy to the specific task defined in the schema.
 
 EXTRACTION TASK:
 {task_description}
@@ -912,8 +928,14 @@ RESPONSE FORMAT (JSON only):
   "extras_keywords": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"]
 }}
 
-EXAMPLE WITH SERIAL MEASUREMENTS:
-If text contains: "Creatinine was 1.2 mg/dL on 1/15/2024, increased to 1.5 mg/dL on 3/20/2024, and now 1.8 mg/dL on 6/10/2024. Patient is 65yo male, 70kg."
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📚 ILLUSTRATIVE EXAMPLES (Adapt to YOUR specific task!)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+EXAMPLE 1: Renal Function Assessment (Serial Measurements)
+─────────────────────────────────────────────────────────
+If extracting renal function data and text contains:
+"Creatinine was 1.2 mg/dL on 1/15/2024, increased to 1.5 mg/dL on 3/20/2024, and now 1.8 mg/dL on 6/10/2024. Patient is 65yo male, 70kg."
 
 Response should include:
 {{
@@ -936,22 +958,116 @@ Response should include:
       "date_context": "2024-06-10 (current)",
       "reason": "Calculate eGFR for most recent creatinine to assess current renal function"
     }}
-  ]
+  ],
+  "rag_queries": [
+    {{
+      "query": "CKD chronic kidney disease staging eGFR classification guidelines",
+      "query_type": "guideline",
+      "purpose": "Get CKD staging criteria based on eGFR values"
+    }}
+  ],
+  "extras_keywords": ["renal", "CKD", "eGFR", "creatinine", "staging"]
 }}
 
-CRITICAL REQUIREMENTS:
-- *** FOR SERIAL MEASUREMENTS: Call the same function MULTIPLE times (once per time point) ***
-- Include "date_context" for each function call to track temporal sequence
-- Provide 3-5 RAG queries, each targeting different aspects (guidelines, diagnostics, assessment, etc.)
-- Each RAG query MUST have 4-8 specific medical keywords
-- Extract function parameters with precision from actual text values
-- Chain functions if needed (e.g., unit conversion before calculation)
-- Extras keywords (5-8 total): specific medical terminology, not generic words
-- Do NOT use generic queries like "help", "information", or "guidelines" alone
-- Reference known medical standards/organizations (WHO, CDC, ADA, etc.) in RAG queries
-- When you see multiple measurements over time, this is SERIAL DATA - calculate for ALL time points
+EXAMPLE 2: Pediatric Growth Assessment
+──────────────────────────────────────
+If extracting growth data and text contains:
+"3-year-old with weight 12.5 kg (3rd percentile), height 92 cm (25th percentile)"
 
-Respond with ONLY the JSON object."""
+Response should include:
+{{
+  "functions_needed": [
+    {{
+      "name": "percentile_to_zscore",
+      "parameters": {{"percentile": 3}},
+      "reason": "Convert weight percentile to z-score for WHO classification"
+    }},
+    {{
+      "name": "percentile_to_zscore",
+      "parameters": {{"percentile": 25}},
+      "reason": "Convert height percentile to z-score for growth assessment"
+    }},
+    {{
+      "name": "calculate_bmi",
+      "parameters": {{"weight_kg": 12.5, "height_cm": 92}},
+      "reason": "Calculate BMI for nutritional status assessment"
+    }}
+  ],
+  "rag_queries": [
+    {{
+      "query": "WHO pediatric growth standards percentile z-score classification",
+      "query_type": "guideline",
+      "purpose": "Get WHO growth classification criteria"
+    }}
+  ],
+  "extras_keywords": ["growth", "pediatric", "WHO", "percentile", "z-score"]
+}}
+
+EXAMPLE 3: Cardiovascular Risk Assessment
+─────────────────────────────────────────
+If extracting cardiac data and text contains:
+"BP 145/95, total cholesterol 240 mg/dL, HDL 35 mg/dL, age 60, smoker"
+
+Response should include:
+{{
+  "functions_needed": [
+    {{
+      "name": "calculate_mean_arterial_pressure",
+      "parameters": {{"systolic": 145, "diastolic": 95}},
+      "reason": "Calculate MAP for hypertension assessment"
+    }},
+    {{
+      "name": "calculate_framingham_risk",
+      "parameters": {{"age": 60, "total_chol": 240, "hdl": 35, "smoker": true}},
+      "reason": "Calculate 10-year cardiovascular risk"
+    }}
+  ],
+  "rag_queries": [
+    {{
+      "query": "ACC AHA hypertension blood pressure classification guidelines",
+      "query_type": "guideline",
+      "purpose": "Get BP classification criteria"
+    }},
+    {{
+      "query": "Framingham cardiovascular risk assessment interpretation",
+      "query_type": "assessment",
+      "purpose": "Get risk stratification guidelines"
+    }}
+  ],
+  "extras_keywords": ["cardiovascular", "hypertension", "cholesterol", "risk", "ACC", "AHA"]
+}}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚡ CRITICAL REQUIREMENTS (Universal Principles)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 ADAPT TO YOUR TASK:
+The examples above show renal, growth, and cardiac tasks. YOUR task may be completely different
+(diabetes, sepsis, AKI, oncology, etc.). Analyze YOUR schema and clinical text to determine what's needed.
+
+📊 FOR SERIAL/TEMPORAL DATA:
+- *** Call the same function MULTIPLE times (once per time point) ***
+- Include "date_context" for each function call to track temporal sequence
+- When you see multiple measurements over time, calculate for ALL time points
+
+🔍 RAG QUERIES:
+- Provide 3-5 queries targeting different aspects relevant to YOUR task
+- Each query should have 4-8 specific keywords from YOUR domain
+- Reference appropriate standards/organizations for YOUR domain
+- Examples: WHO, CDC, ADA, ACC/AHA, ASPEN, KDIGO, ASCO (use what's relevant to YOUR task)
+- Do NOT use generic queries like "help", "information", or "guidelines" alone
+
+🛠️ FUNCTION CALLING:
+- Extract parameters with precision from actual text values
+- Chain functions if needed (e.g., unit conversion before calculation)
+- Only call functions that help with YOUR specific extraction schema
+
+💡 EXTRAS KEYWORDS:
+- 5-8 keywords: specific terminology from YOUR domain, not generic words
+- Extract from YOUR schema field names and clinical context
+
+📝 RESPONSE FORMAT:
+Respond with ONLY the JSON object in the format shown above."""
 
         return prompt
     
