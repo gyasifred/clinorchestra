@@ -257,25 +257,10 @@ def create_playground_tab(app_state) -> Dict[str, Any]:
             rag_used = result.get('rag_used', 0)
             functions_called = result.get('functions_called', 0)
             
-            # FIXED: Get detailed extras content
+            # FIXED: Get detailed extras content directly from extras_details
             extras_details = result.get('processing_metadata', {}).get('extras_details', [])
-            extras_full_content = []
-            
-            # Extract full extras information from tool results
-            tool_results = result.get('processing_metadata', {}).get('tool_results_summary', {})
-            for tool_result in result.get('processing_metadata', {}).get('tool_requests', []):
-                if tool_result.get('type') == 'extras':
-                    # Get the actual results
-                    for extra_result in result.get('processing_metadata', {}).get('tool_results', []):
-                        if extra_result.get('type') == 'extras' and extra_result.get('success'):
-                            for extra_item in extra_result.get('results', []):
-                                extras_full_content.append({
-                                    'id': extra_item.get('id', 'N/A'),
-                                    'type': extra_item.get('type', 'unknown'),
-                                    'content': extra_item.get('content', ''),
-                                    'relevance_score': extra_item.get('relevance_score', 0),
-                                    'matched_keywords': extra_item.get('matched_keywords', [])
-                                })
+            # Use extras_details directly - it already has all the information we need
+            extras_full_content = extras_details if extras_details else []
             
             rag_details = result.get('processing_metadata', {}).get('rag_details', [])
             function_details = result.get('processing_metadata', {}).get('function_calls_details', [])
