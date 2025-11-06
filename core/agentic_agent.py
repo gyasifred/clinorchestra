@@ -595,12 +595,65 @@ Example format:
 
         return results
 
+    def _deduplicate_tool_calls(self, tool_calls: List[ToolCall]) -> List[ToolCall]:
+        """
+        Deduplicate tool calls to prevent executing identical calls multiple times.
+
+        Two tool calls are considered identical if they have:
+        - Same name
+        - Same parameters (compared as JSON strings for deterministic comparison)
+
+        This prevents the agent from getting stuck calling the same function repeatedly
+        with identical parameters, which is a common LLM behavior issue.
+
+        Returns:
+            List of unique tool calls (keeps first occurrence of each duplicate)
+        """
+        seen = {}
+        unique_calls = []
+        duplicates_removed = 0
+
+        for tool_call in tool_calls:
+            # Create a unique key based on name and parameters
+            # Sort parameters for consistent comparison
+            params_json = json.dumps(tool_call.parameters, sort_keys=True)
+            key = f"{tool_call.name}||{params_json}"
+
+            if key not in seen:
+                seen[key] = tool_call
+                unique_calls.append(tool_call)
+            else:
+                duplicates_removed += 1
+                logger.warning(
+                    f"⚠️ DUPLICATE TOOL CALL detected and skipped: "
+                    f"{tool_call.name}({params_json})"
+                )
+
+        if duplicates_removed > 0:
+            logger.warning(
+                f"⚠️ Removed {duplicates_removed} duplicate tool calls "
+                f"(kept {len(unique_calls)} unique calls from {len(tool_calls)} total)"
+            )
+
+        return unique_calls
+
     async def _execute_tools_async(self, tool_calls: List[ToolCall]) -> List[ToolResult]:
         """
         Async execution of tool calls - runs in parallel
 
         This is the Phase 2 enhancement that significantly improves performance
+
+        IMPORTANT: Deduplicates tool calls before execution to prevent
+        the agent from getting stuck calling the same function repeatedly.
         """
+        # CRITICAL FIX: Deduplicate tool calls before execution
+        original_count = len(tool_calls)
+        tool_calls = self._deduplicate_tool_calls(tool_calls)
+
+        if len(tool_calls) == 0:
+            logger.warning("⚠️ No tool calls to execute after deduplication")
+            return []
+
         # Create tasks for all tools
         tasks = []
         for tool_call in tool_calls:
