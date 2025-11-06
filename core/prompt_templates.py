@@ -7,13 +7,27 @@ Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 Lab: ClinicalNLP Lab, Biomedical Informatics Center
 Version: 1.0.4 - Natural conversation with guideline-based evidence synthesis
+
+═══════════════════════════════════════════════════════════════════════════
+🎯 TRULY UNIVERSAL SYSTEM - Works for ANY Clinical Task
+═══════════════════════════════════════════════════════════════════════════
+
+This module contains:
+1. DEFAULT templates (generic, task-agnostic)
+2. EXAMPLE templates (malnutrition, diabetes - illustrative only!)
+
+The example templates (MALNUTRITION_*, DIABETES_*) are pre-configured for those
+specific tasks but are NOT hardcoded requirements. They serve as:
+- Reference implementations for complex tasks
+- Templates you can adapt for your own tasks
+- Examples of how to structure prompts
+
+YOUR TASK can be completely different (sepsis, AKI, oncology, cardiac, etc.).
+The system adapts to YOUR schema and prompts - it's not limited to the examples!
+═══════════════════════════════════════════════════════════════════════════
 """
 
 from typing import Dict, Any, List
-
-# ============================================================================
-# NO HARDCODED CLINICAL CONTEXT - Universal Platform
-# ============================================================================
 
 # ============================================================================
 # DEFAULT PROMPT TEMPLATES (main, minimal, RAG refinement)
@@ -145,7 +159,11 @@ EVIDENCE BASE:
 {retrieved_evidence_chunks}"""
 
 # ============================================================================
-# MALNUTRITION TEMPLATE - FIXED v1.0.4: Natural clinical conversation
+# EXAMPLE TEMPLATE 1: MALNUTRITION ASSESSMENT
+# ============================================================================
+# 🎯 NOTE: This is an EXAMPLE template for malnutrition tasks.
+#    It demonstrates complex temporal reasoning and growth assessment.
+#    Your task can be completely different - this is NOT a system requirement!
 # ============================================================================
 
 MALNUTRITION_MAIN_PROMPT = """[TASK DESCRIPTION - Pediatric Malnutrition Clinical Assessment]
@@ -448,7 +466,11 @@ EVIDENCE BASE:
 {json_schema_instructions}"""
 
 # ============================================================================
-# DIABETES TEMPLATE (unchanged)
+# EXAMPLE TEMPLATE 2: DIABETES ASSESSMENT
+# ============================================================================
+# 🎯 NOTE: This is an EXAMPLE template for diabetes tasks.
+#    It demonstrates lab value extraction and medication tracking.
+#    Your task can be completely different - this is NOT a system requirement!
 # ============================================================================
 
 DIABETES_MAIN_PROMPT = """[TASK DESCRIPTION - Diabetes Assessment]
@@ -623,14 +645,23 @@ REMEMBER:
 - The goal is to gather all information needed to complete the extraction schema"""
 
 # ============================================================================
-# TEMPLATE REGISTRY
+# TEMPLATE REGISTRY - Your Starting Points
 # ============================================================================
+# 🎯 UNIVERSAL SYSTEM: Pick a template below or create your own!
+#
+# - "blank": Generic template - customize for any task
+# - "malnutrition": Example for nutritional assessment (adapt as needed)
+# - "diabetes": Example for diabetes extraction (adapt as needed)
+#
+# The system works with ANY task. These are just convenient starting points!
+# ============================================================================
+
 PROMPT_TEMPLATE_REGISTRY_V1 = {
     "blank": {
         "main": DEFAULT_MAIN_PROMPT,
         "minimal": DEFAULT_MINIMAL_PROMPT,
         "rag_prompt": DEFAULT_RAG_REFINEMENT_PROMPT,
-        "description": "Start from scratch - Generic extraction",
+        "description": "⭐ Universal template - Customize for ANY clinical task",
         "version": "2.0.0",
         "schema": {
             "extracted_data": {
@@ -649,7 +680,7 @@ PROMPT_TEMPLATE_REGISTRY_V1 = {
         "main": MALNUTRITION_MAIN_PROMPT,
         "minimal": MALNUTRITION_MINIMAL_PROMPT,
         "rag_prompt": MALNUTRITION_RAG_REFINEMENT_PROMPT,
-        "description": "Pediatric Malnutrition Assessment with Forward-Thinking Clinical Reasoning and Temporal Data Capture",
+        "description": "📚 EXAMPLE: Pediatric malnutrition with temporal reasoning (adapt for your task!)",
         "version": "1.0.5",
         "schema": {
             "malnutrition_status": {
@@ -713,7 +744,7 @@ PROMPT_TEMPLATE_REGISTRY_V1 = {
         "main": DIABETES_MAIN_PROMPT,
         "minimal": DIABETES_MINIMAL_PROMPT,
         "rag_prompt": DEFAULT_RAG_REFINEMENT_PROMPT,
-        "description": "Diabetes Assessment and Management",
+        "description": "📚 EXAMPLE: Diabetes assessment with labs and meds (adapt for your task!)",
         "version": "2.0.0",
         "schema": {
             "diabetes_diagnosis": {

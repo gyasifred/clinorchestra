@@ -1,10 +1,34 @@
 # ClinAnnotate
 
-**Universal Platform for Clinical Data Annotation**
+**🎯 Truly Universal Platform for Clinical Data Extraction**
 
-ClinAnnotate is an intelligent, LLM-powered platform for extracting structured information from clinical text using agentic orchestration with RAG, custom functions, and task-specific hints.
+ClinAnnotate is an intelligent, LLM-powered platform for extracting structured information from **ANY clinical task** using agentic orchestration with RAG, custom functions, and task-specific hints.
 
-**🎯 Truly Universal:** Works for ANY clinical task - malnutrition, diabetes, sepsis, AKI, hypertension, cardiac assessments, or your own custom tasks. Built-in templates are examples, not limitations!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## 🌟 UNIVERSAL SYSTEM - Not Task-Specific!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**This system works for ANY clinical extraction task:**
+
+✅ **Nutritional:** Malnutrition, obesity, feeding disorders
+✅ **Metabolic:** Diabetes, thyroid, metabolic syndrome
+✅ **Cardiovascular:** Hypertension, heart failure, arrhythmias
+✅ **Renal:** AKI, CKD, dialysis
+✅ **Infectious:** Sepsis, pneumonia, UTI
+✅ **Oncology:** Cancer staging, treatment response
+✅ **Medications:** Drug lists, adverse events, adherence
+✅ **Social:** SDOH, living conditions, support systems
+✅ **YOUR CUSTOM TASK:** Define via prompts and JSON schema!
+
+**How it's universal:**
+- You define the task via **prompts** and **JSON schema**
+- The LLM makes **independent decisions** based on YOUR task
+- Built-in templates (malnutrition, diabetes) are **examples** to learn from
+- System orchestrates tools to extract **YOUR data**, not predefined data
+
+**No hardcoded tasks!** The framework adapts to whatever you define.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 ## 🚀 Quick Start
 
