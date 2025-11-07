@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Config Tab - Model Configuration with Connection Testing
-Version: 1.0.1 - FIXED: Prevent auto-initialization on startup
+Version: 1.0.0
 """
 
 import gradio as gr
@@ -101,20 +101,25 @@ def create_config_tab(app_state) -> Dict[str, Any]:
     gr.Markdown("---")
     gr.Markdown("### Execution Mode Settings")
     gr.Markdown("""
-    **Choose between Classic and Agentic execution modes:**
-    - **Classic Mode** (Default): Reliable 4-stage pipeline with predictable behavior
-    - **Agentic Mode** (Advanced): Continuous loop with autonomous tool calling + async parallel execution (60-75% faster)
+    **Choose your execution mode:**
+
+    🎯 **Use STRUCTURED Mode for predictable workflows; use ADAPTIVE Mode for evolving tasks.**
+
+    - **STRUCTURED Mode** (Default): Systematic 4-stage pipeline - best for production/predictable workflows
+    - **ADAPTIVE Mode** (Advanced): Continuous iteration with dynamic adaptation - best for complex/evolving tasks (60-75% faster)
+
+    Both modes are autonomous (agentic) and adapt to ANY clinical task!
     """)
 
     with gr.Row():
         with gr.Column():
-            agentic_enabled_value = app_state.agentic_config.enabled if hasattr(app_state, 'agentic_config') else False
-            agentic_enabled = gr.Checkbox(
-                label="Enable Agentic Mode (AgenticAgent v1.0.0)",
-                value=agentic_enabled_value,
-                info="Use continuous autonomous loop instead of 4-stage pipeline"
+            adaptive_mode_enabled_value = app_state.agentic_config.enabled if hasattr(app_state, 'agentic_config') else False
+            adaptive_mode_enabled = gr.Checkbox(
+                label="Enable ADAPTIVE Mode (v1.0.0)",
+                value=adaptive_mode_enabled_value,
+                info="For evolving tasks requiring iterative refinement and dynamic adaptation"
             )
-            components['agentic_enabled'] = agentic_enabled
+            components['agentic_enabled'] = adaptive_mode_enabled  # Keep internal name for compatibility
 
         with gr.Column():
             max_iterations_value = app_state.agentic_config.max_iterations if hasattr(app_state, 'agentic_config') else 20
@@ -139,13 +144,18 @@ def create_config_tab(app_state) -> Dict[str, Any]:
             )
             components['agentic_max_tool_calls'] = agentic_max_tool_calls
 
-    agentic_info = gr.Markdown("""
+    mode_info = gr.Markdown("""
     **ℹ️ Execution Mode Info:**
-    - Classic Mode (ExtractionAgent v1.0.2): Fixed 4-stage pipeline - best for production
-    - Agentic Mode (AgenticAgent v1.0.0): Iterative loop with tool calling - best for complex cases and research
-    - See [AGENTIC_USER_GUIDE.md](https://github.com/yourusername/clinannotate/blob/main/AGENTIC_USER_GUIDE.md) for detailed comparison
+    - **STRUCTURED Mode** (v1.0.0): For predictable workflows - systematic 4-stage pipeline
+    - **ADAPTIVE Mode** (v1.0.0): For evolving tasks - continuous iteration with dynamic adaptation
+
+    🎯 **Both are autonomous (agentic)** - adapt to ANY clinical task via prompts/schema!
+
+    Use STRUCTURED for predictable workflows. Use ADAPTIVE for evolving tasks.
+
+    See [EXECUTION_MODES_GUIDE.md] for detailed comparison
     """)
-    components['agentic_info'] = agentic_info
+    components['agentic_info'] = mode_info  # Keep internal name for compatibility
 
     gr.Markdown("---")
     gr.Markdown("### Provider-Specific Settings")
@@ -459,8 +469,9 @@ Status: Model is ready for processing."""
                 logger.info(f"Model configuration saved (LLM will be initialized on first use)")
                 logger.info(f"Agentic mode: {'ENABLED' if agen_enabled else 'DISABLED'} (max_iterations={agen_max_iter}, max_tool_calls={agen_max_tools})")
 
-                mode = "Agentic Mode (AgenticAgent v1.0.0)" if agen_enabled else "Classic Mode (ExtractionAgent v1.0.2)"
-                return f"✓ Model configuration saved successfully!\n\n**Execution Mode**: {mode}\n\nLLM will be initialized when you start processing.\n\n✓ Configuration persisted to disk."
+                mode = "ADAPTIVE Mode (v1.0.0)" if agen_enabled else "STRUCTURED Mode (v1.0.0)"
+                mode_desc = "For evolving tasks" if agen_enabled else "For predictable workflows"
+                return f"✓ Model configuration saved successfully!\n\n**Execution Mode**: {mode} - {mode_desc}\n\n🎯 Both modes are autonomous and adapt to ANY clinical task!\n\nLLM will be initialized when you start processing.\n\n✓ Configuration persisted to disk."
             else:
                 return "✗ Failed to save configuration"
 

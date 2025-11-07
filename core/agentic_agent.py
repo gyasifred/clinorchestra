@@ -1,15 +1,21 @@
 #!/usr/bin/env python3
 """
-Agentic Agent - Universal Continuous Loop Extraction for ANY Clinical Task
-Version: 1.0.0 - Agentic with Async Tool Execution
+Adaptive Agent - Universal Adaptive Extraction for ANY Clinical Task
+Version: 1.0.0
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 
-🎯 UNIVERSAL SYSTEM: This agentic agent works for ANY clinical extraction task
-   defined by your prompts and schema. Not limited to specific conditions.
+🎯 TRULY UNIVERSAL & AGENTIC SYSTEM:
+   BOTH execution modes (STRUCTURED & ADAPTIVE) are autonomous agents that adapt to ANY
+   clinical extraction task defined by your prompts and JSON schema.
+   Not hardcoded for specific conditions - works for ALL clinical domains!
+
+EXECUTION MODE: ADAPTIVE (Evolving Tasks)
+PURPOSE: Use for evolving, complex tasks requiring iterative refinement
+BEHAVIOR: LLM decides → Calls tools → Learns → Iterates → Adapts → Extracts
 
 REVOLUTIONARY ARCHITECTURE:
-From rigid 4-stage pipeline to continuous agentic loop where LLM:
+Continuous adaptive loop where LLM:
 - Autonomously decides what tools to call based on YOUR task
 - Iterates and learns from results dynamically
 - Adapts strategy to YOUR extraction goals
@@ -22,6 +28,7 @@ KEY FEATURES:
 - Multiple calls to same tool with different queries as needed
 - Dynamic discovery: "That result tells me I need X next"
 - Context-aware chaining based on previous tool results
+- Universal across ALL clinical domains (not task-specific)
 
 PERFORMANCE:
 - Async/await for parallel tool execution (concurrent RAG + functions)
@@ -138,7 +145,7 @@ class AgenticAgent:
         self.context: Optional[AgenticContext] = None
         self.json_parser = JSONParser()
 
-        logger.info("🎯 AgenticAgent v1.0.0 initialized - Universal task-agnostic agentic system with async tools ready")
+        logger.info("🎯 AdaptiveAgent v1.0.0 initialized - ADAPTIVE Mode (evolving tasks with ASYNC)")
 
     def extract(self, clinical_text: str, label_value: Optional[Any] = None) -> Dict[str, Any]:
         """
@@ -166,7 +173,7 @@ class AgenticAgent:
             )
 
             logger.info("=" * 80)
-            logger.info("AGENTIC EXTRACTION STARTED (v1.0.0 - Async Tools)")
+            logger.info("ADAPTIVE MODE EXTRACTION STARTED (v1.0.0 - Evolving Tasks & Async)")
             logger.info("=" * 80)
 
             # Build initial prompt
