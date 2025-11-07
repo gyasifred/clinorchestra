@@ -530,7 +530,7 @@ Status: Model is ready for processing."""
             provider, model_name, api_key, temperature, max_tokens, model_type,
             azure_endpoint, azure_deployment, google_project_id,
             local_model_path, max_seq_length, quantization, gpu_layers,
-            agentic_enabled, agentic_max_iterations, agentic_max_tool_calls
+            adaptive_mode_enabled, agentic_max_iterations, agentic_max_tool_calls
         ],
         outputs=[validation_result]
     )
