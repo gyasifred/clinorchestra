@@ -112,13 +112,19 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
             components['refresh_extras_btn'] = refresh_extras_btn
             
             gr.Markdown("#### Manage")
-            
-            selected_extra_id = gr.Textbox(
-                label="Extra Name or ID to View/Edit/Remove",
-                placeholder="Enter name or ID (e.g., 'WHO Malnutrition Criteria' or 'extra_...')"
-            )
+
+            with gr.Row():
+                selected_extra_id = gr.Dropdown(
+                    choices=[],
+                    label="Select Extra to View/Edit/Remove",
+                    allow_custom_value=True,
+                    info="Choose from registered extras (name or ID)"
+                )
+                refresh_extra_selector_btn = gr.Button("🔄 Refresh", size="sm")
+
             components['selected_extra_id'] = selected_extra_id
-            
+            components['refresh_extra_selector_btn'] = refresh_extra_selector_btn
+
             with gr.Row():
                 view_extra_btn = gr.Button("View/Edit")
                 remove_extra_btn = gr.Button("Remove", variant="stop")
@@ -291,7 +297,26 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
             for e in extras_manager.list_extras()
         ]
         return gr.update(value=extras_list_data)
-    
+
+    def refresh_extra_selector():
+        """Refresh extra selector dropdown"""
+        extras_manager = app_state.get_extras_manager()
+        if not extras_manager:
+            extras_manager = ExtrasManager()
+            app_state.set_extras_manager(extras_manager)
+            logger.warning("ExtrasManager was not set; initialized new instance")
+
+        # Create list with both names and IDs for selection
+        extras_choices = []
+        for e in extras_manager.list_extras():
+            name = e.get('name', '')
+            if name:
+                extras_choices.append(name)  # Prefer name if available
+            else:
+                extras_choices.append(e['id'])  # Fall back to ID
+
+        return gr.update(choices=extras_choices, value=extras_choices[0] if extras_choices else None)
+
     def view_extra(extra_name_or_id):
         """View extra for editing - search by name or ID"""
         if not extra_name_or_id or not extra_name_or_id.strip():
@@ -485,7 +510,12 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
         fn=refresh_extras_list,
         outputs=[extras_list]
     )
-    
+
+    refresh_extra_selector_btn.click(
+        fn=refresh_extra_selector,
+        outputs=[selected_extra_id]
+    )
+
     view_extra_btn.click(
         fn=view_extra,
         inputs=[selected_extra_id],

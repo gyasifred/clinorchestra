@@ -181,13 +181,19 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
     components['refresh_functions_btn'] = refresh_functions_btn
     
     gr.Markdown("#### Manage")
-    
-    selected_func_name = gr.Textbox(
-        label="Function Name to View/Edit/Remove",
-        placeholder="calculate_bmi"
-    )
+
+    with gr.Row():
+        selected_func_name = gr.Dropdown(
+            choices=[],
+            label="Select Function to View/Edit/Remove",
+            allow_custom_value=True,
+            info="Choose from registered functions"
+        )
+        refresh_function_selector_btn = gr.Button("🔄 Refresh", size="sm")
+
     components['selected_func_name'] = selected_func_name
-    
+    components['refresh_function_selector_btn'] = refresh_function_selector_btn
+
     with gr.Row():
         view_func_btn = gr.Button("View/Edit")
         remove_func_btn = gr.Button("Remove", variant="stop")
@@ -377,14 +383,25 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
             function_registry = FunctionRegistry()
             app_state.set_function_registry(function_registry)
             logger.warning("FunctionRegistry was not set; initialized new instance")
-        
+
         functions = function_registry.list_functions()
-        
+
         if not functions:
             return gr.update(choices=[], value=None)
-        
+
         return gr.update(choices=functions, value=functions[0] if functions else None)
-    
+
+    def refresh_function_selector():
+        """Refresh function selector dropdown"""
+        function_registry = app_state.get_function_registry()
+        if not function_registry:
+            function_registry = FunctionRegistry()
+            app_state.set_function_registry(function_registry)
+            logger.warning("FunctionRegistry was not set; initialized new instance")
+
+        functions = function_registry.list_functions()
+        return gr.update(choices=functions, value=functions[0] if functions else None)
+
     def view_function(func_name):
         """View function details"""
         if not func_name or not func_name.strip():
@@ -600,7 +617,12 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
         fn=refresh_functions_list,
         outputs=[functions_list]
     )
-    
+
+    refresh_function_selector_btn.click(
+        fn=refresh_function_selector,
+        outputs=[selected_func_name]
+    )
+
     refresh_test_dropdown_btn.click(
         fn=refresh_test_dropdown,
         outputs=[test_func_name]
