@@ -717,6 +717,17 @@ Example format:
     def _execute_rag_tool(self, tool_call: ToolCall) -> ToolResult:
         """Execute RAG query"""
         try:
+            # Check if RAG engine is available
+            if not self.rag_engine:
+                logger.warning(f"⚠️ RAG engine not available - RAG may not be enabled or initialized")
+                return ToolResult(
+                    tool_call_id=tool_call.id,
+                    type='rag',
+                    success=False,
+                    result=[],
+                    message='RAG engine not available. Please enable and configure RAG in the RAG tab.'
+                )
+
             query = tool_call.parameters.get('query', '')
 
             if not query or len(query) < 5:
@@ -760,6 +771,17 @@ Example format:
     def _execute_function_tool(self, tool_call: ToolCall) -> ToolResult:
         """Execute function call"""
         try:
+            # Check if function registry is available
+            if not self.function_registry:
+                logger.warning(f"⚠️ Function registry not available")
+                return ToolResult(
+                    tool_call_id=tool_call.id,
+                    type='function',
+                    success=False,
+                    result=None,
+                    message='Function registry not available'
+                )
+
             # Extract function name (remove 'call_' prefix if present)
             func_name = tool_call.name
             if func_name.startswith('call_'):
@@ -799,6 +821,17 @@ Example format:
     def _execute_extras_tool(self, tool_call: ToolCall) -> ToolResult:
         """Execute extras query"""
         try:
+            # Check if extras manager is available
+            if not self.extras_manager:
+                logger.warning(f"⚠️ Extras manager not available")
+                return ToolResult(
+                    tool_call_id=tool_call.id,
+                    type='extras',
+                    success=False,
+                    result=[],
+                    message='Extras manager not available'
+                )
+
             keywords = tool_call.parameters.get('keywords', [])
 
             logger.info(f"💡 Querying extras with keywords: {keywords}")
