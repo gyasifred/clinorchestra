@@ -6,7 +6,7 @@ Professional Quality v1.0.0 - Natural clinical language with guideline-based int
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 Lab: ClinicalNLP Lab, Biomedical Informatics Center
-Version: 1.0.4 - Natural conversation with guideline-based evidence synthesis
+Version: 1.0.0 - Natural conversation with guideline-based evidence synthesis
 
 ═══════════════════════════════════════════════════════════════════════════
 🎯 TRULY UNIVERSAL SYSTEM - Works for ANY Clinical Task
@@ -662,7 +662,7 @@ PROMPT_TEMPLATE_REGISTRY_V1 = {
         "minimal": DEFAULT_MINIMAL_PROMPT,
         "rag_prompt": DEFAULT_RAG_REFINEMENT_PROMPT,
         "description": "⭐ Universal template - Customize for ANY clinical task",
-        "version": "2.0.0",
+        "version": "1.0.0",
         "schema": {
             "extracted_data": {
                 "type": "object",
@@ -681,7 +681,7 @@ PROMPT_TEMPLATE_REGISTRY_V1 = {
         "minimal": MALNUTRITION_MINIMAL_PROMPT,
         "rag_prompt": MALNUTRITION_RAG_REFINEMENT_PROMPT,
         "description": "📚 EXAMPLE: Pediatric malnutrition with temporal reasoning (adapt for your task!)",
-        "version": "1.0.5",
+        "version": "1.0.0",
         "schema": {
             "malnutrition_status": {
                 "type": "string",
@@ -745,7 +745,7 @@ PROMPT_TEMPLATE_REGISTRY_V1 = {
         "minimal": DIABETES_MINIMAL_PROMPT,
         "rag_prompt": DEFAULT_RAG_REFINEMENT_PROMPT,
         "description": "📚 EXAMPLE: Diabetes assessment with labs and meds (adapt for your task!)",
-        "version": "2.0.0",
+        "version": "1.0.0",
         "schema": {
             "diabetes_diagnosis": {
                 "type": "string",

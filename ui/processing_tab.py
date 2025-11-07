@@ -3,7 +3,7 @@
 Processing Tab - Complete with proper text processing integration
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
-Version: 1.0.2
+Version: 1.0.0
 """
 import gradio as gr
 import pandas as pd

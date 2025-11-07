@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Function Registry - FIXED parameter validation and transformation
-Version: 1.0.2
+Function Registry - Parameter validation and transformation
+Version: 1.0.0
 """
 import sys
 import json

@@ -1,9 +1,9 @@
 # Performance Optimizations for Local Models
 **Date:** 2025-01-07
-**Version:** v1.2.0 - CRITICAL FIX
+**Version:** 1.0.0
 **Author:** Performance Audit and Optimization
 
-## ⚠️ **CRITICAL UPDATE v1.2.0**
+## ⚠️ **CRITICAL UPDATE - SMART Windowing**
 
 **Fixed critical bug in conversation windowing:** Previous implementation dropped tool result messages, causing LLM to "forget" what was completed in earlier iterations. **This is now fixed.**
 
@@ -30,7 +30,7 @@ Comprehensive performance audit identified and fixed **4 critical bottlenecks** 
 
 ## 🔴 CRITICAL FIXES IMPLEMENTED
 
-### Fix #1: SMART Conversation History Windowing (CRITICAL FIX v1.2.0)
+### Fix #1: SMART Conversation History Windowing (CRITICAL FIX)
 
 **Problem #1 (Original):**
 - Conversation history grew unbounded in ADAPTIVE mode (max 10 iterations)
@@ -44,7 +44,7 @@ Comprehensive performance audit identified and fixed **4 critical bottlenecks** 
 - Example: BMI calculated in iteration 2, but dropped by iteration 6 → LLM doesn't know the BMI!
 - **This broke the agent's ability to use previous work!**
 
-**Solution (FIXED in v1.2.0):** `core/agentic_agent.py:122-124, 1176-1265`
+**Solution (FIXED):** `core/agentic_agent.py:122-124, 1176-1265`
 ```python
 # SMART windowing strategy - preserves completed work!
 
@@ -86,11 +86,11 @@ def _apply_conversation_window(messages):
 
 **Example:**
 ```
-Before (v1.1.0 - BROKEN):
+Before (BROKEN):
   Iteration 2: calculate_bmi() → 22.86
   Iteration 6: Windowing drops iteration 2 → LLM forgets BMI! ❌
 
-After (v1.2.0 - FIXED):
+After (FIXED):
   Iteration 2: calculate_bmi() → 22.86
   Iteration 6: Tool result preserved → LLM remembers BMI: 22.86 ✅
 
