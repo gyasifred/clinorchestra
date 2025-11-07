@@ -255,6 +255,56 @@ class AppState:
         """Get RAG engine instance"""
         return self._rag_engine
 
+    def get_or_initialize_rag_engine(self):
+        """Get RAG engine, auto-initializing if enabled but not initialized"""
+        # If RAG is not enabled, return None
+        if not self.rag_config.enabled:
+            logger.debug("RAG is not enabled in configuration")
+            return None
+
+        # If RAG engine already exists and is initialized, return it
+        if self._rag_engine is not None:
+            if hasattr(self._rag_engine, 'initialized') and self._rag_engine.initialized:
+                logger.debug("RAG engine already initialized")
+                return self._rag_engine
+
+        # RAG is enabled but engine is not initialized - auto-initialize
+        logger.info("🔄 RAG is enabled but not initialized - auto-initializing now...")
+
+        try:
+            from core.rag_engine import RAGEngine
+
+            # Check if we have documents configured
+            if not self.rag_config.documents or len(self.rag_config.documents) == 0:
+                logger.warning("⚠️ RAG enabled but no documents configured. Please upload documents in RAG tab.")
+                return None
+
+            # Initialize RAG engine with configured settings
+            rag_engine = RAGEngine({
+                'embedding_model': self.rag_config.embedding_model,
+                'chunk_size': self.rag_config.chunk_size,
+                'chunk_overlap': self.rag_config.chunk_overlap,
+                'cache_dir': self.rag_config.cache_dir,
+                'force_refresh': False
+            })
+
+            # Initialize with configured documents
+            success = rag_engine.initialize(self.rag_config.documents, self)
+
+            if success:
+                self._rag_engine = rag_engine
+                logger.info(f"✅ RAG engine auto-initialized successfully with {len(self.rag_config.documents)} documents")
+                return rag_engine
+            else:
+                logger.error("❌ Failed to auto-initialize RAG engine")
+                return None
+
+        except Exception as e:
+            logger.error(f"❌ Error auto-initializing RAG engine: {e}")
+            import traceback
+            traceback.print_exc()
+            return None
+
     def set_regex_preprocessor(self, regex_preprocessor) -> None:
         """Set the regex preprocessor instance"""
         self._regex_preprocessor = regex_preprocessor

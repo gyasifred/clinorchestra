@@ -202,9 +202,12 @@ def create_playground_tab(app_state) -> Dict[str, Any]:
             all_funcs = function_registry.list_functions()
             log.append(f"Function Registry: {len(all_funcs)} functions available")
             
-            rag_engine = app_state.get_rag_engine()
-            if app_state.rag_config.enabled and rag_engine and rag_engine.initialized:
+            # Get RAG engine - auto-initialize if enabled but not initialized
+            rag_engine = app_state.get_or_initialize_rag_engine()
+            if rag_engine and rag_engine.initialized:
                 log.append(f"RAG Engine: {len(rag_engine.documents_loaded)} documents loaded")
+            elif app_state.rag_config.enabled:
+                log.append("RAG is ENABLED but not initialized (no documents uploaded)")
             else:
                 log.append("RAG is DISABLED")
             
@@ -225,9 +228,10 @@ def create_playground_tab(app_state) -> Dict[str, Any]:
             log.append("")
 
             # Create agent using factory
+            # Note: rag_engine is already auto-initialized if enabled, or None if disabled/no docs
             agent = create_agent(
                 llm_manager=llm_manager,
-                rag_engine=rag_engine if app_state.rag_config.enabled else None,
+                rag_engine=rag_engine,  # Already None if not available
                 extras_manager=extras_manager,
                 function_registry=function_registry,
                 regex_preprocessor=regex_preprocessor,

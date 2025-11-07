@@ -201,10 +201,14 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
             log_lines.append(f"✅ Function Registry: {len(all_funcs)} functions available")
             process_state.add_log(process_id, f"Function Registry: {len(all_funcs)} functions available")
             
-            rag_engine = app_state.get_rag_engine()
-            if app_state.rag_config.enabled and rag_engine and rag_engine.initialized:
+            # Get RAG engine - auto-initialize if enabled but not initialized
+            rag_engine = app_state.get_or_initialize_rag_engine()
+            if rag_engine and rag_engine.initialized:
                 log_lines.append(f"✅ RAG Engine: {len(rag_engine.documents_loaded)} documents loaded")
                 process_state.add_log(process_id, f"RAG Engine: {len(rag_engine.documents_loaded)} documents loaded")
+            elif app_state.rag_config.enabled:
+                log_lines.append("⚠️ RAG Engine: Enabled but not initialized (no documents uploaded)")
+                process_state.add_log(process_id, "RAG Engine: Enabled but not initialized")
             else:
                 log_lines.append("ℹ️ RAG Engine: Disabled")
                 process_state.add_log(process_id, "RAG Engine: Disabled")
@@ -239,9 +243,10 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
             log_lines.append("")
 
             # Create agent using factory
+            # Note: rag_engine is already auto-initialized if enabled, or None if disabled/no docs
             agent = create_agent(
                 llm_manager=llm_manager,
-                rag_engine=rag_engine if app_state.rag_config.enabled else None,
+                rag_engine=rag_engine,  # Already None if not available
                 extras_manager=extras_manager,
                 function_registry=function_registry,
                 regex_preprocessor=regex_preprocessor,
