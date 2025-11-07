@@ -948,7 +948,7 @@ def create_extras(manager):
 def main():
     """Main execution"""
     print("\n" + "="*60)
-    print("CLINANNOTATE: Creating Medical Domain Examples")
+    print("CLINORCHESTRA: Creating Medical Domain Examples")
     print("="*60)
     print("\nThis script creates:")
     print(f"  - {len(MEDICAL_FUNCTIONS)} medical calculation functions")

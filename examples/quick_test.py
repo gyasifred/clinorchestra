@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Quick test script to verify ClinAnnotate is working
+Quick test script to verify ClinOrchestra is working
 Tests functions, patterns, and extras without requiring full UI
 """
 
@@ -120,7 +120,7 @@ def test_sample_data():
 
 def main():
     print("\n" + "="*70)
-    print("CLINANNOTATE - QUICK TEST")
+    print("CLINORCHESTRA - QUICK TEST")
     print("="*70)
 
     try:
@@ -149,7 +149,7 @@ def main():
     print("\nTo run full application:")
     print("  python annotate.py")
     print("\nOr if installed via pip:")
-    print("  clinannotate")
+    print("  clinorchestra")
     print()
 
 if __name__ == "__main__":

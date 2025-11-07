@@ -1,6 +1,6 @@
-# ClinAnnotate Examples
+# ClinOrchestra Examples
 
-This directory contains sample data and configurations for testing ClinAnnotate.
+This directory contains sample data and configurations for testing ClinOrchestra.
 
 ## Sample Data
 
@@ -35,9 +35,9 @@ Contains 10 diverse clinical scenarios:
 
 ### Method 1: Via UI
 
-1. Launch ClinAnnotate:
+1. Launch ClinOrchestra:
    ```bash
-   clinannotate
+   clinorchestra
    ```
 
 2. Load sample data:

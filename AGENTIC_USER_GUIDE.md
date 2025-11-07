@@ -26,7 +26,7 @@
 
 ## Overview
 
-ClinAnnotate v1.0.0 introduces **dual execution modes** for clinical data extraction:
+ClinOrchestra v1.0.0 introduces **dual execution modes** for clinical data extraction:
 
 - **Classic Mode (ExtractionAgent v1.0.2)**: Reliable, predictable 4-stage pipeline
 - **Agentic Mode (AgenticAgent v1.0.0)**: Autonomous continuous loop with async/parallel tool execution
@@ -239,9 +239,9 @@ result = agent.extract(clinical_text="...", label_value="...")
 
 ### Method 2: Via Gradio UI
 
-1. Launch ClinAnnotate:
+1. Launch ClinOrchestra:
    ```bash
-   clinannotate
+   clinorchestra
    ```
 
 2. Go to **Settings Tab** (or Model Configuration)

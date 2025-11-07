@@ -1,8 +1,8 @@
-# Serial Measurements Handling in ClinAnnotate
+# Serial Measurements Handling in ClinOrchestra
 
 ## Overview
 
-The ClinAnnotate agent system is designed to handle **serial/temporal measurements** by calling the same function **multiple times** (once per time point). This is critical for clinical data where trends and progression are important.
+The ClinOrchestra agent system is designed to handle **serial/temporal measurements** by calling the same function **multiple times** (once per time point). This is critical for clinical data where trends and progression are important.
 
 ---
 
@@ -313,7 +313,7 @@ Example test scenarios:
 
 ## Conclusion
 
-The ClinAnnotate agent system is designed from the ground up to handle serial/temporal measurements intelligently. By calling functions multiple times with proper date context, the system can:
+The ClinOrchestra agent system is designed from the ground up to handle serial/temporal measurements intelligently. By calling functions multiple times with proper date context, the system can:
 
 1. Capture complete longitudinal data
 2. Calculate trends and progression

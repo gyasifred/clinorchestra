@@ -1,4 +1,4 @@
-# ClinAnnotate Pipeline Architecture
+# ClinOrchestra Pipeline Architecture
 ## Complete System Diagrams - Version 1.0.0
 
 **Author:** Frederick Gyasi (gyasi@musc.edu)
@@ -23,7 +23,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                         ClinAnnotate Platform                            │
+│                         ClinOrchestra Platform                            │
 │                         Version 1.0.0                                    │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                          │
@@ -683,7 +683,7 @@ PERFORMANCE EXAMPLES:
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                    CLINANNOTATE COMPLETE SYSTEM                          │
+│                    CLINORCHESTRA COMPLETE SYSTEM                          │
 │                         Version 1.0.0                                    │
 └─────────────────────────────────────────────────────────────────────────┘
 

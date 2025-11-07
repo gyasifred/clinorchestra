@@ -1,8 +1,8 @@
-# ClinAnnotate
+# ClinOrchestra
 
-**🎯 Truly Universal Platform for Clinical Data Extraction**
+**🎯 Truly Universal Platform for Clinical Data Extraction & Orchestration**
 
-ClinAnnotate is an intelligent, LLM-powered platform for extracting structured information from **ANY clinical task** using agentic orchestration with RAG, custom functions, and task-specific hints.
+ClinOrchestra is an intelligent, LLM-powered platform for extracting structured information from **ANY clinical task** using agentic orchestration with RAG, custom functions, and task-specific hints.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ## 🌟 UNIVERSAL SYSTEM - Not Task-Specific!
@@ -34,10 +34,10 @@ ClinAnnotate is an intelligent, LLM-powered platform for extracting structured i
 
 ```bash
 # Install
-pip install clinannotate
+pip install clinorchestra
 
 # Launch
-clinannotate
+clinorchestra
 ```
 
 Web interface opens at `http://localhost:7860`
@@ -61,23 +61,23 @@ Web interface opens at `http://localhost:7860`
 
 ```bash
 # From PyPI
-pip install clinannotate
+pip install clinorchestra
 
 # With local LLM support
-pip install clinannotate[local]
+pip install clinorchestra[local]
 
 # From source
-git clone https://github.com/yourusername/clinannotate.git
-cd clinannotate
+git clone https://github.com/yourusername/clinorchestra.git
+cd clinorchestra
 pip install -e .
 ```
 
 ### Execution Modes
 
-ClinAnnotate supports TWO execution modes:
+ClinOrchestra supports TWO execution modes:
 
-#### Classic Mode (ExtractionAgent v1.0.2) - Default
-**Reliable 4-stage pipeline** - Best for: Production workloads, predictable behavior
+#### STRUCTURED Mode (v1.0.0) - Default
+**Systematic 4-stage pipeline** - Best for: Production workloads, predictable behavior
 
 ```
 STAGE 1: TASK ANALYSIS
@@ -99,8 +99,8 @@ STAGE 4: RAG REFINEMENT (Optional)
 └── Cites specific sources
 ```
 
-#### Agentic Mode (AgenticAgent v1.0.0) - Advanced
-**Continuous autonomous loop** - Best for: Complex cases, research, maximum accuracy
+#### ADAPTIVE Mode (v1.0.0) - Advanced
+**Continuous autonomous loop** - Best for: Complex cases, evolving tasks, maximum accuracy
 
 ```
 CONTINUOUS LOOP
@@ -115,7 +115,7 @@ CONTINUOUS LOOP
 Performance: 60-75% faster due to parallel tool execution
 ```
 
-**Enable Agentic Mode:**
+**Enable ADAPTIVE Mode:**
 ```python
 app_state.set_agentic_config(
     enabled=True,

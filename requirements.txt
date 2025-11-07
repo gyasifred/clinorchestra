@@ -1,4 +1,4 @@
-# ClinAnnotate - Universal Medical Data Curation Platform
+# ClinOrchestra - Universal Clinical Data Extraction & Orchestration Platform
 # Complete requirements with versions for all enhancements
 # Author: Frederick Gyasi (gyasi@musc.edu)
 

@@ -1,6 +1,6 @@
-# clinAnnotate System Evaluation
+# ClinOrchestra System Evaluation
 
-This directory contains tools and resources for evaluating your clinAnnotate system performance.
+This directory contains tools and resources for evaluating your ClinOrchestra system performance.
 
 ## Quick Start
 
@@ -14,7 +14,7 @@ id,text,label,extracted_value,reasoning
 003,"Creatinine 2.1 mg/dL on 3/15/2024",1,2.1,"Elevated creatinine suggests renal impairment"
 ```
 
-**System Output Format** (from clinAnnotate processing):
+**System Output Format** (from ClinOrchestra processing):
 ```csv
 id,text,label,extracted_value,reasoning
 001,"Patient has BMI of 16.2 kg/m2",1,16.2,"BMI is 16.2 which is below 18.5..."
@@ -90,7 +90,7 @@ Gold Standard Labels:
 - CAD: Absent
 ... (15 conditions total)
 
-Your Task: Configure clinAnnotate to predict all 15 labels
+Your Task: Configure ClinOrchestra to predict all 15 labels
 ```
 
 ### 2. MIMIC-III/MIMIC-IV (For Serial Measurements)
@@ -117,7 +117,7 @@ Patient measurements:
 
 Gold Standard: AKI Stage 2 on Day 3
 
-Your Task: Test if clinAnnotate detects AKI from serial Cr
+Your Task: Test if ClinOrchestra detects AKI from serial Cr
 ```
 
 ### 3. Quick Start with Synthetic Data
@@ -150,7 +150,7 @@ def generate_test_cases(n=100):
 gold_df = generate_test_cases(100)
 gold_df.to_csv('synthetic_gold_standard.csv', index=False)
 
-# Process through clinAnnotate to get system output
+# Process through ClinOrchestra to get system output
 # Then evaluate!
 ```
 
@@ -164,14 +164,14 @@ gold_df.to_csv('synthetic_gold_standard.csv', index=False)
                  │
                  ▼
 ┌─────────────────────────────────────────┐
-│ 2. Format Data for clinAnnotate         │
+│ 2. Format Data for ClinOrchestra         │
 │    - Input CSV with clinical text       │
 │    - Task configuration                 │
 └────────────────┬────────────────────────┘
                  │
                  ▼
 ┌─────────────────────────────────────────┐
-│ 3. Process Through clinAnnotate         │
+│ 3. Process Through ClinOrchestra         │
 │    - Run batch processing               │
 │    - Save output CSV                    │
 └────────────────┬────────────────────────┘
@@ -256,4 +256,4 @@ If your F1 > 0.85:
 
 ## Questions?
 
-Check the main clinAnnotate documentation or create an issue on GitHub.
+Check the main ClinOrchestra documentation or create an issue on GitHub.

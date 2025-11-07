@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-RAG Configuration Tab for ClinAnnotate - Document retrieval and embedding configuration
+RAG Configuration Tab for ClinOrchestra - Document retrieval and embedding configuration
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 Lab: HeiderLab

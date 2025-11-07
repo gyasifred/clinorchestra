@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """
-ClinAnnotate - Agent-based extraction system
+ClinOrchestra - Intelligent Clinical Data Extraction & Orchestration
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 Lab: HeiderLab
 Version: 1.0.0
+
+ClinOrchestra orchestrates LLM-powered agents with RAG, functions, and knowledge
+to extract structured data from clinical text. Works for ANY clinical task.
 """
 import gradio as gr
 import argparse
@@ -56,37 +59,73 @@ def create_main_interface() -> gr.Blocks:
     .gradio-container {
         font-family: 'Inter', 'Segoe UI', sans-serif;
     }
-    
+
     .header-section {
         text-align: center;
         padding: 30px 20px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #73000A 0%, #B3A369 100%);
         color: white;
         border-radius: 12px;
         margin-bottom: 30px;
+        box-shadow: 0 4px 6px rgba(115, 0, 10, 0.3);
     }
-    
+
+    .header-section h1 {
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+    }
+
+    .header-section h2 {
+        font-weight: 400;
+        opacity: 0.95;
+    }
+
     .config-status {
         padding: 15px;
         background: #f8f9fa;
         border-radius: 8px;
         margin-bottom: 20px;
+        border-left: 4px solid #73000A;
+    }
+
+    /* MUSC-themed buttons */
+    .primary-button {
+        background-color: #73000A !important;
+        color: white !important;
+    }
+
+    .primary-button:hover {
+        background-color: #8B0010 !important;
+    }
+
+    /* Tab styling with MUSC colors */
+    .tab-nav button.selected {
+        border-bottom: 3px solid #73000A !important;
+        color: #73000A !important;
     }
     """
-    
+
     with gr.Blocks(
         theme=gr.themes.Soft(
-            primary_hue="indigo",
-            secondary_hue="purple"
+            primary_hue="red",
+            secondary_hue="stone",
+            font=["Inter", "Segoe UI", "sans-serif"]
+        ).set(
+            button_primary_background_fill="#73000A",
+            button_primary_background_fill_hover="#8B0010",
+            button_primary_text_color="white",
+            slider_color="#73000A",
+            checkbox_label_text_color="#000000"
         ),
         css=custom_css,
-        title="ClinAnnotate V1.0.0"
+        title="ClinOrchestra V1.0.0"
     ) as app:
         
         gr.HTML("""
             <div class="header-section">
-                <h1>ClinAnnotate</h1>
-                <h2>Agent-Based Clinical Data Extraction</h2>
+                <h1>ClinOrchestra</h1>
+                <h2>Intelligent Clinical Data Extraction & Orchestration</h2>
                 <p>Version 1.0.0</p>
             </div>
         """)
@@ -333,7 +372,7 @@ def setup_event_handlers(app_state, components):
 
 def main():
     """Main entry point"""
-    parser = argparse.ArgumentParser(description="ClinAnnotate V1.0.0")
+    parser = argparse.ArgumentParser(description="ClinOrchestra V1.0.0")
     
     parser.add_argument("--port", type=int, default=7860)
     parser.add_argument("--share", action="store_true")
@@ -341,7 +380,7 @@ def main():
     args = parser.parse_args()
     
     logger.info("="*80)
-    logger.info("ClinAnnotate V1.0.0 - Agent-Based Extraction System")
+    logger.info("ClinOrchestra V1.0.0 - Intelligent Clinical Data Extraction & Orchestration")
     logger.info("="*80)
     logger.info(f"Port: {args.port}")
     logger.info(f"Share: {args.share}")
