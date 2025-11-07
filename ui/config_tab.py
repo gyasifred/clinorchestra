@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Config Tab - Model Configuration with Connection Testing
-Version: 1.0.1 - FIXED: Prevent auto-initialization on startup
+Version: 1.0.0
 """
 
 import gradio as gr
@@ -101,18 +101,21 @@ def create_config_tab(app_state) -> Dict[str, Any]:
     gr.Markdown("---")
     gr.Markdown("### Execution Mode Settings")
     gr.Markdown("""
-    **Choose between Classic and Agentic execution modes:**
-    - **Classic Mode** (Default): Reliable 4-stage pipeline with predictable behavior
-    - **Agentic Mode** (Advanced): Continuous loop with autonomous tool calling + async parallel execution (60-75% faster)
+    **Choose between Classic and Agentic execution pathways:**
+
+    🎯 **BOTH ARE GENERAL & AGENTIC** - Adapt to ANY clinical task!
+
+    - **Classic Mode** (Default): 4-stage pipeline with autonomous analysis + async tools
+    - **Agentic Mode** (Advanced): Continuous loop with iterative refinement + async tools (60-75% faster)
     """)
 
     with gr.Row():
         with gr.Column():
             agentic_enabled_value = app_state.agentic_config.enabled if hasattr(app_state, 'agentic_config') else False
             agentic_enabled = gr.Checkbox(
-                label="Enable Agentic Mode (AgenticAgent v1.0.0)",
+                label="Enable Agentic Mode (v1.0.0 - General & Agentic)",
                 value=agentic_enabled_value,
-                info="Use continuous autonomous loop instead of 4-stage pipeline"
+                info="Use continuous autonomous loop with iterative refinement"
             )
             components['agentic_enabled'] = agentic_enabled
 
@@ -141,9 +144,12 @@ def create_config_tab(app_state) -> Dict[str, Any]:
 
     agentic_info = gr.Markdown("""
     **ℹ️ Execution Mode Info:**
-    - Classic Mode (ExtractionAgent v1.0.2): Fixed 4-stage pipeline - best for production
-    - Agentic Mode (AgenticAgent v1.0.0): Iterative loop with tool calling - best for complex cases and research
-    - See [AGENTIC_USER_GUIDE.md](https://github.com/yourusername/clinannotate/blob/main/AGENTIC_USER_GUIDE.md) for detailed comparison
+    - **Classic Mode** (v1.0.0): 4-stage pipeline, general & agentic with ASYNC - best for production
+    - **Agentic Mode** (v1.0.0): Continuous loop, general & agentic with ASYNC - best for complex cases
+
+    🎯 **Both are universal** - adapt to ANY clinical task via prompts/schema!
+
+    See [AGENTIC_USER_GUIDE.md](https://github.com/yourusername/clinannotate/blob/main/AGENTIC_USER_GUIDE.md) for detailed comparison
     """)
     components['agentic_info'] = agentic_info
 
@@ -459,8 +465,8 @@ Status: Model is ready for processing."""
                 logger.info(f"Model configuration saved (LLM will be initialized on first use)")
                 logger.info(f"Agentic mode: {'ENABLED' if agen_enabled else 'DISABLED'} (max_iterations={agen_max_iter}, max_tool_calls={agen_max_tools})")
 
-                mode = "Agentic Mode (AgenticAgent v1.0.0)" if agen_enabled else "Classic Mode (ExtractionAgent v1.0.2)"
-                return f"✓ Model configuration saved successfully!\n\n**Execution Mode**: {mode}\n\nLLM will be initialized when you start processing.\n\n✓ Configuration persisted to disk."
+                mode = "Agentic Mode (v1.0.0 - General & Agentic)" if agen_enabled else "Classic Mode (v1.0.0 - General & Agentic)"
+                return f"✓ Model configuration saved successfully!\n\n**Execution Mode**: {mode}\n\nBoth modes are universal - adapt to ANY clinical task!\n\nLLM will be initialized when you start processing.\n\n✓ Configuration persisted to disk."
             else:
                 return "✗ Failed to save configuration"
 

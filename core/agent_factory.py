@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
 """
 Agent Factory - Create appropriate agent based on configuration
-Version: 1.0.1
+Version: 1.0.0
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 
-Provides backward compatibility between:
-- Classic ExtractionAgent (v1.0.3 - 4-stage pipeline with ASYNC tool execution)
-- AgenticAgent (v1.0.0 - Agentic continuous loop with ASYNC tool execution)
+🎯 BOTH PATHWAYS ARE GENERAL & AGENTIC!
 
-Both agents now use ASYNC for 60-75% performance improvement!
+Provides two execution pathways:
+- Classic ExtractionAgent (v1.0.0): 4-stage pipeline, general & agentic with ASYNC
+- Agentic Agent (v1.0.0): Continuous loop, general & agentic with ASYNC
+
+Both agents are universal - they adapt to ANY clinical task via prompts/schema.
+Both use ASYNC for 60-75% performance improvement!
+
 Selection based on app_state.agentic_config.enabled
 """
 
@@ -33,14 +37,16 @@ def create_agent(llm_manager, rag_engine, extras_manager, function_registry,
         app_state: Application state with configuration
 
     Returns:
-        ExtractionAgent (v1.0) or AgenticAgent (v2.0) based on config
+        ExtractionAgent (v1.0.0) or AgenticAgent (v1.0.0) based on config
+        Both are general & agentic - adapt to ANY clinical task!
     """
 
     # Check if agentic mode is enabled
     if app_state.agentic_config.enabled:
         logger.info("=" * 80)
-        logger.info("CREATING AGENTIC AGENT (v1.0.0)")
+        logger.info("CREATING AGENTIC AGENT (v1.0.0) - General & Agentic")
         logger.info("Mode: Continuous Loop with PAUSE/RESUME + Async Tool Execution")
+        logger.info("Universal: Adapts to ANY clinical task via prompts/schema")
         logger.info(f"Max Iterations: {app_state.agentic_config.max_iterations}")
         logger.info(f"Max Tool Calls: {app_state.agentic_config.max_tool_calls}")
         logger.info("=" * 80)
@@ -66,8 +72,9 @@ def create_agent(llm_manager, rag_engine, extras_manager, function_registry,
 
     else:
         logger.info("=" * 80)
-        logger.info("CREATING CLASSIC EXTRACTION AGENT (v1.0.3)")
+        logger.info("CREATING CLASSIC EXTRACTION AGENT (v1.0.0) - General & Agentic")
         logger.info("Mode: 4-Stage Pipeline with ASYNC Tool Execution")
+        logger.info("Universal: Adapts to ANY clinical task via prompts/schema")
         logger.info("=" * 80)
 
         from core.agent_system import ExtractionAgent
@@ -111,14 +118,15 @@ def get_agent_info(app_state) -> dict:
         }
     else:
         return {
-            'version': '1.0.3',
+            'version': '1.0.0',
             'name': 'ExtractionAgent',
-            'mode': '4-Stage Pipeline with ASYNC',
+            'mode': '4-Stage Pipeline with ASYNC (General & Agentic)',
             'features': [
-                'Stage 1: Analysis',
+                'Stage 1: Autonomous task analysis',
                 'Stage 2: ASYNC parallel tool execution',
                 'Stage 3: Extraction',
                 'Stage 4: RAG refinement (optional)',
+                'Universal - adapts to ANY task',
                 '60-75% performance boost'
             ],
             'config': {

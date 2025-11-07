@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
 """
 Agent System - Universal Agentic Processing for ANY Clinical Task
-Version: 1.0.3 - Async tool execution for 60-75% performance boost
+Version: 1.0.0
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 
-🎯 UNIVERSAL SYSTEM: This agent adapts to ANY clinical extraction task defined by
-   your prompts and JSON schema. Not limited to specific conditions.
+🎯 TRULY UNIVERSAL & AGENTIC SYSTEM:
+   Both Classic and Agentic modes are general-purpose agents that adapt to ANY
+   clinical extraction task defined by your prompts and JSON schema.
+   Not hardcoded for specific conditions - works for ALL clinical domains!
+
+PATHWAY: Classic 4-Stage Pipeline (General & Agentic)
+MODE: LLM autonomously analyzes task → Plans tools → Executes → Extracts
 
 KEY FEATURES:
 1. Task-agnostic Stage 1 analysis with intelligent tool selection
@@ -15,6 +20,7 @@ KEY FEATURES:
 4. Extras system for task-specific hints matching YOUR keywords
 5. **ASYNC TOOL EXECUTION** - 60-75% faster with parallel Stage 2 execution
 6. Adapts to both labeled and unlabeled data scenarios
+7. Universal across ALL clinical domains (not task-specific)
 """
 
 import json
@@ -99,7 +105,7 @@ class ExtractionAgent:
         self.max_retries = 3
         self.json_parser = JSONParser()
 
-        logger.info("🎯 ExtractionAgent v1.0.3 initialized - Universal task-agnostic system with ASYNC tools ready")
+        logger.info("🎯 ExtractionAgent v1.0.0 initialized - Universal AGENTIC system with ASYNC tools ready")
         
     
     def extract(self, clinical_text: str, label_value: Optional[Any] = None) -> Dict[str, Any]:

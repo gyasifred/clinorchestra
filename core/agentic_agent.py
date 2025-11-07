@@ -1,15 +1,20 @@
 #!/usr/bin/env python3
 """
 Agentic Agent - Universal Continuous Loop Extraction for ANY Clinical Task
-Version: 1.0.0 - Agentic with Async Tool Execution
+Version: 1.0.0
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 
-🎯 UNIVERSAL SYSTEM: This agentic agent works for ANY clinical extraction task
-   defined by your prompts and schema. Not limited to specific conditions.
+🎯 TRULY UNIVERSAL & AGENTIC SYSTEM:
+   Both Classic and Agentic modes are general-purpose agents that adapt to ANY
+   clinical extraction task defined by your prompts and JSON schema.
+   Not hardcoded for specific conditions - works for ALL clinical domains!
+
+PATHWAY: Agentic Continuous Loop (General & Agentic)
+MODE: LLM decides → Calls tools → Learns → Iterates → Extracts
 
 REVOLUTIONARY ARCHITECTURE:
-From rigid 4-stage pipeline to continuous agentic loop where LLM:
+Continuous agentic loop where LLM:
 - Autonomously decides what tools to call based on YOUR task
 - Iterates and learns from results dynamically
 - Adapts strategy to YOUR extraction goals
@@ -22,6 +27,7 @@ KEY FEATURES:
 - Multiple calls to same tool with different queries as needed
 - Dynamic discovery: "That result tells me I need X next"
 - Context-aware chaining based on previous tool results
+- Universal across ALL clinical domains (not task-specific)
 
 PERFORMANCE:
 - Async/await for parallel tool execution (concurrent RAG + functions)

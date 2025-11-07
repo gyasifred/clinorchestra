@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 """
 Application State Manager for ClinAnnotate
-Version: 1.0.1
+Version: 1.0.0
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 
-FIXED: Resolved 'PromptConfig' object has no attribute 'rag_top_k' by:
-  - Removing any reliance on PromptConfig.rag_top_k
-  - Ensuring RAGConfig.rag_top_k is always synced with k_value
+Manages application state for universal clinical extraction system.
   - Adding __post_init__ to RAGConfig for guaranteed initialization
   - Maintaining full RAG functionality with zero code conflicts
 """
