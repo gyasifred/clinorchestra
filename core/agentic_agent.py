@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 """
-Agentic Agent - Universal Continuous Loop Extraction for ANY Clinical Task
+Loop Agent - Universal Continuous Loop Extraction for ANY Clinical Task
 Version: 1.0.0
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 
 🎯 TRULY UNIVERSAL & AGENTIC SYSTEM:
-   Both Classic and Agentic modes are general-purpose agents that adapt to ANY
+   BOTH execution modes (PIPELINE & LOOP) are autonomous agents that adapt to ANY
    clinical extraction task defined by your prompts and JSON schema.
    Not hardcoded for specific conditions - works for ALL clinical domains!
 
-PATHWAY: Agentic Continuous Loop (General & Agentic)
-MODE: LLM decides → Calls tools → Learns → Iterates → Extracts
+EXECUTION MODE: LOOP (Continuous Iterative)
+BEHAVIOR: LLM decides → Calls tools → Learns → Iterates → Extracts
 
 REVOLUTIONARY ARCHITECTURE:
-Continuous agentic loop where LLM:
+Continuous iterative loop where LLM:
 - Autonomously decides what tools to call based on YOUR task
 - Iterates and learns from results dynamically
 - Adapts strategy to YOUR extraction goals
@@ -144,7 +144,7 @@ class AgenticAgent:
         self.context: Optional[AgenticContext] = None
         self.json_parser = JSONParser()
 
-        logger.info("🎯 AgenticAgent v1.0.0 initialized - Universal task-agnostic agentic system with async tools ready")
+        logger.info("🎯 LoopAgent v1.0.0 initialized - LOOP Mode (autonomous continuous iteration with ASYNC)")
 
     def extract(self, clinical_text: str, label_value: Optional[Any] = None) -> Dict[str, Any]:
         """
@@ -172,7 +172,7 @@ class AgenticAgent:
             )
 
             logger.info("=" * 80)
-            logger.info("AGENTIC EXTRACTION STARTED (v1.0.0 - Async Tools)")
+            logger.info("LOOP MODE EXTRACTION STARTED (v1.0.0 - Autonomous & Async)")
             logger.info("=" * 80)
 
             # Build initial prompt

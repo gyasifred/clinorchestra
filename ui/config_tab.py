@@ -101,23 +101,25 @@ def create_config_tab(app_state) -> Dict[str, Any]:
     gr.Markdown("---")
     gr.Markdown("### Execution Mode Settings")
     gr.Markdown("""
-    **Choose between Classic and Agentic execution pathways:**
+    **Choose between PIPELINE and LOOP execution modes:**
 
-    🎯 **BOTH ARE GENERAL & AGENTIC** - Adapt to ANY clinical task!
+    🎯 **BOTH ARE AUTONOMOUS (AGENTIC)** - Adapt to ANY clinical task!
 
-    - **Classic Mode** (Default): 4-stage pipeline with autonomous analysis + async tools
-    - **Agentic Mode** (Advanced): Continuous loop with iterative refinement + async tools (60-75% faster)
+    - **PIPELINE Mode** (Default): 4-stage sequential with autonomous analysis + async tools
+    - **LOOP Mode** (Advanced): Continuous iterative with dynamic adaptation + async tools (60-75% faster)
+
+    Both modes use autonomous LLM decision-making - neither is "more agentic"!
     """)
 
     with gr.Row():
         with gr.Column():
-            agentic_enabled_value = app_state.agentic_config.enabled if hasattr(app_state, 'agentic_config') else False
-            agentic_enabled = gr.Checkbox(
-                label="Enable Agentic Mode (v1.0.0 - General & Agentic)",
-                value=agentic_enabled_value,
-                info="Use continuous autonomous loop with iterative refinement"
+            loop_mode_enabled_value = app_state.agentic_config.enabled if hasattr(app_state, 'agentic_config') else False
+            loop_mode_enabled = gr.Checkbox(
+                label="Enable LOOP Mode (v1.0.0 - Autonomous)",
+                value=loop_mode_enabled_value,
+                info="Use continuous iterative loop with dynamic adaptation (both modes are autonomous!)"
             )
-            components['agentic_enabled'] = agentic_enabled
+            components['agentic_enabled'] = loop_mode_enabled  # Keep internal name for compatibility
 
         with gr.Column():
             max_iterations_value = app_state.agentic_config.max_iterations if hasattr(app_state, 'agentic_config') else 20
@@ -142,16 +144,18 @@ def create_config_tab(app_state) -> Dict[str, Any]:
             )
             components['agentic_max_tool_calls'] = agentic_max_tool_calls
 
-    agentic_info = gr.Markdown("""
+    mode_info = gr.Markdown("""
     **ℹ️ Execution Mode Info:**
-    - **Classic Mode** (v1.0.0): 4-stage pipeline, general & agentic with ASYNC - best for production
-    - **Agentic Mode** (v1.0.0): Continuous loop, general & agentic with ASYNC - best for complex cases
+    - **PIPELINE Mode** (v1.0.0): 4-stage sequential, autonomous with ASYNC - best for production
+    - **LOOP Mode** (v1.0.0): Continuous iterative, autonomous with ASYNC - best for complex cases
 
-    🎯 **Both are universal** - adapt to ANY clinical task via prompts/schema!
+    🎯 **Both are autonomous (agentic)** - adapt to ANY clinical task via prompts/schema!
 
-    See [AGENTIC_USER_GUIDE.md](https://github.com/yourusername/clinannotate/blob/main/AGENTIC_USER_GUIDE.md) for detailed comparison
+    Neither mode is "more agentic" - both use LLM autonomous decision-making!
+
+    See [EXECUTION_MODES_GUIDE.md] for detailed comparison
     """)
-    components['agentic_info'] = agentic_info
+    components['agentic_info'] = mode_info  # Keep internal name for compatibility
 
     gr.Markdown("---")
     gr.Markdown("### Provider-Specific Settings")
@@ -465,8 +469,8 @@ Status: Model is ready for processing."""
                 logger.info(f"Model configuration saved (LLM will be initialized on first use)")
                 logger.info(f"Agentic mode: {'ENABLED' if agen_enabled else 'DISABLED'} (max_iterations={agen_max_iter}, max_tool_calls={agen_max_tools})")
 
-                mode = "Agentic Mode (v1.0.0 - General & Agentic)" if agen_enabled else "Classic Mode (v1.0.0 - General & Agentic)"
-                return f"✓ Model configuration saved successfully!\n\n**Execution Mode**: {mode}\n\nBoth modes are universal - adapt to ANY clinical task!\n\nLLM will be initialized when you start processing.\n\n✓ Configuration persisted to disk."
+                mode = "LOOP Mode (v1.0.0 - Autonomous)" if agen_enabled else "PIPELINE Mode (v1.0.0 - Autonomous)"
+                return f"✓ Model configuration saved successfully!\n\n**Execution Mode**: {mode}\n\n🎯 Both modes are autonomous (agentic) - adapt to ANY clinical task!\n\nLLM will be initialized when you start processing.\n\n✓ Configuration persisted to disk."
             else:
                 return "✗ Failed to save configuration"
 

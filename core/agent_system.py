@@ -6,12 +6,12 @@ Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 
 🎯 TRULY UNIVERSAL & AGENTIC SYSTEM:
-   Both Classic and Agentic modes are general-purpose agents that adapt to ANY
+   BOTH execution modes (PIPELINE & LOOP) are autonomous agents that adapt to ANY
    clinical extraction task defined by your prompts and JSON schema.
    Not hardcoded for specific conditions - works for ALL clinical domains!
 
-PATHWAY: Classic 4-Stage Pipeline (General & Agentic)
-MODE: LLM autonomously analyzes task → Plans tools → Executes → Extracts
+EXECUTION MODE: PIPELINE (4-Stage Sequential)
+BEHAVIOR: LLM autonomously analyzes task → Plans tools → Executes → Extracts
 
 KEY FEATURES:
 1. Task-agnostic Stage 1 analysis with intelligent tool selection
@@ -105,7 +105,7 @@ class ExtractionAgent:
         self.max_retries = 3
         self.json_parser = JSONParser()
 
-        logger.info("🎯 ExtractionAgent v1.0.0 initialized - Universal AGENTIC system with ASYNC tools ready")
+        logger.info("🎯 ExtractionAgent v1.0.0 initialized - PIPELINE Mode (autonomous 4-stage with ASYNC)")
         
     
     def extract(self, clinical_text: str, label_value: Optional[Any] = None) -> Dict[str, Any]:

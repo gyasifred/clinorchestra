@@ -5,16 +5,17 @@ Version: 1.0.0
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 
-🎯 BOTH PATHWAYS ARE GENERAL & AGENTIC!
+🎯 BOTH EXECUTION MODES ARE UNIVERSAL & AUTONOMOUS (AGENTIC)!
 
-Provides two execution pathways:
-- Classic ExtractionAgent (v1.0.0): 4-stage pipeline, general & agentic with ASYNC
-- Agentic Agent (v1.0.0): Continuous loop, general & agentic with ASYNC
+Provides two execution modes:
+- PIPELINE Mode (v1.0.0): 4-stage sequential, autonomous with ASYNC
+- LOOP Mode (v1.0.0): Continuous iterative, autonomous with ASYNC
 
-Both agents are universal - they adapt to ANY clinical task via prompts/schema.
-Both use ASYNC for 60-75% performance improvement!
+BOTH modes are universal - they adapt to ANY clinical task via prompts/schema.
+BOTH modes use autonomous LLM decision-making (agentic behavior).
+BOTH modes use ASYNC for 60-75% performance improvement!
 
-Selection based on app_state.agentic_config.enabled
+Selection based on app_state.loop_mode_enabled
 """
 
 from typing import Union
@@ -37,15 +38,15 @@ def create_agent(llm_manager, rag_engine, extras_manager, function_registry,
         app_state: Application state with configuration
 
     Returns:
-        ExtractionAgent (v1.0.0) or AgenticAgent (v1.0.0) based on config
-        Both are general & agentic - adapt to ANY clinical task!
+        ExtractionAgent (PIPELINE) or LoopAgent (LOOP) based on config
+        Both are autonomous (agentic) - adapt to ANY clinical task!
     """
 
-    # Check if agentic mode is enabled
+    # Check if loop mode is enabled (config still uses 'agentic_config' internally)
     if app_state.agentic_config.enabled:
         logger.info("=" * 80)
-        logger.info("CREATING AGENTIC AGENT (v1.0.0) - General & Agentic")
-        logger.info("Mode: Continuous Loop with PAUSE/RESUME + Async Tool Execution")
+        logger.info("CREATING LOOP MODE AGENT (v1.0.0) - Autonomous & Universal")
+        logger.info("Execution: Continuous Loop with PAUSE/RESUME + Async Tools")
         logger.info("Universal: Adapts to ANY clinical task via prompts/schema")
         logger.info(f"Max Iterations: {app_state.agentic_config.max_iterations}")
         logger.info(f"Max Tool Calls: {app_state.agentic_config.max_tool_calls}")
@@ -72,8 +73,8 @@ def create_agent(llm_manager, rag_engine, extras_manager, function_registry,
 
     else:
         logger.info("=" * 80)
-        logger.info("CREATING CLASSIC EXTRACTION AGENT (v1.0.0) - General & Agentic")
-        logger.info("Mode: 4-Stage Pipeline with ASYNC Tool Execution")
+        logger.info("CREATING PIPELINE MODE AGENT (v1.0.0) - Autonomous & Universal")
+        logger.info("Execution: 4-Stage Sequential Pipeline with ASYNC Tools")
         logger.info("Universal: Adapts to ANY clinical task via prompts/schema")
         logger.info("=" * 80)
 
@@ -99,15 +100,16 @@ def get_agent_info(app_state) -> dict:
     if app_state.agentic_config.enabled:
         return {
             'version': '1.0.0',
-            'name': 'AgenticAgent',
-            'mode': 'Continuous Agentic Loop with Async',
+            'name': 'LoopAgent',
+            'mode': 'LOOP Mode (Continuous Iterative - Autonomous)',
             'features': [
                 'Native tool calling',
                 'PAUSE/RESUME execution',
                 'ASYNC parallel tool execution',
                 'Multiple tool iterations',
                 'Dynamic adaptation',
-                'Context-aware chaining'
+                'Context-aware chaining',
+                'Universal - adapts to ANY task'
             ],
             'config': {
                 'max_iterations': app_state.agentic_config.max_iterations,
@@ -120,7 +122,7 @@ def get_agent_info(app_state) -> dict:
         return {
             'version': '1.0.0',
             'name': 'ExtractionAgent',
-            'mode': '4-Stage Pipeline with ASYNC (General & Agentic)',
+            'mode': 'PIPELINE Mode (4-Stage Sequential - Autonomous)',
             'features': [
                 'Stage 1: Autonomous task analysis',
                 'Stage 2: ASYNC parallel tool execution',
