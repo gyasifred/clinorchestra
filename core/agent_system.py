@@ -606,11 +606,23 @@ class ExtractionAgent:
         """Execute a RAG query using correct rag_top_k from RAGConfig"""
         try:
             if not self.rag_engine:
+                error_msg = (
+                    "❌ RAG Engine Not Initialized\n\n"
+                    "The agent requested RAG (document retrieval), but RAG is not configured.\n\n"
+                    "To enable RAG:\n"
+                    "1. Go to the 'RAG' tab\n"
+                    "2. Upload your documents (PDFs, text files, etc.)\n"
+                    "3. Click 'Build Index' to create the vector database\n"
+                    "4. Ensure 'Enable RAG' is checked in RAG configuration\n\n"
+                    "Without RAG, the agent will rely only on Functions and Extras for knowledge."
+                )
+                logger.warning(f"⚠️ RAG engine not available - agent requested RAG but it's not initialized")
+                logger.info("📖 To fix: Upload documents in RAG tab → Build Index → Enable RAG")
                 return {
                     'type': 'rag',
                     'success': False,
                     'results': [],
-                    'message': 'RAG engine not available'
+                    'message': error_msg
                 }
 
             query = tool_request.get('query', '').strip()

@@ -719,13 +719,24 @@ Example format:
         try:
             # Check if RAG engine is available
             if not self.rag_engine:
-                logger.warning(f"⚠️ RAG engine not available - RAG may not be enabled or initialized")
+                error_msg = (
+                    "❌ RAG Engine Not Initialized\n\n"
+                    "The agent requested RAG (document retrieval), but RAG is not configured.\n\n"
+                    "To enable RAG:\n"
+                    "1. Go to the 'RAG' tab\n"
+                    "2. Upload your documents (PDFs, text files, etc.)\n"
+                    "3. Click 'Build Index' to create the vector database\n"
+                    "4. Ensure 'Enable RAG' is checked in RAG configuration\n\n"
+                    "Without RAG, the agent will rely only on Functions and Extras for knowledge."
+                )
+                logger.warning(f"⚠️ RAG engine not available - agent requested RAG but it's not initialized")
+                logger.info("📖 To fix: Upload documents in RAG tab → Build Index → Enable RAG")
                 return ToolResult(
                     tool_call_id=tool_call.id,
                     type='rag',
                     success=False,
                     result=[],
-                    message='RAG engine not available. Please enable and configure RAG in the RAG tab.'
+                    message=error_msg
                 )
 
             query = tool_call.parameters.get('query', '')
