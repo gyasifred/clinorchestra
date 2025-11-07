@@ -119,6 +119,10 @@ class AgenticContext:
     stall_counter: int = 0
     consecutive_no_progress: int = 0
 
+    # PERFORMANCE: Conversation history management
+    conversation_window_size: int = 20  # Keep only last 20 messages for context
+    total_messages_sent: int = 0  # Track total messages for metrics
+
 
 class AgenticAgent:
     """
@@ -1169,11 +1173,73 @@ You have access to tools:
 
         return parsed
 
+    def _apply_conversation_window(self, messages: List[ConversationMessage]) -> List[ConversationMessage]:
+        """
+        Apply sliding window to conversation history for performance
+
+        CRITICAL FOR LOCAL MODELS: Limits context size to prevent:
+        1. Exponential slowdown as iterations increase
+        2. Token context overflow
+        3. Redundant re-processing of old messages
+
+        Strategy:
+        - Always keep system message (if present)
+        - Always keep initial user message (task definition)
+        - Keep last N messages within window
+        """
+        if len(messages) <= self.context.conversation_window_size:
+            return messages
+
+        # Find system and initial user messages
+        system_msg = None
+        initial_user_msg = None
+        other_messages = []
+
+        for i, msg in enumerate(messages):
+            if msg.role == 'system' and system_msg is None:
+                system_msg = msg
+            elif msg.role == 'user' and initial_user_msg is None:
+                initial_user_msg = msg
+            else:
+                other_messages.append(msg)
+
+        # Calculate how many recent messages to keep
+        reserved_slots = 0
+        if system_msg:
+            reserved_slots += 1
+        if initial_user_msg:
+            reserved_slots += 1
+
+        recent_message_limit = max(self.context.conversation_window_size - reserved_slots, 5)
+
+        # Keep most recent messages
+        recent_messages = other_messages[-recent_message_limit:] if len(other_messages) > recent_message_limit else other_messages
+
+        # Construct windowed history
+        windowed = []
+        if system_msg:
+            windowed.append(system_msg)
+        if initial_user_msg:
+            windowed.append(initial_user_msg)
+        windowed.extend(recent_messages)
+
+        # Log windowing for performance tracking
+        if len(messages) > len(windowed):
+            logger.info(f"🔄 Conversation windowing: {len(messages)} → {len(windowed)} messages (dropped {len(messages) - len(windowed)} old messages)")
+
+        return windowed
+
     def _convert_history_to_api_format(self) -> List[Dict[str, Any]]:
-        """Convert conversation history to API format"""
+        """Convert conversation history to API format with windowing"""
+        # PERFORMANCE: Apply conversation window for local models
+        windowed_history = self._apply_conversation_window(self.context.conversation_history)
+
+        # Track metrics
+        self.context.total_messages_sent += len(windowed_history)
+
         messages = []
 
-        for msg in self.context.conversation_history:
+        for msg in windowed_history:
             if msg.role == 'system':
                 messages.append({'role': 'system', 'content': msg.content})
             elif msg.role == 'user':
