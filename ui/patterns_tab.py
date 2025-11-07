@@ -123,13 +123,19 @@ def create_patterns_tab(app_state) -> Dict[str, Any]:
             components['refresh_patterns_btn'] = refresh_patterns_btn
             
             gr.Markdown("#### Manage Patterns")
-            
-            selected_pattern_name = gr.Textbox(
-                label="Pattern Name to View/Edit/Remove/Toggle",
-                placeholder="standardize_dosage"
-            )
+
+            with gr.Row():
+                selected_pattern_name = gr.Dropdown(
+                    choices=[],
+                    label="Select Pattern to View/Edit/Remove/Toggle",
+                    allow_custom_value=True,
+                    info="Choose from registered patterns"
+                )
+                refresh_pattern_selector_btn = gr.Button("🔄 Refresh", size="sm")
+
             components['selected_pattern_name'] = selected_pattern_name
-            
+            components['refresh_pattern_selector_btn'] = refresh_pattern_selector_btn
+
             with gr.Row():
                 view_pattern_btn = gr.Button("View/Edit")
                 toggle_pattern_btn = gr.Button("Toggle")
@@ -338,28 +344,39 @@ def create_patterns_tab(app_state) -> Dict[str, Any]:
             regex_preprocessor = RegexPreprocessor()
             app_state.set_regex_preprocessor(regex_preprocessor)
             logger.warning("RegexPreprocessor was not set; initialized new instance")
-        
+
         patterns_data = [
             [p['name'], "Yes" if p['enabled'] else "No", p['description'][:50]]
             for p in regex_preprocessor.list_patterns()
         ]
         return gr.update(value=patterns_data)
-    
-    def view_pattern(name):
-        """View pattern details"""
-        if not name or not name.strip():
-            return "", "", "", "", "", "No pattern name provided", gr.update()
-        
+
+    def refresh_pattern_selector():
+        """Refresh pattern selector dropdown"""
         regex_preprocessor = app_state.get_regex_preprocessor()
         if not regex_preprocessor:
             regex_preprocessor = RegexPreprocessor()
             app_state.set_regex_preprocessor(regex_preprocessor)
             logger.warning("RegexPreprocessor was not set; initialized new instance")
-        
+
+        pattern_names = [p['name'] for p in regex_preprocessor.list_patterns()]
+        return gr.update(choices=pattern_names, value=pattern_names[0] if pattern_names else None)
+    
+    def view_pattern(name):
+        """View pattern details"""
+        if not name or not name.strip():
+            return "", "", "", "", "", False, "No pattern name provided", gr.update()
+
+        regex_preprocessor = app_state.get_regex_preprocessor()
+        if not regex_preprocessor:
+            regex_preprocessor = RegexPreprocessor()
+            app_state.set_regex_preprocessor(regex_preprocessor)
+            logger.warning("RegexPreprocessor was not set; initialized new instance")
+
         pattern = regex_preprocessor.get_pattern(name.strip())
         if not pattern:
-            return "", "", "", "", "", f"Pattern '{name}' not found", gr.update()
-        
+            return "", "", "", "", "", False, f"Pattern '{name}' not found", gr.update()
+
         return (
             pattern['id'],
             pattern['name'],
@@ -400,24 +417,24 @@ def create_patterns_tab(app_state) -> Dict[str, Any]:
     def remove_pattern(name):
         """Remove pattern"""
         if not name or not name.strip():
-            return "", "", "", "", "", "No pattern name provided", gr.update()
-        
+            return "", "", "", "", "", False, "No pattern name provided", gr.update()
+
         regex_preprocessor = app_state.get_regex_preprocessor()
         if not regex_preprocessor:
             regex_preprocessor = RegexPreprocessor()
             app_state.set_regex_preprocessor(regex_preprocessor)
             logger.warning("RegexPreprocessor was not set; initialized new instance")
-        
+
         success, message = regex_preprocessor.remove_pattern(name.strip())
-        
+
         if success:
             patterns_data = [
                 [p['name'], "Yes" if p['enabled'] else "No", p['description'][:50]]
                 for p in regex_preprocessor.list_patterns()
             ]
-            return "", "", "", "", "", message, gr.update(value=patterns_data)
+            return "", "", "", "", "", False, message, gr.update(value=patterns_data)
         else:
-            return "", "", "", "", "", message, gr.update()
+            return "", "", "", "", "", False, message, gr.update()
     
     def test_pattern(input_text, pattern_name):
         """Test single pattern"""
@@ -581,7 +598,12 @@ def create_patterns_tab(app_state) -> Dict[str, Any]:
         fn=refresh_patterns,
         outputs=[patterns_list]
     )
-    
+
+    refresh_pattern_selector_btn.click(
+        fn=refresh_pattern_selector,
+        outputs=[selected_pattern_name]
+    )
+
     view_pattern_btn.click(
         fn=view_pattern,
         inputs=[selected_pattern_name],
