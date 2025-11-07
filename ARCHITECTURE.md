@@ -160,8 +160,9 @@ else:
 ```
 ├─ OpenAI (GPT-4, GPT-4 Turbo, GPT-3.5)
 ├─ Anthropic (Claude 3.5 Sonnet, Claude 3 Opus, Claude 3 Haiku)
+├─ Google (Gemini models)
 ├─ Azure OpenAI (all Azure-hosted OpenAI models)
-├─ Local models (via OpenAI-compatible APIs)
+├─ Local models (via Unsloth - quantized LLaMA, Mistral, etc.)
 └─ Future: Any provider with OpenAI-compatible interface
 ```
 
@@ -196,7 +197,7 @@ Indexing Phase:
 ├─ Generates embeddings using transformer models:
 │   ├─ sentence-transformers/all-MiniLM-L6-v2 (fast, lightweight)
 │   └─ BAAI/bge-large-en-v1.5 (high quality, slower)
-├─ Stores in vector database (ChromaDB)
+├─ Stores in vector database (FAISS)
 └─ Persists to disk for reuse
 
 Query Phase:
@@ -223,7 +224,7 @@ Query Phase:
 - ✅ **Batch Processing:** Index multiple documents efficiently
 
 **Technical Details:**
-- Vector database: ChromaDB (local, persistent)
+- Vector database: FAISS (Facebook AI Similarity Search - fast, local, persistent)
 - Embedding dimensions: 384 (MiniLM) or 1024 (BGE)
 - Chunking strategy: Semantic segmentation with overlap
 - Similarity metric: Cosine similarity
@@ -650,7 +651,22 @@ Initialized Components:
 
 **Directory:** `ui/`
 
-The UI provides a user-friendly interface for all platform capabilities:
+The UI provides a user-friendly interface for all platform capabilities through **9 comprehensive tabs**:
+
+**Complete Tab List:**
+1. **Model Configuration** - LLM provider and execution mode setup
+2. **Data Configuration** - Input data upload and column mapping
+3. **Prompt Configuration** - Task definition and JSON schema
+4. **RAG** - Document upload and vector database management
+5. **Regex Patterns** - Text preprocessing rules (120+ built-in patterns)
+6. **Extras (Hints)** - Task-specific knowledge (183+ built-in hints)
+7. **Custom Functions** - Computational tools (40+ built-in calculators)
+8. **Playground** - Single-text testing and debugging
+9. **Processing** - Batch execution and monitoring
+
+All tabs support **YAML and JSON** file loading for easy configuration sharing!
+
+---
 
 #### A. Config Tab (`ui/config_tab.py`)
 **Purpose:** LLM and execution mode configuration
@@ -744,7 +760,101 @@ The UI provides a user-friendly interface for all platform capabilities:
 
 ---
 
-#### E. Processing Tab (`ui/processing_tab.py`)
+#### E. Regex Patterns Tab (`ui/patterns_tab.py`)
+**Purpose:** Text preprocessing pattern management
+
+**Features:**
+- **Pattern Registration:**
+  - Define regex patterns for text normalization
+  - Set replacement rules
+  - Enable/disable patterns individually
+- **File Upload:**
+  - Upload pattern files (YAML/JSON)
+  - Batch load multiple patterns
+- **Pattern Testing:**
+  - Test patterns against sample text
+  - Preview before/after transformations
+  - Validate regex syntax
+- **Built-in Patterns:**
+  - Standardize medical units (mg, kg, etc.)
+  - Normalize blood pressure formats
+  - Fix date formats
+  - Remove extra whitespace
+  - And 100+ more medical text patterns!
+- **Preview/Edit:**
+  - View all registered patterns in dataframe
+  - Edit pattern details (name, regex, replacement)
+  - Remove unwanted patterns
+  - Toggle patterns on/off
+
+**Use Case:** Standardize inconsistent clinical text BEFORE it goes to the LLM
+
+---
+
+#### F. Extras (Hints) Tab (`ui/extras_tab.py`)
+**Purpose:** Task-specific hints and knowledge management
+
+**Features:**
+- **Extras Registration:**
+  - Add task-specific hints, guidelines, criteria
+  - Type classification (pattern, definition, guideline, reference, criteria, tip)
+  - Metadata tagging (category, priority, domain)
+- **File Upload:**
+  - Upload extras files (YAML/JSON)
+  - Batch load multiple extras
+- **Built-in Extras:**
+  - 183+ pre-loaded clinical hints including:
+    - WHO growth standards
+    - ASPEN malnutrition criteria
+    - Diagnostic criteria (diabetes, AKI, etc.)
+    - Lab value interpretation guides
+    - Medication dosing guidelines
+- **Preview/Edit:**
+  - View all registered extras in dataframe
+  - Edit extra content and metadata
+  - Remove unwanted extras
+  - Search and filter extras
+
+**Use Case:** Provide domain-specific knowledge that agents can query when needed
+
+---
+
+#### G. Custom Functions Tab (`ui/functions_tab.py`)
+**Purpose:** Computational tools and calculator management
+
+**Features:**
+- **Function Registration:**
+  - Define Python functions with parameters
+  - Set parameter types and descriptions
+  - Specify return value format
+- **File Upload:**
+  - Upload function files (YAML/JSON)
+  - Batch load multiple functions
+- **Built-in Functions:**
+  - 40+ medical calculators including:
+    - BMI, BSA, ideal body weight
+    - Growth percentiles and z-scores
+    - Creatinine clearance, eGFR
+    - Anion gap, corrected calcium
+    - Unit conversions (kg↔lbs, cm↔in, etc.)
+    - Weight change percentages
+    - Mean arterial pressure
+    - Pack-years smoking history
+- **Function Testing:**
+  - Test functions with custom arguments (JSON format)
+  - View function results
+  - Validate execution
+- **Preview/Edit:**
+  - View all registered functions in dataframe
+  - Edit function code and parameters
+  - Remove unwanted functions
+  - Export/import function definitions
+
+**Use Case:** Provide accurate calculations that LLMs struggle with (math, dates, complex formulas)
+
+---
+
+#### H. Processing Tab (`ui/processing_tab.py`)
 **Purpose:** Batch processing execution and monitoring
 
 **Features:**
@@ -781,7 +891,7 @@ The UI provides a user-friendly interface for all platform capabilities:
 
 ---
 
-#### F. Playground Tab (`ui/playground_tab.py`)
+#### I. Playground Tab (`ui/playground_tab.py`)
 **Purpose:** Single-text testing and debugging
 
 **Features:**
@@ -1231,9 +1341,9 @@ All four knowledge sources work together seamlessly!
   - `openai` (OpenAI, Azure)
   - `anthropic` (Claude)
 - **RAG:**
-  - `chromadb` (vector database)
+  - `faiss-cpu` (vector database - Facebook AI Similarity Search)
   - `sentence-transformers` (embeddings)
-  - `langchain` (document processing)
+  - `torch` (transformer models)
 - **NLP:**
   - `spacy` (NER for PII)
   - `transformers` (embeddings)
@@ -1247,7 +1357,10 @@ All four knowledge sources work together seamlessly!
   - `asyncio` (async execution)
 
 ### Optional Dependencies
-- Local LLMs (via OpenAI-compatible servers)
+- **Local LLMs:**
+  - `unsloth` (4-bit quantized models - LLaMA, Mistral, etc.)
+  - `unsloth_zoo` (pre-trained model zoo)
+  - `xformers` (memory-efficient transformers)
 - Custom embedding models
 - Additional NER models
 
