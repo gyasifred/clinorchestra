@@ -8,14 +8,14 @@ Institution: Medical University of South Carolina, Biomedical Informatics Center
 🎯 BOTH EXECUTION MODES ARE UNIVERSAL & AUTONOMOUS (AGENTIC)!
 
 Provides two execution modes:
-- PIPELINE Mode (v1.0.0): 4-stage sequential, autonomous with ASYNC
-- LOOP Mode (v1.0.0): Continuous iterative, autonomous with ASYNC
+- **STRUCTURED Mode** (v1.0.0): For predictable workflows - systematic 4-stage execution
+- **ADAPTIVE Mode** (v1.0.0): For evolving tasks - continuous iterative refinement
 
 BOTH modes are universal - they adapt to ANY clinical task via prompts/schema.
 BOTH modes use autonomous LLM decision-making (agentic behavior).
 BOTH modes use ASYNC for 60-75% performance improvement!
 
-Selection based on app_state.loop_mode_enabled
+Selection based on app_state.adaptive_mode_enabled
 """
 
 from typing import Union
@@ -38,15 +38,15 @@ def create_agent(llm_manager, rag_engine, extras_manager, function_registry,
         app_state: Application state with configuration
 
     Returns:
-        ExtractionAgent (PIPELINE) or LoopAgent (LOOP) based on config
+        ExtractionAgent (STRUCTURED) or AdaptiveAgent (ADAPTIVE) based on config
         Both are autonomous (agentic) - adapt to ANY clinical task!
     """
 
-    # Check if loop mode is enabled (config still uses 'agentic_config' internally)
+    # Check if adaptive mode is enabled (config still uses 'agentic_config' internally)
     if app_state.agentic_config.enabled:
         logger.info("=" * 80)
-        logger.info("CREATING LOOP MODE AGENT (v1.0.0) - Autonomous & Universal")
-        logger.info("Execution: Continuous Loop with PAUSE/RESUME + Async Tools")
+        logger.info("CREATING ADAPTIVE MODE AGENT (v1.0.0) - For Evolving Tasks")
+        logger.info("Execution: Continuous Iteration with Dynamic Adaptation + Async Tools")
         logger.info("Universal: Adapts to ANY clinical task via prompts/schema")
         logger.info(f"Max Iterations: {app_state.agentic_config.max_iterations}")
         logger.info(f"Max Tool Calls: {app_state.agentic_config.max_tool_calls}")
@@ -73,7 +73,7 @@ def create_agent(llm_manager, rag_engine, extras_manager, function_registry,
 
     else:
         logger.info("=" * 80)
-        logger.info("CREATING PIPELINE MODE AGENT (v1.0.0) - Autonomous & Universal")
+        logger.info("CREATING STRUCTURED MODE AGENT (v1.0.0) - For Predictable Workflows")
         logger.info("Execution: 4-Stage Sequential Pipeline with ASYNC Tools")
         logger.info("Universal: Adapts to ANY clinical task via prompts/schema")
         logger.info("=" * 80)
@@ -100,8 +100,8 @@ def get_agent_info(app_state) -> dict:
     if app_state.agentic_config.enabled:
         return {
             'version': '1.0.0',
-            'name': 'LoopAgent',
-            'mode': 'LOOP Mode (Continuous Iterative - Autonomous)',
+            'name': 'AdaptiveAgent',
+            'mode': 'ADAPTIVE Mode - For Evolving Tasks',
             'features': [
                 'Native tool calling',
                 'PAUSE/RESUME execution',
@@ -122,7 +122,7 @@ def get_agent_info(app_state) -> dict:
         return {
             'version': '1.0.0',
             'name': 'ExtractionAgent',
-            'mode': 'PIPELINE Mode (4-Stage Sequential - Autonomous)',
+            'mode': 'STRUCTURED Mode - For Predictable Workflows',
             'features': [
                 'Stage 1: Autonomous task analysis',
                 'Stage 2: ASYNC parallel tool execution',

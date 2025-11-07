@@ -6,11 +6,12 @@ Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 
 🎯 TRULY UNIVERSAL & AGENTIC SYSTEM:
-   BOTH execution modes (PIPELINE & LOOP) are autonomous agents that adapt to ANY
+   BOTH execution modes (STRUCTURED & ADAPTIVE) are autonomous agents that adapt to ANY
    clinical extraction task defined by your prompts and JSON schema.
    Not hardcoded for specific conditions - works for ALL clinical domains!
 
-EXECUTION MODE: PIPELINE (4-Stage Sequential)
+EXECUTION MODE: STRUCTURED (Predictable Workflows)
+PURPOSE: Use for predictable, systematic extraction with defined stages
 BEHAVIOR: LLM autonomously analyzes task → Plans tools → Executes → Extracts
 
 KEY FEATURES:
@@ -105,7 +106,7 @@ class ExtractionAgent:
         self.max_retries = 3
         self.json_parser = JSONParser()
 
-        logger.info("🎯 ExtractionAgent v1.0.0 initialized - PIPELINE Mode (autonomous 4-stage with ASYNC)")
+        logger.info("🎯 ExtractionAgent v1.0.0 initialized - STRUCTURED Mode (predictable workflows with ASYNC)")
         
     
     def extract(self, clinical_text: str, label_value: Optional[Any] = None) -> Dict[str, Any]:
