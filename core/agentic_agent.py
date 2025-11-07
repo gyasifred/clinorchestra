@@ -204,10 +204,15 @@ class AgenticAgent:
                 logger.info(f"=" * 60)
                 logger.info(f"ITERATION {self.context.iteration}/{self.context.max_iterations}")
                 logger.info(f"State: {self.context.state.value}")
+                logger.info(f"Conversation history size: {len(self.context.conversation_history)} messages")
+                logger.info(f"Total tool calls so far: {self.context.total_tool_calls}")
+                logger.info(f"Tool results collected: {len(self.context.tool_results)}")
                 logger.info(f"=" * 60)
 
                 # LLM generates response (may include tool calls or final JSON)
+                logger.debug(f"🤖 Calling LLM for iteration {self.context.iteration}...")
                 response = self._generate_with_tools()
+                logger.debug(f"📥 LLM response received")
 
                 if response is None:
                     logger.error("LLM returned no response")
@@ -219,11 +224,16 @@ class AgenticAgent:
                 if has_tool_calls:
                     # PAUSE - Execute tools
                     logger.info(f"LLM requested {len(self.context.tool_calls_this_iteration)} tools")
+                    logger.debug(f"📋 Tool calls requested:")
+                    for i, tc in enumerate(self.context.tool_calls_this_iteration):
+                        logger.debug(f"  {i+1}. {tc.name}({json.dumps(tc.parameters)})")
+
                     self.context.state = AgenticState.AWAITING_TOOL_RESULTS
 
                     # Track tool calls for stall detection and duplicate detection
                     tool_signature = self._get_tool_calls_signature(self.context.tool_calls_this_iteration)
                     self.context.tool_call_history.append(tool_signature)
+                    logger.debug(f"🔖 Tool signature: {tool_signature}")
 
                     # Detect duplicate function calls with same parameters
                     duplicates = self._detect_duplicate_function_calls(self.context.tool_calls_this_iteration)
@@ -643,21 +653,31 @@ Example format:
         unique_calls = []
         duplicates_removed = 0
 
+        # DIAGNOSTIC: Log all tool calls being checked
+        logger.debug(f"🔍 Deduplication check for {len(tool_calls)} tool calls:")
+        for i, tc in enumerate(tool_calls):
+            params_json = json.dumps(tc.parameters, sort_keys=True)
+            logger.debug(f"  {i+1}. {tc.name} with params: {params_json}")
+
         for tool_call in tool_calls:
             # Create a unique key based on name and parameters
             # Sort parameters for consistent comparison
             params_json = json.dumps(tool_call.parameters, sort_keys=True)
             key = f"{tool_call.name}||{params_json}"
 
+            logger.debug(f"🔑 Dedup key: {key}")
+
             if key not in seen:
                 seen[key] = tool_call
                 unique_calls.append(tool_call)
+                logger.debug(f"  ✅ UNIQUE - keeping this call")
             else:
                 duplicates_removed += 1
                 logger.warning(
                     f"⚠️ DUPLICATE TOOL CALL detected and skipped: "
-                    f"{tool_call.name}({params_json})"
+                    f"{tool_call.name} with parameters {params_json}"
                 )
+                logger.debug(f"  ❌ DUPLICATE - already seen this exact call")
 
         if duplicates_removed > 0:
             logger.warning(
@@ -1234,7 +1254,23 @@ You have access to tools:
         reserved_count += len(assistant_with_tool_calls)  # All tool call requests
 
         # How many slots left for other messages?
-        other_message_limit = max(self.context.conversation_window_size - reserved_count, 5)
+        # FIXED: Properly enforce window size while keeping some recent context
+        available_slots = self.context.conversation_window_size - reserved_count
+        if available_slots >= 5:
+            # We have room for at least 5 thinking messages - great!
+            other_message_limit = available_slots
+        elif available_slots > 0:
+            # Limited room (1-4 messages) - keep what we can
+            other_message_limit = available_slots
+        else:
+            # Reserved messages already exceed window - keep 3 most recent for minimal context
+            # This is a compromise: we MUST keep tool results, but need SOME thinking context
+            other_message_limit = 3
+            logger.debug(
+                f"⚠️ Window size exceeded by reserved messages: "
+                f"{reserved_count} reserved vs {self.context.conversation_window_size} limit. "
+                f"Keeping {other_message_limit} recent thinking messages anyway."
+            )
 
         # Keep most recent "other" messages
         if len(other_messages) > other_message_limit:
