@@ -1,18 +1,15 @@
 """
-PII/PHI Redaction Module - ENHANCED VERSION
+PII/PHI Redaction Module - Production Version
 Comprehensive redaction of Protected Health Information (HIPAA-compliant)
 
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 Lab: HeiderLab
-Version: 2.1
+Version: 1.0.0
 Date: 2025
 
 This module provides robust PII/PHI redaction capabilities following HIPAA Safe Harbor
 de-identification guidelines (45 CFR § 164.514(b)(2)).
-
-CHANGELOG:
-v2.1 - Added MRN and ORGANIZATION entity types for backward compatibility
 """
 
 import re

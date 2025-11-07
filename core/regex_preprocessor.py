@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Regex Preprocessor - Text preprocessing before LLM
-Version: 1.0.1 - FIXED: Escape sequence errors, pattern validation
+Version: 1.0.0
 """
 
 import re

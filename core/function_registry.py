@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Function Registry - FIXED parameter validation and transformation
-Version: 1.0.2
+Function Registry - Parameter validation and transformation
+Version: 1.0.0
 """
 import sys
 import json
@@ -18,13 +18,18 @@ class FunctionRegistry:
     def __init__(self, storage_path: str = "./functions"):
         self.storage_path = Path(storage_path)
         self.storage_path.mkdir(parents=True, exist_ok=True)
-        
+
         self.functions: Dict[str, Dict[str, Any]] = {}
         self.namespace = self._create_namespace()
-        
+
+        # PERFORMANCE: Result caching for repeated function calls
+        self.result_cache: Dict[str, Tuple[bool, Any, str]] = {}
+        self.cache_hits = 0
+        self.cache_misses = 0
+
         self._load_all_functions()
         self._register_builtin_functions()
-        
+
         logger.info(f"FunctionRegistry initialized with {len(self.functions)} functions")
     
     def _create_namespace(self) -> Dict[str, Any]:
@@ -139,14 +144,34 @@ class FunctionRegistry:
         """
         Execute a registered function with parameter validation and conversion
         FIXED: Apply transformations BEFORE validation
+        PERFORMANCE: Cache results to avoid redundant calculations
         """
         if name not in self.functions:
             return False, None, f"Function '{name}' not found"
-        
+
+        # PERFORMANCE: Create cache key from function name and sorted parameters
+        try:
+            # Sort kwargs for consistent cache keys
+            cache_key = f"{name}:{json.dumps(kwargs, sort_keys=True)}"
+
+            # Check cache first
+            if cache_key in self.result_cache:
+                self.cache_hits += 1
+                cached_result = self.result_cache[cache_key]
+                logger.debug(f"Cache HIT for {name}({kwargs}) - returning cached result")
+                return cached_result
+
+            self.cache_misses += 1
+
+        except (TypeError, ValueError) as e:
+            # If kwargs not JSON-serializable, skip caching
+            logger.debug(f"Could not create cache key for {name}: {e}")
+            cache_key = None
+
         try:
             func = self.functions[name]['compiled']
             func_info = self.functions[name]
-            
+
             # Get function signature for validation
             try:
                 sig = inspect.signature(func)
@@ -154,24 +179,31 @@ class FunctionRegistry:
             except Exception as e:
                 logger.warning(f"Could not get signature for {name}: {e}")
                 sig_params = {}
-            
+
             # CRITICAL FIX: Apply transformations FIRST, then validate
             transformed_kwargs = self._apply_parameter_transformations(kwargs.copy(), name)
-            
+
             # Then validate and convert the transformed parameters
             validated_kwargs = self._validate_and_convert_parameters(
-                transformed_kwargs, 
+                transformed_kwargs,
                 func_info.get('parameters', {}),
                 sig_params,
                 name
             )
-            
+
             # Execute function
             result = func(**validated_kwargs)
-            
+
+            execution_result = (True, result, "Execution successful")
+
+            # PERFORMANCE: Cache the result if cache_key was created
+            if cache_key is not None:
+                self.result_cache[cache_key] = execution_result
+                logger.debug(f"Cached result for {name}({kwargs})")
+
             logger.info(f"Function '{name}' executed successfully")
-            return True, result, "Execution successful"
-            
+            return execution_result
+
         except TypeError as e:
             error_msg = f"Invalid arguments for function '{name}': {str(e)}"
             logger.error(error_msg)

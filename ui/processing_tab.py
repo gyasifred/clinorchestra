@@ -3,7 +3,7 @@
 Processing Tab - Complete with proper text processing integration
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
-Version: 1.0.2
+Version: 1.0.0
 """
 import gradio as gr
 import pandas as pd
@@ -381,7 +381,17 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                     process_state.update_progress(process_id, processed, failed, progress)
                     app_state.update_progress(processed, failed, progress)
                     log_lines.append("")
-                    
+
+                    # PERFORMANCE: Clear GPU cache periodically for local models
+                    if app_state.model_config.provider == 'local' and (idx + 1) % 10 == 0:
+                        try:
+                            import torch
+                            if torch.cuda.is_available():
+                                torch.cuda.empty_cache()
+                                logger.debug(f"GPU cache cleared after row {idx + 1}")
+                        except Exception as cache_e:
+                            logger.debug(f"Could not clear GPU cache: {cache_e}")
+
                 except Exception as e:
                     logger.error(f"Row {idx} failed: {e}")
                     log_lines.append(f"  ❌ ERROR: {str(e)}")

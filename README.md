@@ -45,8 +45,8 @@ Web interface opens at `http://localhost:7860`
 ## ✨ Key Features
 
 - **🤖 Dual Execution Modes**:
-  - **Classic Mode** (ExtractionAgent v1.0.2): Reliable 4-stage pipeline
-  - **Agentic Mode** (AgenticAgent v1.0.0): Continuous loop with autonomous tool calling + async/parallel execution (60-75% faster)
+  - **STRUCTURED Mode** (ExtractionAgent v1.0.0): Reliable 4-stage pipeline
+  - **ADAPTIVE Mode** (AgenticAgent v1.0.0): Continuous loop with autonomous tool calling + async/parallel execution (60-75% faster)
 - **📚 RAG Integration**: Retrieve clinical guidelines and evidence from PDFs/URLs
 - **🧮 Custom Functions**: Medical calculations (BMI, conversions, growth percentiles, etc.)
 - **💡 Extras (Hints)**: 49+ pre-loaded clinical hints (WHO, ASPEN, diagnostic criteria)

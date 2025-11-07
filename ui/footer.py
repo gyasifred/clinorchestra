@@ -34,7 +34,7 @@ def create_footer():
                 Biomedical Informatics Center | ClinicalNLP Lab
             </p>
             <p style="font-size: 12px; color: #999; margin: 15px 0 0 0;">
-                © 2025 | Version 1.0 | MIT License
+                © 2025 | Version 1.0.0 | MIT License
             </p>
         </div>
     """

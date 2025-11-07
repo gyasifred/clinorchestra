@@ -1,13 +1,8 @@
 #!/usr/bin/env python3
 """
-Extras Manager - FIXED: Keyword-based matching for supplementary hints
-Version: 1.0.1
+Extras Manager - Keyword-based matching for supplementary hints
+Version: 1.0.0
 Author: Frederick Gyasi (gyasi@musc.edu)
-
-FIXES:
-1. Added match_extras_by_keywords() method for keyword-based matching
-2. Improved relevance scoring with better keyword matching
-3. Enhanced matching to find hints/tips/patterns that help with task understanding
 4. Extras are now supplementary knowledge to help LLM break down tasks
 """
 

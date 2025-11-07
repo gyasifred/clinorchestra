@@ -119,6 +119,10 @@ class AgenticContext:
     stall_counter: int = 0
     consecutive_no_progress: int = 0
 
+    # PERFORMANCE: Conversation history management
+    conversation_window_size: int = 20  # Keep only last 20 messages for context
+    total_messages_sent: int = 0  # Track total messages for metrics
+
 
 class AgenticAgent:
     """
@@ -1169,11 +1173,108 @@ You have access to tools:
 
         return parsed
 
+    def _apply_conversation_window(self, messages: List[ConversationMessage]) -> List[ConversationMessage]:
+        """
+        Apply SMART sliding window to conversation history for performance
+
+        CRITICAL FIX: Preserves ALL tool results so LLM knows what was completed!
+
+        CRITICAL FOR ALL PROVIDERS: Limits context size to prevent:
+        1. Exponential slowdown as iterations increase
+        2. Token context overflow
+        3. Redundant re-processing of old messages
+
+        SMART Strategy (FIXED - preserves completed work):
+        1. Always keep: System message (tool definitions)
+        2. Always keep: Initial user message (task + input text)
+        3. Always keep: ALL tool result messages (completed work - CRITICAL!)
+        4. Always keep: ALL assistant messages with tool_calls (what was requested)
+        5. Keep: Recent other messages (user prompts, assistant thinking)
+        6. Drop: Old assistant thinking messages with no tool calls
+
+        Why this works:
+        - LLM always sees what tools were called (assistant with tool_calls)
+        - LLM always sees results of those tools (tool result messages)
+        - LLM doesn't need old thinking messages that led to those calls
+        """
+        if len(messages) <= self.context.conversation_window_size:
+            return messages
+
+        # Categorize messages by importance
+        system_msg = None
+        initial_user_msg = None
+        tool_result_messages = []  # CRITICAL: ALL tool results must be kept!
+        assistant_with_tool_calls = []  # Keep: Shows what tools were called
+        other_messages = []  # Can drop some of these
+
+        for i, msg in enumerate(messages):
+            if msg.role == 'system' and system_msg is None:
+                system_msg = msg
+            elif msg.role == 'user' and initial_user_msg is None:
+                initial_user_msg = msg
+            elif msg.role == 'tool':
+                # CRITICAL: Always keep ALL tool results!
+                # These contain completed calculations/retrievals
+                tool_result_messages.append((i, msg))
+            elif msg.role == 'assistant' and msg.tool_calls:
+                # Keep assistant messages that made tool calls
+                assistant_with_tool_calls.append((i, msg))
+            else:
+                # Other messages: user prompts, assistant thinking
+                # These can be dropped if space is needed
+                other_messages.append((i, msg))
+
+        # Calculate available slots for "other" messages
+        reserved_count = 0
+        if system_msg:
+            reserved_count += 1
+        if initial_user_msg:
+            reserved_count += 1
+        reserved_count += len(tool_result_messages)  # All tool results (CRITICAL!)
+        reserved_count += len(assistant_with_tool_calls)  # All tool call requests
+
+        # How many slots left for other messages?
+        other_message_limit = max(self.context.conversation_window_size - reserved_count, 5)
+
+        # Keep most recent "other" messages
+        if len(other_messages) > other_message_limit:
+            other_messages = other_messages[-other_message_limit:]
+
+        # Reconstruct conversation in original chronological order
+        all_kept = []
+        if system_msg:
+            all_kept.append((0, system_msg))
+        if initial_user_msg:
+            all_kept.append((1, initial_user_msg))
+        all_kept.extend(tool_result_messages)
+        all_kept.extend(assistant_with_tool_calls)
+        all_kept.extend(other_messages)
+
+        # Sort by original index to maintain conversation flow
+        all_kept.sort(key=lambda x: x[0])
+        windowed = [msg for idx, msg in all_kept]
+
+        # Log windowing for performance tracking
+        if len(messages) > len(windowed):
+            dropped_count = len(messages) - len(windowed)
+            logger.info(f"🔄 SMART windowing: {len(messages)} → {len(windowed)} messages")
+            logger.info(f"   ✅ Preserved: {len(tool_result_messages)} tool results (LLM knows what was completed)")
+            logger.info(f"   ✅ Preserved: {len(assistant_with_tool_calls)} tool call requests")
+            logger.info(f"   🗑️ Dropped: {dropped_count} old thinking/prompt messages")
+
+        return windowed
+
     def _convert_history_to_api_format(self) -> List[Dict[str, Any]]:
-        """Convert conversation history to API format"""
+        """Convert conversation history to API format with windowing"""
+        # PERFORMANCE: Apply conversation window for ALL providers (OpenAI, Anthropic, Google, Azure, Local)
+        windowed_history = self._apply_conversation_window(self.context.conversation_history)
+
+        # Track metrics
+        self.context.total_messages_sent += len(windowed_history)
+
         messages = []
 
-        for msg in self.context.conversation_history:
+        for msg in windowed_history:
             if msg.role == 'system':
                 messages.append({'role': 'system', 'content': msg.content})
             elif msg.role == 'user':
@@ -1205,9 +1306,12 @@ You have access to tools:
         return messages
 
     def _convert_history_to_text(self) -> str:
-        """Convert conversation history to text for non-tool-calling providers"""
+        """Convert conversation history to text for non-tool-calling providers with windowing"""
+        # PERFORMANCE: Apply conversation window (same as API format)
+        windowed_history = self._apply_conversation_window(self.context.conversation_history)
+
         lines = []
-        for msg in self.context.conversation_history:
+        for msg in windowed_history:
             if msg.role == 'system':
                 lines.append(f"SYSTEM: {msg.content}")
             elif msg.role == 'user':
@@ -1328,8 +1432,11 @@ You have access to tools:
         lines.append("   • Include ALL calculated values in final JSON")
         lines.append("=" * 80 + "\n")
 
-        # Add conversation history
-        for msg in self.context.conversation_history:
+        # Add conversation history with windowing
+        # PERFORMANCE: Apply windowing to preserve tool results while reducing context
+        windowed_history = self._apply_conversation_window(self.context.conversation_history)
+
+        for msg in windowed_history:
             if msg.role == 'system':
                 # Already added above with tools
                 continue
