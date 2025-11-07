@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Setup script for ClinAnnotate
-Universal Clinical Annotation Platform
+Setup script for ClinOrchestra
+Universal Clinical Data Extraction & Orchestration Platform
 """
 
 from setuptools import setup, find_packages
@@ -12,14 +12,14 @@ readme_file = Path(__file__).parent / "README.md"
 long_description = readme_file.read_text() if readme_file.exists() else ""
 
 setup(
-    name="clinannotate",
+    name="clinorchestra",
     version="1.0.0",
     author="Frederick Gyasi",
     author_email="gyasi@musc.edu",
-    description="Universal platform for creating annotated training data from clinical text",
+    description="Universal platform for intelligent clinical data extraction and orchestration",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/clinannotate",
+    url="https://github.com/yourusername/clinorchestra",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 4 - Beta",
@@ -64,7 +64,7 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            "clinannotate=annotate:main",
+            "clinorchestra=annotate:main",
         ],
     },
     include_package_data=True,

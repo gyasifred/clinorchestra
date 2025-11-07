@@ -1,5 +1,5 @@
 """
-Generate sample clinical datasets for testing clinAnnotate
+Generate sample clinical datasets for testing ClinOrchestra
 
 Creates realistic synthetic clinical cases for:
 - Malnutrition detection
@@ -391,7 +391,7 @@ def main():
     print("Sample datasets created successfully!")
     print("="*60)
     print("\nNext steps:")
-    print("1. Process these datasets through clinAnnotate")
+    print("1. Process these datasets through ClinOrchestra")
     print("2. Run evaluation:")
     print(f"   python evaluate_system.py \\")
     print(f"       --gold {args.output_dir}/malnutrition_gold_standard.csv \\")

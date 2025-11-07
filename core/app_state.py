@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Application State Manager for ClinAnnotate
+Application State Manager for ClinOrchestra
 Version: 1.0.0
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center

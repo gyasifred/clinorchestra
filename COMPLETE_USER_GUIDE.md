@@ -1,4 +1,4 @@
-# ClinAnnotate Complete User Guide
+# ClinOrchestra Complete User Guide
 ## Comprehensive Configuration Guide for All Tabs
 
 **Author:** Frederick Gyasi (gyasifred)
@@ -6,7 +6,7 @@
 **Version:** 1.0.0
 **Date:** 2025-11-05
 
-**🎯 Platform:** Universal clinical data extraction system - works for ANY clinical task
+**🎯 Platform:** Universal clinical data extraction & orchestration system - works for ANY clinical task
 
 ---
 
@@ -29,9 +29,9 @@
 
 ## Introduction
 
-**🎯 IMPORTANT:** This guide uses malnutrition and diabetes as **illustrative examples**. ClinAnnotate is a **universal system** that works for **ANY clinical extraction task** - not just the examples shown! The examples help you understand the framework; apply the same principles to YOUR specific use case (sepsis, AKI, medications, oncology, etc.).
+**🎯 IMPORTANT:** This guide uses malnutrition and diabetes as **illustrative examples**. ClinOrchestra is a **universal system** that works for **ANY clinical extraction task** - not just the examples shown! The examples help you understand the framework; apply the same principles to YOUR specific use case (sepsis, AKI, medications, oncology, etc.).
 
-ClinAnnotate provides **9 configuration tabs** for complete control over clinical data extraction:
+ClinOrchestra provides **9 configuration tabs** for complete control over clinical data extraction:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -2304,7 +2304,7 @@ results_df.to_csv("outputs/results.csv", index=False)
 ### Directory Structure
 
 ```
-clinannotate/
+clinorchestra/
 ├─ config/
 │  ├─ model_config.yaml          # Model & execution mode
 │  ├─ prompts/
@@ -2338,7 +2338,7 @@ clinannotate/
 ### Loading All Configurations
 
 **Option 1: Load from UI**
-1. Launch `clinannotate`
+1. Launch `clinorchestra`
 2. Configure each tab
 3. Click "Save Configuration" in each tab
 4. Settings persist to `./config_persistence/` directory
@@ -2449,7 +2449,7 @@ processing:
 **Step 9: Run**
 ```bash
 # Via UI
-clinannotate
+clinorchestra
 
 # Via Python
 python run_extraction.py --config config/malnutrition_full.yaml

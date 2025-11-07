@@ -1,11 +1,11 @@
 """
-Data Configuration Tab for ClinAnnotate - COMPLETE VERSION
+Data Configuration Tab for ClinOrchestra - COMPLETE VERSION
 Supports multiple label mappings and proper state management
 
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 Lab: HeiderLab
-Version: 1.0
+Version: 1.0.0
 """
 
 import gradio as gr

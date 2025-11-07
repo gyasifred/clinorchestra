@@ -24,11 +24,11 @@ Generating 100 malnutrition cases...
 2 = Moderate-severe malnutrition
 ```
 
-## Step 2: Process Through clinAnnotate (5 minutes)
+## Step 2: Process Through ClinOrchestra (5 minutes)
 
 ### Option A: Using Gradio UI
 
-1. Start clinAnnotate:
+1. Start ClinOrchestra:
 ```bash
 python annotate.py
 ```
@@ -57,7 +57,7 @@ input_df = gold_df[['id', 'text']].copy()
 # Save as input file
 input_df.to_csv('evaluation/malnutrition_input.csv', index=False)
 
-# Set up clinAnnotate (configure your task)
+# Set up ClinOrchestra (configure your task)
 app_state = AppState()
 # ... configure your malnutrition task ...
 

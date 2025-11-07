@@ -1,5 +1,5 @@
 """
-clinAnnotate System Evaluation Script
+ClinOrchestra System Evaluation Script
 
 This script provides comprehensive evaluation metrics for your annotation system.
 Compare system outputs against gold standard annotations.
@@ -28,8 +28,8 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-class ClinAnnotateEvaluator:
-    """Evaluate clinAnnotate system performance"""
+class ClinOrchestraEvaluator:
+    """Evaluate ClinOrchestra system performance"""
 
     def __init__(self, gold_standard_path: str, system_output_path: str):
         """
@@ -351,7 +351,7 @@ class ClinAnnotateEvaluator:
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Evaluate clinAnnotate system performance')
+    parser = argparse.ArgumentParser(description='Evaluate ClinOrchestra system performance')
     parser.add_argument('--gold', required=True, help='Path to gold standard CSV')
     parser.add_argument('--system', required=True, help='Path to system output CSV')
     parser.add_argument('--task', choices=['classification', 'extraction', 'both'],
@@ -362,7 +362,7 @@ def main():
     args = parser.parse_args()
 
     # Create evaluator
-    evaluator = ClinAnnotateEvaluator(args.gold, args.system)
+    evaluator = ClinOrchestraEvaluator(args.gold, args.system)
 
     # Generate report
     evaluator.generate_report(output_path=args.output, task_type=args.task)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Configuration Persistence Manager for ClinAnnotate
-Version: 1.0.1 - FIXED: rag_query_fields moved to RAGConfig
+Configuration Persistence Manager for ClinOrchestra
+Version: 1.0.0
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 """

@@ -1,8 +1,8 @@
-# Parameter Extraction and Mapping in ClinAnnotate
+# Parameter Extraction and Mapping in ClinOrchestra
 
 ## Overview
 
-The ClinAnnotate agent system uses a sophisticated **Stage 1 Analysis** process to extract parameters from clinical text and map them to function arguments. This document explains how parameters are understood, extracted, and transformed.
+The ClinOrchestra agent system uses a sophisticated **Stage 1 Analysis** process to extract parameters from clinical text and map them to function arguments. This document explains how parameters are understood, extracted, and transformed.
 
 ---
 

@@ -1,5 +1,5 @@
 """
-Enhanced Logging Configuration for ClinAnnotate
+Enhanced Logging Configuration for ClinOrchestra
 Provides detailed, structured logging with file rotation and console output
 
 Author: Frederick Gyasi (gyasi@musc.edu)

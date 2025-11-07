@@ -1,4 +1,4 @@
-# clinAnnotate Dataset Catalog & Configuration Guide
+# ClinOrchestra Dataset Catalog & Configuration Guide
 
 Complete reference for public clinical datasets with task configuration examples, functions, extras, and patterns.
 
@@ -44,7 +44,7 @@ Complete reference for public clinical datasets with task configuration examples
 - ML systems: F1 ~0.85-0.92
 - Top systems: F1 ~0.93-0.95
 
-**clinAnnotate Configuration**:
+**ClinOrchestra Configuration**:
 
 ```json
 {
@@ -125,7 +125,7 @@ patterns/temporal_qualifiers.json  # "history of obesity"
 - Cohort selection for clinical trials
 - 13 criteria: Abdominal pain, Advanced CAD, Alcohol abuse, ASP for MI, Creatinine, Dietary adherence, Drug abuse, HbA1c, Keto acidosis, Major diabetes, Makes decisions, MI 6 months
 
-**clinAnnotate Configuration**:
+**ClinOrchestra Configuration**:
 
 ```json
 {
@@ -168,7 +168,7 @@ patterns/decision_making_capacity_phrases.json
 - Medication extraction with rich context
 - Challenges: Disambiguation, temporal resolution, indication extraction
 
-**clinAnnotate Configuration**:
+**ClinOrchestra Configuration**:
 
 ```json
 {
@@ -231,7 +231,7 @@ patterns/medication_frequencies.json  # BID, TID, QD, PRN, etc.
 
 ### Example Task 1: AKI Detection from Serial Creatinine
 
-**clinAnnotate Configuration**:
+**ClinOrchestra Configuration**:
 
 ```json
 {
@@ -746,11 +746,11 @@ Match your research question to the appropriate dataset:
 
 1. Follow access instructions for chosen dataset
 2. Download data
-3. Format as CSV for clinAnnotate:
+3. Format as CSV for ClinOrchestra:
    - Required columns: `id`, `text`
    - Optional: `label` (for evaluation)
 
-### Step 3: Configure clinAnnotate
+### Step 3: Configure ClinOrchestra
 
 Use the JSON configuration examples above, or start with a template:
 
@@ -777,7 +777,7 @@ Based on the Quick Reference section:
 ### Step 5: Process and Evaluate
 
 ```bash
-# Process through clinAnnotate
+# Process through ClinOrchestra
 python annotate.py
 
 # Evaluate results

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Prompt Configuration Tab for ClinAnnotate - Dual Prompt Support with RAG Refinement
+Prompt Configuration Tab for ClinOrchestra - Dual Prompt Support with RAG Refinement
 Supports main and minimal prompts, JSON schema definition, template loading, and RAG refinement
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
-Version: 1.0.1 - FIXED: rag_query_fields parameter routing
+Version: 1.0.0
 """
 
 import gradio as gr
