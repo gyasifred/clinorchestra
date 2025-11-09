@@ -158,19 +158,32 @@ results = processor.process_batch(tasks, process_function)
 
 ---
 
-### 🎮 GPU-Accelerated FAISS (NEW)
+### 🎮 GPU-Accelerated FAISS (OPTIONAL)
 **File:** `core/rag_engine.py` (Enhanced)
 
 GPU acceleration for vector similarity search:
 - **50-100x faster** searches on GPU vs CPU
-- Automatic GPU detection and fallback
-- Transparent integration (no code changes needed)
-- Supports all CUDA-compatible GPUs
+- **Disabled by default** for maximum compatibility
+- Automatic compatibility testing before GPU activation
+- Graceful CPU fallback if GPU incompatible
+- Supports CUDA-compatible GPUs with proper FAISS-GPU installation
 
 **Benefits:**
 - RAG queries: 0.08s on GPU vs 0.4s on CPU (5x faster)
 - Larger indexes benefit more (100K+ vectors: 100x speedup)
-- Automatic CPU fallback if GPU unavailable
+- Safe CPU fallback prevents crashes on incompatible systems
+
+**How to Enable:**
+```python
+# Pass use_gpu=True when initializing RAG
+config = {
+    'embedding_model': 'sentence-transformers/all-mpnet-base-v2',
+    'use_gpu': True  # Enable GPU acceleration (requires compatible FAISS-GPU)
+}
+rag = RAGEngine(config)
+```
+
+**Note:** GPU mode requires FAISS-GPU compiled for your CUDA architecture. If you encounter GPU errors, the system automatically falls back to CPU mode.
 
 ---
 
@@ -412,14 +425,28 @@ No changes needed - batch embedding is automatic!
 
 ---
 
-## Known Issues
+## Known Issues & Fixes
 
-None identified in v1.0.1.
+### ✅ FIXED: GPU FAISS Compatibility Crash
+
+**Issue:** GPU FAISS caused crashes on systems with incompatible CUDA architectures
+- Error: `CUDA error 209 no kernel image is available for execution on the device`
+- Impact: Application abort when RAG engine initialized with GPU mode
+
+**Fix Applied:**
+- GPU mode now **disabled by default** for maximum compatibility
+- Added pre-flight GPU compatibility testing
+- Robust CPU fallback if GPU initialization fails
+- Users can opt-in to GPU mode if their system supports it
+
+**Resolution:** CPU mode works on all systems. GPU mode optional for compatible hardware.
+
+---
 
 **Future Work:**
 - Integrate performance monitoring into UI
 - Add LLM caching to llm_manager.py (currently standalone)
-- Implement remaining optimizations from roadmap
+- Improve GPU FAISS compatibility detection
 
 ---
 
