@@ -169,15 +169,22 @@ class AgenticAgent:
             label_context = self._get_label_context_string(label_value)
             preprocessed_text = self._preprocess_clinical_text(clinical_text)
 
+            # Get max_iterations and max_tool_calls from app_state config
+            max_iterations = self.app_state.agentic_config.max_iterations
+            max_tool_calls = self.app_state.agentic_config.max_tool_calls
+
             self.context = AgenticContext(
                 clinical_text=preprocessed_text,
                 label_context=label_context,
                 state=AgenticState.IDLE,
-                original_text=clinical_text
+                original_text=clinical_text,
+                max_iterations=max_iterations,
+                max_tool_calls=max_tool_calls
             )
 
             logger.info("=" * 80)
             logger.info("ADAPTIVE MODE EXTRACTION STARTED (v1.0.0 - Evolving Tasks & Async)")
+            logger.info(f"Configuration: Max Iterations={max_iterations}, Max Tool Calls={max_tool_calls}")
             logger.info("=" * 80)
 
             # Build initial prompt

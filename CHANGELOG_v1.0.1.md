@@ -443,6 +443,28 @@ No changes needed - batch embedding is automatic!
 
 ---
 
+### ✅ FIXED: ADAPTIVE Mode Ignoring max_iterations Config
+
+**Issue:** ADAPTIVE mode always used 10 iterations regardless of config_tab settings
+- User sets max_iterations to any value in config_tab (e.g., 20, 30)
+- ADAPTIVE mode still ran with hardcoded default of 10 iterations
+- Impact: Limiting extractions to 10 iterations even for complex tasks
+
+**Root Cause:**
+- AgenticContext was created with hardcoded defaults in extract() method
+- Config settings from UI were never applied to the context
+- Agent factory tried to set values on context before it existed
+
+**Fix Applied:**
+- AgenticContext now reads max_iterations from app_state.agentic_config
+- Also reads max_tool_calls from app_state.agentic_config
+- Added logging to show configured values at extraction start
+- Values now properly respect user's config_tab settings
+
+**Resolution:** ADAPTIVE mode now respects all user configuration settings from config_tab.
+
+---
+
 **Future Work:**
 - Integrate performance monitoring into UI
 - Add LLM caching to llm_manager.py (currently standalone)
