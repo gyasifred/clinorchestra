@@ -122,14 +122,14 @@ def create_config_tab(app_state) -> Dict[str, Any]:
             components['agentic_enabled'] = adaptive_mode_enabled  # Keep internal name for compatibility
 
         with gr.Column():
-            max_iterations_value = app_state.agentic_config.max_iterations if hasattr(app_state, 'agentic_config') else 20
+            max_iterations_value = app_state.agentic_config.max_iterations if hasattr(app_state, 'agentic_config') else 3
             agentic_max_iterations = gr.Number(
                 value=max_iterations_value,
                 label="Max Iterations",
                 precision=0,
-                minimum=5,
+                minimum=3,
                 maximum=100,
-                info="Maximum conversation iterations in agentic loop"
+                info="Maximum conversation iterations in agentic loop (minimum: 3)"
             )
             components['agentic_max_iterations'] = agentic_max_iterations
 
