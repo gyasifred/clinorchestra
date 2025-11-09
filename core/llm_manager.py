@@ -100,6 +100,7 @@ class LLMManager:
         cache_enabled = config.get('llm_cache_enabled', True)
         cache_db_path = config.get('llm_cache_db_path', 'cache/llm_responses.db')
         self.cache_bypass = config.get('llm_cache_bypass', False)  # Bypass cache to force fresh calls
+        self.prompt_config_hash = config.get('prompt_config_hash', '')  # Config hash for cache invalidation
         self.llm_cache = LLMResponseCache(
             cache_db_path=cache_db_path,
             enabled=cache_enabled
@@ -295,7 +296,8 @@ class LLMManager:
                 prompt=prompt,
                 model_name=f"{self.provider}:{self.model_name}",
                 temperature=self.temperature,
-                max_tokens=max_tok
+                max_tokens=max_tok,
+                config_hash=self.prompt_config_hash  # Invalidates cache when config changes
             )
             if cached_response:
                 logger.debug(f"💾 Cache HIT (400x faster)")
@@ -325,7 +327,8 @@ class LLMManager:
                     model_name=f"{self.provider}:{self.model_name}",
                     temperature=self.temperature,
                     max_tokens=max_tok,
-                    response=response
+                    response=response,
+                    config_hash=self.prompt_config_hash  # Include config hash for cache invalidation
                 )
 
             return response
