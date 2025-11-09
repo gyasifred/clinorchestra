@@ -169,7 +169,14 @@ class AgenticAgent:
         try:
             # Initialize context
             label_context = self._get_label_context_string(label_value)
-            preprocessed_text = self._preprocess_clinical_text(clinical_text)
+
+            # Preprocess text (skip if batch preprocessing was already done)
+            if self.app_state.optimization_config.use_batch_preprocessing:
+                # Text is already preprocessed by batch processor - use as-is
+                preprocessed_text = clinical_text
+            else:
+                # Individual preprocessing (row-by-row mode)
+                preprocessed_text = self._preprocess_clinical_text(clinical_text)
 
             # Get max_iterations and max_tool_calls from app_state config
             max_iterations = self.app_state.agentic_config.max_iterations

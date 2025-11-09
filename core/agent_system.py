@@ -132,9 +132,16 @@ class ExtractionAgent:
                 original_text=clinical_text
             )
             
-            # Preprocess the clinical text
-            preprocessed_text = self._preprocess_clinical_text(clinical_text)
-            self.context.clinical_text = preprocessed_text
+            # Preprocess the clinical text (skip if batch preprocessing was already done)
+            if self.app_state.optimization_config.use_batch_preprocessing:
+                # Text is already preprocessed by batch processor - use as-is
+                preprocessed_text = clinical_text
+                self.context.clinical_text = preprocessed_text
+                # Note: redacted/normalized texts are stored in processing_tab output_handler
+            else:
+                # Individual preprocessing (row-by-row mode)
+                preprocessed_text = self._preprocess_clinical_text(clinical_text)
+                self.context.clinical_text = preprocessed_text
             
             logger.info("=" * 60)
             logger.info("STAGE 1: TASK ANALYSIS & TOOL PLANNING")
