@@ -31,9 +31,10 @@ class ConfigurationPersistenceManager:
         self.rag_config_path = self.persistence_dir / "rag_config.json"
         self.processing_config_path = self.persistence_dir / "processing_config.json"
         self.agentic_config_path = self.persistence_dir / "agentic_config.json"
+        self.optimization_config_path = self.persistence_dir / "optimization_config.json"  # v1.0.1
         self.session_state_path = self.persistence_dir / "session_state.json"
         self.functions_backup_path = self.persistence_dir / "functions_backup.json"
-        
+
         self.db_path = self.persistence_dir / "app_state.db"
         self._initialize_database()
         
@@ -287,6 +288,40 @@ class ConfigurationPersistenceManager:
             return self._load_config_file(self.agentic_config_path)
         except Exception as e:
             logger.error(f"Failed to load agentic config: {e}")
+            return None
+
+    def save_optimization_config(self, optimization_config) -> bool:
+        """Save optimization configuration to disk (v1.0.1)"""
+        try:
+            with self.lock:
+                config_dict = {
+                    'llm_cache_enabled': optimization_config.llm_cache_enabled,
+                    'llm_cache_db_path': optimization_config.llm_cache_db_path,
+                    'performance_monitoring_enabled': optimization_config.performance_monitoring_enabled,
+                    'use_parallel_processing': optimization_config.use_parallel_processing,
+                    'use_batch_preprocessing': optimization_config.use_batch_preprocessing,
+                    'max_parallel_workers': optimization_config.max_parallel_workers,
+                    'use_model_profiles': optimization_config.use_model_profiles,
+                    'use_gpu_faiss': optimization_config.use_gpu_faiss,
+                    'saved_at': datetime.now().isoformat()
+                }
+
+                self._save_config_file(self.optimization_config_path, config_dict)
+                self._save_config_to_db('optimization_config', config_dict)
+
+                logger.info(f"Optimization configuration saved")
+                return True
+
+        except Exception as e:
+            logger.error(f"Failed to save optimization config: {e}", exc_info=True)
+            return False
+
+    def load_optimization_config(self) -> Optional[Dict[str, Any]]:
+        """Load optimization configuration from disk (v1.0.1)"""
+        try:
+            return self._load_config_file(self.optimization_config_path)
+        except Exception as e:
+            logger.error(f"Failed to load optimization config: {e}")
             return None
 
     def save_session_state(self, session_data: Dict[str, Any]) -> bool:
@@ -651,6 +686,26 @@ class ConfigurationPersistenceManager:
                 except Exception as e:
                     logger.warning(f"Failed to restore agentic config: {e}")
 
+            # Load optimization config (v1.0.1)
+            optimization_config_data = self.load_optimization_config()
+            if optimization_config_data:
+                try:
+                    from core.app_state import OptimizationConfig
+                    app_state.optimization_config = OptimizationConfig(
+                        llm_cache_enabled=optimization_config_data.get('llm_cache_enabled', True),
+                        llm_cache_db_path=optimization_config_data.get('llm_cache_db_path', 'cache/llm_responses.db'),
+                        performance_monitoring_enabled=optimization_config_data.get('performance_monitoring_enabled', True),
+                        use_parallel_processing=optimization_config_data.get('use_parallel_processing', True),
+                        use_batch_preprocessing=optimization_config_data.get('use_batch_preprocessing', True),
+                        max_parallel_workers=optimization_config_data.get('max_parallel_workers', 5),
+                        use_model_profiles=optimization_config_data.get('use_model_profiles', True),
+                        use_gpu_faiss=optimization_config_data.get('use_gpu_faiss', False)
+                    )
+                    logger.info("Optimization configuration restored")
+                    loaded_any = True
+                except Exception as e:
+                    logger.warning(f"Failed to restore optimization config: {e}")
+
             return loaded_any
             
         except Exception as e:
@@ -681,6 +736,9 @@ class ConfigurationPersistenceManager:
                 success_count += 1
 
             if self.save_agentic_config(app_state.agentic_config):
+                success_count += 1
+
+            if self.save_optimization_config(app_state.optimization_config):
                 success_count += 1
 
             logger.info(f"Saved {success_count} configurations")

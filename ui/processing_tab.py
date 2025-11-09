@@ -291,28 +291,37 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
             total_rag_used = 0
             total_functions_called = 0
 
-            # OPTIMIZATION: Batch preprocess all texts before extraction
-            log_lines.append("🚀 Batch Preprocessing: Preparing all texts...")
-            process_state.add_log(process_id, "Batch preprocessing started")
-            batch_preprocessor = BatchPreprocessor()
-            all_texts = [str(row[text_column]) for _, row in df.iterrows()]
+            # OPTIMIZATION: Batch preprocess all texts before extraction (if enabled)
+            if app_state.optimization_config.use_batch_preprocessing:
+                log_lines.append("🚀 Batch Preprocessing: Preparing all texts...")
+                process_state.add_log(process_id, "Batch preprocessing started")
+                batch_preprocessor = BatchPreprocessor()
+                all_texts = [str(row[text_column]) for _, row in df.iterrows()]
 
-            preprocessed_batch = batch_preprocessor.preprocess_batch(
-                texts=all_texts,
-                apply_normalization=app_state.data_config.enable_pattern_normalization,
-                apply_pii_redaction=app_state.data_config.enable_phi_redaction
-            )
-            log_lines.append(f"✅ Batch Preprocessing Complete: {len(all_texts)} texts preprocessed in {preprocessed_batch.total_time:.2f}s")
-            log_lines.append(f"   Average: {preprocessed_batch.avg_time_per_text*1000:.1f}ms per text")
-            log_lines.append("")
-            process_state.add_log(process_id, f"Batch preprocessing complete: {preprocessed_batch.total_time:.2f}s")
+                preprocessed_batch = batch_preprocessor.preprocess_batch(
+                    texts=all_texts,
+                    apply_normalization=app_state.data_config.enable_pattern_normalization,
+                    apply_pii_redaction=app_state.data_config.enable_phi_redaction
+                )
+                log_lines.append(f"✅ Batch Preprocessing Complete: {len(all_texts)} texts preprocessed in {preprocessed_batch.total_time:.2f}s")
+                log_lines.append(f"   Average: {preprocessed_batch.avg_time_per_text*1000:.1f}ms per text")
+                log_lines.append("")
+                process_state.add_log(process_id, f"Batch preprocessing complete: {preprocessed_batch.total_time:.2f}s")
+            else:
+                # No batch preprocessing - prepare simple text list
+                preprocessed_batch = type('obj', (object,), {
+                    'texts': [str(row[text_column]) for _, row in df.iterrows()],
+                    'redacted_texts': None,
+                    'normalized_texts': None
+                })()
 
-            # OPTIMIZATION: Use parallel processing for batch extractions (if > 1 row and cloud API)
-            use_parallel = (total_rows > 1 and
+            # OPTIMIZATION: Use parallel processing for batch extractions (if enabled, > 1 row and cloud API)
+            use_parallel = (app_state.optimization_config.use_parallel_processing and
+                          total_rows > 1 and
                           app_state.model_config.provider in ['openai', 'anthropic', 'google', 'azure'])
 
             if use_parallel:
-                max_workers = min(5, total_rows)  # Default 5 workers for cloud APIs
+                max_workers = min(app_state.optimization_config.max_parallel_workers, total_rows)
                 log_lines.append(f"⚡ Parallel Processing: Using {max_workers} workers for {total_rows} rows")
                 process_state.add_log(process_id, f"Parallel processing with {max_workers} workers")
 

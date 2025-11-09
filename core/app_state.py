@@ -120,6 +120,27 @@ class AgenticConfig:
     iteration_logging: bool = True  # Log each iteration
     tool_call_logging: bool = True  # Log each tool call
 
+@dataclass
+class OptimizationConfig:
+    """Performance optimization configuration (v1.0.1)"""
+    # LLM optimizations
+    llm_cache_enabled: bool = True  # Enable LLM response caching (400x faster cached)
+    llm_cache_db_path: str = "cache/llm_responses.db"  # Cache database path
+
+    # Performance monitoring
+    performance_monitoring_enabled: bool = True  # Track timing metrics
+
+    # Batch processing optimizations
+    use_parallel_processing: bool = True  # Auto-enable for cloud APIs + multi-row
+    use_batch_preprocessing: bool = True  # Batch preprocess all texts
+    max_parallel_workers: int = 5  # Max workers for parallel processing
+
+    # Model profiles
+    use_model_profiles: bool = True  # Use optimized model settings
+
+    # GPU optimizations
+    use_gpu_faiss: bool = False  # Enable GPU FAISS (requires compatible FAISS-GPU)
+
 class StateObserver:
     """Observer for state changes"""
     
@@ -152,6 +173,7 @@ class AppState:
         self.rag_config = RAGConfig()  # rag_top_k auto-initialized
         self.processing_config = ProcessingConfig()
         self.agentic_config = AgenticConfig()  # v1.0.0 - Agentic mode config
+        self.optimization_config = OptimizationConfig()  # v1.0.1 - Performance optimizations
 
         self.config_valid = False
         self.prompt_valid = False
@@ -227,9 +249,12 @@ class AppState:
                 'model_name': self.model_config.model_name,
                 'api_key': self.model_config.api_key,
                 'temperature': self.model_config.temperature,
-                'max_tokens': self.model_config.max_tokens
+                'max_tokens': self.model_config.max_tokens,
+                # v1.0.1 optimization configs
+                'llm_cache_enabled': self.optimization_config.llm_cache_enabled,
+                'llm_cache_db_path': self.optimization_config.llm_cache_db_path
             }
-            
+
             if self.model_config.provider == "azure":
                 config_dict['azure_endpoint'] = self.model_config.azure_endpoint
                 config_dict['azure_deployment'] = self.model_config.azure_deployment
