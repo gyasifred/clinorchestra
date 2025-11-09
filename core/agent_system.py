@@ -500,20 +500,35 @@ class ExtractionAgent:
 
         logger.info(f"Executing {len(self.context.tool_requests)} tools in PARALLEL (async)")
 
-        # Run async execution in event loop
+        # Run async execution - asyncio.run() handles event loop creation automatically
         try:
-            # Try to get existing event loop
-            loop = asyncio.get_event_loop()
-            if loop.is_running():
-                # If loop is already running (e.g., in Jupyter), create tasks
-                results = loop.run_until_complete(self._execute_stage2_tools_async())
+            # asyncio.run() creates new event loop and cleans up after
+            # This is the recommended way in Python 3.7+
+            results = asyncio.run(self._execute_stage2_tools_async())
+        except RuntimeError as e:
+            # Event loop already running (e.g., Jupyter notebook)
+            if "cannot be called from a running event loop" in str(e):
+                logger.warning("⚠️ Event loop already running - falling back to sequential execution")
+                logger.warning("   (Async optimization disabled in this context)")
+                # Fall back to sequential synchronous execution
+                results = []
+                for tool_request in self.context.tool_requests:
+                    tool_type = tool_request.get('type')
+                    if tool_type == 'function':
+                        results.append(self._execute_function_tool(tool_request))
+                    elif tool_type == 'rag':
+                        results.append(self._execute_rag_tool(tool_request))
+                    elif tool_type == 'extras':
+                        results.append(self._execute_extras_tool(tool_request))
+                    else:
+                        results.append({
+                            'type': tool_type,
+                            'success': False,
+                            'message': f"Unknown tool type: {tool_type}"
+                        })
             else:
-                results = loop.run_until_complete(self._execute_stage2_tools_async())
-        except RuntimeError:
-            # No event loop, create new one
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-            results = loop.run_until_complete(self._execute_stage2_tools_async())
+                # Different RuntimeError - re-raise
+                raise
 
         # Store results in order
         self.context.tool_results.extend(results)

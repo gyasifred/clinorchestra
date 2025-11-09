@@ -613,20 +613,28 @@ Example format:
         """
         logger.info(f"Executing {len(tool_calls)} tools in PARALLEL (async)")
 
-        # Run async execution in event loop
+        # Run async execution - asyncio.run() handles event loop creation automatically
         try:
-            # Try to get existing event loop
-            loop = asyncio.get_event_loop()
-            if loop.is_running():
-                # If loop is already running (e.g., in Jupyter), use nest_asyncio or run_until_complete
-                results = loop.run_until_complete(self._execute_tools_async(tool_calls))
+            # asyncio.run() creates new event loop and cleans up after
+            # This is the recommended way in Python 3.7+
+            results = asyncio.run(self._execute_tools_async(tool_calls))
+        except RuntimeError as e:
+            # Event loop already running (e.g., Jupyter notebook)
+            if "cannot be called from a running event loop" in str(e):
+                logger.warning("⚠️ Event loop already running - falling back to sequential execution")
+                logger.warning("   (Async optimization disabled in this context)")
+                # Fall back to sequential synchronous execution
+                results = []
+                for tool_call in tool_calls:
+                    if tool_call.name == 'query_rag':
+                        results.append(self._execute_rag_tool(tool_call))
+                    elif tool_call.name == 'query_extras':
+                        results.append(self._execute_extras_tool(tool_call))
+                    else:
+                        results.append(self._execute_function_tool(tool_call))
             else:
-                results = loop.run_until_complete(self._execute_tools_async(tool_calls))
-        except RuntimeError:
-            # No event loop, create new one
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-            results = loop.run_until_complete(self._execute_tools_async(tool_calls))
+                # Different RuntimeError - re-raise
+                raise
 
         # Update tracking
         for result in results:
