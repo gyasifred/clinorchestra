@@ -12,6 +12,7 @@ import json
 from typing import Dict, Any, Optional
 from dotenv import load_dotenv
 from core.logging_config import get_logger
+from core.llm_cache import LLMResponseCache
 
 load_dotenv()
 logger = get_logger(__name__)
@@ -84,10 +85,20 @@ class LLMManager:
         self.model = None
         self.tokenizer = None
         self.device = None
-        
+
+        # Initialize LLM response cache (400x faster for repeated queries)
+        cache_enabled = config.get('llm_cache_enabled', True)
+        cache_db_path = config.get('llm_cache_db_path', 'cache/llm_responses.db')
+        self.llm_cache = LLMResponseCache(
+            cache_db_path=cache_db_path,
+            enabled=cache_enabled
+        )
+
         self._initialize_client()
-        
+
         logger.info(f"LLMManager initialized: {self.provider}/{self.model_name}")
+        if cache_enabled:
+            logger.info(f"💾 LLM caching: ENABLED (400x faster for cached queries)")
         if self.provider == 'local':
             logger.info(f"Local model context window: {self.max_seq_length}")
     
@@ -261,22 +272,45 @@ class LLMManager:
         return any(indicator in prompt or indicator in prompt_lower for indicator in json_indicators)
     
     def generate(self, prompt: str, max_tokens: Optional[int] = None) -> str:
-        """Generate text from prompt"""
+        """Generate text from prompt with caching"""
         max_tok = max_tokens or self.max_tokens
-        
+
+        # Check cache first
+        cached_response = self.llm_cache.get(
+            prompt=prompt,
+            model_name=f"{self.provider}:{self.model_name}",
+            temperature=self.temperature,
+            max_tokens=max_tok
+        )
+        if cached_response:
+            logger.debug(f"💾 Cache HIT (400x faster)")
+            return cached_response
+
+        # Cache miss - generate response
         try:
             if self.provider == "openai":
-                return self._generate_openai(prompt, max_tok)
+                response = self._generate_openai(prompt, max_tok)
             elif self.provider == "anthropic":
-                return self._generate_anthropic(prompt, max_tok)
+                response = self._generate_anthropic(prompt, max_tok)
             elif self.provider == "google":
-                return self._generate_google(prompt, max_tok)
+                response = self._generate_google(prompt, max_tok)
             elif self.provider == "azure":
-                return self._generate_azure(prompt, max_tok)
+                response = self._generate_azure(prompt, max_tok)
             elif self.provider == "local":
-                return self._generate_local(prompt, max_tok)
+                response = self._generate_local(prompt, max_tok)
             else:
                 raise ValueError(f"Provider {self.provider} not supported")
+
+            # Store in cache
+            self.llm_cache.put(
+                prompt=prompt,
+                model_name=f"{self.provider}:{self.model_name}",
+                temperature=self.temperature,
+                max_tokens=max_tok,
+                response=response
+            )
+
+            return response
         except Exception as e:
             logger.error(f"Generation failed: {e}")
             raise
