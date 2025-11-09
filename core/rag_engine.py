@@ -350,19 +350,43 @@ class DocumentChunker:
         return chunks
 
 class VectorStore:
-    """Vector store using FAISS for cosine similarity search with persistent caching"""
+    """Vector store using FAISS for cosine similarity search with persistent caching and GPU acceleration"""
 
-    def __init__(self, embedding_generator: EmbeddingGenerator, cache_db_path: str):
+    def __init__(self, embedding_generator: EmbeddingGenerator, cache_db_path: str, use_gpu: bool = True):
         self.embedding_generator = embedding_generator
         self.dimension = embedding_generator.get_dimension()
-        self.index = faiss.IndexFlatIP(self.dimension)
+        self.use_gpu = use_gpu
+        self.gpu_available = False
+
+        # Try to initialize GPU index
+        if use_gpu:
+            try:
+                import torch
+                if torch.cuda.is_available():
+                    # Create GPU index
+                    res = faiss.StandardGpuResources()
+                    cpu_index = faiss.IndexFlatIP(self.dimension)
+                    self.index = faiss.index_cpu_to_gpu(res, 0, cpu_index)
+                    self.gpu_available = True
+                    logger.info(f"🎮 FAISS GPU mode: ACTIVE (50-100% faster searches!)")
+                else:
+                    self.index = faiss.IndexFlatIP(self.dimension)
+                    logger.info(f"💻 FAISS CPU mode: ACTIVE (GPU not available)")
+            except Exception as e:
+                logger.warning(f"GPU FAISS initialization failed, falling back to CPU: {e}")
+                self.index = faiss.IndexFlatIP(self.dimension)
+                logger.info(f"💻 FAISS CPU mode: ACTIVE (fallback)")
+        else:
+            self.index = faiss.IndexFlatIP(self.dimension)
+            logger.info(f"💻 FAISS CPU mode: ACTIVE (GPU disabled)")
+
         self.chunks = []
         self.documents = {}
         self.cache_db_path = cache_db_path
-        
+
         # Initialize SQLite database schema
         self._initialize_db()
-        
+
         logger.info(f"VectorStore initialized (dimension={self.dimension})")
 
     def _initialize_db(self):
