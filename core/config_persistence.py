@@ -675,7 +675,7 @@ class ConfigurationPersistenceManager:
                 try:
                     success = app_state.set_agentic_config(
                         enabled=agentic_config_data.get('enabled', False),
-                        max_iterations=agentic_config_data.get('max_iterations', 20),
+                        max_iterations=agentic_config_data.get('max_iterations', 3),  # Minimum 3 for ADAPTIVE mode
                         max_tool_calls=agentic_config_data.get('max_tool_calls', 50),
                         iteration_logging=agentic_config_data.get('iteration_logging', True),
                         tool_call_logging=agentic_config_data.get('tool_call_logging', True)

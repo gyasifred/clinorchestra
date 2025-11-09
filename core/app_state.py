@@ -115,7 +115,7 @@ class ProcessingConfig:
 class AgenticConfig:
     """Agentic execution configuration (v1.0.0)"""
     enabled: bool = False  # Use agentic agent instead of rigid pipeline
-    max_iterations: int = 10  # Max conversation iterations (CHANGED: Reduced from 20 to 10)
+    max_iterations: int = 3  # Max conversation iterations (MINIMUM: 3, typical: 10-30)
     max_tool_calls: int = 50  # Max total tool calls per extraction
     iteration_logging: bool = True  # Log each iteration
     tool_call_logging: bool = True  # Log each tool call
@@ -577,7 +577,12 @@ class AppState:
                 self.agentic_config.enabled = enabled
 
             if max_iterations is not None:
-                self.agentic_config.max_iterations = max_iterations
+                # Enforce minimum of 3 iterations for ADAPTIVE mode
+                if max_iterations < 3:
+                    logger.warning(f"max_iterations={max_iterations} is below minimum (3). Setting to 3.")
+                    self.agentic_config.max_iterations = 3
+                else:
+                    self.agentic_config.max_iterations = max_iterations
 
             if max_tool_calls is not None:
                 self.agentic_config.max_tool_calls = max_tool_calls
