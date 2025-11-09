@@ -4,10 +4,16 @@ ClinOrchestra - Intelligent Clinical Data Extraction & Orchestration
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 Lab: HeiderLab
-Version: 1.0.0
+Version: 1.0.1
 
 ClinOrchestra orchestrates LLM-powered agents with RAG, functions, and knowledge
 to extract structured data from clinical text. Works for ANY clinical task.
+
+What's New in v1.0.1:
+- Performance monitoring infrastructure
+- LLM response caching system
+- Enhanced RAG with batch embeddings
+- Comprehensive performance documentation
 """
 import gradio as gr
 import argparse
