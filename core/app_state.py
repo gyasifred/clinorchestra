@@ -126,6 +126,7 @@ class OptimizationConfig:
     # LLM optimizations
     llm_cache_enabled: bool = True  # Enable LLM response caching (400x faster cached)
     llm_cache_db_path: str = "cache/llm_responses.db"  # Cache database path
+    llm_cache_bypass: bool = False  # Bypass cache for this session (force fresh LLM calls)
 
     # Performance monitoring
     performance_monitoring_enabled: bool = True  # Track timing metrics
@@ -252,7 +253,8 @@ class AppState:
                 'max_tokens': self.model_config.max_tokens,
                 # v1.0.1 optimization configs
                 'llm_cache_enabled': self.optimization_config.llm_cache_enabled,
-                'llm_cache_db_path': self.optimization_config.llm_cache_db_path
+                'llm_cache_db_path': self.optimization_config.llm_cache_db_path,
+                'llm_cache_bypass': self.optimization_config.llm_cache_bypass
             }
 
             if self.model_config.provider == "azure":
