@@ -352,33 +352,53 @@ class DocumentChunker:
 class VectorStore:
     """Vector store using FAISS for cosine similarity search with persistent caching and GPU acceleration"""
 
-    def __init__(self, embedding_generator: EmbeddingGenerator, cache_db_path: str, use_gpu: bool = True):
+    def __init__(self, embedding_generator: EmbeddingGenerator, cache_db_path: str, use_gpu: bool = False):
         self.embedding_generator = embedding_generator
         self.dimension = embedding_generator.get_dimension()
         self.use_gpu = use_gpu
         self.gpu_available = False
 
-        # Try to initialize GPU index
+        # Initialize CPU index first (safe default)
+        self.index = faiss.IndexFlatIP(self.dimension)
+
+        # Try to initialize GPU index only if explicitly requested
         if use_gpu:
             try:
                 import torch
                 if torch.cuda.is_available():
-                    # Create GPU index
+                    logger.info("🔍 Attempting GPU FAISS initialization...")
+
+                    # Create test GPU resources first
                     res = faiss.StandardGpuResources()
-                    cpu_index = faiss.IndexFlatIP(self.dimension)
-                    self.index = faiss.index_cpu_to_gpu(res, 0, cpu_index)
+
+                    # Test with a small dummy operation to verify compatibility
+                    test_index = faiss.IndexFlatIP(self.dimension)
+                    test_vectors = np.random.rand(10, self.dimension).astype('float32')
+                    faiss.normalize_L2(test_vectors)
+                    test_index.add(test_vectors)
+
+                    # Try to move test index to GPU
+                    gpu_test_index = faiss.index_cpu_to_gpu(res, 0, test_index)
+
+                    # Perform a test search to verify GPU works
+                    test_query = np.random.rand(1, self.dimension).astype('float32')
+                    faiss.normalize_L2(test_query)
+                    D, I = gpu_test_index.search(test_query, 1)
+
+                    # If we got here, GPU works! Use it for real index
+                    del gpu_test_index
+                    self.index = faiss.index_cpu_to_gpu(res, 0, self.index)
                     self.gpu_available = True
-                    logger.info(f"🎮 FAISS GPU mode: ACTIVE (50-100% faster searches!)")
+                    logger.info(f"🎮 FAISS GPU mode: ACTIVE (50-100x faster searches!)")
                 else:
-                    self.index = faiss.IndexFlatIP(self.dimension)
-                    logger.info(f"💻 FAISS CPU mode: ACTIVE (GPU not available)")
+                    logger.info(f"💻 FAISS CPU mode: ACTIVE (CUDA not available)")
             except Exception as e:
-                logger.warning(f"GPU FAISS initialization failed, falling back to CPU: {e}")
+                logger.warning(f"⚠️  GPU FAISS initialization failed, using CPU mode: {type(e).__name__}: {str(e)}")
+                # Keep the CPU index we already created
                 self.index = faiss.IndexFlatIP(self.dimension)
                 logger.info(f"💻 FAISS CPU mode: ACTIVE (fallback)")
         else:
-            self.index = faiss.IndexFlatIP(self.dimension)
-            logger.info(f"💻 FAISS CPU mode: ACTIVE (GPU disabled)")
+            logger.info(f"💻 FAISS CPU mode: ACTIVE (GPU disabled by configuration)")
 
         self.chunks = []
         self.documents = {}
