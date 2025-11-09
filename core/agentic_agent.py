@@ -48,8 +48,10 @@ from concurrent.futures import ThreadPoolExecutor
 from core.json_parser import JSONParser
 from core.prompt_templates import format_schema_as_instructions
 from core.logging_config import get_logger
+from core.performance_monitor import get_performance_monitor, TimingContext
 
 logger = get_logger(__name__)
+perf_monitor = get_performance_monitor(enabled=True)
 
 
 class AgenticState(Enum):
@@ -169,15 +171,22 @@ class AgenticAgent:
             label_context = self._get_label_context_string(label_value)
             preprocessed_text = self._preprocess_clinical_text(clinical_text)
 
+            # Get max_iterations and max_tool_calls from app_state config
+            max_iterations = self.app_state.agentic_config.max_iterations
+            max_tool_calls = self.app_state.agentic_config.max_tool_calls
+
             self.context = AgenticContext(
                 clinical_text=preprocessed_text,
                 label_context=label_context,
                 state=AgenticState.IDLE,
-                original_text=clinical_text
+                original_text=clinical_text,
+                max_iterations=max_iterations,
+                max_tool_calls=max_tool_calls
             )
 
             logger.info("=" * 80)
             logger.info("ADAPTIVE MODE EXTRACTION STARTED (v1.0.0 - Evolving Tasks & Async)")
+            logger.info(f"Configuration: Max Iterations={max_iterations}, Max Tool Calls={max_tool_calls}")
             logger.info("=" * 80)
 
             # Build initial prompt
@@ -211,7 +220,8 @@ class AgenticAgent:
 
                 # LLM generates response (may include tool calls or final JSON)
                 logger.debug(f"🤖 Calling LLM for iteration {self.context.iteration}...")
-                response = self._generate_with_tools()
+                with TimingContext('adaptive_llm_call'):
+                    response = self._generate_with_tools()
                 logger.debug(f"📥 LLM response received")
 
                 if response is None:
@@ -249,7 +259,8 @@ class AgenticAgent:
                             self.context.stall_counter += 1
                             logger.warning(f"⚠️ STALL DETECTED: Same tools called 3 times in a row (stall count: {self.context.stall_counter})")
 
-                    tool_results = self._execute_tools(self.context.tool_calls_this_iteration)
+                    with TimingContext('adaptive_tool_execution'):
+                        tool_results = self._execute_tools(self.context.tool_calls_this_iteration)
 
                     # RESUME - Add tool results to conversation
                     logger.info(f"Tools executed, resuming with {len(tool_results)} results")
@@ -748,6 +759,11 @@ Example format:
 
     def _execute_rag_tool(self, tool_call: ToolCall) -> ToolResult:
         """Execute RAG query"""
+        with TimingContext('adaptive_rag_query'):
+            return self._execute_rag_tool_impl(tool_call)
+
+    def _execute_rag_tool_impl(self, tool_call: ToolCall) -> ToolResult:
+        """Execute RAG query implementation"""
         try:
             # Check if RAG engine is available
             if not self.rag_engine:
@@ -813,6 +829,11 @@ Example format:
 
     def _execute_function_tool(self, tool_call: ToolCall) -> ToolResult:
         """Execute function call"""
+        with TimingContext('adaptive_function_call'):
+            return self._execute_function_tool_impl(tool_call)
+
+    def _execute_function_tool_impl(self, tool_call: ToolCall) -> ToolResult:
+        """Execute function call implementation"""
         try:
             # Check if function registry is available
             if not self.function_registry:

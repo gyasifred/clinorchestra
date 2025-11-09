@@ -16,6 +16,8 @@ from core.process_persistence import get_process_state
 from core.agent_factory import create_agent, get_agent_info
 from core.app_state import StateEvent
 from core.logging_config import get_logger
+from core.parallel_processor import ParallelProcessor, ProcessingTask, ProcessingResult
+from core.batch_preprocessor import BatchPreprocessor
 
 logger = get_logger(__name__)
 
@@ -288,21 +290,148 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
             total_extras_used = 0
             total_rag_used = 0
             total_functions_called = 0
-            
+
+            # OPTIMIZATION: Batch preprocess all texts before extraction (if enabled)
+            if app_state.optimization_config.use_batch_preprocessing:
+                log_lines.append("🚀 Batch Preprocessing: Preparing all texts...")
+                process_state.add_log(process_id, "Batch preprocessing started")
+                batch_preprocessor = BatchPreprocessor()
+                all_texts = [str(row[text_column]) for _, row in df.iterrows()]
+
+                preprocessed_batch = batch_preprocessor.preprocess_batch(
+                    texts=all_texts,
+                    apply_normalization=app_state.data_config.enable_pattern_normalization,
+                    apply_pii_redaction=app_state.data_config.enable_phi_redaction
+                )
+                log_lines.append(f"✅ Batch Preprocessing Complete: {len(all_texts)} texts preprocessed in {preprocessed_batch.total_time:.2f}s")
+                log_lines.append(f"   Average: {preprocessed_batch.avg_time_per_text*1000:.1f}ms per text")
+                log_lines.append("")
+                process_state.add_log(process_id, f"Batch preprocessing complete: {preprocessed_batch.total_time:.2f}s")
+            else:
+                # No batch preprocessing - prepare simple text list
+                preprocessed_batch = type('obj', (object,), {
+                    'texts': [str(row[text_column]) for _, row in df.iterrows()],
+                    'redacted_texts': None,
+                    'normalized_texts': None
+                })()
+
+            # OPTIMIZATION: Use parallel processing for batch extractions (if enabled, > 1 row and cloud API)
+            use_parallel = (app_state.optimization_config.use_parallel_processing and
+                          total_rows > 1 and
+                          app_state.model_config.provider in ['openai', 'anthropic', 'google', 'azure'])
+
+            if use_parallel:
+                max_workers = min(app_state.optimization_config.max_parallel_workers, total_rows)
+                log_lines.append(f"⚡ Parallel Processing: Using {max_workers} workers for {total_rows} rows")
+                process_state.add_log(process_id, f"Parallel processing with {max_workers} workers")
+
+                parallel_processor = ParallelProcessor(
+                    max_workers=max_workers,
+                    provider=app_state.model_config.provider,
+                    rate_limit=60  # API rate limit
+                )
+
+                # Create tasks for all rows
+                tasks = []
+                for idx, row in df.iterrows():
+                    label_value = row[label_column] if has_labels and label_column in row.index else None
+                    tasks.append(ProcessingTask(
+                        task_id=str(idx),
+                        clinical_text=preprocessed_batch.texts[idx],
+                        label_value=label_value,
+                        row_index=idx
+                    ))
+
+                # Progress callback
+                def progress_callback(completed, total, task_id):
+                    progress = (completed / total) * 100
+                    process_state.update_progress(process_id, completed, failed, progress)
+                    app_state.update_progress(completed, failed, progress)
+
+                # Execute in parallel
+                log_lines.append("")
+                results = parallel_processor.process_batch(
+                    tasks=tasks,
+                    process_function=lambda task: agent.extract(task.clinical_text, task.label_value),
+                    progress_callback=progress_callback
+                )
+
+                # Process results
+                for result in results:
+                    idx = int(result.task_id)
+                    row = df.iloc[idx]
+
+                    if result.success:
+                        extraction_result = result.result
+                        extras_used = extraction_result.get('extras_used', 0)
+                        rag_used = extraction_result.get('rag_used', 0)
+                        functions_called = extraction_result.get('functions_called', 0)
+
+                        total_extras_used += extras_used
+                        total_rag_used += rag_used
+                        total_functions_called += functions_called
+
+                        if extraction_result.get('rag_refinement_applied', False):
+                            final_output = extraction_result.get('stage4_final_output', {})
+                        else:
+                            final_output = extraction_result.get('stage3_output', {})
+
+                        label_value = row[label_column] if has_labels and label_column in row.index else None
+                        label_context = app_state.data_config.label_mapping.get(str(label_value), None) if label_value is not None else None
+
+                        output_handler.add_record(
+                            row=row,
+                            llm_output=final_output,
+                            redacted_text=preprocessed_batch.redacted_texts[idx] if preprocessed_batch.redacted_texts else None,
+                            normalized_text=preprocessed_batch.normalized_texts[idx] if preprocessed_batch.normalized_texts else None,
+                            label_context=label_context,
+                            metadata={
+                                'processing_timestamp': datetime.now().isoformat(),
+                                'llm_provider': app_state.model_config.provider,
+                                'llm_model': app_state.model_config.model_name,
+                                'llm_temperature': app_state.model_config.temperature,
+                                'extras_used': extras_used,
+                                'rag_used': rag_used,
+                                'functions_called': functions_called,
+                                'parallel_processing': True,
+                                'processing_time': result.processing_time
+                            }
+                        )
+                        processed += 1
+                        log_lines.append(f"[Row {idx+1}/{total_rows}] ✅ SUCCESS ({result.processing_time:.2f}s)")
+                    else:
+                        failed += 1
+                        log_lines.append(f"[Row {idx+1}/{total_rows}] ❌ FAILED: {result.error}")
+
+                log_lines.append("")
+                log_lines.append(f"⚡ Parallel processing complete: {processed} successful, {failed} failed")
+                log_lines.append(f"   Total time: {sum(r.processing_time for r in results):.2f}s wall time")
+                log_lines.append("")
+
+            else:
+                # Sequential processing (for local models or single row)
+                if not use_parallel and total_rows > 1:
+                    log_lines.append("📝 Sequential Processing: Using single-threaded mode (local model or single row)")
+                    log_lines.append("")
+
             for idx, row in df.iterrows():
+                if use_parallel:
+                    continue  # Already processed in parallel
+
                 if not app_state.is_processing:
                     log_lines.append("⏹️ Processing stopped by user")
                     process_state.add_log(process_id, "Processing stopped by user")
                     break
                 
-                clinical_text = str(row[text_column])
+                # Use preprocessed text from batch preprocessing
+                clinical_text = preprocessed_batch.texts[idx]
                 label_value = row[label_column] if has_labels and label_column in row.index else None
                 # FIXED: Check for None explicitly, not truthiness (allows 0, False, "" as valid labels)
                 label_context = app_state.data_config.label_mapping.get(str(label_value), None) if label_value is not None else None
-                
+
                 log_lines.append(f"[Row {idx+1}/{total_rows}] Processing...")
                 process_state.add_log(process_id, f"Processing row {idx+1}/{total_rows}")
-                
+
                 try:
                     result = agent.extract(clinical_text, label_value)
                     
@@ -358,8 +487,8 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                     output_handler.add_record(
                         row=row,
                         llm_output=final_output,
-                        redacted_text=result.get('redacted_text'),
-                        normalized_text=result.get('normalized_text'),
+                        redacted_text=preprocessed_batch.redacted_texts[idx] if preprocessed_batch.redacted_texts else None,
+                        normalized_text=preprocessed_batch.normalized_texts[idx] if preprocessed_batch.normalized_texts else None,
                         label_context=label_context,
                         metadata={
                             'processing_timestamp': datetime.now().isoformat(),
@@ -372,7 +501,8 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                             'rag_used': rag_used,
                             'functions_called': functions_called,
                             'rag_refinement_applied': result.get('rag_refinement_applied', False),
-                            'parsing_method': result.get('parsing_method_used', 'unknown')
+                            'parsing_method': result.get('parsing_method_used', 'unknown'),
+                            'batch_preprocessed': True
                         }
                     )
                     

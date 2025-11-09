@@ -41,8 +41,10 @@ from core.prompt_templates import (
     format_tool_outputs_for_prompt
 )
 from core.logging_config import get_logger, log_extraction_stage
+from core.performance_monitor import get_performance_monitor, TimingContext
 
 logger = get_logger(__name__)
+perf_monitor = get_performance_monitor(enabled=True)
 
 
 class ExtractionAgentState(Enum):
@@ -140,8 +142,9 @@ class ExtractionAgent:
             
             # Stage 1: LLM analyzes task and determines requirements
             self.context.state = ExtractionAgentState.ANALYZING
-            analysis_success = self._execute_stage1_analysis()
-            
+            with TimingContext('structured_stage1_analysis'):
+                analysis_success = self._execute_stage1_analysis()
+
             if not analysis_success:
                 return self._build_failure_result("Stage 1 analysis failed")
             
@@ -151,27 +154,30 @@ class ExtractionAgent:
             
             # Stage 2: Tool execution
             self.context.state = ExtractionAgentState.TOOL_EXECUTION
-            self._execute_stage2_tools()
-            
+            with TimingContext('structured_stage2_tools'):
+                self._execute_stage2_tools()
+
             logger.info("=" * 60)
             logger.info("STAGE 3: EXTRACTION")
             logger.info("=" * 60)
-            
+
             # Stage 3: Extraction
             self.context.state = ExtractionAgentState.STAGE3_EXTRACTION
-            stage3_success = self._execute_stage3_extraction()
-            
+            with TimingContext('structured_stage3_extraction'):
+                stage3_success = self._execute_stage3_extraction()
+
             if not stage3_success:
                 return self._build_failure_result("Stage 3 extraction failed")
-            
+
             # Stage 4: RAG refinement (optional)
             if self._should_run_rag_refinement():
                 logger.info("=" * 60)
                 logger.info("STAGE 4: RAG REFINEMENT")
                 logger.info("=" * 60)
-                
+
                 self.context.state = ExtractionAgentState.STAGE4_RAG_REFINEMENT
-                self.context.stage4_final_output = self._execute_stage4_rag_refinement_with_retry()
+                with TimingContext('structured_stage4_rag'):
+                    self.context.stage4_final_output = self._execute_stage4_rag_refinement_with_retry()
             else:
                 self.context.stage4_final_output = self.context.stage3_output
             
