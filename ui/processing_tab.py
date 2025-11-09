@@ -303,17 +303,30 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                     apply_normalization=app_state.data_config.enable_pattern_normalization,
                     apply_pii_redaction=app_state.data_config.enable_phi_redaction
                 )
-                log_lines.append(f"✅ Batch Preprocessing Complete: {len(all_texts)} texts preprocessed in {preprocessed_batch.total_time:.2f}s")
-                log_lines.append(f"   Average: {preprocessed_batch.avg_time_per_text*1000:.1f}ms per text")
+
+                avg_time_per_text = preprocessed_batch.duration / len(all_texts) if all_texts else 0
+                log_lines.append(f"✅ Batch Preprocessing Complete: {len(all_texts)} texts preprocessed in {preprocessed_batch.duration:.2f}s")
+                log_lines.append(f"   Average: {avg_time_per_text*1000:.1f}ms per text")
                 log_lines.append("")
-                process_state.add_log(process_id, f"Batch preprocessing complete: {preprocessed_batch.total_time:.2f}s")
+                process_state.add_log(process_id, f"Batch preprocessing complete: {preprocessed_batch.duration:.2f}s")
+
+                # Determine which texts to use for extraction
+                # Priority: redacted > normalized > original
+                if app_state.data_config.enable_phi_redaction and preprocessed_batch.redacted_texts:
+                    final_texts = preprocessed_batch.redacted_texts
+                elif app_state.data_config.enable_pattern_normalization and preprocessed_batch.normalized_texts:
+                    final_texts = preprocessed_batch.normalized_texts
+                else:
+                    final_texts = preprocessed_batch.original_texts
             else:
-                # No batch preprocessing - prepare simple text list
+                # No batch preprocessing - prepare simple structure with raw texts
+                all_texts = [str(row[text_column]) for _, row in df.iterrows()]
                 preprocessed_batch = type('obj', (object,), {
-                    'texts': [str(row[text_column]) for _, row in df.iterrows()],
+                    'original_texts': all_texts,
                     'redacted_texts': None,
                     'normalized_texts': None
                 })()
+                final_texts = all_texts  # Use raw texts directly
 
             # OPTIMIZATION: Use parallel processing for batch extractions (if enabled, > 1 row and cloud API)
             use_parallel = (app_state.optimization_config.use_parallel_processing and
@@ -337,7 +350,7 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                     label_value = row[label_column] if has_labels and label_column in row.index else None
                     tasks.append(ProcessingTask(
                         task_id=str(idx),
-                        clinical_text=preprocessed_batch.texts[idx],
+                        clinical_text=final_texts[idx],
                         label_value=label_value,
                         row_index=idx
                     ))
@@ -424,7 +437,7 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                     break
                 
                 # Use preprocessed text from batch preprocessing
-                clinical_text = preprocessed_batch.texts[idx]
+                clinical_text = final_texts[idx]
                 label_value = row[label_column] if has_labels and label_column in row.index else None
                 # FIXED: Check for None explicitly, not truthiness (allows 0, False, "" as valid labels)
                 label_context = app_state.data_config.label_mapping.get(str(label_value), None) if label_value is not None else None
