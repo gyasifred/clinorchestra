@@ -13,6 +13,7 @@ from typing import Dict, Any, Optional
 from dotenv import load_dotenv
 from core.logging_config import get_logger
 from core.llm_cache import LLMResponseCache
+from core.model_profiles import MODEL_PROFILES
 
 load_dotenv()
 logger = get_logger(__name__)
@@ -69,8 +70,17 @@ class LLMManager:
         
         self.model_name = filtered_config.get('model_name')
         self.api_key = filtered_config.get('api_key') or self._get_api_key_from_env()
-        self.temperature = filtered_config.get('temperature', 0.01)
-        self.max_tokens = filtered_config.get('max_tokens', 4096)
+
+        # Apply model profile if available for optimized defaults
+        profile = MODEL_PROFILES.get(self.model_name)
+        if profile and profile.provider == self.provider:
+            self.temperature = filtered_config.get('temperature', profile.temperature)
+            self.max_tokens = filtered_config.get('max_tokens', profile.max_tokens)
+            logger.info(f"📊 Using optimized profile for {self.model_name} ({profile.optimization_level})")
+        else:
+            self.temperature = filtered_config.get('temperature', 0.01)
+            self.max_tokens = filtered_config.get('max_tokens', 4096)
+
         self.max_seq_length = filtered_config.get('max_seq_length', 16384)
         
         self.azure_endpoint = filtered_config.get('azure_endpoint')
