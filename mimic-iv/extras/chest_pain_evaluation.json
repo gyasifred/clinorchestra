@@ -1,0 +1,14 @@
+{
+  "id": "extra_chest_pain_001",
+  "type": "diagnostic_criteria",
+  "content": "Chest Pain Evaluation: MUST rule out life-threatening causes first: ACS (troponin, ECG), aortic dissection (BP differential, CT angio), PE (d-dimer, CTPA), pneumothorax (CXR), cardiac tamponade (echo). RED FLAGS: crushing substernal pain, radiation to arm/jaw, diaphoresis, dyspnea, hypotension, syncope. Cardiac: exertional pain relieved by rest/nitrates suggests angina; prolonged pain >20min suggests MI; positional pain suggests pericarditis. Pulmonary: pleuritic pain worse with breathing (PE, pneumonia, pleuritis). GI: burning epigastric pain (GERD), worse with meals. MSK: reproducible with palpation. Risk stratification: HEART score, TIMI score. Workup: troponin x2-3, ECG, CXR minimum. Disposition based on risk and clinical suspicion.",
+  "metadata": {
+    "category": "cardiovascular",
+    "diagnosis": "chest_pain",
+    "priority": "CRITICAL",
+    "icd9_codes": ["78650", "78659"],
+    "icd10_codes": ["R079"]
+  },
+  "created_at": "2025-11-10T00:00:00",
+  "name": "Chest Pain - Diagnostic Approach"
+}

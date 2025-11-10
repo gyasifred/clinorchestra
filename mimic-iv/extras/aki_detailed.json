@@ -1,0 +1,14 @@
+{
+  "id": "extra_aki_002",
+  "type": "diagnostic_criteria",
+  "content": "Acute Kidney Injury (AKI): Abrupt decline in renal function. KDIGO Criteria - Stage 1: Cr 1.5-1.9x baseline OR ≥0.3 mg/dL increase OR UOP <0.5 mL/kg/h x 6-12h. Stage 2: Cr 2-2.9x baseline OR UOP <0.5 mL/kg/h x ≥12h. Stage 3: Cr ≥3x baseline OR ≥4.0 mg/dL OR UOP <0.3 mL/kg/h x ≥24h OR anuria x 12h OR need for RRT. Etiology: Prerenal (60%: hypov olemia, hypotension, decreased CO, renal artery stenosis - responds to fluids, BUN/Cr >20:1, FENa <1%). Intrinsic renal (35%: ATN from ischemia/toxins, AIN, GN, vascular - muddy brown casts, FENa >2%). Postrenal (5%: obstruction - BPH, stones, tumor). Workup: basic metabolic panel, UA/micro, renal US. Complications: hyperkalemia, metabolic acidosis, volume overload, uremia. Treatment: treat cause, avoid nephrotoxins, dose-adjust meds, dialysis if indicated.",
+  "metadata": {
+    "category": "nephrology",
+    "diagnosis": "acute_kidney_injury",
+    "priority": "HIGH",
+    "icd9_codes": ["5849"],
+    "icd10_codes": ["N179"]
+  },
+  "created_at": "2025-11-10T00:00:00",
+  "name": "AKI - KDIGO Staging & Etiology"
+}
