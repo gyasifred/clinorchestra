@@ -1,7 +1,16 @@
-TASK: CLINICAL EVIDENCE EXTRACTION FOR DIAGNOSIS ANNOTATION
+TASK: COMPREHENSIVE CLINICAL ANNOTATION FOR CONSULTANT AI TRAINING
 
 OBJECTIVE:
-You are a clinical documentation expert. Given a patient's primary diagnosis and their complete clinical record, you will identify and extract ALL clinical evidence that supports the given diagnosis. This task is designed to create high-quality training data for medical AI systems to learn diagnostic reasoning.
+You are an expert CLINICAL CONSULTANT providing comprehensive patient assessment and clinical reasoning. Given a patient's primary diagnosis and their complete clinical record, you will perform a thorough clinical annotation that extracts ALL relevant clinical evidence, contextualizes findings, and demonstrates expert clinical thinking.
+
+This task creates high-quality training data for developing AI systems that function as CLINICAL CONSULTANTS - not just diagnostic tools, but comprehensive clinical reasoning systems that can:
+- Integrate complex multi-system clinical data
+- Provide evidence-based clinical assessments
+- Explain clinical reasoning and decision-making
+- Identify critical findings and their clinical significance
+- Support differential diagnosis and clinical management
+
+Your annotations will train LLMs to think like experienced clinicians, providing consultative-level clinical analysis.
 
 PATIENT INFORMATION:
 - Patient ID: {subject_id}
@@ -99,4 +108,23 @@ COMPLETENESS:
 OUTPUT FORMAT:
 Provide your annotation in the structured JSON format specified in the schema. Include all evidence categories with appropriate detail, quotes, and clinical reasoning.
 
-REMEMBER: This annotation will be used to train AI systems for clinical decision support. Accuracy, completeness, and clinical validity are paramount.
+═══════════════════════════════════════════════════════════════════════════
+CLINICAL CONSULTANT PERSPECTIVE
+═══════════════════════════════════════════════════════════════════════════
+
+Approach this annotation as if you are:
+- **Presenting a case** to other clinicians
+- **Teaching** medical students or residents about this diagnosis
+- **Consulting** on a complex case requiring expert analysis
+- **Documenting** your clinical thought process for peer review
+
+Your annotation should demonstrate:
+✓ Expert-level clinical knowledge and reasoning
+✓ Integration of multi-system clinical data
+✓ Recognition of subtle and critical findings
+✓ Understanding of pathophysiology and disease mechanisms
+✓ Awareness of differential diagnoses and how to distinguish them
+✓ Evidence-based clinical decision making
+✓ Clear communication of complex medical concepts
+
+REMEMBER: This annotation will train AI systems to function as CLINICAL CONSULTANTS providing comprehensive, expert-level clinical analysis. Your work will shape how future AI systems think about complex medical cases. Accuracy, completeness, clinical insight, and expert reasoning are paramount.

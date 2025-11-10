@@ -6,17 +6,40 @@ This project uses ClinOrchestra to create comprehensive clinical annotation data
 
 ### Two Main Tasks
 
-#### **Task 1: Clinical Evidence Annotation**
+#### **Task 1: Clinical Consultant AI Training (Comprehensive Annotation)**
 - **Input**: Patient clinical record + Known primary diagnosis
-- **Output**: Comprehensive extraction of all clinical evidence supporting the diagnosis
-- **Purpose**: Create training data for diagnostic reasoning and clinical evidence extraction
-- **Example**: Given "Patient has Sepsis (ICD: A41.9)" → Extract all symptoms, labs, vital signs, treatments that support this diagnosis
+- **Output**: Comprehensive extraction of all clinical evidence, contextualized findings, and expert clinical reasoning
+- **Purpose**: Train LLMs to function as **CLINICAL CONSULTANTS** - not just diagnostic tools, but comprehensive clinical reasoning systems that can:
+  - Integrate complex multi-system clinical data
+  - Provide evidence-based clinical assessments
+  - Explain clinical reasoning and decision-making
+  - Identify critical findings and their clinical significance
+  - Support differential diagnosis and clinical management
+- **Example**: Given "Patient has Sepsis (ICD: A41.9)" → Extract ALL clinical evidence with expert-level analysis: symptoms (onset, severity, progression), vital signs (trends, clinical significance), labs (abnormal values, pathophysiology), imaging findings, treatments (indications, responses), medical history, risk factors, clinical reasoning, temporal timeline, severity assessment
+- **Goal**: Create training data for developing AI systems that think like experienced clinicians providing consultative-level clinical analysis
 
-#### **Task 2: Diagnosis Classification**
+#### **Task 2: Multiclass Diagnosis Prediction (Classification)**
 - **Input**: Patient clinical record only (diagnosis hidden)
-- **Output**: Predicted primary diagnosis from top 20 most common diagnoses
-- **Purpose**: Train AI systems for diagnostic prediction and differential diagnosis
-- **Example**: Given clinical presentation → Predict: "Sepsis" (with confidence and reasoning)
+- **Output**: Probability scores for ALL 20 possible diagnoses (multiclass classification) + detailed reasoning
+- **Purpose**: Train and evaluate AI systems for **DIAGNOSTIC PREDICTION** using multiclass classification
+  - Predict probability distribution across all 20 diagnoses
+  - Evaluate using classification metrics (accuracy, precision, recall, F1, cross-entropy, Brier score)
+  - Assess probability calibration and diagnostic performance
+- **Example**: Given clinical presentation → Output:
+  ```
+  Sepsis: 0.75 (supporting: fever, elevated lactate, hypotension...)
+  Pneumonia: 0.12 (supporting: infiltrate on CXR, but...)
+  Heart Failure: 0.08 (some overlap but...)
+  [... all 20 diagnoses with probabilities summing to 1.0]
+  Top prediction: Sepsis (75% confidence)
+  ```
+- **Evaluation**: Compare predictions against ground truth using:
+  - Top-1, Top-3, Top-5 Accuracy
+  - Per-diagnosis Precision/Recall/F1
+  - Cross-Entropy Loss (probability calibration)
+  - Brier Score (prediction accuracy)
+  - Confusion Matrix
+- **Goal**: Develop and evaluate diagnostic prediction models with well-calibrated probability estimates
 
 ### Dataset Scope
 - **Focus**: Top 20 most common primary diagnoses in MIMIC-IV
@@ -27,26 +50,34 @@ This project uses ClinOrchestra to create comprehensive clinical annotation data
 
 ```
 mimic-iv/
-├── README.md                          # This file
+├── README.md                                    # This file
+├── QUICKSTART.md                                # Quick start guide
 ├── scripts/
-│   ├── extract_top_diagnoses.py      # Step 1: Identify top 20 diagnoses
-│   └── extract_dataset.py            # Step 2: Create annotation & classification datasets
+│   ├── extract_top_diagnoses.py                # Step 1: Identify top 20 diagnoses
+│   ├── extract_dataset.py                      # Step 2: Create datasets
+│   ├── generate_classification_prompt.py       # Generate prompt with diagnosis list
+│   ├── gather_clinical_guidelines.py           # Helper for collecting guidelines
+│   └── evaluate_classification.py              # Evaluate multiclass predictions
 ├── prompts/
-│   ├── task1_annotation_prompt.txt   # Prompt for annotation task
-│   └── task2_classification_prompt.txt # Prompt for classification task
+│   ├── task1_annotation_prompt.txt             # Consultant AI training prompt
+│   ├── task2_classification_prompt.txt         # Original classification prompt
+│   └── task2_classification_prompt_v2.txt      # Multiclass classification prompt (USE THIS)
 ├── schemas/
-│   ├── task1_annotation_schema.json  # JSON schema for annotation output
-│   └── task2_classification_schema.json # JSON schema for classification output
+│   ├── task1_annotation_schema.json            # Comprehensive annotation schema
+│   ├── task2_classification_schema.json        # Original classification schema
+│   └── task2_classification_schema_v2.json     # Multiclass prediction schema (USE THIS)
 ├── content_mappings/
-│   └── [To be filled after identifying conditions]
-├── extras/
-│   └── [Clinical guidelines, diagnostic criteria, etc.]
+│   └── template_content_mapping.json           # Template for diagnosis mappings
 ├── patterns/
-│   └── [Regex patterns for clinical entity extraction]
+│   ├── vital_signs_patterns.txt                # Vital signs extraction patterns
+│   └── lab_values_patterns.txt                 # Lab values extraction patterns
 ├── functions/
-│   └── [Clinical calculation functions]
-└── guidelines/
-    └── [Clinical practice guidelines for top 20 diagnoses]
+│   ├── function_calculate_sofa_score.py        # SOFA score (sepsis severity)
+│   └── function_calculate_curb65.py            # CURB-65 (pneumonia severity)
+├── guidelines/
+│   └── [Clinical practice guidelines - to be populated]
+└── extras/
+    └── [Additional clinical resources]
 ```
 
 ## Getting Started
@@ -181,16 +212,21 @@ Located at: `mimic-iv/schemas/task1_annotation_schema.json`
 - `temporal_timeline`: Disease progression over time
 - `severity_assessment`: Complications, staging, functional impact
 
-### Task 2: Classification Schema
-Located at: `mimic-iv/schemas/task2_classification_schema.json`
+### Task 2: Multiclass Classification Schema (V2 - RECOMMENDED)
+Located at: `mimic-iv/schemas/task2_classification_schema_v2.json`
 
 **Key Sections**:
-- `clinical_data_extraction`: Organized extraction of all clinical data
-- `clinical_pattern_analysis`: Pattern recognition and pathophysiology
-- `differential_diagnosis`: Ranked list of possible diagnoses (3-10)
-- `primary_diagnosis_prediction`: Final prediction with reasoning
-- `alternative_diagnoses`: Why alternatives are less likely
-- `clinical_reasoning`: Decision points, biases avoided, confidence factors
+- `clinical_data_extraction`: Systematically extracted clinical findings
+- `clinical_pattern_analysis`: Pattern recognition, organ systems, severity
+- `multiclass_prediction`: **PROBABILITY SCORES FOR ALL 20 DIAGNOSES** (must sum to 1.0)
+  - Each diagnosis gets: probability, supporting evidence, contradicting evidence, reasoning
+  - Enforces probability calibration
+- `top_diagnosis`: Single most likely diagnosis with detailed reasoning
+- `top_5_differential`: Top 5 ranked diagnoses for evaluation
+- `clinical_reasoning`: Detailed diagnostic thought process
+
+**Critical Feature**:
+This schema enforces **true multiclass classification** - the model must assign probabilities to ALL 20 diagnoses that sum to 1.0, enabling proper evaluation of probability calibration and diagnostic confidence.
 
 ## Content Mappings
 
@@ -246,13 +282,81 @@ For each patient, you should get:
 - **Explained**: Clinical reasoning for each piece of evidence
 - **Quality-rated**: Each evidence item rated for strength
 
-### Classification Task (Task 2)
+### Classification Task (Task 2 - Multiclass)
 For each patient, you should get:
-- **Differential diagnosis**: 5-10 ranked possibilities
-- **Primary prediction**: Single diagnosis with confidence score
-- **Detailed reasoning**: Step-by-step diagnostic thinking
-- **Alternatives explained**: Why other diagnoses were less likely
-- **Uncertainty acknowledged**: Clear about limitations and missing data
+- **Probability distribution**: Probability scores for ALL 20 diagnoses (sum = 1.0)
+- **Top diagnosis**: Highest probability diagnosis with detailed reasoning
+- **Top-5 differential**: Top 5 ranked diagnoses with probabilities
+- **Supporting/Contradicting evidence**: For each of the 20 diagnoses
+- **Clinical reasoning**: Step-by-step diagnostic thinking
+- **Probability justification**: Explanation for each probability assignment
+- **Well-calibrated**: Probabilities reflect true diagnostic confidence
+
+## Evaluation of Classification Results
+
+After running Task 2 (multiclass classification), evaluate your model's performance:
+
+### Running Evaluation
+
+```bash
+cd mimic-iv/scripts
+python evaluate_classification.py
+```
+
+When prompted, provide:
+- Path to predictions JSON file (output from ClinOrchestra)
+- Path to ground truth CSV (classification_dataset.csv with actual diagnoses)
+- Path to top 20 diagnoses mapping
+
+### Metrics Computed
+
+**Accuracy Metrics**:
+- **Top-1 Accuracy**: Percentage where correct diagnosis has highest probability
+- **Top-3 Accuracy**: Percentage where correct diagnosis is in top 3
+- **Top-5 Accuracy**: Percentage where correct diagnosis is in top 5
+
+**Calibration Metrics**:
+- **Cross-Entropy Loss**: Measures how well probabilities match reality (lower is better)
+- **Brier Score**: Mean squared error of probability predictions (0-2, lower is better)
+
+**Per-Class Metrics**:
+- **Precision**: Of predictions for diagnosis X, how many were correct?
+- **Recall**: Of all actual diagnosis X cases, how many were predicted?
+- **F1-Score**: Harmonic mean of precision and recall
+- **Support**: Number of actual cases for each diagnosis
+
+**Aggregate Metrics**:
+- **Macro-averaged**: Simple average across all diagnoses
+- **Weighted-averaged**: Weighted by number of cases per diagnosis
+
+**Visualizations**:
+- **Confusion Matrix**: Heatmap showing predicted vs actual diagnoses
+
+### Evaluation Output
+
+The script generates:
+- `per_class_metrics.csv`: Precision/Recall/F1 for each diagnosis
+- `confusion_matrix.png`: Visual confusion matrix
+- `evaluation_summary.json`: All metrics in JSON format
+
+### Interpreting Results
+
+**Good Performance**:
+- Top-1 Accuracy > 70%
+- Top-5 Accuracy > 90%
+- Cross-Entropy < 0.5
+- Brier Score < 0.3
+
+**Probability Calibration**:
+- Well-calibrated: When model says 80% confident, it's correct ~80% of the time
+- Cross-entropy and Brier score measure calibration quality
+- Lower values = better calibration
+
+**Per-Class Analysis**:
+- Identify which diagnoses are easy/hard to predict
+- Examine confusion matrix for common misclassifications
+- Low recall = model misses this diagnosis
+- Low precision = model over-predicts this diagnosis
 
 ## Next Steps After Dataset Creation
 

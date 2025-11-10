@@ -1,0 +1,293 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Clinical Diagnosis Multiclass Classification Schema",
+  "description": "Schema for multiclass diagnosis prediction with probabilities for all top 20 diagnoses",
+  "type": "object",
+  "required": [
+    "patient_info",
+    "clinical_data_extraction",
+    "clinical_pattern_analysis",
+    "multiclass_prediction",
+    "top_diagnosis",
+    "clinical_reasoning"
+  ],
+  "properties": {
+    "patient_info": {
+      "type": "object",
+      "description": "Patient demographic and admission information",
+      "required": ["subject_id", "hadm_id"],
+      "properties": {
+        "subject_id": {"type": "string"},
+        "hadm_id": {"type": "string"},
+        "age": {"type": "integer"},
+        "gender": {"type": "string", "enum": ["M", "F"]},
+        "race": {"type": "string"},
+        "admission_type": {"type": "string"}
+      }
+    },
+    "clinical_data_extraction": {
+      "type": "object",
+      "description": "Systematically extracted clinical data",
+      "properties": {
+        "chief_complaint": {"type": "string"},
+        "key_symptoms": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "vital_signs_summary": {"type": "string"},
+        "critical_lab_findings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "test": {"type": "string"},
+              "value": {"type": "string"},
+              "abnormal": {"type": "boolean"}
+            }
+          }
+        },
+        "imaging_findings": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "medications": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "relevant_history": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "clinical_pattern_analysis": {
+      "type": "object",
+      "description": "Analysis of clinical patterns",
+      "properties": {
+        "primary_organ_systems_involved": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "disease_time_course": {
+          "type": "string",
+          "enum": ["ACUTE", "SUBACUTE", "CHRONIC", "ACUTE_ON_CHRONIC"]
+        },
+        "severity_assessment": {
+          "type": "string",
+          "enum": ["MILD", "MODERATE", "SEVERE", "CRITICAL"]
+        },
+        "key_pathophysiologic_features": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "multiclass_prediction": {
+      "type": "object",
+      "description": "Probability scores for ALL top 20 possible diagnoses",
+      "required": ["predictions"],
+      "properties": {
+        "predictions": {
+          "type": "array",
+          "description": "Prediction for each of the top 20 diagnoses",
+          "minItems": 20,
+          "maxItems": 20,
+          "items": {
+            "type": "object",
+            "required": ["diagnosis_name", "icd_code", "probability", "supporting_evidence"],
+            "properties": {
+              "diagnosis_name": {
+                "type": "string",
+                "description": "Name of the diagnosis"
+              },
+              "icd_code": {
+                "type": "string",
+                "description": "ICD code (must match one from top 20 list)"
+              },
+              "icd_version": {
+                "type": "integer",
+                "enum": [9, 10]
+              },
+              "probability": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Probability score 0-1 (must sum to 1.0 across all 20 diagnoses)"
+              },
+              "confidence": {
+                "type": "string",
+                "enum": ["VERY_HIGH", "HIGH", "MODERATE", "LOW", "VERY_LOW"],
+                "description": "Confidence level for this probability"
+              },
+              "supporting_evidence": {
+                "type": "array",
+                "description": "Key evidence supporting this diagnosis (even if probability is low)",
+                "items": {"type": "string"}
+              },
+              "contradicting_evidence": {
+                "type": "array",
+                "description": "Evidence against this diagnosis",
+                "items": {"type": "string"}
+              },
+              "clinical_reasoning": {
+                "type": "string",
+                "description": "Brief explanation of why this probability was assigned"
+              }
+            }
+          }
+        },
+        "probability_sum_check": {
+          "type": "number",
+          "description": "Sum of all probabilities (should equal 1.0)",
+          "minimum": 0.99,
+          "maximum": 1.01
+        }
+      }
+    },
+    "top_diagnosis": {
+      "type": "object",
+      "description": "The single most likely diagnosis (highest probability)",
+      "required": ["predicted_diagnosis", "icd_code", "probability"],
+      "properties": {
+        "predicted_diagnosis": {
+          "type": "string",
+          "description": "Diagnosis with highest probability"
+        },
+        "icd_code": {
+          "type": "string"
+        },
+        "icd_version": {
+          "type": "integer"
+        },
+        "probability": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "detailed_reasoning": {
+          "type": "string",
+          "description": "Comprehensive explanation for this top prediction"
+        },
+        "key_discriminating_features": {
+          "type": "array",
+          "description": "Features that distinguish this from other likely diagnoses",
+          "items": {"type": "string"}
+        },
+        "diagnostic_certainty": {
+          "type": "string",
+          "enum": ["DEFINITIVE", "HIGHLY_PROBABLE", "PROBABLE", "POSSIBLE", "UNCERTAIN"]
+        }
+      }
+    },
+    "top_5_differential": {
+      "type": "array",
+      "description": "Top 5 diagnoses from multiclass prediction, ranked by probability",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["rank", "diagnosis", "icd_code", "probability"],
+        "properties": {
+          "rank": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 5
+          },
+          "diagnosis": {"type": "string"},
+          "icd_code": {"type": "string"},
+          "probability": {"type": "number"},
+          "key_supporting_evidence": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "why_not_higher": {
+            "type": "string",
+            "description": "If not #1, explain what's missing or contradicting"
+          }
+        }
+      }
+    },
+    "clinical_reasoning": {
+      "type": "object",
+      "description": "Detailed clinical reasoning process",
+      "properties": {
+        "reasoning_approach": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "PATTERN_RECOGNITION",
+              "BAYESIAN_REASONING",
+              "CRITERIA_BASED",
+              "EXCLUSION_APPROACH",
+              "PROBABILISTIC"
+            ]
+          }
+        },
+        "key_decision_points": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "question": {"type": "string"},
+              "evidence_reviewed": {"type": "string"},
+              "conclusion": {"type": "string"}
+            }
+          }
+        },
+        "diagnostic_challenges": {
+          "type": "array",
+          "description": "Challenges in making this prediction",
+          "items": {
+            "type": "object",
+            "properties": {
+              "challenge": {"type": "string"},
+              "how_addressed": {"type": "string"}
+            }
+          }
+        },
+        "data_quality_assessment": {
+          "type": "string",
+          "enum": ["EXCELLENT", "GOOD", "FAIR", "POOR"],
+          "description": "Quality of available clinical data"
+        },
+        "uncertainty_factors": {
+          "type": "array",
+          "description": "Factors contributing to uncertainty in prediction",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "classification_metadata": {
+      "type": "object",
+      "description": "Metadata for classification evaluation",
+      "properties": {
+        "prediction_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "model_version": {
+          "type": "string",
+          "description": "Version of model used for prediction"
+        },
+        "processing_time_seconds": {
+          "type": "number",
+          "description": "Time taken to make prediction"
+        },
+        "confidence_distribution": {
+          "type": "object",
+          "description": "Distribution of confidence levels across predictions",
+          "properties": {
+            "high_confidence_count": {"type": "integer"},
+            "medium_confidence_count": {"type": "integer"},
+            "low_confidence_count": {"type": "integer"}
+          }
+        },
+        "evaluation_notes": {
+          "type": "string",
+          "description": "Notes for evaluation and quality review"
+        }
+      }
+    }
+  }
+}
