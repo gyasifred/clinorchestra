@@ -1,9 +1,12 @@
 """
-Enhanced Logging Configuration for ClinOrchestra
-Provides detailed, structured logging with file rotation and console output
+Logging Configuration for ClinOrchestra
+
+Provides structured logging with file rotation, console output, and colored formatting.
+Supports multiple log files (main, errors, processing) with automatic rotation.
 
 Author: Frederick Gyasi (gyasi@musc.edu)
-Date: 2025
+Institution: Medical University of South Carolina
+Version: 1.0.1
 """
 
 import logging
@@ -77,32 +80,27 @@ def setup_logging(
     log_dir: str = "logs",
     log_level: str = "INFO",
     console_level: str = "INFO",
-    file_level: str = "INFO",  # Changed from DEBUG to INFO to reduce log volume
+    file_level: str = "INFO",
     enable_file_logging: bool = True,
-    max_bytes: int = 5 * 1024 * 1024,  # OPTIMIZED: 5MB (reduced from 10MB for faster rotation)
-    backup_count: int = 3,  # OPTIMIZED: 3 backups (reduced from 5 to save disk space)
+    max_bytes: int = 5 * 1024 * 1024,  # 5MB
+    backup_count: int = 3,
     enable_colors: bool = True
 ) -> logging.Logger:
     """
-    Setup comprehensive logging for ClinAnnotate
+    Setup logging system for ClinOrchestra
 
     Args:
         log_dir: Directory for log files
         log_level: Overall logging level
         console_level: Console output level
-        file_level: File output level (default INFO - optimized to reduce log volume)
+        file_level: File output level (default INFO)
         enable_file_logging: Whether to log to files
-        max_bytes: Maximum log file size before rotation (5MB - optimized for performance)
-        backup_count: Number of backup files to keep (3 - optimized for disk space)
+        max_bytes: Maximum log file size before rotation (default 5MB)
+        backup_count: Number of backup files to keep (default 3)
         enable_colors: Whether to use colored console output
 
     Returns:
         Configured root logger
-
-    Performance Optimizations:
-        - Reduced max_bytes from 10MB to 5MB for faster rotation and less I/O blocking
-        - Reduced backup_count from 5 to 3 to save disk space (max 60MB per log type)
-        - Changed default file_level from DEBUG to INFO to reduce log volume during batch processing
     """
     # Create log directory
     log_path = Path(log_dir)

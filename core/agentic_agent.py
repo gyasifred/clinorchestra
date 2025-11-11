@@ -1,39 +1,20 @@
 #!/usr/bin/env python3
 """
-Adaptive Agent - Universal Adaptive Extraction for ANY Clinical Task
-Version: 1.0.0
+ADAPTIVE Execution Mode - Iterative Autonomous Loop
+
+Continuous iterative loop for complex clinical data extraction requiring autonomous adaptation.
+LLM analyzes text, calls tools, learns from results, and iterates until extraction completes.
+
+Features:
+- Autonomous tool selection and execution
+- Parallel async tool execution (60-75% faster)
+- Stall detection and recovery
+- Automatic minimal prompt fallback
+- Native function calling API support
+
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
-
-🎯 TRULY UNIVERSAL & AGENTIC SYSTEM:
-   BOTH execution modes (STRUCTURED & ADAPTIVE) are autonomous agents that adapt to ANY
-   clinical extraction task defined by your prompts and JSON schema.
-   Not hardcoded for specific conditions - works for ALL clinical domains!
-
-EXECUTION MODE: ADAPTIVE (Evolving Tasks)
-PURPOSE: Use for evolving, complex tasks requiring iterative refinement
-BEHAVIOR: LLM decides → Calls tools → Learns → Iterates → Adapts → Extracts
-
-REVOLUTIONARY ARCHITECTURE:
-Continuous adaptive loop where LLM:
-- Autonomously decides what tools to call based on YOUR task
-- Iterates and learns from results dynamically
-- Adapts strategy to YOUR extraction goals
-- Works for ANY clinical domain (not task-specific)
-
-KEY FEATURES:
-- Continuous loop with PAUSE/RESUME states
-- Native tool calling (OpenAI/Anthropic function calling API)
-- **ASYNC TOOL EXECUTION** - 60-75% faster with parallel execution
-- Multiple calls to same tool with different queries as needed
-- Dynamic discovery: "That result tells me I need X next"
-- Context-aware chaining based on previous tool results
-- Universal across ALL clinical domains (not task-specific)
-
-PERFORMANCE:
-- Async/await for parallel tool execution (concurrent RAG + functions)
-- Maintains conversation order while parallelizing execution
-- Typical speedup: 60-75% vs sequential execution
+Version: 1.0.1
 """
 
 import json
