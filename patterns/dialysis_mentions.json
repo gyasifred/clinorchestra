@@ -1,0 +1,102 @@
+{
+  "name": "dialysis_mentions",
+  "description": "Extract mentions of dialysis and renal replacement therapy from clinical text. Critical for AKI Stage 3 detection and ESRD identification.",
+  "patterns": [
+    {
+      "pattern": "\\b(hemodialysis|HD|hemo\\s*dialysis)\\b",
+      "description": "Hemodialysis mentions",
+      "example_input": "Patient on hemodialysis",
+      "example_output": "hemodialysis"
+    },
+    {
+      "pattern": "\\b(peritoneal\\s+dialysis|PD|CAPD|CCPD)\\b",
+      "description": "Peritoneal dialysis",
+      "example_input": "Started on peritoneal dialysis",
+      "example_output": "peritoneal dialysis"
+    },
+    {
+      "pattern": "\\b(CRRT|continuous\\s+renal\\s+replacement|CVVH|CVVHD|CVVHDF)\\b",
+      "description": "Continuous renal replacement therapy",
+      "example_input": "Initiated CRRT for AKI",
+      "example_output": "CRRT"
+    },
+    {
+      "pattern": "\\b(dialysis|dialyzed|dialyzing)\\b",
+      "description": "General dialysis mentions",
+      "example_input": "Patient requires dialysis",
+      "example_output": "dialysis"
+    },
+    {
+      "pattern": "\\b(RRT|renal\\s+replacement\\s+therapy)\\b",
+      "description": "Renal replacement therapy general term",
+      "example_input": "Started on RRT",
+      "example_output": "RRT"
+    },
+    {
+      "pattern": "\\b(dialysis\\s+catheter|HD\\s+catheter|Quinton\\s+catheter|permcath|tunneled\\s+catheter)\\b",
+      "description": "Dialysis access mentions",
+      "example_input": "Placed dialysis catheter",
+      "example_output": "dialysis catheter"
+    },
+    {
+      "pattern": "\\b(fistula|AV\\s+fistula|arteriovenous\\s+fistula|AVF)\\b",
+      "description": "AV fistula for chronic dialysis",
+      "example_input": "Left arm AV fistula",
+      "example_output": "AV fistula"
+    },
+    {
+      "pattern": "\\b(graft|AV\\s+graft|arteriovenous\\s+graft|AVG)\\b",
+      "description": "AV graft for dialysis access",
+      "example_input": "Right arm AV graft",
+      "example_output": "AV graft"
+    },
+    {
+      "pattern": "\\b(ESRD|end[- ]stage\\s+renal\\s+disease|end[- ]stage\\s+kidney\\s+disease|ESKD)\\b",
+      "description": "End-stage renal disease",
+      "example_input": "History of ESRD on HD",
+      "example_output": "ESRD"
+    }
+  ],
+  "dialysis_frequency_patterns": [
+    {
+      "pattern": "\\b(three\\s+times\\s+(?:a|per)\\s+week|3x\\s*/?\\s*week|TIW)\\b",
+      "description": "Standard HD schedule",
+      "example": "HD three times a week"
+    },
+    {
+      "pattern": "\\b(Monday\\s*[,/]\\s*Wednesday\\s*[,/]\\s*Friday|MWF)\\b",
+      "description": "MWF dialysis schedule",
+      "example": "Dialysis MWF"
+    },
+    {
+      "pattern": "\\b(Tuesday\\s*[,/]\\s*Thursday\\s*[,/]\\s*Saturday|TThuSat)\\b",
+      "description": "Tue/Thu/Sat dialysis schedule",
+      "example": "Dialysis Tuesday, Thursday, Saturday"
+    }
+  ],
+  "negation_patterns": [
+    {
+      "pattern": "\\b(no\\s+(?:longer\\s+)?(?:requires|needs)|not\\s+on|off|discontinued)\\s+(?:\\w+\\s+){0,3}(?:dialysis|HD|RRT)\\b",
+      "description": "Negation - not on dialysis",
+      "example": "No longer requires dialysis"
+    },
+    {
+      "pattern": "\\b(?:dialysis|HD|RRT)\\s+(?:not\\s+)?(?:deferred|declined|refused|avoided)\\b",
+      "description": "Dialysis not initiated/declined",
+      "example": "Dialysis deferred at this time"
+    }
+  ],
+  "clinical_significance": [
+    "Any form of RRT automatically classifies as AKI Stage 3 (per KDIGO criteria)",
+    "ESRD patients are typically on maintenance hemodialysis 3x/week",
+    "CRRT is used in ICU for hemodynamically unstable patients",
+    "Dialysis catheter placement indicates imminent or current dialysis need",
+    "AV fistula/graft indicates long-term/chronic dialysis plan"
+  ],
+  "notes": [
+    "Distinguish acute RRT (for AKI) vs chronic dialysis (for ESRD)",
+    "Look for temporal context: started, initiated, ongoing, discontinued",
+    "Access type gives clues: catheter (acute), fistula/graft (chronic)",
+    "Watch for negation: 'not on dialysis', 'dialysis deferred'"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "calculate_days_between_measurements",
+  "description": "Calculate the number of days between two measurement dates. Useful for tracking serial measurements and temporal changes in lab values.",
+  "parameters": {
+    "first_date": {
+      "type": "string",
+      "description": "First measurement date (format: YYYY-MM-DD, MM/DD/YYYY, or natural language)",
+      "required": true
+    },
+    "second_date": {
+      "type": "string",
+      "description": "Second measurement date (format: YYYY-MM-DD, MM/DD/YYYY, or natural language)",
+      "required": true
+    }
+  },
+  "returns": {
+    "days_between": "integer number of days",
+    "weeks_between": "float number of weeks",
+    "interpretation": "string describing the time interval"
+  }
+}

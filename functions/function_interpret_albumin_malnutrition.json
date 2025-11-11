@@ -1,0 +1,22 @@
+{
+  "name": "interpret_albumin_malnutrition",
+  "description": "Interpret serum albumin levels in the context of malnutrition assessment. Returns severity classification and clinical interpretation.",
+  "parameters": {
+    "albumin": {
+      "type": "number",
+      "description": "Serum albumin in g/dL",
+      "required": true
+    },
+    "age_years": {
+      "type": "number",
+      "description": "Patient age in years (for age-specific interpretation)",
+      "required": false
+    }
+  },
+  "returns": {
+    "albumin_status": "string (Normal/Mild/Moderate/Severe depletion)",
+    "malnutrition_indicator": "boolean (true if suggests malnutrition)",
+    "interpretation": "string describing clinical significance",
+    "caveats": "string noting limitations (inflammation, liver disease, etc.)"
+  }
+}

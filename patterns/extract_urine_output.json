@@ -1,0 +1,82 @@
+{
+  "name": "extract_urine_output",
+  "description": "Extract urine output measurements from clinical text. Essential for AKI staging per KDIGO criteria (oliguria/anuria detection).",
+  "patterns": [
+    {
+      "pattern": "\\b(?:urine\\s+output|UOP|U/O)\\s*[:=]?\\s*(\\d+(?:\\.\\d+)?)\\s*(mL|cc|ml)\\b",
+      "description": "Absolute urine output volume",
+      "example_input": "Urine output: 450 mL",
+      "example_output": "450 mL"
+    },
+    {
+      "pattern": "\\b(?:urine\\s+output|UOP)\\s*[:=]?\\s*(\\d+(?:\\.\\d+)?)\\s*(?:mL|cc|ml)\\s*/\\s*(\\d+)\\s*(?:hr|hours?)\\b",
+      "description": "Urine output per hour",
+      "example_input": "UOP: 30 mL/hr",
+      "example_output": "30 mL/hr"
+    },
+    {
+      "pattern": "\\b(\\d+(?:\\.\\d+)?)\\s*(?:mL|cc|ml)\\s*/\\s*kg\\s*/\\s*(?:hr|hour)\\b",
+      "description": "Urine output per kg per hour (weight-based)",
+      "example_input": "0.3 mL/kg/hr",
+      "example_output": "0.3 mL/kg/hr"
+    },
+    {
+      "pattern": "\\b(?:total\\s+)?(?:urine\\s+)?output\\s*[:=]?\\s*(\\d+)\\s*(?:mL|cc|ml)?\\s*/\\s*(\\d+)\\s*(?:hr|hours?)\\b",
+      "description": "Total output over time period",
+      "example_input": "Total output: 200 mL/24 hr",
+      "example_output": "200 mL/24 hr"
+    },
+    {
+      "pattern": "\\b(\\d+)\\s*(?:mL|cc|ml)\\s+of\\s+urine\\b",
+      "description": "Volume of urine",
+      "example_input": "voided 100 mL of urine",
+      "example_output": "100 mL"
+    }
+  ],
+  "oliguria_anuria_patterns": [
+    {
+      "pattern": "\\b(oliguria|oliguric)\\b",
+      "description": "Oliguria mention (<0.5 mL/kg/hr)",
+      "example": "Patient became oliguric"
+    },
+    {
+      "pattern": "\\b(anuria|anuric)\\b",
+      "description": "Anuria mention (no urine output)",
+      "example": "Patient is anuric"
+    },
+    {
+      "pattern": "\\b(minimal\\s+urine\\s+output|scant\\s+urine)\\b",
+      "description": "Descriptive oliguria",
+      "example": "minimal urine output noted"
+    },
+    {
+      "pattern": "\\b(no\\s+urine\\s+output|zero\\s+urine)\\b",
+      "description": "Descriptive anuria",
+      "example": "no urine output for 12 hours"
+    }
+  ],
+  "kdigo_aki_criteria": {
+    "stage_1": "<0.5 mL/kg/hr for 6-12 hours",
+    "stage_2": "<0.5 mL/kg/hr for ≥12 hours",
+    "stage_3_oliguria": "<0.3 mL/kg/hr for ≥24 hours",
+    "stage_3_anuria": "Anuria for ≥12 hours"
+  },
+  "normal_ranges": {
+    "adults": "0.5-1.0 mL/kg/hr (or ~30-60 mL/hr for 70kg adult)",
+    "minimum_adequate": "≥0.5 mL/kg/hr",
+    "oliguria_threshold": "<0.5 mL/kg/hr",
+    "severe_oliguria": "<0.3 mL/kg/hr"
+  },
+  "calculation_helpers": [
+    "To calculate mL/kg/hr: Divide total urine (mL) by weight (kg) by hours",
+    "Example: 200 mL in 8 hours for 80 kg patient = 200/(80*8) = 0.31 mL/kg/hr",
+    "24-hour urine output for 70kg adult should be ~1000-2000 mL"
+  ],
+  "notes": [
+    "Urine output is a key component of KDIGO AKI staging",
+    "Always try to normalize to mL/kg/hr for accurate assessment",
+    "Watch for Foley catheter presence - more accurate measurement",
+    "Oliguria alone does not mean AKI - correlation with creatinine needed",
+    "Diuretics affect interpretation - post-diuretic UOP may be misleading"
+  ]
+}
