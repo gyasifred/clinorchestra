@@ -31,7 +31,7 @@ class ConfigurationPersistenceManager:
         self.rag_config_path = self.persistence_dir / "rag_config.json"
         self.processing_config_path = self.persistence_dir / "processing_config.json"
         self.agentic_config_path = self.persistence_dir / "agentic_config.json"
-        self.optimization_config_path = self.persistence_dir / "optimization_config.json"  # v1.0.1
+        self.optimization_config_path = self.persistence_dir / "optimization_config.json"  # v1.0.0
         self.session_state_path = self.persistence_dir / "session_state.json"
         self.functions_backup_path = self.persistence_dir / "functions_backup.json"
 
@@ -291,7 +291,7 @@ class ConfigurationPersistenceManager:
             return None
 
     def save_optimization_config(self, optimization_config) -> bool:
-        """Save optimization configuration to disk (v1.0.1)"""
+        """Save optimization configuration to disk (v1.0.0)"""
         try:
             with self.lock:
                 config_dict = {
@@ -317,7 +317,7 @@ class ConfigurationPersistenceManager:
             return False
 
     def load_optimization_config(self) -> Optional[Dict[str, Any]]:
-        """Load optimization configuration from disk (v1.0.1)"""
+        """Load optimization configuration from disk (v1.0.0)"""
         try:
             return self._load_config_file(self.optimization_config_path)
         except Exception as e:
@@ -686,7 +686,7 @@ class ConfigurationPersistenceManager:
                 except Exception as e:
                     logger.warning(f"Failed to restore agentic config: {e}")
 
-            # Load optimization config (v1.0.1)
+            # Load optimization config (v1.0.0)
             optimization_config_data = self.load_optimization_config()
             if optimization_config_data:
                 try:

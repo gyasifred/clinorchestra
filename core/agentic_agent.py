@@ -136,7 +136,7 @@ class AgenticAgent:
         self.context: Optional[AgenticContext] = None
         self.json_parser = JSONParser()
 
-        logger.info("🎯 AdaptiveAgent v1.0.0 initialized - ADAPTIVE Mode (evolving tasks with ASYNC)")
+        logger.info(" AdaptiveAgent v1.0.0 initialized - ADAPTIVE Mode (evolving tasks with ASYNC)")
 
     def extract(self, clinical_text: str, label_value: Optional[Any] = None) -> Dict[str, Any]:
         """
@@ -196,25 +196,40 @@ class AgenticAgent:
                 ConversationMessage(role='user', content=initial_prompt)
             )
 
+            # Add iteration planning message to help LLM plan efficiently
+            planning_message = f"""You have a maximum of {max_iterations} iterations to complete this extraction task. Plan your tool usage efficiently to complete within this limit. Each iteration allows you to call tools or output final JSON."""
+            self.context.conversation_history.append(
+                ConversationMessage(role='user', content=planning_message)
+            )
+            logger.info(f"ADAPTIVE MODE: Max iterations={max_iterations}, Max tool calls={max_tool_calls}")
+
             # Start agentic loop
             self.context.state = AgenticState.ANALYZING
             extraction_complete = False
 
             while not extraction_complete and self.context.iteration < self.context.max_iterations:
                 self.context.iteration += 1
-                logger.info(f"=" * 60)
+                logger.info("=" * 60)
                 logger.info(f"ITERATION {self.context.iteration}/{self.context.max_iterations}")
                 logger.info(f"State: {self.context.state.value}")
                 logger.info(f"Conversation history size: {len(self.context.conversation_history)} messages")
                 logger.info(f"Total tool calls so far: {self.context.total_tool_calls}")
                 logger.info(f"Tool results collected: {len(self.context.tool_results)}")
-                logger.info(f"=" * 60)
+                logger.info("=" * 60)
+
+                # Warn LLM if this is the last iteration
+                if self.context.iteration == self.context.max_iterations:
+                    warning_message = f"""WARNING: This is iteration {self.context.iteration} of {self.context.max_iterations} (FINAL ITERATION). You MUST output complete valid JSON now. Do not call more tools unless absolutely necessary. Focus on completing the extraction with available information."""
+                    self.context.conversation_history.append(
+                        ConversationMessage(role='user', content=warning_message)
+                    )
+                    logger.warning("FINAL ITERATION: Sent completion warning to LLM")
 
                 # LLM generates response (may include tool calls or final JSON)
-                logger.debug(f"🤖 Calling LLM for iteration {self.context.iteration}...")
+                logger.debug(f" Calling LLM for iteration {self.context.iteration}...")
                 with TimingContext('adaptive_llm_call'):
                     response = self._generate_with_tools()
-                logger.debug(f"📥 LLM response received")
+                logger.debug(f" LLM response received")
 
                 if response is None:
                     logger.error("LLM returned no response")
@@ -226,7 +241,7 @@ class AgenticAgent:
                 if has_tool_calls:
                     # PAUSE - Execute tools
                     logger.info(f"LLM requested {len(self.context.tool_calls_this_iteration)} tools")
-                    logger.debug(f"📋 Tool calls requested:")
+                    logger.debug(f" Tool calls requested:")
                     for i, tc in enumerate(self.context.tool_calls_this_iteration):
                         logger.debug(f"  {i+1}. {tc.name}({json.dumps(tc.parameters)})")
 
@@ -235,12 +250,12 @@ class AgenticAgent:
                     # Track tool calls for stall detection and duplicate detection
                     tool_signature = self._get_tool_calls_signature(self.context.tool_calls_this_iteration)
                     self.context.tool_call_history.append(tool_signature)
-                    logger.debug(f"🔖 Tool signature: {tool_signature}")
+                    logger.debug(f" Tool signature: {tool_signature}")
 
                     # Detect duplicate function calls with same parameters
                     duplicates = self._detect_duplicate_function_calls(self.context.tool_calls_this_iteration)
                     if duplicates:
-                        logger.warning(f"⚠️ DUPLICATE CALCULATIONS DETECTED: {len(duplicates)} functions called with same parameters as before")
+                        logger.warning(f" DUPLICATE CALCULATIONS DETECTED: {len(duplicates)} functions called with same parameters as before")
                         for dup in duplicates:
                             logger.warning(f"   • {dup['function']}({dup['params']}) - already calculated in previous iteration")
 
@@ -249,7 +264,7 @@ class AgenticAgent:
                         last_three = self.context.tool_call_history[-3:]
                         if last_three[0] == last_three[1] == last_three[2]:
                             self.context.stall_counter += 1
-                            logger.warning(f"⚠️ STALL DETECTED: Same tools called 3 times in a row (stall count: {self.context.stall_counter})")
+                            logger.warning(f" STALL DETECTED: Same tools called 3 times in a row (stall count: {self.context.stall_counter})")
 
                     with TimingContext('adaptive_tool_execution'):
                         tool_results = self._execute_tools(self.context.tool_calls_this_iteration)
@@ -275,13 +290,13 @@ class AgenticAgent:
 
                     # If stalled too many times, force completion aggressively
                     if self.context.stall_counter >= 2:
-                        logger.warning("🔴 FORCING COMPLETION: Agent stalled - same tools called repeatedly")
-                        logger.warning("🔴 Next response MUST be valid JSON - no tool calls allowed")
+                        logger.warning(" FORCING COMPLETION: Agent stalled - same tools called repeatedly")
+                        logger.warning(" Next response MUST be valid JSON - no tool calls allowed")
 
                         # Try to extract JSON from current responses first
                         extracted = self._extract_json_from_conversation()
                         if extracted:
-                            logger.info("✅ Extracted JSON during force - completing immediately")
+                            logger.info(" Extracted JSON during force - completing immediately")
                             self.context.final_output = extracted
                             self.context.state = AgenticState.COMPLETED
                             extraction_complete = True
@@ -310,7 +325,7 @@ If you call tools again, the task will FAIL. Output JSON NOW."""
 
                 elif has_json_output:
                     # Extraction complete
-                    logger.info("✅ LLM provided final JSON output - extraction complete")
+                    logger.info(" LLM provided final JSON output - extraction complete")
                     self.context.state = AgenticState.COMPLETED
                     extraction_complete = True
 
@@ -326,7 +341,7 @@ If you call tools again, the task will FAIL. Output JSON NOW."""
                         and not self.context.switched_to_minimal
                         and self.app_state.prompt_config.minimal_prompt
                         and self.app_state.prompt_config.use_minimal):
-                        logger.warning(f"🔴 SWITCHING TO MINIMAL PROMPT: {self.context.consecutive_json_failures} consecutive JSON failures")
+                        logger.warning(f" SWITCHING TO MINIMAL PROMPT: {self.context.consecutive_json_failures} consecutive JSON failures")
                         self.context.switched_to_minimal = True
 
                         # Rebuild prompt with minimal version
@@ -350,16 +365,16 @@ LABEL CONTEXT:
 OUTPUT VALID JSON matching the schema. Be more concise and focus on directly extractable information."""
                             )
                         )
-                        logger.info("✅ Minimal prompt injected - continuing with simpler task definition")
+                        logger.info(" Minimal prompt injected - continuing with simpler task definition")
 
                     # If too many iterations with no progress OR near max iterations, force completion
                     elif self.context.consecutive_no_progress >= 2 or remaining_iters <= 1:
-                        logger.warning(f"🔴 FORCING COMPLETION: No progress detected (consecutive={self.context.consecutive_no_progress}, remaining={remaining_iters})")
+                        logger.warning(f" FORCING COMPLETION: No progress detected (consecutive={self.context.consecutive_no_progress}, remaining={remaining_iters})")
 
                         # Try to extract any existing JSON
                         extracted = self._extract_json_from_conversation()
                         if extracted:
-                            logger.info("✅ Extracted JSON during no-progress force - completing")
+                            logger.info(" Extracted JSON during no-progress force - completing")
                             self.context.final_output = extracted
                             self.context.state = AgenticState.COMPLETED
                             extraction_complete = True
@@ -391,18 +406,18 @@ Example format:
                         )
 
             if self.context.iteration >= self.context.max_iterations:
-                logger.warning(f"⚠️ Max iterations ({self.context.max_iterations}) reached")
+                logger.warning(f" Max iterations ({self.context.max_iterations}) reached")
 
                 # Try to extract any JSON from the last few responses
-                logger.info("🔍 Attempting to extract JSON from conversation history...")
+                logger.info(" Attempting to extract JSON from conversation history...")
                 extracted_json = self._extract_json_from_conversation()
 
                 if extracted_json:
-                    logger.info("✅ Successfully extracted JSON from conversation")
+                    logger.info(" Successfully extracted JSON from conversation")
                     self.context.final_output = extracted_json
                     self.context.state = AgenticState.COMPLETED
                 else:
-                    logger.warning("❌ No valid JSON found in conversation - marking as failed")
+                    logger.warning(" No valid JSON found in conversation - marking as failed")
                     self.context.state = AgenticState.FAILED
                     self.context.error = "Max iterations reached without valid JSON output"
 
@@ -410,19 +425,19 @@ Example format:
             logger.info("=" * 80)
             if self.context.state == AgenticState.COMPLETED:
                 if self.context.final_output:
-                    logger.info("🎉 EXTRACTION SUCCESS - Agent completed with valid JSON output")
+                    logger.info(" EXTRACTION SUCCESS - Agent completed with valid JSON output")
                     logger.info(f"   Iterations: {self.context.iteration}/{self.context.max_iterations}")
                     logger.info(f"   Tool calls: {self.context.total_tool_calls}")
                     logger.info(f"   Final JSON fields: {list(self.context.final_output.keys()) if isinstance(self.context.final_output, dict) else 'N/A'}")
                 else:
-                    logger.warning("⚠️ EXTRACTION INCOMPLETE - Agent completed but no JSON output generated")
+                    logger.warning(" EXTRACTION INCOMPLETE - Agent completed but no JSON output generated")
                     logger.warning(f"   Iterations: {self.context.iteration}/{self.context.max_iterations}")
             elif self.context.state == AgenticState.FAILED:
-                logger.error("❌ EXTRACTION FAILED - Agent did not complete successfully")
+                logger.error(" EXTRACTION FAILED - Agent did not complete successfully")
                 logger.error(f"   Reason: {self.context.error}")
                 logger.error(f"   Iterations: {self.context.iteration}/{self.context.max_iterations}")
             else:
-                logger.info(f"ℹ️ EXTRACTION ENDED - Agent state: {self.context.state.value}")
+                logger.info(f" EXTRACTION ENDED - Agent state: {self.context.state.value}")
             logger.info("=" * 80)
 
             return self._build_extraction_result()
@@ -572,7 +587,7 @@ Example format:
             if msg.role == 'assistant' and msg.content:
                 parsed = self._try_parse_json(msg.content)
                 if parsed:
-                    logger.info(f"📝 Found valid JSON in assistant message: {str(parsed)[:100]}...")
+                    logger.info(f" Found valid JSON in assistant message: {str(parsed)[:100]}...")
                     return parsed
 
         # No valid JSON found
@@ -655,7 +670,7 @@ Example format:
         except RuntimeError as e:
             # Event loop already running (e.g., Jupyter notebook)
             if "cannot be called from a running event loop" in str(e):
-                logger.warning("⚠️ Event loop already running - falling back to sequential execution")
+                logger.warning(" Event loop already running - falling back to sequential execution")
                 logger.warning("   (Async optimization disabled in this context)")
                 # Fall back to sequential synchronous execution
                 results = []
@@ -696,7 +711,7 @@ Example format:
         duplicates_removed = 0
 
         # DIAGNOSTIC: Log all tool calls being checked
-        logger.debug(f"🔍 Deduplication check for {len(tool_calls)} tool calls:")
+        logger.debug(f" Deduplication check for {len(tool_calls)} tool calls:")
         for i, tc in enumerate(tool_calls):
             params_json = json.dumps(tc.parameters, sort_keys=True)
             logger.debug(f"  {i+1}. {tc.name} with params: {params_json}")
@@ -707,23 +722,23 @@ Example format:
             params_json = json.dumps(tool_call.parameters, sort_keys=True)
             key = f"{tool_call.name}||{params_json}"
 
-            logger.debug(f"🔑 Dedup key: {key}")
+            logger.debug(f" Dedup key: {key}")
 
             if key not in seen:
                 seen[key] = tool_call
                 unique_calls.append(tool_call)
-                logger.debug(f"  ✅ UNIQUE - keeping this call")
+                logger.debug(f"   UNIQUE - keeping this call")
             else:
                 duplicates_removed += 1
                 logger.warning(
-                    f"⚠️ DUPLICATE TOOL CALL detected and skipped: "
+                    f" DUPLICATE TOOL CALL detected and skipped: "
                     f"{tool_call.name} with parameters {params_json}"
                 )
-                logger.debug(f"  ❌ DUPLICATE - already seen this exact call")
+                logger.debug(f"   DUPLICATE - already seen this exact call")
 
         if duplicates_removed > 0:
             logger.warning(
-                f"⚠️ Removed {duplicates_removed} duplicate tool calls "
+                f" Removed {duplicates_removed} duplicate tool calls "
                 f"(kept {len(unique_calls)} unique calls from {len(tool_calls)} total)"
             )
 
@@ -743,7 +758,7 @@ Example format:
         tool_calls = self._deduplicate_tool_calls(tool_calls)
 
         if len(tool_calls) == 0:
-            logger.warning("⚠️ No tool calls to execute after deduplication")
+            logger.warning(" No tool calls to execute after deduplication")
             return []
 
         # Create tasks for all tools
@@ -776,7 +791,7 @@ Example format:
         results = await asyncio.gather(*tasks)
         elapsed = time.time() - start_time
 
-        logger.info(f"✅ Executed {len(tool_calls)} tools in {elapsed:.2f}s (parallel)")
+        logger.info(f" Executed {len(tool_calls)} tools in {elapsed:.2f}s (parallel)")
 
         return results
 
@@ -791,7 +806,7 @@ Example format:
             # Check if RAG engine is available
             if not self.rag_engine:
                 error_msg = (
-                    "❌ RAG Engine Not Initialized\n\n"
+                    " RAG Engine Not Initialized\n\n"
                     "The agent requested RAG (document retrieval), but RAG is not configured.\n\n"
                     "To enable RAG:\n"
                     "1. Go to the 'RAG' tab\n"
@@ -800,8 +815,8 @@ Example format:
                     "4. Ensure 'Enable RAG' is checked in RAG configuration\n\n"
                     "Without RAG, the agent will rely only on Functions and Extras for knowledge."
                 )
-                logger.warning(f"⚠️ RAG engine not available - agent requested RAG but it's not initialized")
-                logger.info("📖 To fix: Upload documents in RAG tab → Build Index → Enable RAG")
+                logger.warning(f" RAG engine not available - agent requested RAG but it's not initialized")
+                logger.info(" To fix: Upload documents in RAG tab → Build Index → Enable RAG")
                 return ToolResult(
                     tool_call_id=tool_call.id,
                     type='rag',
@@ -813,7 +828,7 @@ Example format:
             query = tool_call.parameters.get('query', '')
 
             if not query or len(query) < 5:
-                logger.warning(f"❌ RAG query rejected: Query too short or empty (length={len(query)})")
+                logger.warning(f" RAG query rejected: Query too short or empty (length={len(query)})")
                 return ToolResult(
                     tool_call_id=tool_call.id,
                     type='rag',
@@ -822,15 +837,15 @@ Example format:
                     message='Query too short or empty'
                 )
 
-            logger.info(f"🔍 RAG query: '{query}'")
+            logger.info(f" RAG query: '{query}'")
 
             top_k = self.app_state.rag_config.rag_top_k
             results = self.rag_engine.query(query_text=query, k=top_k)
 
             if len(results) > 0:
-                logger.info(f"✅ RAG retrieved {len(results)} documents (top_k={top_k})")
+                logger.info(f" RAG retrieved {len(results)} documents (top_k={top_k})")
             else:
-                logger.warning(f"⚠️ RAG found no results for query: '{query}'")
+                logger.warning(f" RAG found no results for query: '{query}'")
 
             return ToolResult(
                 tool_call_id=tool_call.id,
@@ -841,7 +856,7 @@ Example format:
             )
 
         except Exception as e:
-            logger.error(f"❌ RAG execution failed: {e}", exc_info=True)
+            logger.error(f" RAG execution failed: {e}", exc_info=True)
             return ToolResult(
                 tool_call_id=tool_call.id,
                 type='rag',
@@ -860,7 +875,7 @@ Example format:
         try:
             # Check if function registry is available
             if not self.function_registry:
-                logger.warning(f"⚠️ Function registry not available")
+                logger.warning(f" Function registry not available")
                 return ToolResult(
                     tool_call_id=tool_call.id,
                     type='function',
@@ -876,16 +891,16 @@ Example format:
 
             parameters = tool_call.parameters
 
-            logger.info(f"⚙️ Calling function: {func_name}({', '.join(f'{k}={v}' for k, v in parameters.items())})")
+            logger.info(f" Calling function: {func_name}({', '.join(f'{k}={v}' for k, v in parameters.items())})")
 
             success, result, message = self.function_registry.execute_function(
                 func_name, **parameters
             )
 
             if success:
-                logger.info(f"✅ Function {func_name} executed successfully: {result}")
+                logger.info(f" Function {func_name} executed successfully: {result}")
             else:
-                logger.warning(f"❌ Function {func_name} failed: {message}")
+                logger.warning(f" Function {func_name} failed: {message}")
 
             return ToolResult(
                 tool_call_id=tool_call.id,
@@ -896,7 +911,7 @@ Example format:
             )
 
         except Exception as e:
-            logger.error(f"❌ Function execution failed with exception: {e}", exc_info=True)
+            logger.error(f" Function execution failed with exception: {e}", exc_info=True)
             return ToolResult(
                 tool_call_id=tool_call.id,
                 type='function',
@@ -910,7 +925,7 @@ Example format:
         try:
             # Check if extras manager is available
             if not self.extras_manager:
-                logger.warning(f"⚠️ Extras manager not available")
+                logger.warning(f" Extras manager not available")
                 return ToolResult(
                     tool_call_id=tool_call.id,
                     type='extras',
@@ -921,19 +936,19 @@ Example format:
 
             keywords = tool_call.parameters.get('keywords', [])
 
-            logger.info(f"💡 Querying extras with keywords: {keywords}")
+            logger.info(f" Querying extras with keywords: {keywords}")
 
             matched_extras = self.extras_manager.match_extras_by_keywords(keywords)
 
             if len(matched_extras) > 0:
-                logger.info(f"✅ Matched {len(matched_extras)} extras hints/patterns")
+                logger.info(f" Matched {len(matched_extras)} extras hints/patterns")
                 # Log first few matched extras for debugging
                 for i, extra in enumerate(matched_extras[:3]):
                     extra_id = extra.get('id', 'N/A')
                     extra_type = extra.get('type', 'unknown')
                     logger.debug(f"   • Extra [{i+1}]: {extra_id} ({extra_type})")
             else:
-                logger.warning(f"⚠️ No extras matched for keywords: {keywords}")
+                logger.warning(f" No extras matched for keywords: {keywords}")
 
             return ToolResult(
                 tool_call_id=tool_call.id,
@@ -944,7 +959,7 @@ Example format:
             )
 
         except Exception as e:
-            logger.error(f"❌ Extras execution failed: {e}", exc_info=True)
+            logger.error(f" Extras execution failed: {e}", exc_info=True)
             return ToolResult(
                 tool_call_id=tool_call.id,
                 type='extras',
@@ -1028,15 +1043,15 @@ Example format:
 
         # Track if minimal prompt is being used
         if self.app_state.is_using_minimal_prompt:
-            logger.warning(f"⚠️  Using MINIMAL prompt (iteration={current_iteration} >= max_retries={self.app_state.processing_config.max_retries})")
+            logger.warning(f"  Using MINIMAL prompt (iteration={current_iteration} >= max_retries={self.app_state.processing_config.max_retries})")
         else:
-            logger.info("✓ Using MAIN prompt as primary task definition")
+            logger.info(" Using MAIN prompt as primary task definition")
 
         # Fallback to base_prompt if neither main nor minimal is set
         if not user_task_prompt or not user_task_prompt.strip():
             user_task_prompt = self.app_state.prompt_config.base_prompt or ""
             if not user_task_prompt:
-                logger.warning("❌ No user task-specific prompt found - using generic agentic prompt")
+                logger.warning(" No user task-specific prompt found - using generic agentic prompt")
 
         prompt = get_agentic_extraction_prompt(
             clinical_text=self.context.clinical_text,
@@ -1059,7 +1074,7 @@ You have access to tools:
 
 **UNIVERSAL ITERATIVE WORKFLOW:**
 
-🔴 CRITICAL: You MUST use an iterative, self-reflective approach! 🔴
+ CRITICAL: You MUST use an iterative, self-reflective approach! 
 
 **PHASE 1 - INITIAL ANALYSIS:**
 1. Read the task prompt → Understand what needs to be extracted
@@ -1075,8 +1090,8 @@ You have access to tools:
 
 **PHASE 3 - ASSESS INFORMATION GAPS:**
 7. Determine: Do I have ALL information needed to complete the task?
-   - ✅ YES: Proceed to Phase 4
-   - ❌ NO: Go to Phase 3b
+   -  YES: Proceed to Phase 4
+   -  NO: Go to Phase 3b
 
 **PHASE 3b - FILL GAPS:**
 8. Identify what other information is needed
@@ -1086,13 +1101,13 @@ You have access to tools:
 **PHASE 4 - COMPLETION:**
 11. When you have all necessary information → Output final JSON extraction using the provided schema
 
-**🔴 CRITICAL REQUIREMENTS - MUST FOLLOW:**
+** CRITICAL REQUIREMENTS - MUST FOLLOW:**
 
 **1. USE ALL TOOL RESULTS IN YOUR FINAL OUTPUT:**
    - EVERY function result MUST appear in your JSON output
    - EVERY RAG document MUST inform your reasoning and content
    - EVERY extras hint MUST be applied to your extraction
-   - ❌ DO NOT call tools "for fun" - use every result!
+   -  DO NOT call tools "for fun" - use every result!
 
 **2. NO DUPLICATE CALCULATIONS:**
    - TRACK what you've already calculated
@@ -1106,14 +1121,14 @@ You have access to tools:
    - When functions return values → INCLUDE the exact values in your JSON
 
 **Key Principles:**
-- ❌ DO NOT output final JSON immediately without gathering information
-- ❌ DO NOT recalculate values you already have
-- ❌ DO NOT ignore tool results - USE EVERY ONE
-- ✅ Call tools iteratively across multiple rounds
-- ✅ Use tool results to inform next tool calls
-- ✅ Remember and reuse calculated values
-- ✅ Cite RAG sources and apply extras guidance
-- ✅ Output ONLY valid JSON - no explanations or markdown
+-  DO NOT output final JSON immediately without gathering information
+-  DO NOT recalculate values you already have
+-  DO NOT ignore tool results - USE EVERY ONE
+-  Call tools iteratively across multiple rounds
+-  Use tool results to inform next tool calls
+-  Remember and reuse calculated values
+-  Cite RAG sources and apply extras guidance
+-  Output ONLY valid JSON - no explanations or markdown
 
 **CRITICAL: Tool Call Format**
 - Tool calls MUST start with "TOOL_CALL:" prefix
@@ -1205,7 +1220,7 @@ You have access to tools:
                 if '{' in content and '}' in content:
                     # Looks like JSON but was rejected - track failure
                     self.context.consecutive_json_failures += 1
-                    logger.warning(f"⚠️ LLM output contains JSON but validation failed (consecutive failures: {self.context.consecutive_json_failures})")
+                    logger.warning(f" LLM output contains JSON but validation failed (consecutive failures: {self.context.consecutive_json_failures})")
                     # The loop will continue and prompt the LLM again
 
                 return False, False
@@ -1230,7 +1245,7 @@ You have access to tools:
         # CRITICAL VALIDATION: Check if this is actually a tool call JSON (wrong format)
         # Tool calls have format: {"tool": "...", "parameters": {...}}
         if isinstance(parsed, dict) and 'tool' in parsed and 'parameters' in parsed:
-            logger.warning("⚠️ Detected tool call JSON without TOOL_CALL: prefix - rejecting as final output")
+            logger.warning(" Detected tool call JSON without TOOL_CALL: prefix - rejecting as final output")
             logger.warning(f"LLM must use format: TOOL_CALL: {{\"tool\": \"...\", \"parameters\": {{...}}}}")
             return None
 
@@ -1247,7 +1262,7 @@ You have access to tools:
             if required_fields:
                 has_required = any(field in parsed for field in required_fields)
                 if not has_required:
-                    logger.warning(f"⚠️ Parsed JSON missing all required fields: {required_fields}")
+                    logger.warning(f" Parsed JSON missing all required fields: {required_fields}")
                     logger.warning(f"Parsed JSON keys: {list(parsed.keys())}")
                     return None
 
@@ -1327,7 +1342,7 @@ You have access to tools:
             # This is a compromise: we MUST keep tool results, but need SOME thinking context
             other_message_limit = 3
             logger.debug(
-                f"⚠️ Window size exceeded by reserved messages: "
+                f" Window size exceeded by reserved messages: "
                 f"{reserved_count} reserved vs {self.context.conversation_window_size} limit. "
                 f"Keeping {other_message_limit} recent thinking messages anyway."
             )
@@ -1353,10 +1368,10 @@ You have access to tools:
         # Log windowing for performance tracking
         if len(messages) > len(windowed):
             dropped_count = len(messages) - len(windowed)
-            logger.info(f"🔄 SMART windowing: {len(messages)} → {len(windowed)} messages")
-            logger.info(f"   ✅ Preserved: {len(tool_result_messages)} tool results (LLM knows what was completed)")
-            logger.info(f"   ✅ Preserved: {len(assistant_with_tool_calls)} tool call requests")
-            logger.info(f"   🗑️ Dropped: {dropped_count} old thinking/prompt messages")
+            logger.info(f" SMART windowing: {len(messages)} → {len(windowed)} messages")
+            logger.info(f"    Preserved: {len(tool_result_messages)} tool results (LLM knows what was completed)")
+            logger.info(f"    Preserved: {len(assistant_with_tool_calls)} tool call requests")
+            logger.info(f"    Dropped: {dropped_count} old thinking/prompt messages")
 
         return windowed
 
@@ -1435,7 +1450,7 @@ You have access to tools:
         lines.append("📚 TOOL GUIDE - Use Tools Before Final Extraction")
         lines.append("=" * 80)
 
-        lines.append("\n🔍 **THREE TOOL CATEGORIES:**\n")
+        lines.append("\n **THREE TOOL CATEGORIES:**\n")
 
         lines.append("1️⃣ **RAG (Retrieval-Augmented Generation)** - query_rag()")
         lines.append("   • Retrieves guidelines, diagnostic criteria, standards, and reference information")
@@ -1475,24 +1490,24 @@ You have access to tools:
 
         # Add clear instructions with examples
         lines.append("=" * 80)
-        lines.append("📝 HOW TO CALL TOOLS:")
+        lines.append(" HOW TO CALL TOOLS:")
         lines.append("=" * 80)
-        lines.append("\n🔴 CRITICAL: Tool calls MUST start with 'TOOL_CALL:' prefix! 🔴\n")
+        lines.append("\n CRITICAL: Tool calls MUST start with 'TOOL_CALL:' prefix! \n")
         lines.append("REQUIRED FORMAT:")
         lines.append('TOOL_CALL: {"tool": "tool_name", "parameters": {...}}')
         lines.append("")
-        lines.append("✅ CORRECT EXAMPLES (note the 'TOOL_CALL:' prefix):")
+        lines.append(" CORRECT EXAMPLES (note the 'TOOL_CALL:' prefix):")
         lines.append('TOOL_CALL: {"tool": "query_rag", "parameters": {"query": "diagnostic criteria for condition", "purpose": "need classification thresholds"}}')
         lines.append('TOOL_CALL: {"tool": "call_calculate_bmi", "parameters": {"weight_kg": 70, "height_m": 1.75}}')
         lines.append('TOOL_CALL: {"tool": "query_extras", "parameters": {"keywords": ["assessment", "criteria", "classification", "guidelines"]}}')
         lines.append("")
-        lines.append("❌ WRONG (missing 'TOOL_CALL:' prefix):")
+        lines.append(" WRONG (missing 'TOOL_CALL:' prefix):")
         lines.append('{"tool": "query_rag", ...}  ← MISSING TOOL_CALL: prefix!')
         lines.append("")
-        lines.append("❌ WRONG (missing closing brace):")
+        lines.append(" WRONG (missing closing brace):")
         lines.append('TOOL_CALL: {"tool": "query_rag", "parameters": {"query": "test"}  ← MISSING }')
         lines.append("")
-        lines.append("💡 ITERATIVE WORKFLOW:")
+        lines.append(" ITERATIVE WORKFLOW:")
         lines.append("ROUND 1 - Initial Analysis:")
         lines.append("  • Analyze task prompt + input text")
         lines.append("  • Identify key metrics/measurements/entities/information")
@@ -1509,7 +1524,7 @@ You have access to tools:
         lines.append("  • If YES: Output final JSON using ALL tool results")
         lines.append("")
         lines.append("=" * 80)
-        lines.append("🔴 CRITICAL REQUIREMENTS:")
+        lines.append(" CRITICAL REQUIREMENTS:")
         lines.append("=" * 80)
         lines.append("")
         lines.append("1. USE EVERY TOOL RESULT:")
@@ -1574,7 +1589,7 @@ You have access to tools:
                     json_str = self._extract_complete_json(match_text)
 
                     if not json_str:
-                        logger.info(f"ℹ️ Skipping incomplete tool call JSON (LLM response may have been truncated): {match_text[:100]}...")
+                        logger.info(f" Skipping incomplete tool call JSON (LLM response may have been truncated): {match_text[:100]}...")
                         logger.info("   → Continuing with other valid tool calls (this is handled gracefully)")
                         continue
 
@@ -1594,17 +1609,17 @@ You have access to tools:
                             'arguments': json.dumps(parameters)
                         }
                     })
-                    logger.info(f"✓ Parsed tool call: {tool_name}")
+                    logger.info(f" Parsed tool call: {tool_name}")
 
                 except json.JSONDecodeError as e:
-                    logger.info(f"ℹ️ Skipping malformed tool call JSON: {match_text[:100]}... | Error: {e}")
+                    logger.info(f" Skipping malformed tool call JSON: {match_text[:100]}... | Error: {e}")
                     logger.info("   → Continuing with other valid tool calls")
                 except Exception as e:
-                    logger.info(f"ℹ️ Skipping unparseable tool call: {match_text[:100]}... | Error: {e}")
+                    logger.info(f" Skipping unparseable tool call: {match_text[:100]}... | Error: {e}")
                     logger.info("   → Continuing with other valid tool calls")
 
             if tool_calls:
-                logger.info(f"✅ Successfully parsed {len(tool_calls)} tool calls from text response")
+                logger.info(f" Successfully parsed {len(tool_calls)} tool calls from text response")
                 return {
                     'content': text,
                     'tool_calls': tool_calls,
@@ -1713,7 +1728,7 @@ You have access to tools:
                         'message': result.message or ''
                     })
 
-        logger.info(f"📊 TOOL USAGE SUMMARY: Extras={extras_count}, RAG={rag_count}, Functions={function_count}")
+        logger.info(f" TOOL USAGE SUMMARY: Extras={extras_count}, RAG={rag_count}, Functions={function_count}")
 
         return {
             'original_clinical_text': self.context.original_text,

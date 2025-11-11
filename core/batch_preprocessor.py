@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Batch Preprocessing Pipeline - Process all rows before extraction
-Version: 1.0.1
+Version: 1.0.0
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 

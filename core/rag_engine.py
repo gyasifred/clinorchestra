@@ -109,7 +109,7 @@ class DocumentLoader:
             with open(cache_path, 'w', encoding='utf-8') as f:
                 f.write(content)
             
-            logger.info(f"✅ Successfully loaded and cached document from {url}: {len(content)} characters")
+            logger.info(f" Successfully loaded and cached document from {url}: {len(content)} characters")
             
             return Document(
                 id=doc_id,
@@ -205,7 +205,7 @@ class DocumentLoader:
             with open(cache_path, 'w', encoding='utf-8') as f:
                 f.write(content)
             
-            logger.info(f"✅ Successfully loaded and cached file {path.name}: {len(content)} characters")
+            logger.info(f" Successfully loaded and cached file {path.name}: {len(content)} characters")
 
             # Use full path for source to be more descriptive
             source_name = str(path) if len(str(path)) < 100 else path.name
@@ -240,7 +240,7 @@ class EmbeddingGenerator:
         try:
             logger.info(f"Loading embedding model: {self.model_name}")
             self.model = SentenceTransformer(self.model_name)
-            logger.info(f"✅ Embedding model loaded: {self.model_name}")
+            logger.info(f" Embedding model loaded: {self.model_name}")
         except Exception as e:
             logger.error(f"Failed to load embedding model: {e}")
             raise
@@ -279,11 +279,11 @@ class EmbeddingGenerator:
         cache_hits = len(texts) - len(uncached_texts)
         if cache_hits > 0:
             hit_rate = (cache_hits / len(texts)) * 100
-            logger.debug(f"📊 Embedding cache: {cache_hits}/{len(texts)} hits ({hit_rate:.1f}% hit rate)")
+            logger.debug(f" Embedding cache: {cache_hits}/{len(texts)} hits ({hit_rate:.1f}% hit rate)")
 
         if uncached_texts:
             try:
-                logger.info(f"🔢 Generating embeddings for {len(uncached_texts)} texts (batch_size={batch_size})...")
+                logger.info(f" Generating embeddings for {len(uncached_texts)} texts (batch_size={batch_size})...")
                 embeddings = self.model.encode(
                     uncached_texts,
                     batch_size=batch_size,
@@ -298,7 +298,7 @@ class EmbeddingGenerator:
                 for i, idx in enumerate(uncached_indices):
                     results[idx] = embeddings[i].tolist()
 
-                logger.info(f"✅ Generated {len(uncached_texts)} embeddings successfully")
+                logger.info(f" Generated {len(uncached_texts)} embeddings successfully")
 
             except Exception as e:
                 logger.error(f"Embedding generation failed: {e}")
@@ -366,7 +366,7 @@ class VectorStore:
             try:
                 import torch
                 if torch.cuda.is_available():
-                    logger.info("🔍 Attempting GPU FAISS initialization...")
+                    logger.info(" Attempting GPU FAISS initialization...")
 
                     # Create test GPU resources first
                     res = faiss.StandardGpuResources()
@@ -389,16 +389,16 @@ class VectorStore:
                     del gpu_test_index
                     self.index = faiss.index_cpu_to_gpu(res, 0, self.index)
                     self.gpu_available = True
-                    logger.info(f"🎮 FAISS GPU mode: ACTIVE (50-100x faster searches!)")
+                    logger.info(f" FAISS GPU mode: ACTIVE (50-100x faster searches!)")
                 else:
-                    logger.info(f"💻 FAISS CPU mode: ACTIVE (CUDA not available)")
+                    logger.info(f" FAISS CPU mode: ACTIVE (CUDA not available)")
             except Exception as e:
-                logger.warning(f"⚠️  GPU FAISS initialization failed, using CPU mode: {type(e).__name__}: {str(e)}")
+                logger.warning(f"  GPU FAISS initialization failed, using CPU mode: {type(e).__name__}: {str(e)}")
                 # Keep the CPU index we already created
                 self.index = faiss.IndexFlatIP(self.dimension)
-                logger.info(f"💻 FAISS CPU mode: ACTIVE (fallback)")
+                logger.info(f" FAISS CPU mode: ACTIVE (fallback)")
         else:
-            logger.info(f"💻 FAISS CPU mode: ACTIVE (GPU disabled by configuration)")
+            logger.info(f" FAISS CPU mode: ACTIVE (GPU disabled by configuration)")
 
         self.chunks = []
         self.documents = {}
@@ -542,7 +542,7 @@ class VectorStore:
             self.index.add(embeddings_array)
             self.chunks.extend(valid_chunks)
             
-            logger.info(f"✅ Added {len(valid_chunks)} chunks to vector store")
+            logger.info(f" Added {len(valid_chunks)} chunks to vector store")
             logger.info(f"Total vectors in index: {self.index.ntotal}")
 
     def search(self, query: str, k: int = 3) -> List[SearchResult]:
@@ -650,9 +650,9 @@ class RAGEngine:
                 if doc:
                     documents.append(doc)
                     self.documents_loaded.append(source)
-                    logger.info(f"✅ Loaded: {source}")
+                    logger.info(f" Loaded: {source}")
                 else:
-                    logger.warning(f"❌ Failed to load: {source}")
+                    logger.warning(f" Failed to load: {source}")
             
             if not documents:
                 logger.error("No documents successfully loaded")
@@ -668,7 +668,7 @@ class RAGEngine:
                 self.initialized = True
                 logger.info("")
                 logger.info("=" * 60)
-                logger.info("✅ RAG ENGINE INITIALIZED SUCCESSFULLY")
+                logger.info(" RAG ENGINE INITIALIZED SUCCESSFULLY")
                 logger.info("=" * 60)
                 logger.info(f"Documents Loaded: {len(documents)}")
                 logger.info(f"Total Chunks: {self.vector_store.index.ntotal}")

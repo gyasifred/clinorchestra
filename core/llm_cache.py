@@ -71,9 +71,9 @@ class LLMResponseCache:
         if self.enabled:
             self.cache_db_path.parent.mkdir(parents=True, exist_ok=True)
             self._initialize_db()
-            logger.info(f"💾 LLM Response Cache initialized: {self.cache_db_path}")
+            logger.info(f" LLM Response Cache initialized: {self.cache_db_path}")
         else:
-            logger.info("💾 LLM Response Cache disabled")
+            logger.info(" LLM Response Cache disabled")
 
     def _initialize_db(self):
         """Initialize SQLite database"""
@@ -206,7 +206,7 @@ class LLMResponseCache:
                     """, (current_time, access_count + 1, cache_key))
                     conn.commit()
 
-                    logger.info(f"✅ Cache HIT for model={model_name}, key={cache_key[:16]}... (accessed {access_count + 1} times)")
+                    logger.info(f" Cache HIT for model={model_name}, key={cache_key[:16]}... (accessed {access_count + 1} times)")
                     return response
 
                 logger.debug(f"Cache MISS for key: {cache_key[:16]}...")
@@ -267,7 +267,7 @@ class LLMResponseCache:
                 ))
                 conn.commit()
 
-                logger.debug(f"💾 Cached response for key: {cache_key[:16]}...")
+                logger.debug(f" Cached response for key: {cache_key[:16]}...")
 
         except sqlite3.Error as e:
             logger.error(f"Error storing in cache: {e}")
@@ -341,7 +341,7 @@ class LLMResponseCache:
                 conn.commit()
 
                 if deleted_count > 0:
-                    logger.info(f"🗑️  Cleared {deleted_count} expired cache entries")
+                    logger.info(f"  Cleared {deleted_count} expired cache entries")
 
         except sqlite3.Error as e:
             logger.error(f"Error clearing expired cache: {e}")
@@ -358,7 +358,7 @@ class LLMResponseCache:
                 deleted_count = cursor.rowcount
                 conn.commit()
 
-                logger.info(f"🗑️  Cleared all cache entries ({deleted_count} entries)")
+                logger.info(f"  Cleared all cache entries ({deleted_count} entries)")
 
         except sqlite3.Error as e:
             logger.error(f"Error clearing cache: {e}")
@@ -371,7 +371,7 @@ class LLMResponseCache:
         try:
             with sqlite3.connect(str(self.cache_db_path)) as conn:
                 conn.execute("VACUUM")
-                logger.info("✅ Cache database optimized (VACUUM completed)")
+                logger.info(" Cache database optimized (VACUUM completed)")
 
         except sqlite3.Error as e:
             logger.error(f"Error vacuuming cache database: {e}")

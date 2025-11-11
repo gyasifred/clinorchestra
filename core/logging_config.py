@@ -6,7 +6,7 @@ Supports multiple log files (main, errors, processing) with automatic rotation.
 
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina
-Version: 1.0.1
+Version: 1.0.0
 """
 
 import logging
