@@ -993,7 +993,10 @@ Example format:
         """
         Build initial agentic prompt using USER'S task-specific prompt as PRIMARY
 
-        ALWAYS tries main_prompt first, falls back to minimal_prompt only if main is missing.
+        CRITICAL FIX: Now respects retry/iteration-based minimal prompt fallback.
+        - First tries main_prompt
+        - Falls back to minimal_prompt if main is missing OR if iteration threshold reached
+        - Uses get_prompt_for_processing() to respect retry logic
         """
         from core.prompt_templates import get_agentic_extraction_prompt
 
@@ -1001,21 +1004,23 @@ Example format:
             self.app_state.prompt_config.json_schema
         )
 
-        # FIXED: Always try MAIN prompt first, fall back to MINIMAL only if MAIN is missing
-        user_task_prompt = None
+        # CRITICAL FIX: Use get_prompt_for_processing() with iteration count as retry_count
+        # This ensures if iterations exceed threshold, system switches to minimal prompt
+        # For adaptive agent, we use iteration count as the "retry" metric
+        current_iteration = self.context.iteration if self.context else 0
+        user_task_prompt = self.app_state.get_prompt_for_processing(retry_count=current_iteration)
 
-        if self.app_state.prompt_config.main_prompt:
-            user_task_prompt = self.app_state.prompt_config.main_prompt
-            logger.info("✓ Using MAIN prompt as primary task definition")
-        elif self.app_state.prompt_config.minimal_prompt:
-            user_task_prompt = self.app_state.prompt_config.minimal_prompt
-            logger.info("⚠ Using MINIMAL prompt as fallback (main_prompt not set)")
-        elif self.app_state.prompt_config.base_prompt:
-            user_task_prompt = self.app_state.prompt_config.base_prompt
-            logger.info("⚠ Using BASE prompt as fallback (main and minimal not set)")
+        # Track if minimal prompt is being used
+        if self.app_state.is_using_minimal_prompt:
+            logger.warning(f"⚠️  Using MINIMAL prompt (iteration={current_iteration} >= max_retries={self.app_state.processing_config.max_retries})")
         else:
-            user_task_prompt = ""
-            logger.warning("❌ No user task-specific prompt found - using generic agentic prompt")
+            logger.info("✓ Using MAIN prompt as primary task definition")
+
+        # Fallback to base_prompt if neither main nor minimal is set
+        if not user_task_prompt or not user_task_prompt.strip():
+            user_task_prompt = self.app_state.prompt_config.base_prompt or ""
+            if not user_task_prompt:
+                logger.warning("❌ No user task-specific prompt found - using generic agentic prompt")
 
         prompt = get_agentic_extraction_prompt(
             clinical_text=self.context.clinical_text,

@@ -77,10 +77,10 @@ def setup_logging(
     log_dir: str = "logs",
     log_level: str = "INFO",
     console_level: str = "INFO",
-    file_level: str = "DEBUG",
+    file_level: str = "INFO",  # Changed from DEBUG to INFO to reduce log volume
     enable_file_logging: bool = True,
-    max_bytes: int = 10 * 1024 * 1024,  # 10MB
-    backup_count: int = 5,
+    max_bytes: int = 5 * 1024 * 1024,  # OPTIMIZED: 5MB (reduced from 10MB for faster rotation)
+    backup_count: int = 3,  # OPTIMIZED: 3 backups (reduced from 5 to save disk space)
     enable_colors: bool = True
 ) -> logging.Logger:
     """
@@ -90,14 +90,19 @@ def setup_logging(
         log_dir: Directory for log files
         log_level: Overall logging level
         console_level: Console output level
-        file_level: File output level
+        file_level: File output level (default INFO - optimized to reduce log volume)
         enable_file_logging: Whether to log to files
-        max_bytes: Maximum log file size before rotation
-        backup_count: Number of backup files to keep
+        max_bytes: Maximum log file size before rotation (5MB - optimized for performance)
+        backup_count: Number of backup files to keep (3 - optimized for disk space)
         enable_colors: Whether to use colored console output
 
     Returns:
         Configured root logger
+
+    Performance Optimizations:
+        - Reduced max_bytes from 10MB to 5MB for faster rotation and less I/O blocking
+        - Reduced backup_count from 5 to 3 to save disk space (max 60MB per log type)
+        - Changed default file_level from DEBUG to INFO to reduce log volume during batch processing
     """
     # Create log directory
     log_path = Path(log_dir)
