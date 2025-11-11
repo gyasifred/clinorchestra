@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
 Application State Manager for ClinOrchestra
-Version: 1.0.0
+
+Manages application state for clinical extraction system including model configuration,
+prompt settings, data configuration, and optimization settings.
+
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
-
-Manages application state for universal clinical extraction system.
-  - Adding __post_init__ to RAGConfig for guaranteed initialization
-  - Maintaining full RAG functionality with zero code conflicts
+Version: 1.0.1
 """
 
 import logging

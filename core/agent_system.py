@@ -1,27 +1,19 @@
 #!/usr/bin/env python3
 """
-Agent System - Universal Agentic Processing for ANY Clinical Task
-Version: 1.0.0
+STRUCTURED Execution Mode - Four-Stage Extraction Pipeline
+
+Systematic 4-stage pipeline for predictable, production-ready clinical data extraction.
+Uses LLM-powered autonomous task analysis, tool orchestration, and structured JSON generation.
+
+Stages:
+1. Task Analysis - Determine required tools and generate queries
+2. Tool Execution - Run functions, RAG, extras in parallel (async)
+3. Extraction - Generate structured JSON output
+4. RAG Refinement - Optional evidence-based field enhancement
+
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
-
-🎯 TRULY UNIVERSAL & AGENTIC SYSTEM:
-   BOTH execution modes (STRUCTURED & ADAPTIVE) are autonomous agents that adapt to ANY
-   clinical extraction task defined by your prompts and JSON schema.
-   Not hardcoded for specific conditions - works for ALL clinical domains!
-
-EXECUTION MODE: STRUCTURED (Predictable Workflows)
-PURPOSE: Use for predictable, systematic extraction with defined stages
-BEHAVIOR: LLM autonomously analyzes task → Plans tools → Executes → Extracts
-
-KEY FEATURES:
-1. Task-agnostic Stage 1 analysis with intelligent tool selection
-2. Dynamic RAG query building based on YOUR task's schema and context
-3. Autonomous function calling from registry based on YOUR needs
-4. Extras system for task-specific hints matching YOUR keywords
-5. **ASYNC TOOL EXECUTION** - 60-75% faster with parallel Stage 2 execution
-6. Adapts to both labeled and unlabeled data scenarios
-7. Universal across ALL clinical domains (not task-specific)
+Version: 1.0.1
 """
 
 import json
