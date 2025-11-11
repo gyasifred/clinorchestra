@@ -52,9 +52,10 @@ class PromptConfig:
     token_count_main: int = 0
     token_count_minimal: int = 0
     token_count_rag: int = 0
-    
+
     base_prompt: str = ""
-    
+    config_hash: str = ""  # Hash of config for cache invalidation
+
     def __post_init__(self):
         """Synchronize base_prompt with main_prompt if not set"""
         if not self.base_prompt and self.main_prompt:
@@ -126,6 +127,7 @@ class OptimizationConfig:
     # LLM optimizations
     llm_cache_enabled: bool = True  # Enable LLM response caching (400x faster cached)
     llm_cache_db_path: str = "cache/llm_responses.db"  # Cache database path
+    llm_cache_bypass: bool = False  # Bypass cache for this session (force fresh LLM calls)
 
     # Performance monitoring
     performance_monitoring_enabled: bool = True  # Track timing metrics
@@ -252,7 +254,9 @@ class AppState:
                 'max_tokens': self.model_config.max_tokens,
                 # v1.0.1 optimization configs
                 'llm_cache_enabled': self.optimization_config.llm_cache_enabled,
-                'llm_cache_db_path': self.optimization_config.llm_cache_db_path
+                'llm_cache_db_path': self.optimization_config.llm_cache_db_path,
+                'llm_cache_bypass': self.optimization_config.llm_cache_bypass,
+                'prompt_config_hash': self.prompt_config.config_hash  # For cache invalidation on config changes
             }
 
             if self.model_config.provider == "azure":
@@ -377,6 +381,32 @@ class AppState:
             self.config_valid = False
             return False
 
+    def _compute_prompt_config_hash(self) -> str:
+        """
+        Compute hash of prompt configuration for cache invalidation.
+
+        This ensures that when users change their extraction prompts or settings,
+        the LLM cache is automatically invalidated and fresh results are generated.
+
+        Includes:
+        - main_prompt (primary extraction instructions)
+        - minimal_prompt (alternative prompt)
+        - use_minimal (which prompt is active)
+        - json_schema (output format specification)
+        - rag_prompt (RAG refinement instructions if used)
+        """
+        components = [
+            f"main:{self.prompt_config.main_prompt}",
+            f"minimal:{self.prompt_config.minimal_prompt or ''}",
+            f"use_minimal:{self.prompt_config.use_minimal}",
+            f"schema:{json.dumps(self.prompt_config.json_schema, sort_keys=True)}",
+            f"rag:{self.prompt_config.rag_prompt or ''}"
+        ]
+
+        config_string = "|".join(components)
+        config_hash = hashlib.md5(config_string.encode()).hexdigest()
+        return config_hash
+
     def set_prompt_config(self, main_prompt: str, minimal_prompt: Optional[str] = None,
                          use_minimal: bool = False, json_schema: Dict[str, Any] = None,
                          rag_prompt: Optional[str] = None,
@@ -413,10 +443,13 @@ class AppState:
             self.prompt_config.token_count_main = self.count_tokens(self.prompt_config.assembled_main_prompt)
             self.prompt_config.token_count_minimal = self.count_tokens(self.prompt_config.assembled_minimal_prompt)
             self.prompt_config.token_count_rag = self.count_tokens(rag_prompt) if rag_prompt else 0
-            
+
+            # CRITICAL: Update config hash to invalidate cache when config changes
+            self.prompt_config.config_hash = self._compute_prompt_config_hash()
+
             self.prompt_valid = True
-            logger.info(f"Prompt config set: main={len(main_prompt)}, minimal={len(minimal_prompt) if minimal_prompt else 0}, rag={len(rag_prompt) if rag_prompt else 0}, query_fields={len(rag_query_fields)}, schema={len(json_schema)}")
-            
+            logger.info(f"Prompt config set: main={len(main_prompt)}, minimal={len(minimal_prompt) if minimal_prompt else 0}, rag={len(rag_prompt) if rag_prompt else 0}, query_fields={len(rag_query_fields)}, schema={len(json_schema)}, hash={self.prompt_config.config_hash[:8]}...")
+
             self.observer.notify(StateEvent.PROMPT_CONFIG_CHANGED, self.prompt_config)
             return True
             

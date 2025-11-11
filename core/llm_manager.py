@@ -99,6 +99,8 @@ class LLMManager:
         # Initialize LLM response cache (400x faster for repeated queries)
         cache_enabled = config.get('llm_cache_enabled', True)
         cache_db_path = config.get('llm_cache_db_path', 'cache/llm_responses.db')
+        self.cache_bypass = config.get('llm_cache_bypass', False)  # Bypass cache to force fresh calls
+        self.prompt_config_hash = config.get('prompt_config_hash', '')  # Config hash for cache invalidation
         self.llm_cache = LLMResponseCache(
             cache_db_path=cache_db_path,
             enabled=cache_enabled
@@ -108,7 +110,10 @@ class LLMManager:
 
         logger.info(f"LLMManager initialized: {self.provider}/{self.model_name}")
         if cache_enabled:
-            logger.info(f"💾 LLM caching: ENABLED (400x faster for cached queries)")
+            if self.cache_bypass:
+                logger.info(f"💾 LLM caching: ENABLED but BYPASSED (forcing fresh calls)")
+            else:
+                logger.info(f"💾 LLM caching: ENABLED (400x faster for cached queries)")
         if self.provider == 'local':
             logger.info(f"Local model context window: {self.max_seq_length}")
     
@@ -285,18 +290,22 @@ class LLMManager:
         """Generate text from prompt with caching"""
         max_tok = max_tokens or self.max_tokens
 
-        # Check cache first
-        cached_response = self.llm_cache.get(
-            prompt=prompt,
-            model_name=f"{self.provider}:{self.model_name}",
-            temperature=self.temperature,
-            max_tokens=max_tok
-        )
-        if cached_response:
-            logger.debug(f"💾 Cache HIT (400x faster)")
-            return cached_response
+        # Check cache first (unless bypassed)
+        if not self.cache_bypass:
+            cached_response = self.llm_cache.get(
+                prompt=prompt,
+                model_name=f"{self.provider}:{self.model_name}",
+                temperature=self.temperature,
+                max_tokens=max_tok,
+                config_hash=self.prompt_config_hash  # Invalidates cache when config changes
+            )
+            if cached_response:
+                logger.debug(f"💾 Cache HIT (400x faster)")
+                return cached_response
+        else:
+            logger.debug(f"🔄 Cache BYPASSED - forcing fresh LLM call")
 
-        # Cache miss - generate response
+        # Cache miss or bypass - generate response
         try:
             if self.provider == "openai":
                 response = self._generate_openai(prompt, max_tok)
@@ -311,14 +320,16 @@ class LLMManager:
             else:
                 raise ValueError(f"Provider {self.provider} not supported")
 
-            # Store in cache
-            self.llm_cache.put(
-                prompt=prompt,
-                model_name=f"{self.provider}:{self.model_name}",
-                temperature=self.temperature,
-                max_tokens=max_tok,
-                response=response
-            )
+            # Store in cache (unless bypassed)
+            if not self.cache_bypass:
+                self.llm_cache.put(
+                    prompt=prompt,
+                    model_name=f"{self.provider}:{self.model_name}",
+                    temperature=self.temperature,
+                    max_tokens=max_tok,
+                    response=response,
+                    config_hash=self.prompt_config_hash  # Include config hash for cache invalidation
+                )
 
             return response
         except Exception as e:

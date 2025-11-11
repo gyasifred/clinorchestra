@@ -121,11 +121,13 @@ class LLMResponseCache:
                            model_name: str,
                            temperature: float,
                            max_tokens: int,
-                           system_message: Optional[str] = None) -> str:
+                           system_message: Optional[str] = None,
+                           config_hash: Optional[str] = None) -> str:
         """
         Generate cache key from prompt and parameters
 
         Uses SHA256 hash of concatenated parameters
+        Includes config_hash to invalidate cache when extraction config changes
         """
         # Normalize temperature to 2 decimal places
         temp_normalized = round(temperature, 2)
@@ -140,6 +142,10 @@ class LLMResponseCache:
 
         if system_message:
             components.append(f"system:{system_message}")
+
+        # CRITICAL: Include config hash to invalidate cache when prompt config changes
+        if config_hash:
+            components.append(f"config:{config_hash}")
 
         # Generate hash
         cache_string = "|".join(components)
@@ -156,7 +162,8 @@ class LLMResponseCache:
             model_name: str,
             temperature: float,
             max_tokens: int,
-            system_message: Optional[str] = None) -> Optional[str]:
+            system_message: Optional[str] = None,
+            config_hash: Optional[str] = None) -> Optional[str]:
         """
         Get cached response if available
 
@@ -166,7 +173,7 @@ class LLMResponseCache:
         if not self.enabled:
             return None
 
-        cache_key = self._generate_cache_key(prompt, model_name, temperature, max_tokens, system_message)
+        cache_key = self._generate_cache_key(prompt, model_name, temperature, max_tokens, system_message, config_hash)
 
         try:
             with sqlite3.connect(str(self.cache_db_path)) as conn:
@@ -216,7 +223,8 @@ class LLMResponseCache:
             max_tokens: int,
             response: str,
             system_message: Optional[str] = None,
-            metadata: Optional[Dict[str, Any]] = None):
+            metadata: Optional[Dict[str, Any]] = None,
+            config_hash: Optional[str] = None):
         """
         Store response in cache
 
@@ -228,11 +236,12 @@ class LLMResponseCache:
             response: LLM response to cache
             system_message: Optional system message
             metadata: Optional metadata dict
+            config_hash: Optional prompt configuration hash
         """
         if not self.enabled:
             return
 
-        cache_key = self._generate_cache_key(prompt, model_name, temperature, max_tokens, system_message)
+        cache_key = self._generate_cache_key(prompt, model_name, temperature, max_tokens, system_message, config_hash)
         prompt_hash = self._generate_prompt_hash(prompt)
         current_time = time.time()
 

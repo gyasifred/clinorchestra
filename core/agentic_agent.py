@@ -121,6 +121,10 @@ class AgenticContext:
     stall_counter: int = 0
     consecutive_no_progress: int = 0
 
+    # JSON failure tracking - for minimal prompt fallback
+    consecutive_json_failures: int = 0  # Track failed JSON parsing attempts
+    switched_to_minimal: bool = False  # Flag to track if we switched to minimal prompt
+
     # PERFORMANCE: Conversation history management
     conversation_window_size: int = 20  # Keep only last 20 messages for context
     total_messages_sent: int = 0  # Track total messages for metrics
@@ -336,8 +340,39 @@ If you call tools again, the task will FAIL. Output JSON NOW."""
 
                     remaining_iters = self.context.max_iterations - self.context.iteration
 
+                    # CRITICAL: Check for repeated JSON failures and switch to minimal prompt
+                    if (self.context.consecutive_json_failures >= self.app_state.processing_config.max_retries
+                        and not self.context.switched_to_minimal
+                        and self.app_state.prompt_config.minimal_prompt
+                        and self.app_state.prompt_config.use_minimal):
+                        logger.warning(f"🔴 SWITCHING TO MINIMAL PROMPT: {self.context.consecutive_json_failures} consecutive JSON failures")
+                        self.context.switched_to_minimal = True
+
+                        # Rebuild prompt with minimal version
+                        # Force get_prompt_for_processing to use minimal by passing high retry count
+                        minimal_prompt = self.app_state.get_prompt_for_processing(retry_count=999)
+
+                        # Inject message telling LLM to use simpler approach
+                        self.context.conversation_history.append(
+                            ConversationMessage(
+                                role='user',
+                                content=f"""Previous JSON outputs failed validation. Using SIMPLIFIED task definition:
+
+{minimal_prompt}
+
+CLINICAL TEXT:
+{self.context.clinical_text}
+
+LABEL CONTEXT:
+{self.context.label_context or "No label provided"}
+
+OUTPUT VALID JSON matching the schema. Be more concise and focus on directly extractable information."""
+                            )
+                        )
+                        logger.info("✅ Minimal prompt injected - continuing with simpler task definition")
+
                     # If too many iterations with no progress OR near max iterations, force completion
-                    if self.context.consecutive_no_progress >= 2 or remaining_iters <= 1:
+                    elif self.context.consecutive_no_progress >= 2 or remaining_iters <= 1:
                         logger.warning(f"🔴 FORCING COMPLETION: No progress detected (consecutive={self.context.consecutive_no_progress}, remaining={remaining_iters})")
 
                         # Try to extract any existing JSON
@@ -993,7 +1028,10 @@ Example format:
         """
         Build initial agentic prompt using USER'S task-specific prompt as PRIMARY
 
-        ALWAYS tries main_prompt first, falls back to minimal_prompt only if main is missing.
+        CRITICAL FIX: Now respects retry/iteration-based minimal prompt fallback.
+        - First tries main_prompt
+        - Falls back to minimal_prompt if main is missing OR if iteration threshold reached
+        - Uses get_prompt_for_processing() to respect retry logic
         """
         from core.prompt_templates import get_agentic_extraction_prompt
 
@@ -1001,21 +1039,23 @@ Example format:
             self.app_state.prompt_config.json_schema
         )
 
-        # FIXED: Always try MAIN prompt first, fall back to MINIMAL only if MAIN is missing
-        user_task_prompt = None
+        # CRITICAL FIX: Use get_prompt_for_processing() with iteration count as retry_count
+        # This ensures if iterations exceed threshold, system switches to minimal prompt
+        # For adaptive agent, we use iteration count as the "retry" metric
+        current_iteration = self.context.iteration if self.context else 0
+        user_task_prompt = self.app_state.get_prompt_for_processing(retry_count=current_iteration)
 
-        if self.app_state.prompt_config.main_prompt:
-            user_task_prompt = self.app_state.prompt_config.main_prompt
-            logger.info("✓ Using MAIN prompt as primary task definition")
-        elif self.app_state.prompt_config.minimal_prompt:
-            user_task_prompt = self.app_state.prompt_config.minimal_prompt
-            logger.info("⚠ Using MINIMAL prompt as fallback (main_prompt not set)")
-        elif self.app_state.prompt_config.base_prompt:
-            user_task_prompt = self.app_state.prompt_config.base_prompt
-            logger.info("⚠ Using BASE prompt as fallback (main and minimal not set)")
+        # Track if minimal prompt is being used
+        if self.app_state.is_using_minimal_prompt:
+            logger.warning(f"⚠️  Using MINIMAL prompt (iteration={current_iteration} >= max_retries={self.app_state.processing_config.max_retries})")
         else:
-            user_task_prompt = ""
-            logger.warning("❌ No user task-specific prompt found - using generic agentic prompt")
+            logger.info("✓ Using MAIN prompt as primary task definition")
+
+        # Fallback to base_prompt if neither main nor minimal is set
+        if not user_task_prompt or not user_task_prompt.strip():
+            user_task_prompt = self.app_state.prompt_config.base_prompt or ""
+            if not user_task_prompt:
+                logger.warning("❌ No user task-specific prompt found - using generic agentic prompt")
 
         prompt = get_agentic_extraction_prompt(
             clinical_text=self.context.clinical_text,
@@ -1167,6 +1207,8 @@ You have access to tools:
             parsed_json = self._try_parse_json(content)
             if parsed_json:
                 self.context.final_output = parsed_json
+                # Reset failure counter on success
+                self.context.consecutive_json_failures = 0
                 # Add to history
                 self.context.conversation_history.append(
                     ConversationMessage(role='assistant', content=content)
@@ -1180,8 +1222,9 @@ You have access to tools:
 
                 # Check if this looks like a malformed tool call or invalid JSON
                 if '{' in content and '}' in content:
-                    # Looks like JSON but was rejected - provide feedback
-                    logger.info("LLM output contains JSON but was rejected (schema validation failed)")
+                    # Looks like JSON but was rejected - track failure
+                    self.context.consecutive_json_failures += 1
+                    logger.warning(f"⚠️ LLM output contains JSON but validation failed (consecutive failures: {self.context.consecutive_json_failures})")
                     # The loop will continue and prompt the LLM again
 
                 return False, False

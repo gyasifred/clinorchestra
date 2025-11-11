@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="iconGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a8a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="iconGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="90" fill="url(#iconGrad1)" opacity="0.1"/>
+
+  <!-- Musical staff (5 lines) -->
+  <line x1="40" y1="70" x2="160" y2="70" stroke="url(#iconGrad1)" stroke-width="3" opacity="0.8"/>
+  <line x1="40" y1="85" x2="160" y2="85" stroke="url(#iconGrad1)" stroke-width="3" opacity="0.8"/>
+  <line x1="40" y1="100" x2="160" y2="100" stroke="url(#iconGrad1)" stroke-width="3" opacity="0.8"/>
+  <line x1="40" y1="115" x2="160" y2="115" stroke="url(#iconGrad1)" stroke-width="3" opacity="0.8"/>
+  <line x1="40" y1="130" x2="160" y2="130" stroke="url(#iconGrad1)" stroke-width="3" opacity="0.8"/>
+
+  <!-- Medical cross -->
+  <g transform="translate(100, 100)">
+    <rect x="-6" y="-25" width="12" height="50" fill="url(#iconGrad2)" rx="3"/>
+    <rect x="-25" y="-6" width="50" height="12" fill="url(#iconGrad2)" rx="3"/>
+  </g>
+
+  <!-- Musical notes -->
+  <circle cx="130" cy="85" r="10" fill="url(#iconGrad2)" opacity="0.9"/>
+  <path d="M 140,85 L 140,55" stroke="url(#iconGrad2)" stroke-width="4" opacity="0.9"/>
+
+  <circle cx="70" cy="115" r="8" fill="url(#iconGrad1)" opacity="0.9"/>
+  <path d="M 78,115 L 78,90" stroke="url(#iconGrad1)" stroke-width="3.5" opacity="0.9"/>
+
+  <!-- "C" for Clin -->
+  <text x="100" y="175" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="url(#iconGrad1)" text-anchor="middle">
+    C
+  </text>
+</svg>

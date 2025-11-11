@@ -1262,19 +1262,26 @@ Respond with ONLY the JSON object in the format shown above."""
         return "\n".join(descriptions)
     
     def _build_stage3_main_extraction_prompt(self) -> str:
-        """Build prompt for stage 3 extraction"""
+        """Build prompt for stage 3 extraction with retry-based minimal prompt fallback"""
         # Format schema instructions
         schema_instructions = format_schema_as_instructions(
             self.app_state.prompt_config.json_schema
         )
-        
+
         # Format tool results
         tool_outputs = format_tool_outputs_for_prompt(self.context.tool_results)
-        
-        # Build full prompt
-        base_prompt = self.app_state.prompt_config.base_prompt or ""
-        
-        prompt = f"""{base_prompt}
+
+        # CRITICAL FIX: Use get_prompt_for_processing() to respect minimal prompt fallback on retries
+        # This ensures if extraction fails multiple times, system switches to minimal prompt
+        extraction_prompt = self.app_state.get_prompt_for_processing(self.context.retry_count)
+
+        # Track if minimal prompt is being used
+        self.context.using_minimal_prompt = self.app_state.is_using_minimal_prompt
+
+        if self.context.using_minimal_prompt:
+            logger.warning(f"⚠️  Using MINIMAL prompt (retry_count={self.context.retry_count} >= max_retries={self.app_state.processing_config.max_retries})")
+
+        prompt = f"""{extraction_prompt}
 
 CLINICAL TEXT:
 {self.context.clinical_text}
