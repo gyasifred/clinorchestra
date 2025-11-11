@@ -55,9 +55,9 @@ mimic-iv/
 ├── scripts/
 │   ├── get_top_diagnoses_simple.py             # Step 1A: Extract top 20 individual ICD codes
 │   ├── get_top_diagnoses_consolidated.py       # Step 1B: Extract consolidated diagnoses
-│   ├── analyze_clinical_notes.py               # Step 2: Analyze note lengths & statistics
-│   ├── extract_dataset.py                      # Step 3A: Create datasets (individual codes)
-│   ├── extract_dataset_consolidated.py         # Step 3B: Create datasets (consolidated)
+│   ├── extract_dataset.py                      # Step 2A: Create datasets (individual codes)
+│   ├── extract_dataset_consolidated.py         # Step 2B: Create datasets (consolidated)
+│   ├── analyze_clinical_notes.py               # Step 3: Analyze text lengths with ICD consolidation
 │   ├── create_balanced_train_test.py           # Step 4: Create balanced train/test split
 │   ├── eda_train_test_publication.py           # Step 5: Generate EDA and publication tables
 │   ├── gather_clinical_guidelines.py           # Step 6: Helper for collecting guidelines
@@ -114,23 +114,7 @@ python get_top_diagnoses_consolidated.py /path/to/mimic-iv-3.1
 - Option A: `top_20_primary_diagnoses.csv` (20 individual ICD codes)
 - Option B: `top_diagnoses_consolidated.csv` (13 consolidated diagnoses)
 
-#### **Step 2: Analyze Clinical Notes (Optional but Recommended)**
-
-Before creating datasets, analyze clinical note characteristics:
-
-```bash
-python analyze_clinical_notes.py /path/to/mimic-iv-3.1
-```
-
-**What it does**:
-- Calculates average, median, min, max text lengths
-- Analyzes word counts and line counts
-- Generates statistics by note type (discharge, radiology)
-- Creates visualization of note length distributions
-
-**Output**: `clinical_notes_analysis.csv` and visualizations
-
-#### **Step 3: Create Annotation & Classification Datasets**
+#### **Step 2: Create Annotation & Classification Datasets**
 
 Choose based on Step 1 option:
 
@@ -151,6 +135,40 @@ When prompted:
 **Outputs**:
 - `annotation_dataset.csv` - For Task 1 (Evidence Extraction)
 - `classification_dataset.csv` - For Task 2 (Diagnosis Prediction)
+
+#### **Step 3: Analyze Clinical Notes (Optional but Recommended)**
+
+After creating datasets, analyze text length statistics with consolidated diagnoses:
+
+```bash
+python analyze_clinical_notes.py annotation_dataset.csv
+# or
+python analyze_clinical_notes.py classification_dataset.csv
+```
+
+**What it does**:
+- Loads the extracted dataset CSV files
+- **Consolidates ICD-9 and ICD-10 codes** for the same diagnosis (e.g., "Sepsis" groups multiple ICD codes)
+- Analyzes **top 20 diagnoses** with consolidated ICD codes
+- Calculates **average, median, min, max text lengths** (characters) per diagnosis
+- Analyzes word counts and line counts
+- Creates visualizations of text length distributions
+
+**Outputs**:
+- `clinical_notes_by_diagnosis_top20.csv` - Per-diagnosis statistics
+- `clinical_notes_analysis_summary.json` - Overall summary
+- `clinical_notes_analysis_consolidated.png` - Visualizations
+- `clinical_notes_top20_comparison.png` - Top 20 diagnosis comparison
+
+**Example Output**:
+```
+Top 20 Diagnoses (Consolidated):
+  Sepsis
+    ICD Codes: 0389, 99591, 99592, A419
+    Cases: 2,543
+    Characters: avg=15,234, median=13,456, min=1,234, max=45,678
+    Words: avg=2,456, median=2,123
+```
 
 #### **Step 4: Create Balanced Train/Test Split (Optional)**
 
@@ -518,16 +536,17 @@ If you use this dataset or methodology, please cite:
 - **Reduces**: 20+ codes → 13 consolidated diagnoses
 
 #### `analyze_clinical_notes.py`
-- **Purpose**: Analyze clinical note characteristics and length statistics
-- **Input**: MIMIC-IV directory path
-- **Output**: `clinical_notes_analysis.csv`, visualization charts
+- **Purpose**: Analyze clinical text length statistics from extracted datasets
+- **Input**: annotation_dataset.csv or classification_dataset.csv (created by extract_dataset.py)
+- **Output**: `clinical_notes_by_diagnosis_top20.csv`, summary JSON, visualizations
 - **Features**:
-  - Average, median, min, max text length (characters)
-  - Word count and line count statistics
-  - Analysis by note type (discharge, radiology)
+  - **Consolidates ICD-9/ICD-10 codes for same diagnosis** (e.g., Sepsis, Chest Pain)
+  - Analyzes **top 20 diagnoses** with consolidated ICD codes
+  - Average, median, min, max text length (characters) **per diagnosis**
+  - Word count and line count statistics per diagnosis
   - Text length distribution visualizations
-  - Per-diagnosis text length statistics
-- **Use when**: You want to understand note complexity before processing
+  - Overall dataset statistics
+- **Use when**: After creating datasets, to understand text complexity across diagnoses before LLM processing
 
 #### `extract_dataset.py`
 - **Purpose**: Create annotation and classification datasets (individual codes)
@@ -607,23 +626,24 @@ If you use this dataset or methodology, please cite:
 ## Quick Reference: Which Scripts to Use
 
 **For Standard Workflow (Individual ICD codes)**:
-1. `get_top_diagnoses_simple.py`
-2. `analyze_clinical_notes.py` (optional)
-3. `extract_dataset.py`
+1. `get_top_diagnoses_simple.py` - Extract top 20 ICD codes
+2. `extract_dataset.py` - Create datasets
+3. `analyze_clinical_notes.py` (optional) - Analyze text lengths with ICD-9/10 consolidation
 4. Continue with ClinOrchestra processing
 
 **For Consolidated Workflow (Grouped diagnoses)**:
-1. `get_top_diagnoses_consolidated.py`
-2. `analyze_clinical_notes.py` (optional)
-3. `extract_dataset_consolidated.py`
+1. `get_top_diagnoses_consolidated.py` - Extract consolidated diagnoses
+2. `extract_dataset_consolidated.py` - Create datasets
+3. `analyze_clinical_notes.py` (optional) - Analyze text lengths with ICD-9/10 consolidation
 4. Continue with ClinOrchestra processing
 
 **For Publication/Research**:
-1-3. (Same as above)
-4. `create_balanced_train_test.py`
-5. `eda_train_test_publication.py`
+1-2. Extract diagnoses and create datasets (as above)
+3. `analyze_clinical_notes.py` - Analyze text statistics
+4. `create_balanced_train_test.py` - Create balanced train/test split
+5. `eda_train_test_publication.py` - Generate publication-ready EDA
 6. Process with ClinOrchestra
-7. `evaluate_classification.py`
+7. `evaluate_classification.py` - Evaluate results
 
 ## Support
 

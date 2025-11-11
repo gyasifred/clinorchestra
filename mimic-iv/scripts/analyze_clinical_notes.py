@@ -1,15 +1,17 @@
 """
-MIMIC-IV Clinical Notes Analysis Script
+MIMIC-IV Clinical Notes Analysis Script (Post-Extraction)
 
-Analyzes clinical notes to understand text characteristics:
-- Average, median, min, max text length (characters)
-- Word count and line count statistics
-- Statistics by note type (discharge, radiology)
-- Per-diagnosis text length analysis
-- Visualizations of text length distributions
+This script analyzes the clinical notes from the extracted datasets
+(annotation_dataset.csv or classification_dataset.csv) created by extract_dataset.py.
 
-This helps understand the complexity and variability of clinical notes
-before processing them with LLMs.
+It consolidates ICD-9 and ICD-10 codes for the same diagnosis and provides:
+- Average, median, min, max text length (characters) for each diagnosis
+- Word count statistics
+- Text length distributions
+- Visualizations
+
+This helps understand text complexity across the top 20 diagnoses before
+processing with LLMs.
 
 Author: Claude
 Date: 2025-11-11
@@ -23,6 +25,7 @@ from pathlib import Path
 import sys
 import logging
 from datetime import datetime
+from collections import defaultdict
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -36,210 +39,254 @@ plt.rcParams['font.size'] = 10
 
 
 class ClinicalNotesAnalyzer:
-    """Analyze clinical notes from MIMIC-IV"""
+    """Analyze clinical notes from extracted MIMIC-IV datasets"""
 
-    def __init__(self, mimic_path: str):
+    def __init__(self, dataset_path: str):
         """
         Initialize analyzer
 
         Args:
-            mimic_path: Path to MIMIC-IV root directory
+            dataset_path: Path to annotation_dataset.csv or classification_dataset.csv
         """
-        self.mimic_path = Path(mimic_path)
-        self.note_path = self.mimic_path / "note"
-        self.hosp_path = self.mimic_path / "hosp"
+        self.dataset_path = Path(dataset_path)
 
-        # Verify paths
-        if not self.note_path.exists():
-            raise FileNotFoundError(f"Note directory not found: {self.note_path}")
+        if not self.dataset_path.exists():
+            raise FileNotFoundError(f"Dataset not found: {self.dataset_path}")
 
-        logger.info(f"✓ MIMIC-IV path verified: {self.mimic_path}")
+        logger.info(f"✓ Dataset path verified: {self.dataset_path}")
 
-    def load_notes(self):
-        """Load discharge and radiology notes"""
-        logger.info("="*80)
-        logger.info("LOADING CLINICAL NOTES")
-        logger.info("="*80)
-
-        # Load discharge notes
-        logger.info("Loading discharge.csv...")
-        self.discharge_notes = pd.read_csv(self.note_path / "discharge.csv")
-        logger.info(f"  ✓ Loaded {len(self.discharge_notes):,} discharge notes")
-
-        # Load radiology notes
-        logger.info("Loading radiology.csv...")
-        self.radiology_notes = pd.read_csv(self.note_path / "radiology.csv")
-        logger.info(f"  ✓ Loaded {len(self.radiology_notes):,} radiology notes")
-
-        logger.info("="*80 + "\n")
-
-    def calculate_text_statistics(self, text):
+    def consolidate_diagnosis_names(self, df):
         """
-        Calculate statistics for a text string
+        Consolidate ICD-9 and ICD-10 codes for the same diagnosis
+
+        Groups diagnoses by similar names (e.g., "Sepsis" ICD-9 and ICD-10)
+
+        Args:
+            df: DataFrame with icd_code and primary_diagnosis_name columns
 
         Returns:
-            dict with char_count, word_count, line_count
+            DataFrame with added consolidated_diagnosis column
         """
-        if pd.isna(text):
-            return {
-                'char_count': 0,
-                'word_count': 0,
-                'line_count': 0
+        logger.info("Consolidating ICD-9 and ICD-10 codes for same diagnoses...")
+
+        # Create a mapping based on diagnosis names
+        # This groups similar diagnoses together
+        diagnosis_mapping = {}
+
+        for _, row in df[['icd_code', 'primary_diagnosis_name']].drop_duplicates().iterrows():
+            icd_code = row['icd_code']
+            diagnosis_name = row['primary_diagnosis_name']
+
+            # Normalize diagnosis name for grouping
+            # Remove common suffixes that differ between ICD versions
+            normalized = diagnosis_name.lower()
+
+            # Remove ICD-specific qualifiers
+            normalized = normalized.replace('unspecified', '').strip()
+            normalized = normalized.replace(', unspecified', '').strip()
+
+            # Group similar diagnoses
+            if 'sepsis' in normalized or 'septicemia' in normalized:
+                consolidated = 'Sepsis'
+            elif 'chest pain' in normalized:
+                consolidated = 'Chest Pain'
+            elif 'pneumonia' in normalized:
+                consolidated = 'Pneumonia'
+            elif 'coronary' in normalized or 'atherosclerosis' in normalized:
+                consolidated = 'Coronary Artery Disease'
+            elif 'myocardial infarction' in normalized or 'nstemi' in normalized or 'subendocardial' in normalized:
+                consolidated = 'Myocardial Infarction'
+            elif 'atrial fibrillation' in normalized or 'atrial flutter' in normalized:
+                consolidated = 'Atrial Fibrillation'
+            elif 'heart failure' in normalized or 'chf' in normalized:
+                consolidated = 'Heart Failure'
+            elif 'hypertensive' in normalized and ('heart' in normalized or 'kidney' in normalized or 'ckd' in normalized):
+                consolidated = 'Hypertensive Heart/Kidney Disease'
+            elif 'kidney' in normalized or 'renal' in normalized or 'acute kidney' in normalized:
+                consolidated = 'Acute Kidney Injury'
+            elif 'respiratory failure' in normalized:
+                consolidated = 'Respiratory Failure'
+            elif 'copd' in normalized or 'obstructive' in normalized:
+                consolidated = 'COPD'
+            elif 'urinary' in normalized or 'uti' in normalized:
+                consolidated = 'Urinary Tract Infection'
+            elif 'depression' in normalized or 'depressive' in normalized:
+                consolidated = 'Depression'
+            elif 'alcohol' in normalized:
+                consolidated = 'Alcohol Use Disorder'
+            elif 'diabetes' in normalized:
+                consolidated = 'Diabetes'
+            elif 'stroke' in normalized or 'cerebral' in normalized:
+                consolidated = 'Stroke'
+            elif 'gastrointestinal' in normalized or 'gi bleed' in normalized:
+                consolidated = 'Gastrointestinal Bleeding'
+            elif 'chemotherapy' in normalized or 'antineoplastic' in normalized:
+                consolidated = 'Chemotherapy Encounter'
+            elif 'dehydration' in normalized:
+                consolidated = 'Dehydration'
+            else:
+                # Use first 40 characters of original name
+                consolidated = diagnosis_name[:40].strip()
+
+            diagnosis_mapping[icd_code] = {
+                'consolidated_diagnosis': consolidated,
+                'original_diagnosis': diagnosis_name
             }
 
-        text_str = str(text)
-        return {
-            'char_count': len(text_str),
-            'word_count': len(text_str.split()),
-            'line_count': text_str.count('\n') + 1
-        }
+        # Apply mapping
+        df['consolidated_diagnosis'] = df['icd_code'].map(
+            lambda x: diagnosis_mapping.get(x, {}).get('consolidated_diagnosis', 'Other')
+        )
 
-    def analyze_note_type(self, df, note_type):
+        # Log consolidation results
+        logger.info(f"\nConsolidation Results:")
+        logger.info(f"  Original ICD codes: {df['icd_code'].nunique()}")
+        logger.info(f"  Consolidated diagnoses: {df['consolidated_diagnosis'].nunique()}")
+
+        consolidation_summary = df.groupby('consolidated_diagnosis').agg({
+            'icd_code': lambda x: ', '.join(sorted(set(x))),
+            'primary_diagnosis_name': lambda x: list(set(x))[0]
+        }).reset_index()
+
+        logger.info("\nConsolidation Mapping:")
+        for _, row in consolidation_summary.iterrows():
+            logger.info(f"  {row['consolidated_diagnosis']}: ICD codes {row['icd_code']}")
+
+        return df
+
+    def calculate_text_statistics(self, df):
         """
-        Analyze notes of a specific type
+        Calculate text statistics for each record
 
         Args:
-            df: DataFrame with notes
-            note_type: Type of note ('discharge' or 'radiology')
+            df: DataFrame with clinical_text column
 
         Returns:
-            DataFrame with statistics
+            DataFrame with added text statistics columns
         """
-        logger.info(f"\nAnalyzing {note_type} notes...")
+        logger.info("\nCalculating text statistics...")
 
-        # Calculate statistics for each note
-        stats_list = []
-        for idx, row in df.iterrows():
-            if idx % 10000 == 0 and idx > 0:
-                logger.info(f"  Processed {idx:,} notes...")
-
-            text_stats = self.calculate_text_statistics(row['text'])
-            stats_list.append({
-                'subject_id': row.get('subject_id', None),
-                'hadm_id': row.get('hadm_id', None),
-                'note_id': row.get('note_id', None),
-                'note_type': note_type,
-                **text_stats
-            })
-
-        stats_df = pd.DataFrame(stats_list)
-
-        # Print summary statistics
-        logger.info(f"\n{note_type.upper()} NOTES STATISTICS")
-        logger.info("-"*80)
-        logger.info(f"Total notes: {len(stats_df):,}")
-        logger.info(f"\nCharacter Count:")
-        logger.info(f"  Mean:   {stats_df['char_count'].mean():,.0f}")
-        logger.info(f"  Median: {stats_df['char_count'].median():,.0f}")
-        logger.info(f"  Min:    {stats_df['char_count'].min():,}")
-        logger.info(f"  Max:    {stats_df['char_count'].max():,}")
-        logger.info(f"  Q1:     {stats_df['char_count'].quantile(0.25):,.0f}")
-        logger.info(f"  Q3:     {stats_df['char_count'].quantile(0.75):,.0f}")
-
-        logger.info(f"\nWord Count:")
-        logger.info(f"  Mean:   {stats_df['word_count'].mean():,.0f}")
-        logger.info(f"  Median: {stats_df['word_count'].median():,.0f}")
-        logger.info(f"  Min:    {stats_df['word_count'].min():,}")
-        logger.info(f"  Max:    {stats_df['word_count'].max():,}")
-
-        logger.info(f"\nLine Count:")
-        logger.info(f"  Mean:   {stats_df['line_count'].mean():.1f}")
-        logger.info(f"  Median: {stats_df['line_count'].median():.0f}")
-        logger.info(f"  Min:    {stats_df['line_count'].min()}")
-        logger.info(f"  Max:    {stats_df['line_count'].max()}")
-
-        return stats_df
-
-    def analyze_by_diagnosis(self, top_diagnoses_path=None):
-        """
-        Analyze text length by diagnosis
-
-        Args:
-            top_diagnoses_path: Path to top diagnoses CSV (optional)
-        """
-        if top_diagnoses_path is None:
-            logger.info("\nSkipping per-diagnosis analysis (no top_diagnoses file provided)")
-            return None
-
-        if not Path(top_diagnoses_path).exists():
-            logger.warning(f"\nTop diagnoses file not found: {top_diagnoses_path}")
-            return None
-
-        logger.info("\n" + "="*80)
-        logger.info("ANALYZING TEXT LENGTH BY DIAGNOSIS")
-        logger.info("="*80)
-
-        # Load diagnoses and top diagnoses
-        logger.info("Loading diagnoses...")
-        diagnoses = pd.read_csv(self.hosp_path / "diagnoses_icd.csv")
-        top_diagnoses = pd.read_csv(top_diagnoses_path)
-        icd_descriptions = pd.read_csv(self.hosp_path / "d_icd_diagnoses.csv")
-
-        # Filter for primary diagnoses and top codes
-        primary_dx = diagnoses[diagnoses['seq_num'] == 1]
-        top_icd_codes = set(top_diagnoses['icd_code'].values)
-        primary_dx = primary_dx[primary_dx['icd_code'].isin(top_icd_codes)]
-
-        # Merge with descriptions
-        primary_dx = primary_dx.merge(icd_descriptions, on=['icd_code', 'icd_version'], how='left')
-
-        # Combine discharge and radiology notes per admission
-        logger.info("Aggregating notes per admission...")
-
-        # Discharge notes
-        discharge_agg = self.discharge_notes.groupby('hadm_id')['text'].apply(
-            lambda x: '\n\n---\n\n'.join(x)
-        ).reset_index()
-        discharge_agg.columns = ['hadm_id', 'combined_text']
-
-        # Merge with diagnoses
-        diagnosis_notes = primary_dx.merge(discharge_agg, on='hadm_id', how='inner')
-
-        # Calculate text statistics
-        logger.info("Calculating text statistics per diagnosis...")
-        diagnosis_notes['char_count'] = diagnosis_notes['combined_text'].apply(
+        # Calculate character count
+        df['char_count'] = df['clinical_text'].apply(
             lambda x: len(str(x)) if pd.notna(x) else 0
         )
-        diagnosis_notes['word_count'] = diagnosis_notes['combined_text'].apply(
+
+        # Calculate word count
+        df['word_count'] = df['clinical_text'].apply(
             lambda x: len(str(x).split()) if pd.notna(x) else 0
         )
 
-        # Group by diagnosis
-        diagnosis_stats = diagnosis_notes.groupby(['icd_code', 'long_title']).agg({
+        # Calculate line count
+        df['line_count'] = df['clinical_text'].apply(
+            lambda x: str(x).count('\n') + 1 if pd.notna(x) else 0
+        )
+
+        logger.info(f"  ✓ Calculated statistics for {len(df):,} records")
+
+        return df
+
+    def analyze_by_diagnosis(self, df):
+        """
+        Analyze text length by consolidated diagnosis
+
+        Args:
+            df: DataFrame with consolidated_diagnosis and text statistics
+
+        Returns:
+            DataFrame with per-diagnosis statistics
+        """
+        logger.info("\n" + "="*80)
+        logger.info("ANALYZING TEXT LENGTH BY DIAGNOSIS (TOP 20)")
+        logger.info("="*80)
+
+        # Group by consolidated diagnosis
+        diagnosis_stats = df.groupby('consolidated_diagnosis').agg({
             'char_count': ['count', 'mean', 'median', 'min', 'max', 'std'],
-            'word_count': ['mean', 'median']
+            'word_count': ['mean', 'median', 'min', 'max'],
+            'line_count': ['mean', 'median'],
+            'icd_code': lambda x: ', '.join(sorted(set(x)))
         }).reset_index()
 
         # Flatten column names
         diagnosis_stats.columns = [
-            'icd_code', 'diagnosis',
+            'diagnosis',
             'n_cases', 'char_mean', 'char_median', 'char_min', 'char_max', 'char_std',
-            'word_mean', 'word_median'
+            'word_mean', 'word_median', 'word_min', 'word_max',
+            'line_mean', 'line_median',
+            'icd_codes'
         ]
 
         # Sort by number of cases
         diagnosis_stats = diagnosis_stats.sort_values('n_cases', ascending=False)
 
+        # Get top 20
+        diagnosis_stats = diagnosis_stats.head(20)
+
         # Print results
-        logger.info("\n" + "-"*80)
-        logger.info("TEXT LENGTH BY DIAGNOSIS")
+        logger.info(f"\nTop 20 Diagnoses (Consolidated):")
         logger.info("-"*80)
+
         for idx, row in diagnosis_stats.iterrows():
-            logger.info(f"\n{row['icd_code']} - {row['diagnosis']}")
+            logger.info(f"\n{row['diagnosis']}")
+            logger.info(f"  ICD Codes: {row['icd_codes']}")
             logger.info(f"  Cases: {row['n_cases']:,}")
-            logger.info(f"  Characters: {row['char_mean']:,.0f} (±{row['char_std']:,.0f}), "
-                       f"median: {row['char_median']:,.0f}, range: {row['char_min']:,}-{row['char_max']:,}")
-            logger.info(f"  Words: {row['word_mean']:,.0f}, median: {row['word_median']:,.0f}")
+            logger.info(f"  Characters: avg={row['char_mean']:,.0f}, "
+                       f"median={row['char_median']:,.0f}, "
+                       f"min={row['char_min']:,}, "
+                       f"max={row['char_max']:,}, "
+                       f"std={row['char_std']:,.0f}")
+            logger.info(f"  Words: avg={row['word_mean']:,.0f}, "
+                       f"median={row['word_median']:,.0f}, "
+                       f"min={row['word_min']:,}, "
+                       f"max={row['word_max']:,}")
+            logger.info(f"  Lines: avg={row['line_mean']:.1f}, "
+                       f"median={row['line_median']:.0f}")
+
+        logger.info("-"*80)
 
         return diagnosis_stats
 
-    def create_visualizations(self, discharge_stats, radiology_stats, output_dir="mimic-iv"):
+    def analyze_overall_statistics(self, df):
+        """
+        Analyze overall dataset statistics
+
+        Args:
+            df: DataFrame with text statistics
+        """
+        logger.info("\n" + "="*80)
+        logger.info("OVERALL DATASET STATISTICS")
+        logger.info("="*80)
+
+        logger.info(f"\nTotal Records: {len(df):,}")
+
+        logger.info(f"\nCharacter Count:")
+        logger.info(f"  Mean:   {df['char_count'].mean():,.0f}")
+        logger.info(f"  Median: {df['char_count'].median():,.0f}")
+        logger.info(f"  Min:    {df['char_count'].min():,}")
+        logger.info(f"  Max:    {df['char_count'].max():,}")
+        logger.info(f"  Std:    {df['char_count'].std():,.0f}")
+        logger.info(f"  Q1:     {df['char_count'].quantile(0.25):,.0f}")
+        logger.info(f"  Q3:     {df['char_count'].quantile(0.75):,.0f}")
+
+        logger.info(f"\nWord Count:")
+        logger.info(f"  Mean:   {df['word_count'].mean():,.0f}")
+        logger.info(f"  Median: {df['word_count'].median():,.0f}")
+        logger.info(f"  Min:    {df['word_count'].min():,}")
+        logger.info(f"  Max:    {df['word_count'].max():,}")
+
+        logger.info(f"\nLine Count:")
+        logger.info(f"  Mean:   {df['line_count'].mean():.1f}")
+        logger.info(f"  Median: {df['line_count'].median():.0f}")
+
+        logger.info("="*80)
+
+    def create_visualizations(self, df, diagnosis_stats, output_dir="mimic-iv"):
         """
         Create visualizations of text length distributions
 
         Args:
-            discharge_stats: DataFrame with discharge note statistics
-            radiology_stats: DataFrame with radiology note statistics
+            df: DataFrame with text statistics
+            diagnosis_stats: DataFrame with per-diagnosis statistics
             output_dir: Directory to save visualizations
         """
         logger.info("\n" + "="*80)
@@ -249,162 +296,150 @@ class ClinicalNotesAnalyzer:
         output_path = Path(output_dir)
         output_path.mkdir(exist_ok=True, parents=True)
 
-        # Figure 1: Character count distributions
-        fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+        # Figure 1: Overall distribution and top diagnoses
+        fig, axes = plt.subplots(2, 2, figsize=(16, 12))
 
-        # Discharge notes - histogram
+        # Overall character count distribution
         ax = axes[0, 0]
-        ax.hist(discharge_stats['char_count'], bins=50, alpha=0.7, edgecolor='black')
+        ax.hist(df['char_count'], bins=50, alpha=0.7, edgecolor='black')
         ax.set_xlabel('Character Count')
         ax.set_ylabel('Frequency')
-        ax.set_title('Discharge Notes - Character Count Distribution')
-        ax.axvline(discharge_stats['char_count'].mean(), color='red',
-                   linestyle='--', label=f"Mean: {discharge_stats['char_count'].mean():,.0f}")
-        ax.axvline(discharge_stats['char_count'].median(), color='green',
-                   linestyle='--', label=f"Median: {discharge_stats['char_count'].median():,.0f}")
+        ax.set_title('Overall Character Count Distribution')
+        ax.axvline(df['char_count'].mean(), color='red',
+                   linestyle='--', label=f"Mean: {df['char_count'].mean():,.0f}")
+        ax.axvline(df['char_count'].median(), color='green',
+                   linestyle='--', label=f"Median: {df['char_count'].median():,.0f}")
         ax.legend()
         ax.grid(alpha=0.3)
 
-        # Radiology notes - histogram
+        # Top 20 diagnoses - average character count
         ax = axes[0, 1]
-        ax.hist(radiology_stats['char_count'], bins=50, alpha=0.7, edgecolor='black', color='orange')
-        ax.set_xlabel('Character Count')
-        ax.set_ylabel('Frequency')
-        ax.set_title('Radiology Notes - Character Count Distribution')
-        ax.axvline(radiology_stats['char_count'].mean(), color='red',
-                   linestyle='--', label=f"Mean: {radiology_stats['char_count'].mean():,.0f}")
-        ax.axvline(radiology_stats['char_count'].median(), color='green',
-                   linestyle='--', label=f"Median: {radiology_stats['char_count'].median():,.0f}")
-        ax.legend()
-        ax.grid(alpha=0.3)
+        top_10_for_plot = diagnosis_stats.head(10)
+        y_pos = np.arange(len(top_10_for_plot))
+        ax.barh(y_pos, top_10_for_plot['char_mean'], alpha=0.7)
+        ax.set_yticks(y_pos)
+        ax.set_yticklabels([d[:25] + '...' if len(d) > 25 else d
+                            for d in top_10_for_plot['diagnosis']], fontsize=8)
+        ax.set_xlabel('Average Character Count')
+        ax.set_title('Top 10 Diagnoses - Average Text Length')
+        ax.grid(axis='x', alpha=0.3)
 
-        # Box plot comparison
+        # Box plot - character count by top 10 diagnoses
         ax = axes[1, 0]
-        data_to_plot = [discharge_stats['char_count'], radiology_stats['char_count']]
-        ax.boxplot(data_to_plot, labels=['Discharge', 'Radiology'])
-        ax.set_ylabel('Character Count')
-        ax.set_title('Character Count Comparison')
-        ax.grid(alpha=0.3)
+        top_10_diagnoses = diagnosis_stats.head(10)['diagnosis'].values
+        data_to_plot = []
+        labels = []
+        for diag in top_10_diagnoses:
+            subset = df[df['consolidated_diagnosis'] == diag]['char_count']
+            if len(subset) > 0:
+                data_to_plot.append(subset)
+                label = diag[:20] + '...' if len(diag) > 20 else diag
+                labels.append(label)
 
-        # Word count comparison
+        if data_to_plot:
+            ax.boxplot(data_to_plot, labels=labels)
+            ax.set_ylabel('Character Count')
+            ax.set_title('Character Count Distribution - Top 10 Diagnoses')
+            ax.tick_params(axis='x', rotation=45, labelsize=7)
+            ax.grid(axis='y', alpha=0.3)
+
+        # Word count vs character count scatter
         ax = axes[1, 1]
-        data_to_plot = [discharge_stats['word_count'], radiology_stats['word_count']]
-        ax.boxplot(data_to_plot, labels=['Discharge', 'Radiology'])
-        ax.set_ylabel('Word Count')
-        ax.set_title('Word Count Comparison')
+        # Sample for performance
+        sample_df = df.sample(min(5000, len(df)), random_state=42)
+        ax.scatter(sample_df['word_count'], sample_df['char_count'],
+                  alpha=0.3, s=10)
+        ax.set_xlabel('Word Count')
+        ax.set_ylabel('Character Count')
+        ax.set_title('Word Count vs Character Count')
         ax.grid(alpha=0.3)
 
         plt.tight_layout()
 
-        # Save figure
-        fig_path = output_path / "clinical_notes_length_analysis.png"
+        fig_path = output_path / "clinical_notes_analysis_consolidated.png"
         plt.savefig(fig_path, dpi=300, bbox_inches='tight')
         logger.info(f"  ✓ Saved visualization: {fig_path}")
         plt.close()
 
-        # Figure 2: Log scale for better visualization
-        fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+        # Figure 2: Top 20 diagnoses comparison
+        fig, axes = plt.subplots(2, 1, figsize=(14, 10))
 
-        # Log scale histogram - discharge
+        # All top 20 - average character count
         ax = axes[0]
-        discharge_log = np.log10(discharge_stats['char_count'] + 1)
-        ax.hist(discharge_log, bins=50, alpha=0.7, edgecolor='black')
-        ax.set_xlabel('Log10(Character Count + 1)')
-        ax.set_ylabel('Frequency')
-        ax.set_title('Discharge Notes - Log Scale')
-        ax.grid(alpha=0.3)
+        y_pos = np.arange(len(diagnosis_stats))
+        colors = plt.cm.viridis(np.linspace(0, 1, len(diagnosis_stats)))
+        ax.barh(y_pos, diagnosis_stats['char_mean'], alpha=0.8, color=colors)
+        ax.set_yticks(y_pos)
+        ax.set_yticklabels([f"{d[:30]}..." if len(d) > 30 else d
+                            for d in diagnosis_stats['diagnosis']], fontsize=8)
+        ax.set_xlabel('Average Character Count')
+        ax.set_title('Top 20 Diagnoses - Average Text Length (Characters)')
+        ax.grid(axis='x', alpha=0.3)
 
-        # Log scale histogram - radiology
+        # All top 20 - case counts
         ax = axes[1]
-        radiology_log = np.log10(radiology_stats['char_count'] + 1)
-        ax.hist(radiology_log, bins=50, alpha=0.7, edgecolor='black', color='orange')
-        ax.set_xlabel('Log10(Character Count + 1)')
-        ax.set_ylabel('Frequency')
-        ax.set_title('Radiology Notes - Log Scale')
-        ax.grid(alpha=0.3)
+        ax.barh(y_pos, diagnosis_stats['n_cases'], alpha=0.8, color=colors)
+        ax.set_yticks(y_pos)
+        ax.set_yticklabels([f"{d[:30]}..." if len(d) > 30 else d
+                            for d in diagnosis_stats['diagnosis']], fontsize=8)
+        ax.set_xlabel('Number of Cases')
+        ax.set_title('Top 20 Diagnoses - Case Counts')
+        ax.grid(axis='x', alpha=0.3)
 
         plt.tight_layout()
 
-        fig_path = output_path / "clinical_notes_length_analysis_log.png"
+        fig_path = output_path / "clinical_notes_top20_comparison.png"
         plt.savefig(fig_path, dpi=300, bbox_inches='tight')
         logger.info(f"  ✓ Saved visualization: {fig_path}")
         plt.close()
 
-        logger.info("="*80 + "\n")
+        logger.info("="*80)
 
-    def save_results(self, discharge_stats, radiology_stats, diagnosis_stats=None,
-                     output_dir="mimic-iv"):
+    def save_results(self, df, diagnosis_stats, output_dir="mimic-iv"):
         """
         Save analysis results to CSV
 
         Args:
-            discharge_stats: DataFrame with discharge note statistics
-            radiology_stats: DataFrame with radiology note statistics
-            diagnosis_stats: DataFrame with per-diagnosis statistics (optional)
+            df: DataFrame with text statistics
+            diagnosis_stats: DataFrame with per-diagnosis statistics
             output_dir: Directory to save results
         """
-        logger.info("Saving results...")
+        logger.info("\nSaving results...")
 
         output_path = Path(output_dir)
         output_path.mkdir(exist_ok=True, parents=True)
 
-        # Save individual note statistics
-        all_stats = pd.concat([discharge_stats, radiology_stats], ignore_index=True)
-        stats_path = output_path / "clinical_notes_analysis.csv"
-        all_stats.to_csv(stats_path, index=False)
-        logger.info(f"  ✓ Saved note statistics: {stats_path}")
+        # Save per-diagnosis statistics (top 20)
+        diag_path = output_path / "clinical_notes_by_diagnosis_top20.csv"
+        diagnosis_stats.to_csv(diag_path, index=False)
+        logger.info(f"  ✓ Saved diagnosis statistics: {diag_path}")
 
-        # Save diagnosis statistics if available
-        if diagnosis_stats is not None:
-            diag_path = output_path / "clinical_notes_by_diagnosis.csv"
-            diagnosis_stats.to_csv(diag_path, index=False)
-            logger.info(f"  ✓ Saved diagnosis statistics: {diag_path}")
-
-        # Create summary report
+        # Save summary
         summary = {
             "analysis_date": datetime.now().isoformat(),
-            "discharge_notes": {
-                "total_notes": len(discharge_stats),
+            "dataset_path": str(self.dataset_path),
+            "total_records": len(df),
+            "unique_diagnoses": df['consolidated_diagnosis'].nunique(),
+            "top_20_diagnoses": diagnosis_stats['diagnosis'].tolist(),
+            "overall_statistics": {
                 "char_count": {
-                    "mean": float(discharge_stats['char_count'].mean()),
-                    "median": float(discharge_stats['char_count'].median()),
-                    "min": int(discharge_stats['char_count'].min()),
-                    "max": int(discharge_stats['char_count'].max()),
-                    "std": float(discharge_stats['char_count'].std()),
-                    "q1": float(discharge_stats['char_count'].quantile(0.25)),
-                    "q3": float(discharge_stats['char_count'].quantile(0.75))
+                    "mean": float(df['char_count'].mean()),
+                    "median": float(df['char_count'].median()),
+                    "min": int(df['char_count'].min()),
+                    "max": int(df['char_count'].max()),
+                    "std": float(df['char_count'].std()),
+                    "q1": float(df['char_count'].quantile(0.25)),
+                    "q3": float(df['char_count'].quantile(0.75))
                 },
                 "word_count": {
-                    "mean": float(discharge_stats['word_count'].mean()),
-                    "median": float(discharge_stats['word_count'].median()),
-                    "min": int(discharge_stats['word_count'].min()),
-                    "max": int(discharge_stats['word_count'].max())
+                    "mean": float(df['word_count'].mean()),
+                    "median": float(df['word_count'].median()),
+                    "min": int(df['word_count'].min()),
+                    "max": int(df['word_count'].max())
                 },
                 "line_count": {
-                    "mean": float(discharge_stats['line_count'].mean()),
-                    "median": float(discharge_stats['line_count'].median())
-                }
-            },
-            "radiology_notes": {
-                "total_notes": len(radiology_stats),
-                "char_count": {
-                    "mean": float(radiology_stats['char_count'].mean()),
-                    "median": float(radiology_stats['char_count'].median()),
-                    "min": int(radiology_stats['char_count'].min()),
-                    "max": int(radiology_stats['char_count'].max()),
-                    "std": float(radiology_stats['char_count'].std()),
-                    "q1": float(radiology_stats['char_count'].quantile(0.25)),
-                    "q3": float(radiology_stats['char_count'].quantile(0.75))
-                },
-                "word_count": {
-                    "mean": float(radiology_stats['word_count'].mean()),
-                    "median": float(radiology_stats['word_count'].median()),
-                    "min": int(radiology_stats['word_count'].min()),
-                    "max": int(radiology_stats['word_count'].max())
-                },
-                "line_count": {
-                    "mean": float(radiology_stats['line_count'].mean()),
-                    "median": float(radiology_stats['line_count'].median())
+                    "mean": float(df['line_count'].mean()),
+                    "median": float(df['line_count'].median())
                 }
             }
         }
@@ -415,84 +450,95 @@ class ClinicalNotesAnalyzer:
             json.dump(summary, f, indent=2)
         logger.info(f"  ✓ Saved summary: {summary_path}")
 
-    def run_full_analysis(self, top_diagnoses_path=None, output_dir="mimic-iv"):
+    def run_analysis(self, output_dir="mimic-iv"):
         """
         Run complete analysis pipeline
 
         Args:
-            top_diagnoses_path: Optional path to top diagnoses CSV
             output_dir: Directory to save outputs
         """
-        # Load notes
-        self.load_notes()
+        logger.info("\n" + "="*80)
+        logger.info("LOADING DATASET")
+        logger.info("="*80)
 
-        # Analyze discharge notes
-        discharge_stats = self.analyze_note_type(self.discharge_notes, 'discharge')
+        # Load dataset
+        logger.info(f"Reading: {self.dataset_path}")
+        df = pd.read_csv(self.dataset_path)
+        logger.info(f"  ✓ Loaded {len(df):,} records")
+        logger.info(f"  ✓ Columns: {list(df.columns)}")
 
-        # Analyze radiology notes
-        radiology_stats = self.analyze_note_type(self.radiology_notes, 'radiology')
+        # Verify required columns
+        required_cols = ['clinical_text', 'icd_code', 'primary_diagnosis_name']
+        missing = [col for col in required_cols if col not in df.columns]
+        if missing:
+            raise ValueError(f"Missing required columns: {missing}")
 
-        # Analyze by diagnosis (if top diagnoses provided)
-        diagnosis_stats = None
-        if top_diagnoses_path:
-            diagnosis_stats = self.analyze_by_diagnosis(top_diagnoses_path)
+        # Consolidate diagnosis names
+        df = self.consolidate_diagnosis_names(df)
+
+        # Calculate text statistics
+        df = self.calculate_text_statistics(df)
+
+        # Overall statistics
+        self.analyze_overall_statistics(df)
+
+        # Analyze by diagnosis (top 20)
+        diagnosis_stats = self.analyze_by_diagnosis(df)
 
         # Create visualizations
-        self.create_visualizations(discharge_stats, radiology_stats, output_dir)
+        self.create_visualizations(df, diagnosis_stats, output_dir)
 
         # Save results
-        self.save_results(discharge_stats, radiology_stats, diagnosis_stats, output_dir)
+        self.save_results(df, diagnosis_stats, output_dir)
 
-        return discharge_stats, radiology_stats, diagnosis_stats
+        return df, diagnosis_stats
 
 
 def main():
     """Main execution"""
     print("\n" + "="*80)
-    print("MIMIC-IV CLINICAL NOTES ANALYSIS")
-    print("Analyzes text length, word count, and complexity of clinical notes")
+    print("MIMIC-IV CLINICAL NOTES ANALYSIS (POST-EXTRACTION)")
+    print("Analyzes clinical text from extracted datasets with consolidated diagnoses")
     print("="*80)
 
-    # Get paths
+    # Get dataset path
     if len(sys.argv) > 1:
-        mimic_path = sys.argv[1]
+        dataset_path = sys.argv[1]
     else:
-        mimic_path = input("\nEnter path to MIMIC-IV directory: ").strip()
+        print("\nThis script analyzes datasets created by extract_dataset.py")
+        print("It consolidates ICD-9/ICD-10 codes for the same diagnosis.")
+        dataset_path = input("\nEnter path to dataset CSV (annotation_dataset.csv or classification_dataset.csv): ").strip()
 
-    if not mimic_path:
+    if not dataset_path:
         print("❌ No path provided")
         sys.exit(1)
 
-    # Optional: top diagnoses for per-diagnosis analysis
-    top_diagnoses_path = input("Path to top_20_primary_diagnoses.csv (or press Enter to skip): ").strip()
-    if not top_diagnoses_path:
-        top_diagnoses_path = None
-
     try:
         # Run analysis
-        analyzer = ClinicalNotesAnalyzer(mimic_path)
-        discharge_stats, radiology_stats, diagnosis_stats = analyzer.run_full_analysis(
-            top_diagnoses_path=top_diagnoses_path
-        )
+        analyzer = ClinicalNotesAnalyzer(dataset_path)
+        df, diagnosis_stats = analyzer.run_analysis()
 
         print("\n" + "="*80)
         print("✓ ANALYSIS COMPLETE!")
         print("="*80)
         print("\nFiles created:")
-        print("  - clinical_notes_analysis.csv (all note statistics)")
-        print("  - clinical_notes_analysis_summary.json (summary statistics)")
-        print("  - clinical_notes_length_analysis.png (visualizations)")
-        print("  - clinical_notes_length_analysis_log.png (log scale)")
-        if diagnosis_stats is not None:
-            print("  - clinical_notes_by_diagnosis.csv (per-diagnosis statistics)")
+        print("  - clinical_notes_by_diagnosis_top20.csv (per-diagnosis statistics)")
+        print("  - clinical_notes_analysis_summary.json (overall summary)")
+        print("  - clinical_notes_analysis_consolidated.png (visualizations)")
+        print("  - clinical_notes_top20_comparison.png (top 20 comparison)")
 
         print("\nKey Findings:")
-        print(f"  Discharge notes: {len(discharge_stats):,} notes, "
-              f"avg {discharge_stats['char_count'].mean():,.0f} chars, "
-              f"median {discharge_stats['char_count'].median():,.0f} chars")
-        print(f"  Radiology notes: {len(radiology_stats):,} notes, "
-              f"avg {radiology_stats['char_count'].mean():,.0f} chars, "
-              f"median {radiology_stats['char_count'].median():,.0f} chars")
+        print(f"  Total records: {len(df):,}")
+        print(f"  Consolidated diagnoses: {df['consolidated_diagnosis'].nunique()}")
+        print(f"  Top 20 diagnoses analyzed")
+        print(f"  Overall avg length: {df['char_count'].mean():,.0f} chars, "
+              f"median: {df['char_count'].median():,.0f} chars")
+
+        print("\nTop 5 Diagnoses by Case Count:")
+        for idx, row in diagnosis_stats.head(5).iterrows():
+            print(f"  {row['diagnosis']}: {row['n_cases']:,} cases, "
+                  f"avg {row['char_mean']:,.0f} chars")
+
         print("="*80 + "\n")
 
     except Exception as e:
