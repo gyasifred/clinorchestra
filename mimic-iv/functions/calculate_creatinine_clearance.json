@@ -1,0 +1,13 @@
+{
+  "name": "calculate_creatinine_clearance",
+  "code": "\ndef calculate_creatinine_clearance(age, weight_kg, serum_creatinine, gender):\n    \"\"\"Calculate creatinine clearance using Cockcroft-Gault equation\"\"\"\n    \n    if age is None or weight_kg is None or serum_creatinine is None or serum_creatinine == 0:\n        return None\n    \n    # Cockcroft-Gault: CrCl = ((140 - age) × weight) / (72 × Scr) [× 0.85 if female]\n    crcl = ((140 - age) * weight_kg) / (72 * serum_creatinine)\n    \n    if gender and gender.upper() == 'F':\n        crcl *= 0.85\n    \n    return round(crcl, 1)\n",
+  "description": "Calculate creatinine clearance (renal function) using Cockcroft-Gault equation",
+  "parameters": {
+    "age": {"type": "number", "description": "Patient age in years"},
+    "weight_kg": {"type": "number", "description": "Patient weight in kilograms"},
+    "serum_creatinine": {"type": "number", "description": "Serum creatinine in mg/dL"},
+    "gender": {"type": "string", "description": "Patient gender (M or F)"}
+  },
+  "returns": "Creatinine clearance in mL/min",
+  "signature": "(age, weight_kg, serum_creatinine, gender)"
+}

@@ -1,0 +1,241 @@
+TASK: MULTICLASS CLINICAL DIAGNOSIS PREDICTION
+
+OBJECTIVE:
+You are an expert clinical consultant performing multiclass diagnostic classification. Given a patient's complete clinical record (WITHOUT knowing the final diagnosis), you will:
+1. Systematically extract and analyze all clinical evidence
+2. Assign probability scores to ALL 20 possible primary diagnoses
+3. Provide detailed clinical reasoning for your probability assignments
+4. Identify the most likely diagnosis with supporting evidence
+
+This is a MULTICLASS CLASSIFICATION task - you must provide probability scores for ALL 20 diagnoses that sum to 1.0.
+
+PATIENT INFORMATION:
+- Patient ID: {subject_id}
+- Admission ID: {hadm_id}
+- Age: {anchor_age}
+- Gender: {gender}
+- Race: {race}
+- Admission Type: {admission_type}
+- Admission Date: {admittime}
+
+CLINICAL RECORD:
+{clinical_text}
+
+TOP 20 POSSIBLE PRIMARY DIAGNOSES:
+You must assign a probability (0.0 to 1.0) to EACH of these diagnoses. All probabilities must sum to exactly 1.0.
+
+[This list will be dynamically generated from top_20_primary_diagnoses.csv]
+
+---
+
+YOUR TASK WORKFLOW:
+
+═══════════════════════════════════════════════════════════════════════════
+PHASE 1: SYSTEMATIC CLINICAL DATA EXTRACTION
+═══════════════════════════════════════════════════════════════════════════
+
+Extract and organize ALL relevant clinical information:
+
+A. CHIEF COMPLAINT & KEY SYMPTOMS
+   - What brought the patient to the hospital?
+   - Major symptoms with characteristics (onset, duration, severity)
+
+B. VITAL SIGNS
+   - Blood pressure, heart rate, respiratory rate, temperature, oxygen saturation
+   - Note any abnormal values
+
+C. CRITICAL LABORATORY FINDINGS
+   - Focus on significantly abnormal values
+   - Organ function indicators (kidney, liver, cardiac markers)
+   - Infection markers (WBC, lactate, cultures)
+
+D. IMAGING & DIAGNOSTIC FINDINGS
+   - Key findings from radiology, ECG, echo, etc.
+
+E. MEDICATIONS
+   - Current medications (especially those indicating chronic conditions)
+   - Medications started in hospital (diagnostic clues)
+
+F. RELEVANT MEDICAL HISTORY
+   - Chronic conditions
+   - Previous similar episodes
+   - Risk factors
+
+═══════════════════════════════════════════════════════════════════════════
+PHASE 2: CLINICAL PATTERN ANALYSIS
+═══════════════════════════════════════════════════════════════════════════
+
+Analyze the clinical pattern:
+
+1. PRIMARY ORGAN SYSTEMS INVOLVED
+   - Which systems are affected? (Cardiovascular, Respiratory, Renal, etc.)
+
+2. TIME COURSE
+   - Acute, subacute, chronic, or acute-on-chronic?
+
+3. SEVERITY
+   - Mild, moderate, severe, or critical?
+
+4. KEY PATHOPHYSIOLOGIC FEATURES
+   - What underlying processes are evident?
+   - Infectious? Inflammatory? Ischemic? Metabolic?
+
+═══════════════════════════════════════════════════════════════════════════
+PHASE 3: MULTICLASS PROBABILITY ASSIGNMENT
+═══════════════════════════════════════════════════════════════════════════
+
+**CRITICAL**: For EACH of the 20 possible diagnoses, assign a probability (0.0 to 1.0):
+
+For each diagnosis, consider:
+- **Supporting Evidence**: What findings support this diagnosis?
+- **Contradicting Evidence**: What findings argue against it?
+- **Probability Justification**: Why this specific probability?
+
+**Probability Assignment Guidelines:**
+- 0.40-1.00: Strong evidence supporting this diagnosis
+- 0.20-0.39: Moderate evidence, plausible but less likely
+- 0.05-0.19: Weak evidence, possible but unlikely
+- 0.01-0.04: Minimal evidence, very unlikely but not impossible
+- 0.00-0.00: No evidence, can be ruled out
+
+**IMPORTANT**:
+- All 20 probabilities MUST sum to exactly 1.0
+- Be thoughtful about probability distribution
+- If multiple diagnoses are very likely, distribute probability accordingly
+- If one diagnosis is highly certain, it should have the highest probability (e.g., 0.70-0.90)
+- Do not assign 0.00 unless you can definitively rule out the diagnosis
+
+═══════════════════════════════════════════════════════════════════════════
+PHASE 4: TOP DIAGNOSIS IDENTIFICATION
+═══════════════════════════════════════════════════════════════════════════
+
+Identify your SINGLE MOST LIKELY diagnosis (the one with highest probability):
+
+1. Diagnosis name and ICD code
+2. Assigned probability
+3. Detailed reasoning explaining why this has the highest probability
+4. Key discriminating features that distinguish it from close alternatives
+5. Diagnostic certainty level
+
+═══════════════════════════════════════════════════════════════════════════
+PHASE 5: TOP 5 DIFFERENTIAL DIAGNOSIS
+═══════════════════════════════════════════════════════════════════════════
+
+List your TOP 5 diagnoses (highest probabilities) in ranked order:
+
+For each:
+- Rank (1-5)
+- Diagnosis name and ICD code
+- Probability score
+- Key supporting evidence
+- If not #1, explain what prevents it from being more likely
+
+═══════════════════════════════════════════════════════════════════════════
+PHASE 6: CLINICAL REASONING DOCUMENTATION
+═══════════════════════════════════════════════════════════════════════════
+
+Document your reasoning process:
+
+1. **Reasoning Approach Used**
+   - Pattern recognition
+   - Bayesian reasoning
+   - Criteria-based diagnosis
+   - Exclusion approach
+   - Probabilistic thinking
+
+2. **Key Decision Points**
+   - Critical questions you had to answer
+   - How you used evidence to answer them
+
+3. **Diagnostic Challenges**
+   - What made this case difficult?
+   - How did you address uncertainties?
+
+4. **Data Quality**
+   - Was the clinical data complete?
+   - What additional information would have been helpful?
+
+5. **Uncertainty Factors**
+   - What contributes to uncertainty in your probabilities?
+
+═══════════════════════════════════════════════════════════════════════════
+PROBABILITY CALIBRATION GUIDANCE
+═══════════════════════════════════════════════════════════════════════════
+
+**Well-Calibrated Examples:**
+
+Example 1: Clear-cut case
+- Diagnosis A: 0.85 (very strong evidence)
+- Diagnosis B: 0.08 (some overlapping features)
+- Diagnosis C: 0.04 (possible but unlikely)
+- Remaining 17 diagnoses: 0.03 total (distributed minimally)
+
+Example 2: Uncertain case with 3 strong possibilities
+- Diagnosis A: 0.40 (strong evidence but not definitive)
+- Diagnosis B: 0.35 (strong evidence, slightly fewer features)
+- Diagnosis C: 0.15 (moderate evidence)
+- Remaining 17 diagnoses: 0.10 total (distributed)
+
+Example 3: Moderately certain case
+- Diagnosis A: 0.60 (probable diagnosis)
+- Diagnosis B: 0.20 (plausible alternative)
+- Diagnosis C: 0.10 (less likely alternative)
+- Remaining 17 diagnoses: 0.10 total
+
+═══════════════════════════════════════════════════════════════════════════
+QUALITY STANDARDS
+═══════════════════════════════════════════════════════════════════════════
+
+✓ COMPREHENSIVE: Review ALL clinical data systematically
+✓ EVIDENCE-BASED: Link probabilities to specific clinical findings
+✓ CALIBRATED: Probabilities should reflect true confidence
+✓ EXPLICIT: Clearly state reasoning for each probability
+✓ SUM-CONSTRAINED: All 20 probabilities must sum to exactly 1.0
+✓ BALANCED: Don't over-concentrate probability on one diagnosis unless evidence is very strong
+✓ HONEST: Acknowledge uncertainty appropriately
+
+AVOID:
+✗ Assigning 1.0 to one diagnosis and 0.0 to all others (unless absolutely certain)
+✗ Arbitrary probability assignments without justification
+✗ Ignoring contradicting evidence
+✗ Probabilities that don't sum to 1.0
+✗ Overconfidence when data is limited
+
+═══════════════════════════════════════════════════════════════════════════
+OUTPUT FORMAT
+═══════════════════════════════════════════════════════════════════════════
+
+Provide your complete diagnostic assessment in the structured JSON format specified in the schema, including:
+
+1. **clinical_data_extraction**: Organized clinical findings
+2. **clinical_pattern_analysis**: Pattern and severity assessment
+3. **multiclass_prediction**:
+   - ALL 20 diagnoses with probabilities (must sum to 1.0)
+   - Supporting and contradicting evidence for each
+   - Clinical reasoning for each probability
+4. **top_diagnosis**: Your #1 prediction with detailed reasoning
+5. **top_5_differential**: Top 5 ranked diagnoses
+6. **clinical_reasoning**: Your diagnostic thought process
+
+═══════════════════════════════════════════════════════════════════════════
+EVALUATION CONTEXT
+═══════════════════════════════════════════════════════════════════════════
+
+Your predictions will be evaluated using multiclass classification metrics:
+- **Top-1 Accuracy**: Is your highest probability the correct diagnosis?
+- **Top-5 Accuracy**: Is the correct diagnosis in your top 5?
+- **Cross-Entropy Loss**: How well-calibrated are your probabilities?
+- **Brier Score**: Accuracy of your probability estimates
+- **Precision/Recall/F1**: Per-diagnosis performance
+
+Your goal is to:
+1. Correctly identify the actual diagnosis with the highest probability
+2. Provide well-calibrated probabilities (not just picking one)
+3. Distribute probability appropriately among plausible alternatives
+4. Minimize false confidence (high probability when wrong)
+
+This is training data for clinical AI - accuracy AND calibration matter!
+
+═══════════════════════════════════════════════════════════════════════════
+
+BEGIN YOUR SYSTEMATIC CLINICAL ASSESSMENT NOW.

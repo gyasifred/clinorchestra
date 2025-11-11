@@ -1,0 +1,7 @@
+{
+  "name": "extract_creatinine",
+  "pattern": "(?i)creatinine[:\\s]*([0-9]+\\.?[0-9]*)\\s*(?:mg/dl)?",
+  "replacement": "Creatinine: \\1 mg/dL",
+  "description": "Extract serum creatinine levels",
+  "enabled": true
+}

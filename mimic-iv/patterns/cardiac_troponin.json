@@ -1,0 +1,7 @@
+{
+  "name": "extract_troponin",
+  "pattern": "(?i)troponin[\\s-]*(?:I|T)?[:\\s]*([0-9]+\\.?[0-9]*)\\s*(?:ng/ml)?",
+  "replacement": "Troponin: \\1 ng/mL",
+  "description": "Extract troponin levels (cardiac marker for MI)",
+  "enabled": true
+}

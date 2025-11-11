@@ -1,0 +1,736 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Clinical Evidence Annotation Schema",
+  "description": "Structured schema for annotating clinical evidence supporting a diagnosis",
+  "type": "object",
+  "required": [
+    "patient_info",
+    "diagnosis_info",
+    "evidence_summary",
+    "symptoms_and_presentation",
+    "physical_examination",
+    "laboratory_results",
+    "imaging_and_diagnostics",
+    "medications_and_treatments",
+    "medical_history",
+    "risk_factors",
+    "clinical_reasoning",
+    "temporal_timeline",
+    "severity_assessment"
+  ],
+  "properties": {
+    "patient_info": {
+      "type": "object",
+      "description": "Patient demographic and admission information",
+      "required": ["subject_id", "hadm_id", "age", "gender"],
+      "properties": {
+        "subject_id": {
+          "type": "string",
+          "description": "Patient identifier"
+        },
+        "hadm_id": {
+          "type": "string",
+          "description": "Hospital admission identifier"
+        },
+        "age": {
+          "type": "integer",
+          "description": "Patient age in years"
+        },
+        "gender": {
+          "type": "string",
+          "enum": ["M", "F"]
+        },
+        "race": {
+          "type": "string"
+        },
+        "admission_type": {
+          "type": "string"
+        }
+      }
+    },
+    "diagnosis_info": {
+      "type": "object",
+      "description": "Primary diagnosis being annotated",
+      "required": ["icd_code", "diagnosis_name"],
+      "properties": {
+        "icd_code": {
+          "type": "string",
+          "description": "ICD code for primary diagnosis"
+        },
+        "icd_version": {
+          "type": "integer",
+          "description": "ICD version (9 or 10)"
+        },
+        "diagnosis_name": {
+          "type": "string",
+          "description": "Full name of the diagnosis"
+        }
+      }
+    },
+    "evidence_summary": {
+      "type": "object",
+      "description": "High-level summary of evidence quality and completeness",
+      "required": ["overall_evidence_strength", "key_supporting_findings", "evidence_completeness"],
+      "properties": {
+        "overall_evidence_strength": {
+          "type": "string",
+          "enum": ["DEFINITIVE", "STRONG", "MODERATE", "WEAK", "INSUFFICIENT"],
+          "description": "Overall strength of evidence supporting the diagnosis"
+        },
+        "key_supporting_findings": {
+          "type": "array",
+          "description": "Top 5 most important findings supporting diagnosis",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "maxItems": 10
+        },
+        "evidence_completeness": {
+          "type": "string",
+          "description": "Assessment of how complete the clinical documentation is"
+        },
+        "missing_expected_evidence": {
+          "type": "array",
+          "description": "Expected evidence that is absent from the record",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "symptoms_and_presentation": {
+      "type": "object",
+      "description": "Clinical symptoms and presenting complaints",
+      "required": ["chief_complaint", "symptom_list"],
+      "properties": {
+        "chief_complaint": {
+          "type": "object",
+          "required": ["text", "evidence_quote"],
+          "properties": {
+            "text": {
+              "type": "string",
+              "description": "Primary reason for admission"
+            },
+            "evidence_quote": {
+              "type": "string",
+              "description": "Direct quote from clinical record"
+            },
+            "source_location": {
+              "type": "string",
+              "description": "Where in record this was found (e.g., 'Discharge Summary - Chief Complaint')"
+            }
+          }
+        },
+        "symptom_list": {
+          "type": "array",
+          "description": "All documented symptoms",
+          "items": {
+            "type": "object",
+            "required": ["symptom", "evidence_quality"],
+            "properties": {
+              "symptom": {
+                "type": "string",
+                "description": "Name of symptom"
+              },
+              "onset": {
+                "type": "string",
+                "description": "When symptom started"
+              },
+              "duration": {
+                "type": "string",
+                "description": "How long symptom has been present"
+              },
+              "severity": {
+                "type": "string",
+                "description": "Severity of symptom (mild, moderate, severe)"
+              },
+              "character": {
+                "type": "string",
+                "description": "Specific characteristics of symptom"
+              },
+              "progression": {
+                "type": "string",
+                "description": "How symptom has changed over time"
+              },
+              "evidence_quote": {
+                "type": "string",
+                "description": "Direct quote from record"
+              },
+              "evidence_quality": {
+                "type": "string",
+                "enum": ["DEFINITIVE", "STRONG", "MODERATE", "WEAK", "CONTEXTUAL"]
+              },
+              "relevance_to_diagnosis": {
+                "type": "string",
+                "description": "Explain how this symptom supports the diagnosis"
+              }
+            }
+          }
+        },
+        "pertinent_negatives": {
+          "type": "array",
+          "description": "Important symptoms that are explicitly absent",
+          "items": {
+            "type": "object",
+            "properties": {
+              "symptom": {
+                "type": "string"
+              },
+              "evidence_quote": {
+                "type": "string"
+              },
+              "significance": {
+                "type": "string",
+                "description": "Why the absence of this symptom is clinically significant"
+              }
+            }
+          }
+        }
+      }
+    },
+    "physical_examination": {
+      "type": "object",
+      "description": "Physical examination findings",
+      "properties": {
+        "vital_signs": {
+          "type": "array",
+          "description": "Documented vital signs measurements",
+          "items": {
+            "type": "object",
+            "properties": {
+              "measurement": {
+                "type": "string",
+                "description": "Type of vital sign (BP, HR, RR, Temp, SpO2)"
+              },
+              "value": {
+                "type": "string",
+                "description": "Measured value with units"
+              },
+              "timing": {
+                "type": "string",
+                "description": "When measured (admission, during stay, discharge)"
+              },
+              "abnormal": {
+                "type": "boolean",
+                "description": "Whether value is abnormal"
+              },
+              "evidence_quote": {
+                "type": "string"
+              },
+              "clinical_significance": {
+                "type": "string",
+                "description": "How this supports the diagnosis"
+              }
+            }
+          }
+        },
+        "physical_exam_findings": {
+          "type": "array",
+          "description": "Findings from physical examination",
+          "items": {
+            "type": "object",
+            "required": ["body_system", "finding"],
+            "properties": {
+              "body_system": {
+                "type": "string",
+                "description": "Organ system or body region"
+              },
+              "finding": {
+                "type": "string",
+                "description": "What was found on examination"
+              },
+              "evidence_quote": {
+                "type": "string"
+              },
+              "evidence_quality": {
+                "type": "string",
+                "enum": ["DEFINITIVE", "STRONG", "MODERATE", "WEAK", "CONTEXTUAL"]
+              },
+              "clinical_significance": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "laboratory_results": {
+      "type": "object",
+      "description": "Laboratory test results",
+      "properties": {
+        "lab_values": {
+          "type": "array",
+          "description": "Individual lab test results",
+          "items": {
+            "type": "object",
+            "required": ["test_name", "value"],
+            "properties": {
+              "test_name": {
+                "type": "string",
+                "description": "Name of laboratory test"
+              },
+              "value": {
+                "type": "string",
+                "description": "Test result with units"
+              },
+              "reference_range": {
+                "type": "string",
+                "description": "Normal reference range"
+              },
+              "abnormal_flag": {
+                "type": "string",
+                "enum": ["HIGH", "LOW", "CRITICAL_HIGH", "CRITICAL_LOW", "NORMAL"]
+              },
+              "timing": {
+                "type": "string",
+                "description": "When test was performed"
+              },
+              "trend": {
+                "type": "string",
+                "description": "How value changed over time (improving, worsening, stable)"
+              },
+              "evidence_quote": {
+                "type": "string"
+              },
+              "evidence_quality": {
+                "type": "string",
+                "enum": ["DEFINITIVE", "STRONG", "MODERATE", "WEAK", "CONTEXTUAL"]
+              },
+              "clinical_significance": {
+                "type": "string",
+                "description": "How this lab result supports the diagnosis"
+              }
+            }
+          }
+        },
+        "lab_panels": {
+          "type": "array",
+          "description": "Grouped lab panels (e.g., metabolic panel, CBC)",
+          "items": {
+            "type": "object",
+            "properties": {
+              "panel_name": {
+                "type": "string"
+              },
+              "overall_interpretation": {
+                "type": "string"
+              },
+              "evidence_quality": {
+                "type": "string",
+                "enum": ["DEFINITIVE", "STRONG", "MODERATE", "WEAK", "CONTEXTUAL"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "imaging_and_diagnostics": {
+      "type": "object",
+      "description": "Imaging and diagnostic study findings",
+      "properties": {
+        "radiology_studies": {
+          "type": "array",
+          "description": "Imaging studies performed",
+          "items": {
+            "type": "object",
+            "required": ["study_type", "findings"],
+            "properties": {
+              "study_type": {
+                "type": "string",
+                "description": "Type of imaging (X-ray, CT, MRI, ultrasound)"
+              },
+              "body_region": {
+                "type": "string",
+                "description": "Anatomical region imaged"
+              },
+              "findings": {
+                "type": "string",
+                "description": "Summary of findings"
+              },
+              "evidence_quote": {
+                "type": "string",
+                "description": "Direct quote from radiology report"
+              },
+              "evidence_quality": {
+                "type": "string",
+                "enum": ["DEFINITIVE", "STRONG", "MODERATE", "WEAK", "CONTEXTUAL"]
+              },
+              "clinical_significance": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "other_diagnostics": {
+          "type": "array",
+          "description": "Other diagnostic procedures (ECG, echo, biopsy, etc.)",
+          "items": {
+            "type": "object",
+            "properties": {
+              "procedure_type": {
+                "type": "string"
+              },
+              "findings": {
+                "type": "string"
+              },
+              "evidence_quote": {
+                "type": "string"
+              },
+              "evidence_quality": {
+                "type": "string",
+                "enum": ["DEFINITIVE", "STRONG", "MODERATE", "WEAK", "CONTEXTUAL"]
+              },
+              "clinical_significance": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "medications_and_treatments": {
+      "type": "object",
+      "description": "Medications and treatments administered",
+      "properties": {
+        "medications": {
+          "type": "array",
+          "description": "Medications prescribed or administered",
+          "items": {
+            "type": "object",
+            "properties": {
+              "medication_name": {
+                "type": "string"
+              },
+              "indication": {
+                "type": "string",
+                "description": "Why medication was given"
+              },
+              "dosage": {
+                "type": "string"
+              },
+              "route": {
+                "type": "string"
+              },
+              "response": {
+                "type": "string",
+                "description": "Patient's response to medication"
+              },
+              "evidence_quote": {
+                "type": "string"
+              },
+              "relevance_to_diagnosis": {
+                "type": "string",
+                "description": "How this medication supports the diagnosis"
+              }
+            }
+          }
+        },
+        "procedures": {
+          "type": "array",
+          "description": "Therapeutic procedures performed",
+          "items": {
+            "type": "object",
+            "properties": {
+              "procedure_name": {
+                "type": "string"
+              },
+              "indication": {
+                "type": "string"
+              },
+              "outcome": {
+                "type": "string"
+              },
+              "evidence_quote": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "medical_history": {
+      "type": "object",
+      "description": "Past medical history and relevant background",
+      "properties": {
+        "past_medical_history": {
+          "type": "array",
+          "description": "Previous medical conditions",
+          "items": {
+            "type": "object",
+            "properties": {
+              "condition": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "evidence_quote": {
+                "type": "string"
+              },
+              "relevance_to_diagnosis": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "previous_hospitalizations": {
+          "type": "array",
+          "description": "Previous hospital admissions",
+          "items": {
+            "type": "object",
+            "properties": {
+              "reason": {
+                "type": "string"
+              },
+              "timing": {
+                "type": "string"
+              },
+              "relevance": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "surgical_history": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "procedure": {
+                "type": "string"
+              },
+              "timing": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "family_history": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "condition": {
+                "type": "string"
+              },
+              "relative": {
+                "type": "string"
+              },
+              "relevance": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "risk_factors": {
+      "type": "object",
+      "description": "Risk factors for the diagnosis",
+      "properties": {
+        "lifestyle_factors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "factor": {
+                "type": "string",
+                "description": "e.g., smoking, alcohol, drug use"
+              },
+              "details": {
+                "type": "string"
+              },
+              "evidence_quote": {
+                "type": "string"
+              },
+              "risk_level": {
+                "type": "string",
+                "enum": ["HIGH", "MODERATE", "LOW"]
+              }
+            }
+          }
+        },
+        "environmental_occupational": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "exposure": {
+                "type": "string"
+              },
+              "evidence_quote": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "demographic_risk_factors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "factor": {
+                "type": "string",
+                "description": "e.g., age, gender, race"
+              },
+              "relevance": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "clinical_reasoning": {
+      "type": "object",
+      "description": "Clinical reasoning and diagnostic process documented",
+      "required": ["diagnostic_certainty"],
+      "properties": {
+        "documented_clinical_reasoning": {
+          "type": "string",
+          "description": "Clinical reasoning explicitly documented by providers"
+        },
+        "differential_diagnoses_considered": {
+          "type": "array",
+          "description": "Alternative diagnoses that were considered",
+          "items": {
+            "type": "object",
+            "properties": {
+              "diagnosis": {
+                "type": "string"
+              },
+              "ruled_out_why": {
+                "type": "string"
+              },
+              "evidence_quote": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "diagnostic_criteria_met": {
+          "type": "array",
+          "description": "Specific diagnostic criteria that were met",
+          "items": {
+            "type": "object",
+            "properties": {
+              "criterion_name": {
+                "type": "string"
+              },
+              "criterion_met": {
+                "type": "boolean"
+              },
+              "evidence": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "diagnostic_certainty": {
+          "type": "string",
+          "enum": ["CONFIRMED", "HIGHLY_PROBABLE", "PROBABLE", "POSSIBLE", "UNCERTAIN"],
+          "description": "Level of diagnostic certainty based on available evidence"
+        },
+        "supporting_reasoning": {
+          "type": "string",
+          "description": "Your expert explanation of how the evidence supports the diagnosis"
+        }
+      }
+    },
+    "temporal_timeline": {
+      "type": "object",
+      "description": "Timeline of clinical events",
+      "properties": {
+        "symptom_onset": {
+          "type": "string",
+          "description": "When symptoms first began"
+        },
+        "presentation_timing": {
+          "type": "string",
+          "description": "When patient presented to hospital"
+        },
+        "diagnosis_timing": {
+          "type": "string",
+          "description": "When diagnosis was made"
+        },
+        "key_events": {
+          "type": "array",
+          "description": "Key events in chronological order",
+          "items": {
+            "type": "object",
+            "properties": {
+              "event": {
+                "type": "string"
+              },
+              "timing": {
+                "type": "string"
+              },
+              "significance": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "severity_assessment": {
+      "type": "object",
+      "description": "Assessment of disease severity and complications",
+      "properties": {
+        "severity_score": {
+          "type": "string",
+          "description": "Any documented severity scoring system"
+        },
+        "staging": {
+          "type": "string",
+          "description": "Disease stage if applicable"
+        },
+        "complications": {
+          "type": "array",
+          "description": "Complications of the primary diagnosis",
+          "items": {
+            "type": "object",
+            "properties": {
+              "complication": {
+                "type": "string"
+              },
+              "evidence_quote": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "comorbidities": {
+          "type": "array",
+          "description": "Coexisting conditions",
+          "items": {
+            "type": "string"
+          }
+        },
+        "functional_status": {
+          "type": "string",
+          "description": "Impact on patient's functional status and activities of daily living"
+        }
+      }
+    },
+    "annotation_metadata": {
+      "type": "object",
+      "description": "Metadata about the annotation process",
+      "properties": {
+        "annotation_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "annotation_notes": {
+          "type": "string",
+          "description": "Any additional notes from the annotator"
+        },
+        "data_quality_assessment": {
+          "type": "string",
+          "description": "Assessment of the quality and completeness of source data"
+        }
+      }
+    }
+  }
+}

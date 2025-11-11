@@ -1,0 +1,770 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Clinical Diagnosis Classification Schema",
+  "description": "Structured schema for diagnostic prediction and clinical reasoning",
+  "type": "object",
+  "required": [
+    "patient_info",
+    "clinical_data_extraction",
+    "clinical_pattern_analysis",
+    "differential_diagnosis",
+    "primary_diagnosis_prediction",
+    "alternative_diagnoses",
+    "clinical_reasoning"
+  ],
+  "properties": {
+    "patient_info": {
+      "type": "object",
+      "description": "Patient demographic and admission information",
+      "required": ["subject_id", "hadm_id", "age", "gender"],
+      "properties": {
+        "subject_id": {
+          "type": "string"
+        },
+        "hadm_id": {
+          "type": "string"
+        },
+        "age": {
+          "type": "integer"
+        },
+        "gender": {
+          "type": "string",
+          "enum": ["M", "F"]
+        },
+        "race": {
+          "type": "string"
+        },
+        "admission_type": {
+          "type": "string"
+        }
+      }
+    },
+    "clinical_data_extraction": {
+      "type": "object",
+      "description": "Systematically extracted clinical data from record",
+      "required": ["chief_complaint", "presenting_symptoms"],
+      "properties": {
+        "chief_complaint": {
+          "type": "object",
+          "properties": {
+            "complaint": {
+              "type": "string"
+            },
+            "duration": {
+              "type": "string"
+            },
+            "source_quote": {
+              "type": "string"
+            }
+          }
+        },
+        "presenting_symptoms": {
+          "type": "array",
+          "description": "All presenting symptoms extracted from record",
+          "items": {
+            "type": "object",
+            "properties": {
+              "symptom": {
+                "type": "string"
+              },
+              "onset": {
+                "type": "string"
+              },
+              "duration": {
+                "type": "string"
+              },
+              "severity": {
+                "type": "string",
+                "enum": ["MILD", "MODERATE", "SEVERE", "CRITICAL"]
+              },
+              "characteristics": {
+                "type": "string"
+              },
+              "source_quote": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "vital_signs": {
+          "type": "object",
+          "description": "Vital signs measurements",
+          "properties": {
+            "blood_pressure": {
+              "type": "object",
+              "properties": {
+                "systolic": {
+                  "type": "number"
+                },
+                "diastolic": {
+                  "type": "number"
+                },
+                "abnormal": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "heart_rate": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "number"
+                },
+                "abnormal": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "respiratory_rate": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "number"
+                },
+                "abnormal": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "temperature": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "number"
+                },
+                "unit": {
+                  "type": "string"
+                },
+                "abnormal": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "oxygen_saturation": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "number"
+                },
+                "on_oxygen": {
+                  "type": "boolean"
+                },
+                "abnormal": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "vital_signs_interpretation": {
+              "type": "string",
+              "description": "Overall interpretation of vital signs pattern"
+            }
+          }
+        },
+        "physical_examination": {
+          "type": "array",
+          "description": "Physical exam findings by system",
+          "items": {
+            "type": "object",
+            "properties": {
+              "system": {
+                "type": "string",
+                "description": "Body system examined (e.g., Cardiovascular, Respiratory)"
+              },
+              "findings": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "clinical_significance": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "laboratory_data": {
+          "type": "object",
+          "description": "Laboratory test results organized by category",
+          "properties": {
+            "hematology": {
+              "type": "array",
+              "description": "CBC and coagulation studies",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "test": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  },
+                  "reference_range": {
+                    "type": "string"
+                  },
+                  "abnormal": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "chemistry": {
+              "type": "array",
+              "description": "Metabolic panel, electrolytes",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "test": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  },
+                  "abnormal": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "organ_function": {
+              "type": "object",
+              "description": "Organ-specific function tests",
+              "properties": {
+                "renal": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "test": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "hepatic": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "test": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "cardiac": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "test": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "microbiology": {
+              "type": "array",
+              "description": "Culture and sensitivity results",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "culture_type": {
+                    "type": "string"
+                  },
+                  "organism": {
+                    "type": "string"
+                  },
+                  "sensitivity": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            },
+            "lab_interpretation": {
+              "type": "string",
+              "description": "Overall interpretation of laboratory findings"
+            }
+          }
+        },
+        "imaging_diagnostics": {
+          "type": "array",
+          "description": "Imaging and diagnostic study results",
+          "items": {
+            "type": "object",
+            "properties": {
+              "study_type": {
+                "type": "string"
+              },
+              "body_region": {
+                "type": "string"
+              },
+              "findings": {
+                "type": "string"
+              },
+              "clinical_significance": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "medical_history": {
+          "type": "object",
+          "properties": {
+            "past_medical_history": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "past_surgical_history": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "medications": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "medication": {
+                    "type": "string"
+                  },
+                  "indication": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "allergies": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "social_history": {
+          "type": "object",
+          "properties": {
+            "smoking": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "enum": ["NEVER", "FORMER", "CURRENT", "UNKNOWN"]
+                },
+                "pack_years": {
+                  "type": "number"
+                }
+              }
+            },
+            "alcohol": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": "string"
+                }
+              }
+            },
+            "illicit_drugs": {
+              "type": "string"
+            },
+            "occupation": {
+              "type": "string"
+            },
+            "living_situation": {
+              "type": "string"
+            }
+          }
+        },
+        "family_history": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "condition": {
+                "type": "string"
+              },
+              "relative": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "clinical_pattern_analysis": {
+      "type": "object",
+      "description": "Analysis of clinical patterns and pathophysiology",
+      "required": ["identified_patterns", "organ_systems_involved"],
+      "properties": {
+        "identified_patterns": {
+          "type": "array",
+          "description": "Clinical patterns or syndromes identified",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pattern_name": {
+                "type": "string"
+              },
+              "supporting_evidence": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "organ_systems_involved": {
+          "type": "array",
+          "description": "Which organ systems are affected",
+          "items": {
+            "type": "object",
+            "properties": {
+              "system": {
+                "type": "string"
+              },
+              "severity": {
+                "type": "string",
+                "enum": ["MILD", "MODERATE", "SEVERE"]
+              },
+              "evidence": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "pathophysiological_mechanism": {
+          "type": "object",
+          "properties": {
+            "primary_mechanism": {
+              "type": "string",
+              "description": "Main pathophysiological process (e.g., infectious, inflammatory, ischemic)"
+            },
+            "explanation": {
+              "type": "string",
+              "description": "Detailed explanation of disease process"
+            }
+          }
+        },
+        "time_course": {
+          "type": "string",
+          "enum": ["ACUTE", "SUBACUTE", "CHRONIC", "ACUTE_ON_CHRONIC"],
+          "description": "Temporal pattern of disease"
+        },
+        "severity_indicators": {
+          "type": "array",
+          "description": "Findings that indicate disease severity",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "differential_diagnosis": {
+      "type": "array",
+      "description": "Ranked list of possible diagnoses from top 20 options",
+      "minItems": 3,
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "required": ["diagnosis", "icd_code", "probability", "supporting_evidence", "contradicting_evidence"],
+        "properties": {
+          "rank": {
+            "type": "integer",
+            "description": "Ranking by likelihood (1 = most likely)"
+          },
+          "diagnosis": {
+            "type": "string",
+            "description": "Diagnosis name"
+          },
+          "icd_code": {
+            "type": "string",
+            "description": "ICD code from top 20 list"
+          },
+          "probability": {
+            "type": "string",
+            "enum": ["HIGH", "MEDIUM", "LOW"],
+            "description": "Estimated probability"
+          },
+          "confidence_score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100,
+            "description": "Confidence percentage (0-100)"
+          },
+          "supporting_evidence": {
+            "type": "array",
+            "description": "Evidence that supports this diagnosis",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "contradicting_evidence": {
+            "type": "array",
+            "description": "Evidence that argues against this diagnosis",
+            "items": {
+              "type": "string"
+            }
+          },
+          "clinical_criteria_met": {
+            "type": "object",
+            "description": "Which diagnostic criteria are met",
+            "properties": {
+              "criteria_name": {
+                "type": "string"
+              },
+              "major_criteria_met": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "minor_criteria_met": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "missing_information": {
+            "type": "array",
+            "description": "Information that would help confirm or exclude this diagnosis",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "primary_diagnosis_prediction": {
+      "type": "object",
+      "description": "Final prediction of primary diagnosis",
+      "required": ["predicted_diagnosis", "icd_code", "confidence_level", "detailed_reasoning"],
+      "properties": {
+        "predicted_diagnosis": {
+          "type": "string",
+          "description": "The single most likely primary diagnosis"
+        },
+        "icd_code": {
+          "type": "string",
+          "description": "ICD code of predicted diagnosis (must be from top 20 list)"
+        },
+        "icd_version": {
+          "type": "integer",
+          "enum": [9, 10]
+        },
+        "confidence_level": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Confidence in this prediction (0-100%)"
+        },
+        "detailed_reasoning": {
+          "type": "string",
+          "description": "Comprehensive explanation of why this is the most likely diagnosis"
+        },
+        "key_discriminating_features": {
+          "type": "array",
+          "description": "Features that distinguish this from close alternatives",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "expected_findings_present": {
+          "type": "array",
+          "description": "Expected findings that ARE present in this case",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unexpected_findings": {
+          "type": "array",
+          "description": "Findings that are unexpected for this diagnosis",
+          "items": {
+            "type": "object",
+            "properties": {
+              "finding": {
+                "type": "string"
+              },
+              "explanation": {
+                "type": "string",
+                "description": "How to account for this unexpected finding"
+              }
+            }
+          }
+        },
+        "diagnostic_certainty": {
+          "type": "string",
+          "enum": ["DEFINITIVE", "HIGHLY_PROBABLE", "PROBABLE", "POSSIBLE", "UNCERTAIN"],
+          "description": "Level of diagnostic certainty"
+        }
+      }
+    },
+    "alternative_diagnoses": {
+      "type": "array",
+      "description": "Top alternative diagnoses and why they are less likely",
+      "minItems": 2,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": ["diagnosis", "icd_code", "why_less_likely"],
+        "properties": {
+          "diagnosis": {
+            "type": "string"
+          },
+          "icd_code": {
+            "type": "string"
+          },
+          "why_less_likely": {
+            "type": "string",
+            "description": "Explanation of why this is less likely than primary prediction"
+          },
+          "what_would_support": {
+            "type": "string",
+            "description": "What findings would be needed to make this more likely"
+          }
+        }
+      }
+    },
+    "clinical_reasoning": {
+      "type": "object",
+      "description": "Detailed clinical reasoning process",
+      "required": ["reasoning_approach", "key_decision_points"],
+      "properties": {
+        "reasoning_approach": {
+          "type": "array",
+          "description": "Which reasoning strategies were used",
+          "items": {
+            "type": "string",
+            "enum": [
+              "PATTERN_RECOGNITION",
+              "BAYESIAN_REASONING",
+              "CRITERIA_BASED",
+              "EXCLUSION_APPROACH",
+              "PROBABILISTIC",
+              "HYPOTHETICO_DEDUCTIVE"
+            ]
+          }
+        },
+        "key_decision_points": {
+          "type": "array",
+          "description": "Critical decision points in diagnostic reasoning",
+          "items": {
+            "type": "object",
+            "properties": {
+              "question": {
+                "type": "string",
+                "description": "Key question that needed to be answered"
+              },
+              "evidence_reviewed": {
+                "type": "string"
+              },
+              "conclusion": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "diagnostic_challenges": {
+          "type": "array",
+          "description": "Challenges or uncertainties in making this diagnosis",
+          "items": {
+            "type": "object",
+            "properties": {
+              "challenge": {
+                "type": "string"
+              },
+              "how_addressed": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "cognitive_biases_considered": {
+          "type": "array",
+          "description": "Cognitive biases actively avoided",
+          "items": {
+            "type": "string",
+            "enum": [
+              "ANCHORING_BIAS",
+              "PREMATURE_CLOSURE",
+              "AVAILABILITY_BIAS",
+              "CONFIRMATION_BIAS",
+              "COMMISSION_BIAS"
+            ]
+          }
+        },
+        "quality_of_evidence": {
+          "type": "string",
+          "enum": ["EXCELLENT", "GOOD", "FAIR", "POOR"],
+          "description": "Overall quality of available clinical evidence"
+        },
+        "confidence_factors": {
+          "type": "object",
+          "properties": {
+            "factors_increasing_confidence": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "factors_decreasing_confidence": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "prediction_metadata": {
+      "type": "object",
+      "description": "Metadata about the prediction",
+      "properties": {
+        "prediction_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "additional_notes": {
+          "type": "string"
+        },
+        "data_completeness": {
+          "type": "string",
+          "enum": ["COMPLETE", "MOSTLY_COMPLETE", "PARTIAL", "INCOMPLETE"],
+          "description": "Assessment of clinical data completeness"
+        },
+        "follow_up_needed": {
+          "type": "array",
+          "description": "Additional tests or information that would be helpful",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

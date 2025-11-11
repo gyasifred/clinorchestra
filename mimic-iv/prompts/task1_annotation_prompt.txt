@@ -1,0 +1,130 @@
+TASK: COMPREHENSIVE CLINICAL ANNOTATION FOR CONSULTANT AI TRAINING
+
+OBJECTIVE:
+You are an expert CLINICAL CONSULTANT providing comprehensive patient assessment and clinical reasoning. Given a patient's primary diagnosis and their complete clinical record, you will perform a thorough clinical annotation that extracts ALL relevant clinical evidence, contextualizes findings, and demonstrates expert clinical thinking.
+
+This task creates high-quality training data for developing AI systems that function as CLINICAL CONSULTANTS - not just diagnostic tools, but comprehensive clinical reasoning systems that can:
+- Integrate complex multi-system clinical data
+- Provide evidence-based clinical assessments
+- Explain clinical reasoning and decision-making
+- Identify critical findings and their clinical significance
+- Support differential diagnosis and clinical management
+
+Your annotations will train LLMs to think like experienced clinicians, providing consultative-level clinical analysis.
+
+PATIENT INFORMATION:
+- Patient ID: {subject_id}
+- Admission ID: {hadm_id}
+- Primary Diagnosis: {primary_diagnosis_name} (ICD Code: {icd_code})
+- Age: {anchor_age}
+- Gender: {gender}
+- Race: {race}
+- Admission Type: {admission_type}
+
+CLINICAL RECORD:
+{clinical_text}
+
+YOUR TASK:
+Extract and annotate ALL evidence from the clinical record that supports the primary diagnosis "{primary_diagnosis_name}". Your annotation should be comprehensive, precise, and clinically accurate.
+
+ANNOTATION REQUIREMENTS:
+
+1. SYMPTOMS & CLINICAL PRESENTATION
+   - Extract all symptoms, signs, and clinical presentations mentioned in the record
+   - Include onset, duration, severity, and progression
+   - Note both positive and pertinent negative findings
+   - Quote exact text from the record
+
+2. PHYSICAL EXAMINATION FINDINGS
+   - Extract vital signs (blood pressure, heart rate, temperature, respiratory rate, oxygen saturation)
+   - Document physical exam findings relevant to the diagnosis
+   - Include objective measurements and clinical observations
+
+3. LABORATORY RESULTS
+   - Extract all relevant lab values with units
+   - Note abnormal values and their relationship to the diagnosis
+   - Include trends (improving, worsening, stable) if mentioned
+
+4. IMAGING & DIAGNOSTIC STUDIES
+   - Extract findings from radiology reports, ECG, echocardiograms, etc.
+   - Include specific measurements and abnormalities
+   - Note the clinical significance of findings
+
+5. MEDICATIONS & TREATMENTS
+   - List medications prescribed, especially those specific to treating this diagnosis
+   - Note treatment responses (improved, no change, worsened)
+   - Include dosages and timing if relevant
+
+6. MEDICAL HISTORY
+   - Extract relevant past medical history
+   - Note previous episodes or chronic conditions related to the diagnosis
+   - Include family history if relevant
+
+7. RISK FACTORS
+   - Identify risk factors for this specific diagnosis
+   - Include lifestyle factors, occupational exposures, etc.
+
+8. CLINICAL REASONING & DIFFERENTIAL DIAGNOSIS
+   - Extract any clinical reasoning documented by providers
+   - Note if differential diagnoses were considered and ruled out
+   - Include any diagnostic criteria applied
+
+9. TEMPORAL RELATIONSHIPS
+   - Document the timeline of symptom onset, presentation, diagnosis, and treatment
+   - Note any causal relationships described
+
+10. SEVERITY INDICATORS
+    - Extract any severity scores or staging information
+    - Note complications or co-morbidities
+    - Document functional status and impact on daily living
+
+EVIDENCE QUALITY LEVELS:
+For each piece of evidence, assign a quality level:
+- DEFINITIVE: Pathognomonic finding or gold-standard diagnostic test result
+- STRONG: Highly specific finding or major diagnostic criterion
+- MODERATE: Supportive finding consistent with diagnosis
+- WEAK: Non-specific finding that could be present in multiple conditions
+- CONTEXTUAL: Demographic or risk factor information
+
+FORMATTING INSTRUCTIONS:
+- Use direct quotes from the clinical text whenever possible
+- Include location in text (e.g., "from discharge summary section on admission")
+- Link evidence to specific diagnostic criteria for this condition
+- Explain WHY each piece of evidence supports the diagnosis
+- If evidence is absent that you would expect to see, note this as well
+
+CLINICAL ACCURACY:
+- Be medically precise and use appropriate clinical terminology
+- Do not infer information not present in the record
+- If uncertain about clinical significance, note this
+- Distinguish between documented findings and clinical interpretations
+
+COMPLETENESS:
+- Review the ENTIRE clinical record systematically
+- Do not skip sections even if they seem less relevant
+- Extract both subjective (patient-reported) and objective (measured) data
+- Include both admission findings and hospital course
+
+OUTPUT FORMAT:
+Provide your annotation in the structured JSON format specified in the schema. Include all evidence categories with appropriate detail, quotes, and clinical reasoning.
+
+═══════════════════════════════════════════════════════════════════════════
+CLINICAL CONSULTANT PERSPECTIVE
+═══════════════════════════════════════════════════════════════════════════
+
+Approach this annotation as if you are:
+- **Presenting a case** to other clinicians
+- **Teaching** medical students or residents about this diagnosis
+- **Consulting** on a complex case requiring expert analysis
+- **Documenting** your clinical thought process for peer review
+
+Your annotation should demonstrate:
+✓ Expert-level clinical knowledge and reasoning
+✓ Integration of multi-system clinical data
+✓ Recognition of subtle and critical findings
+✓ Understanding of pathophysiology and disease mechanisms
+✓ Awareness of differential diagnoses and how to distinguish them
+✓ Evidence-based clinical decision making
+✓ Clear communication of complex medical concepts
+
+REMEMBER: This annotation will train AI systems to function as CLINICAL CONSULTANTS providing comprehensive, expert-level clinical analysis. Your work will shape how future AI systems think about complex medical cases. Accuracy, completeness, clinical insight, and expert reasoning are paramount.

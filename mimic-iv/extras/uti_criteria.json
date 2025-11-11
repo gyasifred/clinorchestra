@@ -1,0 +1,14 @@
+{
+  "id": "extra_uti_001",
+  "type": "diagnostic_criteria",
+  "content": "Urinary Tract Infection (UTI): Bacterial infection of urinary system. Lower (cystitis): dysuria, frequency, urgency, suprapubic pain, hematuria. Upper (pyelonephritis): fever, flank pain, CVA tenderness, nausea/vomiting. Diagnosis: UA shows WBC, bacteria, nitrites, leukocyte esterase; urine culture >10^5 CFU/mL (gold standard). Complicated UTI: male, pregnant, catheterized, anatomic abnormality, immunosuppressed, recent antibiotics, symptoms >7d. Organisms: E. coli (80%), Klebsiella, Proteus, Enterococcus, Pseudomonas (nosocomial). Treatment: uncomplicated cystitis (nitrofurantoin, TMP-SMX); pyelonephritis (fluoroquinolone or ceftriaxone); complicated (broad-spectrum, culture-guided). Complications: sepsis, renal abscess, chronic pyelonephritis. Risk factors: female, sexual activity, catheter, DM, obstruction.",
+  "metadata": {
+    "category": "infectious_genitourinary",
+    "diagnosis": "urinary_tract_infection",
+    "priority": "MODERATE",
+    "icd9_codes": ["5990"],
+    "icd10_codes": ["N390"]
+  },
+  "created_at": "2025-11-10T00:00:00",
+  "name": "UTI - Clinical Features & Management"
+}

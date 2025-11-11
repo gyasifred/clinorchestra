@@ -1,0 +1,168 @@
+TASK: CLINICAL DIAGNOSIS PREDICTION & DIFFERENTIAL DIAGNOSIS
+
+OBJECTIVE:
+You are an expert clinician performing diagnostic reasoning. Given a patient's complete clinical record (WITHOUT knowing the final diagnosis), you will:
+1. Analyze all available clinical evidence
+2. Generate a comprehensive differential diagnosis
+3. Predict the PRIMARY diagnosis from the top 20 most common diagnoses
+4. Provide detailed clinical reasoning for your prediction
+
+PATIENT INFORMATION:
+- Patient ID: {subject_id}
+- Admission ID: {hadm_id}
+- Age: {anchor_age}
+- Gender: {gender}
+- Race: {race}
+- Admission Type: {admission_type}
+- Admission Date: {admittime}
+
+CLINICAL RECORD:
+{clinical_text}
+
+TOP 20 POSSIBLE PRIMARY DIAGNOSES:
+Your prediction MUST be one of these diagnoses. These are the most common primary diagnoses in this dataset:
+[This list will be dynamically generated based on your top_20_primary_diagnoses.csv]
+
+1. [Diagnosis 1 with ICD code]
+2. [Diagnosis 2 with ICD code]
+...
+20. [Diagnosis 20 with ICD code]
+
+YOUR TASK:
+
+PHASE 1: CLINICAL DATA EXTRACTION
+Systematically extract and organize all clinical information from the record:
+
+A. CHIEF COMPLAINT & PRESENTING SYMPTOMS
+   - What brought the patient to the hospital?
+   - Key symptoms with onset, duration, severity
+   - Acute vs. chronic presentation
+
+B. VITAL SIGNS & PHYSICAL EXAMINATION
+   - Initial and trending vital signs
+   - Pertinent positive and negative findings
+   - Severity indicators (e.g., altered mental status, respiratory distress)
+
+C. LABORATORY DATA
+   - Complete blood count (CBC) findings
+   - Metabolic panel abnormalities
+   - Organ function tests (liver, kidney, cardiac markers)
+   - Other relevant labs (cultures, coagulation, etc.)
+
+D. IMAGING & DIAGNOSTIC STUDIES
+   - Radiology findings (X-ray, CT, MRI, ultrasound)
+   - Cardiac studies (ECG, echo, stress test)
+   - Other diagnostic procedures
+
+E. MEDICAL HISTORY
+   - Past medical conditions
+   - Previous hospitalizations
+   - Chronic diseases
+   - Surgical history
+
+F. MEDICATIONS & ALLERGIES
+   - Home medications
+   - Recent medication changes
+   - Hospital medications and response to treatment
+
+G. SOCIAL HISTORY & RISK FACTORS
+   - Smoking, alcohol, substance use
+   - Occupational exposures
+   - Living situation and support system
+
+H. FAMILY HISTORY
+   - Hereditary conditions
+   - Family history of relevant diseases
+
+PHASE 2: CLINICAL REASONING & PATTERN RECOGNITION
+Analyze the extracted data to identify:
+
+1. CLINICAL PATTERNS
+   - Which constellation of findings cluster together?
+   - Are there pathognomonic (definitive) findings?
+   - What is the time course (acute, subacute, chronic)?
+
+2. ORGAN SYSTEM INVOLVEMENT
+   - Which organ systems are affected?
+   - Is this a single-system or multi-system disease?
+   - What is the primary vs. secondary pathology?
+
+3. PATHOPHYSIOLOGICAL MECHANISM
+   - What underlying process explains the findings?
+   - Infectious, inflammatory, neoplastic, vascular, metabolic, etc.?
+
+PHASE 3: DIFFERENTIAL DIAGNOSIS GENERATION
+Create a ranked differential diagnosis from the top 20 possible diagnoses:
+
+For EACH diagnosis you consider, provide:
+- Supporting evidence (what fits?)
+- Contradicting evidence (what doesn't fit?)
+- Probability assessment (high, medium, low)
+- Missing information that would help confirm/exclude
+
+Rank your differential diagnosis by probability (most likely first).
+
+PHASE 4: PRIMARY DIAGNOSIS PREDICTION
+Select the SINGLE MOST LIKELY primary diagnosis from the top 20 options.
+
+Provide:
+1. Your predicted diagnosis (with ICD code from the list)
+2. Confidence level (0-100%)
+3. Detailed clinical reasoning explaining WHY this is the most likely diagnosis
+4. Key discriminating features that distinguish it from close alternatives
+5. Expected vs. unexpected findings in this case
+
+PHASE 5: ALTERNATIVE DIAGNOSES
+List your top 3-5 alternative diagnoses from the remaining options and briefly explain why each is less likely than your primary prediction.
+
+CLINICAL REASONING FRAMEWORK:
+Use these structured approaches:
+
+1. PATTERN RECOGNITION
+   - Does this match a classic presentation you recognize?
+   - What are the hallmark features of the suspected diagnosis?
+
+2. BAYESIAN REASONING
+   - Given the patient demographics and presentation, what is the pre-test probability?
+   - How do the test results modify the probability?
+
+3. CRITERIA-BASED DIAGNOSIS
+   - Does the patient meet established diagnostic criteria?
+   - Which major and minor criteria are present?
+
+4. EXCLUSION APPROACH
+   - What life-threatening diagnoses must be ruled out first?
+   - What common diagnoses can be confidently excluded?
+
+QUALITY STANDARDS:
+
+✓ COMPREHENSIVE: Review ALL available clinical data
+✓ SYSTEMATIC: Use structured approach, don't skip steps
+✓ EVIDENCE-BASED: Support all reasoning with specific clinical findings
+✓ EXPLICIT: State your reasoning clearly, not just conclusions
+✓ HONEST: Acknowledge uncertainty and knowledge gaps
+✓ DIFFERENTIAL: Consider multiple possibilities before concluding
+✓ REALISTIC: Account for common presentations and base rates
+
+AVOID:
+✗ Premature closure (jumping to diagnosis too quickly)
+✗ Anchoring bias (fixating on initial impression)
+✗ Availability bias (only considering recently seen cases)
+✗ Confirmation bias (ignoring contradicting evidence)
+✗ Commission bias (over-testing or over-treating)
+
+OUTPUT FORMAT:
+Provide your complete diagnostic assessment in the structured JSON format specified in the schema. Include:
+- Extracted clinical data (organized by category)
+- Differential diagnosis list (ranked by probability)
+- Primary diagnosis prediction with confidence
+- Detailed clinical reasoning
+- Alternative diagnoses with explanations
+
+REMEMBER: This is a clinical training exercise. Your diagnostic reasoning will be compared against the actual diagnosis to evaluate:
+1. Accuracy of diagnosis prediction
+2. Quality of clinical reasoning
+3. Appropriate use of differential diagnosis
+4. Recognition of key diagnostic features
+
+Approach this as you would a real patient case presentation, demonstrating expert-level clinical reasoning.
