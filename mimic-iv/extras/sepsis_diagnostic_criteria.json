@@ -6,7 +6,8 @@
     "category": "infectious_disease",
     "diagnosis": "sepsis",
     "priority": "CRITICAL",
-    "icd10_codes": ["A41.9", "A41.89"]
+    "icd9_codes": ["0389", "389"],
+    "icd10_codes": ["A419"]
   },
   "created_at": "2025-11-10T00:00:00",
   "name": "Sepsis-3 Diagnostic Criteria"

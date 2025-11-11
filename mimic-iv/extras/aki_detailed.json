@@ -7,7 +7,7 @@
     "diagnosis": "acute_kidney_injury",
     "priority": "HIGH",
     "icd9_codes": ["5849"],
-    "icd10_codes": ["N179"]
+    "icd10_codes": ["N179", "N170", "N171", "N172"]
   },
   "created_at": "2025-11-10T00:00:00",
   "name": "AKI - KDIGO Staging & Etiology"
