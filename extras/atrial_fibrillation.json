@@ -1,0 +1,14 @@
+{
+  "id": "extra_afib_001",
+  "type": "diagnostic_criteria",
+  "content": "Atrial Fibrillation: Irregularly irregular rhythm with absent P waves. Types: paroxysmal (self-terminating <7d), persistent (>7d), permanent (accepted). Symptoms: palpitations, dyspnea, fatigue, chest discomfort; may be asymptomatic. ECG: irregularly irregular RR intervals, no discrete P waves, fibrillatory waves. Causes: HTN, valvular disease, CAD, HF, hyperthyroidism, alcohol, sleep apnea, post-cardiac surgery. Rate control: BB (metoprolol), CCB (diltiazem), digoxin. Rhythm control: cardioversion, antiarrhythmics (amiodarone, flecainide). Anticoagulation: CHA2DS2-VASc score (≥2 men, ≥3 women = anticoagulate); HAS-BLED score for bleeding risk. Complications: stroke (5x risk), HF, tachycardia-induced cardiomyopathy.",
+  "metadata": {
+    "category": "cardiovascular",
+    "diagnosis": "atrial_fibrillation",
+    "priority": "HIGH",
+    "icd9_codes": ["42731"],
+    "icd10_codes": ["I4891"]
+  },
+  "created_at": "2025-11-10T00:00:00",
+  "name": "Atrial Fibrillation - Classification & Management"
+}

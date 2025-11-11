@@ -1,0 +1,14 @@
+{
+  "id": "extra_pneumonia_001",
+  "type": "diagnostic_criteria",
+  "content": "Pneumonia: Acute infection of lung parenchyma. Community-acquired (CAP) vs hospital-acquired (HAP) vs ventilator-associated (VAP). Clinical: fever, cough (productive), dyspnea, pleuritic chest pain, tachypnea. Exam: crackles, bronchial breath sounds, dullness to percussion, egophony. CXR: infiltrate/consolidation (lobar, multilobar, interstitial). Labs: leukocytosis or leukopenia, elevated procalcitonin. Sputum/blood cultures (before antibiotics). CURB-65 score for severity (Confusion, Urea >19, RR≥30, BP<90/60, age≥65): 0-1=outpatient, 2=inpatient, 3-5=ICU. PSI (Pneumonia Severity Index) also used. Organisms: S. pneumoniae (most common), H. influenzae, atypicals (Mycoplasma, Legionella, Chlamydia). Treatment: empiric antibiotics (β-lactam + macrolide or fluoroquinolone), adjust based on cultures. Complications: pleural effusion, empyema, sepsis, respiratory failure, death.",
+  "metadata": {
+    "category": "infectious_pulmonary",
+    "diagnosis": "pneumonia",
+    "priority": "HIGH",
+    "icd9_codes": ["486"],
+    "icd10_codes": ["J189"]
+  },
+  "created_at": "2025-11-10T00:00:00",
+  "name": "Pneumonia - Diagnosis & Severity Assessment"
+}

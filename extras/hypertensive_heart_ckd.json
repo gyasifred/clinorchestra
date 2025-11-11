@@ -1,0 +1,13 @@
+{
+  "id": "extra_hhd_ckd_001",
+  "type": "diagnostic_criteria",
+  "content": "Hypertensive Heart Disease with CKD (I13.0): Combined diagnosis of HTN-related cardiac dysfunction + chronic kidney disease. Hypertensive Heart Disease: LVH (ECG: increased voltage, echo: wall thickness >11mm women, >12mm men), diastolic dysfunction (impaired relaxation), may progress to HF (systolic or diastolic). Chronic Kidney Disease staging: Stage 1 (GFR ≥90 + kidney damage), Stage 2 (GFR 60-89), Stage 3a (45-59), Stage 3b (30-44), Stage 4 (15-29), Stage 5 (<15 or dialysis). Clinical: HTN history, kidney disease history, volume overload, dyspnea, peripheral edema, uremia. Labs: elevated Cr, decreased GFR, proteinuria, anemia of CKD. Echo: LVH, preserved or reduced EF. Treatment: BP control (ACE-I/ARB nephroprotective), diuretics for volume, manage CKD complications (anemia, bone disease, acidosis, hyperkalemia). Cardiac-renal syndrome interplay: HF worsens kidney function, CKD increases cardiac risk.",
+  "metadata": {
+    "category": "cardiovascular_renal",
+    "diagnosis": "hypertensive_heart_ckd",
+    "priority": "HIGH",
+    "icd10_codes": ["I130"]
+  },
+  "created_at": "2025-11-10T00:00:00",
+  "name": "Hypertensive Heart Disease with CKD - Combined Pathology"
+}

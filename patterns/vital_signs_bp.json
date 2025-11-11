@@ -1,0 +1,7 @@
+{
+  "name": "extract_blood_pressure",
+  "pattern": "(?i)(?:bp|blood\\s+pressure)[:\\s]*([0-9]{2,3})\\s*/\\s*([0-9]{2,3})",
+  "replacement": "BP: \\1/\\2",
+  "description": "Extract and standardize blood pressure readings (systolic/diastolic)",
+  "enabled": true
+}

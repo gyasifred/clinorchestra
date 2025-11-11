@@ -1,0 +1,14 @@
+{
+  "id": "extra_depression_001",
+  "type": "diagnostic_criteria",
+  "content": "Major Depressive Disorder (MDD): DSM-5 criteria require ≥5 symptoms for ≥2 weeks with functional impairment, including ≥1 of: (1) Depressed mood most of day, (2) Anhedonia (loss of interest/pleasure). Additional symptoms: weight/appetite change, insomnia/hypersomnia, psychomotor agitation/retardation, fatigue, worthlessness/guilt, decreased concentration, recurrent thoughts of death/suicidal ideation. Severity: mild (few symptoms, minor impairment), moderate, severe (many symptoms, major impairment), severe with psychotic features. PHQ-9 score: 5-9 mild, 10-14 moderate, 15-19 moderately severe, ≥20 severe. Suicidal risk assessment: MANDATO RY for all patients (ideation, plan, means, prior attempts). Treatment: psychotherapy (CBT), antidepressants (SSRI/SNRI first-line), ECT for severe/refractory. Hospitalization if acutely suicidal, psychotic, severe impairment.",
+  "metadata": {
+    "category": "psychiatry",
+    "diagnosis": "major_depressive_disorder",
+    "priority": "HIGH",
+    "icd9_codes": ["311"],
+    "icd10_codes": ["F329"]
+  },
+  "created_at": "2025-11-10T00:00:00",
+  "name": "Major Depressive Disorder - DSM-5 Criteria"
+}

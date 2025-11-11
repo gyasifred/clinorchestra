@@ -1,0 +1,7 @@
+{
+  "name": "extract_bnp",
+  "pattern": "(?i)(?:bnp|b-type\\s+natriuretic|brain\\s+natriuretic)[:\\s]*([0-9]+)\\s*(?:pg/ml)?",
+  "replacement": "BNP: \\1 pg/mL",
+  "description": "Extract BNP levels (heart failure marker)",
+  "enabled": true
+}
