@@ -76,7 +76,7 @@ class LLMManager:
         if profile and profile.provider == self.provider:
             self.temperature = filtered_config.get('temperature', profile.temperature)
             self.max_tokens = filtered_config.get('max_tokens', profile.max_tokens)
-            logger.info(f"📊 Using optimized profile for {self.model_name} ({profile.optimization_level})")
+            logger.info(f" Using optimized profile for {self.model_name} ({profile.optimization_level})")
         else:
             self.temperature = filtered_config.get('temperature', 0.01)
             self.max_tokens = filtered_config.get('max_tokens', 4096)
@@ -111,9 +111,9 @@ class LLMManager:
         logger.info(f"LLMManager initialized: {self.provider}/{self.model_name}")
         if cache_enabled:
             if self.cache_bypass:
-                logger.info(f"💾 LLM caching: ENABLED but BYPASSED (forcing fresh calls)")
+                logger.info(f" LLM caching: ENABLED but BYPASSED (forcing fresh calls)")
             else:
-                logger.info(f"💾 LLM caching: ENABLED (400x faster for cached queries)")
+                logger.info(f" LLM caching: ENABLED (400x faster for cached queries)")
         if self.provider == 'local':
             logger.info(f"Local model context window: {self.max_seq_length}")
     
@@ -300,10 +300,10 @@ class LLMManager:
                 config_hash=self.prompt_config_hash  # Invalidates cache when config changes
             )
             if cached_response:
-                logger.debug(f"💾 Cache HIT (400x faster)")
+                logger.debug(f" Cache HIT (400x faster)")
                 return cached_response
         else:
-            logger.debug(f"🔄 Cache BYPASSED - forcing fresh LLM call")
+            logger.debug(f" Cache BYPASSED - forcing fresh LLM call")
 
         # Cache miss or bypass - generate response
         try:

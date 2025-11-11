@@ -1,0 +1,32 @@
+{
+  "name": "classify_aki_stage_kdigo",
+  "description": "Classify AKI stage per KDIGO criteria using baseline and current creatinine values. Returns stage (0-3), criteria met, creatinine ratio, and absolute change.",
+  "parameters": {
+    "baseline_cr": {
+      "type": "number",
+      "description": "Baseline creatinine in mg/dL (lowest in past 7 days or admission value)",
+      "required": true
+    },
+    "current_cr": {
+      "type": "number",
+      "description": "Current creatinine in mg/dL",
+      "required": true
+    },
+    "cr_change_48h": {
+      "type": "number",
+      "description": "Change in creatinine over 48 hours in mg/dL (optional)",
+      "required": false
+    },
+    "on_rrt": {
+      "type": "boolean",
+      "description": "Patient on renal replacement therapy (dialysis/CRRT)",
+      "required": false
+    }
+  },
+  "returns": {
+    "aki_stage": "integer (0-3)",
+    "criteria_met": "string describing which KDIGO criteria are met",
+    "cr_ratio": "float (current/baseline ratio)",
+    "absolute_change": "float (current - baseline in mg/dL)"
+  }
+}

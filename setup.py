@@ -13,7 +13,7 @@ long_description = readme_file.read_text() if readme_file.exists() else ""
 
 setup(
     name="clinorchestra",
-    version="1.0.1",
+    version="1.0.0",
     author="Frederick Gyasi",
     author_email="gyasi@musc.edu",
     description="Universal platform for intelligent clinical data extraction and orchestration",

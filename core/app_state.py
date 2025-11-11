@@ -7,7 +7,7 @@ prompt settings, data configuration, and optimization settings.
 
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
-Version: 1.0.1
+Version: 1.0.0
 """
 
 import logging
@@ -123,7 +123,7 @@ class AgenticConfig:
 
 @dataclass
 class OptimizationConfig:
-    """Performance optimization configuration (v1.0.1)"""
+    """Performance optimization configuration (v1.0.0)"""
     # LLM optimizations
     llm_cache_enabled: bool = True  # Enable LLM response caching (400x faster cached)
     llm_cache_db_path: str = "cache/llm_responses.db"  # Cache database path
@@ -175,7 +175,7 @@ class AppState:
         self.rag_config = RAGConfig()  # rag_top_k auto-initialized
         self.processing_config = ProcessingConfig()
         self.agentic_config = AgenticConfig()  # v1.0.0 - Agentic mode config
-        self.optimization_config = OptimizationConfig()  # v1.0.1 - Performance optimizations
+        self.optimization_config = OptimizationConfig()  # v1.0.0 - Performance optimizations
 
         self.config_valid = False
         self.prompt_valid = False
@@ -252,7 +252,7 @@ class AppState:
                 'api_key': self.model_config.api_key,
                 'temperature': self.model_config.temperature,
                 'max_tokens': self.model_config.max_tokens,
-                # v1.0.1 optimization configs
+                # v1.0.0 optimization configs
                 'llm_cache_enabled': self.optimization_config.llm_cache_enabled,
                 'llm_cache_db_path': self.optimization_config.llm_cache_db_path,
                 'llm_cache_bypass': self.optimization_config.llm_cache_bypass,

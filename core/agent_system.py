@@ -75,7 +75,7 @@ class ExtractionAgentContext:
 
 class ExtractionAgent:
     """
-    🎯 UNIVERSAL AGENTIC SYSTEM - Works for ANY clinical extraction task
+     UNIVERSAL AGENTIC SYSTEM - Works for ANY clinical extraction task
 
     This agent is task-agnostic and dynamically determines:
     - Required information based on YOUR task (defined in schema/prompts)
@@ -100,7 +100,7 @@ class ExtractionAgent:
         self.max_retries = 3
         self.json_parser = JSONParser()
 
-        logger.info("🎯 ExtractionAgent v1.0.0 initialized - STRUCTURED Mode (predictable workflows with ASYNC)")
+        logger.info(" ExtractionAgent v1.0.0 initialized - STRUCTURED Mode (predictable workflows with ASYNC)")
         
     
     def extract(self, clinical_text: str, label_value: Optional[Any] = None) -> Dict[str, Any]:
@@ -513,7 +513,7 @@ class ExtractionAgent:
         except RuntimeError as e:
             # Event loop already running (e.g., Jupyter notebook)
             if "cannot be called from a running event loop" in str(e):
-                logger.warning("⚠️ Event loop already running - falling back to sequential execution")
+                logger.warning(" Event loop already running - falling back to sequential execution")
                 logger.warning("   (Async optimization disabled in this context)")
                 # Fall back to sequential synchronous execution
                 results = []
@@ -572,7 +572,7 @@ class ExtractionAgent:
         results = await asyncio.gather(*tasks)
         elapsed = time.time() - start_time
 
-        logger.info(f"✅ Executed {len(tasks)} tools in {elapsed:.2f}s (parallel)")
+        logger.info(f" Executed {len(tasks)} tools in {elapsed:.2f}s (parallel)")
 
         return results
     
@@ -627,7 +627,7 @@ class ExtractionAgent:
         try:
             if not self.rag_engine:
                 error_msg = (
-                    "❌ RAG Engine Not Initialized\n\n"
+                    " RAG Engine Not Initialized\n\n"
                     "The agent requested RAG (document retrieval), but RAG is not configured.\n\n"
                     "To enable RAG:\n"
                     "1. Go to the 'RAG' tab\n"
@@ -636,8 +636,8 @@ class ExtractionAgent:
                     "4. Ensure 'Enable RAG' is checked in RAG configuration\n\n"
                     "Without RAG, the agent will rely only on Functions and Extras for knowledge."
                 )
-                logger.warning(f"⚠️ RAG engine not available - agent requested RAG but it's not initialized")
-                logger.info("📖 To fix: Upload documents in RAG tab → Build Index → Enable RAG")
+                logger.warning(f" RAG engine not available - agent requested RAG but it's not initialized")
+                logger.info(" To fix: Upload documents in RAG tab → Build Index → Enable RAG")
                 return {
                     'type': 'rag',
                     'success': False,
@@ -919,7 +919,7 @@ class ExtractionAgent:
 
         prompt = f"""You are an intelligent agent analyzing a clinical data extraction task to determine which tools to use.
 
-🎯 UNIVERSAL SYSTEM: This works for ANY clinical task (not just the examples shown below).
+ UNIVERSAL SYSTEM: This works for ANY clinical task (not just the examples shown below).
 The examples are illustrative - adapt your strategy to the specific task defined in the schema.
 
 EXTRACTION TASK:
@@ -1185,16 +1185,16 @@ Response should include:
 ⚡ CRITICAL REQUIREMENTS (Universal Principles)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-🎯 ADAPT TO YOUR TASK:
+ ADAPT TO YOUR TASK:
 The examples above show renal, growth, and cardiac tasks. YOUR task may be completely different
 (diabetes, sepsis, AKI, oncology, etc.). Analyze YOUR schema and clinical text to determine what's needed.
 
-📊 FOR SERIAL/TEMPORAL DATA:
+ FOR SERIAL/TEMPORAL DATA:
 - *** Call the same function MULTIPLE times (once per time point) ***
 - Include "date_context" for each function call to track temporal sequence
 - When you see multiple measurements over time, calculate for ALL time points
 
-🔍 RAG QUERIES:
+ RAG QUERIES:
 - Provide 3-5 queries targeting different aspects relevant to YOUR task
 - Each query should have 4-8 specific keywords from YOUR domain
 - Reference appropriate standards/organizations for YOUR domain
@@ -1206,11 +1206,11 @@ The examples above show renal, growth, and cardiac tasks. YOUR task may be compl
 - Chain functions if needed (e.g., unit conversion before calculation)
 - Only call functions that help with YOUR specific extraction schema
 
-💡 EXTRAS KEYWORDS:
+ EXTRAS KEYWORDS:
 - 5-8 keywords: specific terminology from YOUR domain, not generic words
 - Extract from YOUR schema field names and clinical context
 
-📝 RESPONSE FORMAT:
+ RESPONSE FORMAT:
 Respond with ONLY the JSON object in the format shown above."""
 
         return prompt
@@ -1271,7 +1271,7 @@ Respond with ONLY the JSON object in the format shown above."""
         self.context.using_minimal_prompt = self.app_state.is_using_minimal_prompt
 
         if self.context.using_minimal_prompt:
-            logger.warning(f"⚠️  Using MINIMAL prompt (retry_count={self.context.retry_count} >= max_retries={self.app_state.processing_config.max_retries})")
+            logger.warning(f"  Using MINIMAL prompt (retry_count={self.context.retry_count} >= max_retries={self.app_state.processing_config.max_retries})")
 
         prompt = f"""{extraction_prompt}
 

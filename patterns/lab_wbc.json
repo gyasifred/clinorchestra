@@ -1,0 +1,7 @@
+{
+  "name": "extract_wbc",
+  "pattern": "(?i)(?:wbc|white\\s+blood\\s+cell)[:\\s]*([0-9]+\\.?[0-9]*)\\s*(?:k|thousand|x10\\^3)?",
+  "replacement": "WBC: \\1 K/uL",
+  "description": "Extract white blood cell count",
+  "enabled": true
+}

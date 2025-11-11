@@ -272,7 +272,7 @@ All configurations automatically saved to `.clinannotate_config/`:
 
 ## Version
 
-**Current Version**: 1.0.1
+**Current Version**: 1.0.0
 
 **Key Features:**
 - Dual execution modes (STRUCTURED + ADAPTIVE)
