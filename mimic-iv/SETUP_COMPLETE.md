@@ -38,26 +38,34 @@ Based on your actual MIMIC-IV data analysis (76,594 total cases):
 
 ## What's Ready for ClinOrchestra
 
-### ✅ EXTRAS (16 JSON files) - Clinical Knowledge
+### ✅ EXTRAS (15 JSON files) - Clinical Knowledge
 Upload to **ClinOrchestra → Extras Tab**
 
 **Diagnosis-Specific Extras:**
+
+*Note: Some extras files cover multiple ICD codes (ICD-9 and ICD-10) for the same condition*
+
 1. `chest_pain_evaluation.json` - Chest pain diagnostic approach, RED FLAGS
+   - **Covers**: ICD-9: 78650, 78659 | ICD-10: R079
 2. `coronary_artery_disease.json` - CAD risk factors, diagnosis, treatment
 3. `nstemi_criteria.json` - NSTEMI diagnosis, TIMI/GRACE scores
 4. `atrial_fibrillation.json` - AFib types, CHA2DS2-VASc, HAS-BLED
 5. `pneumonia_criteria.json` - CAP vs HAP, CURB-65, PSI
 6. `sepsis_diagnostic_criteria.json` - Sepsis-3, qSOFA, SOFA
+   - **Covers**: ICD-9: 0389, 389 | ICD-10: A419
 7. `uti_criteria.json` - UTI types, complications, treatment
-8. `aki_detailed.json` - KDIGO staging, prerenal/intrinsic/postrenal
-9. `aki_staging.json` - Additional AKI criteria
-10. `depression_criteria.json` - DSM-5, PHQ-9, suicide assessment
-11. `alcohol_use_disorder.json` - DSM-5 criteria, withdrawal, CIWA
-12. `chemotherapy_encounter.json` - Not a disease, encounter code context
-13. `hypertensive_heart_ckd.json` - Combined HHD + CKD pathology
-14. `heart_failure_classification.json` - Acute vs chronic, HFrEF vs HFpEF
-15. `respiratory_failure_types.json` - Type 1 vs 2, ABG interpretation
-16. `clinical_annotation_approach.json` - Systematic methodology
+8. `aki_detailed.json` - KDIGO staging, prerenal/intrinsic/postrenal, etiology
+   - **Covers**: ICD-9: 5849 | ICD-10: N179
+9. `depression_criteria.json` - DSM-5, PHQ-9, suicide assessment
+   - **Covers**: ICD-9: 311 | ICD-10: F329
+10. `alcohol_use_disorder.json` - DSM-5 criteria, withdrawal, CIWA
+    - **Covers**: ICD-9: 30500 | ICD-10: F10129
+11. `chemotherapy_encounter.json` - Not a disease, encounter code context
+    - **Covers**: ICD-9: V5811 | ICD-10: Z5111
+12. `hypertensive_heart_ckd.json` - Combined HHD + CKD pathology
+13. `heart_failure_classification.json` - Acute vs chronic, HFrEF vs HFpEF
+14. `respiratory_failure_types.json` - Type 1 vs 2, ABG interpretation
+15. `clinical_annotation_approach.json` - Systematic methodology
 
 ### ✅ PATTERNS (12 JSON files) - Text Extraction
 Upload to **ClinOrchestra → Patterns Tab**
@@ -187,19 +195,18 @@ mimic-iv/
 ├── USAGE_GUIDE.md              ← How to use everything
 ├── README.md                   ← Full documentation
 │
-├── extras/ (16 files)          ← Upload to ClinOrchestra Extras Tab
-│   ├── chest_pain_evaluation.json
+├── extras/ (15 files)          ← Upload to ClinOrchestra Extras Tab
+│   ├── chest_pain_evaluation.json         (ICD-9: 78650, 78659 | ICD-10: R079)
 │   ├── coronary_artery_disease.json
 │   ├── nstemi_criteria.json
 │   ├── atrial_fibrillation.json
 │   ├── pneumonia_criteria.json
-│   ├── sepsis_diagnostic_criteria.json
+│   ├── sepsis_diagnostic_criteria.json    (ICD-9: 0389, 389 | ICD-10: A419)
 │   ├── uti_criteria.json
-│   ├── aki_detailed.json
-│   ├── aki_staging.json
-│   ├── depression_criteria.json
-│   ├── alcohol_use_disorder.json
-│   ├── chemotherapy_encounter.json
+│   ├── aki_detailed.json                  (ICD-9: 5849 | ICD-10: N179)
+│   ├── depression_criteria.json           (ICD-9: 311 | ICD-10: F329)
+│   ├── alcohol_use_disorder.json          (ICD-9: 30500 | ICD-10: F10129)
+│   ├── chemotherapy_encounter.json        (ICD-9: V5811 | ICD-10: Z5111)
 │   ├── hypertensive_heart_ckd.json
 │   ├── heart_failure_classification.json
 │   ├── respiratory_failure_types.json
