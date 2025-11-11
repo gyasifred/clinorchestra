@@ -121,6 +121,10 @@ class AgenticContext:
     stall_counter: int = 0
     consecutive_no_progress: int = 0
 
+    # JSON failure tracking - for minimal prompt fallback
+    consecutive_json_failures: int = 0  # Track failed JSON parsing attempts
+    switched_to_minimal: bool = False  # Flag to track if we switched to minimal prompt
+
     # PERFORMANCE: Conversation history management
     conversation_window_size: int = 20  # Keep only last 20 messages for context
     total_messages_sent: int = 0  # Track total messages for metrics
@@ -336,8 +340,39 @@ If you call tools again, the task will FAIL. Output JSON NOW."""
 
                     remaining_iters = self.context.max_iterations - self.context.iteration
 
+                    # CRITICAL: Check for repeated JSON failures and switch to minimal prompt
+                    if (self.context.consecutive_json_failures >= self.app_state.processing_config.max_retries
+                        and not self.context.switched_to_minimal
+                        and self.app_state.prompt_config.minimal_prompt
+                        and self.app_state.prompt_config.use_minimal):
+                        logger.warning(f"🔴 SWITCHING TO MINIMAL PROMPT: {self.context.consecutive_json_failures} consecutive JSON failures")
+                        self.context.switched_to_minimal = True
+
+                        # Rebuild prompt with minimal version
+                        # Force get_prompt_for_processing to use minimal by passing high retry count
+                        minimal_prompt = self.app_state.get_prompt_for_processing(retry_count=999)
+
+                        # Inject message telling LLM to use simpler approach
+                        self.context.conversation_history.append(
+                            ConversationMessage(
+                                role='user',
+                                content=f"""Previous JSON outputs failed validation. Using SIMPLIFIED task definition:
+
+{minimal_prompt}
+
+CLINICAL TEXT:
+{self.context.clinical_text}
+
+LABEL CONTEXT:
+{self.context.label_context or "No label provided"}
+
+OUTPUT VALID JSON matching the schema. Be more concise and focus on directly extractable information."""
+                            )
+                        )
+                        logger.info("✅ Minimal prompt injected - continuing with simpler task definition")
+
                     # If too many iterations with no progress OR near max iterations, force completion
-                    if self.context.consecutive_no_progress >= 2 or remaining_iters <= 1:
+                    elif self.context.consecutive_no_progress >= 2 or remaining_iters <= 1:
                         logger.warning(f"🔴 FORCING COMPLETION: No progress detected (consecutive={self.context.consecutive_no_progress}, remaining={remaining_iters})")
 
                         # Try to extract any existing JSON
@@ -1172,6 +1207,8 @@ You have access to tools:
             parsed_json = self._try_parse_json(content)
             if parsed_json:
                 self.context.final_output = parsed_json
+                # Reset failure counter on success
+                self.context.consecutive_json_failures = 0
                 # Add to history
                 self.context.conversation_history.append(
                     ConversationMessage(role='assistant', content=content)
@@ -1185,8 +1222,9 @@ You have access to tools:
 
                 # Check if this looks like a malformed tool call or invalid JSON
                 if '{' in content and '}' in content:
-                    # Looks like JSON but was rejected - provide feedback
-                    logger.info("LLM output contains JSON but was rejected (schema validation failed)")
+                    # Looks like JSON but was rejected - track failure
+                    self.context.consecutive_json_failures += 1
+                    logger.warning(f"⚠️ LLM output contains JSON but validation failed (consecutive failures: {self.context.consecutive_json_failures})")
                     # The loop will continue and prompt the LLM again
 
                 return False, False
