@@ -1,7 +1,6 @@
 {
   "name": "calculate_bmi",
-  "code": "\ndef calculate_bmi(weight_kg, height_m=None, height_cm=None):\n    \"\"\"Calculate BMI from weight in kg and height in meters or centimeters\"\"\"\n    if not weight_kg or weight_kg <= 0:\n        return None\n    \n    # Prioritize height_m if both are provided\n    if height_m and height_m > 0:\n        pass  # Use height_m as is\n    elif height_cm and height_cm > 0:\n        # Convert height_cm to height_m\n        height_m = height_cm / 100.0\n    else:\n        return None\n    \n    bmi = weight_kg / (height_m ** 2)\n    return round(bmi, 2)\n                ",
-  "description": "Calculate Body Mass Index",
+  "description": "Calculate Body Mass Index from weight (kg) and height (m)",
   "parameters": {
     "weight_kg": {
       "type": "number",
@@ -9,13 +8,9 @@
     },
     "height_m": {
       "type": "number",
-      "description": "Height in meters (optional if height_cm provided)"
-    },
-    "height_cm": {
-      "type": "number",
-      "description": "Height in centimeters (optional if height_m provided)"
+      "description": "Height in meters"
     }
   },
-  "returns": "BMI value (number)",
-  "signature": "(weight_kg, height_m=None, height_cm=None)"
+  "return_type": "number",
+  "created_at": "2025-01-05T00:00:00"
 }
