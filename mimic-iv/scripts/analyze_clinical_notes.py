@@ -467,14 +467,29 @@ class ClinicalNotesAnalyzer:
         logger.info(f"  ✓ Loaded {len(df):,} records")
         logger.info(f"  ✓ Columns: {list(df.columns)}")
 
-        # Verify required columns
-        required_cols = ['clinical_text', 'icd_code', 'primary_diagnosis_name']
-        missing = [col for col in required_cols if col not in df.columns]
-        if missing:
-            raise ValueError(f"Missing required columns: {missing}")
+        # Verify required columns (support both old and new format)
+        if 'clinical_text' not in df.columns:
+            raise ValueError("Missing required column: 'clinical_text'")
 
-        # Consolidate diagnosis names
-        df = self.consolidate_diagnosis_names(df)
+        # Handle both old format (primary_diagnosis_name) and new format (consolidated_diagnosis_name)
+        if 'consolidated_diagnosis_name' in df.columns:
+            # New consolidated format - use as is
+            logger.info("✓ Using consolidated diagnosis format")
+            df['primary_diagnosis_name'] = df['consolidated_diagnosis_name']
+            if 'consolidated_diagnosis_id' in df.columns:
+                df['consolidated_diagnosis'] = df['consolidated_diagnosis_name']
+            else:
+                df = self.consolidate_diagnosis_names(df)
+        elif 'primary_diagnosis_name' in df.columns:
+            # Old format - needs consolidation
+            logger.info("✓ Using old format, will consolidate diagnoses")
+            df = self.consolidate_diagnosis_names(df)
+        else:
+            raise ValueError("Missing diagnosis name column (need 'primary_diagnosis_name' or 'consolidated_diagnosis_name')")
+
+        # Ensure we have consolidated_diagnosis column for analysis
+        if 'consolidated_diagnosis' not in df.columns:
+            df['consolidated_diagnosis'] = df['primary_diagnosis_name']
 
         # Calculate text statistics
         df = self.calculate_text_statistics(df)
