@@ -1,5 +1,6 @@
 {
   "name": "calculate_pack_years",
+  "code": "def calculate_pack_years(packs_per_day, years_smoked):\n    '''Calculate smoking pack-years'''\n    pack_years = packs_per_day * years_smoked\n    return round(pack_years, 1)",
   "description": "Calculate smoking history in pack-years",
   "parameters": {
     "packs_per_day": {
@@ -11,6 +12,6 @@
       "description": "Number of years smoking"
     }
   },
-  "return_type": "number",
-  "created_at": "2025-01-05T00:00:00"
+  "returns": {},
+  "signature": "(packs_per_day, years_smoked)"
 }

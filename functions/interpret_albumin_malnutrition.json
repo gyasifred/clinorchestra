@@ -1,5 +1,6 @@
 {
   "name": "interpret_albumin_malnutrition",
+  "code": "def interpret_albumin_malnutrition(albumin: float, age_years: float = None) -> dict:\n    \"\"\"\n    Interpret serum albumin in context of malnutrition\n\n    Normal albumin: 3.5-5.0 g/dL\n    Malnutrition thresholds:\n    - Mild: 3.0-3.4 g/dL\n    - Moderate: 2.4-2.9 g/dL\n    - Severe: <2.4 g/dL\n\n    Args:\n        albumin: Serum albumin in g/dL\n        age_years: Patient age (optional)\n\n    Returns:\n        {\n            'albumin_status': str,\n            'malnutrition_indicator': bool,\n            'interpretation': str,\n            'caveats': str\n        }\n    \"\"\"\n    if albumin >= 3.5:\n        return {\n            'albumin_status': 'Normal',\n            'malnutrition_indicator': False,\n            'interpretation': f\"Albumin {albumin:.1f} g/dL is within normal range (3.5-5.0 g/dL)\",\n            'caveats': \"Normal albumin does not exclude malnutrition. Consider other markers like prealbumin, weight loss, and physical exam findings.\"\n        }\n\n    elif albumin >= 3.0:\n        return {\n            'albumin_status': 'Mild depletion',\n            'malnutrition_indicator': True,\n            'interpretation': f\"Albumin {albumin:.1f} g/dL suggests mild protein depletion\",\n            'caveats': \"Low albumin may reflect inflammation, liver disease, or nephrotic syndrome rather than malnutrition alone. Correlate with clinical context.\"\n        }\n\n    elif albumin >= 2.4:\n        return {\n            'albumin_status': 'Moderate depletion',\n            'malnutrition_indicator': True,\n            'interpretation': f\"Albumin {albumin:.1f} g/dL suggests moderate protein-energy malnutrition\",\n            'caveats': \"Albumin is a late marker of malnutrition due to long half-life (21 days). Consider prealbumin for more acute assessment. Rule out non-nutritional causes.\"\n        }\n\n    else:  # <2.4\n        return {\n            'albumin_status': 'Severe depletion',\n            'malnutrition_indicator': True,\n            'interpretation': f\"Albumin {albumin:.1f} g/dL indicates severe protein depletion and high risk for complications\",\n            'caveats': \"Severe hypoalbuminemia (<2.4 g/dL) is associated with increased mortality and complications. Rule out liver disease, nephrotic syndrome, and acute inflammation. Consider nutrition support.\"\n        }\n",
   "description": "Interpret serum albumin levels in the context of malnutrition assessment. Returns severity classification and clinical interpretation.",
   "parameters": {
     "albumin": {
@@ -18,5 +19,6 @@
     "malnutrition_indicator": "boolean (true if suggests malnutrition)",
     "interpretation": "string describing clinical significance",
     "caveats": "string noting limitations (inflammation, liver disease, etc.)"
-  }
+  },
+  "signature": "(albumin: float, age_years: float = None) -> dict"
 }

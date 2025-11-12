@@ -27,6 +27,11 @@ class FunctionRegistry:
         self.cache_hits = 0
         self.cache_misses = 0
 
+        # RECURSIVE CALLS: Track call depth to prevent infinite recursion
+        self.call_depth = 0
+        self.max_call_depth = 10  # Maximum nested function calls
+        self.call_stack: List[str] = []  # Track function call stack
+
         self._load_all_functions()
         self._register_builtin_functions()
 
@@ -100,7 +105,43 @@ class FunctionRegistry:
                 logger.warning(f"Optional module '{module_name}' not available in function namespace")
 
         return namespace
-    
+
+    def _create_function_execution_namespace(self) -> Dict[str, Any]:
+        """
+        Create execution namespace for a function with access to other registered functions.
+
+        This allows functions to call other registered functions, enabling composition.
+        For example:
+            def calculate_bmi_for_age(weight_kg, height_m, birth_date):
+                # Can call other registered functions
+                age_months = call_function('calculate_age_months', birth_date=birth_date)
+                bmi = call_function('calculate_bmi', weight_kg=weight_kg, height_m=height_m)
+                return {'age_months': age_months, 'bmi': bmi}
+        """
+        def call_function(func_name: str, **func_kwargs):
+            """
+            Helper function that allows registered functions to call other registered functions.
+
+            Args:
+                func_name: Name of the function to call
+                **func_kwargs: Arguments to pass to the function
+
+            Returns:
+                The result of the function call
+
+            Raises:
+                ValueError: If function not found or execution fails
+            """
+            success, result, message = self.execute_function(func_name, **func_kwargs)
+            if not success:
+                raise ValueError(f"Function '{func_name}' failed: {message}")
+            return result
+
+        # Return namespace with helper function
+        return {
+            'call_function': call_function,
+        }
+
     def register_function(self, name: str, code: str, description: str,
                          parameters: Dict[str, Any], returns: str) -> Tuple[bool, str]:
         """Register a function with comprehensive validation"""
@@ -184,32 +225,53 @@ class FunctionRegistry:
         Execute a registered function with parameter validation and conversion
         FIXED: Apply transformations BEFORE validation
         PERFORMANCE: Cache results to avoid redundant calculations
+        RECURSIVE CALLS: Functions can call other registered functions
         """
         if name not in self.functions:
             return False, None, f"Function '{name}' not found"
+
+        # RECURSIVE CALLS: Check call depth to prevent infinite recursion
+        if self.call_depth >= self.max_call_depth:
+            error_msg = f"Maximum call depth ({self.max_call_depth}) exceeded. Call stack: {' -> '.join(self.call_stack)}"
+            logger.error(error_msg)
+            return False, None, error_msg
+
+        # RECURSIVE CALLS: Check for direct recursion (function calling itself)
+        if name in self.call_stack:
+            error_msg = f"Circular dependency detected: {' -> '.join(self.call_stack)} -> {name}"
+            logger.error(error_msg)
+            return False, None, error_msg
 
         # PERFORMANCE: Create cache key from function name and sorted parameters
         try:
             # Sort kwargs for consistent cache keys
             cache_key = f"{name}:{json.dumps(kwargs, sort_keys=True)}"
 
-            # Check cache first
-            if cache_key in self.result_cache:
+            # Check cache first (skip for recursive calls to track proper depth)
+            if cache_key in self.result_cache and self.call_depth == 0:
                 self.cache_hits += 1
                 cached_result = self.result_cache[cache_key]
                 logger.debug(f"Cache HIT for {name}({kwargs}) - returning cached result")
                 return cached_result
 
-            self.cache_misses += 1
+            if self.call_depth == 0:
+                self.cache_misses += 1
 
         except (TypeError, ValueError) as e:
             # If kwargs not JSON-serializable, skip caching
             logger.debug(f"Could not create cache key for {name}: {e}")
             cache_key = None
 
+        # RECURSIVE CALLS: Track call depth and stack
+        self.call_depth += 1
+        self.call_stack.append(name)
+        indent = "  " * (self.call_depth - 1)
+
         try:
             func = self.functions[name]['compiled']
             func_info = self.functions[name]
+
+            logger.debug(f"{indent}→ Entering {name}() [depth={self.call_depth}]")
 
             # Get function signature for validation
             try:
@@ -230,13 +292,25 @@ class FunctionRegistry:
                 name
             )
 
-            # Execute function
-            result = func(**validated_kwargs)
+            # RECURSIVE CALLS: Create enhanced namespace with access to other functions
+            enhanced_namespace = self._create_function_execution_namespace()
+
+            # Execute function with enhanced namespace
+            exec_globals = {**enhanced_namespace, **self.namespace}
+            exec(self.functions[name]['code'], exec_globals)
+            func_from_namespace = exec_globals.get(self._extract_function_name(self.functions[name]['code']))
+
+            if func_from_namespace:
+                result = func_from_namespace(**validated_kwargs)
+            else:
+                result = func(**validated_kwargs)
 
             execution_result = (True, result, "Execution successful")
 
-            # PERFORMANCE: Cache the result if cache_key was created
-            if cache_key is not None:
+            logger.debug(f"{indent}← Exiting {name}() [depth={self.call_depth}] = {result}")
+
+            # PERFORMANCE: Cache the result if cache_key was created (only for top-level calls)
+            if cache_key is not None and self.call_depth == 1:
                 self.result_cache[cache_key] = execution_result
                 logger.debug(f"Cached result for {name}({kwargs})")
 
@@ -245,12 +319,17 @@ class FunctionRegistry:
 
         except TypeError as e:
             error_msg = f"Invalid arguments for function '{name}': {str(e)}"
-            logger.error(error_msg)
+            logger.error(f"{indent}✗ {error_msg}")
             return False, None, error_msg
         except Exception as e:
             error_msg = f"Function '{name}' execution failed: {str(e)}"
-            logger.error(error_msg, exc_info=True)
+            logger.error(f"{indent}✗ {error_msg}", exc_info=True)
             return False, None, error_msg
+        finally:
+            # RECURSIVE CALLS: Always cleanup call depth and stack
+            self.call_depth -= 1
+            if self.call_stack and self.call_stack[-1] == name:
+                self.call_stack.pop()
     
     def _validate_and_convert_parameters(self, 
                                        kwargs: Dict[str, Any], 

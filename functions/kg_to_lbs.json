@@ -1,5 +1,6 @@
 {
   "name": "kg_to_lbs",
+  "code": "def kg_to_lbs(kg):\n    '''Convert kilograms to pounds'''\n    return round(kg * 2.20462, 2)",
   "description": "Convert weight from kilograms to pounds",
   "parameters": {
     "kg": {
@@ -7,6 +8,6 @@
       "description": "Weight in kilograms"
     }
   },
-  "return_type": "number",
-  "created_at": "2025-01-05T00:00:00"
+  "returns": {},
+  "signature": "(kg)"
 }

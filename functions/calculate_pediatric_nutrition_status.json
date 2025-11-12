@@ -1,0 +1,25 @@
+{
+  "name": "calculate_pediatric_nutrition_status",
+  "code": "def calculate_pediatric_nutrition_status(weight_kg, height_cm, age_months, sex):\n    '''\n    Calculate comprehensive pediatric nutrition status using WHO z-scores\n\n    This function demonstrates advanced composition by calling multiple functions:\n    1. calculate_zscore for weight-for-age\n    2. calculate_zscore for height-for-age\n    3. calculate_bmi to get BMI value\n    4. calculate_zscore for BMI-for-age\n\n    Args:\n        weight_kg: Weight in kilograms\n        height_cm: Height in centimeters\n        age_months: Age in months\n        sex: 'male' or 'female'\n\n    Returns:\n        Dictionary with z-scores, BMI, and WHO malnutrition classification\n    '''\n    # Calculate BMI first\n    height_m = height_cm / 100.0\n    bmi = call_function('calculate_bmi', weight_kg=weight_kg, height_m=height_m)\n\n    # Calculate z-scores for different measurements\n    weight_zscore = call_function('calculate_zscore',\n                                   measurement='weight',\n                                   value=weight_kg,\n                                   age_months=age_months,\n                                   sex=sex)\n\n    height_zscore = call_function('calculate_zscore',\n                                   measurement='height',\n                                   value=height_cm,\n                                   age_months=age_months,\n                                   sex=sex)\n\n    bmi_zscore = call_function('calculate_zscore',\n                                measurement='bmi',\n                                value=bmi,\n                                age_months=age_months,\n                                sex=sex)\n\n    # WHO malnutrition classification based on z-scores\n    def classify_wasting(bmi_z):\n        if bmi_z < -3:\n            return 'Severe wasting'\n        elif bmi_z < -2:\n            return 'Wasting'\n        elif bmi_z < -1:\n            return 'Risk of wasting'\n        else:\n            return 'Normal'\n\n    def classify_stunting(height_z):\n        if height_z < -3:\n            return 'Severe stunting'\n        elif height_z < -2:\n            return 'Stunting'\n        elif height_z < -1:\n            return 'Risk of stunting'\n        else:\n            return 'Normal'\n\n    def classify_underweight(weight_z):\n        if weight_z < -3:\n            return 'Severely underweight'\n        elif weight_z < -2:\n            return 'Underweight'\n        elif weight_z < -1:\n            return 'Risk of underweight'\n        else:\n            return 'Normal'\n\n    return {\n        'bmi': bmi,\n        'weight_zscore': weight_zscore,\n        'height_zscore': height_zscore,\n        'bmi_zscore': bmi_zscore,\n        'wasting_status': classify_wasting(bmi_zscore),\n        'stunting_status': classify_stunting(height_zscore),\n        'underweight_status': classify_underweight(weight_zscore),\n        'age_months': age_months,\n        'sex': sex\n    }\n",
+  "description": "Calculate comprehensive pediatric nutrition status using WHO z-scores - calls multiple growth calculation functions",
+  "parameters": {
+    "weight_kg": {
+      "type": "number",
+      "description": "Weight in kilograms"
+    },
+    "height_cm": {
+      "type": "number",
+      "description": "Height in centimeters"
+    },
+    "age_months": {
+      "type": "number",
+      "description": "Age in months"
+    },
+    "sex": {
+      "type": "string",
+      "description": "Sex: 'male' or 'female'"
+    }
+  },
+  "returns": "Dictionary with weight z-score, height z-score, BMI z-score, and WHO malnutrition classification",
+  "signature": "(weight_kg, height_cm, age_months, sex)"
+}

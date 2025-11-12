@@ -1,5 +1,6 @@
 {
   "name": "calculate_fluid_requirement",
+  "code": "def calculate_fluid_requirement(weight_kg):\n    '''Calculate daily maintenance fluid requirement (Holliday-Segar)'''\n    if weight_kg <= 10:\n        fluid = weight_kg * 100\n    elif weight_kg <= 20:\n        fluid = 1000 + (weight_kg - 10) * 50\n    else:\n        fluid = 1500 + (weight_kg - 20) * 20\n    return round(fluid, 0)",
   "description": "Calculate daily maintenance fluid requirement using Holliday-Segar method",
   "parameters": {
     "weight_kg": {
@@ -7,6 +8,6 @@
       "description": "Weight in kilograms"
     }
   },
-  "return_type": "number",
-  "created_at": "2025-01-05T00:00:00"
+  "returns": {},
+  "signature": "(weight_kg)"
 }

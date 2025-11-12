@@ -1,5 +1,6 @@
 {
   "name": "calculate_corrected_calcium",
+  "code": "def calculate_corrected_calcium(calcium, albumin):\n    '''Calculate corrected calcium for hypoalbuminemia'''\n    corrected_ca = calcium + 0.8 * (4.0 - albumin)\n    return round(corrected_ca, 2)",
   "description": "Calculate corrected calcium for low albumin",
   "parameters": {
     "calcium": {
@@ -11,6 +12,6 @@
       "description": "Serum albumin (g/dL)"
     }
   },
-  "return_type": "number",
-  "created_at": "2025-01-05T00:00:00"
+  "returns": {},
+  "signature": "(calcium, albumin)"
 }

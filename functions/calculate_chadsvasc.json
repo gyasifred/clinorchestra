@@ -1,15 +1,36 @@
 {
   "name": "calculate_chadsvasc",
-  "code": "\ndef calculate_chadsvasc(age, gender, chf, hypertension, stroke_tia, vascular_disease, diabetes):\n    \"\"\"Calculate CHA2DS2-VASc score for stroke risk in atrial fibrillation\"\"\"\n    \n    score = 0\n    \n    # C: Congestive heart failure\n    if chf:\n        score += 1\n    \n    # H: Hypertension\n    if hypertension:\n        score += 1\n    \n    # A2: Age ≥75 (2 points)\n    if age >= 75:\n        score += 2\n    # A: Age 65-74 (1 point)\n    elif age >= 65:\n        score += 1\n    \n    # D: Diabetes\n    if diabetes:\n        score += 1\n    \n    # S2: Prior Stroke/TIA/thromboembolism (2 points)\n    if stroke_tia:\n        score += 2\n    \n    # V: Vascular disease (prior MI, PAD, aortic plaque)\n    if vascular_disease:\n        score += 1\n    \n    # Sc: Sex category (female) - 1 point\n    if gender and gender.upper() == 'F':\n        score += 1\n    \n    return score\n",
-  "description": "Calculate CHA2DS2-VASc score for stroke risk in atrial fibrillation (0-9, higher = more risk, ≥2 men or ≥3 women = anticoagulate)",
+  "code": "\ndef calculate_chadsvasc(age, gender, chf, hypertension, stroke_tia, vascular_disease, diabetes):\n    \"\"\"Calculate CHA2DS2-VASc score for stroke risk in atrial fibrillation\"\"\"\n    \n    score = 0\n    \n    # C: Congestive heart failure\n    if chf:\n        score += 1\n    \n    # H: Hypertension\n    if hypertension:\n        score += 1\n    \n    # A2: Age \u226575 (2 points)\n    if age >= 75:\n        score += 2\n    # A: Age 65-74 (1 point)\n    elif age >= 65:\n        score += 1\n    \n    # D: Diabetes\n    if diabetes:\n        score += 1\n    \n    # S2: Prior Stroke/TIA/thromboembolism (2 points)\n    if stroke_tia:\n        score += 2\n    \n    # V: Vascular disease (prior MI, PAD, aortic plaque)\n    if vascular_disease:\n        score += 1\n    \n    # Sc: Sex category (female) - 1 point\n    if gender and gender.upper() == 'F':\n        score += 1\n    \n    return score\n",
+  "description": "Calculate CHA2DS2-VASc score for stroke risk in atrial fibrillation (0-9, higher = more risk, \u22652 men or \u22653 women = anticoagulate)",
   "parameters": {
-    "age": {"type": "number", "description": "Patient age in years"},
-    "gender": {"type": "string", "description": "Patient gender (M or F)"},
-    "chf": {"type": "boolean", "description": "Congestive heart failure history"},
-    "hypertension": {"type": "boolean", "description": "Hypertension history"},
-    "stroke_tia": {"type": "boolean", "description": "Prior stroke or TIA"},
-    "vascular_disease": {"type": "boolean", "description": "Vascular disease (MI, PAD, aortic plaque)"},
-    "diabetes": {"type": "boolean", "description": "Diabetes mellitus"}
+    "age": {
+      "type": "number",
+      "description": "Patient age in years"
+    },
+    "gender": {
+      "type": "string",
+      "description": "Patient gender (M or F)"
+    },
+    "chf": {
+      "type": "boolean",
+      "description": "Congestive heart failure history"
+    },
+    "hypertension": {
+      "type": "boolean",
+      "description": "Hypertension history"
+    },
+    "stroke_tia": {
+      "type": "boolean",
+      "description": "Prior stroke or TIA"
+    },
+    "vascular_disease": {
+      "type": "boolean",
+      "description": "Vascular disease (MI, PAD, aortic plaque)"
+    },
+    "diabetes": {
+      "type": "boolean",
+      "description": "Diabetes mellitus"
+    }
   },
   "returns": "CHA2DS2-VASc score (0-9)",
   "signature": "(age, gender, chf, hypertension, stroke_tia, vascular_disease, diabetes)"

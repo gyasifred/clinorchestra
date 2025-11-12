@@ -1,5 +1,6 @@
 {
   "name": "calculate_osmolality",
+  "code": "def calculate_osmolality(sodium, glucose, bun):\n    '''Calculate serum osmolality'''\n    osm = 2 * sodium + (glucose / 18) + (bun / 2.8)\n    return round(osm, 1)",
   "description": "Calculate serum osmolality from electrolytes",
   "parameters": {
     "sodium": {
@@ -15,6 +16,6 @@
       "description": "Blood urea nitrogen (mg/dL)"
     }
   },
-  "return_type": "number",
-  "created_at": "2025-01-05T00:00:00"
+  "returns": {},
+  "signature": "(sodium, glucose, bun)"
 }
