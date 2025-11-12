@@ -311,9 +311,9 @@ def main():
     else:
         df['gender'] = df['gender'].fillna('U')
 
-    # Identify diagnosis column
+    # Identify diagnosis column (support both old and new formats)
     diagnosis_col = None
-    for col in ['icd_code', 'diagnosis_code', 'primary_diagnosis']:
+    for col in ['consolidated_diagnosis_name', 'consolidated_diagnosis_id', 'icd_code', 'diagnosis_code', 'primary_diagnosis']:
         if col in df.columns:
             diagnosis_col = col
             break

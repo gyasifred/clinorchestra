@@ -109,8 +109,8 @@ def identify_columns(df):
         'admission_id': None
     }
 
-    # Diagnosis column
-    for col in ['icd_code', 'diagnosis_code', 'primary_diagnosis']:
+    # Diagnosis column (support both old and new formats)
+    for col in ['consolidated_diagnosis_name', 'consolidated_diagnosis_id', 'icd_code', 'diagnosis_code', 'primary_diagnosis']:
         if col in df.columns:
             cols['diagnosis'] = col
             break
