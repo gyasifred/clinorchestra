@@ -1,5 +1,6 @@
 {
   "name": "zscore_to_percentile",
+  "code": "def zscore_to_percentile(zscore: float) -> float:\n    \"\"\"\n    Convert z-score to percentile for growth assessment.\n\n    Clinical significance:\n    - z < -2: Below 3rd percentile (severe malnutrition)\n    - z < -1.64: Below 5th percentile (malnutrition risk)\n    - z = 0: 50th percentile (average)\n    - z > 1.64: Above 95th percentile (overweight/obesity)\n\n    Args:\n        zscore: Z-score (standard deviations from mean)\n\n    Returns:\n        Percentile (0-100)\n\n    Examples:\n        z = -2 -> 2.3rd percentile (severe malnutrition)\n        z = -1.88 -> 3rd percentile (malnutrition)\n        z = 0 -> 50th percentile (average)\n        z = 1.88 -> 97th percentile (overweight)\n    \"\"\"\n    # Common z-score to percentile mappings\n    common_mappings = {\n        -3.0: 0.13,   # Extremely low\n        -2.5: 0.62,\n        -2.33: 1.0,   # 1st percentile\n        -2.0: 2.3,    # Severe malnutrition threshold\n        -1.88: 3.0,   # 3rd percentile\n        -1.64: 5.0,   # 5th percentile (malnutrition risk)\n        -1.28: 10.0,  # 10th percentile\n        -1.0: 15.9,\n        -0.67: 25.0,  # 25th percentile\n        -0.5: 30.9,\n        0.0: 50.0,    # 50th percentile (median)\n        0.5: 69.1,\n        0.67: 75.0,   # 75th percentile\n        1.0: 84.1,\n        1.28: 90.0,   # 90th percentile\n        1.64: 95.0,   # 95th percentile (overweight risk)\n        1.88: 97.0,   # 97th percentile\n        2.0: 97.7,\n        2.33: 99.0,   # 99th percentile\n        3.0: 99.87,   # Extremely high\n    }\n\n    # Check for exact match\n    if zscore in common_mappings:\n        return round(common_mappings[zscore], 2)\n\n    # Find closest matches for interpolation\n    z_keys = sorted(common_mappings.keys())\n\n    if zscore <= z_keys[0]:\n        return common_mappings[z_keys[0]]\n    if zscore >= z_keys[-1]:\n        return common_mappings[z_keys[-1]]\n\n    # Linear interpolation between closest points\n    for i in range(len(z_keys) - 1):\n        if z_keys[i] <= zscore <= z_keys[i+1]:\n            z1, z2 = z_keys[i], z_keys[i+1]\n            p1, p2 = common_mappings[z1], common_mappings[z2]\n\n            # Linear interpolation\n            proportion = (zscore - z1) / (z2 - z1)\n            percentile = p1 + proportion * (p2 - p1)\n            return round(percentile, 2)\n\n    return 50.0  # Default to median\n",
   "description": "Convert z-score to growth percentile for malnutrition assessment. Negative z-scores = lower percentiles. Used to interpret standard deviation scores.",
   "parameters": {
     "zscore": {
@@ -10,5 +11,6 @@
   "returns": {
     "type": "number",
     "description": "Growth percentile (0-100). Lower percentiles indicate below average growth."
-  }
+  },
+  "signature": "(zscore: float) -> float"
 }

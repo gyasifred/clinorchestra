@@ -150,7 +150,10 @@ class BatchPreprocessor:
 
         for text in texts:
             try:
-                if hasattr(self.regex_preprocessor, 'process'):
+                # FIXED: RegexPreprocessor uses 'preprocess' not 'process'
+                if hasattr(self.regex_preprocessor, 'preprocess'):
+                    norm_text = self.regex_preprocessor.preprocess(text)
+                elif hasattr(self.regex_preprocessor, 'process'):
                     norm_text = self.regex_preprocessor.process(text)
                 else:
                     norm_text = text

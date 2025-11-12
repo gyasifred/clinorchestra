@@ -588,7 +588,12 @@ class ExtractionAgent:
                 logger.info(f"Date context: {date_context}")
             logger.debug(f"Parameters: {parameters}")
 
-            success, result, message = self.function_registry.execute_function(
+            # Get function registry from app_state (for latest functions)
+            function_registry = self.app_state.get_function_registry()
+            if not function_registry:
+                function_registry = self.function_registry
+
+            success, result, message = function_registry.execute_function(
                 func_name, **parameters
             )
 
@@ -908,7 +913,12 @@ class ExtractionAgent:
         Examples provided are illustrative only - the system adapts to YOUR task definition.
         """
         # Get available functions
-        available_functions = self.function_registry.get_all_functions_info()
+        # Get function registry from app_state (for latest functions)
+        function_registry = self.app_state.get_function_registry()
+        if not function_registry:
+            function_registry = self.function_registry
+
+        available_functions = function_registry.get_all_functions_info()
         function_descriptions = self._build_available_tools_description(available_functions)
 
         # Get task description
@@ -1236,7 +1246,12 @@ Respond with ONLY the JSON object in the format shown above."""
     def _build_available_tools_description(self, functions: List[Dict[str, Any]] = None) -> str:
         """Build description of available tools"""
         if functions is None:
-            functions = self.function_registry.get_all_functions_info()
+            # Get function registry from app_state (for latest functions)
+            function_registry = self.app_state.get_function_registry()
+            if not function_registry:
+                function_registry = self.function_registry
+
+            functions = function_registry.get_all_functions_info()
         
         if not functions:
             return "No functions available."

@@ -1,5 +1,6 @@
 {
   "name": "calculate_zscore",
+  "code": "def calculate_zscore(measurement, value, age_months, sex, height_cm=None):\n    '''\n    Calculate growth z-score using CDC data\n\n    Args:\n        measurement: 'weight', 'height', 'stature', or 'bmi'\n        value: measurement value (kg for weight, cm for height, kg/m\u00b2 for BMI)\n        age_months: age in months\n        sex: 'male', 'female', 'm', 'f', 1 (male), or 2 (female)\n        height_cm: height in cm (only needed for weight-for-stature)\n\n    Returns:\n        Z-score value (number) or error dict\n    '''\n    from core.growth_calculators import CDCGrowthCalculator, GrowthMetric, Sex\n\n    # Initialize calculator\n    calculator = CDCGrowthCalculator(data_directory=\"cdc_data\")\n\n    # Map measurement type to metric\n    metric_map = {\n        'weight': GrowthMetric.WEIGHT_FOR_AGE,\n        'height': GrowthMetric.STATURE_FOR_AGE,\n        'stature': GrowthMetric.STATURE_FOR_AGE,\n        'bmi': GrowthMetric.BMI_FOR_AGE\n    }\n\n    metric = metric_map.get(measurement.lower() if isinstance(measurement, str) else '')\n    if not metric:\n        return {'error': f'Unknown measurement type: {measurement}'}\n\n    # Convert sex to enum (handle both string and numeric inputs)\n    if isinstance(sex, str):\n        sex_lower = sex.lower().strip()\n        if sex_lower in ['male', 'm', 'boy', 'man']:\n            sex_enum = Sex.MALE\n        elif sex_lower in ['female', 'f', 'girl', 'woman']:\n            sex_enum = Sex.FEMALE\n        else:\n            return {'error': f'Unknown sex value: {sex}'}\n    elif sex == 1:\n        sex_enum = Sex.MALE\n    elif sex == 2:\n        sex_enum = Sex.FEMALE\n    else:\n        return {'error': f'Invalid sex value: {sex}'}\n\n    # Calculate percentile and z-score\n    result = calculator.calculate_growth_percentile(\n        metric=metric,\n        sex=sex_enum,\n        value=value,\n        age_months=age_months,\n        height_cm=height_cm\n    )\n\n    if result is None:\n        return {'error': 'Could not calculate z-score'}\n\n    # Return just the z-score value\n    return result.z_score\n",
   "description": "Calculate growth z-score for weight, height/stature, or BMI using CDC growth standards",
   "parameters": {
     "measurement": {
@@ -8,7 +9,7 @@
     },
     "value": {
       "type": "number",
-      "description": "Measurement value (kg for weight, cm for height, kg/m² for BMI)"
+      "description": "Measurement value (kg for weight, cm for height, kg/m\u00b2 for BMI)"
     },
     "age_months": {
       "type": "number",
@@ -23,5 +24,6 @@
       "description": "Height in cm (only for weight-for-stature calculations)"
     }
   },
-  "returns": "Z-score value (number) or error message"
+  "returns": "Z-score value (number) or error message",
+  "signature": "(measurement, value, age_months, sex, height_cm=None)"
 }

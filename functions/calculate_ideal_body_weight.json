@@ -1,5 +1,6 @@
 {
   "name": "calculate_ideal_body_weight",
+  "code": "def calculate_ideal_body_weight(height_cm, sex):\n    '''Calculate IBW using Devine formula'''\n    height_inches = height_cm / 2.54\n    if sex.lower() in ['male', 'm']:\n        ibw_kg = 50 + 2.3 * (height_inches - 60)\n    elif sex.lower() in ['female', 'f']:\n        ibw_kg = 45.5 + 2.3 * (height_inches - 60)\n    else:\n        return None\n    return round(ibw_kg, 1)",
   "description": "Calculate Ideal Body Weight using Devine formula",
   "parameters": {
     "height_cm": {
@@ -11,6 +12,6 @@
       "description": "Sex: 'male' or 'female'"
     }
   },
-  "return_type": "number",
-  "created_at": "2025-01-05T00:00:00"
+  "returns": {},
+  "signature": "(height_cm, sex)"
 }

@@ -1,5 +1,6 @@
 {
   "name": "classify_aki_stage_kdigo",
+  "code": "def classify_aki_stage_kdigo(baseline_cr: float, current_cr: float,\n                             cr_change_48h: float = None,\n                             on_rrt: bool = False) -> dict:\n    \"\"\"\n    Classify AKI stage per KDIGO criteria\n\n    KDIGO AKI Staging:\n    - Stage 1: Cr increase \u22650.3 mg/dL within 48h OR 1.5-1.9x baseline\n    - Stage 2: Cr increase 2.0-2.9x baseline\n    - Stage 3: Cr increase \u22653.0x baseline OR Cr \u22654.0 mg/dL OR initiation of RRT\n\n    Args:\n        baseline_cr: Baseline creatinine (mg/dL)\n        current_cr: Current creatinine (mg/dL)\n        cr_change_48h: Change in Cr over 48h (mg/dL)\n        on_rrt: Patient on renal replacement therapy\n\n    Returns:\n        {\n            'aki_stage': 0-3,\n            'criteria_met': str,\n            'cr_ratio': float,\n            'absolute_change': float\n        }\n    \"\"\"\n    cr_ratio = current_cr / baseline_cr if baseline_cr > 0 else 0\n    absolute_change = current_cr - baseline_cr\n\n    # Stage 3\n    if on_rrt or current_cr >= 4.0 or cr_ratio >= 3.0:\n        return {\n            'aki_stage': 3,\n            'criteria_met': f\"Stage 3: RRT={on_rrt}, Cr={current_cr:.1f}, Ratio={cr_ratio:.2f}x\",\n            'cr_ratio': cr_ratio,\n            'absolute_change': absolute_change\n        }\n\n    # Stage 2\n    if cr_ratio >= 2.0:\n        return {\n            'aki_stage': 2,\n            'criteria_met': f\"Stage 2: Ratio {cr_ratio:.2f}x baseline\",\n            'cr_ratio': cr_ratio,\n            'absolute_change': absolute_change\n        }\n\n    # Stage 1\n    if cr_ratio >= 1.5 or (cr_change_48h is not None and cr_change_48h >= 0.3):\n        criteria = []\n        if cr_ratio >= 1.5:\n            criteria.append(f\"{cr_ratio:.2f}x baseline\")\n        if cr_change_48h and cr_change_48h >= 0.3:\n            criteria.append(f\"+{cr_change_48h:.1f} mg/dL in 48h\")\n\n        return {\n            'aki_stage': 1,\n            'criteria_met': f\"Stage 1: {', '.join(criteria)}\",\n            'cr_ratio': cr_ratio,\n            'absolute_change': absolute_change\n        }\n\n    # No AKI\n    return {\n        'aki_stage': 0,\n        'criteria_met': \"No AKI criteria met\",\n        'cr_ratio': cr_ratio,\n        'absolute_change': absolute_change\n    }\n",
   "description": "Classify AKI stage per KDIGO criteria using baseline and current creatinine values. Returns stage (0-3), criteria met, creatinine ratio, and absolute change.",
   "parameters": {
     "baseline_cr": {
@@ -28,5 +29,6 @@
     "criteria_met": "string describing which KDIGO criteria are met",
     "cr_ratio": "float (current/baseline ratio)",
     "absolute_change": "float (current - baseline in mg/dL)"
-  }
+  },
+  "signature": "(baseline_cr: float, current_cr: float, cr_change_48h: float = None, on_rrt: bool = False) -> dict"
 }

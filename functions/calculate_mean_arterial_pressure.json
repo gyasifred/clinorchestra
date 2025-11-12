@@ -1,16 +1,17 @@
 {
   "name": "calculate_mean_arterial_pressure",
-  "description": "Calculate Mean Arterial Pressure from systolic and diastolic BP",
+  "code": "\ndef calculate_mean_arterial_pressure(systolic_bp, diastolic_bp):\n    \"\"\"Calculate Mean Arterial Pressure from systolic and diastolic BP\"\"\"\n    \n    if systolic_bp is None or diastolic_bp is None:\n        return None\n    \n    map_value = diastolic_bp + (systolic_bp - diastolic_bp) / 3\n    return round(map_value, 1)\n",
+  "description": "Calculate Mean Arterial Pressure (MAP) from blood pressure readings",
   "parameters": {
-    "systolic": {
+    "systolic_bp": {
       "type": "number",
-      "description": "Systolic blood pressure (mmHg)"
+      "description": "Systolic blood pressure in mmHg"
     },
-    "diastolic": {
+    "diastolic_bp": {
       "type": "number",
-      "description": "Diastolic blood pressure (mmHg)"
+      "description": "Diastolic blood pressure in mmHg"
     }
   },
-  "return_type": "number",
-  "created_at": "2025-01-05T00:00:00"
+  "returns": "MAP in mmHg",
+  "signature": "(systolic_bp, diastolic_bp)"
 }
