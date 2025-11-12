@@ -355,7 +355,10 @@ class AppState:
     def set_function_registry(self, function_registry) -> None:
         """Set the function registry instance"""
         self._function_registry = function_registry
-        logger.info("Function Registry registered with AppState")
+        # Also set as global registry for call_function helper consistency
+        from core.function_registry import set_global_registry
+        set_global_registry(function_registry)
+        logger.info("Function Registry registered with AppState and set as global registry")
 
     def get_function_registry(self):
         """Get function registry instance"""
