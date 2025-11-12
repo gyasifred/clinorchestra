@@ -1,0 +1,27 @@
+{
+  "name": "calculate_zscore",
+  "description": "Calculate growth z-score for weight, height/stature, or BMI using CDC growth standards",
+  "parameters": {
+    "measurement": {
+      "type": "string",
+      "description": "Type of measurement: 'weight', 'height', 'stature', or 'bmi'"
+    },
+    "value": {
+      "type": "number",
+      "description": "Measurement value (kg for weight, cm for height, kg/m² for BMI)"
+    },
+    "age_months": {
+      "type": "number",
+      "description": "Age in months"
+    },
+    "sex": {
+      "type": "string",
+      "description": "Sex: 'male' or 'female' (can also use 'm', 'f', 1 for male, 2 for female)"
+    },
+    "height_cm": {
+      "type": "number",
+      "description": "Height in cm (only for weight-for-stature calculations)"
+    }
+  },
+  "returns": "Z-score value (number) or error message"
+}

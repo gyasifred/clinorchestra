@@ -34,7 +34,14 @@ class FunctionRegistry:
     
     def _create_namespace(self) -> Dict[str, Any]:
         """Create execution namespace with comprehensive support for growth calculators"""
-        return {
+        # Ensure project root is in sys.path for 'from core.' imports
+        import os
+        project_root = Path(__file__).parent.parent
+        if str(project_root) not in sys.path:
+            sys.path.insert(0, str(project_root))
+
+        # Build namespace with error handling for optional modules
+        namespace = {
             '__builtins__': {
                 'abs': abs,
                 'all': all,
@@ -73,14 +80,26 @@ class FunctionRegistry:
             'json': json,
             'math': __import__('math'),
             're': __import__('re'),
-            'pandas': __import__('pandas'),
-            'numpy': __import__('numpy'),
-            'scipy': __import__('scipy'),
+            'datetime': __import__('datetime'),
             'dataclasses': __import__('dataclasses'),
             'enum': __import__('enum'),
-            'datetime': __import__('datetime'),
-            'dateutil': __import__('dateutil'),
         }
+
+        # Add optional modules with error handling
+        optional_modules = {
+            'pandas': 'pandas',
+            'numpy': 'numpy',
+            'scipy': 'scipy',
+            'dateutil': 'dateutil',
+        }
+
+        for key, module_name in optional_modules.items():
+            try:
+                namespace[key] = __import__(module_name)
+            except ImportError:
+                logger.warning(f"Optional module '{module_name}' not available in function namespace")
+
+        return namespace
     
     def register_function(self, name: str, code: str, description: str,
                          parameters: Dict[str, Any], returns: str) -> Tuple[bool, str]:
@@ -139,7 +158,27 @@ class FunctionRegistry:
         except Exception as e:
             logger.error(f"Function registration failed: {e}", exc_info=True)
             return False, f"Registration error: {str(e)}"
-    
+
+    def update_function(self, func_id: str, name: str, code: str, description: str,
+                       parameters: Dict[str, Any], returns: str) -> Tuple[bool, str]:
+        """
+        Update an existing function (re-register with new code/metadata)
+
+        Args:
+            func_id: Function ID (currently same as name)
+            name: Function name
+            code: Function code
+            description: Function description
+            parameters: Function parameters spec
+            returns: Return value description
+
+        Returns:
+            Tuple of (success, message)
+        """
+        # For now, func_id is the same as name (functions are keyed by name)
+        # Simply re-register the function with updated details
+        return self.register_function(name, code, description, parameters, returns)
+
     def execute_function(self, name: str, **kwargs) -> Tuple[bool, Any, str]:
         """
         Execute a registered function with parameter validation and conversion
