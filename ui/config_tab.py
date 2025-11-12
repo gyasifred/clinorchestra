@@ -292,10 +292,10 @@ def create_config_tab(app_state) -> Dict[str, Any]:
                 )
                 components['use_batch_preprocessing'] = use_batch_preprocessing
 
+        gr.Markdown("#### Advanced Settings")
+
         with gr.Row():
             with gr.Column():
-                gr.Markdown("#### Advanced")
-
                 performance_monitoring_enabled = gr.Checkbox(
                     label="Enable Performance Monitoring",
                     value=app_state.optimization_config.performance_monitoring_enabled,
@@ -303,6 +303,7 @@ def create_config_tab(app_state) -> Dict[str, Any]:
                 )
                 components['performance_monitoring_enabled'] = performance_monitoring_enabled
 
+            with gr.Column():
                 use_model_profiles = gr.Checkbox(
                     label="Use Model Profiles",
                     value=app_state.optimization_config.use_model_profiles,
@@ -310,25 +311,13 @@ def create_config_tab(app_state) -> Dict[str, Any]:
                 )
                 components['use_model_profiles'] = use_model_profiles
 
+            with gr.Column():
                 use_gpu_faiss = gr.Checkbox(
                     label="Enable GPU FAISS",
                     value=app_state.optimization_config.use_gpu_faiss,
                     info="Use GPU acceleration for RAG embeddings (requires FAISS-GPU)"
                 )
                 components['use_gpu_faiss'] = use_gpu_faiss
-
-            with gr.Column():
-                gr.Markdown("#### Error Handling")
-
-                max_retries = gr.Number(
-                    value=app_state.processing_config.max_retries,
-                    label="Max Retries on Failure",
-                    precision=0,
-                    minimum=0,
-                    maximum=10,
-                    info="Maximum retry attempts for failed extractions"
-                )
-                components['max_retries'] = max_retries
 
     gr.Markdown("---")
     gr.Markdown("### Test Connection")
@@ -532,8 +521,7 @@ Status: Model is ready for processing."""
          az_endpoint, az_deploy, g_proj_id, l_path, max_seq, quant, gpu,
          agen_enabled, agen_max_iter, agen_max_tools,
          llm_cache_en, llm_cache_bypass_val, llm_cache_path, perf_mon,
-         use_parallel, max_workers, use_batch_preproc, use_profiles, use_gpu_f,
-         max_ret) = args
+         use_parallel, max_workers, use_batch_preproc, use_profiles, use_gpu_f) = args
 
         try:
             config = ModelConfig(
@@ -586,21 +574,14 @@ Status: Model is ready for processing."""
                 if opt_success:
                     persistence_manager.save_optimization_config(app_state.optimization_config)
 
-                # Save processing configuration (max_retries) to app_state
-                proc_success = app_state.set_processing_config(max_retries=int(max_ret))
-
-                # Save processing configuration to disk
-                if proc_success:
-                    persistence_manager.save_processing_config(app_state.processing_config)
-
                 # FIXED: DON'T initialize LLM automatically - only on demand
                 logger.info(f"Model configuration saved (LLM will be initialized on first use)")
                 logger.info(f"Agentic mode: {'ENABLED' if agen_enabled else 'DISABLED'} (max_iterations={agen_max_iter}, max_tool_calls={agen_max_tools})")
-                logger.info(f"Optimization config: cache={llm_cache_en}, parallel={use_parallel}, batch_preprocess={use_batch_preproc}, max_retries={max_ret}")
+                logger.info(f"Optimization config: cache={llm_cache_en}, parallel={use_parallel}, batch_preprocess={use_batch_preproc}")
 
                 mode = "ADAPTIVE Mode (v1.0.0)" if agen_enabled else "STRUCTURED Mode (v1.0.0)"
                 mode_desc = "For evolving tasks" if agen_enabled else "For predictable workflows"
-                return f"✓ Configuration saved successfully!\n\n**Execution Mode**: {mode} - {mode_desc}\n\n**Optimizations**:\n• LLM Cache: {'Enabled' if llm_cache_en else 'Disabled'}\n• Parallel Processing: {'Enabled' if use_parallel else 'Disabled'} ({max_workers} workers)\n• Batch Preprocessing: {'Enabled' if use_batch_preproc else 'Disabled'}\n• Max Retries: {max_ret}\n\n🎯 Both modes are autonomous and adapt to ANY clinical task!\n\nLLM will be initialized when you start processing.\n\n✓ Configuration persisted to disk."
+                return f"✓ Configuration saved successfully!\n\n**Execution Mode**: {mode} - {mode_desc}\n\n**Optimizations**:\n• LLM Cache: {'Enabled' if llm_cache_en else 'Disabled'}\n• Parallel Processing: {'Enabled' if use_parallel else 'Disabled'} ({max_workers} workers)\n• Batch Preprocessing: {'Enabled' if use_batch_preproc else 'Disabled'}\n\n🎯 Both modes are autonomous and adapt to ANY clinical task!\n\nLLM will be initialized when you start processing.\n\n✓ Configuration persisted to disk.\n\nNote: Max Retries and other processing settings are configured in the Processing tab."
             else:
                 return "✗ Failed to save configuration"
 
@@ -662,7 +643,7 @@ Status: Model is ready for processing."""
             adaptive_mode_enabled, agentic_max_iterations, agentic_max_tool_calls,
             llm_cache_enabled, llm_cache_bypass, llm_cache_db_path, performance_monitoring_enabled,
             use_parallel_processing, max_parallel_workers, use_batch_preprocessing,
-            use_model_profiles, use_gpu_faiss, max_retries
+            use_model_profiles, use_gpu_faiss
         ],
         outputs=[validation_result]
     )

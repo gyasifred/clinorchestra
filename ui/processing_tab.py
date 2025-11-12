@@ -52,21 +52,32 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                 minimum=1
             )
             components['batch_size'] = batch_size
-            
+
             error_strategy = gr.Radio(
                 choices=["skip", "retry", "halt"],
                 value=app_state.processing_config.error_strategy,
-                label="Error Strategy"
+                label="Error Strategy",
+                info="How to handle failed rows"
             )
             components['error_strategy'] = error_strategy
-        
+
+            max_retries = gr.Number(
+                value=app_state.processing_config.max_retries,
+                label="Max Retries on Failure",
+                precision=0,
+                minimum=0,
+                maximum=10,
+                info="Maximum retry attempts (only if error strategy is 'retry')"
+            )
+            components['max_retries'] = max_retries
+
         with gr.Column():
             output_dir = gr.Textbox(
                 value=app_state.processing_config.output_path or "./output",
                 label="Output Directory"
             )
             components['output_dir'] = output_dir
-            
+
             dry_run = gr.Checkbox(
                 label="Dry Run (5 rows only)",
                 value=app_state.processing_config.dry_run
@@ -149,9 +160,9 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
         """Display configuration"""
         return app_state.get_configuration_summary()
     
-    def start_processing(batch_sz, error_strat, out_dir, is_dry_run):
+    def start_processing(batch_sz, error_strat, out_dir, is_dry_run, max_ret):
         """Start processing with enhanced logging and process persistence"""
-        
+
         can_start, message = app_state.can_start_processing()
         if not can_start:
             return (
@@ -160,12 +171,13 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                 "Cannot start processing",
                 None, None
             )
-        
+
         app_state.set_processing_config(
             batch_size=int(batch_sz) if batch_sz is not None else 1,
             error_strategy=error_strat,
             output_path=out_dir,
-            dry_run=is_dry_run
+            dry_run=is_dry_run,
+            max_retries=int(max_ret) if max_ret is not None else 3
         )
         
         app_state.start_processing()
@@ -836,7 +848,7 @@ Check logs for details."""
     
     start_btn.click(
         fn=start_processing,
-        inputs=[batch_size, error_strategy, output_dir, dry_run],
+        inputs=[batch_size, error_strategy, output_dir, dry_run, max_retries],
         outputs=[
             processing_status,
             progress_bar,
