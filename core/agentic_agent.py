@@ -48,12 +48,13 @@ class AgenticState(Enum):
 
 @dataclass
 class ToolCall:
-    """Represents a single tool call"""
+    """Represents a single tool call with support for parameter dependencies"""
     id: str
     type: str  # 'rag', 'function', 'extras'
     name: str
     parameters: Dict[str, Any]
     purpose: Optional[str] = None
+    depends_on: Optional[List[str]] = None  # IDs of tool calls this depends on
 
 
 @dataclass
@@ -656,46 +657,228 @@ Example format:
 
         return ";".join(sorted(signatures))
 
+    def _detect_and_resolve_dependencies(self, tool_calls: List[ToolCall]) -> List[ToolCall]:
+        """
+        Detect parameter dependencies in tool calls.
+
+        Scans each tool call's parameters for references to other tool calls.
+        References are strings starting with "$" followed by a tool call ID.
+
+        Examples:
+            "$call_1" - References result of tool call with id="call_1"
+            "$call_2.field" - References specific field in result (future enhancement)
+
+        Returns:
+            List of tool calls with depends_on field populated
+        """
+        enhanced_calls = []
+
+        for tool_call in tool_calls:
+            dependencies = set()
+
+            # Recursively scan parameters for dependencies
+            def scan_for_deps(obj):
+                if isinstance(obj, str):
+                    # Check if string is a reference (starts with $)
+                    if obj.startswith('$'):
+                        # Extract the tool call ID
+                        # Format: $call_1 or $call_1.field
+                        ref = obj[1:]  # Remove $
+                        call_id = ref.split('.')[0]  # Get ID before any dot
+                        dependencies.add(call_id)
+                elif isinstance(obj, dict):
+                    for value in obj.values():
+                        scan_for_deps(value)
+                elif isinstance(obj, list):
+                    for item in obj:
+                        scan_for_deps(item)
+
+            scan_for_deps(tool_call.parameters)
+
+            # Create enhanced tool call with dependencies
+            enhanced_call = ToolCall(
+                id=tool_call.id,
+                type=tool_call.type,
+                name=tool_call.name,
+                parameters=tool_call.parameters,
+                purpose=tool_call.purpose,
+                depends_on=list(dependencies) if dependencies else None
+            )
+            enhanced_calls.append(enhanced_call)
+
+            if dependencies:
+                logger.info(f" Detected dependencies for {tool_call.id}: {dependencies}")
+
+        return enhanced_calls
+
+    def _topological_sort_tool_calls(self, tool_calls: List[ToolCall]) -> List[ToolCall]:
+        """
+        Sort tool calls in dependency order using topological sort.
+
+        Ensures that calls are executed in an order where all dependencies
+        are satisfied before a call is executed.
+
+        Returns:
+            Sorted list of tool calls (dependencies first)
+
+        Raises:
+            ValueError: If circular dependencies detected
+        """
+        # Build adjacency list and in-degree map
+        graph = {tc.id: [] for tc in tool_calls}
+        in_degree = {tc.id: 0 for tc in tool_calls}
+        id_to_call = {tc.id: tc for tc in tool_calls}
+
+        for tool_call in tool_calls:
+            if tool_call.depends_on:
+                for dep_id in tool_call.depends_on:
+                    if dep_id in graph:
+                        graph[dep_id].append(tool_call.id)
+                        in_degree[tool_call.id] += 1
+                    else:
+                        logger.warning(f" Dependency {dep_id} not found for {tool_call.id} - will be ignored")
+
+        # Kahn's algorithm for topological sort
+        queue = [tc_id for tc_id, degree in in_degree.items() if degree == 0]
+        sorted_ids = []
+
+        while queue:
+            current_id = queue.pop(0)
+            sorted_ids.append(current_id)
+
+            for neighbor_id in graph[current_id]:
+                in_degree[neighbor_id] -= 1
+                if in_degree[neighbor_id] == 0:
+                    queue.append(neighbor_id)
+
+        # Check for circular dependencies
+        if len(sorted_ids) != len(tool_calls):
+            remaining = [tc_id for tc_id in in_degree if in_degree[tc_id] > 0]
+            raise ValueError(f"Circular dependency detected in tool calls: {remaining}")
+
+        # Return sorted tool calls
+        return [id_to_call[tc_id] for tc_id in sorted_ids]
+
+    def _resolve_parameter_references(self, parameters: Dict[str, Any], results_map: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Resolve parameter references to actual results.
+
+        Replaces strings like "$call_1" with the actual result from that tool call.
+        Supports nested dictionaries and lists.
+
+        Args:
+            parameters: Original parameters (may contain references)
+            results_map: Map of tool_call_id -> result
+
+        Returns:
+            Parameters with all references resolved
+        """
+        def resolve(obj):
+            if isinstance(obj, str):
+                if obj.startswith('$'):
+                    # Parse reference: $call_1 or $call_1.field
+                    ref = obj[1:]
+                    parts = ref.split('.', 1)
+                    call_id = parts[0]
+
+                    if call_id not in results_map:
+                        logger.warning(f" Cannot resolve reference {obj} - call not executed yet")
+                        return obj  # Return unchanged if dependency not resolved
+
+                    result = results_map[call_id]
+
+                    # If there's a field selector (.field), navigate into result
+                    if len(parts) > 1 and isinstance(result, dict):
+                        field_path = parts[1]
+                        for field in field_path.split('.'):
+                            if isinstance(result, dict) and field in result:
+                                result = result[field]
+                            else:
+                                logger.warning(f" Field {field} not found in result for {call_id}")
+                                return obj
+
+                    logger.info(f"   → Resolved {obj} = {result}")
+                    return result
+                return obj
+            elif isinstance(obj, dict):
+                return {k: resolve(v) for k, v in obj.items()}
+            elif isinstance(obj, list):
+                return [resolve(item) for item in obj]
+            else:
+                return obj
+
+        return resolve(parameters)
+
+    def _execute_single_tool(self, tool_call: ToolCall) -> ToolResult:
+        """Execute a single tool call (wrapper around existing execution methods)"""
+        if tool_call.name == 'query_rag':
+            return self._execute_rag_tool(tool_call)
+        elif tool_call.name == 'query_extras':
+            return self._execute_extras_tool(tool_call)
+        else:
+            return self._execute_function_tool(tool_call)
+
     def _execute_tools(self, tool_calls: List[ToolCall]) -> List[ToolResult]:
         """
-        Execute all tool calls in PARALLEL using async
+        Execute all tool calls with DEPENDENCY RESOLUTION
 
-        Phase 2: Tools run concurrently for better performance
-        - Multiple RAG queries can run simultaneously
-        - Multiple function calls can run simultaneously
-        - Results returned in original order for conversation coherence
+        The agent can now structure calls where one function's output becomes another's input.
+        For example:
+            call_1: calculate_age(birth_date="2020-01-15")
+            call_2: calculate_bmi(weight=20, height=1.1)
+            call_3: analyze(age="$call_1", bmi="$call_2")  # Uses results from call_1 and call_2
+
+        Flow:
+        1. Detect parameter dependencies (parameters starting with "$")
+        2. Build dependency graph
+        3. Execute in topological order (dependencies first)
+        4. Substitute results before executing dependent calls
+        5. Return results in original order for conversation coherence
         """
-        logger.info(f"Executing {len(tool_calls)} tools in PARALLEL (async)")
+        logger.info(f"Executing {len(tool_calls)} tools with dependency resolution")
 
-        # Run async execution - asyncio.run() handles event loop creation automatically
-        try:
-            # asyncio.run() creates new event loop and cleans up after
-            # This is the recommended way in Python 3.7+
-            results = asyncio.run(self._execute_tools_async(tool_calls))
-        except RuntimeError as e:
-            # Event loop already running (e.g., Jupyter notebook)
-            if "cannot be called from a running event loop" in str(e):
-                logger.warning(" Event loop already running - falling back to sequential execution")
-                logger.warning("   (Async optimization disabled in this context)")
-                # Fall back to sequential synchronous execution
-                results = []
-                for tool_call in tool_calls:
-                    if tool_call.name == 'query_rag':
-                        results.append(self._execute_rag_tool(tool_call))
-                    elif tool_call.name == 'query_extras':
-                        results.append(self._execute_extras_tool(tool_call))
-                    else:
-                        results.append(self._execute_function_tool(tool_call))
-            else:
-                # Different RuntimeError - re-raise
-                raise
+        # Step 1: Detect dependencies and build dependency graph
+        tool_calls_with_deps = self._detect_and_resolve_dependencies(tool_calls)
 
-        # Update tracking
-        for result in results:
+        # Step 2: Sort by dependencies (topological sort)
+        execution_order = self._topological_sort_tool_calls(tool_calls_with_deps)
+
+        logger.info(f" Dependency-resolved execution order: {[tc.id for tc in execution_order]}")
+
+        # Step 3: Execute in order, resolving dependencies as we go
+        results_map = {}  # Map of tool_call_id -> result
+        all_results = []
+
+        for tool_call in execution_order:
+            # Resolve any parameter references
+            resolved_params = self._resolve_parameter_references(tool_call.parameters, results_map)
+
+            # Update tool call with resolved parameters
+            resolved_tool_call = ToolCall(
+                id=tool_call.id,
+                type=tool_call.type,
+                name=tool_call.name,
+                parameters=resolved_params,
+                purpose=tool_call.purpose,
+                depends_on=tool_call.depends_on
+            )
+
+            logger.info(f" Executing {tool_call.id}: {tool_call.name}")
+            if tool_call.depends_on:
+                logger.info(f"   → Depends on: {tool_call.depends_on}")
+
+            # Execute the tool
+            result = self._execute_single_tool(resolved_tool_call)
+
+            # Store result for dependency resolution
+            results_map[tool_call.id] = result.result
+            all_results.append(result)
+
+            # Update tracking
             self.context.tool_results.append(result)
             self.context.total_tool_calls += 1
 
-        return results
+        return all_results
 
     def _deduplicate_tool_calls(self, tool_calls: List[ToolCall]) -> List[ToolCall]:
         """
@@ -1145,7 +1328,40 @@ You have access to tools:
 **CRITICAL: Tool Call Format**
 - Tool calls MUST start with "TOOL_CALL:" prefix
 - Format: TOOL_CALL: {{"tool": "name", "parameters": {{...}}}}
-- Do NOT output bare JSON without the TOOL_CALL: prefix"""
+- Do NOT output bare JSON without the TOOL_CALL: prefix
+
+**FUNCTION DEPENDENCIES - ADVANCED FEATURE:**
+You can now chain function calls where one function's output becomes another's input!
+
+**How it works:**
+- Use "$call_X" in parameters to reference results from other tool calls
+- The system will automatically execute dependencies in the correct order
+- You can reference specific fields using "$call_X.field_name"
+
+**Example - Calculate pediatric nutrition status:**
+```
+TOOL_CALL: {{"id": "call_1", "tool": "call_calculate_age_months", "parameters": {{"birth_date": "2020-01-15"}}}}
+TOOL_CALL: {{"id": "call_2", "tool": "call_calculate_bmi", "parameters": {{"weight_kg": 20, "height_m": 1.1}}}}
+TOOL_CALL: {{"id": "call_3", "tool": "call_analyze_nutrition", "parameters": {{"age_months": "$call_1", "bmi": "$call_2"}}}}
+```
+
+**What happens:**
+1. call_1 executes → returns 58 (age in months)
+2. call_2 executes → returns 16.5 (BMI)
+3. call_3 executes with age_months=58, bmi=16.5 (values auto-substituted)
+
+**When to use this:**
+- When you need to combine results from multiple calculations
+- When one function needs the output of another
+- When building complex clinical assessments from simple measurements
+
+**Important:**
+- Each tool call needs a unique ID (call_1, call_2, etc.)
+- Dependencies are automatically detected and resolved
+- Circular dependencies will raise an error
+- You can reference the full result with "$call_X" or a specific field with "$call_X.field"
+
+This allows you to structure sophisticated multi-step calculations in a single round!"""
 
     def _format_tool_result_for_llm(self, result: ToolResult) -> str:
         """Format tool result for LLM consumption"""
