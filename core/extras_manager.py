@@ -335,11 +335,24 @@ class ExtrasManager:
             json.dump(extra, f, indent=2)
     
     def _load_all_extras(self):
-        """Load all extras from storage with backward compatibility for name field"""
+        """Load all extras from storage with backward compatibility for name and id fields"""
         for extra_file in self.storage_path.glob("*.json"):
             try:
                 with open(extra_file, 'r') as f:
                     extra = json.load(f)
+
+                    # Backward compatibility: add id if missing
+                    if 'id' not in extra:
+                        # Use filename as ID if it follows the extra_* pattern
+                        file_id = extra_file.stem
+                        if file_id.startswith('extra_'):
+                            extra['id'] = file_id
+                        else:
+                            # Generate new ID
+                            extra['id'] = f"extra_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}"
+                        logger.info(f"Added missing 'id' field to {extra_file.name}: {extra['id']}")
+                        # Save with new id field
+                        self._save_extra(extra)
 
                     # Backward compatibility: add name if missing
                     if 'name' not in extra:

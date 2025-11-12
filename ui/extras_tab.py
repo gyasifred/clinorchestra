@@ -245,7 +245,7 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
 
         if success:
             extras_list_data = [
-                [e.get('name', e['id']), e['type'], e['content'][:50] + '...']
+                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), (e.get('content', '')[:50] + '...') if e.get('content') else '']
                 for e in extras_manager.list_extras()
             ]
             return "", "", "", "", "Extra added successfully", gr.update(value=extras_list_data)
@@ -277,7 +277,7 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
 
         if success:
             extras_list_data = [
-                [e.get('name', e['id']), e['type'], e['content'][:50] + '...']
+                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), (e.get('content', '')[:50] + '...') if e.get('content') else '']
                 for e in extras_manager.list_extras()
             ]
             return "", "", "", "", "", f"Extra updated successfully", gr.update(value=extras_list_data)
@@ -293,7 +293,7 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
             logger.warning("ExtrasManager was not set; initialized new instance")
 
         extras_list_data = [
-            [e.get('name', e['id']), e['type'], e['content'][:50] + '...']
+            [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), (e.get('content', '')[:50] + '...') if e.get('content') else '']
             for e in extras_manager.list_extras()
         ]
         return gr.update(value=extras_list_data)
@@ -383,7 +383,7 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
 
         if success:
             extras_list_data = [
-                [e.get('name', e['id']), e['type'], e['content'][:50] + '...']
+                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), (e.get('content', '')[:50] + '...') if e.get('content') else '']
                 for e in extras_manager.list_extras()
             ]
             return "", "", "", "", "", f"Removed '{extra.get('name', extra_id_to_remove)}'", gr.update(value=extras_list_data)
@@ -445,7 +445,7 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
                     errors.append(f"Error processing extra: {str(e)}")
 
             extras_list_data = [
-                [e.get('name', e['id']), e['type'], e['content'][:50] + '...']
+                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), (e.get('content', '')[:50] + '...') if e.get('content') else '']
                 for e in extras_manager.list_extras()
             ]
 
@@ -486,7 +486,7 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
         
         if success:
             extras_list_data = [
-                [e.get('name', e['id']), e['type'], e['content'][:50] + '...']
+                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), (e.get('content', '')[:50] + '...') if e.get('content') else '']
                 for e in extras_manager.list_extras()
             ]
             return "Extras imported", gr.update(value=extras_list_data)
