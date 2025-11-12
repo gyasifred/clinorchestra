@@ -1,0 +1,7 @@
+{
+  "name": "normalize_blood_pressure",
+  "pattern": "(?:BP|blood pressure|B\\.?P\\.?)\\s*[:=]?\\s*(\\d{2,3})\\s*/\\s*(\\d{2,3})(?:\\s*mmHg)?",
+  "replacement": "BP: \\1/\\2 mmHg",
+  "description": "Standardize blood pressure measurements to format 'BP: systolic/diastolic mmHg'",
+  "enabled": true
+}

@@ -196,12 +196,12 @@ def create_data_tab(app_state) -> Dict[str, Any]:
             
             with gr.Row():
                 save_mappings_btn = gr.Button(
-                    "💾 Save All Mappings to Configuration", 
-                    variant="primary", 
+                    "💾 Save All Mappings to Configuration",
+                    variant="primary",
                     size="lg"
                 )
                 export_mappings_btn = gr.Button("📥 Export Mappings to JSON")
-            
+
             components['save_mappings_btn'] = save_mappings_btn
             components['export_mappings_btn'] = export_mappings_btn
 
@@ -211,6 +211,21 @@ def create_data_tab(app_state) -> Dict[str, Any]:
                 visible=False
             )
             components['download_mappings'] = download_mappings
+
+            gr.Markdown("---")
+            gr.Markdown("#### Import Label Mappings")
+            gr.Markdown("**Upload a YAML or JSON file with label mappings to quickly populate all mappings**")
+
+            with gr.Row():
+                import_mappings_file = gr.File(
+                    label="Upload Mappings File (YAML or JSON)",
+                    file_types=[".yaml", ".yml", ".json"],
+                    type="filepath"
+                )
+                components['import_mappings_file'] = import_mappings_file
+
+            import_status = gr.Textbox(label="Import Status", interactive=False)
+            components['import_status'] = import_status
         
         components['label_config_panel'] = label_config_panel
     
@@ -573,28 +588,125 @@ def create_data_tab(app_state) -> Dict[str, Any]:
         """Export mappings to JSON file"""
         if not current_mappings:
             return "❌ No mappings to export", gr.update(visible=False)
-        
+
         try:
             import json
             from datetime import datetime
             from pathlib import Path
-            
+
             output_dir = Path("./configs")
             output_dir.mkdir(exist_ok=True)
-            
+
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             filepath = output_dir / f"label_mappings_{timestamp}.json"
-            
+
             with open(filepath, 'w') as f:
                 json.dump(current_mappings, f, indent=2)
-            
+
             logger.info(f"Label mappings exported to {filepath}")
-            
+
             return f"✅ Exported {len(current_mappings)} mappings to:\n{filepath}", gr.update(value=str(filepath), visible=True)
-            
+
         except Exception as e:
             logger.error(f"Export failed: {e}")
             return f"❌ Export failed: {str(e)}", gr.update(visible=False)
+
+    def import_mappings(filepath, current_mappings):
+        """Import mappings from YAML or JSON file"""
+        if not filepath:
+            return "❌ No file uploaded", current_mappings, gr.update()
+
+        try:
+            import json
+            import yaml
+            from pathlib import Path
+
+            filepath = Path(filepath)
+
+            # Determine file type and load
+            if filepath.suffix in ['.yaml', '.yml']:
+                with open(filepath, 'r') as f:
+                    data = yaml.safe_load(f)
+            elif filepath.suffix == '.json':
+                with open(filepath, 'r') as f:
+                    data = json.load(f)
+            else:
+                return f"❌ Unsupported file type: {filepath.suffix}", current_mappings, gr.update()
+
+            # Extract mappings from different possible formats
+            imported_mappings = {}
+
+            # Format 1: Direct dictionary (simple key-value)
+            if isinstance(data, dict) and not any(k in data for k in ['diagnosis_mapping', 'mappings', 'labels']):
+                imported_mappings = data
+
+            # Format 2: MIMIC-IV diagnosis_mapping.yaml format
+            elif 'diagnosis_mapping' in data:
+                for diagnosis in data['diagnosis_mapping']:
+                    # Map diagnosis ID to diagnosis info
+                    diag_id = str(diagnosis.get('id', ''))
+                    diag_name = diagnosis.get('name', '')
+                    diag_desc = diagnosis.get('description', '')
+                    diag_category = diagnosis.get('category', '')
+
+                    # Create comprehensive description
+                    mapping_text = f"{diag_name}"
+                    if diag_category:
+                        mapping_text += f" (Category: {diag_category})"
+                    if diag_desc:
+                        mapping_text += f"\\n{diag_desc}"
+
+                    # Add ICD code information
+                    if 'icd_codes' in diagnosis:
+                        icd_info = []
+                        for icd_version in ['icd9', 'icd10']:
+                            if icd_version in diagnosis['icd_codes']:
+                                for code_data in diagnosis['icd_codes'][icd_version]:
+                                    code = code_data.get('code', '')
+                                    desc = code_data.get('description', '')
+                                    if code:
+                                        icd_info.append(f"{code}: {desc}")
+                        if icd_info:
+                            mapping_text += f"\\n\\nICD Codes:\\n" + "\\n".join(icd_info)
+
+                    # Map both by ID and by name
+                    if diag_id:
+                        imported_mappings[diag_id] = mapping_text
+                    if diag_name:
+                        imported_mappings[diag_name] = mapping_text
+
+            # Format 3: Generic mappings/labels key
+            elif 'mappings' in data:
+                imported_mappings = data['mappings']
+            elif 'labels' in data:
+                imported_mappings = data['labels']
+            else:
+                return "❌ Unrecognized mapping format", current_mappings, gr.update()
+
+            # Merge with existing mappings (imported takes precedence)
+            merged_mappings = {**current_mappings, **imported_mappings}
+
+            # Create display dataframe
+            display_data = [[k, v] for k, v in merged_mappings.items()]
+
+            logger.info(f"Imported {len(imported_mappings)} mappings from {filepath.name}")
+
+            return (
+                f"✅ Successfully imported {len(imported_mappings)} mappings from {filepath.name}\\n"
+                f"Total mappings: {len(merged_mappings)}",
+                merged_mappings,
+                gr.update(value=display_data)
+            )
+
+        except yaml.YAMLError as e:
+            logger.error(f"YAML parsing error: {e}")
+            return f"❌ YAML parsing error: {str(e)}", current_mappings, gr.update()
+        except json.JSONDecodeError as e:
+            logger.error(f"JSON parsing error: {e}")
+            return f"❌ JSON parsing error: {str(e)}", current_mappings, gr.update()
+        except Exception as e:
+            logger.error(f"Import failed: {e}")
+            return f"❌ Import failed: {str(e)}", current_mappings, gr.update()
     
     def test_phi_redaction(test_text, entity_types, method):
         """Test PHI redaction"""
@@ -806,6 +918,12 @@ Text Column: {text_col}
         fn=export_mappings,
         inputs=[current_label_mappings],
         outputs=[mapping_status, download_mappings]
+    )
+
+    import_mappings_file.change(
+        fn=import_mappings,
+        inputs=[import_mappings_file, current_label_mappings],
+        outputs=[import_status, current_label_mappings, mappings_display]
     )
     
     test_phi_btn.click(

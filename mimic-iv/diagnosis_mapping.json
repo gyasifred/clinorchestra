@@ -1,0 +1,497 @@
+{
+  "diagnosis_mapping": [
+    {
+      "id": 1,
+      "name": "Chest pain",
+      "category": "cardiovascular",
+      "total_cases": 17535,
+      "description": "Chest pain, unspecified or other",
+      "icd_codes": {
+        "icd9": [
+          {
+            "code": "78650",
+            "cases": 7297,
+            "description": "Chest pain, unspecified"
+          },
+          {
+            "code": "78659",
+            "cases": 5212,
+            "description": "Other chest pain"
+          }
+        ],
+        "icd10": [
+          {
+            "code": "R079",
+            "cases": 2906,
+            "description": "Chest pain, unspecified"
+          },
+          {
+            "code": "R0789",
+            "cases": 2120,
+            "description": "Other chest pain"
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "name": "Coronary atherosclerosis",
+      "category": "cardiovascular",
+      "total_cases": 8903,
+      "description": "Coronary atherosclerosis of native coronary artery",
+      "icd_codes": {
+        "icd9": [
+          {
+            "code": "41401",
+            "cases": 5751,
+            "description": "Coronary atherosclerosis of native coronary artery"
+          }
+        ],
+        "icd10": [
+          {
+            "code": "I25110",
+            "cases": 1670,
+            "description": "Atherosclerotic heart disease of native coronary artery with unstable angina pectoris"
+          },
+          {
+            "code": "I2510",
+            "cases": 1482,
+            "description": "Atherosclerotic heart disease of native coronary artery without angina pectoris"
+          }
+        ]
+      }
+    },
+    {
+      "id": 3,
+      "name": "Myocardial infarction",
+      "category": "cardiovascular",
+      "total_cases": 6138,
+      "description": "Myocardial infarction (NSTEMI and subendocardial)",
+      "icd_codes": {
+        "icd9": [
+          {
+            "code": "41071",
+            "cases": 2873,
+            "description": "Subendocardial infarction, initial episode of care"
+          }
+        ],
+        "icd10": [
+          {
+            "code": "I214",
+            "cases": 3265,
+            "description": "Non-ST elevation (NSTEMI) myocardial infarction"
+          }
+        ]
+      }
+    },
+    {
+      "id": 4,
+      "name": "Heart failure",
+      "category": "cardiovascular",
+      "total_cases": 6648,
+      "description": "Heart failure (acute on chronic, systolic, diastolic)",
+      "icd_codes": {
+        "icd9": [
+          {
+            "code": "42833",
+            "cases": 2270,
+            "description": "Acute on chronic diastolic heart failure"
+          },
+          {
+            "code": "42823",
+            "cases": 1919,
+            "description": "Acute on chronic systolic heart failure"
+          }
+        ],
+        "icd10": [
+          {
+            "code": "I110",
+            "cases": 2459,
+            "description": "Hypertensive heart disease with heart failure"
+          }
+        ]
+      }
+    },
+    {
+      "id": 5,
+      "name": "Atrial fibrillation",
+      "category": "cardiovascular",
+      "total_cases": 4145,
+      "description": "Atrial fibrillation (including paroxysmal)",
+      "icd_codes": {
+        "icd9": [
+          {
+            "code": "42731",
+            "cases": 3090,
+            "description": "Atrial fibrillation"
+          }
+        ],
+        "icd10": [
+          {
+            "code": "I480",
+            "cases": 1055,
+            "description": "Paroxysmal atrial fibrillation"
+          }
+        ]
+      }
+    },
+    {
+      "id": 6,
+      "name": "Hypertensive heart disease with CKD",
+      "category": "cardiovascular",
+      "total_cases": 3313,
+      "description": "Hypertensive heart and chronic kidney disease",
+      "icd_codes": {
+        "icd9": [],
+        "icd10": [
+          {
+            "code": "I130",
+            "cases": 3313,
+            "description": "Hypertensive heart and chronic kidney disease with heart failure and stage 1 through stage 4 chronic kidney disease, or unspecified chronic kidney disease"
+          }
+        ]
+      }
+    },
+    {
+      "id": 7,
+      "name": "Sepsis",
+      "category": "infectious",
+      "total_cases": 8239,
+      "description": "Sepsis, unspecified organism",
+      "icd_codes": {
+        "icd9": [
+          {
+            "code": "0389",
+            "cases": 3144,
+            "description": "Unspecified septicemia"
+          },
+          {
+            "code": "389",
+            "cases": 0,
+            "description": "Unspecified septicemia (alternate)"
+          }
+        ],
+        "icd10": [
+          {
+            "code": "A419",
+            "cases": 5095,
+            "description": "Sepsis, unspecified organism"
+          }
+        ]
+      }
+    },
+    {
+      "id": 8,
+      "name": "Pneumonia",
+      "category": "infectious",
+      "total_cases": 5843,
+      "description": "Pneumonia, organism unspecified",
+      "icd_codes": {
+        "icd9": [
+          {
+            "code": "486",
+            "cases": 3726,
+            "description": "Pneumonia, organism unspecified"
+          }
+        ],
+        "icd10": [
+          {
+            "code": "J189",
+            "cases": 2117,
+            "description": "Pneumonia, unspecified organism"
+          }
+        ]
+      }
+    },
+    {
+      "id": 9,
+      "name": "Urinary tract infection",
+      "category": "infectious",
+      "total_cases": 5138,
+      "description": "Urinary tract infection, site not specified",
+      "icd_codes": {
+        "icd9": [
+          {
+            "code": "5990",
+            "cases": 2967,
+            "description": "Urinary tract infection, site not specified"
+          }
+        ],
+        "icd10": [
+          {
+            "code": "N390",
+            "cases": 2171,
+            "description": "Urinary tract infection, site not specified"
+          }
+        ]
+      }
+    },
+    {
+      "id": 10,
+      "name": "Acute kidney injury",
+      "category": "renal",
+      "total_cases": 6185,
+      "description": "Acute kidney failure, unspecified",
+      "icd_codes": {
+        "icd9": [
+          {
+            "code": "5849",
+            "cases": 3532,
+            "description": "Acute kidney failure, unspecified"
+          }
+        ],
+        "icd10": [
+          {
+            "code": "N179",
+            "cases": 2653,
+            "description": "Acute kidney failure, unspecified"
+          }
+        ]
+      }
+    },
+    {
+      "id": 11,
+      "name": "Depression",
+      "category": "psychiatric",
+      "total_cases": 7202,
+      "description": "Major depressive disorder",
+      "icd_codes": {
+        "icd9": [
+          {
+            "code": "311",
+            "cases": 3499,
+            "description": "Depressive disorder, not elsewhere classified"
+          }
+        ],
+        "icd10": [
+          {
+            "code": "F329",
+            "cases": 3703,
+            "description": "Major depressive disorder, single episode, unspecified"
+          }
+        ]
+      }
+    },
+    {
+      "id": 12,
+      "name": "Alcohol use disorder",
+      "category": "psychiatric",
+      "total_cases": 8038,
+      "description": "Alcohol abuse",
+      "icd_codes": {
+        "icd9": [
+          {
+            "code": "30500",
+            "cases": 4591,
+            "description": "Alcohol abuse, unspecified"
+          }
+        ],
+        "icd10": [
+          {
+            "code": "F10129",
+            "cases": 3447,
+            "description": "Alcohol abuse with intoxication, unspecified"
+          }
+        ]
+      }
+    },
+    {
+      "id": 13,
+      "name": "Chemotherapy encounter",
+      "category": "oncology",
+      "total_cases": 6530,
+      "description": "Encounter for antineoplastic chemotherapy",
+      "icd_codes": {
+        "icd9": [
+          {
+            "code": "V5811",
+            "cases": 2973,
+            "description": "Encounter for antineoplastic chemotherapy"
+          }
+        ],
+        "icd10": [
+          {
+            "code": "Z5111",
+            "cases": 3557,
+            "description": "Encounter for antineoplastic chemotherapy"
+          }
+        ]
+      }
+    },
+    {
+      "id": 14,
+      "name": "Syncope",
+      "category": "cardiovascular",
+      "total_cases": 4327,
+      "description": "Syncope and collapse",
+      "icd_codes": {
+        "icd9": [
+          {
+            "code": "7802",
+            "cases": 2644,
+            "description": "Syncope and collapse"
+          }
+        ],
+        "icd10": [
+          {
+            "code": "R55",
+            "cases": 1683,
+            "description": "Syncope and collapse"
+          }
+        ]
+      }
+    },
+    {
+      "id": 15,
+      "name": "Aortic valve disorders",
+      "category": "cardiovascular",
+      "total_cases": 2973,
+      "description": "Aortic valve stenosis and disorders",
+      "icd_codes": {
+        "icd9": [
+          {
+            "code": "4241",
+            "cases": 1631,
+            "description": "Aortic valve disorders"
+          }
+        ],
+        "icd10": [
+          {
+            "code": "I350",
+            "cases": 1342,
+            "description": "Nonrheumatic aortic (valve) stenosis"
+          }
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "name": "Acute pancreatitis",
+      "category": "gastrointestinal",
+      "total_cases": 2620,
+      "description": "Acute pancreatitis",
+      "icd_codes": {
+        "icd9": [
+          {
+            "code": "5770",
+            "cases": 2620,
+            "description": "Acute pancreatitis"
+          }
+        ],
+        "icd10": []
+      }
+    },
+    {
+      "id": 17,
+      "name": "Psychosis",
+      "category": "psychiatric",
+      "total_cases": 2450,
+      "description": "Unspecified psychosis",
+      "icd_codes": {
+        "icd9": [
+          {
+            "code": "2989",
+            "cases": 1425,
+            "description": "Unspecified psychosis"
+          }
+        ],
+        "icd10": [
+          {
+            "code": "F29",
+            "cases": 1025,
+            "description": "Unspecified psychosis not due to a substance or known physiological condition"
+          }
+        ]
+      }
+    },
+    {
+      "id": 18,
+      "name": "Stroke",
+      "category": "neurological",
+      "total_cases": 2437,
+      "description": "Cerebral artery occlusion and embolism with infarction",
+      "icd_codes": {
+        "icd9": [
+          {
+            "code": "43491",
+            "cases": 1278,
+            "description": "Cerebral artery occlusion, unspecified with cerebral infarction"
+          },
+          {
+            "code": "43411",
+            "cases": 1159,
+            "description": "Cerebral embolism with cerebral infarction"
+          }
+        ],
+        "icd10": []
+      }
+    },
+    {
+      "id": 19,
+      "name": "COPD",
+      "category": "respiratory",
+      "total_cases": 2403,
+      "description": "Chronic obstructive pulmonary disease with exacerbation",
+      "icd_codes": {
+        "icd9": [
+          {
+            "code": "49121",
+            "cases": 1272,
+            "description": "Obstructive chronic bronchitis with (acute) exacerbation"
+          }
+        ],
+        "icd10": [
+          {
+            "code": "J441",
+            "cases": 1131,
+            "description": "Chronic obstructive pulmonary disease with (acute) exacerbation"
+          }
+        ]
+      }
+    },
+    {
+      "id": 20,
+      "name": "Pulmonary embolism",
+      "category": "cardiovascular",
+      "total_cases": 2354,
+      "description": "Pulmonary embolism and infarction",
+      "icd_codes": {
+        "icd9": [
+          {
+            "code": "41519",
+            "cases": 1223,
+            "description": "Other pulmonary embolism and infarction"
+          }
+        ],
+        "icd10": [
+          {
+            "code": "I2699",
+            "cases": 1131,
+            "description": "Other pulmonary embolism without acute cor pulmonale"
+          }
+        ]
+      }
+    }
+  ],
+  "summary": {
+    "total_diagnoses": 20,
+    "total_icd_codes": 43,
+    "total_cases": 113421,
+    "category_distribution": {
+      "cardiovascular": 9,
+      "infectious": 3,
+      "renal": 1,
+      "psychiatric": 3,
+      "oncology": 1,
+      "gastrointestinal": 1,
+      "neurological": 1,
+      "respiratory": 1
+    }
+  },
+  "usage_notes": [
+    "This mapping consolidates ICD-9 and ICD-10 codes for the same clinical condition",
+    "Use for label context in ClinOrchestra data configuration",
+    "Import via data_config tab for automatic label-to-diagnosis mapping",
+    "All diagnoses based on MIMIC-IV v3.1 primary diagnosis frequencies"
+  ]
+}

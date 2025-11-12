@@ -1,0 +1,12 @@
+{
+  "id": "pneumonia_criteria",
+  "type": "diagnostic_criteria",
+  "name": "Pneumonia - Community-Acquired Pneumonia (CAP) Guidelines",
+  "content": "COMMUNITY-ACQUIRED PNEUMONIA (CAP):\n\nDEFINITION:\n- Acute infection of lung parenchyma acquired outside healthcare setting\n- Develops >48 hours after hospital discharge\n\nCLINICAL PRESENTATION:\n- Symptoms: Cough (productive/non-productive), fever, dyspnea, pleuritic chest pain\n- Signs: Tachypnea, tachycardia, crackles, bronchial breath sounds, dullness to percussion\n\nDIAGNOSTIC CRITERIA:\n- Clinical signs/symptoms of pneumonia\n- Radiographic infiltrate (CXR or CT)\n\nCOMMON PATHOGENS:\n- Streptococcus pneumoniae (most common)\n- Mycoplasma pneumoniae, Chlamydia pneumoniae (atypicals)\n- Haemophilus influenzae\n- Respiratory viruses (influenza, RSV, SARS-CoV-2)\n- Legionella pneumophila\n\nSEVERITY ASSESSMENT - CURB-65:\n- C: Confusion\n- U: Urea >19 mg/dL (BUN >19)\n- R: Respiratory rate ≥30/min\n- B: Blood pressure (SBP <90 or DBP ≤60)\n- 65: Age ≥65 years\nScore 0-1: Outpatient, 2: Inpatient, ≥3: ICU consideration\n\nPSI (Pneumonia Severity Index):\n- More complex, 20 variables\n- Classes I-V; I-II outpatient, III consider admission, IV-V inpatient\n\nWORKUP:\n- CXR (PA and lateral)\n- CBC, CMP\n- Blood cultures (if severe)\n- Sputum culture (if severe or MRSA/Pseudomonas risk)\n- Urinary antigen: Legionella, Pneumococcus (if severe)\n- Viral testing during flu season\n\nTREATMENT:\nOutpatient:\n- No comorbidities: Amoxicillin 1g TID OR doxycycline OR macrolide\n- With comorbidities: Amoxicillin-clavulanate + macrolide OR respiratory fluoroquinolone\n\nInpatient (non-ICU):\n- Beta-lactam (ceftriaxone, ampicillin-sulbactam) + macrolide\n- OR respiratory fluoroquinolone monotherapy\n\nICU:\n- Beta-lactam (ceftriaxone, cefotaxime) + azithromycin\n- OR beta-lactam + respiratory fluoroquinolone\n- Add vancomycin or linezolid if MRSA risk\n- Add antipseudomonal if risk factors\n\nDURATION: Minimum 5 days, afebrile 48-72h, clinically stable",
+  "metadata": {
+    "category": "infectious",
+    "diagnosis": "pneumonia",
+    "priority": "HIGH",
+    "source": "IDSA/ATS CAP Guidelines 2019"
+  }
+}

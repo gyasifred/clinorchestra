@@ -1,0 +1,12 @@
+{
+  "id": "chest_pain_criteria",
+  "type": "diagnostic_criteria",
+  "name": "Chest Pain - Evaluation and Workup",
+  "content": "CHEST PAIN EVALUATION:\n\nIMMEDIATE ASSESSMENT:\n- Life-threatening causes (ACS, PE, aortic dissection, tension pneumothorax, tamponade)\n- Character: pressure/squeezing (cardiac), sharp/pleuritic (PE/pericarditis), tearing (dissection)\n- Location: substernal (cardiac), left-sided (cardiac/GI), positional (MSK/pericarditis)\n- Radiation: left arm/jaw (cardiac), back (dissection/pancreatitis)\n- Associated symptoms: dyspnea, diaphoresis, nausea, syncope\n\nRISK STRATIFICATION:\n- HEART Score: 0-3 (low risk), 4-6 (moderate), 7-10 (high)\n- TIMI Score for UA/NSTEMI: 0-2 (low), 3-4 (moderate), 5-7 (high)\n\nWORKUP:\n- ECG within 10 minutes of arrival\n- Cardiac biomarkers: Troponin I/T (serial if initial negative)\n- Chest X-ray\n- Consider: D-dimer (if PE suspected), CTA chest (dissection/PE)\n\nDIFFERENTIAL DIAGNOSIS:\n1. Cardiac: ACS, stable angina, pericarditis, myocarditis\n2. Vascular: Aortic dissection, PE\n3. Pulmonary: Pneumonia, pneumothorax, pleuritis\n4. GI: GERD, esophageal spasm, peptic ulcer\n5. MSK: Costochondritis, muscle strain\n6. Psychiatric: Panic disorder, anxiety",
+  "metadata": {
+    "category": "cardiovascular",
+    "diagnosis": "chest_pain",
+    "priority": "CRITICAL",
+    "source": "AHA/ACC Guidelines"
+  }
+}

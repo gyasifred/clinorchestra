@@ -1,0 +1,12 @@
+{
+  "id": "coronary_atherosclerosis_criteria",
+  "type": "diagnostic_criteria",
+  "name": "Coronary Atherosclerosis - Diagnosis and Classification",
+  "content": "CORONARY ARTERY DISEASE (CAD) / ATHEROSCLEROSIS:\n\nDEFINITION:\n- Atherosclerotic plaque buildup in coronary arteries\n- May be asymptomatic or present as stable angina, ACS, or sudden cardiac death\n\nCLINICAL PRESENTATION:\n- Stable angina: predictable chest pain with exertion, relieved by rest/nitroglycerin\n- Unstable angina: new onset, crescendo, or rest angina\n- Silent ischemia: no symptoms despite documented ischemia\n\nRISK FACTORS (Major):\n- Non-modifiable: Age (men ≥45, women ≥55), male sex, family history\n- Modifiable: Smoking, hypertension, diabetes, dyslipidemia, obesity, sedentary lifestyle\n\nDIAGNOSTIC TESTING:\n1. Non-invasive:\n   - Exercise ECG stress test (sensitivity 68%, specificity 77%)\n   - Stress echocardiography or nuclear imaging\n   - Coronary CTA (high NPV for excluding CAD)\n   - Coronary calcium score (Agatston score)\n2. Invasive:\n   - Coronary angiography (gold standard)\n   - Fractional flow reserve (FFR) for lesion significance\n\nSIGNIFICANCE:\n- ≥50% stenosis in left main coronary artery\n- ≥70% stenosis in other major epicardial vessels\n\nTREATMENT:\n- Medical: Antiplatelet, statin, beta-blocker, ACE-I/ARB, nitrates\n- Revascularization: PCI vs CABG based on anatomy and SYNTAX score",
+  "metadata": {
+    "category": "cardiovascular",
+    "diagnosis": "coronary_atherosclerosis",
+    "priority": "HIGH",
+    "source": "AHA/ACC CAD Guidelines"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "atrial_fibrillation_criteria",
+  "type": "diagnostic_criteria",
+  "name": "Atrial Fibrillation - Diagnosis and Management",
+  "content": "ATRIAL FIBRILLATION (AFib):\n\nDEFINITION:\n- Supraventricular tachyarrhythmia with uncoordinated atrial activation\n- Irregular, rapid ventricular response\n\nECG CRITERIA:\n- Irregularly irregular RR intervals\n- No distinct P waves\n- Atrial rate 350-600 bpm\n- Variable ventricular rate (typically 80-180 bpm if untreated)\n\nCLASSIFICATION:\n- Paroxysmal: Self-terminating, usually <7 days\n- Persistent: Lasting >7 days or requiring cardioversion\n- Long-standing persistent: Continuous >12 months\n- Permanent: Accepted, no further rhythm control attempts\n\nCLINICAL PRESENTATION:\n- May be asymptomatic (found incidentally)\n- Palpitations, dyspnea, fatigue, dizziness\n- Heart failure symptoms, syncope\n\nCOMPLICATIONS:\n- Stroke/systemic embolism (5x increased risk)\n- Heart failure (AFib-induced cardiomyopathy)\n- Cognitive impairment\n\nSTROKE RISK STRATIFICATION (CHA2DS2-VASc):\n- C: CHF (1 point)\n- H: Hypertension (1)\n- A2: Age ≥75 (2)\n- D: Diabetes (1)\n- S2: Prior stroke/TIA/thromboembolism (2)\n- V: Vascular disease (1)\n- A: Age 65-74 (1)\n- Sc: Sex category female (1)\nScore ≥2 (men) or ≥3 (women): Anticoagulation recommended\n\nBLEEDING RISK (HAS-BLED):\n- H: Hypertension, A: Abnormal renal/liver, S: Stroke, B: Bleeding, L: Labile INR, E: Elderly >65, D: Drugs/alcohol\n- Score ≥3: High bleeding risk (caution, not contraindication)\n\nMANAGEMENT:\n1. Rate control: Beta-blocker, CCB (diltiazem/verapamil), digoxin\n2. Rhythm control: Cardioversion, antiarrhythmics, catheter ablation\n3. Anticoagulation: DOACs preferred (apixaban, rivaroxaban, dabigatran, edoxaban) vs warfarin\n4. Treat underlying causes",
+  "metadata": {
+    "category": "cardiovascular",
+    "diagnosis": "atrial_fibrillation",
+    "priority": "HIGH",
+    "source": "AHA/ACC/HRS AFib Guidelines 2023"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "id": "heart_failure_criteria",
+  "type": "diagnostic_criteria",
+  "name": "Heart Failure - Classification and Diagnostic Criteria",
+  "content": "HEART FAILURE (HF) - CLINICAL SYNDROME:\n\nDEFINITION:\n- Inability of heart to pump sufficient blood to meet metabolic demands\n- Structural or functional cardiac abnormality\n\nCLASSIFICATION BY EJECTION FRACTION:\n- HFrEF: LVEF ≤40% (reduced EF, systolic dysfunction)\n- HFmrEF: LVEF 41-49% (mildly reduced EF)\n- HFpEF: LVEF ≥50% (preserved EF, diastolic dysfunction)\n\nCLASSIFICATION BY TIMING:\n- Acute: New onset or decompensation of chronic HF\n- Chronic: Stable symptoms\n- Acute-on-chronic: Decompensation of known chronic HF\n\nNYHA FUNCTIONAL CLASS:\n- Class I: No limitation, asymptomatic\n- Class II: Slight limitation, comfortable at rest\n- Class III: Marked limitation, comfortable only at rest\n- Class IV: Symptoms at rest, inability to carry out any activity\n\nDIAGNOSTIC CRITERIA (Framingham):\nMajor: PND, neck vein distention, rales, cardiomegaly, acute pulmonary edema, S3 gallop, JVP >16cm, hepatojugular reflux\nMinor: Ankle edema, night cough, dyspnea on exertion, hepatomegaly, pleural effusion, tachycardia ≥120\nRequires: 2 major OR 1 major + 2 minor\n\nBIOMARKERS:\n- BNP >100 pg/mL or NT-proBNP >125 pg/mL (suggests HF)\n- Higher levels indicate worse prognosis\n\nECHOCARDIOGRAPHY (Essential):\n- Assess LVEF, wall motion, valve function, chamber sizes\n\nTREATMENT (HFrEF):\n- Guideline-directed medical therapy (GDMT):\n  1. ACE-I/ARB or ARNI (sacubitril/valsartan)\n  2. Beta-blocker (carvedilol, metoprolol succinate, bisoprolol)\n  3. Mineralocorticoid receptor antagonist (spironolactone/eplerenone)\n  4. SGLT2 inhibitor (dapagliflozin, empagliflozin)\n- Diuretics for volume overload\n- Consider: ICD, CRT, cardiac transplant",
+  "metadata": {
+    "category": "cardiovascular",
+    "diagnosis": "heart_failure",
+    "priority": "CRITICAL",
+    "source": "ACC/AHA HF Guidelines 2022"
+  }
+}
