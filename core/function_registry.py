@@ -27,7 +27,7 @@ def get_global_registry() -> Optional['FunctionRegistry']:
 
 class FunctionRegistry:
     """Registry for custom functions with robust parameter validation"""
-    
+
     def __init__(self, storage_path: str = "./functions"):
         self.storage_path = Path(storage_path)
         self.storage_path.mkdir(parents=True, exist_ok=True)
@@ -40,10 +40,11 @@ class FunctionRegistry:
         self.cache_hits = 0
         self.cache_misses = 0
 
-        # RECURSIVE CALLS: Track call depth to prevent infinite recursion
-        self.call_depth = 0
+        # RECURSIVE CALLS: Use thread-local storage for call tracking
+        # This prevents race conditions when functions execute in parallel (ThreadPoolExecutor)
+        import threading
+        self._thread_local = threading.local()
         self.max_call_depth = 10  # Maximum nested function calls
-        self.call_stack: List[str] = []  # Track function call stack
 
         self._load_all_functions()
         self._register_builtin_functions()
@@ -52,6 +53,22 @@ class FunctionRegistry:
         set_global_registry(self)
 
         logger.info(f"FunctionRegistry initialized with {len(self.functions)} functions")
+
+    def _get_call_depth(self) -> int:
+        """Get call depth for current thread"""
+        if not hasattr(self._thread_local, 'call_depth'):
+            self._thread_local.call_depth = 0
+        return self._thread_local.call_depth
+
+    def _set_call_depth(self, value: int) -> None:
+        """Set call depth for current thread"""
+        self._thread_local.call_depth = value
+
+    def _get_call_stack(self) -> List[str]:
+        """Get call stack for current thread"""
+        if not hasattr(self._thread_local, 'call_stack'):
+            self._thread_local.call_stack = []
+        return self._thread_local.call_stack
     
     def _create_namespace(self) -> Dict[str, Any]:
         """Create execution namespace with comprehensive support for growth calculators"""
@@ -250,30 +267,35 @@ class FunctionRegistry:
         FIXED: Apply transformations BEFORE validation
         PERFORMANCE: Cache results to avoid redundant calculations
         RECURSIVE CALLS: Functions can call other registered functions
+        THREAD-SAFE: Uses thread-local storage for call tracking (parallel execution safe)
         """
         if name not in self.functions:
             return False, None, f"Function '{name}' not found"
 
+        # Get thread-local state
+        call_depth = self._get_call_depth()
+        call_stack = self._get_call_stack()
+
         # RECURSIVE CALLS: Check call depth to prevent infinite recursion
-        if self.call_depth >= self.max_call_depth:
-            error_msg = f"Maximum call depth ({self.max_call_depth}) exceeded. Call stack: {' -> '.join(self.call_stack)}"
+        if call_depth >= self.max_call_depth:
+            error_msg = f"Maximum call depth ({self.max_call_depth}) exceeded. Call stack: {' -> '.join(call_stack)}"
             logger.error(error_msg)
             return False, None, error_msg
 
         # RECURSIVE CALLS: Check for DIRECT recursion (function calling itself)
         # Only flag as circular if the IMMEDIATE parent is the same function
         # This allows calling the same function multiple times with different parameters
-        if self.call_stack and self.call_stack[-1] == name:
+        if call_stack and call_stack[-1] == name:
             error_msg = f"Direct recursion detected: {name} calling itself"
             logger.error(f"[RECURSION] {error_msg}")
-            logger.error(f"[RECURSION] Full call stack: {' -> '.join(self.call_stack)} -> {name}")
-            logger.error(f"[RECURSION] Current depth: {self.call_depth}")
+            logger.error(f"[RECURSION] Full call stack: {' -> '.join(call_stack)} -> {name}")
+            logger.error(f"[RECURSION] Current depth: {call_depth}")
             logger.error(f"[RECURSION] Parameters: {json.dumps(kwargs, indent=2)}")
 
             # SAFEGUARD: If call_depth is 0 but stack is not empty, clear stale entries
-            if self.call_depth == 0 and self.call_stack:
-                logger.warning(f"[RECURSION] Detected stale call_stack (depth=0 but stack={self.call_stack}). Clearing stack.")
-                self.call_stack.clear()
+            if call_depth == 0 and call_stack:
+                logger.warning(f"[RECURSION] Detected stale call_stack (depth=0 but stack={call_stack}). Clearing stack.")
+                call_stack.clear()
                 # After clearing, allow this call to proceed
                 logger.info(f"[RECURSION] Stack cleared. Allowing {name} to execute.")
             else:
@@ -285,13 +307,13 @@ class FunctionRegistry:
             cache_key = f"{name}:{json.dumps(kwargs, sort_keys=True)}"
 
             # Check cache first (skip for recursive calls to track proper depth)
-            if cache_key in self.result_cache and self.call_depth == 0:
+            if cache_key in self.result_cache and call_depth == 0:
                 self.cache_hits += 1
                 cached_result = self.result_cache[cache_key]
                 logger.debug(f"Cache HIT for {name}({kwargs}) - returning cached result")
                 return cached_result
 
-            if self.call_depth == 0:
+            if call_depth == 0:
                 self.cache_misses += 1
 
         except (TypeError, ValueError) as e:
@@ -299,16 +321,16 @@ class FunctionRegistry:
             logger.debug(f"Could not create cache key for {name}: {e}")
             cache_key = None
 
-        # RECURSIVE CALLS: Track call depth and stack
-        self.call_depth += 1
-        self.call_stack.append(name)
-        indent = "  " * (self.call_depth - 1)
+        # RECURSIVE CALLS: Track call depth and stack (thread-local)
+        self._set_call_depth(call_depth + 1)
+        call_stack.append(name)
+        indent = "  " * call_depth
 
         try:
             func = self.functions[name]['compiled']
             func_info = self.functions[name]
 
-            logger.debug(f"{indent}-> Entering {name}() [depth={self.call_depth}]")
+            logger.debug(f"{indent}-> Entering {name}() [depth={call_depth + 1}]")
 
             # Get function signature for validation
             try:
@@ -357,10 +379,10 @@ class FunctionRegistry:
 
             execution_result = (True, result, "Execution successful")
 
-            logger.debug(f"{indent}<- Exiting {name}() [depth={self.call_depth}] = {result}")
+            logger.debug(f"{indent}<- Exiting {name}() [depth={call_depth + 1}] = {result}")
 
             # PERFORMANCE: Cache the result if cache_key was created (only for top-level calls)
-            if cache_key is not None and self.call_depth == 1:
+            if cache_key is not None and call_depth + 1 == 1:
                 self.result_cache[cache_key] = execution_result
                 logger.debug(f"Cached result for {name}({kwargs})")
 
@@ -376,10 +398,10 @@ class FunctionRegistry:
             logger.error(f"{indent}[FAIL] {error_msg}", exc_info=True)
             return False, None, error_msg
         finally:
-            # RECURSIVE CALLS: Always cleanup call depth and stack
-            self.call_depth -= 1
-            if self.call_stack and self.call_stack[-1] == name:
-                self.call_stack.pop()
+            # RECURSIVE CALLS: Always cleanup call depth and stack (thread-local)
+            self._set_call_depth(call_depth)  # Restore original depth
+            if call_stack and call_stack[-1] == name:
+                call_stack.pop()
     
     def _validate_and_convert_parameters(self, 
                                        kwargs: Dict[str, Any], 
