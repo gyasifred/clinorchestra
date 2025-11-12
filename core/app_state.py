@@ -688,7 +688,8 @@ class AppState:
         return True, "Ready"
 
     def set_processing_config(self, batch_size: int = None, error_strategy: str = None,
-                            output_path: str = None, dry_run: bool = None, max_retries: int = None):
+                            output_path: str = None, dry_run: bool = None, max_retries: int = None,
+                            concurrent_requests: int = None, auto_save_interval: int = None):
         """Set processing configuration"""
         try:
             if batch_size is not None:
@@ -701,7 +702,11 @@ class AppState:
                 self.processing_config.dry_run = dry_run
             if max_retries is not None:
                 self.processing_config.max_retries = max_retries
-            logger.info(f"Processing config set: batch={self.processing_config.batch_size}, strategy={self.processing_config.error_strategy}, max_retries={self.processing_config.max_retries}")
+            if concurrent_requests is not None:
+                self.processing_config.concurrent_requests = concurrent_requests
+            if auto_save_interval is not None:
+                self.processing_config.auto_save_interval = auto_save_interval
+            logger.info(f"Processing config set: batch={self.processing_config.batch_size}, strategy={self.processing_config.error_strategy}, max_retries={self.processing_config.max_retries}, concurrent={self.processing_config.concurrent_requests}, auto_save={self.processing_config.auto_save_interval}")
             self.observer.notify(StateEvent.PROCESSING_CONFIG_CHANGED, self.processing_config)
             return True
         except Exception as e:

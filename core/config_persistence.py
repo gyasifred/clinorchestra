@@ -662,7 +662,10 @@ class ConfigurationPersistenceManager:
                         batch_size=processing_config_data.get('batch_size', 10),
                         error_strategy=processing_config_data.get('error_strategy', 'skip'),
                         output_path=processing_config_data.get('output_path', ''),
-                        dry_run=processing_config_data.get('dry_run', False)
+                        dry_run=processing_config_data.get('dry_run', False),
+                        max_retries=processing_config_data.get('max_retries', 3),
+                        concurrent_requests=processing_config_data.get('concurrent_requests', 4),
+                        auto_save_interval=processing_config_data.get('auto_save_interval', 50)
                     )
                     if success:
                         logger.info("Processing configuration restored")
