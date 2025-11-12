@@ -241,7 +241,9 @@ class FunctionRegistry:
         # This allows calling the same function multiple times with different parameters
         if self.call_stack and self.call_stack[-1] == name:
             error_msg = f"Direct recursion detected: {name} calling itself"
-            logger.error(error_msg)
+            logger.error(f"[RECURSION] {error_msg}")
+            logger.error(f"[RECURSION] Full call stack: {' -> '.join(self.call_stack)} -> {name}")
+            logger.error(f"[RECURSION] Parameters: {json.dumps(kwargs, indent=2)}")
             return False, None, error_msg
 
         # PERFORMANCE: Create cache key from function name and sorted parameters
