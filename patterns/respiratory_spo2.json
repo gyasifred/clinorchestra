@@ -1,0 +1,7 @@
+{
+  "name": "normalize_oxygen_saturation",
+  "pattern": "(?:SpO2|O2 sat|oxygen saturation|sat)\\s*[:=]?\\s*(\\d{2,3})\\s*%?",
+  "replacement": "SpO2: \\1%",
+  "description": "Standardize oxygen saturation measurements to format 'SpO2: value%'",
+  "enabled": true
+}

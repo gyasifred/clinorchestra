@@ -1,0 +1,7 @@
+{
+  "name": "normalize_heart_rate",
+  "pattern": "(?:HR|heart rate|pulse|H\\.?R\\.?)\\s*[:=]?\\s*(\\d{2,3})(?:\\s*bpm|\\s*beats/min)?",
+  "replacement": "HR: \\1 bpm",
+  "description": "Standardize heart rate measurements to format 'HR: value bpm'",
+  "enabled": true
+}

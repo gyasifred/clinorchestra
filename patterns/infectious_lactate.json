@@ -1,0 +1,7 @@
+{
+  "name": "normalize_lactate",
+  "pattern": "(?:lactate|lactic acid)\\s*[:=]?\\s*(\\d+\\.?\\d*)\\s*(?:mmol/L|mEq/L)?",
+  "replacement": "Lactate: \\1 mmol/L",
+  "description": "Standardize lactate measurements to format 'Lactate: value mmol/L'",
+  "enabled": true
+}
