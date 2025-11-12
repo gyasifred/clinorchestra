@@ -355,7 +355,10 @@ class AppState:
     def set_function_registry(self, function_registry) -> None:
         """Set the function registry instance"""
         self._function_registry = function_registry
-        logger.info("Function Registry registered with AppState")
+        # Also set as global registry for call_function helper consistency
+        from core.function_registry import set_global_registry
+        set_global_registry(function_registry)
+        logger.info("Function Registry registered with AppState and set as global registry")
 
     def get_function_registry(self):
         """Get function registry instance"""
@@ -688,7 +691,8 @@ class AppState:
         return True, "Ready"
 
     def set_processing_config(self, batch_size: int = None, error_strategy: str = None,
-                            output_path: str = None, dry_run: bool = None, max_retries: int = None):
+                            output_path: str = None, dry_run: bool = None, max_retries: int = None,
+                            concurrent_requests: int = None, auto_save_interval: int = None):
         """Set processing configuration"""
         try:
             if batch_size is not None:
@@ -701,7 +705,11 @@ class AppState:
                 self.processing_config.dry_run = dry_run
             if max_retries is not None:
                 self.processing_config.max_retries = max_retries
-            logger.info(f"Processing config set: batch={self.processing_config.batch_size}, strategy={self.processing_config.error_strategy}, max_retries={self.processing_config.max_retries}")
+            if concurrent_requests is not None:
+                self.processing_config.concurrent_requests = concurrent_requests
+            if auto_save_interval is not None:
+                self.processing_config.auto_save_interval = auto_save_interval
+            logger.info(f"Processing config set: batch={self.processing_config.batch_size}, strategy={self.processing_config.error_strategy}, max_retries={self.processing_config.max_retries}, concurrent={self.processing_config.concurrent_requests}, auto_save={self.processing_config.auto_save_interval}")
             self.observer.notify(StateEvent.PROCESSING_CONFIG_CHANGED, self.processing_config)
             return True
         except Exception as e:

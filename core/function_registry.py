@@ -12,6 +12,19 @@ from core.logging_config import get_logger
 
 logger = get_logger(__name__)
 
+# Global registry instance for call_function helper to use
+_global_registry: Optional['FunctionRegistry'] = None
+
+def set_global_registry(registry: 'FunctionRegistry') -> None:
+    """Set the global function registry instance for call_function helper"""
+    global _global_registry
+    _global_registry = registry
+    logger.debug("[REGISTRY] Global function registry set")
+
+def get_global_registry() -> Optional['FunctionRegistry']:
+    """Get the global function registry instance"""
+    return _global_registry
+
 class FunctionRegistry:
     """Registry for custom functions with robust parameter validation"""
     
@@ -34,6 +47,9 @@ class FunctionRegistry:
 
         self._load_all_functions()
         self._register_builtin_functions()
+
+        # CRITICAL: Set this instance as the global registry for call_function helper
+        set_global_registry(self)
 
         logger.info(f"FunctionRegistry initialized with {len(self.functions)} functions")
     
@@ -122,6 +138,9 @@ class FunctionRegistry:
             """
             Helper function that allows registered functions to call other registered functions.
 
+            CRITICAL FIX: Uses global registry to ensure consistent call_stack tracking
+            across STRUCTURED and ADAPTIVE workflows.
+
             Args:
                 func_name: Name of the function to call
                 **func_kwargs: Arguments to pass to the function
@@ -132,7 +151,12 @@ class FunctionRegistry:
             Raises:
                 ValueError: If function not found or execution fails
             """
-            success, result, message = self.execute_function(func_name, **func_kwargs)
+            # Use global registry to ensure same instance across all function calls
+            registry = get_global_registry()
+            if not registry:
+                raise RuntimeError("Global function registry not set. Cannot call functions.")
+
+            success, result, message = registry.execute_function(func_name, **func_kwargs)
             if not success:
                 raise ValueError(f"Function '{func_name}' failed: {message}")
             return result
