@@ -2,458 +2,204 @@
 
 This project uses ClinOrchestra to create comprehensive clinical annotation datasets from MIMIC-IV for training medical AI systems.
 
+## Quick Start
+
+**For detailed step-by-step instructions, see [GUIDE.md](GUIDE.md)**
+
+### Five-Minute Setup
+
+1. **Extract top 20 diagnoses** (consolidated, no ICD duplicates):
+   ```bash
+   cd mimic-iv/scripts
+   python get_top_diagnoses_consolidated.py /path/to/mimic-iv-3.1
+   ```
+
+2. **Create datasets**:
+   ```bash
+   python extract_dataset_consolidated.py
+   ```
+
+3. **Analyze text statistics** (optional):
+   ```bash
+   python analyze_clinical_notes.py ../annotation_dataset.csv
+   ```
+
+4. **Use with ClinOrchestra**:
+   - Upload prompts from `prompts/`
+   - Upload schemas from `schemas/`
+   - Upload datasets and process
+
 ## Project Overview
 
 ### Two Main Tasks
 
-#### **Task 1: Clinical Consultant AI Training (Comprehensive Annotation)**
-- **Input**: Patient clinical record + Known primary diagnosis
-- **Output**: Comprehensive extraction of all clinical evidence, contextualized findings, and expert clinical reasoning
-- **Purpose**: Train LLMs to function as **CLINICAL CONSULTANTS** - not just diagnostic tools, but comprehensive clinical reasoning systems that can:
-  - Integrate complex multi-system clinical data
-  - Provide evidence-based clinical assessments
-  - Explain clinical reasoning and decision-making
-  - Identify critical findings and their clinical significance
-  - Support differential diagnosis and clinical management
-- **Example**: Given "Patient has Sepsis (ICD: A41.9)" → Extract ALL clinical evidence with expert-level analysis: symptoms (onset, severity, progression), vital signs (trends, clinical significance), labs (abnormal values, pathophysiology), imaging findings, treatments (indications, responses), medical history, risk factors, clinical reasoning, temporal timeline, severity assessment
-- **Goal**: Create training data for developing AI systems that think like experienced clinicians providing consultative-level clinical analysis
+**Task 1: Clinical Consultant AI Training**
+- Extract comprehensive clinical evidence supporting a diagnosis
+- Train LLMs for clinical reasoning and evidence-based assessment
+- Output: 200-500 structured data points per patient
 
-#### **Task 2: Multiclass Diagnosis Prediction (Classification)**
-- **Input**: Patient clinical record only (diagnosis hidden)
-- **Output**: Probability scores for ALL 20 possible diagnoses (multiclass classification) + detailed reasoning
-- **Purpose**: Train and evaluate AI systems for **DIAGNOSTIC PREDICTION** using multiclass classification
-  - Predict probability distribution across all 20 diagnoses
-  - Evaluate using classification metrics (accuracy, precision, recall, F1, cross-entropy, Brier score)
-  - Assess probability calibration and diagnostic performance
-- **Example**: Given clinical presentation → Output:
-  ```
-  Sepsis: 0.75 (supporting: fever, elevated lactate, hypotension...)
-  Pneumonia: 0.12 (supporting: infiltrate on CXR, but...)
-  Heart Failure: 0.08 (some overlap but...)
-  [... all 20 diagnoses with probabilities summing to 1.0]
-  Top prediction: Sepsis (75% confidence)
-  ```
-- **Evaluation**: Compare predictions against ground truth using:
-  - Top-1, Top-3, Top-5 Accuracy
-  - Per-diagnosis Precision/Recall/F1
-  - Cross-Entropy Loss (probability calibration)
-  - Brier Score (prediction accuracy)
-  - Confusion Matrix
-- **Goal**: Develop and evaluate diagnostic prediction models with well-calibrated probability estimates
+**Task 2: Multiclass Diagnosis Prediction**
+- Predict probability distribution across all 20 diagnoses
+- Evaluate diagnostic accuracy with calibrated probabilities
+- Output: Probability scores for each diagnosis (sum = 1.0)
 
 ### Dataset Scope
-- **Focus**: Top 20 most common primary diagnoses in MIMIC-IV
-- **Data Sources**: Discharge summaries, radiology reports, lab results, medications, vital signs
-- **Scale**: Designed to create a massive, high-quality dataset for LLM training
+
+- **20 consolidated diagnoses** (no ICD-9/ICD-10 duplicates)
+- **Categories**: Cardiovascular (7), Infectious (7), Renal (1), Psychiatric (2), Gastrointestinal (2), Neurological (1), Oncology (1)
+- **Total cases**: 110,596 patients
+- **Data sources**: Discharge summaries, radiology reports, labs, medications, vitals
+
+### Key Features
+
+✅ **No Duplicates**: ICD-9 and ICD-10 codes for same condition consolidated
+✅ **One Clear Pathway**: Single workflow from extraction to train/test split
+✅ **Publication-Ready**: EDA generates tables and figures for manuscripts
+✅ **Comprehensive Documentation**: See [GUIDE.md](GUIDE.md) for everything
 
 ## Project Structure
 
 ```
 mimic-iv/
-├── README.md                                    # This file
-├── QUICKSTART.md                                # Quick start guide
-├── scripts/
-│   ├── get_top_diagnoses_simple.py             # Step 1A: Extract top 20 individual ICD codes
-│   ├── get_top_diagnoses_consolidated.py       # Step 1B: Extract consolidated diagnoses
-│   ├── extract_dataset.py                      # Step 2A: Create datasets (individual codes)
-│   ├── extract_dataset_consolidated.py         # Step 2B: Create datasets (consolidated)
-│   ├── analyze_clinical_notes.py               # Step 3: Analyze text lengths with ICD consolidation
-│   ├── create_balanced_train_test.py           # Step 4: Create balanced train/test split
-│   ├── eda_train_test_publication.py           # Step 5: Generate EDA and publication tables
-│   ├── gather_clinical_guidelines.py           # Step 6: Helper for collecting guidelines
-│   ├── evaluate_classification.py              # Step 8: Evaluate classification predictions
-│   ├── generate_classification_prompt.py       # Utility: Generate prompt with diagnosis list
-│   └── README_*.md                              # Additional documentation
-├── prompts/
-│   ├── task1_annotation_prompt.txt             # Consultant AI training prompt
-│   ├── task2_classification_prompt.txt         # Original classification prompt
-│   └── task2_classification_prompt_v2.txt      # Multiclass classification prompt (USE THIS)
-├── schemas/
-│   ├── task1_annotation_schema.json            # Comprehensive annotation schema
-│   ├── task2_classification_schema.json        # Original classification schema
-│   └── task2_classification_schema_v2.json     # Multiclass prediction schema (USE THIS)
-├── content_mappings/
-│   └── template_content_mapping.json           # Template for diagnosis mappings
-├── patterns/
-│   ├── vital_signs_patterns.txt                # Vital signs extraction patterns
-│   └── lab_values_patterns.txt                 # Lab values extraction patterns
-├── functions/
-│   ├── function_calculate_sofa_score.py        # SOFA score (sepsis severity)
-│   └── function_calculate_curb65.py            # CURB-65 (pneumonia severity)
-├── guidelines/
-│   └── [Clinical practice guidelines - to be populated]
-└── extras/
-    └── [Additional clinical resources]
+├── GUIDE.md                             # Complete step-by-step guide (START HERE)
+├── README.md                            # This file
+├── diagnosis_mapping.py                 # 20 consolidated diagnoses mapping
+│
+├── scripts/                             # All scripts in order
+│   ├── get_top_diagnoses_consolidated.py   # Step 1: Extract diagnoses
+│   ├── extract_dataset_consolidated.py     # Step 2: Create datasets
+│   ├── analyze_clinical_notes.py           # Step 3: Analyze text
+│   ├── create_balanced_train_test.py       # Step 4: Train/test split
+│   ├── eda_train_test_publication.py       # Step 5: Generate EDA
+│   └── evaluate_classification.py          # Step 8: Evaluate results
+│
+├── prompts/                             # Ready-to-use prompts
+│   ├── task1_annotation_prompt.txt
+│   └── task2_classification_prompt_v2.txt
+│
+├── schemas/                             # JSON schemas
+│   ├── task1_annotation_schema.json
+│   └── task2_classification_schema_v2.json
+│
+├── patterns/                            # Regex preprocessing
+├── functions/                           # Clinical calculations
+└── extras/                              # Clinical knowledge
 ```
 
-## Getting Started
+## The 20 Consolidated Diagnoses (Based on Actual MIMIC-IV Data)
 
-### Prerequisites
-1. **MIMIC-IV Dataset**: You must have access to MIMIC-IV database (requires credentialing through PhysioNet)
-2. **Python 3.8+** with pandas, numpy
-3. **ClinOrchestra** installed and configured
+| # | Diagnosis | Category | Cases | ICD Codes Consolidated |
+|---|-----------|----------|-------|----------------------|
+| 1 | Chest pain | Cardiovascular | 17,535 | 78650, 78659, R079, R0789 |
+| 2 | Coronary atherosclerosis | Cardiovascular | 8,903 | 41401, I25110, I2510 |
+| 3 | Myocardial infarction | Cardiovascular | 6,138 | I214, 41071 |
+| 4 | Heart failure | Cardiovascular | 6,648 | 42833, I110, 42823 |
+| 5 | Atrial fibrillation | Cardiovascular | 3,090 | 42731 |
+| 6 | Hypertensive heart disease with CKD | Cardiovascular | 3,313 | I130 |
+| 7 | Sepsis | Infectious | 8,239 | A419, 0389, 389 |
+| 8 | Pneumonia | Infectious | 5,843 | 486, J189 |
+| 9 | Urinary tract infection | Infectious | 5,138 | 5990, N390 |
+| 10 | Acute kidney injury | Renal | 6,185 | 5849, N179 |
+| 11 | Depression | Psychiatric | 7,202 | F329, 311 |
+| 12 | Alcohol use disorder | Psychiatric | 8,038 | 30500, F10129 |
+| 13 | Chemotherapy encounter | Oncology | 6,530 | Z5111, V5811 |
+| 14 | Syncope | Cardiovascular | 4,327 | 7802, R55 |
+| 15 | Aortic valve disorders | Cardiovascular | 2,973 | 4241, I350 |
+| 16 | Acute pancreatitis | Gastrointestinal | 2,620 | 5770 |
+| 17 | Postoperative infection | Infectious | 2,198 | 99859 |
+| 18 | Cellulitis | Infectious | 2,152 | 6826 |
+| 19 | COVID-19 | Infectious | 1,937 | U071 |
+| 20 | Altered mental status | Neurological | 1,587 | 78097 |
 
-### Step-by-Step Workflow
+**Total**: 20 unique clinical conditions consolidated from 32 ICD codes
+**Total Cases**: 110,596
 
-#### **Step 1: Extract Top 20 Primary Diagnoses**
+## Workflow Overview
 
-Choose ONE of the following approaches:
-
-**Option A: Simple extraction (individual ICD codes)**
-```bash
-cd mimic-iv/scripts
-python get_top_diagnoses_simple.py /path/to/mimic-iv-3.1
+```
+Step 1: Extract Diagnoses → top_diagnoses_consolidated.csv (20 diagnoses)
+              ↓
+Step 2: Create Datasets → annotation_dataset.csv + classification_dataset.csv
+              ↓
+Step 3: Analyze Text → clinical_notes_analysis_*.csv/png (optional)
+              ↓
+Step 4: Train/Test Split → train_dataset.csv + test_dataset.csv (optional)
+              ↓
+Step 5: Generate EDA → eda_results/ with tables and figures (optional)
+              ↓
+Step 6-7: Process with ClinOrchestra
+              ↓
+Step 8: Evaluate Results → evaluation_results/ with metrics
 ```
 
-**Option B: Consolidated extraction (groups related ICD-9/ICD-10 codes)**
-```bash
-python get_top_diagnoses_consolidated.py /path/to/mimic-iv-3.1
-```
-
-**Outputs**:
-- Option A: `top_20_primary_diagnoses.csv` (20 individual ICD codes)
-- Option B: `top_diagnoses_consolidated.csv` (13 consolidated diagnoses)
-
-#### **Step 2: Create Annotation & Classification Datasets**
-
-Choose based on Step 1 option:
-
-**Option A: Standard datasets (20 individual diagnoses)**
-```bash
-python extract_dataset.py
-```
-
-**Option B: Consolidated datasets (13 consolidated diagnoses)**
-```bash
-python extract_dataset_consolidated.py
-```
-
-When prompted:
-- Enter MIMIC-IV path
-- Enter sample size (optional - for testing with subset)
-
-**Outputs**:
-- `annotation_dataset.csv` - For Task 1 (Evidence Extraction)
-- `classification_dataset.csv` - For Task 2 (Diagnosis Prediction)
-
-#### **Step 3: Analyze Clinical Notes (Optional but Recommended)**
-
-After creating datasets, analyze text length statistics with consolidated diagnoses:
-
-```bash
-python analyze_clinical_notes.py annotation_dataset.csv
-# or
-python analyze_clinical_notes.py classification_dataset.csv
-```
-
-**What it does**:
-- Loads the extracted dataset CSV files
-- **Consolidates ICD-9 and ICD-10 codes** for the same diagnosis (e.g., "Sepsis" groups multiple ICD codes)
-- Analyzes **top 20 diagnoses** with consolidated ICD codes
-- Calculates **average, median, min, max text lengths** (characters) per diagnosis
-- Analyzes word counts and line counts
-- Creates visualizations of text length distributions
-
-**Outputs**:
-- `clinical_notes_by_diagnosis_top20.csv` - Per-diagnosis statistics
-- `clinical_notes_analysis_summary.json` - Overall summary
-- `clinical_notes_analysis_consolidated.png` - Visualizations
-- `clinical_notes_top20_comparison.png` - Top 20 diagnosis comparison
-
-**Example Output**:
-```
-Top 20 Diagnoses (Consolidated):
-  Sepsis
-    ICD Codes: 0389, 99591, 99592, A419
-    Cases: 2,543
-    Characters: avg=15,234, median=13,456, min=1,234, max=45,678
-    Words: avg=2,456, median=2,123
-```
-
-#### **Step 4: Create Balanced Train/Test Split (Optional)**
-
-If you want to create a balanced training and testing split:
-
-```bash
-python create_balanced_train_test.py
-```
-
-**What it does**:
-- Creates balanced 5000-sample subset (4000 train, 1000 test)
-- Stratifies by diagnosis, gender, race, text complexity
-- Ensures reproducibility with fixed random seed
-
-**Outputs**:
-- `train_dataset_4000.csv`
-- `test_dataset_1000.csv`
-- `train_test_split_metadata.txt`
-
-#### **Step 5: Exploratory Data Analysis (Optional)**
-
-Generate publication-ready statistics and visualizations:
-
-```bash
-python eda_train_test_publication.py
-```
-
-**What it generates**:
-- Table 1: Baseline characteristics (CSV, HTML, LaTeX)
-- Table 2: Diagnosis distribution (CSV, HTML, LaTeX)
-- Figure 1: Diagnosis distribution comparison (PNG, PDF)
-- Figure 2: Demographics (PNG, PDF)
-- Figure 3: Text complexity analysis (PNG, PDF)
-- Methods section text for manuscripts
-- Supplementary statistics
-
-**Output directory**: `eda_results/`
-
-#### **Step 6: Gather Clinical Guidelines (Optional)**
-
-Generate search queries and organize guideline collection:
-
-```bash
-python gather_clinical_guidelines.py
-```
-
-**What it does**:
-- Creates directory structure for each diagnosis
-- Generates PubMed search URLs
-- Provides recommended clinical societies and sources
-- Creates collection checklist
-
-**Output**: `mimic-iv/guidelines/` with subdirectories and collection guides
-
-#### **Step 7: Configure ClinOrchestra**
-
-1. Open ClinOrchestra UI
-2. Navigate to the **Prompt** tab
-3. Copy the contents of `mimic-iv/prompts/task1_annotation_prompt.txt`
-4. Paste into the prompt field
-5. Navigate to the **RAG** tab
-6. Upload relevant clinical guidelines from `mimic-iv/guidelines/` (if collected)
-7. Navigate to the **Processing** tab
-8. Upload the JSON schema from `mimic-iv/schemas/task1_annotation_schema.json`
-9. Load your dataset `mimic-iv/annotation_dataset.csv`
-10. Configure batch processing settings
-11. Start annotation process
-
-Repeat for Task 2 using the classification prompt, schema, and dataset.
-
-#### **Step 8: Evaluate Classification Results (Optional)**
-
-After running Task 2 classification, evaluate model performance:
-
-```bash
-python evaluate_classification.py
-```
-
-**What it computes**:
-- Top-1, Top-3, Top-5 accuracy
-- Cross-entropy loss and Brier score
-- Per-class precision, recall, F1-score
-- Confusion matrix visualization
-
-**Output**: `evaluation_results/` with metrics and visualizations
-
-## Dataset Column Descriptions
-
-### Annotation Dataset (Task 1)
-| Column | Description |
-|--------|-------------|
-| `subject_id` | Unique patient identifier |
-| `hadm_id` | Unique hospital admission identifier |
-| `icd_code` | ICD code of primary diagnosis |
-| `icd_version` | ICD version (9 or 10) |
-| `primary_diagnosis_name` | Full name of diagnosis |
-| `clinical_text` | Combined discharge summary and radiology reports |
-| `admission_type` | Type of admission (EMERGENCY, ELECTIVE, etc.) |
-| `gender` | Patient gender |
-| `anchor_age` | Patient age (de-identified anchor) |
-| `race` | Patient race/ethnicity |
-| `insurance` | Insurance type |
-| `admittime` | Admission timestamp |
-| `dischtime` | Discharge timestamp |
-| `hospital_expire_flag` | Whether patient died in hospital (0/1) |
-
-### Classification Dataset (Task 2)
-Same as above, but the diagnosis columns are included only as ground truth for evaluation - they should NOT be included in the prompt to the model.
-
-## Prompts
-
-### Task 1: Annotation Prompt
-Located at: `mimic-iv/prompts/task1_annotation_prompt.txt`
-
-**Key Features**:
-- Systematic extraction across 10 evidence categories
-- Quality levels for each piece of evidence (DEFINITIVE, STRONG, MODERATE, WEAK, CONTEXTUAL)
-- Requires direct quotes from clinical text
-- Links evidence to diagnostic criteria
-- Comprehensive coverage of symptoms, labs, imaging, medications, history, risk factors
-
-**Usage**:
-- Copy entire contents into ClinOrchestra prompt field
-- Variables `{subject_id}`, `{hadm_id}`, `{primary_diagnosis_name}`, `{icd_code}`, `{clinical_text}`, etc. will be auto-filled from dataset columns
-
-### Task 2: Classification Prompt
-Located at: `mimic-iv/prompts/task2_classification_prompt.txt`
-
-**Key Features**:
-- Structured 5-phase diagnostic approach
-- Systematic data extraction → Pattern recognition → Differential diagnosis → Prediction → Alternatives
-- Explicitly addresses cognitive biases
-- Requires detailed clinical reasoning
-- Confidence scoring and uncertainty acknowledgment
-
-**Usage**:
-- Copy into ClinOrchestra prompt field
-- Requires dynamic insertion of top 20 diagnoses list (will be generated from your top_20_primary_diagnoses.csv)
-
-## JSON Schemas
-
-### Task 1: Annotation Schema
-Located at: `mimic-iv/schemas/task1_annotation_schema.json`
-
-**Key Sections**:
-- `evidence_summary`: Overall quality and key findings
-- `symptoms_and_presentation`: All symptoms with onset, severity, progression
-- `physical_examination`: Vital signs and exam findings
-- `laboratory_results`: All lab values with abnormal flags
-- `imaging_and_diagnostics`: Radiology and other studies
-- `medications_and_treatments`: Medications with responses
-- `medical_history`: Past medical, surgical, family history
-- `risk_factors`: Lifestyle, environmental, demographic
-- `clinical_reasoning`: Diagnostic criteria, differential diagnoses
-- `temporal_timeline`: Disease progression over time
-- `severity_assessment`: Complications, staging, functional impact
-
-### Task 2: Multiclass Classification Schema (V2 - RECOMMENDED)
-Located at: `mimic-iv/schemas/task2_classification_schema_v2.json`
-
-**Key Sections**:
-- `clinical_data_extraction`: Systematically extracted clinical findings
-- `clinical_pattern_analysis`: Pattern recognition, organ systems, severity
-- `multiclass_prediction`: **PROBABILITY SCORES FOR ALL 20 DIAGNOSES** (must sum to 1.0)
-  - Each diagnosis gets: probability, supporting evidence, contradicting evidence, reasoning
-  - Enforces probability calibration
-- `top_diagnosis`: Single most likely diagnosis with detailed reasoning
-- `top_5_differential`: Top 5 ranked diagnoses for evaluation
-- `clinical_reasoning`: Detailed diagnostic thought process
-
-**Critical Feature**:
-This schema enforces **true multiclass classification** - the model must assign probabilities to ALL 20 diagnoses that sum to 1.0, enabling proper evaluation of probability calibration and diagnostic confidence.
-
-## Content Mappings
-
-Content mappings will be created after identifying the specific top 20 diagnoses. These will map:
-- Diagnosis-specific symptoms
-- Relevant lab tests for each diagnosis
-- Typical imaging findings
-- Standard treatments
-- Diagnostic criteria
-
-Location: `mimic-iv/content_mappings/[diagnosis_name]_mapping.json`
-
-## Clinical Guidelines
-
-For each of the top 20 diagnoses, we will gather:
-- Clinical practice guidelines (AHA, ATS, IDSA, etc.)
-- Diagnostic criteria (established scoring systems)
-- Evidence-based treatment protocols
-- Recent literature from PubMed, Nature, NEJM, etc.
-
-These will be used as RAG knowledge base in ClinOrchestra to improve annotation quality.
-
-Location: `mimic-iv/guidelines/[diagnosis_name]/`
-
-## Extraction Patterns
-
-Regular expression patterns for extracting clinical entities:
-- Vital signs patterns
-- Lab value patterns
-- Medication patterns
-- Temporal expressions
-- Severity indicators
-
-Location: `mimic-iv/patterns/`
-
-## Clinical Functions
-
-Custom functions for clinical calculations:
-- Severity scores (APACHE, SOFA, CURB-65, etc.)
-- Risk calculators
-- Lab value interpretations
-- Clinical criteria evaluators
-
-Location: `mimic-iv/functions/`
-
-## Expected Output Quality
-
-### Annotation Task (Task 1)
-For each patient, you should get:
-- **Comprehensive**: 200-500 data points extracted per patient
-- **Structured**: All evidence organized into defined categories
-- **Cited**: Direct quotes from clinical text for verification
-- **Explained**: Clinical reasoning for each piece of evidence
-- **Quality-rated**: Each evidence item rated for strength
-
-### Classification Task (Task 2 - Multiclass)
-For each patient, you should get:
-- **Probability distribution**: Probability scores for ALL 20 diagnoses (sum = 1.0)
-- **Top diagnosis**: Highest probability diagnosis with detailed reasoning
-- **Top-5 differential**: Top 5 ranked diagnoses with probabilities
-- **Supporting/Contradicting evidence**: For each of the 20 diagnoses
+## Prerequisites
+
+1. **MIMIC-IV Dataset**: PhysioNet credentialed access required
+2. **Python 3.8+**: With pandas, numpy, matplotlib, seaborn
+3. **ClinOrchestra**: Installed and configured
+
+## Documentation
+
+- **[GUIDE.md](GUIDE.md)** - Complete step-by-step guide (START HERE)
+- **[diagnosis_mapping.py](diagnosis_mapping.py)** - ICD code consolidation logic
+- **[scripts/README_EDA.md](scripts/README_EDA.md)** - EDA documentation
+- **[scripts/README_train_test_split.md](scripts/README_train_test_split.md)** - Train/test split docs
+
+## Expected Outputs
+
+### Task 1: Clinical Consultant Annotation
+
+Comprehensive JSON for each patient with:
+- Evidence summary (overall quality, key findings)
+- Symptoms and presentation (with quotes from text)
+- Physical examination (vital signs, exam findings)
+- Laboratory results (all abnormal values)
+- Imaging and diagnostics (radiology findings)
+- Medications and treatments (with responses)
+- Medical history (past medical, surgical, family)
+- Risk factors (lifestyle, environmental, demographic)
+- Clinical reasoning (diagnostic criteria, differentials)
+- Temporal timeline (disease progression)
+- Severity assessment (complications, staging)
+
+**Quality**: 200-500 structured data points per patient
+
+### Task 2: Multiclass Classification
+
+For each patient:
+- **Multiclass prediction**: Probability for ALL 20 diagnoses (sum = 1.0)
+- **Top diagnosis**: Most likely diagnosis with reasoning
+- **Top-5 differential**: Top 5 ranked diagnoses
 - **Clinical reasoning**: Step-by-step diagnostic thinking
-- **Probability justification**: Explanation for each probability assignment
-- **Well-calibrated**: Probabilities reflect true diagnostic confidence
 
-## Evaluation of Classification Results
-
-After running Task 2 (multiclass classification), evaluate your model's performance:
-
-### Running Evaluation
-
-```bash
-cd mimic-iv/scripts
-python evaluate_classification.py
+**Example**:
+```json
+{
+  "multiclass_prediction": {
+    "Sepsis": {"probability": 0.75, "supporting_evidence": [...], ...},
+    "Pneumonia": {"probability": 0.12, ...},
+    ...all 20 diagnoses
+  },
+  "top_diagnosis": {"diagnosis": "Sepsis", "confidence": 0.75, ...}
+}
 ```
 
-When prompted, provide:
-- Path to predictions JSON file (output from ClinOrchestra)
-- Path to ground truth CSV (classification_dataset.csv with actual diagnoses)
-- Path to top 20 diagnoses mapping
+## Performance Estimates
 
-### Metrics Computed
+| Dataset Size | Processing Time (Task 1) | Cost (GPT-4) |
+|--------------|-------------------------|--------------|
+| 100 records  | 2-4 hours               | $50-100      |
+| 1,000 records| 20-40 hours             | $500-1,000   |
+| 10,000 records| 8-16 days              | $5,000-10,000|
 
-**Accuracy Metrics**:
-- **Top-1 Accuracy**: Percentage where correct diagnosis has highest probability
-- **Top-3 Accuracy**: Percentage where correct diagnosis is in top 3
-- **Top-5 Accuracy**: Percentage where correct diagnosis is in top 5
+## Evaluation Metrics (Task 2)
 
-**Calibration Metrics**:
-- **Cross-Entropy Loss**: Measures how well probabilities match reality (lower is better)
-- **Brier Score**: Mean squared error of probability predictions (0-2, lower is better)
-
-**Per-Class Metrics**:
-- **Precision**: Of predictions for diagnosis X, how many were correct?
-- **Recall**: Of all actual diagnosis X cases, how many were predicted?
-- **F1-Score**: Harmonic mean of precision and recall
-- **Support**: Number of actual cases for each diagnosis
-
-**Aggregate Metrics**:
-- **Macro-averaged**: Simple average across all diagnoses
-- **Weighted-averaged**: Weighted by number of cases per diagnosis
-
-**Visualizations**:
-- **Confusion Matrix**: Heatmap showing predicted vs actual diagnoses
-
-### Evaluation Output
-
-The script generates:
-- `per_class_metrics.csv`: Precision/Recall/F1 for each diagnosis
-- `confusion_matrix.png`: Visual confusion matrix
-- `evaluation_summary.json`: All metrics in JSON format
-
-### Interpreting Results
+- **Top-1 Accuracy**: Correct diagnosis has highest probability
+- **Top-3 Accuracy**: Correct diagnosis in top 3
+- **Top-5 Accuracy**: Correct diagnosis in top 5
+- **Cross-Entropy Loss**: Probability calibration quality
+- **Brier Score**: Prediction accuracy (0-2, lower is better)
+- **Per-Class Precision/Recall/F1**: Performance per diagnosis
 
 **Good Performance**:
 - Top-1 Accuracy > 70%
@@ -461,207 +207,55 @@ The script generates:
 - Cross-Entropy < 0.5
 - Brier Score < 0.3
 
-**Probability Calibration**:
-- Well-calibrated: When model says 80% confident, it's correct ~80% of the time
-- Cross-entropy and Brier score measure calibration quality
-- Lower values = better calibration
+## Key Benefits
 
-**Per-Class Analysis**:
-- Identify which diagnoses are easy/hard to predict
-- Examine confusion matrix for common misclassifications
-- Low recall = model misses this diagnosis
-- Low precision = model over-predicts this diagnosis
+1. **No ICD Duplicates**: Same condition with different codes = ONE diagnosis
+2. **Single Clear Pathway**: No confusion about which scripts to run
+3. **Consolidated from Day 1**: Mapping built into all scripts
+4. **Publication-Ready**: EDA generates tables and figures for papers
+5. **Comprehensive Documentation**: Everything explained in [GUIDE.md](GUIDE.md)
 
-## Next Steps After Dataset Creation
+## Usage Tips
 
-1. **Quality Review**: Sample and review annotations for accuracy
-2. **Inter-rater Reliability**: If multiple annotators, calculate agreement
-3. **Dataset Splitting**: Train/Validation/Test splits
-4. **LLM Training**: Use for fine-tuning medical LLMs
-5. **Evaluation**: Compare predictions against ground truth
-6. **Analysis**: Identify common diagnostic patterns, model strengths/weaknesses
+1. **Start Small**: Test with 100 records before processing thousands
+2. **Review Quality**: Manually check first outputs
+3. **Use RAG**: Upload clinical guidelines to significantly improve quality
+4. **Monitor Costs**: Track API usage for large datasets
+5. **Iterate Prompts**: Refine based on initial results
 
-## Research Applications
+## Data Privacy
 
-This dataset can be used for:
-- **Training clinical LLMs** for diagnostic reasoning
-- **Evaluation benchmarks** for medical AI systems
-- **Clinical decision support** system development
-- **Medical education** case studies
-- **Research** on diagnostic patterns in critical care
-- **Natural language processing** for clinical text
-
-## Important Notes
-
-### Data Privacy
 - MIMIC-IV data is de-identified but still protected
 - Follow all PhysioNet data use agreements
 - Do not attempt to re-identify patients
 - Store securely, do not share publicly
-
-### Clinical Validity
-- Annotations are based on documented evidence only
-- Do not make clinical decisions based on this data
 - For research and educational purposes only
 - Not for actual patient care
-
-### Limitations
-- Depends on documentation quality in source records
-- ICD codes may not perfectly reflect clinical complexity
-- Some diagnoses may be under-documented
-- De-identification may remove some clinical context
 
 ## Citation
 
 If you use this dataset or methodology, please cite:
-- MIMIC-IV Database (PhysioNet)
-- ClinOrchestra (this project)
-- Your own research paper describing the dataset creation
 
-## Scripts Reference
+**MIMIC-IV Database**:
+```
+Johnson, A., Bulgarelli, L., Pollard, T., Horng, S., Celi, L. A., & Mark, R. (2023).
+MIMIC-IV (version 2.2). PhysioNet. https://doi.org/10.13026/6mm1-ek67
+```
 
-### Core Data Extraction Scripts
+**ClinOrchestra**: [Your citation]
 
-#### `get_top_diagnoses_simple.py`
-- **Purpose**: Extract top 20 most common primary diagnoses (individual ICD codes)
-- **Input**: MIMIC-IV directory path
-- **Output**: `top_20_primary_diagnoses.csv`
-- **Use when**: You want to work with individual ICD-9 and ICD-10 codes separately
-
-#### `get_top_diagnoses_consolidated.py`
-- **Purpose**: Extract and consolidate diagnoses (groups ICD-9/ICD-10 codes for same condition)
-- **Input**: MIMIC-IV directory path, uses diagnosis_mapping.py
-- **Output**: `top_diagnoses_consolidated.csv`, `top_diagnoses_detailed_breakdown.csv`
-- **Use when**: You want to treat "Chest pain ICD-9" and "Chest pain ICD-10" as one diagnosis
-- **Reduces**: 20+ codes → 13 consolidated diagnoses
-
-#### `analyze_clinical_notes.py`
-- **Purpose**: Analyze clinical text length statistics from extracted datasets
-- **Input**: annotation_dataset.csv or classification_dataset.csv (created by extract_dataset.py)
-- **Output**: `clinical_notes_by_diagnosis_top20.csv`, summary JSON, visualizations
-- **Features**:
-  - **Consolidates ICD-9/ICD-10 codes for same diagnosis** (e.g., Sepsis, Chest Pain)
-  - Analyzes **top 20 diagnoses** with consolidated ICD codes
-  - Average, median, min, max text length (characters) **per diagnosis**
-  - Word count and line count statistics per diagnosis
-  - Text length distribution visualizations
-  - Overall dataset statistics
-- **Use when**: After creating datasets, to understand text complexity across diagnoses before LLM processing
-
-#### `extract_dataset.py`
-- **Purpose**: Create annotation and classification datasets (individual codes)
-- **Input**: MIMIC-IV directory, top_20_primary_diagnoses.csv
-- **Output**: `annotation_dataset.csv`, `classification_dataset.csv`
-- **Features**:
-  - Combines discharge summaries + radiology reports
-  - Patient demographics and admission info
-  - Optional: labs, medications, vital signs
-  - Sample size option for testing
-
-#### `extract_dataset_consolidated.py`
-- **Purpose**: Create datasets with consolidated diagnoses
-- **Input**: MIMIC-IV directory (uses diagnosis_mapping.py)
-- **Output**: `annotation_dataset_consolidated.csv`, `classification_dataset_consolidated.csv`
-- **Use when**: Working with consolidated diagnoses from Step 1B
-
-### Train/Test Split and Analysis Scripts
-
-#### `create_balanced_train_test.py`
-- **Purpose**: Create balanced stratified train/test split
-- **Input**: classification_dataset.csv (or any large dataset)
-- **Output**: `train_dataset_4000.csv`, `test_dataset_1000.csv`, metadata
-- **Features**:
-  - 5000 balanced samples (80/20 split)
-  - Stratifies by: diagnosis, gender, race, text complexity
-  - Maintains proportional diagnosis distribution
-  - Fixed random seed for reproducibility
-- **Use when**: You need a balanced subset for training/evaluation
-
-#### `eda_train_test_publication.py`
-- **Purpose**: Generate publication-ready EDA with statistics and visualizations
-- **Input**: train_dataset_4000.csv, test_dataset_1000.csv
-- **Output**: Multiple files in `eda_results/` directory
-  - Table 1: Baseline characteristics (CSV, HTML, LaTeX)
-  - Table 2: Diagnosis distribution (CSV, HTML, LaTeX)
-  - Figure 1-3: High-resolution visualizations (PNG, PDF)
-  - Methods section text for manuscripts
-  - Supplementary statistics
-- **Features**:
-  - Statistical comparisons (t-test, chi-square)
-  - Publication-quality tables and figures
-  - Ready-to-use methods section text
-- **Use when**: Preparing data for publication or presentation
-
-### Evaluation and Utility Scripts
-
-#### `evaluate_classification.py`
-- **Purpose**: Evaluate multiclass diagnosis predictions
-- **Input**: predictions JSON, ground truth CSV, diagnosis mapping
-- **Output**: Per-class metrics, confusion matrix, evaluation summary
-- **Metrics**:
-  - Top-1, Top-3, Top-5 accuracy
-  - Cross-entropy loss (probability calibration)
-  - Brier score
-  - Per-class precision, recall, F1-score
-  - Confusion matrix visualization
-- **Use when**: Evaluating classification model performance
-
-#### `gather_clinical_guidelines.py`
-- **Purpose**: Generate guideline collection guide with search queries
-- **Input**: top_20_primary_diagnoses.csv
-- **Output**: Directory structure + JSON guides for each diagnosis
-- **Features**:
-  - PubMed search URLs (pre-configured)
-  - Recommended clinical societies and sources
-  - File naming conventions
-  - Collection checklist
-- **Use when**: Setting up RAG knowledge base for ClinOrchestra
-
-#### `generate_classification_prompt.py`
-- **Purpose**: Insert actual diagnosis list into classification prompt template
-- **Input**: top_20_primary_diagnoses.csv, prompt template
-- **Output**: Generated prompt with diagnosis list
-- **Use when**: Creating final classification prompt for ClinOrchestra
-
-## Quick Reference: Which Scripts to Use
-
-**For Standard Workflow (Individual ICD codes)**:
-1. `get_top_diagnoses_simple.py` - Extract top 20 ICD codes
-2. `extract_dataset.py` - Create datasets
-3. `analyze_clinical_notes.py` (optional) - Analyze text lengths with ICD-9/10 consolidation
-4. Continue with ClinOrchestra processing
-
-**For Consolidated Workflow (Grouped diagnoses)**:
-1. `get_top_diagnoses_consolidated.py` - Extract consolidated diagnoses
-2. `extract_dataset_consolidated.py` - Create datasets
-3. `analyze_clinical_notes.py` (optional) - Analyze text lengths with ICD-9/10 consolidation
-4. Continue with ClinOrchestra processing
-
-**For Publication/Research**:
-1-2. Extract diagnoses and create datasets (as above)
-3. `analyze_clinical_notes.py` - Analyze text statistics
-4. `create_balanced_train_test.py` - Create balanced train/test split
-5. `eda_train_test_publication.py` - Generate publication-ready EDA
-6. Process with ClinOrchestra
-7. `evaluate_classification.py` - Evaluate results
+**Your research paper**: Describing the dataset creation methodology
 
 ## Support
 
-For questions about:
-- **MIMIC-IV data**: Contact PhysioNet support
-- **ClinOrchestra**: See main project README
-- **This specific workflow**: Open an issue in this repository
-
-## License
-
-- MIMIC-IV data: PhysioNet Credentialed Health Data License
-- ClinOrchestra code: [Your license]
-- Generated annotations: Should follow MIMIC-IV license restrictions
+- **MIMIC-IV data questions**: PhysioNet support
+- **ClinOrchestra questions**: Main project README
+- **This workflow questions**: Open an issue in the repository
 
 ---
 
-**Last Updated**: 2025-11-10
+**Last Updated**: 2025-11-12
 
-**Status**: Initial setup complete. Ready for Step 1 (extract top diagnoses).
+**Status**: Production-ready with 20 consolidated diagnoses
 
-**Contributors**: [Your name/team]
+**Next Steps**: See [GUIDE.md](GUIDE.md) for complete instructions
