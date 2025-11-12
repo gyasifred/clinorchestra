@@ -236,9 +236,11 @@ class FunctionRegistry:
             logger.error(error_msg)
             return False, None, error_msg
 
-        # RECURSIVE CALLS: Check for direct recursion (function calling itself)
-        if name in self.call_stack:
-            error_msg = f"Circular dependency detected: {' -> '.join(self.call_stack)} -> {name}"
+        # RECURSIVE CALLS: Check for DIRECT recursion (function calling itself)
+        # Only flag as circular if the IMMEDIATE parent is the same function
+        # This allows calling the same function multiple times with different parameters
+        if self.call_stack and self.call_stack[-1] == name:
+            error_msg = f"Direct recursion detected: {name} calling itself"
             logger.error(error_msg)
             return False, None, error_msg
 
