@@ -143,7 +143,7 @@ class PerformanceMonitor:
         self.session_start = time.time()
 
         if self.enabled:
-            logger.info("🔍 Performance monitoring enabled")
+            logger.info("[SEARCH] Performance monitoring enabled")
 
     def start_operation(self, operation_name: str, metadata: Optional[Dict[str, Any]] = None) -> str:
         """
@@ -287,7 +287,7 @@ class PerformanceMonitor:
         with open(path, 'w') as f:
             json.dump(summary, f, indent=2)
 
-        logger.info(f"📊 Performance metrics exported to {filepath}")
+        logger.info(f"[METRICS] Performance metrics exported to {filepath}")
 
     def log_summary(self):
         """Log performance summary"""
@@ -297,13 +297,13 @@ class PerformanceMonitor:
         summary = self.get_summary()
 
         logger.info("=" * 80)
-        logger.info("📊 PERFORMANCE SUMMARY")
+        logger.info("[METRICS] PERFORMANCE SUMMARY")
         logger.info("=" * 80)
         logger.info(f"Session Duration: {summary['session_duration']}s")
         logger.info("")
 
         if summary['components']:
-            logger.info("⏱️  Component Timings:")
+            logger.info("[TIMING]  Component Timings:")
             for name, stats in summary['components'].items():
                 logger.info(f"  • {name}:")
                 logger.info(f"      Calls: {stats['total_calls']}, "
@@ -313,7 +313,7 @@ class PerformanceMonitor:
             logger.info("")
 
         if summary['caches']:
-            logger.info("💾 Cache Performance:")
+            logger.info("[CACHE] Cache Performance:")
             for name, metrics in summary['caches'].items():
                 logger.info(f"  • {name}: "
                           f"Hit Rate: {metrics['hit_rate']}%, "
@@ -322,7 +322,7 @@ class PerformanceMonitor:
             logger.info("")
 
         if summary['bottlenecks']:
-            logger.info("🔴 Performance Bottlenecks:")
+            logger.info("[ALERT] Performance Bottlenecks:")
             for bottleneck in summary['bottlenecks']:
                 logger.info(f"  • {bottleneck['component']}: "
                           f"{bottleneck['percentage']}% of time "
@@ -339,7 +339,7 @@ class PerformanceMonitor:
             self.active_operations.clear()
             self.session_start = time.time()
 
-        logger.info("🔄 Performance metrics reset")
+        logger.info("[REFRESH] Performance metrics reset")
 
 
 # Global performance monitor instance

@@ -180,7 +180,7 @@ Clinical hints and guidelines:
 ## Configuration Persistence
 
 ### Automatic Saving (`core/config_persistence.py`)
-All configurations automatically saved to `.clinannotate_config/`:
+All configurations automatically saved to `.clinorchestra_config/`:
 - Model configuration
 - Prompt configuration
 - Data configuration

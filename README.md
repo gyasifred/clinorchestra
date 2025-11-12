@@ -34,8 +34,8 @@ pip install clinorchestra
 pip install clinorchestra[local]
 
 # From source
-git clone https://github.com/gyasifred/clinannotate.git
-cd clinannotate
+git clone https://github.com/gyasifred/clinorchestra.git
+cd clinorchestra
 pip install -e .
 ```
 
@@ -204,7 +204,7 @@ MIT License
 
 ## Contact
 
-- **GitHub**: https://github.com/gyasifred/clinannotate
+- **GitHub**: https://github.com/gyasifred/clinorchestra
 - **Email**: gyasi@musc.edu
 - **Institution**: Medical University of South Carolina, Biomedical Informatics Center
 

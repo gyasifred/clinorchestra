@@ -297,6 +297,7 @@ class ConfigurationPersistenceManager:
                 config_dict = {
                     'llm_cache_enabled': optimization_config.llm_cache_enabled,
                     'llm_cache_db_path': optimization_config.llm_cache_db_path,
+                    'llm_cache_bypass': optimization_config.llm_cache_bypass,
                     'performance_monitoring_enabled': optimization_config.performance_monitoring_enabled,
                     'use_parallel_processing': optimization_config.use_parallel_processing,
                     'use_batch_preprocessing': optimization_config.use_batch_preprocessing,

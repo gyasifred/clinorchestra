@@ -298,14 +298,14 @@ class AppState:
                 return self._rag_engine
 
         # RAG is enabled but engine is not initialized - auto-initialize
-        logger.info("🔄 RAG is enabled but not initialized - auto-initializing now...")
+        logger.info("[REFRESH] RAG is enabled but not initialized - auto-initializing now...")
 
         try:
             from core.rag_engine import RAGEngine
 
             # Check if we have documents configured
             if not self.rag_config.documents or len(self.rag_config.documents) == 0:
-                logger.warning("⚠️ RAG enabled but no documents configured. Please upload documents in RAG tab.")
+                logger.warning("[WARN] RAG enabled but no documents configured. Please upload documents in RAG tab.")
                 return None
 
             # Initialize RAG engine with configured settings
@@ -322,14 +322,14 @@ class AppState:
 
             if success:
                 self._rag_engine = rag_engine
-                logger.info(f"✅ RAG engine auto-initialized successfully with {len(self.rag_config.documents)} documents")
+                logger.info(f"[SUCCESS] RAG engine auto-initialized successfully with {len(self.rag_config.documents)} documents")
                 return rag_engine
             else:
-                logger.error("❌ Failed to auto-initialize RAG engine")
+                logger.error("[ERROR] Failed to auto-initialize RAG engine")
                 return None
 
         except Exception as e:
-            logger.error(f"❌ Error auto-initializing RAG engine: {e}")
+            logger.error(f"[ERROR] Error auto-initializing RAG engine: {e}")
             import traceback
             traceback.print_exc()
             return None
@@ -687,19 +687,60 @@ class AppState:
             return False, "Data not configured"
         return True, "Ready"
 
-    def set_processing_config(self, batch_size: int, error_strategy: str, 
-                            output_path: str, dry_run: bool):
+    def set_processing_config(self, batch_size: int = None, error_strategy: str = None,
+                            output_path: str = None, dry_run: bool = None, max_retries: int = None):
         """Set processing configuration"""
         try:
-            self.processing_config.batch_size = batch_size
-            self.processing_config.error_strategy = error_strategy
-            self.processing_config.output_path = output_path
-            self.processing_config.dry_run = dry_run
-            logger.info(f"Processing config set: batch={batch_size}, strategy={error_strategy}, output_path={output_path}")
+            if batch_size is not None:
+                self.processing_config.batch_size = batch_size
+            if error_strategy is not None:
+                self.processing_config.error_strategy = error_strategy
+            if output_path is not None:
+                self.processing_config.output_path = output_path
+            if dry_run is not None:
+                self.processing_config.dry_run = dry_run
+            if max_retries is not None:
+                self.processing_config.max_retries = max_retries
+            logger.info(f"Processing config set: batch={self.processing_config.batch_size}, strategy={self.processing_config.error_strategy}, max_retries={self.processing_config.max_retries}")
             self.observer.notify(StateEvent.PROCESSING_CONFIG_CHANGED, self.processing_config)
             return True
         except Exception as e:
             logger.error(f"Error setting processing config: {e}")
+            return False
+
+    def set_optimization_config(self, llm_cache_enabled: bool = None,
+                               llm_cache_db_path: str = None,
+                               llm_cache_bypass: bool = None,
+                               performance_monitoring_enabled: bool = None,
+                               use_parallel_processing: bool = None,
+                               use_batch_preprocessing: bool = None,
+                               max_parallel_workers: int = None,
+                               use_model_profiles: bool = None,
+                               use_gpu_faiss: bool = None):
+        """Set optimization configuration"""
+        try:
+            if llm_cache_enabled is not None:
+                self.optimization_config.llm_cache_enabled = llm_cache_enabled
+            if llm_cache_db_path is not None:
+                self.optimization_config.llm_cache_db_path = llm_cache_db_path
+            if llm_cache_bypass is not None:
+                self.optimization_config.llm_cache_bypass = llm_cache_bypass
+            if performance_monitoring_enabled is not None:
+                self.optimization_config.performance_monitoring_enabled = performance_monitoring_enabled
+            if use_parallel_processing is not None:
+                self.optimization_config.use_parallel_processing = use_parallel_processing
+            if use_batch_preprocessing is not None:
+                self.optimization_config.use_batch_preprocessing = use_batch_preprocessing
+            if max_parallel_workers is not None:
+                self.optimization_config.max_parallel_workers = max_parallel_workers
+            if use_model_profiles is not None:
+                self.optimization_config.use_model_profiles = use_model_profiles
+            if use_gpu_faiss is not None:
+                self.optimization_config.use_gpu_faiss = use_gpu_faiss
+            logger.info(f"Optimization config set: cache={self.optimization_config.llm_cache_enabled}, parallel={self.optimization_config.use_parallel_processing}, batch_preprocess={self.optimization_config.use_batch_preprocessing}")
+            return True
+        except Exception as e:
+            logger.error(f"Error setting optimization config: {e}")
             return False
 
     def get_configuration_summary(self) -> str:
@@ -767,7 +808,7 @@ class AppState:
             summary += f"  Tool Call Logging: {self.agentic_config.tool_call_logging}\n"
             summary += f"  Mode: Continuous Agentic Loop with PAUSE/RESUME + ASYNC Tools\n"
         else:
-            summary += f"  Mode: Classic 4-Stage Pipeline (v1.0.2)\n"
+            summary += f"  Mode: Classic 4-Stage Pipeline (v1.0.0)\n"
 
         return summary
 

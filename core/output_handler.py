@@ -128,7 +128,7 @@ class OutputHandler:
             
             if not filename:
                 timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-                filename = f"clinannotate_results_{timestamp}.csv"
+                filename = f"clinorchestra_results_{timestamp}.csv"
             
             output_file = output_dir / filename
             

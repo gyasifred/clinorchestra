@@ -230,6 +230,96 @@ def create_config_tab(app_state) -> Dict[str, Any]:
     components['local_config'] = local_config
     
     gr.Markdown("---")
+    gr.Markdown("### Performance & Processing Settings")
+
+    with gr.Accordion("⚙️ Optimization Settings", open=False):
+        gr.Markdown("""
+        **Performance Optimization Controls:**
+
+        Fine-tune performance optimizations for your workflow. These settings control caching,
+        parallel processing, and other performance features.
+        """)
+
+        with gr.Row():
+            with gr.Column():
+                gr.Markdown("#### LLM Caching")
+
+                llm_cache_enabled = gr.Checkbox(
+                    label="Enable LLM Response Caching",
+                    value=app_state.optimization_config.llm_cache_enabled,
+                    info="Cache LLM responses for faster repeat processing (400x speedup)"
+                )
+                components['llm_cache_enabled'] = llm_cache_enabled
+
+                llm_cache_bypass = gr.Checkbox(
+                    label="Bypass Cache (Force Fresh Calls)",
+                    value=app_state.optimization_config.llm_cache_bypass,
+                    info="Ignore cache and force fresh LLM calls for this session"
+                )
+                components['llm_cache_bypass'] = llm_cache_bypass
+
+                llm_cache_db_path = gr.Textbox(
+                    label="Cache Database Path",
+                    value=app_state.optimization_config.llm_cache_db_path,
+                    placeholder="cache/llm_responses.db"
+                )
+                components['llm_cache_db_path'] = llm_cache_db_path
+
+            with gr.Column():
+                gr.Markdown("#### Batch Processing")
+
+                use_parallel_processing = gr.Checkbox(
+                    label="Enable Parallel Processing",
+                    value=app_state.optimization_config.use_parallel_processing,
+                    info="Auto-enable for cloud APIs with multiple rows"
+                )
+                components['use_parallel_processing'] = use_parallel_processing
+
+                max_parallel_workers = gr.Slider(
+                    minimum=1,
+                    maximum=20,
+                    value=app_state.optimization_config.max_parallel_workers,
+                    step=1,
+                    label="Max Parallel Workers",
+                    info="Maximum concurrent workers for parallel processing"
+                )
+                components['max_parallel_workers'] = max_parallel_workers
+
+                use_batch_preprocessing = gr.Checkbox(
+                    label="Enable Batch Preprocessing",
+                    value=app_state.optimization_config.use_batch_preprocessing,
+                    info="Preprocess all texts before extraction (15-25% faster)"
+                )
+                components['use_batch_preprocessing'] = use_batch_preprocessing
+
+        gr.Markdown("#### Advanced Settings")
+
+        with gr.Row():
+            with gr.Column():
+                performance_monitoring_enabled = gr.Checkbox(
+                    label="Enable Performance Monitoring",
+                    value=app_state.optimization_config.performance_monitoring_enabled,
+                    info="Track detailed timing metrics"
+                )
+                components['performance_monitoring_enabled'] = performance_monitoring_enabled
+
+            with gr.Column():
+                use_model_profiles = gr.Checkbox(
+                    label="Use Model Profiles",
+                    value=app_state.optimization_config.use_model_profiles,
+                    info="Apply optimized settings per model type"
+                )
+                components['use_model_profiles'] = use_model_profiles
+
+            with gr.Column():
+                use_gpu_faiss = gr.Checkbox(
+                    label="Enable GPU FAISS",
+                    value=app_state.optimization_config.use_gpu_faiss,
+                    info="Use GPU acceleration for RAG embeddings (requires FAISS-GPU)"
+                )
+                components['use_gpu_faiss'] = use_gpu_faiss
+
+    gr.Markdown("---")
     gr.Markdown("### Test Connection")
     gr.Markdown("""
     Test if your model configuration is working correctly before processing.
@@ -429,7 +519,9 @@ Status: Model is ready for processing."""
         """Save configuration to app state and persistence manager - DON'T auto-initialize LLM"""
         (prov, model, api_k, temp, max_tok, m_type,
          az_endpoint, az_deploy, g_proj_id, l_path, max_seq, quant, gpu,
-         agen_enabled, agen_max_iter, agen_max_tools) = args
+         agen_enabled, agen_max_iter, agen_max_tools,
+         llm_cache_en, llm_cache_bypass_val, llm_cache_path, perf_mon,
+         use_parallel, max_workers, use_batch_preproc, use_profiles, use_gpu_f) = args
 
         try:
             config = ModelConfig(
@@ -465,13 +557,31 @@ Status: Model is ready for processing."""
                 if agentic_success:
                     persistence_manager.save_agentic_config(app_state.agentic_config)
 
+                # Save optimization configuration to app_state
+                opt_success = app_state.set_optimization_config(
+                    llm_cache_enabled=llm_cache_en,
+                    llm_cache_bypass=llm_cache_bypass_val,
+                    llm_cache_db_path=llm_cache_path,
+                    performance_monitoring_enabled=perf_mon,
+                    use_parallel_processing=use_parallel,
+                    max_parallel_workers=int(max_workers),
+                    use_batch_preprocessing=use_batch_preproc,
+                    use_model_profiles=use_profiles,
+                    use_gpu_faiss=use_gpu_f
+                )
+
+                # Save optimization configuration to disk
+                if opt_success:
+                    persistence_manager.save_optimization_config(app_state.optimization_config)
+
                 # FIXED: DON'T initialize LLM automatically - only on demand
                 logger.info(f"Model configuration saved (LLM will be initialized on first use)")
                 logger.info(f"Agentic mode: {'ENABLED' if agen_enabled else 'DISABLED'} (max_iterations={agen_max_iter}, max_tool_calls={agen_max_tools})")
+                logger.info(f"Optimization config: cache={llm_cache_en}, parallel={use_parallel}, batch_preprocess={use_batch_preproc}")
 
                 mode = "ADAPTIVE Mode (v1.0.0)" if agen_enabled else "STRUCTURED Mode (v1.0.0)"
                 mode_desc = "For evolving tasks" if agen_enabled else "For predictable workflows"
-                return f"✓ Model configuration saved successfully!\n\n**Execution Mode**: {mode} - {mode_desc}\n\n🎯 Both modes are autonomous and adapt to ANY clinical task!\n\nLLM will be initialized when you start processing.\n\n✓ Configuration persisted to disk."
+                return f"✓ Configuration saved successfully!\n\n**Execution Mode**: {mode} - {mode_desc}\n\n**Optimizations**:\n• LLM Cache: {'Enabled' if llm_cache_en else 'Disabled'}\n• Parallel Processing: {'Enabled' if use_parallel else 'Disabled'} ({max_workers} workers)\n• Batch Preprocessing: {'Enabled' if use_batch_preproc else 'Disabled'}\n\n🎯 Both modes are autonomous and adapt to ANY clinical task!\n\nLLM will be initialized when you start processing.\n\n✓ Configuration persisted to disk.\n\nNote: Max Retries and other processing settings are configured in the Processing tab."
             else:
                 return "✗ Failed to save configuration"
 
@@ -530,7 +640,10 @@ Status: Model is ready for processing."""
             provider, model_name, api_key, temperature, max_tokens, model_type,
             azure_endpoint, azure_deployment, google_project_id,
             local_model_path, max_seq_length, quantization, gpu_layers,
-            adaptive_mode_enabled, agentic_max_iterations, agentic_max_tool_calls
+            adaptive_mode_enabled, agentic_max_iterations, agentic_max_tool_calls,
+            llm_cache_enabled, llm_cache_bypass, llm_cache_db_path, performance_monitoring_enabled,
+            use_parallel_processing, max_parallel_workers, use_batch_preprocessing,
+            use_model_profiles, use_gpu_faiss
         ],
         outputs=[validation_result]
     )

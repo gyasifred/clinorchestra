@@ -49,20 +49,20 @@ class LazyComponent:
         if not self._loaded:
             # Check if enabled (if check function provided)
             if self._enabled_check and not self._enabled_check():
-                logger.debug(f"⏭️  {self._name} is disabled - skipping load")
+                logger.debug(f"[SKIP]  {self._name} is disabled - skipping load")
                 return None
 
             # Load the component
-            logger.info(f"⏳ Loading {self._name}...")
+            logger.info(f"[LOADING] Loading {self._name}...")
             start_time = time.time()
 
             try:
                 self._component = self._loader_func()
                 self._load_time = time.time() - start_time
                 self._loaded = True
-                logger.info(f"✅ {self._name} loaded successfully ({self._load_time:.2f}s)")
+                logger.info(f"[SUCCESS] {self._name} loaded successfully ({self._load_time:.2f}s)")
             except Exception as e:
-                logger.error(f"❌ Failed to load {self._name}: {e}")
+                logger.error(f"[ERROR] Failed to load {self._name}: {e}")
                 self._component = None
                 self._loaded = True  # Mark as loaded to avoid retry loops
 
@@ -92,7 +92,7 @@ class LazyComponentManager:
     def __init__(self):
         self._components: dict[str, LazyComponent] = {}
         self._startup_time = 0
-        logger.info("🔧 Lazy Component Manager initialized")
+        logger.info("[CONFIG] Lazy Component Manager initialized")
 
     def register(self,
                 name: str,
@@ -111,7 +111,7 @@ class LazyComponentManager:
         """
         component = LazyComponent(name, loader_func, enabled_check)
         self._components[name] = component
-        logger.debug(f"📝 Registered lazy component: {name}")
+        logger.debug(f"[LOG] Registered lazy component: {name}")
         return component
 
     def get(self, name: str) -> Any:
@@ -150,7 +150,7 @@ class LazyComponentManager:
         stats = self.get_stats()
 
         logger.info("=" * 80)
-        logger.info("📊 LAZY LOADING STATISTICS")
+        logger.info("[METRICS] LAZY LOADING STATISTICS")
         logger.info("=" * 80)
         logger.info(f"Components Registered: {stats['total_registered']}")
         logger.info(f"Components Loaded: {stats['total_loaded']}")

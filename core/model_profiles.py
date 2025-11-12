@@ -172,7 +172,7 @@ class ModelSelector:
 
     def __init__(self):
         self.profiles = MODEL_PROFILES
-        logger.info(f"📋 Model Selector initialized with {len(self.profiles)} profiles")
+        logger.info(f"[CONFIG] Model Selector initialized with {len(self.profiles)} profiles")
 
     def get_profile(self, model_name: str) -> Optional[ModelProfile]:
         """Get profile for a specific model"""
@@ -195,7 +195,7 @@ class ModelSelector:
         Returns:
             Recommended ModelProfile
         """
-        logger.info(f"🔍 Finding optimal model...")
+        logger.info(f"[SEARCH] Finding optimal model...")
         logger.info(f"   Task complexity: {task_complexity}")
         logger.info(f"   Volume: {volume}")
         logger.info(f"   Budget: {budget}")
@@ -203,34 +203,34 @@ class ModelSelector:
 
         # Privacy constraint
         if privacy_required:
-            logger.info("🔒 Privacy required - selecting local model")
+            logger.info("[SECURITY] Privacy required - selecting local model")
             return self.profiles['local-llama-3-8b']
 
         # Simple tasks
         if task_complexity == 'simple':
             if budget == 'low' or volume == 'high':
-                logger.info("✅ Recommended: gpt-4o-mini (fast + cheap)")
+                logger.info("[SUCCESS] Recommended: gpt-4o-mini (fast + cheap)")
                 return self.profiles['gpt-4o-mini']
             else:
-                logger.info("✅ Recommended: claude-3-haiku (fast + quality)")
+                logger.info("[SUCCESS] Recommended: claude-3-haiku (fast + quality)")
                 return self.profiles['claude-3-haiku-20240307']
 
         # Medium complexity
         elif task_complexity == 'medium':
             if budget == 'high':
-                logger.info("✅ Recommended: claude-3-5-sonnet (best balanced)")
+                logger.info("[SUCCESS] Recommended: claude-3-5-sonnet (best balanced)")
                 return self.profiles['claude-3-5-sonnet-20241022']
             else:
-                logger.info("✅ Recommended: gpt-4o (good balanced)")
+                logger.info("[SUCCESS] Recommended: gpt-4o (good balanced)")
                 return self.profiles['gpt-4o']
 
         # Complex tasks
         else:  # complex
             if budget == 'high':
-                logger.info("✅ Recommended: claude-3-opus (highest quality)")
+                logger.info("[SUCCESS] Recommended: claude-3-opus (highest quality)")
                 return self.profiles['claude-3-opus-20240229']
             else:
-                logger.info("✅ Recommended: gpt-4 (high quality)")
+                logger.info("[SUCCESS] Recommended: gpt-4 (high quality)")
                 return self.profiles['gpt-4']
 
     def list_models(self, provider: Optional[str] = None) -> list:
