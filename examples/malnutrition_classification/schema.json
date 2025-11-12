@@ -1,0 +1,23 @@
+{
+  "reasoning": {
+    "type": "object",
+    "description": "Clinical reasoning for malnutrition classification",
+    "properties": {
+      "evidence_summary": {
+        "type": "string",
+        "description": "Comprehensive summary of clinical findings relevant to malnutrition assessment. Include: weight changes, BMI, physical exam findings (muscle wasting, fat loss), intake patterns, functional status, relevant lab values, and disease context. Be specific with measurements and timeframes."
+      },
+      "justification": {
+        "type": "string",
+        "description": "Clear explanation of how the evidence supports the malnutrition classification. Connect specific findings to diagnostic criteria. Explain the clinical reasoning process and address any confounding factors or limitations in the available data."
+      }
+    },
+    "required": ["evidence_summary", "justification"]
+  },
+  "malnutrition_status": {
+    "type": "string",
+    "description": "Binary classification of malnutrition status based on clinical evidence",
+    "enum": ["Malnourished", "Not Malnourished"],
+    "notes": "Use 'Malnourished' if patient meets ≥2 clinical criteria with strong evidence (weight loss, low BMI, muscle wasting, reduced intake, etc.). Use 'Not Malnourished' if insufficient evidence or patient is explicitly well-nourished."
+  }
+}

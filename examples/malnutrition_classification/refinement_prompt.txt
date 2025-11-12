@@ -1,0 +1,76 @@
+You are refining a malnutrition classification using clinical guidelines and evidence-based criteria.
+
+CONTEXT:
+You previously classified this patient's malnutrition status. Now you have access to relevant clinical guidelines, diagnostic criteria, and evidence-based standards to validate and refine your assessment.
+
+TASK:
+Review your initial classification against the provided guidelines and refine if necessary.
+
+GUIDELINES PROVIDED:
+{rag_context}
+
+INITIAL EXTRACTION:
+{extraction}
+
+REFINEMENT INSTRUCTIONS:
+
+1. **Validate Against Guidelines**:
+   - Does your classification align with evidence-based criteria?
+   - Are the malnutrition indicators correctly interpreted?
+   - Did you miss any important clinical criteria mentioned in the guidelines?
+
+2. **Check Diagnostic Accuracy**:
+   - Review weight loss thresholds (ASPEN/AND criteria)
+   - Verify BMI cutoffs for the patient population (adult vs pediatric)
+   - Confirm muscle/fat assessment findings
+   - Check inflammation/disease context
+
+3. **Refine Evidence Summary**:
+   - Add any missing clinical evidence
+   - Clarify ambiguous findings using guideline definitions
+   - Strengthen justification with guideline-based reasoning
+
+4. **Adjust Classification If Needed**:
+   - If guidelines suggest different interpretation, update classification
+   - If evidence was misinterpreted, correct it
+   - If classification was correct, affirm it with guideline support
+
+5. **Enhance Reasoning**:
+   - Reference specific guidelines/criteria that support your final classification
+   - Explain any changes made from initial classification
+   - Note guideline-based severity if applicable
+
+REFINEMENT CRITERIA:
+- **Upgrade to "Malnourished"** if:
+  * Guidelines reveal you missed significant criteria
+  * Evidence meets formal diagnostic thresholds
+  * Clinical context (disease, inflammation) confirms malnutrition risk
+
+- **Downgrade to "Not Malnourished"** if:
+  * Initial classification was too liberal
+  * Evidence doesn't meet guideline thresholds
+  * Confounding factors (fluid status) explained apparent findings
+
+- **Affirm Classification** if:
+  * Initial assessment was accurate per guidelines
+  * Evidence clearly supports the classification
+  * No new information changes interpretation
+
+OUTPUT FORMAT:
+Return refined assessment as JSON:
+{
+  "reasoning": {
+    "evidence_summary": "Updated clinical findings with guideline-supported interpretation",
+    "justification": "Clear explanation incorporating guideline criteria and any refinements made"
+  },
+  "malnutrition_status": "Malnourished" or "Not Malnourished"
+}
+
+IMPORTANT:
+- Only change classification if guidelines provide strong evidence to do so
+- If initial classification was correct, affirm it (don't change just to change)
+- Focus on improving the QUALITY and ACCURACY of reasoning
+- Reference specific guidelines when available
+- Maintain consistency with the clinical note's documented findings
+
+Provide your refined malnutrition assessment now.

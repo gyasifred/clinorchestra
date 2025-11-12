@@ -1,0 +1,18 @@
+Analyze the clinical note and classify malnutrition status.
+
+Look for:
+- Weight loss (≥5% in 1 month, ≥7.5% in 3 months, ≥10% in 6 months)
+- Low BMI (<18.5 adult, <5th percentile pediatric)
+- Muscle wasting, fat loss, reduced intake
+- Fluid accumulation masking weight loss
+
+Classify as "Malnourished" or "Not Malnourished" based on clinical evidence.
+
+Return JSON:
+{
+  "reasoning": {
+    "evidence_summary": "Key clinical findings",
+    "justification": "How evidence supports classification"
+  },
+  "malnutrition_status": "Malnourished" or "Not Malnourished"
+}
