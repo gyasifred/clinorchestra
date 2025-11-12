@@ -687,19 +687,60 @@ class AppState:
             return False, "Data not configured"
         return True, "Ready"
 
-    def set_processing_config(self, batch_size: int, error_strategy: str, 
-                            output_path: str, dry_run: bool):
+    def set_processing_config(self, batch_size: int = None, error_strategy: str = None,
+                            output_path: str = None, dry_run: bool = None, max_retries: int = None):
         """Set processing configuration"""
         try:
-            self.processing_config.batch_size = batch_size
-            self.processing_config.error_strategy = error_strategy
-            self.processing_config.output_path = output_path
-            self.processing_config.dry_run = dry_run
-            logger.info(f"Processing config set: batch={batch_size}, strategy={error_strategy}, output_path={output_path}")
+            if batch_size is not None:
+                self.processing_config.batch_size = batch_size
+            if error_strategy is not None:
+                self.processing_config.error_strategy = error_strategy
+            if output_path is not None:
+                self.processing_config.output_path = output_path
+            if dry_run is not None:
+                self.processing_config.dry_run = dry_run
+            if max_retries is not None:
+                self.processing_config.max_retries = max_retries
+            logger.info(f"Processing config set: batch={self.processing_config.batch_size}, strategy={self.processing_config.error_strategy}, max_retries={self.processing_config.max_retries}")
             self.observer.notify(StateEvent.PROCESSING_CONFIG_CHANGED, self.processing_config)
             return True
         except Exception as e:
             logger.error(f"Error setting processing config: {e}")
+            return False
+
+    def set_optimization_config(self, llm_cache_enabled: bool = None,
+                               llm_cache_db_path: str = None,
+                               llm_cache_bypass: bool = None,
+                               performance_monitoring_enabled: bool = None,
+                               use_parallel_processing: bool = None,
+                               use_batch_preprocessing: bool = None,
+                               max_parallel_workers: int = None,
+                               use_model_profiles: bool = None,
+                               use_gpu_faiss: bool = None):
+        """Set optimization configuration"""
+        try:
+            if llm_cache_enabled is not None:
+                self.optimization_config.llm_cache_enabled = llm_cache_enabled
+            if llm_cache_db_path is not None:
+                self.optimization_config.llm_cache_db_path = llm_cache_db_path
+            if llm_cache_bypass is not None:
+                self.optimization_config.llm_cache_bypass = llm_cache_bypass
+            if performance_monitoring_enabled is not None:
+                self.optimization_config.performance_monitoring_enabled = performance_monitoring_enabled
+            if use_parallel_processing is not None:
+                self.optimization_config.use_parallel_processing = use_parallel_processing
+            if use_batch_preprocessing is not None:
+                self.optimization_config.use_batch_preprocessing = use_batch_preprocessing
+            if max_parallel_workers is not None:
+                self.optimization_config.max_parallel_workers = max_parallel_workers
+            if use_model_profiles is not None:
+                self.optimization_config.use_model_profiles = use_model_profiles
+            if use_gpu_faiss is not None:
+                self.optimization_config.use_gpu_faiss = use_gpu_faiss
+            logger.info(f"Optimization config set: cache={self.optimization_config.llm_cache_enabled}, parallel={self.optimization_config.use_parallel_processing}, batch_preprocess={self.optimization_config.use_batch_preprocessing}")
+            return True
+        except Exception as e:
+            logger.error(f"Error setting optimization config: {e}")
             return False
 
     def get_configuration_summary(self) -> str:
