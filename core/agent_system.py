@@ -844,64 +844,377 @@ class ExtractionAgent:
         
         return has_rag_results
     
-    @log_extraction_stage("Stage 4: RAG Refinement")
+    @log_extraction_stage("Stage 4: Intelligent Refinement with Tool Calling")
     def _execute_stage4_rag_refinement_with_retry(self) -> Dict[str, Any]:
         """
-        Execute Stage 4: RAG refinement for SELECTED fields only
-        FIXED: Only refine selected fields, merge back with unrefined fields
+        Execute Stage 4: Intelligent refinement with TOOL CALLING support
+
+        MAJOR UPGRADE (v1.0.0):
+        - LLM can now call functions, RAG, and extras during refinement
+        - Two-phase refinement: (1) Gap analysis + tool calling, (2) Final refinement
+        - Enables filling missing calculations, retrieving additional guidelines, etc.
         """
         try:
             # Get selected fields for refinement from RAG config
             selected_fields = self.app_state.rag_config.rag_query_fields
-            
+
             if not selected_fields:
                 logger.info("No fields selected for RAG refinement - using stage 3 output")
                 return self.context.stage3_output
-            
+
             logger.info(f"Refining selected fields: {selected_fields}")
-            
-            refinement_prompt = self._build_stage4_rag_refinement_prompt()
-            
+            logger.info("=" * 60)
+            logger.info("PHASE 1: Gap Analysis & Tool Calling")
+            logger.info("=" * 60)
+
+            # Phase 1: LLM analyzes extraction, identifies gaps, requests tools
+            tool_requests, needs_refinement = self._execute_refinement_gap_analysis()
+
+            # Execute any requested tools
+            additional_tool_results = []
+            if tool_requests:
+                logger.info(f"Executing {len(tool_requests)} additional tools for refinement")
+                additional_tool_results = self._execute_refinement_tools(tool_requests)
+
+            logger.info("=" * 60)
+            logger.info("PHASE 2: Final Refinement with Tool Results")
+            logger.info("=" * 60)
+
+            # Phase 2: Final refinement with original RAG + new tool results
             for attempt in range(self.max_retries):
                 try:
-                    logger.info(f"Refinement attempt {attempt + 1}/{self.max_retries}")
-                    
+                    logger.info(f"Final refinement attempt {attempt + 1}/{self.max_retries}")
+
+                    # Build refinement prompt with all available context
+                    refinement_prompt = self._build_stage4_final_refinement_prompt(
+                        additional_tool_results
+                    )
+
                     response = self.llm_manager.generate(
                         refinement_prompt,
                         max_tokens=self.app_state.model_config.max_tokens
                     )
-                    
+
                     if not response:
                         logger.warning("No refinement response")
                         continue
-                    
+
                     # Parse refined output
                     refined_output = self._parse_json_with_robust_parser(response, attempt, "stage4")
-                    
+
                     if refined_output:
-                        # FIXED: Merge refined fields with unrefined fields
+                        # Merge refined fields with unrefined fields
                         merged_output = self._merge_refined_fields(
                             self.context.stage3_output,
                             refined_output,
                             selected_fields
                         )
-                        
+
                         logger.info(f"Refinement successful - merged {len(selected_fields)} refined fields")
+                        if additional_tool_results:
+                            logger.info(f"Refinement enhanced with {len(additional_tool_results)} additional tools")
                         return merged_output
-                    
+
                     logger.warning(f"Refinement parsing failed, attempt {attempt + 1}")
-                    
+
                 except Exception as e:
                     logger.error(f"Refinement attempt {attempt + 1} failed: {e}")
-            
+
             logger.warning("Refinement failed, using stage 3 output")
             return self.context.stage3_output
-            
+
         except Exception as e:
             logger.error(f"Stage 4 refinement failed: {e}", exc_info=True)
             return self.context.stage3_output
-            
-    
+
+    def _execute_refinement_gap_analysis(self) -> Tuple[List[Dict[str, Any]], bool]:
+        """
+        Phase 1 of refinement: Analyze extraction and identify gaps/needs
+
+        Returns:
+            Tuple of (tool_requests, needs_refinement)
+        """
+        try:
+            gap_analysis_prompt = self._build_stage4_gap_analysis_prompt()
+
+            response = self.llm_manager.generate(
+                gap_analysis_prompt,
+                max_tokens=self.app_state.model_config.max_tokens
+            )
+
+            if not response:
+                logger.warning("No gap analysis response")
+                return [], True
+
+            # Parse gap analysis response
+            analysis = self._parse_gap_analysis_response(response)
+
+            if analysis:
+                tool_requests = analysis.get('additional_tools_needed', [])
+                needs_refinement = analysis.get('needs_refinement', True)
+
+                logger.info(f"Gap analysis complete: {len(tool_requests)} additional tools requested")
+                if tool_requests:
+                    logger.info(f"Additional tools: {[t.get('type') for t in tool_requests]}")
+
+                return tool_requests, needs_refinement
+
+            return [], True
+
+        except Exception as e:
+            logger.error(f"Gap analysis failed: {e}")
+            return [], True
+
+    def _execute_refinement_tools(self, tool_requests: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """
+        Execute additional tools requested during refinement
+
+        Supports:
+        - Functions: Calculate missing values
+        - RAG: Retrieve additional guidelines
+        - Extras: Get supplementary hints
+        """
+        results = []
+
+        try:
+            # Run async execution for parallel tool processing
+            results = asyncio.run(self._execute_refinement_tools_async(tool_requests))
+        except RuntimeError as e:
+            # Fallback to sequential if event loop already running
+            if "cannot be called from a running event loop" in str(e):
+                logger.warning("Event loop running - using sequential tool execution")
+                for tool_request in tool_requests:
+                    tool_type = tool_request.get('type')
+                    if tool_type == 'function':
+                        results.append(self._execute_function_tool(tool_request))
+                    elif tool_type == 'rag':
+                        results.append(self._execute_rag_tool(tool_request))
+                    elif tool_type == 'extras':
+                        results.append(self._execute_extras_tool(tool_request))
+            else:
+                raise
+
+        return results
+
+    async def _execute_refinement_tools_async(self, tool_requests: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Execute refinement tools in parallel"""
+        tasks = []
+
+        for tool_request in tool_requests:
+            tool_type = tool_request.get('type')
+
+            if tool_type == 'function':
+                task = self._execute_function_tool_async(tool_request)
+            elif tool_type == 'rag':
+                task = self._execute_rag_tool_async(tool_request)
+            elif tool_type == 'extras':
+                task = self._execute_extras_tool_async(tool_request)
+            else:
+                async def unknown_tool():
+                    return {
+                        'type': tool_type,
+                        'success': False,
+                        'message': f"Unknown tool type: {tool_type}"
+                    }
+                task = unknown_tool()
+
+            tasks.append(task)
+
+        results = await asyncio.gather(*tasks)
+        return results
+
+    def _parse_gap_analysis_response(self, response: str) -> Optional[Dict[str, Any]]:
+        """Parse gap analysis response"""
+        try:
+            parsed, method = self.json_parser.parse_json_response(
+                response,
+                {
+                    'gap_analysis': 'string',
+                    'needs_refinement': 'bool',
+                    'additional_tools_needed': 'list'
+                }
+            )
+            return parsed
+        except Exception as e:
+            logger.error(f"Failed to parse gap analysis: {e}")
+            return None
+
+    def _build_stage4_gap_analysis_prompt(self) -> str:
+        """Build prompt for Phase 1: Gap analysis and tool requesting"""
+        rag_context = self._format_rag_evidence_chunks()
+        tool_outputs = format_tool_outputs_for_prompt(self.context.tool_results)
+
+        # Get selected fields
+        selected_fields = self.app_state.rag_config.rag_query_fields
+        full_schema = self.app_state.prompt_config.json_schema
+        selected_schema = {
+            field: full_schema[field]
+            for field in selected_fields
+            if field in full_schema
+        }
+
+        selected_stage3 = {
+            field: self.context.stage3_output.get(field)
+            for field in selected_fields
+            if field in self.context.stage3_output
+        }
+
+        # Get available functions
+        available_functions = self.function_registry.get_all_functions_info()
+        function_descriptions = self._build_available_tools_description(available_functions)
+
+        prompt = f"""You are analyzing an extraction to identify gaps and determine if additional tools are needed for refinement.
+
+ORIGINAL TEXT:
+{self.context.clinical_text}
+
+CURRENT EXTRACTION (Selected Fields for Refinement):
+{json.dumps(selected_stage3, indent=2)}
+
+TOOLS ALREADY EXECUTED (Stage 2):
+{tool_outputs}
+
+RETRIEVED EVIDENCE (Stage 2 RAG):
+{rag_context}
+
+TARGET SCHEMA (Fields Being Refined):
+{json.dumps(selected_schema, indent=2)}
+
+YOUR TASK:
+
+1. ANALYZE CURRENT EXTRACTION:
+   - Are there missing calculations or values?
+   - Are there uncertainties that need more data?
+   - Could additional guidelines help interpretation?
+
+2. IDENTIFY GAPS:
+   - Missing function calls (calculations not performed)
+   - Missing RAG queries (guidelines not retrieved)
+   - Missing context (extras hints needed)
+
+3. REQUEST ADDITIONAL TOOLS IF NEEDED:
+
+   You have access to:
+
+   FUNCTIONS:
+{function_descriptions}
+
+   RAG: Retrieve additional clinical guidelines/standards
+
+   EXTRAS: Get supplementary hints/patterns
+
+RESPONSE FORMAT:
+{{
+  "gap_analysis": "Brief description of any gaps or uncertainties in current extraction",
+  "needs_refinement": true/false,
+  "additional_tools_needed": [
+    {{
+      "type": "function",
+      "name": "function_name",
+      "parameters": {{"param1": "value1"}},
+      "reason": "Why this function helps refinement"
+    }},
+    {{
+      "type": "rag",
+      "query": "specific focused query",
+      "reason": "What additional guideline/standard is needed"
+    }},
+    {{
+      "type": "extras",
+      "keywords": ["keyword1", "keyword2"],
+      "reason": "What supplementary hints would help"
+    }}
+  ]
+}}
+
+IMPORTANT:
+- Only request tools that will genuinely improve the extraction
+- If extraction is complete and accurate, return empty additional_tools_needed list
+- Be specific with parameters and queries
+
+Respond with JSON only."""
+
+        return prompt
+
+    def _build_stage4_final_refinement_prompt(self, additional_tool_results: List[Dict[str, Any]]) -> str:
+        """Build prompt for Phase 2: Final refinement with all tool results"""
+        rag_context = self._format_rag_evidence_chunks()
+        stage2_tools = format_tool_outputs_for_prompt(self.context.tool_results)
+
+        # Format additional tool results
+        if additional_tool_results:
+            additional_tools_formatted = format_tool_outputs_for_prompt(additional_tool_results)
+        else:
+            additional_tools_formatted = "No additional tools were executed."
+
+        # Get selected fields
+        selected_fields = self.app_state.rag_config.rag_query_fields
+        full_schema = self.app_state.prompt_config.json_schema
+        selected_schema = {
+            field: full_schema[field]
+            for field in selected_fields
+            if field in full_schema
+        }
+        schema_instructions = format_schema_as_instructions(selected_schema)
+
+        selected_stage3 = {
+            field: self.context.stage3_output.get(field)
+            for field in selected_fields
+            if field in self.context.stage3_output
+        }
+
+        # Check if user has custom refinement prompt
+        refinement_template = (
+            self.app_state.prompt_config.rag_prompt or get_default_rag_refinement_prompt()
+        )
+
+        # Try to use custom template with extended placeholders
+        try:
+            prompt = refinement_template.format(
+                clinical_text=self.context.clinical_text,
+                initial_extraction=json.dumps(selected_stage3, indent=2),
+                rag_context=rag_context,
+                label_context=self.context.label_context or "",
+                stage3_json_output=json.dumps(selected_stage3, indent=2),
+                retrieved_evidence_chunks=rag_context,
+                schema_instructions=schema_instructions,
+                json_schema_instructions=schema_instructions,
+                stage2_tool_results=stage2_tools,
+                additional_tool_results=additional_tools_formatted
+            )
+        except KeyError:
+            # Fallback to comprehensive default
+            prompt = f"""Refine the extraction using all available evidence and tool results.
+
+ORIGINAL TEXT:
+{self.context.clinical_text}
+
+INITIAL EXTRACTION (Stage 3 - Selected Fields):
+{json.dumps(selected_stage3, indent=2)}
+
+TOOL RESULTS FROM STAGE 2:
+{stage2_tools}
+
+ADDITIONAL TOOLS EXECUTED FOR REFINEMENT:
+{additional_tools_formatted}
+
+RETRIEVED EVIDENCE (RAG):
+{rag_context}
+
+TARGET SCHEMA:
+{schema_instructions}
+
+REFINE THE EXTRACTION:
+- Use tool results to fill gaps or improve accuracy
+- Incorporate retrieved evidence for interpretation
+- Ensure all selected fields meet schema requirements
+- Maintain consistency with clinical text
+
+Return ONLY JSON for the selected fields."""
+
+        return prompt
+
+
     def _build_stage1_analysis_prompt(self) -> str:
         """
         Build prompt for task analysis with ENHANCED keyword extraction guidance
@@ -1211,6 +1524,52 @@ The examples above show renal, growth, and cardiac tasks. YOUR task may be compl
  EXTRAS KEYWORDS:
 - 5-8 keywords: specific terminology from YOUR domain, not generic words
 - Extract from YOUR schema field names and clinical context
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎯 ONE-SHOT PLANNING: THIS IS YOUR ONLY CHANCE TO PLAN TOOLS!
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️  CRITICAL: Unlike iterative modes, you CANNOT call tools again after this stage.
+This is your ONLY opportunity to request ALL necessary tools.
+
+PLAN COMPREHENSIVELY:
+
+✓ IDENTIFY ALL MEASUREMENTS: Scan the entire text for EVERY numeric value, lab result,
+  vital sign, and measurement. Don't miss any data points.
+
+✓ CALL FUNCTIONS MULTIPLE TIMES: If you see serial/temporal data (measurements at
+  different time points), call the SAME function MULTIPLE times. Examples:
+  - "Weight 65kg (today), 68kg (3mo ago), 70kg (6mo ago)" → call calculate_bmi 3 times
+  - "Cr 1.2, 1.5, 1.8 over past 6 months" → call eGFR function 3 times
+  - Do NOT skip any time points!
+
+✓ EXTRACT ALL PARAMETERS: For each function call, extract PRECISE parameter values
+  from the text. Don't leave parameters empty if values are available.
+
+✓ PLAN RAG QUERIES STRATEGICALLY: Request 3-5 focused queries covering:
+  - Clinical guidelines (WHO, CDC, ADA, ACC/AHA, ASPEN, etc.)
+  - Diagnostic criteria
+  - Assessment methods
+  - Domain-specific standards
+  Make queries specific with 4-8 keywords each.
+
+✓ CHOOSE RELEVANT EXTRAS KEYWORDS: Select 5-8 specific medical terms from:
+  - Schema field names
+  - Clinical conditions in the text
+  - Assessment types
+  - Medical specialty terms
+
+✓ THINK AHEAD: What calculations will Stage 3 need? What reference data will help
+  interpretation? Request ALL tools that might be useful NOW.
+
+❌ AVOID:
+- Vague or incomplete tool requests
+- Missing serial measurements
+- Generic RAG queries ("help", "information")
+- Skipping available functions that could help
+
+💡 REMEMBER: You're setting up the extraction for success. Be thorough, be specific,
+   and plan for everything you'll need in one shot!
 
  RESPONSE FORMAT:
 Respond with ONLY the JSON object in the format shown above."""
