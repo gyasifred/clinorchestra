@@ -136,6 +136,10 @@ def setup_logging(
     root_logger.addHandler(console_handler)
 
     if enable_file_logging:
+        # CRITICAL FIX: Ensure log directory exists before creating handlers
+        # This prevents FileNotFoundError during log rotation
+        log_path.mkdir(parents=True, exist_ok=True)
+
         # Main log file - rotating
         main_log_file = log_path / "clinannotate.log"
         main_handler = logging.handlers.RotatingFileHandler(
@@ -205,12 +209,26 @@ def get_logger(name: str) -> logging.Logger:
     """
     Get a logger for a specific module
 
+    Ensures the log directory exists before returning the logger.
+    This prevents FileNotFoundError if setup_logging() wasn't called.
+
     Args:
         name: Module name (usually __name__)
 
     Returns:
         Configured logger instance
     """
+    # CRITICAL FIX: Ensure log directory exists
+    # This handles cases where get_logger() is called before setup_logging()
+    log_dir = Path("logs")
+    if not log_dir.exists():
+        try:
+            log_dir.mkdir(parents=True, exist_ok=True)
+        except Exception as e:
+            # If we can't create logs directory, fail gracefully
+            # Logger will still work but won't write to files
+            pass
+
     return logging.getLogger(name)
 
 class LogContext:
