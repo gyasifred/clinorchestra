@@ -4,8 +4,7 @@ MIMIC-IV Diagnosis Consolidation Mapping
 Maps individual ICD-9 and ICD-10 codes to consolidated clinical diagnoses.
 Same clinical condition with different ICD codes (ICD-9 vs ICD-10) are treated as single diagnosis.
 
-Total: 14 unique clinical diagnoses (consolidated from 20 ICD code entries)
-Total cases: 76,594
+Total: 20 unique clinical diagnoses (consolidated from multiple ICD code entries)
 """
 
 # Consolidated diagnosis mapping: ICD code -> (diagnosis_name, category, diagnosis_id)
@@ -57,9 +56,41 @@ DIAGNOSIS_CONSOLIDATION = {
     'Z5111': ('Chemotherapy encounter', 'oncology', 13),  # ICD-10: 3,557 cases
     'V5811': ('Chemotherapy encounter', 'oncology', 13),  # ICD-9: 2,973 cases
 
-    # Additional cardiovascular diagnoses (keeping for completeness)
-    # 14. HEART FAILURE - if present in dataset
-    # 15. RESPIRATORY FAILURE - if present in dataset
+    # 14. HEART FAILURE - Common
+    '42833': ('Heart failure', 'cardiovascular', 14),  # ICD-9: Acute on chronic systolic heart failure
+    'I5023': ('Heart failure', 'cardiovascular', 14),  # ICD-10: Acute on chronic systolic heart failure
+    '42823': ('Heart failure', 'cardiovascular', 14),  # ICD-9: Acute on chronic diastolic heart failure
+    'I5033': ('Heart failure', 'cardiovascular', 14),  # ICD-10: Acute on chronic diastolic heart failure
+    '4280': ('Heart failure', 'cardiovascular', 14),   # ICD-9: Congestive heart failure, unspecified
+    'I509': ('Heart failure', 'cardiovascular', 14),   # ICD-10: Heart failure, unspecified
+
+    # 15. RESPIRATORY FAILURE / COPD - Common
+    '51881': ('Respiratory failure', 'respiratory', 15),  # ICD-9: Acute respiratory failure
+    'J9620': ('Respiratory failure', 'respiratory', 15),  # ICD-10: Acute respiratory failure, unspecified
+    '4941': ('COPD', 'respiratory', 15),   # ICD-9: Chronic obstructive pulmonary disease
+    'J449': ('COPD', 'respiratory', 15),   # ICD-10: COPD, unspecified
+
+    # 16. GASTROINTESTINAL BLEEDING - Common
+    '5789': ('Gastrointestinal bleeding', 'gastrointestinal', 16),  # ICD-9: GI hemorrhage
+    'K922': ('Gastrointestinal bleeding', 'gastrointestinal', 16),  # ICD-10: GI hemorrhage, unspecified
+
+    # 17. HYPERTENSION - Common
+    '4019': ('Hypertension', 'cardiovascular', 17),  # ICD-9: Unspecified essential hypertension
+    'I10': ('Hypertension', 'cardiovascular', 17),   # ICD-10: Essential (primary) hypertension
+
+    # 18. DIABETES - Common
+    '25000': ('Diabetes', 'endocrine', 18),  # ICD-9: Diabetes mellitus without complication
+    'E119': ('Diabetes', 'endocrine', 18),   # ICD-10: Type 2 diabetes without complications
+    'E1165': ('Diabetes', 'endocrine', 18),  # ICD-10: Type 2 diabetes with hyperglycemia
+
+    # 19. CHRONIC KIDNEY DISEASE - Common
+    '5859': ('Chronic kidney disease', 'renal', 19),  # ICD-9: Chronic kidney disease, unspecified
+    'N189': ('Chronic kidney disease', 'renal', 19),  # ICD-10: Chronic kidney disease, unspecified
+    'N183': ('Chronic kidney disease', 'renal', 19),  # ICD-10: CKD Stage 3
+
+    # 20. ANEMIA - Common
+    '2859': ('Anemia', 'hematologic', 20),  # ICD-9: Anemia, unspecified
+    'D649': ('Anemia', 'hematologic', 20),  # ICD-10: Anemia, unspecified
 }
 
 # Reverse mapping: diagnosis_id -> diagnosis info
@@ -194,6 +225,76 @@ CONSOLIDATED_DIAGNOSES = {
         'total_cases': 6530,
         'description': 'Encounter for antineoplastic chemotherapy'
     },
+    14: {
+        'name': 'Heart failure',
+        'category': 'cardiovascular',
+        'icd9_codes': ['42833', '42823', '4280'],
+        'icd10_codes': ['I5023', 'I5033', 'I509'],
+        'all_codes': ['42833', 'I5023', '42823', 'I5033', '4280', 'I509'],
+        'case_counts': {},
+        'total_cases': 0,
+        'description': 'Congestive heart failure (acute on chronic or unspecified)'
+    },
+    15: {
+        'name': 'Respiratory failure',
+        'category': 'respiratory',
+        'icd9_codes': ['51881', '4941'],
+        'icd10_codes': ['J9620', 'J449'],
+        'all_codes': ['51881', 'J9620', '4941', 'J449'],
+        'case_counts': {},
+        'total_cases': 0,
+        'description': 'Acute respiratory failure and COPD'
+    },
+    16: {
+        'name': 'Gastrointestinal bleeding',
+        'category': 'gastrointestinal',
+        'icd9_codes': ['5789'],
+        'icd10_codes': ['K922'],
+        'all_codes': ['5789', 'K922'],
+        'case_counts': {},
+        'total_cases': 0,
+        'description': 'Gastrointestinal hemorrhage, unspecified'
+    },
+    17: {
+        'name': 'Hypertension',
+        'category': 'cardiovascular',
+        'icd9_codes': ['4019'],
+        'icd10_codes': ['I10'],
+        'all_codes': ['4019', 'I10'],
+        'case_counts': {},
+        'total_cases': 0,
+        'description': 'Essential (primary) hypertension'
+    },
+    18: {
+        'name': 'Diabetes',
+        'category': 'endocrine',
+        'icd9_codes': ['25000'],
+        'icd10_codes': ['E119', 'E1165'],
+        'all_codes': ['25000', 'E119', 'E1165'],
+        'case_counts': {},
+        'total_cases': 0,
+        'description': 'Diabetes mellitus without complications'
+    },
+    19: {
+        'name': 'Chronic kidney disease',
+        'category': 'renal',
+        'icd9_codes': ['5859'],
+        'icd10_codes': ['N189', 'N183'],
+        'all_codes': ['5859', 'N189', 'N183'],
+        'case_counts': {},
+        'total_cases': 0,
+        'description': 'Chronic kidney disease (stages 3-5 or unspecified)'
+    },
+    20: {
+        'name': 'Anemia',
+        'category': 'hematologic',
+        'icd9_codes': ['2859'],
+        'icd10_codes': ['D649'],
+        'all_codes': ['2859', 'D649'],
+        'case_counts': {},
+        'total_cases': 0,
+        'description': 'Anemia, unspecified'
+    },
 }
 
 # Helper function to get consolidated diagnosis
@@ -238,15 +339,18 @@ def get_all_icd_codes_for_diagnosis(diagnosis_id):
 
 
 # Summary statistics
-TOTAL_CONSOLIDATED_DIAGNOSES = 13
-TOTAL_CASES = 76594
-ORIGINAL_ICD_CODES = 20  # Before consolidation
+TOTAL_CONSOLIDATED_DIAGNOSES = 20
+ORIGINAL_ICD_CODES = 40  # Approximate - before consolidation
 
 # Category breakdown
 CATEGORY_COUNTS = {
-    'cardiovascular': 6,  # diagnoses 1-6
+    'cardiovascular': 8,  # diagnoses 1-6, 14, 17
     'infectious': 3,      # diagnoses 7-9
-    'renal': 1,           # diagnosis 10
+    'renal': 2,           # diagnoses 10, 19
     'psychiatric': 2,     # diagnoses 11-12
     'oncology': 1,        # diagnosis 13
+    'respiratory': 1,     # diagnosis 15
+    'gastrointestinal': 1,  # diagnosis 16
+    'endocrine': 1,       # diagnosis 18
+    'hematologic': 1,     # diagnosis 20
 }
