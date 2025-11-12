@@ -46,7 +46,8 @@ This project uses ClinOrchestra to create comprehensive clinical annotation data
 ### Dataset Scope
 
 - **20 consolidated diagnoses** (no ICD-9/ICD-10 duplicates)
-- **Categories**: Cardiovascular (8), Infectious (3), Renal (2), Psychiatric (2), Respiratory (1), GI (1), Endocrine (1), Hematologic (1), Oncology (1)
+- **Categories**: Cardiovascular (7), Infectious (7), Renal (1), Psychiatric (2), Gastrointestinal (2), Neurological (1), Oncology (1)
+- **Total cases**: 110,596 patients
 - **Data sources**: Discharge summaries, radiology reports, labs, medications, vitals
 
 ### Key Features
@@ -85,32 +86,33 @@ mimic-iv/
 └── extras/                              # Clinical knowledge
 ```
 
-## The 20 Consolidated Diagnoses
+## The 20 Consolidated Diagnoses (Based on Actual MIMIC-IV Data)
 
-| # | Diagnosis | Category | ICD Codes Consolidated |
-|---|-----------|----------|----------------------|
-| 1 | Chest pain | Cardiovascular | 78650, 78659, R079 |
-| 2 | Coronary atherosclerosis | Cardiovascular | 41401 |
-| 3 | NSTEMI | Cardiovascular | I214 |
-| 4 | Subendocardial infarction | Cardiovascular | 41071 |
-| 5 | Atrial fibrillation | Cardiovascular | 42731 |
-| 6 | Hypertensive heart disease with CKD | Cardiovascular | I130 |
-| 7 | Sepsis | Infectious | 0389, 389, A419 |
-| 8 | Pneumonia | Infectious | 486 |
-| 9 | Urinary tract infection | Infectious | 5990 |
-| 10 | Acute kidney injury | Renal | 5849, N179 |
-| 11 | Depression | Psychiatric | 311, F329 |
-| 12 | Alcohol use disorder | Psychiatric | 30500, F10129 |
-| 13 | Chemotherapy encounter | Oncology | V5811, Z5111 |
-| 14 | Heart failure | Cardiovascular | 42833, I5023, 42823, I5033, 4280, I509 |
-| 15 | Respiratory failure / COPD | Respiratory | 51881, J9620, 4941, J449 |
-| 16 | Gastrointestinal bleeding | Gastrointestinal | 5789, K922 |
-| 17 | Hypertension | Cardiovascular | 4019, I10 |
-| 18 | Diabetes | Endocrine | 25000, E119, E1165 |
-| 19 | Chronic kidney disease | Renal | 5859, N189, N183 |
-| 20 | Anemia | Hematologic | 2859, D649 |
+| # | Diagnosis | Category | Cases | ICD Codes Consolidated |
+|---|-----------|----------|-------|----------------------|
+| 1 | Chest pain | Cardiovascular | 17,535 | 78650, 78659, R079, R0789 |
+| 2 | Coronary atherosclerosis | Cardiovascular | 8,903 | 41401, I25110, I2510 |
+| 3 | Myocardial infarction | Cardiovascular | 6,138 | I214, 41071 |
+| 4 | Heart failure | Cardiovascular | 6,648 | 42833, I110, 42823 |
+| 5 | Atrial fibrillation | Cardiovascular | 3,090 | 42731 |
+| 6 | Hypertensive heart disease with CKD | Cardiovascular | 3,313 | I130 |
+| 7 | Sepsis | Infectious | 8,239 | A419, 0389, 389 |
+| 8 | Pneumonia | Infectious | 5,843 | 486, J189 |
+| 9 | Urinary tract infection | Infectious | 5,138 | 5990, N390 |
+| 10 | Acute kidney injury | Renal | 6,185 | 5849, N179 |
+| 11 | Depression | Psychiatric | 7,202 | F329, 311 |
+| 12 | Alcohol use disorder | Psychiatric | 8,038 | 30500, F10129 |
+| 13 | Chemotherapy encounter | Oncology | 6,530 | Z5111, V5811 |
+| 14 | Syncope | Cardiovascular | 4,327 | 7802, R55 |
+| 15 | Aortic valve disorders | Cardiovascular | 2,973 | 4241, I350 |
+| 16 | Acute pancreatitis | Gastrointestinal | 2,620 | 5770 |
+| 17 | Postoperative infection | Infectious | 2,198 | 99859 |
+| 18 | Cellulitis | Infectious | 2,152 | 6826 |
+| 19 | COVID-19 | Infectious | 1,937 | U071 |
+| 20 | Altered mental status | Neurological | 1,587 | 78097 |
 
-**Total**: 20 unique clinical conditions consolidated from ~40 ICD codes
+**Total**: 20 unique clinical conditions consolidated from 32 ICD codes
+**Total Cases**: 110,596
 
 ## Workflow Overview
 
