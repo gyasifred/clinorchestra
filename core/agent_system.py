@@ -588,12 +588,9 @@ class ExtractionAgent:
                 logger.info(f"Date context: {date_context}")
             logger.debug(f"Parameters: {parameters}")
 
-            # Get function registry from app_state (for latest functions)
-            function_registry = self.app_state.get_function_registry()
-            if not function_registry:
-                function_registry = self.function_registry
-
-            success, result, message = function_registry.execute_function(
+            # CRITICAL FIX: Use the SAME function_registry instance consistently
+            # Don't switch between app_state and self - causes call_stack desync
+            success, result, message = self.function_registry.execute_function(
                 func_name, **parameters
             )
 
@@ -912,13 +909,8 @@ class ExtractionAgent:
         UNIVERSAL SYSTEM: This prompt is task-agnostic and works for ANY clinical extraction task.
         Examples provided are illustrative only - the system adapts to YOUR task definition.
         """
-        # Get available functions
-        # Get function registry from app_state (for latest functions)
-        function_registry = self.app_state.get_function_registry()
-        if not function_registry:
-            function_registry = self.function_registry
-
-        available_functions = function_registry.get_all_functions_info()
+        # Get available functions (use consistent instance)
+        available_functions = self.function_registry.get_all_functions_info()
         function_descriptions = self._build_available_tools_description(available_functions)
 
         # Get task description
@@ -1246,12 +1238,8 @@ Respond with ONLY the JSON object in the format shown above."""
     def _build_available_tools_description(self, functions: List[Dict[str, Any]] = None) -> str:
         """Build description of available tools"""
         if functions is None:
-            # Get function registry from app_state (for latest functions)
-            function_registry = self.app_state.get_function_registry()
-            if not function_registry:
-                function_registry = self.function_registry
-
-            functions = function_registry.get_all_functions_info()
+            # Use consistent function registry instance
+            functions = self.function_registry.get_all_functions_info()
         
         if not functions:
             return "No functions available."
