@@ -295,14 +295,27 @@ class FunctionRegistry:
             # RECURSIVE CALLS: Create enhanced namespace with access to other functions
             enhanced_namespace = self._create_function_execution_namespace()
 
-            # Execute function with enhanced namespace
-            exec_globals = {**enhanced_namespace, **self.namespace}
-            exec(self.functions[name]['code'], exec_globals)
-            func_from_namespace = exec_globals.get(self._extract_function_name(self.functions[name]['code']))
+            # CRITICAL FIX: Re-exec code to ensure helper functions are available
+            # Many functions have helper functions defined in the same code block
+            # Example: interpret_zscore_malnutrition calls zscore_to_percentile
+            # These helpers are only available if we re-exec the code
+            exec_globals = {**self.namespace, **enhanced_namespace}
 
-            if func_from_namespace:
-                result = func_from_namespace(**validated_kwargs)
-            else:
+            try:
+                # Execute the function code in the enhanced namespace
+                exec(self.functions[name]['code'], exec_globals)
+
+                # Extract the main function
+                func_name_from_code = self._extract_function_name(self.functions[name]['code'])
+                if func_name_from_code and func_name_from_code in exec_globals:
+                    result = exec_globals[func_name_from_code](**validated_kwargs)
+                else:
+                    # Fallback to compiled function if extraction fails
+                    logger.warning(f"Could not extract {func_name_from_code} from namespace, using compiled function")
+                    result = func(**validated_kwargs)
+            except Exception as e:
+                # If re-exec fails, try the compiled function as last resort
+                logger.warning(f"Re-exec failed for {name}, trying compiled function: {e}")
                 result = func(**validated_kwargs)
 
             execution_result = (True, result, "Execution successful")
