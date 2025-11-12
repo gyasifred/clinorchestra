@@ -13,7 +13,7 @@ Stages:
 
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
-Version: 1.0.1
+Version: 1.0.0
 """
 
 import json
@@ -642,7 +642,7 @@ class ExtractionAgent:
                     "Without RAG, the agent will rely only on Functions and Extras for knowledge."
                 )
                 logger.warning(f" RAG engine not available - agent requested RAG but it's not initialized")
-                logger.info(" To fix: Upload documents in RAG tab → Build Index → Enable RAG")
+                logger.info(" To fix: Upload documents in RAG tab -> Build Index -> Enable RAG")
                 return {
                     'type': 'rag',
                     'success': False,
@@ -977,27 +977,27 @@ YOUR TASK:
 
    Examples:
    - Text: "Creatinine 1.2 mg/dL on 1/15, 1.5 mg/dL on 3/20, 1.8 mg/dL on 6/10"
-     → Call calculate_creatinine_clearance() THREE times (once for each Cr value)
+     -> Call calculate_creatinine_clearance() THREE times (once for each Cr value)
 
    - Text: "Weight 12.5 kg today, was 13.0 kg 3 months ago, and 13.5 kg 6 months ago"
-     → Call calculate_bmi() THREE times (once for each weight measurement)
+     -> Call calculate_bmi() THREE times (once for each weight measurement)
 
    - Text: "BP readings: 140/90 (visit 1), 135/85 (visit 2), 130/80 (visit 3)"
-     → Call calculate_mean_arterial_pressure() THREE times (once per reading)
+     -> Call calculate_mean_arterial_pressure() THREE times (once per reading)
 
    C. MAP VALUES TO FUNCTION PARAMETERS:
    - Map values to function parameters based on context:
-     * "45.5 kg" → weight_kg parameter
-     * "165 cm" or "5'5\"" → height parameter (convert inches if needed)
-     * "65 year old" or "age 65" → age parameter
-     * "BP 140/90" → systolic=140, diastolic=90
-     * "male" or "female" or "boy" or "girl" → sex parameter (pass as string 'male' or 'female')
+     * "45.5 kg" -> weight_kg parameter
+     * "165 cm" or "5'5\"" -> height parameter (convert inches if needed)
+     * "65 year old" or "age 65" -> age parameter
+     * "BP 140/90" -> systolic=140, diastolic=90
+     * "male" or "female" or "boy" or "girl" -> sex parameter (pass as string 'male' or 'female')
      * IMPORTANT: For growth percentile functions, sex can be passed as string ('male'/'female')
        and will be automatically converted to numbers (1=male, 2=female) by the system
 
    D. HANDLE UNIT CONVERSIONS:
-   - If function needs kg but text has lbs → call lbs_to_kg first
-   - If function needs meters but text has cm → call cm_to_m first
+   - If function needs kg but text has lbs -> call lbs_to_kg first
+   - If function needs meters but text has cm -> call cm_to_m first
 
    E. CHAIN FUNCTIONS WHEN NEEDED:
    - Example: calculate_bmi needs weight_kg and height_m

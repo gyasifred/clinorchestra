@@ -56,7 +56,7 @@ class BatchPreprocessor:
         self.pii_redactor = pii_redactor
         self.regex_preprocessor = regex_preprocessor
 
-        logger.info("📦 Batch Preprocessor initialized")
+        logger.info("[MODULE] Batch Preprocessor initialized")
 
     def preprocess_batch(self,
                         texts: List[str],
@@ -77,7 +77,7 @@ class BatchPreprocessor:
         total_texts = len(texts)
 
         logger.info("=" * 80)
-        logger.info("📊 BATCH PREPROCESSING PHASE")
+        logger.info("[METRICS] BATCH PREPROCESSING PHASE")
         logger.info("=" * 80)
         logger.info(f"Total texts: {total_texts}")
         logger.info(f"Pattern normalization: {'ENABLED' if apply_normalization else 'DISABLED'}")
@@ -99,18 +99,18 @@ class BatchPreprocessor:
 
         # Step 1: Pattern Normalization (if enabled)
         if apply_normalization and self.regex_preprocessor:
-            logger.info("🔧 Applying pattern normalization...")
+            logger.info("[CONFIG] Applying pattern normalization...")
             norm_start = time.time()
 
             normalized_texts = self._batch_normalize(normalized_texts)
 
             norm_duration = time.time() - norm_start
-            logger.info(f"✅ Pattern normalization complete ({norm_duration:.2f}s)")
+            logger.info(f"[SUCCESS] Pattern normalization complete ({norm_duration:.2f}s)")
             metadata['normalization_duration'] = norm_duration
 
         # Step 2: PII Redaction (if enabled)
         if apply_pii_redaction and self.pii_redactor:
-            logger.info("🔒 Applying PII redaction...")
+            logger.info("[SECURITY] Applying PII redaction...")
             redact_start = time.time()
 
             redacted_texts, redaction_stats = self._batch_redact(normalized_texts)
@@ -119,14 +119,14 @@ class BatchPreprocessor:
             metadata['entities_redacted'] = redaction_stats.get('total_redactions', 0)
             metadata['redaction_duration'] = redact_duration
 
-            logger.info(f"✅ PII redaction complete ({redact_duration:.2f}s)")
+            logger.info(f"[SUCCESS] PII redaction complete ({redact_duration:.2f}s)")
             logger.info(f"   Entities redacted: {metadata['entities_redacted']}")
 
         # Calculate total duration
         total_duration = time.time() - start_time
 
         logger.info("")
-        logger.info(f"📊 Batch preprocessing complete: {total_duration:.2f}s")
+        logger.info(f"[METRICS] Batch preprocessing complete: {total_duration:.2f}s")
         logger.info(f"   Average: {total_duration/total_texts:.3f}s per text")
         logger.info("=" * 80)
 

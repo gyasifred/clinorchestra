@@ -298,14 +298,14 @@ class AppState:
                 return self._rag_engine
 
         # RAG is enabled but engine is not initialized - auto-initialize
-        logger.info("🔄 RAG is enabled but not initialized - auto-initializing now...")
+        logger.info("[REFRESH] RAG is enabled but not initialized - auto-initializing now...")
 
         try:
             from core.rag_engine import RAGEngine
 
             # Check if we have documents configured
             if not self.rag_config.documents or len(self.rag_config.documents) == 0:
-                logger.warning("⚠️ RAG enabled but no documents configured. Please upload documents in RAG tab.")
+                logger.warning("[WARN] RAG enabled but no documents configured. Please upload documents in RAG tab.")
                 return None
 
             # Initialize RAG engine with configured settings
@@ -322,14 +322,14 @@ class AppState:
 
             if success:
                 self._rag_engine = rag_engine
-                logger.info(f"✅ RAG engine auto-initialized successfully with {len(self.rag_config.documents)} documents")
+                logger.info(f"[SUCCESS] RAG engine auto-initialized successfully with {len(self.rag_config.documents)} documents")
                 return rag_engine
             else:
-                logger.error("❌ Failed to auto-initialize RAG engine")
+                logger.error("[ERROR] Failed to auto-initialize RAG engine")
                 return None
 
         except Exception as e:
-            logger.error(f"❌ Error auto-initializing RAG engine: {e}")
+            logger.error(f"[ERROR] Error auto-initializing RAG engine: {e}")
             import traceback
             traceback.print_exc()
             return None
@@ -808,7 +808,7 @@ class AppState:
             summary += f"  Tool Call Logging: {self.agentic_config.tool_call_logging}\n"
             summary += f"  Mode: Continuous Agentic Loop with PAUSE/RESUME + ASYNC Tools\n"
         else:
-            summary += f"  Mode: Classic 4-Stage Pipeline (v1.0.2)\n"
+            summary += f"  Mode: Classic 4-Stage Pipeline (v1.0.0)\n"
 
         return summary
 

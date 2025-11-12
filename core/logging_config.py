@@ -141,7 +141,7 @@ def setup_logging(
         log_path.mkdir(parents=True, exist_ok=True)
 
         # Main log file - rotating
-        main_log_file = log_path / "clinannotate.log"
+        main_log_file = log_path / "clinorchestra.log"
         main_handler = logging.handlers.RotatingFileHandler(
             main_log_file,
             maxBytes=max_bytes,
@@ -198,7 +198,7 @@ def setup_logging(
 
     # Log startup message
     root_logger.info("="*80)
-    root_logger.info("ClinAnnotate Logging System Initialized")
+    root_logger.info("ClinOrchestra Logging System Initialized")
     root_logger.info(f"Log Directory: {log_path.absolute()}")
     root_logger.info(f"Console Level: {console_level} | File Level: {file_level}")
     root_logger.info("="*80)
@@ -263,14 +263,14 @@ def log_function_call(func):
     @functools.wraps(func)
     def wrapper(*args, **kwargs):
         logger = logging.getLogger(func.__module__)
-        logger.debug(f"→ Entering {func.__name__}()")
+        logger.debug(f"-> Entering {func.__name__}()")
 
         try:
             result = func(*args, **kwargs)
-            logger.debug(f"← Exiting {func.__name__}() - Success")
+            logger.debug(f"<- Exiting {func.__name__}() - Success")
             return result
         except Exception as e:
-            logger.error(f"← Exiting {func.__name__}() - Error: {e}", exc_info=True)
+            logger.error(f"<- Exiting {func.__name__}() - Error: {e}", exc_info=True)
             raise
 
     return wrapper

@@ -94,19 +94,19 @@ class ParallelProcessor:
         self.rate_limiter = RateLimiter(calls_per_minute=rate_limit)
         self.stop_flag = threading.Event()
 
-        logger.info(f"⚙️  Parallel Processor initialized: {self.max_workers} workers, provider={provider}")
+        logger.info(f"[INIT]  Parallel Processor initialized: {self.max_workers} workers, provider={provider}")
 
     def _determine_optimal_workers(self, requested: int, provider: str) -> int:
         """Determine optimal worker count based on provider"""
         if provider == 'local':
             # GPU memory limited - conservative
             optimal = min(requested, 2)
-            logger.info(f"🎮 Local model detected: limiting to {optimal} workers (GPU memory)")
+            logger.info(f"[LOCAL] Local model detected: limiting to {optimal} workers (GPU memory)")
             return optimal
         elif provider in ['openai', 'anthropic', 'google', 'azure']:
             # API rate limited - can handle more concurrent
             optimal = min(requested, 10)
-            logger.info(f"☁️  Cloud API detected: using {optimal} workers")
+            logger.info(f"[CLOUD]  Cloud API detected: using {optimal} workers")
             return optimal
         else:
             return requested
@@ -130,7 +130,7 @@ class ParallelProcessor:
             return []
 
         total_tasks = len(tasks)
-        logger.info(f"🚀 Starting parallel processing: {total_tasks} tasks across {self.max_workers} workers")
+        logger.info(f"[START] Starting parallel processing: {total_tasks} tasks across {self.max_workers} workers")
 
         # Results dictionary (thread-safe)
         results_dict = {}
@@ -199,7 +199,7 @@ class ParallelProcessor:
 
                 # Log progress
                 if current_completed % 10 == 0 or current_completed == total_tasks:
-                    logger.info(f"📊 Progress: {current_completed}/{total_tasks} ({current_completed/total_tasks*100:.1f}%)")
+                    logger.info(f"[METRICS] Progress: {current_completed}/{total_tasks} ({current_completed/total_tasks*100:.1f}%)")
 
             except Exception as e:
                 logger.error(f"Error in task callback: {e}")
@@ -216,7 +216,7 @@ class ParallelProcessor:
             # Wait for all tasks to complete
             for future in as_completed(futures):
                 if self.stop_flag.is_set():
-                    logger.warning("⏹️  Stop requested - cancelling remaining tasks")
+                    logger.warning("[STOP]  Stop requested - cancelling remaining tasks")
                     executor.shutdown(wait=False)
                     break
 
@@ -238,7 +238,7 @@ class ParallelProcessor:
         avg_duration = sum(r.duration for r in results) / total_tasks if results else 0
 
         logger.info("=" * 80)
-        logger.info("✅ Parallel Processing Complete")
+        logger.info("[SUCCESS] Parallel Processing Complete")
         logger.info(f"   Total Tasks: {total_tasks}")
         logger.info(f"   Successful: {successful}")
         logger.info(f"   Failed: {failed}")
@@ -250,7 +250,7 @@ class ParallelProcessor:
 
     def stop(self):
         """Signal processor to stop"""
-        logger.warning("⏹️  Stop signal received")
+        logger.warning("[STOP]  Stop signal received")
         self.stop_flag.set()
 
     def reset(self):

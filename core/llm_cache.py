@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 LLM Response Caching System - Persistent caching for LLM responses
-Version: 1.0.1
+Version: 1.0.0
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 

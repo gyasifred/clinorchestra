@@ -14,7 +14,7 @@ Features:
 
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
-Version: 1.0.1
+Version: 1.0.0
 """
 
 import json
@@ -148,8 +148,8 @@ class AgenticAgent:
         2. Start conversation with LLM
         3. Loop:
            - LLM analyzes/continues
-           - If LLM requests tools → PAUSE → Execute → RESUME
-           - If LLM outputs JSON → Extract and complete
+           - If LLM requests tools -> PAUSE -> Execute -> RESUME
+           - If LLM outputs JSON -> Extract and complete
         4. Return result
         """
         try:
@@ -258,7 +258,7 @@ class AgenticAgent:
                     if duplicates:
                         logger.warning(f" DUPLICATE CALCULATIONS DETECTED: {len(duplicates)} functions called with same parameters as before")
                         for dup in duplicates:
-                            logger.warning(f"   • {dup['function']}({dup['params']}) - already calculated in previous iteration")
+                            logger.warning(f"   - {dup['function']}({dup['params']}) - already calculated in previous iteration")
 
                     # Check for repeated tool calls (stall detection)
                     if len(self.context.tool_call_history) >= 3:
@@ -797,7 +797,7 @@ Example format:
                                 logger.warning(f" Field {field} not found in result for {call_id}")
                                 return obj
 
-                    logger.info(f"   → Resolved {obj} = {result}")
+                    logger.info(f"   -> Resolved {obj} = {result}")
                     return result
                 return obj
             elif isinstance(obj, dict):
@@ -865,7 +865,7 @@ Example format:
 
             logger.info(f" Executing {tool_call.id}: {tool_call.name}")
             if tool_call.depends_on:
-                logger.info(f"   → Depends on: {tool_call.depends_on}")
+                logger.info(f"   -> Depends on: {tool_call.depends_on}")
 
             # Execute the tool
             result = self._execute_single_tool(resolved_tool_call)
@@ -1004,7 +1004,7 @@ Example format:
                     "Without RAG, the agent will rely only on Functions and Extras for knowledge."
                 )
                 logger.warning(f" RAG engine not available - agent requested RAG but it's not initialized")
-                logger.info(" To fix: Upload documents in RAG tab → Build Index → Enable RAG")
+                logger.info(" To fix: Upload documents in RAG tab -> Build Index -> Enable RAG")
                 return ToolResult(
                     tool_call_id=tool_call.id,
                     type='rag',
@@ -1141,7 +1141,7 @@ Example format:
                 for i, extra in enumerate(matched_extras[:3]):
                     extra_id = extra.get('id', 'N/A')
                     extra_type = extra.get('type', 'unknown')
-                    logger.debug(f"   • Extra [{i+1}]: {extra_id} ({extra_type})")
+                    logger.debug(f"   - Extra [{i+1}]: {extra_id} ({extra_type})")
             else:
                 logger.warning(f" No extras matched for keywords: {keywords}")
 
@@ -1272,8 +1272,8 @@ You have access to tools:
  CRITICAL: You MUST use an iterative, self-reflective approach! 
 
 **PHASE 1 - INITIAL ANALYSIS:**
-1. Read the task prompt → Understand what needs to be extracted
-2. Read the input text → Identify key metrics, measurements, entities, and information
+1. Read the task prompt -> Understand what needs to be extracted
+2. Read the input text -> Identify key metrics, measurements, entities, and information
 3. Build queries and execute INITIAL tool calls:
    - Call functions for calculations or data transformations
    - Call query_extras for task-specific hints and patterns
@@ -1291,10 +1291,10 @@ You have access to tools:
 **PHASE 3b - FILL GAPS:**
 8. Identify what other information is needed
 9. Determine which tools to call again (can call same tool with different queries)
-10. Fetch additional information → Return to Phase 3
+10. Fetch additional information -> Return to Phase 3
 
 **PHASE 4 - COMPLETION:**
-11. When you have all necessary information → Output final JSON extraction using the provided schema
+11. When you have all necessary information -> Output final JSON extraction using the provided schema
 
 ** CRITICAL REQUIREMENTS - MUST FOLLOW:**
 
@@ -1311,9 +1311,9 @@ You have access to tools:
    - Example: If you called percentile_to_zscore(14) and got 0.72, DO NOT call it again
 
 **3. INCORPORATE RETRIEVED INFORMATION:**
-   - When RAG returns criteria/guidelines → CITE them in your output
-   - When extras returns hints → APPLY them to your extraction
-   - When functions return values → INCLUDE the exact values in your JSON
+   - When RAG returns criteria/guidelines -> CITE them in your output
+   - When extras returns hints -> APPLY them to your extraction
+   - When functions return values -> INCLUDE the exact values in your JSON
 
 **Key Principles:**
 -  DO NOT output final JSON immediately without gathering information
@@ -1346,8 +1346,8 @@ TOOL_CALL: {{"id": "call_3", "tool": "call_analyze_nutrition", "parameters": {{"
 ```
 
 **What happens:**
-1. call_1 executes → returns 58 (age in months)
-2. call_2 executes → returns 16.5 (BMI)
+1. call_1 executes -> returns 58 (age in months)
+2. call_2 executes -> returns 16.5 (BMI)
 3. call_3 executes with age_months=58, bmi=16.5 (values auto-substituted)
 
 **When to use this:**
@@ -1596,7 +1596,7 @@ This allows you to structure sophisticated multi-step calculations in a single r
         # Log windowing for performance tracking
         if len(messages) > len(windowed):
             dropped_count = len(messages) - len(windowed)
-            logger.info(f" SMART windowing: {len(messages)} → {len(windowed)} messages")
+            logger.info(f" SMART windowing: {len(messages)} -> {len(windowed)} messages")
             logger.info(f"    Preserved: {len(tool_result_messages)} tool results (LLM knows what was completed)")
             logger.info(f"    Preserved: {len(assistant_with_tool_calls)} tool call requests")
             logger.info(f"    Dropped: {dropped_count} old thinking/prompt messages")
@@ -1681,19 +1681,19 @@ This allows you to structure sophisticated multi-step calculations in a single r
         lines.append("\n **THREE TOOL CATEGORIES:**\n")
 
         lines.append("1️⃣ **RAG (Retrieval-Augmented Generation)** - query_rag()")
-        lines.append("   • Retrieves guidelines, diagnostic criteria, standards, and reference information")
-        lines.append("   • Build queries from: domain + specificity + what you need")
-        lines.append("   • Example: 'diagnostic criteria for condition X' or 'reference standards for metric Y'\n")
+        lines.append("   - Retrieves guidelines, diagnostic criteria, standards, and reference information")
+        lines.append("   - Build queries from: domain + specificity + what you need")
+        lines.append("   - Example: 'diagnostic criteria for condition X' or 'reference standards for metric Y'\n")
 
         lines.append("2️⃣ **FUNCTIONS (Calculations & Transformations)** - call_[function_name]()")
-        lines.append("   • Performs calculations and data transformations (see full list below)")
-        lines.append("   • Scan text for measurements and data, match to function parameters")
-        lines.append("   • CRITICAL: Call functions BEFORE making interpretations\n")
+        lines.append("   - Performs calculations and data transformations (see full list below)")
+        lines.append("   - Scan text for measurements and data, match to function parameters")
+        lines.append("   - CRITICAL: Call functions BEFORE making interpretations\n")
 
         lines.append("3️⃣ **EXTRAS (Supplementary Hints)** - query_extras()")
-        lines.append("   • Task-specific hints, patterns, reference ranges, and interpretation guides")
-        lines.append("   • Build keywords from: schema field names + domain + relevant terms")
-        lines.append("   • Use 3-5 specific terms relevant to your task, avoid generic words\n")
+        lines.append("   - Task-specific hints, patterns, reference ranges, and interpretation guides")
+        lines.append("   - Build keywords from: schema field names + domain + relevant terms")
+        lines.append("   - Use 3-5 specific terms relevant to your task, avoid generic words\n")
 
         # Add detailed tool descriptions
         lines.append("=" * 80)
@@ -1713,7 +1713,7 @@ This allows you to structure sophisticated multi-step calculations in a single r
                 for param_name, param_info in params.items():
                     param_type = param_info.get('type', 'any')
                     param_desc = param_info.get('description', 'No description')
-                    lines.append(f"     • {param_name} ({param_type}): {param_desc}")
+                    lines.append(f"     - {param_name} ({param_type}): {param_desc}")
             lines.append("")
 
         # Add clear instructions with examples
@@ -1730,45 +1730,45 @@ This allows you to structure sophisticated multi-step calculations in a single r
         lines.append('TOOL_CALL: {"tool": "query_extras", "parameters": {"keywords": ["assessment", "criteria", "classification", "guidelines"]}}')
         lines.append("")
         lines.append(" WRONG (missing 'TOOL_CALL:' prefix):")
-        lines.append('{"tool": "query_rag", ...}  ← MISSING TOOL_CALL: prefix!')
+        lines.append('{"tool": "query_rag", ...}  <- MISSING TOOL_CALL: prefix!')
         lines.append("")
         lines.append(" WRONG (missing closing brace):")
-        lines.append('TOOL_CALL: {"tool": "query_rag", "parameters": {"query": "test"}  ← MISSING }')
+        lines.append('TOOL_CALL: {"tool": "query_rag", "parameters": {"query": "test"}  <- MISSING }')
         lines.append("")
         lines.append(" ITERATIVE WORKFLOW:")
         lines.append("ROUND 1 - Initial Analysis:")
-        lines.append("  • Analyze task prompt + input text")
-        lines.append("  • Identify key metrics/measurements/entities/information")
-        lines.append("  • Call functions (calculations/transformations) + query_extras (hints)")
+        lines.append("  - Analyze task prompt + input text")
+        lines.append("  - Identify key metrics/measurements/entities/information")
+        lines.append("  - Call functions (calculations/transformations) + query_extras (hints)")
         lines.append("")
         lines.append("ROUND 2 - Build Context:")
-        lines.append("  • Review function/extras results - REMEMBER these values!")
-        lines.append("  • Build RAG keywords from what you learned")
-        lines.append("  • Call query_rag (fetch guidelines/standards/criteria)")
+        lines.append("  - Review function/extras results - REMEMBER these values!")
+        lines.append("  - Build RAG keywords from what you learned")
+        lines.append("  - Call query_rag (fetch guidelines/standards/criteria)")
         lines.append("")
         lines.append("ROUND 3+ - Assess & Fill Gaps:")
-        lines.append("  • Assess: Do I have ALL info needed?")
-        lines.append("  • If NO: Identify gaps → Call NEW tools (not duplicates!) → Reassess")
-        lines.append("  • If YES: Output final JSON using ALL tool results")
+        lines.append("  - Assess: Do I have ALL info needed?")
+        lines.append("  - If NO: Identify gaps -> Call NEW tools (not duplicates!) -> Reassess")
+        lines.append("  - If YES: Output final JSON using ALL tool results")
         lines.append("")
         lines.append("=" * 80)
         lines.append(" CRITICAL REQUIREMENTS:")
         lines.append("=" * 80)
         lines.append("")
         lines.append("1. USE EVERY TOOL RESULT:")
-        lines.append("   • Function results → Include exact values in JSON output")
-        lines.append("   • RAG documents → Cite and apply criteria/guidelines")
-        lines.append("   • Extras hints → Apply patterns and guidance")
+        lines.append("   - Function results -> Include exact values in JSON output")
+        lines.append("   - RAG documents -> Cite and apply criteria/guidelines")
+        lines.append("   - Extras hints -> Apply patterns and guidance")
         lines.append("")
         lines.append("2. NO DUPLICATE CALCULATIONS:")
-        lines.append("   • Track what you've calculated")
-        lines.append("   • DO NOT call same function with same parameters twice")
-        lines.append("   • Remember results from previous tool calls")
+        lines.append("   - Track what you've calculated")
+        lines.append("   - DO NOT call same function with same parameters twice")
+        lines.append("   - Remember results from previous tool calls")
         lines.append("")
         lines.append("3. INCORPORATE ALL RETRIEVED INFO:")
-        lines.append("   • Reference RAG sources in your reasoning")
-        lines.append("   • Apply extras guidance to your extraction")
-        lines.append("   • Include ALL calculated values in final JSON")
+        lines.append("   - Reference RAG sources in your reasoning")
+        lines.append("   - Apply extras guidance to your extraction")
+        lines.append("   - Include ALL calculated values in final JSON")
         lines.append("=" * 80 + "\n")
 
         # Add conversation history with windowing
@@ -1818,7 +1818,7 @@ This allows you to structure sophisticated multi-step calculations in a single r
 
                     if not json_str:
                         logger.info(f" Skipping incomplete tool call JSON (LLM response may have been truncated): {match_text[:100]}...")
-                        logger.info("   → Continuing with other valid tool calls (this is handled gracefully)")
+                        logger.info("   -> Continuing with other valid tool calls (this is handled gracefully)")
                         continue
 
                     tool_request = json.loads(json_str)
@@ -1841,10 +1841,10 @@ This allows you to structure sophisticated multi-step calculations in a single r
 
                 except json.JSONDecodeError as e:
                     logger.info(f" Skipping malformed tool call JSON: {match_text[:100]}... | Error: {e}")
-                    logger.info("   → Continuing with other valid tool calls")
+                    logger.info("   -> Continuing with other valid tool calls")
                 except Exception as e:
                     logger.info(f" Skipping unparseable tool call: {match_text[:100]}... | Error: {e}")
-                    logger.info("   → Continuing with other valid tool calls")
+                    logger.info("   -> Continuing with other valid tool calls")
 
             if tool_calls:
                 logger.info(f" Successfully parsed {len(tool_calls)} tool calls from text response")

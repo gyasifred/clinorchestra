@@ -273,7 +273,7 @@ class FunctionRegistry:
             func = self.functions[name]['compiled']
             func_info = self.functions[name]
 
-            logger.debug(f"{indent}→ Entering {name}() [depth={self.call_depth}]")
+            logger.debug(f"{indent}-> Entering {name}() [depth={self.call_depth}]")
 
             # Get function signature for validation
             try:
@@ -322,7 +322,7 @@ class FunctionRegistry:
 
             execution_result = (True, result, "Execution successful")
 
-            logger.debug(f"{indent}← Exiting {name}() [depth={self.call_depth}] = {result}")
+            logger.debug(f"{indent}<- Exiting {name}() [depth={self.call_depth}] = {result}")
 
             # PERFORMANCE: Cache the result if cache_key was created (only for top-level calls)
             if cache_key is not None and self.call_depth == 1:
@@ -334,11 +334,11 @@ class FunctionRegistry:
 
         except TypeError as e:
             error_msg = f"Invalid arguments for function '{name}': {str(e)}"
-            logger.error(f"{indent}✗ {error_msg}")
+            logger.error(f"{indent}[FAIL] {error_msg}")
             return False, None, error_msg
         except Exception as e:
             error_msg = f"Function '{name}' execution failed: {str(e)}"
-            logger.error(f"{indent}✗ {error_msg}", exc_info=True)
+            logger.error(f"{indent}[FAIL] {error_msg}", exc_info=True)
             return False, None, error_msg
         finally:
             # RECURSIVE CALLS: Always cleanup call depth and stack
