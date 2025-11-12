@@ -12,10 +12,19 @@ def calculate_zscore(measurement, value, age_months, sex, height_cm=None):
     Returns:
         Z-score value (number) or error dict
     '''
-    from core.growth_calculators import CDCGrowthCalculator, GrowthMetric, Sex
+    # Import with better error handling
+    try:
+        from core.growth_calculators import CDCGrowthCalculator, GrowthMetric, Sex
+    except ImportError as e:
+        return {'error': f'Growth calculator dependencies not available: {str(e)}. Please ensure pandas and numpy are installed.'}
+    except Exception as e:
+        return {'error': f'Failed to import growth calculators: {str(e)}'}
 
     # Initialize calculator
-    calculator = CDCGrowthCalculator(data_directory="cdc_data")
+    try:
+        calculator = CDCGrowthCalculator(data_directory="cdc_data")
+    except Exception as e:
+        return {'error': f'Failed to initialize CDC calculator: {str(e)}'}
 
     # Map measurement type to metric
     metric_map = {
@@ -46,13 +55,16 @@ def calculate_zscore(measurement, value, age_months, sex, height_cm=None):
         return {'error': f'Invalid sex value: {sex}'}
 
     # Calculate percentile and z-score
-    result = calculator.calculate_growth_percentile(
-        metric=metric,
-        sex=sex_enum,
-        value=value,
-        age_months=age_months,
-        height_cm=height_cm
-    )
+    try:
+        result = calculator.calculate_growth_percentile(
+            metric=metric,
+            sex=sex_enum,
+            value=value,
+            age_months=age_months,
+            height_cm=height_cm
+        )
+    except Exception as e:
+        return {'error': f'Calculation failed: {str(e)}'}
 
     if result is None:
         return {'error': 'Could not calculate z-score'}
