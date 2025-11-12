@@ -71,6 +71,7 @@ class ExtractionAgentContext:
     original_text: Optional[str] = None
     redacted_text: Optional[str] = None
     normalized_text: Optional[str] = None
+    stage4_additional_tool_results: List[Dict[str, Any]] = None  # NEW: Track Stage 4 gap-filling tools
     
 
 class ExtractionAgent:
@@ -875,6 +876,9 @@ class ExtractionAgent:
             if tool_requests:
                 logger.info(f"Executing {len(tool_requests)} additional tools for refinement")
                 additional_tool_results = self._execute_refinement_tools(tool_requests)
+
+            # Store Stage 4 additional tools in context for tracking
+            self.context.stage4_additional_tool_results = additional_tool_results
 
             logger.info("=" * 60)
             logger.info("PHASE 2: Final Refinement with Tool Results")
@@ -1806,14 +1810,24 @@ Extract the required information and respond with ONLY a JSON object."""
     
     def _build_extraction_result(self) -> Dict[str, Any]:
         """Build final extraction result with full tool results for playground"""
-        # Count tool usage
+        # Count tool usage from Stage 2
         rag_results = [r for r in self.context.tool_results if r.get('type') == 'rag']
         function_results = [r for r in self.context.tool_results if r.get('type') == 'function']
         extras_results = [r for r in self.context.tool_results if r.get('type') == 'extras']
-    
+
         rag_count = len([r for r in rag_results if r.get('success')])
         function_count = len([r for r in function_results if r.get('success')])
         extras_count = len([r for r in extras_results if r.get('success')])
+
+        # Count Stage 4 additional tools (gap-filling tools)
+        stage4_additional_tools = self.context.stage4_additional_tool_results or []
+        stage4_rag_results = [r for r in stage4_additional_tools if r.get('type') == 'rag']
+        stage4_function_results = [r for r in stage4_additional_tools if r.get('type') == 'function']
+        stage4_extras_results = [r for r in stage4_additional_tools if r.get('type') == 'extras']
+
+        stage4_rag_count = len([r for r in stage4_rag_results if r.get('success')])
+        stage4_function_count = len([r for r in stage4_function_results if r.get('success')])
+        stage4_extras_count = len([r for r in stage4_extras_results if r.get('success')])
     
         # Full RAG chunks
         rag_details = []
@@ -1851,7 +1865,45 @@ Extract the required information and respond with ONLY a JSON object."""
                         'matched_keywords': extra_item.get('matched_keywords', []),
                         'metadata': extra_item.get('metadata', {})
                     })
-    
+
+        # NEW: Stage 4 additional tool details (gap-filling tools)
+        stage4_function_details = []
+        for r in stage4_function_results:
+            stage4_function_details.append({
+                'name': r.get('name'),
+                'success': r.get('success'),
+                'result': r.get('result'),
+                'stage': 'stage4_gap_filling'
+            })
+
+        stage4_rag_details = []
+        for r in stage4_rag_results:
+            if r.get('success'):
+                for chunk in r.get('results', []):
+                    content = chunk.get('content', '') or chunk.get('text', '')
+                    stage4_rag_details.append({
+                        'query': r.get('query'),
+                        'top_k_used': r.get('top_k_used'),
+                        'score': chunk.get('score'),
+                        'source': chunk.get('metadata', {}).get('source', 'unknown') if isinstance(chunk.get('metadata'), dict) else chunk.get('source', 'unknown'),
+                        'content': content[:3000] + ("..." if len(content) > 3000 else ""),
+                        'stage': 'stage4_gap_filling'
+                    })
+
+        stage4_extras_details = []
+        for r in stage4_extras_results:
+            if r.get('success'):
+                for extra_item in r.get('results', []):
+                    stage4_extras_details.append({
+                        'id': extra_item.get('id', 'N/A'),
+                        'type': extra_item.get('type', 'unknown'),
+                        'content': extra_item.get('content', ''),
+                        'relevance_score': extra_item.get('relevance_score', 0),
+                        'matched_keywords': extra_item.get('matched_keywords', []),
+                        'metadata': extra_item.get('metadata', {}),
+                        'stage': 'stage4_gap_filling'
+                    })
+
         result = {
             'original_clinical_text': getattr(self.context, 'original_text', ''),
             'clinical_text': self.context.clinical_text,
@@ -1864,6 +1916,7 @@ Extract the required information and respond with ONLY a JSON object."""
             'extras_used': extras_count,
             'rag_used': rag_count,
             'functions_called': function_count,
+            'stage4_additional_tools_used': len(stage4_additional_tools) if stage4_additional_tools else 0,  # NEW
             'used_minimal_prompt': self.context.using_minimal_prompt,
             'retry_count': self.context.retry_count,
             'parsing_method_used': self.context.parsing_method_used,
@@ -1877,15 +1930,22 @@ Extract the required information and respond with ONLY a JSON object."""
                 'final_state': self.context.state.value,
                 'task_understanding': self.context.task_understanding,
                 'tool_requests': self.context.tool_requests,
-                'tool_results': self.context.tool_results,  # FIXED: Include full tool results
+                'tool_results': self.context.tool_results,  # Stage 2 tools
+                'stage4_additional_tool_results': stage4_additional_tools,  # NEW: Stage 4 gap-filling tools
                 'tool_results_summary': {
-                    'rag': rag_count,
-                    'functions': function_count,
-                    'extras': extras_count
+                    'stage2_rag': rag_count,
+                    'stage2_functions': function_count,
+                    'stage2_extras': extras_count,
+                    'stage4_rag': stage4_rag_count,  # NEW
+                    'stage4_functions': stage4_function_count,  # NEW
+                    'stage4_extras': stage4_extras_count  # NEW
                 },
                 'rag_details': rag_details,
                 'function_calls_details': function_details,
-                'extras_details': extras_details,  # FIXED: Full content included
+                'extras_details': extras_details,
+                'stage4_rag_details': stage4_rag_details,  # NEW
+                'stage4_function_calls_details': stage4_function_details,  # NEW
+                'stage4_extras_details': stage4_extras_details,  # NEW
                 'last_raw_response_preview': self.context.last_raw_response[:500] if self.context.last_raw_response else None,
                 'text_processing': {
                     'phi_redaction_applied': self.app_state.data_config.enable_phi_redaction,
