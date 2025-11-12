@@ -978,25 +978,40 @@ def format_tool_outputs_for_prompt(
 ) -> Dict[str, str]:
     """
     ENHANCED: Format tool execution results for inclusion in extraction prompts
-    
+
+    CRITICAL FIX: Now includes FAILED tool results with error analysis to help LLM
+    learn from mistakes and correct parameters in next iteration.
+
     Args:
         tool_results: List of tool execution results from Stage 2
         include_rag: Whether to include RAG results
         include_functions: Whether to include function results
         include_extras: Whether to include extras results
-        
+
     Returns:
         Dictionary with formatted strings for rag_outputs, function_outputs, extras_outputs
     """
     rag_output = ""
     function_output = ""
     extras_output = ""
-    
+
+    # Track failed tools for error section
+    failed_functions = []
+    failed_rag = []
+    failed_extras = []
+
     for result in tool_results:
         tool_type = result.get('type', '').lower()
         success = result.get('success', False)
-        
+
+        # CRITICAL FIX: Track failed tools instead of skipping them
         if not success:
+            if tool_type == 'function' and include_functions:
+                failed_functions.append(result)
+            elif tool_type == 'rag' and include_rag:
+                failed_rag.append(result)
+            elif tool_type == 'extras' and include_extras:
+                failed_extras.append(result)
             continue
         
         if tool_type == 'rag' and include_rag:
@@ -1089,12 +1104,156 @@ def format_tool_outputs_for_prompt(
                         if matched_kw:
                             extras_output += f"Matched keywords: {', '.join(matched_kw)}\n"
                         extras_output += f"{content}\n\n"
-    
+
+    # NEW: Add failed tools section with error analysis and correction guidance
+    error_output = ""
+
+    if failed_functions or failed_rag or failed_extras:
+        error_output += "\n[⚠️  TOOL ERRORS - ANALYZE AND CORRECT]\n"
+        error_output += "━" * 60 + "\n"
+        error_output += "🔴 CRITICAL: The following tools FAILED. You MUST learn from these errors.\n\n"
+
+    # Failed functions with parameter correction guidance
+    if failed_functions:
+        error_output += "❌ FAILED FUNCTIONS:\n"
+        error_output += "=" * 60 + "\n\n"
+
+        for i, fail in enumerate(failed_functions, 1):
+            func_name = fail.get('name', 'unknown')
+            error_message = fail.get('message', 'Unknown error')
+            attempted_params = fail.get('parameters', {})
+
+            error_output += f"FUNCTION #{i}: {func_name}\n"
+            error_output += f"{'─' * 50}\n"
+            error_output += f"ATTEMPTED PARAMETERS:\n"
+            for key, value in attempted_params.items():
+                error_output += f"  • {key} = {value}\n"
+            error_output += f"\nERROR MESSAGE:\n  {error_message}\n\n"
+
+            # Intelligent error analysis
+            error_output += "ERROR ANALYSIS & FIX:\n"
+
+            if "missing" in error_message.lower() and "required" in error_message.lower():
+                # Missing required parameter
+                missing_param = _extract_missing_parameter(error_message)
+                if missing_param:
+                    error_output += f"  ⚠️  MISSING REQUIRED PARAMETER: '{missing_param}'\n"
+                    error_output += f"  ✓ FIX: Add '{missing_param}' parameter with appropriate value\n"
+
+                    # Check if they used wrong parameter name
+                    similar_params = [p for p in attempted_params.keys()
+                                     if missing_param in p or p in missing_param]
+                    if similar_params:
+                        error_output += f"  💡 NOTE: You used '{similar_params[0]}' but function needs '{missing_param}'\n"
+                        error_output += f"     Example: Change {similar_params[0]}=value to {missing_param}=value\n"
+
+                    # Provide correct function signature hint
+                    error_output += f"\n  📋 CHECK FUNCTION SIGNATURE:\n"
+                    error_output += f"     Review the function definition to see required parameters\n"
+                    error_output += f"     Required parameters MUST be provided\n"
+
+            elif "unexpected keyword argument" in error_message.lower():
+                # Wrong parameter name
+                wrong_param = _extract_unexpected_parameter(error_message)
+                if wrong_param:
+                    error_output += f"  ⚠️  INVALID PARAMETER: '{wrong_param}'\n"
+                    error_output += f"  ✓ FIX: This parameter doesn't exist in the function\n"
+                    error_output += f"     Check the function signature for correct parameter names\n"
+                    error_output += f"     Remove '{wrong_param}' or rename to correct parameter\n"
+
+            elif "invalid" in error_message.lower() or "type" in error_message.lower():
+                # Type/value error
+                error_output += f"  ⚠️  INVALID PARAMETER VALUE\n"
+                error_output += f"  ✓ FIX: Check parameter types and value formats\n"
+                error_output += f"     Ensure values match expected types (string, number, etc.)\n"
+
+            else:
+                # General error
+                error_output += f"  ⚠️  FUNCTION EXECUTION FAILED\n"
+                error_output += f"  ✓ FIX: Review error message and adjust parameters accordingly\n"
+
+            error_output += f"\n{'─' * 50}\n\n"
+
+        error_output += "🔧 NEXT STEPS FOR FUNCTIONS:\n"
+        error_output += "  1. ANALYZE the error messages above\n"
+        error_output += "  2. IDENTIFY incorrect or missing parameters\n"
+        error_output += "  3. CORRECT parameter names and values\n"
+        error_output += "  4. If in ADAPTIVE mode: RETRY with corrected parameters\n"
+        error_output += "  5. If in STRUCTURED mode: Use corrected understanding for extraction\n\n"
+
+    # Failed RAG queries
+    if failed_rag:
+        error_output += "❌ FAILED RAG QUERIES:\n"
+        error_output += "=" * 60 + "\n\n"
+
+        for i, fail in enumerate(failed_rag, 1):
+            query = fail.get('query', 'unknown')
+            error_message = fail.get('message', 'Unknown error')
+
+            error_output += f"QUERY #{i}: \"{query}\"\n"
+            error_output += f"ERROR: {error_message}\n\n"
+
+        error_output += "🔧 NEXT STEPS FOR RAG:\n"
+        error_output += "  1. If RAG not configured: Continue without RAG evidence\n"
+        error_output += "  2. If query failed: Try different query or proceed without\n"
+        error_output += "  3. ADAPTIVE mode: Can request different RAG query\n\n"
+
+    # Failed extras
+    if failed_extras:
+        error_output += "❌ FAILED EXTRAS:\n"
+        error_output += "=" * 60 + "\n\n"
+
+        for i, fail in enumerate(failed_extras, 1):
+            keywords = fail.get('keywords', [])
+            error_message = fail.get('message', 'Unknown error')
+
+            error_output += f"KEYWORDS #{i}: {', '.join(keywords)}\n"
+            error_output += f"ERROR: {error_message}\n\n"
+
+        error_output += "🔧 NEXT STEPS FOR EXTRAS:\n"
+        error_output += "  1. Continue extraction without these hints\n"
+        error_output += "  2. ADAPTIVE mode: Can try different keywords\n\n"
+
+    if error_output:
+        error_output += "━" * 60 + "\n"
+        error_output += "⚡ IMPORTANT: Learn from these errors and DO NOT repeat the same mistakes!\n"
+        error_output += "━" * 60 + "\n"
+
+    # Append errors to function output (most relevant location)
+    if error_output and function_output:
+        function_output += "\n" + error_output
+    elif error_output:
+        function_output = error_output
+
     return {
         'rag_outputs': rag_output,
         'function_outputs': function_output,
         'extras_outputs': extras_output
     }
+
+
+def _extract_missing_parameter(error_message: str) -> str:
+    """Extract missing parameter name from error message"""
+    import re
+    # Pattern: "missing 1 required positional argument: 'param_name'"
+    match = re.search(r"argument:\s*'([^']+)'", error_message)
+    if match:
+        return match.group(1)
+    # Pattern: "Required parameter param_name missing"
+    match = re.search(r"parameter\s+(\w+)\s+missing", error_message, re.IGNORECASE)
+    if match:
+        return match.group(1)
+    return ""
+
+
+def _extract_unexpected_parameter(error_message: str) -> str:
+    """Extract unexpected parameter name from error message"""
+    import re
+    # Pattern: "unexpected keyword argument 'param_name'"
+    match = re.search(r"argument\s*'([^']+)'", error_message)
+    if match:
+        return match.group(1)
+    return ""
 
 
 # ============================================================================

@@ -600,7 +600,8 @@ class ExtractionAgent:
                 'name': func_name,
                 'success': success,
                 'result': result,
-                'message': message
+                'message': message,
+                'parameters': parameters  # CRITICAL: Include parameters for error analysis
             }
 
             # Preserve date_context for serial measurements
@@ -616,7 +617,8 @@ class ExtractionAgent:
                 'name': tool_request.get('name'),
                 'success': False,
                 'result': None,
-                'message': str(e)
+                'message': str(e),
+                'parameters': tool_request.get('parameters', {})  # CRITICAL: Include attempted parameters
             }
 
             # Preserve date_context even on error
