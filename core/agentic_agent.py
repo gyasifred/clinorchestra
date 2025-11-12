@@ -536,9 +536,14 @@ Example format:
             })
 
         # Function tool
-        if self.function_registry:
+        # Get function registry from app_state (for latest functions)
+        function_registry = self.app_state.get_function_registry()
+        if not function_registry:
+            function_registry = self.function_registry
+
+        if function_registry:
             # Get all available functions
-            functions = self.function_registry.get_all_functions_info()
+            functions = function_registry.get_all_functions_info()
             for func in functions:
                 tools.append({
                     'type': 'function',
@@ -873,8 +878,15 @@ Example format:
     def _execute_function_tool_impl(self, tool_call: ToolCall) -> ToolResult:
         """Execute function call implementation"""
         try:
+            # Get function registry from app_state (in case it was updated)
+            function_registry = self.app_state.get_function_registry()
+
+            # Fallback to instance variable if app_state doesn't have it
+            if not function_registry:
+                function_registry = self.function_registry
+
             # Check if function registry is available
-            if not self.function_registry:
+            if not function_registry:
                 logger.warning(f" Function registry not available")
                 return ToolResult(
                     tool_call_id=tool_call.id,
@@ -893,7 +905,7 @@ Example format:
 
             logger.info(f" Calling function: {func_name}({', '.join(f'{k}={v}' for k, v in parameters.items())})")
 
-            success, result, message = self.function_registry.execute_function(
+            success, result, message = function_registry.execute_function(
                 func_name, **parameters
             )
 

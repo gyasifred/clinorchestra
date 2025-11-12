@@ -418,7 +418,7 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
             return "", "", "", "", "", {}, f"Function '{func_name}' not found", gr.update()
         
         return (
-            func_info.get('id', ''),
+            func_info.get('name', ''),  # Use name as ID (functions are keyed by name)
             func_info.get('name', ''),
             func_info.get('description', ''),
             func_info.get('code', ''),
