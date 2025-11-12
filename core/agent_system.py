@@ -489,7 +489,54 @@ class ExtractionAgent:
                 'type': 'extras',
                 'keywords': keywords
             })
-    
+
+    def _deduplicate_tool_requests(self, tool_requests: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """
+        Deduplicate tool requests to prevent executing identical calls multiple times.
+
+        Two tool requests are considered identical if they have:
+        - Same type (function/rag/extras)
+        - Same name
+        - Same parameters (compared as JSON strings for deterministic comparison)
+
+        This prevents the agent from getting stuck calling the same function repeatedly
+        with identical parameters, which is a common LLM behavior issue.
+
+        Returns:
+            List of unique tool requests (keeps first occurrence of each duplicate)
+        """
+        seen = {}
+        unique_requests = []
+        duplicates_removed = 0
+
+        for tool_request in tool_requests:
+            # Create a unique key based on type, name, and parameters
+            tool_type = tool_request.get('type', '')
+            tool_name = tool_request.get('name', '')
+            params = tool_request.get('parameters', {})
+
+            # Sort parameters for consistent comparison
+            params_json = json.dumps(params, sort_keys=True)
+            key = f"{tool_type}||{tool_name}||{params_json}"
+
+            if key not in seen:
+                seen[key] = tool_request
+                unique_requests.append(tool_request)
+            else:
+                duplicates_removed += 1
+                logger.warning(
+                    f" DUPLICATE TOOL REQUEST detected and skipped: "
+                    f"{tool_type}.{tool_name} with parameters {params_json}"
+                )
+
+        if duplicates_removed > 0:
+            logger.warning(
+                f" Removed {duplicates_removed} duplicate tool requests "
+                f"(kept {len(unique_requests)} unique requests from {len(tool_requests)} total)"
+            )
+
+        return unique_requests
+
     @log_extraction_stage("Stage 2: Tool Execution")
     def _execute_stage2_tools(self):
         """
@@ -504,7 +551,17 @@ class ExtractionAgent:
             logger.info("No tool requests to execute")
             return
 
+        # CRITICAL FIX: Deduplicate tool requests before execution
+        original_count = len(self.context.tool_requests)
+        self.context.tool_requests = self._deduplicate_tool_requests(self.context.tool_requests)
+
+        if len(self.context.tool_requests) == 0:
+            logger.warning(" No tool requests to execute after deduplication")
+            return
+
         logger.info(f"Executing {len(self.context.tool_requests)} tools in PARALLEL (async)")
+        if original_count > len(self.context.tool_requests):
+            logger.info(f" Deduplicated: {original_count} -> {len(self.context.tool_requests)} requests (removed {original_count - len(self.context.tool_requests)} duplicates)")
 
         # Run async execution - asyncio.run() handles event loop creation automatically
         try:
@@ -980,6 +1037,17 @@ class ExtractionAgent:
         - RAG: Retrieve additional guidelines
         - Extras: Get supplementary hints
         """
+        # CRITICAL FIX: Deduplicate tool requests before execution
+        original_count = len(tool_requests)
+        tool_requests = self._deduplicate_tool_requests(tool_requests)
+
+        if len(tool_requests) == 0:
+            logger.warning(" No refinement tools to execute after deduplication")
+            return []
+
+        if original_count > len(tool_requests):
+            logger.info(f" Deduplicated refinement tools: {original_count} -> {len(tool_requests)} requests (removed {original_count - len(tool_requests)} duplicates)")
+
         results = []
 
         try:

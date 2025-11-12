@@ -824,13 +824,24 @@ Example format:
             call_3: analyze(age="$call_1", bmi="$call_2")  # Uses results from call_1 and call_2
 
         Flow:
-        1. Detect parameter dependencies (parameters starting with "$")
-        2. Build dependency graph
-        3. Execute in topological order (dependencies first)
-        4. Substitute results before executing dependent calls
-        5. Return results in original order for conversation coherence
+        1. Deduplicate tool calls (prevent repeated identical calls)
+        2. Detect parameter dependencies (parameters starting with "$")
+        3. Build dependency graph
+        4. Execute in topological order (dependencies first)
+        5. Substitute results before executing dependent calls
+        6. Return results in original order for conversation coherence
         """
+        # CRITICAL FIX: Deduplicate tool calls before execution
+        original_count = len(tool_calls)
+        tool_calls = self._deduplicate_tool_calls(tool_calls)
+
+        if len(tool_calls) == 0:
+            logger.warning(" No tool calls to execute after deduplication")
+            return []
+
         logger.info(f"Executing {len(tool_calls)} tools with dependency resolution")
+        if original_count > len(tool_calls):
+            logger.info(f" Deduplicated: {original_count} -> {len(tool_calls)} calls (removed {original_count - len(tool_calls)} duplicates)")
 
         # Step 1: Detect dependencies and build dependency graph
         tool_calls_with_deps = self._detect_and_resolve_dependencies(tool_calls)
