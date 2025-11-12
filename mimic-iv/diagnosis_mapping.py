@@ -29,8 +29,9 @@ DIAGNOSIS_CONSOLIDATION = {
     'I110': ('Heart failure', 'cardiovascular', 4),   # ICD-10: 2,459 cases - Hypertensive heart disease with HF
     '42823': ('Heart failure', 'cardiovascular', 4),  # ICD-9: 1,919 cases - Acute on chronic systolic
 
-    # 5. ATRIAL FIBRILLATION - 3,090 cases (1 ICD code)
+    # 5. ATRIAL FIBRILLATION - 4,145 cases (2 ICD codes)
     '42731': ('Atrial fibrillation', 'cardiovascular', 5),  # ICD-9: 3,090 cases
+    'I480': ('Atrial fibrillation', 'cardiovascular', 5),   # ICD-10: 1,055 cases - Paroxysmal afib
 
     # 6. HYPERTENSIVE HEART DISEASE with CKD - 3,313 cases (1 ICD code)
     'I130': ('Hypertensive heart disease with CKD', 'cardiovascular', 6),  # ICD-10: 3,313 cases
@@ -75,17 +76,21 @@ DIAGNOSIS_CONSOLIDATION = {
     # 16. ACUTE PANCREATITIS - 2,620 cases (1 ICD code)
     '5770': ('Acute pancreatitis', 'gastrointestinal', 16),  # ICD-9: 2,620 cases
 
-    # 17. POSTOPERATIVE INFECTION - 2,198 cases (1 ICD code)
-    '99859': ('Postoperative infection', 'infectious', 17),  # ICD-9: 2,198 cases
+    # 17. PSYCHOSIS - 2,450 cases (2 ICD codes)
+    '2989': ('Psychosis', 'psychiatric', 17),  # ICD-9: 1,425 cases - Unspecified psychosis
+    'F29': ('Psychosis', 'psychiatric', 17),   # ICD-10: 1,025 cases - Unspecified psychosis
 
-    # 18. CELLULITIS - 2,152 cases (1 ICD code)
-    '6826': ('Cellulitis', 'infectious', 18),  # ICD-9: 2,152 cases - leg, except foot
+    # 18. STROKE / CVA - 2,437 cases (2 ICD codes)
+    '43491': ('Stroke', 'neurological', 18),  # ICD-9: 1,278 cases - Cerebral artery occlusion with infarction
+    '43411': ('Stroke', 'neurological', 18),  # ICD-9: 1,159 cases - Cerebral embolism with infarction
 
-    # 19. COVID-19 - 1,937 cases (1 ICD code)
-    'U071': ('COVID-19', 'infectious', 19),  # ICD-10: 1,937 cases
+    # 19. COPD - 2,403 cases (2 ICD codes)
+    '49121': ('COPD', 'respiratory', 19),  # ICD-9: 1,272 cases - Obstructive chronic bronchitis with exacerbation
+    'J441': ('COPD', 'respiratory', 19),   # ICD-10: 1,131 cases - COPD with exacerbation
 
-    # 20. ALTERED MENTAL STATUS - 1,587 cases (1 ICD code)
-    '78097': ('Altered mental status', 'neurological', 20),  # ICD-9: 1,587 cases
+    # 20. PULMONARY EMBOLISM - 2,354 cases (2 ICD codes)
+    '41519': ('Pulmonary embolism', 'cardiovascular', 20),  # ICD-9: 1,223 cases - Other PE and infarction
+    'I2699': ('Pulmonary embolism', 'cardiovascular', 20),  # ICD-10: 1,131 cases - Other PE without acute cor pulmonale
 }
 
 # Reverse mapping: diagnosis_id -> diagnosis info
@@ -134,11 +139,11 @@ CONSOLIDATED_DIAGNOSES = {
         'name': 'Atrial fibrillation',
         'category': 'cardiovascular',
         'icd9_codes': ['42731'],
-        'icd10_codes': [],
-        'all_codes': ['42731'],
-        'case_counts': {'42731': 3090},
-        'total_cases': 3090,
-        'description': 'Atrial fibrillation'
+        'icd10_codes': ['I480'],
+        'all_codes': ['42731', 'I480'],
+        'case_counts': {'42731': 3090, 'I480': 1055},
+        'total_cases': 4145,
+        'description': 'Atrial fibrillation (including paroxysmal)'
     },
     6: {
         'name': 'Hypertensive heart disease with CKD',
@@ -251,44 +256,44 @@ CONSOLIDATED_DIAGNOSES = {
         'description': 'Acute pancreatitis'
     },
     17: {
-        'name': 'Postoperative infection',
-        'category': 'infectious',
-        'icd9_codes': ['99859'],
-        'icd10_codes': [],
-        'all_codes': ['99859'],
-        'case_counts': {'99859': 2198},
-        'total_cases': 2198,
-        'description': 'Other postoperative infection'
+        'name': 'Psychosis',
+        'category': 'psychiatric',
+        'icd9_codes': ['2989'],
+        'icd10_codes': ['F29'],
+        'all_codes': ['2989', 'F29'],
+        'case_counts': {'2989': 1425, 'F29': 1025},
+        'total_cases': 2450,
+        'description': 'Unspecified psychosis'
     },
     18: {
-        'name': 'Cellulitis',
-        'category': 'infectious',
-        'icd9_codes': ['6826'],
+        'name': 'Stroke',
+        'category': 'neurological',
+        'icd9_codes': ['43491', '43411'],
         'icd10_codes': [],
-        'all_codes': ['6826'],
-        'case_counts': {'6826': 2152},
-        'total_cases': 2152,
-        'description': 'Cellulitis and abscess of leg, except foot'
+        'all_codes': ['43491', '43411'],
+        'case_counts': {'43491': 1278, '43411': 1159},
+        'total_cases': 2437,
+        'description': 'Cerebral artery occlusion and embolism with infarction'
     },
     19: {
-        'name': 'COVID-19',
-        'category': 'infectious',
-        'icd9_codes': [],
-        'icd10_codes': ['U071'],
-        'all_codes': ['U071'],
-        'case_counts': {'U071': 1937},
-        'total_cases': 1937,
-        'description': 'COVID-19'
+        'name': 'COPD',
+        'category': 'respiratory',
+        'icd9_codes': ['49121'],
+        'icd10_codes': ['J441'],
+        'all_codes': ['49121', 'J441'],
+        'case_counts': {'49121': 1272, 'J441': 1131},
+        'total_cases': 2403,
+        'description': 'Chronic obstructive pulmonary disease with exacerbation'
     },
     20: {
-        'name': 'Altered mental status',
-        'category': 'neurological',
-        'icd9_codes': ['78097'],
-        'icd10_codes': [],
-        'all_codes': ['78097'],
-        'case_counts': {'78097': 1587},
-        'total_cases': 1587,
-        'description': 'Altered mental status'
+        'name': 'Pulmonary embolism',
+        'category': 'cardiovascular',
+        'icd9_codes': ['41519'],
+        'icd10_codes': ['I2699'],
+        'all_codes': ['41519', 'I2699'],
+        'case_counts': {'41519': 1223, 'I2699': 1131},
+        'total_cases': 2354,
+        'description': 'Pulmonary embolism and infarction'
     },
 }
 
@@ -335,16 +340,17 @@ def get_all_icd_codes_for_diagnosis(diagnosis_id):
 
 # Summary statistics
 TOTAL_CONSOLIDATED_DIAGNOSES = 20
-ORIGINAL_ICD_CODES = 32  # Before consolidation (actual count from top 50)
+ORIGINAL_ICD_CODES = 43  # Before consolidation (actual count from top 70)
 TOTAL_CASES = sum(d['total_cases'] for d in CONSOLIDATED_DIAGNOSES.values())
 
 # Category breakdown
 CATEGORY_COUNTS = {
-    'cardiovascular': 7,    # diagnoses 1-6, 14, 15
-    'infectious': 7,        # diagnoses 7-9, 17-19
+    'cardiovascular': 9,    # diagnoses 1-6, 14-15, 20
+    'infectious': 3,        # diagnoses 7-9
     'renal': 1,             # diagnosis 10
-    'psychiatric': 2,       # diagnoses 11-12
+    'psychiatric': 3,       # diagnoses 11-12, 17
     'oncology': 1,          # diagnosis 13
-    'gastrointestinal': 2,  # diagnoses 16
-    'neurological': 1,      # diagnosis 20
+    'gastrointestinal': 1,  # diagnosis 16
+    'neurological': 1,      # diagnosis 18
+    'respiratory': 1,       # diagnosis 19
 }

@@ -21,7 +21,7 @@ from diagnosis_mapping import (
 )
 
 
-def get_consolidated_top_diagnoses(mimic_path, top_n_codes=25):
+def get_consolidated_top_diagnoses(mimic_path, top_n_codes=60):
     """
     Get top primary diagnoses with consolidation.
 
@@ -119,12 +119,16 @@ def get_consolidated_top_diagnoses(mimic_path, top_n_codes=25):
             for d in consolidated_data
         ])
 
+        # Create output directory if it doesn't exist
+        output_dir = Path("mimic-iv")
+        output_dir.mkdir(parents=True, exist_ok=True)
+
         # Save consolidated results
-        output_file = "mimic-iv/top_diagnoses_consolidated.csv"
+        output_file = output_dir / "top_diagnoses_consolidated.csv"
         consolidated_df.to_csv(output_file, index=False)
 
         # Save detailed breakdown
-        detailed_output = "mimic-iv/top_diagnoses_detailed_breakdown.csv"
+        detailed_output = output_dir / "top_diagnoses_detailed_breakdown.csv"
         detailed_rows = []
         for d in consolidated_data:
             for code_detail in d['code_details']:

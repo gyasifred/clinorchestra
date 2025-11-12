@@ -46,8 +46,8 @@ This project uses ClinOrchestra to create comprehensive clinical annotation data
 ### Dataset Scope
 
 - **20 consolidated diagnoses** (no ICD-9/ICD-10 duplicates)
-- **Categories**: Cardiovascular (7), Infectious (7), Renal (1), Psychiatric (2), Gastrointestinal (2), Neurological (1), Oncology (1)
-- **Total cases**: 110,596 patients
+- **Categories**: Cardiovascular (9), Infectious (3), Renal (1), Psychiatric (3), Gastrointestinal (1), Neurological (1), Respiratory (1), Oncology (1)
+- **Total cases**: 114,020 patients
 - **Data sources**: Discharge summaries, radiology reports, labs, medications, vitals
 
 ### Key Features
@@ -86,7 +86,7 @@ mimic-iv/
 └── extras/                              # Clinical knowledge
 ```
 
-## The 20 Consolidated Diagnoses (Based on Actual MIMIC-IV Data)
+## The 20 Consolidated Diagnoses (Based on Actual MIMIC-IV Top 70)
 
 | # | Diagnosis | Category | Cases | ICD Codes Consolidated |
 |---|-----------|----------|-------|----------------------|
@@ -94,7 +94,7 @@ mimic-iv/
 | 2 | Coronary atherosclerosis | Cardiovascular | 8,903 | 41401, I25110, I2510 |
 | 3 | Myocardial infarction | Cardiovascular | 6,138 | I214, 41071 |
 | 4 | Heart failure | Cardiovascular | 6,648 | 42833, I110, 42823 |
-| 5 | Atrial fibrillation | Cardiovascular | 3,090 | 42731 |
+| 5 | Atrial fibrillation | Cardiovascular | 4,145 | 42731, I480 |
 | 6 | Hypertensive heart disease with CKD | Cardiovascular | 3,313 | I130 |
 | 7 | Sepsis | Infectious | 8,239 | A419, 0389, 389 |
 | 8 | Pneumonia | Infectious | 5,843 | 486, J189 |
@@ -106,13 +106,13 @@ mimic-iv/
 | 14 | Syncope | Cardiovascular | 4,327 | 7802, R55 |
 | 15 | Aortic valve disorders | Cardiovascular | 2,973 | 4241, I350 |
 | 16 | Acute pancreatitis | Gastrointestinal | 2,620 | 5770 |
-| 17 | Postoperative infection | Infectious | 2,198 | 99859 |
-| 18 | Cellulitis | Infectious | 2,152 | 6826 |
-| 19 | COVID-19 | Infectious | 1,937 | U071 |
-| 20 | Altered mental status | Neurological | 1,587 | 78097 |
+| 17 | Psychosis | Psychiatric | 2,450 | 2989, F29 |
+| 18 | Stroke | Neurological | 2,437 | 43491, 43411 |
+| 19 | COPD | Respiratory | 2,403 | 49121, J441 |
+| 20 | Pulmonary embolism | Cardiovascular | 2,354 | 41519, I2699 |
 
-**Total**: 20 unique clinical conditions consolidated from 32 ICD codes
-**Total Cases**: 110,596
+**Total**: 20 unique clinical conditions consolidated from 43 ICD codes
+**Total Cases**: 114,020
 
 ## Workflow Overview
 
