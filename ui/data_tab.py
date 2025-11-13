@@ -645,11 +645,27 @@ def create_data_tab(app_state) -> Dict[str, Any]:
             # Extract mappings from different possible formats
             imported_mappings = {}
 
-            # Format 1: Direct dictionary (simple key-value)
-            if isinstance(data, dict) and not any(k in data for k in ['diagnosis_mapping', 'mappings', 'labels']):
-                imported_mappings = data
+            # Format 1: New MIMIC-IV label_mappings format (label_mappings_by_name / label_mappings_by_id)
+            if 'label_mappings_by_name' in data or 'label_mappings_by_id' in data:
+                # Prefer label_mappings_by_name if both exist (more descriptive)
+                if 'label_mappings_by_name' in data:
+                    raw_mappings = data['label_mappings_by_name']
+                    logger.info(f"Using label_mappings_by_name from {filepath.name}")
+                else:
+                    raw_mappings = data['label_mappings_by_id']
+                    logger.info(f"Using label_mappings_by_id from {filepath.name}")
 
-            # Format 2: MIMIC-IV diagnosis_mapping.yaml format
+                # Convert all keys to strings (handles both string and integer keys)
+                for key, value in raw_mappings.items():
+                    imported_mappings[str(key)] = value
+
+            # Format 2: Direct dictionary (simple key-value)
+            elif isinstance(data, dict) and not any(k in data for k in ['diagnosis_mapping', 'mappings', 'labels']):
+                # Ensure all keys are strings
+                for key, value in data.items():
+                    imported_mappings[str(key)] = value
+
+            # Format 3: Old MIMIC-IV diagnosis_mapping.yaml format
             elif 'diagnosis_mapping' in data:
                 for diagnosis in data['diagnosis_mapping']:
                     # Map diagnosis ID to diagnosis info
@@ -684,16 +700,25 @@ def create_data_tab(app_state) -> Dict[str, Any]:
                     if diag_name:
                         imported_mappings[diag_name] = mapping_text
 
-            # Format 3: Generic mappings/labels key
+            # Format 4: Generic mappings/labels key
             elif 'mappings' in data:
-                imported_mappings = data['mappings']
+                # Ensure all keys are strings
+                for key, value in data['mappings'].items():
+                    imported_mappings[str(key)] = value
             elif 'labels' in data:
-                imported_mappings = data['labels']
+                # Ensure all keys are strings
+                for key, value in data['labels'].items():
+                    imported_mappings[str(key)] = value
             else:
                 return "❌ Unrecognized mapping format", current_mappings, gr.update()
 
             # Merge with existing mappings (imported takes precedence)
-            merged_mappings = {**current_mappings, **imported_mappings}
+            # Also ensure all keys in merged result are strings
+            merged_mappings = {}
+            for key, value in current_mappings.items():
+                merged_mappings[str(key)] = value
+            for key, value in imported_mappings.items():
+                merged_mappings[str(key)] = value
 
             # Create display dataframe
             display_data = [[k, v] for k, v in merged_mappings.items()]
