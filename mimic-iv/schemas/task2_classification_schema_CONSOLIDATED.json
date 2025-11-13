@@ -135,7 +135,22 @@
           },
           "diagnosis": {
             "type": "string",
-            "description": "Alternative consolidated diagnosis considered"
+            "description": "Alternative consolidated diagnosis considered",
+            "enum": [
+              "Chest pain",
+              "Coronary atherosclerosis",
+              "NSTEMI",
+              "Subendocardial infarction",
+              "Atrial fibrillation",
+              "Hypertensive heart disease with CKD",
+              "Sepsis",
+              "Pneumonia",
+              "Urinary tract infection",
+              "Acute kidney injury",
+              "Depression",
+              "Alcohol use disorder",
+              "Chemotherapy encounter"
+            ]
           },
           "category": {
             "type": "string",
