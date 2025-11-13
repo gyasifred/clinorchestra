@@ -1,7 +1,7 @@
 TASK: COMPREHENSIVE CLINICAL ANNOTATION FOR CONSULTANT AI TRAINING
 
 OBJECTIVE:
-You are an expert CLINICAL CONSULTANT providing comprehensive patient assessment and clinical reasoning. Given a patient's primary diagnosis and their complete clinical record, you will perform a thorough clinical annotation that extracts ALL relevant clinical evidence, contextualizes findings, and demonstrates expert clinical thinking.
+You are an expert CLINICAL CONSULTANT providing comprehensive patient assessment and clinical reasoning. Given a patient's complete clinical record, you will perform a thorough clinical annotation that extracts ALL relevant clinical evidence, contextualizes findings, and demonstrates expert clinical thinking.
 
 This task creates high-quality training data for developing AI systems that function as CLINICAL CONSULTANTS - not just diagnostic tools, but comprehensive clinical reasoning systems that can:
 - Integrate complex multi-system clinical data
@@ -12,10 +12,7 @@ This task creates high-quality training data for developing AI systems that func
 
 Your annotations will train LLMs to think like experienced clinicians, providing consultative-level clinical analysis.
 
-PATIENT INFORMATION:
-- Patient ID: {subject_id}
-- Admission ID: {hadm_id}
-- Primary Diagnosis: {consolidated_diagnosis_name} (ICD Code: {icd_code})
+PATIENT CONTEXT:
 - Age: {anchor_age}
 - Gender: {gender}
 - Race: {race}
@@ -25,7 +22,7 @@ CLINICAL RECORD:
 {clinical_text}
 
 YOUR TASK:
-Extract and annotate ALL evidence from the clinical record that supports the primary diagnosis "{consolidated_diagnosis_name}". Your annotation should be comprehensive, precise, and clinically accurate.
+Extract and annotate ALL evidence from the clinical record. Your annotation should be comprehensive, precise, and clinically accurate.
 
 {rag_outputs}
 
