@@ -73,6 +73,7 @@ class DataConfig:
     label_mapping: Dict[Any, str] = field(default_factory=dict)
     deid_columns: List[str] = field(default_factory=list)
     additional_columns: List[str] = field(default_factory=list)
+    prompt_input_columns: List[str] = field(default_factory=list)  # NEW: Columns to pass as prompt variables
     enable_phi_redaction: bool = False
     phi_entity_types: List[str] = field(default_factory=list)
     redaction_method: str = "Replace with tag"
@@ -532,6 +533,7 @@ class AppState:
     def set_data_config(self, input_file: str, text_column: str, has_labels: bool,
                        label_column: Optional[str], label_mapping: Dict[Any, str],
                        deid_columns: List[str], additional_columns: List[str],
+                       prompt_input_columns: List[str],  # NEW: Columns for prompt variables
                        enable_phi_redaction: bool, phi_entity_types: List[str],
                        redaction_method: str, save_redacted_text: bool,
                        enable_pattern_normalization: bool, save_normalized_text: bool) -> bool:
@@ -544,6 +546,7 @@ class AppState:
             self.data_config.label_mapping = dict(label_mapping) if label_mapping else {}
             self.data_config.deid_columns = list(deid_columns)
             self.data_config.additional_columns = list(additional_columns)
+            self.data_config.prompt_input_columns = list(prompt_input_columns)  # NEW: Store prompt input columns
             self.data_config.enable_phi_redaction = enable_phi_redaction
             self.data_config.phi_entity_types = list(phi_entity_types)
             self.data_config.redaction_method = redaction_method

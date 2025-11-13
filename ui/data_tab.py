@@ -104,7 +104,15 @@ def create_data_tab(app_state) -> Dict[str, Any]:
                 info="Other columns to include in final output"
             )
             components['additional_columns'] = additional_columns
-    
+
+        with gr.Row():
+            prompt_input_columns = gr.CheckboxGroup(
+                choices=[],
+                label="Prompt Input Columns (NEW)",
+                info="Columns to pass as variables to the prompt template (e.g., patient_id, age, gender for MIMIC). These will be available as {column_name} in your prompt."
+            )
+            components['prompt_input_columns'] = prompt_input_columns
+
     # LABEL CONFIGURATION SECTION
     with gr.Accordion("🏷️ Label Configuration", open=False):
         gr.Markdown("""
@@ -415,7 +423,7 @@ def create_data_tab(app_state) -> Dict[str, Any]:
             return (
                 "No file", gr.update(value=None), "No data",
                 [], gr.update(choices=[]), gr.update(choices=[]),
-                gr.update(choices=[]), gr.update(choices=[])
+                gr.update(choices=[]), gr.update(choices=[]), gr.update(choices=[])  # NEW: Added one more
             )
         
         try:
@@ -434,13 +442,14 @@ def create_data_tab(app_state) -> Dict[str, Any]:
                 gr.update(choices=columns, value=None),
                 gr.update(choices=columns, value=[]),
                 gr.update(choices=columns, value=[]),
+                gr.update(choices=columns, value=[]),  # NEW: prompt_input_columns
                 gr.update(choices=columns, value=None)
             )
         except Exception as e:
             return (
                 f"❌ Error: {str(e)}", gr.update(value=None), "Failed",
                 [], gr.update(choices=[]), gr.update(choices=[]),
-                gr.update(choices=[]), gr.update(choices=[])
+                gr.update(choices=[]), gr.update(choices=[]), gr.update(choices=[])  # NEW: Added one more
             )
     
     def analyze_labels(file_upload_path, file_path_str, label_col):
@@ -736,7 +745,7 @@ def create_data_tab(app_state) -> Dict[str, Any]:
     
     def validate_configuration(file_upload_val, file_path_input, text_col,
                          has_labels_val, label_col, current_mappings,
-                         deid_cols, additional_cols, available_cols,
+                         deid_cols, additional_cols, prompt_input_cols, available_cols,
                          enable_phi, phi_entities, phi_method, save_redacted,
                          enable_norm, save_norm):
         """Validate configuration"""
@@ -802,6 +811,7 @@ def create_data_tab(app_state) -> Dict[str, Any]:
                 label_mapping=current_mappings if has_labels_val else {},
                 deid_columns=list(deid_cols) if deid_cols else [],
                 additional_columns=list(additional_cols) if additional_cols else [],
+                prompt_input_columns=list(prompt_input_cols) if prompt_input_cols else [],  # NEW
                 enable_phi_redaction=enable_phi,
                 phi_entity_types=list(phi_entities) if phi_entities else [],
                 redaction_method=phi_method,
@@ -854,16 +864,16 @@ Text Column: {text_col}
         inputs=[file_upload],
         outputs=[
             upload_status, data_preview, data_info, available_columns,
-            text_column, deid_columns, additional_columns, label_column
+            text_column, deid_columns, additional_columns, prompt_input_columns, label_column  # NEW: Added prompt_input_columns
         ]
     )
-    
+
     load_path_btn.click(
         fn=load_file,
         inputs=[file_path],
         outputs=[
             upload_status, data_preview, data_info, available_columns,
-            text_column, deid_columns, additional_columns, label_column
+            text_column, deid_columns, additional_columns, prompt_input_columns, label_column  # NEW: Added prompt_input_columns
         ]
     )
     
@@ -937,7 +947,7 @@ Text Column: {text_col}
         inputs=[
             file_upload, file_path, text_column,
             has_labels, label_column, current_label_mappings,
-            deid_columns, additional_columns, available_columns,
+            deid_columns, additional_columns, prompt_input_columns, available_columns,  # NEW: Added prompt_input_columns
             enable_phi_redaction, phi_entity_types, redaction_method, save_redacted_text,
             enable_pattern_normalization, save_normalized_text
         ],
