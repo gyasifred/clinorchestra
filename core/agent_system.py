@@ -66,6 +66,7 @@ class ExtractionAgentContext:
     retry_count: int
     using_minimal_prompt: bool
     pause_reason: Optional[str]
+    prompt_variables: Dict[str, Any] = None  # NEW: Additional columns for prompt variables
     last_raw_response: Optional[str] = None
     parsing_method_used: Optional[str] = None
     original_text: Optional[str] = None
@@ -104,8 +105,15 @@ class ExtractionAgent:
         logger.info(" ExtractionAgent v1.0.0 initialized - STRUCTURED Mode (predictable workflows with ASYNC)")
         
     
-    def extract(self, clinical_text: str, label_value: Optional[Any] = None) -> Dict[str, Any]:
-        """Main extraction method with universal agentic behavior"""
+    def extract(self, clinical_text: str, label_value: Optional[Any] = None,
+                prompt_variables: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+        """Main extraction method with universal agentic behavior
+
+        Args:
+            clinical_text: The main clinical text to analyze
+            label_value: Optional label/diagnosis value
+            prompt_variables: Optional dict of additional columns to pass as prompt variables
+        """
         try:
             # Initialize context
             label_context = self._get_label_context_string(label_value)
@@ -122,6 +130,7 @@ class ExtractionAgent:
                 retry_count=0,
                 using_minimal_prompt=False,
                 pause_reason=None,
+                prompt_variables=prompt_variables or {},  # NEW: Store prompt variables
                 original_text=clinical_text
             )
             
@@ -1254,7 +1263,8 @@ Respond with JSON only."""
                 schema_instructions=schema_instructions,
                 json_schema_instructions=schema_instructions,
                 stage2_tool_results=stage2_tools,
-                additional_tool_results=additional_tools_formatted
+                additional_tool_results=additional_tools_formatted,
+                **self.context.prompt_variables  # NEW: Add prompt variables
             )
         except KeyError:
             # Fallback to comprehensive default
@@ -1709,6 +1719,24 @@ Respond with ONLY the JSON object in the format shown above."""
         if self.context.using_minimal_prompt:
             logger.warning(f"  Using MINIMAL prompt (retry_count={self.context.retry_count} >= max_retries={self.app_state.processing_config.max_retries})")
 
+        # NEW: Format extraction_prompt with prompt variables if it has placeholders
+        try:
+            extraction_prompt = extraction_prompt.format(
+                clinical_text=self.context.clinical_text,
+                label_context=self.context.label_context or "No label provided",
+                rag_outputs=tool_outputs.get('rag_outputs', ''),
+                function_outputs=tool_outputs.get('function_outputs', ''),
+                extras_outputs=tool_outputs.get('extras_outputs', ''),
+                json_schema_instructions=schema_instructions,
+                **self.context.prompt_variables  # NEW: Add prompt variables
+            )
+            # If formatting succeeds, user template handles layout, return as-is
+            return extraction_prompt
+        except KeyError:
+            # Template doesn't use these placeholders, use default layout
+            pass
+
+        # Default layout (backward compatible)
         prompt = f"""{extraction_prompt}
 
 CLINICAL TEXT:
@@ -1780,7 +1808,8 @@ Extract the required information and respond with ONLY a JSON object."""
                 stage3_json_output=json.dumps(selected_stage3, indent=2),  # Only selected fields
                 retrieved_evidence_chunks=rag_context,
                 schema_instructions=schema_instructions,
-                json_schema_instructions=schema_instructions  # ADD THIS LINE - it was missing!
+                json_schema_instructions=schema_instructions,
+                **self.context.prompt_variables  # NEW: Add prompt variables
             )
         except KeyError as e:
             logger.warning(f"RAG template had unknown placeholder {e}, using fallback.")

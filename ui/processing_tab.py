@@ -356,6 +356,9 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                     rate_limit=60  # API rate limit
                 )
 
+                # Get prompt input columns
+                prompt_input_cols = app_state.data_config.prompt_input_columns
+
                 # Create tasks for all rows
                 tasks = []
                 for idx, row in df.iterrows():
@@ -375,9 +378,21 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
 
                 # Execute in parallel
                 log_lines.append("")
+
+                # Define extraction function that includes prompt variables
+                def extract_with_prompt_vars(task):
+                    # Extract prompt variables from the row
+                    row = df.iloc[int(task.task_id)]
+                    prompt_variables = {}
+                    if prompt_input_cols:
+                        for col in prompt_input_cols:
+                            if col in row.index:
+                                prompt_variables[col] = row[col]
+                    return agent.extract(task.clinical_text, task.label_value, prompt_variables)
+
                 results = parallel_processor.process_batch(
                     tasks=tasks,
-                    process_function=lambda task: agent.extract(task.clinical_text, task.label_value),
+                    process_function=extract_with_prompt_vars,  # NEW: Use function that includes prompt variables
                     progress_callback=progress_callback
                 )
 
@@ -454,11 +469,19 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                 # FIXED: Check for None explicitly, not truthiness (allows 0, False, "" as valid labels)
                 label_context = app_state.data_config.label_mapping.get(str(label_value), None) if label_value is not None else None
 
+                # NEW: Extract prompt variables from row
+                prompt_variables = {}
+                prompt_input_cols = app_state.data_config.prompt_input_columns
+                if prompt_input_cols:
+                    for col in prompt_input_cols:
+                        if col in row.index:
+                            prompt_variables[col] = row[col]
+
                 log_lines.append(f"[Row {idx+1}/{total_rows}] Processing...")
                 process_state.add_log(process_id, f"Processing row {idx+1}/{total_rows}")
 
                 try:
-                    result = agent.extract(clinical_text, label_value)
+                    result = agent.extract(clinical_text, label_value, prompt_variables)  # NEW: Pass prompt variables
                     
                     extras_used = result.get('extras_used', 0)
                     rag_used = result.get('rag_used', 0)
@@ -565,7 +588,7 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                         retry_success = False
                         for attempt in range(1, app_state.processing_config.max_retries + 1):
                             try:
-                                result = agent.extract(clinical_text, label_value)
+                                result = agent.extract(clinical_text, label_value, prompt_variables)  # NEW: Pass prompt variables
                                 
                                 extras_used = result.get('extras_used', 0)
                                 rag_used = result.get('rag_used', 0)

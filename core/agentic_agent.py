@@ -92,6 +92,7 @@ class AgenticContext:
     tool_results: List[ToolResult] = field(default_factory=list)
     final_output: Optional[Dict[str, Any]] = None
     error: Optional[str] = None
+    prompt_variables: Dict[str, Any] = field(default_factory=dict)  # NEW: Additional columns for prompt variables
 
     # Preprocessing tracking
     original_text: Optional[str] = None
@@ -139,9 +140,15 @@ class AgenticAgent:
 
         logger.info(" AdaptiveAgent v1.0.0 initialized - ADAPTIVE Mode (evolving tasks with ASYNC)")
 
-    def extract(self, clinical_text: str, label_value: Optional[Any] = None) -> Dict[str, Any]:
+    def extract(self, clinical_text: str, label_value: Optional[Any] = None,
+                prompt_variables: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
         """
         Main agentic extraction with continuous loop
+
+        Args:
+            clinical_text: The main clinical text to analyze
+            label_value: Optional label/diagnosis value
+            prompt_variables: Optional dict of additional columns to pass as prompt variables
 
         Flow:
         1. Initialize context with clinical text
@@ -174,7 +181,8 @@ class AgenticAgent:
                 state=AgenticState.IDLE,
                 original_text=clinical_text,
                 max_iterations=max_iterations,
-                max_tool_calls=max_tool_calls
+                max_tool_calls=max_tool_calls,
+                prompt_variables=prompt_variables or {}  # NEW: Store prompt variables
             )
 
             logger.info("=" * 80)
@@ -1247,6 +1255,18 @@ Example format:
             user_task_prompt = self.app_state.prompt_config.base_prompt or ""
             if not user_task_prompt:
                 logger.warning(" No user task-specific prompt found - using generic agentic prompt")
+
+        # NEW: Try to format user_task_prompt with prompt variables if it has placeholders
+        try:
+            user_task_prompt = user_task_prompt.format(
+                clinical_text=self.context.clinical_text,
+                label_context=self.context.label_context or "No label provided",
+                json_schema_instructions=schema_instructions,
+                **self.context.prompt_variables  # NEW: Add prompt variables
+            )
+        except KeyError:
+            # Template doesn't use these placeholders, pass as-is
+            pass
 
         prompt = get_agentic_extraction_prompt(
             clinical_text=self.context.clinical_text,
