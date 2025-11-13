@@ -97,7 +97,7 @@ def create_prompt_tab(app_state) -> Dict[str, Any]:
             template_list = list_templates()
             example_dropdown = gr.Dropdown(
                 choices=list(template_list.values()),
-                value="Start from scratch - Generic extraction",
+                value="⭐ Universal template - Customize for ANY clinical task",  # v1.0.0: Match actual "blank" template description
                 label="Template"
             )
             components['example_dropdown'] = example_dropdown
