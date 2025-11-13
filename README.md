@@ -193,8 +193,22 @@ The platform is **universal** and adapts to any clinical extraction task. Exampl
 
 ## Documentation
 
-### Architecture
+### Core Documentation
+- **`SDK_GUIDE.md`**: **Comprehensive guide for programmatic usage (Python SDK)**
 - `ARCHITECTURE.md`: System design and component overview
+- `README.md`: This file (quick start and overview)
+
+### SDK vs UI Usage
+
+**🖥️ Web UI** (Default): Launch with `clinorchestra` command - best for interactive exploration and testing
+
+**🐍 Python SDK**: Import and use programmatically - best for:
+- Integration into data pipelines
+- Batch processing automation
+- Custom applications
+- Reproducible research workflows
+
+**→ See [`SDK_GUIDE.md`](SDK_GUIDE.md) for complete programmatic usage examples**
 
 ### Examples (Demonstrating Universal Capability)
 - `examples/malnutrition_classification/`: Malnutrition assessment example
