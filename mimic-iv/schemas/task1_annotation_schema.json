@@ -1,11 +1,9 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Clinical Evidence Annotation Schema",
-  "description": "Structured schema for annotating clinical evidence supporting a diagnosis",
+  "description": "Structured schema for annotating clinical evidence - focused on evidence extraction, not patient metadata",
   "type": "object",
   "required": [
-    "patient_info",
-    "diagnosis_info",
     "evidence_summary",
     "symptoms_and_presentation",
     "physical_examination",
@@ -19,54 +17,6 @@
     "severity_assessment"
   ],
   "properties": {
-    "patient_info": {
-      "type": "object",
-      "description": "Patient demographic and admission information",
-      "required": ["subject_id", "hadm_id", "age", "gender"],
-      "properties": {
-        "subject_id": {
-          "type": "string",
-          "description": "Patient identifier"
-        },
-        "hadm_id": {
-          "type": "string",
-          "description": "Hospital admission identifier"
-        },
-        "age": {
-          "type": "integer",
-          "description": "Patient age in years"
-        },
-        "gender": {
-          "type": "string",
-          "enum": ["M", "F"]
-        },
-        "race": {
-          "type": "string"
-        },
-        "admission_type": {
-          "type": "string"
-        }
-      }
-    },
-    "diagnosis_info": {
-      "type": "object",
-      "description": "Primary diagnosis being annotated",
-      "required": ["icd_code", "diagnosis_name"],
-      "properties": {
-        "icd_code": {
-          "type": "string",
-          "description": "ICD code for primary diagnosis"
-        },
-        "icd_version": {
-          "type": "integer",
-          "description": "ICD version (9 or 10)"
-        },
-        "diagnosis_name": {
-          "type": "string",
-          "description": "Full name of the diagnosis"
-        }
-      }
-    },
     "evidence_summary": {
       "type": "object",
       "description": "High-level summary of evidence quality and completeness",
@@ -79,7 +29,7 @@
         },
         "key_supporting_findings": {
           "type": "array",
-          "description": "Top 5 most important findings supporting diagnosis",
+          "description": "Top 5-10 most important findings supporting diagnosis",
           "items": {
             "type": "string"
           },
@@ -118,7 +68,7 @@
             },
             "source_location": {
               "type": "string",
-              "description": "Where in record this was found (e.g., 'Discharge Summary - Chief Complaint')"
+              "description": "Where in record this was found"
             }
           }
         },
@@ -130,40 +80,32 @@
             "required": ["symptom", "evidence_quality"],
             "properties": {
               "symptom": {
-                "type": "string",
-                "description": "Name of symptom"
+                "type": "string"
               },
               "onset": {
-                "type": "string",
-                "description": "When symptom started"
+                "type": "string"
               },
               "duration": {
-                "type": "string",
-                "description": "How long symptom has been present"
+                "type": "string"
               },
               "severity": {
-                "type": "string",
-                "description": "Severity of symptom (mild, moderate, severe)"
+                "type": "string"
               },
               "character": {
-                "type": "string",
-                "description": "Specific characteristics of symptom"
+                "type": "string"
               },
               "progression": {
-                "type": "string",
-                "description": "How symptom has changed over time"
+                "type": "string"
               },
               "evidence_quote": {
-                "type": "string",
-                "description": "Direct quote from record"
+                "type": "string"
               },
               "evidence_quality": {
                 "type": "string",
                 "enum": ["DEFINITIVE", "STRONG", "MODERATE", "WEAK", "CONTEXTUAL"]
               },
               "relevance_to_diagnosis": {
-                "type": "string",
-                "description": "Explain how this symptom supports the diagnosis"
+                "type": "string"
               }
             }
           }
@@ -181,8 +123,7 @@
                 "type": "string"
               },
               "significance": {
-                "type": "string",
-                "description": "Why the absence of this symptom is clinically significant"
+                "type": "string"
               }
             }
           }
@@ -195,50 +136,41 @@
       "properties": {
         "vital_signs": {
           "type": "array",
-          "description": "Documented vital signs measurements",
           "items": {
             "type": "object",
             "properties": {
               "measurement": {
-                "type": "string",
-                "description": "Type of vital sign (BP, HR, RR, Temp, SpO2)"
+                "type": "string"
               },
               "value": {
-                "type": "string",
-                "description": "Measured value with units"
+                "type": "string"
               },
               "timing": {
-                "type": "string",
-                "description": "When measured (admission, during stay, discharge)"
+                "type": "string"
               },
               "abnormal": {
-                "type": "boolean",
-                "description": "Whether value is abnormal"
+                "type": "boolean"
               },
               "evidence_quote": {
                 "type": "string"
               },
               "clinical_significance": {
-                "type": "string",
-                "description": "How this supports the diagnosis"
+                "type": "string"
               }
             }
           }
         },
         "physical_exam_findings": {
           "type": "array",
-          "description": "Findings from physical examination",
           "items": {
             "type": "object",
             "required": ["body_system", "finding"],
             "properties": {
               "body_system": {
-                "type": "string",
-                "description": "Organ system or body region"
+                "type": "string"
               },
               "finding": {
-                "type": "string",
-                "description": "What was found on examination"
+                "type": "string"
               },
               "evidence_quote": {
                 "type": "string"
@@ -261,34 +193,28 @@
       "properties": {
         "lab_values": {
           "type": "array",
-          "description": "Individual lab test results",
           "items": {
             "type": "object",
             "required": ["test_name", "value"],
             "properties": {
               "test_name": {
-                "type": "string",
-                "description": "Name of laboratory test"
+                "type": "string"
               },
               "value": {
-                "type": "string",
-                "description": "Test result with units"
+                "type": "string"
               },
               "reference_range": {
-                "type": "string",
-                "description": "Normal reference range"
+                "type": "string"
               },
               "abnormal_flag": {
                 "type": "string",
                 "enum": ["HIGH", "LOW", "CRITICAL_HIGH", "CRITICAL_LOW", "NORMAL"]
               },
               "timing": {
-                "type": "string",
-                "description": "When test was performed"
+                "type": "string"
               },
               "trend": {
-                "type": "string",
-                "description": "How value changed over time (improving, worsening, stable)"
+                "type": "string"
               },
               "evidence_quote": {
                 "type": "string"
@@ -298,15 +224,13 @@
                 "enum": ["DEFINITIVE", "STRONG", "MODERATE", "WEAK", "CONTEXTUAL"]
               },
               "clinical_significance": {
-                "type": "string",
-                "description": "How this lab result supports the diagnosis"
+                "type": "string"
               }
             }
           }
         },
         "lab_panels": {
           "type": "array",
-          "description": "Grouped lab panels (e.g., metabolic panel, CBC)",
           "items": {
             "type": "object",
             "properties": {
@@ -331,26 +255,21 @@
       "properties": {
         "radiology_studies": {
           "type": "array",
-          "description": "Imaging studies performed",
           "items": {
             "type": "object",
             "required": ["study_type", "findings"],
             "properties": {
               "study_type": {
-                "type": "string",
-                "description": "Type of imaging (X-ray, CT, MRI, ultrasound)"
+                "type": "string"
               },
               "body_region": {
-                "type": "string",
-                "description": "Anatomical region imaged"
+                "type": "string"
               },
               "findings": {
-                "type": "string",
-                "description": "Summary of findings"
+                "type": "string"
               },
               "evidence_quote": {
-                "type": "string",
-                "description": "Direct quote from radiology report"
+                "type": "string"
               },
               "evidence_quality": {
                 "type": "string",
@@ -364,7 +283,6 @@
         },
         "other_diagnostics": {
           "type": "array",
-          "description": "Other diagnostic procedures (ECG, echo, biopsy, etc.)",
           "items": {
             "type": "object",
             "properties": {
@@ -395,7 +313,6 @@
       "properties": {
         "medications": {
           "type": "array",
-          "description": "Medications prescribed or administered",
           "items": {
             "type": "object",
             "properties": {
@@ -403,8 +320,7 @@
                 "type": "string"
               },
               "indication": {
-                "type": "string",
-                "description": "Why medication was given"
+                "type": "string"
               },
               "dosage": {
                 "type": "string"
@@ -413,22 +329,19 @@
                 "type": "string"
               },
               "response": {
-                "type": "string",
-                "description": "Patient's response to medication"
+                "type": "string"
               },
               "evidence_quote": {
                 "type": "string"
               },
               "relevance_to_diagnosis": {
-                "type": "string",
-                "description": "How this medication supports the diagnosis"
+                "type": "string"
               }
             }
           }
         },
         "procedures": {
           "type": "array",
-          "description": "Therapeutic procedures performed",
           "items": {
             "type": "object",
             "properties": {
@@ -455,7 +368,6 @@
       "properties": {
         "past_medical_history": {
           "type": "array",
-          "description": "Previous medical conditions",
           "items": {
             "type": "object",
             "properties": {
@@ -476,7 +388,6 @@
         },
         "previous_hospitalizations": {
           "type": "array",
-          "description": "Previous hospital admissions",
           "items": {
             "type": "object",
             "properties": {
@@ -535,8 +446,7 @@
             "type": "object",
             "properties": {
               "factor": {
-                "type": "string",
-                "description": "e.g., smoking, alcohol, drug use"
+                "type": "string"
               },
               "details": {
                 "type": "string"
@@ -571,8 +481,7 @@
             "type": "object",
             "properties": {
               "factor": {
-                "type": "string",
-                "description": "e.g., age, gender, race"
+                "type": "string"
               },
               "relevance": {
                 "type": "string"
@@ -584,16 +493,14 @@
     },
     "clinical_reasoning": {
       "type": "object",
-      "description": "Clinical reasoning and diagnostic process documented",
+      "description": "Clinical reasoning and diagnostic process",
       "required": ["diagnostic_certainty"],
       "properties": {
         "documented_clinical_reasoning": {
-          "type": "string",
-          "description": "Clinical reasoning explicitly documented by providers"
+          "type": "string"
         },
         "differential_diagnoses_considered": {
           "type": "array",
-          "description": "Alternative diagnoses that were considered",
           "items": {
             "type": "object",
             "properties": {
@@ -611,7 +518,6 @@
         },
         "diagnostic_criteria_met": {
           "type": "array",
-          "description": "Specific diagnostic criteria that were met",
           "items": {
             "type": "object",
             "properties": {
@@ -629,12 +535,10 @@
         },
         "diagnostic_certainty": {
           "type": "string",
-          "enum": ["CONFIRMED", "HIGHLY_PROBABLE", "PROBABLE", "POSSIBLE", "UNCERTAIN"],
-          "description": "Level of diagnostic certainty based on available evidence"
+          "enum": ["CONFIRMED", "HIGHLY_PROBABLE", "PROBABLE", "POSSIBLE", "UNCERTAIN"]
         },
         "supporting_reasoning": {
-          "type": "string",
-          "description": "Your expert explanation of how the evidence supports the diagnosis"
+          "type": "string"
         }
       }
     },
@@ -643,20 +547,16 @@
       "description": "Timeline of clinical events",
       "properties": {
         "symptom_onset": {
-          "type": "string",
-          "description": "When symptoms first began"
+          "type": "string"
         },
         "presentation_timing": {
-          "type": "string",
-          "description": "When patient presented to hospital"
+          "type": "string"
         },
         "diagnosis_timing": {
-          "type": "string",
-          "description": "When diagnosis was made"
+          "type": "string"
         },
         "key_events": {
           "type": "array",
-          "description": "Key events in chronological order",
           "items": {
             "type": "object",
             "properties": {
@@ -679,16 +579,13 @@
       "description": "Assessment of disease severity and complications",
       "properties": {
         "severity_score": {
-          "type": "string",
-          "description": "Any documented severity scoring system"
+          "type": "string"
         },
         "staging": {
-          "type": "string",
-          "description": "Disease stage if applicable"
+          "type": "string"
         },
         "complications": {
           "type": "array",
-          "description": "Complications of the primary diagnosis",
           "items": {
             "type": "object",
             "properties": {
@@ -703,32 +600,12 @@
         },
         "comorbidities": {
           "type": "array",
-          "description": "Coexisting conditions",
           "items": {
             "type": "string"
           }
         },
         "functional_status": {
-          "type": "string",
-          "description": "Impact on patient's functional status and activities of daily living"
-        }
-      }
-    },
-    "annotation_metadata": {
-      "type": "object",
-      "description": "Metadata about the annotation process",
-      "properties": {
-        "annotation_date": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "annotation_notes": {
-          "type": "string",
-          "description": "Any additional notes from the annotator"
-        },
-        "data_quality_assessment": {
-          "type": "string",
-          "description": "Assessment of the quality and completeness of source data"
+          "type": "string"
         }
       }
     }
