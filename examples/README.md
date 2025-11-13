@@ -105,10 +105,10 @@ print(result.get('metadata', {}))   # Metadata (iterations, tool calls, etc.)
 ```
 
 **Note on Execution Modes:**
-- **Classic Mode** (default): Reliable 4-stage pipeline (ExtractionAgent v1.0.2)
-- **Agentic Mode**: Continuous loop with autonomous tool calling + async parallel execution (AgenticAgent v1.0.0) - 60-75% faster
+- **STRUCTURED Mode** (default): Reliable 4-stage pipeline for production workloads
+- **ADAPTIVE Mode**: Continuous loop with autonomous tool calling + async parallel execution - 60-75% faster
 
-See [AGENTIC_USER_GUIDE.md](../AGENTIC_USER_GUIDE.md) for detailed mode comparison.
+See [SDK_GUIDE.md](../SDK_GUIDE.md) for detailed mode comparison and programmatic usage.
 
 ## Expected Outputs
 

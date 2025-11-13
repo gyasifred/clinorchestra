@@ -51,7 +51,7 @@ Central state manager for all configurations:
 - Model settings (provider, API key, temperature, max tokens)
 - Prompt configuration (main prompt, minimal prompt, JSON schema)
 - Data settings (input file, columns, preprocessing options)
-- Optimization settings (caching, batch processing, parallel execution)
+- Optimization settings (caching, batch processing, parallel execution, multi-GPU processing)
 - Agentic configuration (max iterations, max tool calls)
 
 ### 2. Extraction Engines
@@ -143,9 +143,17 @@ Clinical hints and guidelines:
 - 15-25% performance improvement
 
 #### Parallel Processor (`core/parallel_processor.py`)
-- Concurrent row processing
+- Concurrent row processing (ThreadPoolExecutor)
 - 5-10x faster for cloud APIs
 - Rate limiting and error handling
+- Best for I/O-bound tasks (API calls)
+
+#### Multi-GPU Processor (`core/multi_gpu_processor.py`)
+- True multi-GPU parallelism (ProcessPoolExecutor)
+- Each process loads model on separate GPU
+- 2-4x faster than single-GPU for local models
+- Automatic GPU assignment and load balancing
+- Best for compute-bound tasks (local model inference)
 
 #### Performance Monitor (`core/performance_monitor.py`)
 - Operation timing tracking
@@ -215,9 +223,20 @@ All configurations automatically saved to `.clinorchestra_config/`:
 - 15-25% faster batch processing
 
 ### Parallel Processing
+
+#### Standard Parallel Processing (Cloud APIs)
 - ThreadPoolExecutor for concurrent rows
 - Enabled automatically for cloud APIs
 - Rate limiting to prevent throttling
+- 5-10x speedup for I/O-bound workloads
+
+#### Multi-GPU Processing (Local Models)
+- ProcessPoolExecutor with per-GPU model instances
+- Automatically enabled when multiple GPUs detected
+- Each worker process loads model on assigned GPU
+- Round-robin GPU assignment for load balancing
+- 2-4x faster than single-GPU parallel processing
+- Configurable via OptimizationConfig (use_multi_gpu, num_gpus)
 
 ### Logging Optimization
 - 5MB max log file size (fast rotation)
@@ -276,7 +295,8 @@ All configurations automatically saved to `.clinorchestra_config/`:
 
 **Key Features:**
 - Dual execution modes (STRUCTURED + ADAPTIVE)
-- Performance optimizations (caching, batching, parallelization)
+- Performance optimizations (caching, batching, parallelization, multi-GPU)
+- Multi-GPU support for local models (automatic detection and load balancing)
 - Automatic minimal prompt fallback
 - JSON failure recovery
 - Cache invalidation on config changes

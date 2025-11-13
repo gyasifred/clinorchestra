@@ -85,7 +85,7 @@ results_df = pd.DataFrame(results)
 results_df.to_csv('evaluation/malnutrition_system_output.csv', index=False)
 ```
 
-**Note**: Agentic mode (AgenticAgent v1.0.0) provides 60-75% faster execution due to parallel tool execution and can achieve higher accuracy through iterative refinement. See [AGENTIC_USER_GUIDE.md](../AGENTIC_USER_GUIDE.md).
+**Note**: ADAPTIVE mode provides 60-75% faster execution due to parallel tool execution and can achieve higher accuracy through iterative refinement. See [SDK_GUIDE.md](../SDK_GUIDE.md) for mode comparison.
 
 ## Step 3: Run Evaluation (1 minute)
 
