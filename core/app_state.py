@@ -731,8 +731,10 @@ class AppState:
                                use_batch_preprocessing: bool = None,
                                max_parallel_workers: int = None,
                                use_model_profiles: bool = None,
-                               use_gpu_faiss: bool = None):
-        """Set optimization configuration"""
+                               use_gpu_faiss: bool = None,
+                               use_multi_gpu: bool = None,  # v1.0.0: Multi-GPU support
+                               num_gpus: int = None):  # v1.0.0: Number of GPUs to use
+        """Set optimization configuration (v1.0.0: Added multi-GPU support)"""
         try:
             if llm_cache_enabled is not None:
                 self.optimization_config.llm_cache_enabled = llm_cache_enabled
@@ -752,7 +754,11 @@ class AppState:
                 self.optimization_config.use_model_profiles = use_model_profiles
             if use_gpu_faiss is not None:
                 self.optimization_config.use_gpu_faiss = use_gpu_faiss
-            logger.info(f"Optimization config set: cache={self.optimization_config.llm_cache_enabled}, parallel={self.optimization_config.use_parallel_processing}, batch_preprocess={self.optimization_config.use_batch_preprocessing}")
+            if use_multi_gpu is not None:
+                self.optimization_config.use_multi_gpu = use_multi_gpu
+            if num_gpus is not None:
+                self.optimization_config.num_gpus = num_gpus
+            logger.info(f"Optimization config set: cache={self.optimization_config.llm_cache_enabled}, parallel={self.optimization_config.use_parallel_processing}, batch_preprocess={self.optimization_config.use_batch_preprocessing}, multi_gpu={self.optimization_config.use_multi_gpu}, num_gpus={self.optimization_config.num_gpus}")
             return True
         except Exception as e:
             logger.error(f"Error setting optimization config: {e}")

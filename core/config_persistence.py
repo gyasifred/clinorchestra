@@ -357,6 +357,8 @@ class ConfigurationPersistenceManager:
                     'max_parallel_workers': optimization_config.max_parallel_workers,
                     'use_model_profiles': optimization_config.use_model_profiles,
                     'use_gpu_faiss': optimization_config.use_gpu_faiss,
+                    'use_multi_gpu': optimization_config.use_multi_gpu,  # v1.0.0: Multi-GPU support
+                    'num_gpus': optimization_config.num_gpus,  # v1.0.0: Number of GPUs to use
                     'saved_at': datetime.now().isoformat()
                 }
 
@@ -677,6 +679,7 @@ class ConfigurationPersistenceManager:
                         label_mapping=data_config_data.get('label_mapping', {}),
                         deid_columns=data_config_data.get('deid_columns', []),
                         additional_columns=data_config_data.get('additional_columns', []),
+                        prompt_input_columns=data_config_data.get('prompt_input_columns', []),  # v1.0.0: Backward compatibility
                         enable_phi_redaction=data_config_data.get('enable_phi_redaction', False),
                         phi_entity_types=data_config_data.get('phi_entity_types', []),
                         redaction_method=data_config_data.get('redaction_method', 'Replace with tag'),
@@ -759,7 +762,9 @@ class ConfigurationPersistenceManager:
                         use_batch_preprocessing=optimization_config_data.get('use_batch_preprocessing', True),
                         max_parallel_workers=optimization_config_data.get('max_parallel_workers', 5),
                         use_model_profiles=optimization_config_data.get('use_model_profiles', True),
-                        use_gpu_faiss=optimization_config_data.get('use_gpu_faiss', False)
+                        use_gpu_faiss=optimization_config_data.get('use_gpu_faiss', False),
+                        use_multi_gpu=optimization_config_data.get('use_multi_gpu', True),  # v1.0.0: Backward compatibility
+                        num_gpus=optimization_config_data.get('num_gpus', -1)  # v1.0.0: Backward compatibility
                     )
                     logger.info("Optimization configuration restored")
                     loaded_any = True
