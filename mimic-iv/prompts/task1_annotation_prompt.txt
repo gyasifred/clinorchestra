@@ -15,7 +15,7 @@ Your annotations will train LLMs to think like experienced clinicians, providing
 PATIENT INFORMATION:
 - Patient ID: {subject_id}
 - Admission ID: {hadm_id}
-- Primary Diagnosis: {primary_diagnosis_name} (ICD Code: {icd_code})
+- Primary Diagnosis: {consolidated_diagnosis_name} (ICD Code: {icd_code})
 - Age: {anchor_age}
 - Gender: {gender}
 - Race: {race}
@@ -25,7 +25,13 @@ CLINICAL RECORD:
 {clinical_text}
 
 YOUR TASK:
-Extract and annotate ALL evidence from the clinical record that supports the primary diagnosis "{primary_diagnosis_name}". Your annotation should be comprehensive, precise, and clinically accurate.
+Extract and annotate ALL evidence from the clinical record that supports the primary diagnosis "{consolidated_diagnosis_name}". Your annotation should be comprehensive, precise, and clinically accurate.
+
+{rag_outputs}
+
+{function_outputs}
+
+{extras_outputs}
 
 ANNOTATION REQUIREMENTS:
 
@@ -128,3 +134,5 @@ Your annotation should demonstrate:
 ✓ Clear communication of complex medical concepts
 
 REMEMBER: This annotation will train AI systems to function as CLINICAL CONSULTANTS providing comprehensive, expert-level clinical analysis. Your work will shape how future AI systems think about complex medical cases. Accuracy, completeness, clinical insight, and expert reasoning are paramount.
+
+{json_schema_instructions}
