@@ -629,10 +629,10 @@ Return ONLY JSON: Start with {{ and end with }}. No markdown or extra text. Refi
         )
     
     def load_schema_from_file(file):
-        """Load schema from uploaded YAML or JSON file"""
+        """Load schema from uploaded YAML or JSON file (supports both simplified and JSON Schema formats)"""
         if not file:
             return [], gr.update(), "❌ No file uploaded", gr.update()
-        
+
         path = Path(file.name)
         try:
             if path.suffix in ('.yaml', '.yml'):
@@ -643,26 +643,48 @@ Return ONLY JSON: Start with {{ and end with }}. No markdown or extra text. Refi
                     data = json.load(f)
             else:
                 return [], gr.update(), "❌ Unsupported file type", gr.update()
-            
+
+            # Detect if this is JSON Schema format (has $schema, properties, type fields)
+            is_json_schema = ('$schema' in data or
+                            (data.get('type') == 'object' and 'properties' in data))
+
             fields = []
-            for name, props in data.items():
-                fields.append({
-                    'name': name,
-                    'type': props.get('type', 'string'),
-                    'description': props.get('description', ''),
-                    'required': props.get('required', True)
-                })
-            
+
+            if is_json_schema:
+                # JSON Schema format - extract from properties
+                properties = data.get('properties', {})
+                required_fields = data.get('required', [])
+
+                for name, props in properties.items():
+                    if isinstance(props, dict):
+                        fields.append({
+                            'name': name,
+                            'type': props.get('type', 'string'),
+                            'description': props.get('description', ''),
+                            'required': name in required_fields
+                        })
+            else:
+                # Simplified format - flat dictionary of fields
+                for name, props in data.items():
+                    if isinstance(props, dict):
+                        fields.append({
+                            'name': name,
+                            'type': props.get('type', 'string'),
+                            'description': props.get('description', ''),
+                            'required': props.get('required', True) if isinstance(props.get('required'), bool) else True
+                        })
+
             display_data = [
                 [str(i), f['name'], f['type'], "Yes" if f['required'] else "No", f['description'][:50]]
                 for i, f in enumerate(fields)
             ]
-            
+
             field_names = [f['name'] for f in fields]
             query_fields_update = gr.update(choices=field_names)
-            
+
             return fields, gr.update(value=display_data), "✅ Schema loaded successfully", query_fields_update
         except Exception as e:
+            logger.error(f"Schema loading error: {str(e)}", exc_info=True)
             return [], gr.update(), f"❌ Error loading schema: {str(e)}", gr.update()
     
     # Connect all event handlers
