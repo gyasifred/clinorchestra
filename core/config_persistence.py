@@ -71,8 +71,13 @@ class ConfigurationPersistenceManager:
         except Exception as e:
             logger.error(f"Failed to initialize persistence database: {e}")
     
-    def save_model_config(self, model_config) -> bool:
-        """Save model configuration to disk"""
+    def save_model_config(self, model_config, silent=False) -> bool:
+        """Save model configuration to disk
+
+        Args:
+            model_config: Model configuration to save
+            silent: If True, use DEBUG logging instead of INFO (for periodic auto-saves)
+        """
         try:
             with self.lock:
                 config_dict = {
@@ -82,7 +87,7 @@ class ConfigurationPersistenceManager:
                     'max_tokens': model_config.max_tokens,
                     'saved_at': datetime.now().isoformat()
                 }
-                
+
                 if model_config.provider == "azure":
                     config_dict['azure_endpoint'] = getattr(model_config, 'azure_endpoint', '')
                     config_dict['azure_deployment'] = getattr(model_config, 'azure_deployment', '')
@@ -93,15 +98,18 @@ class ConfigurationPersistenceManager:
                     config_dict['quantization'] = getattr(model_config, 'quantization', 'none')
                     config_dict['max_seq_length'] = getattr(model_config, 'max_seq_length', 16384)
                     config_dict['gpu_layers'] = getattr(model_config, 'gpu_layers', -1)
-                
+
                 config_dict['has_api_key'] = bool(getattr(model_config, 'api_key', None))
                 if config_dict['has_api_key']:
                     config_dict['api_key'] = model_config.api_key
-                
+
                 self._save_config_file(self.model_config_path, config_dict)
                 self._save_config_to_db('model_config', config_dict)
-                
-                logger.info("Model configuration saved")
+
+                if silent:
+                    logger.debug("Model configuration saved")
+                else:
+                    logger.info("Model configuration saved")
                 return True
                 
         except Exception as e:
@@ -116,8 +124,13 @@ class ConfigurationPersistenceManager:
             logger.error(f"Failed to load model config: {e}")
             return None
     
-    def save_prompt_config(self, prompt_config) -> bool:
-        """Save prompt configuration to disk - FIXED: removed rag_query_fields"""
+    def save_prompt_config(self, prompt_config, silent=False) -> bool:
+        """Save prompt configuration to disk - FIXED: removed rag_query_fields
+
+        Args:
+            prompt_config: Prompt configuration to save
+            silent: If True, use DEBUG logging instead of INFO (for periodic auto-saves)
+        """
         try:
             with self.lock:
                 config_dict = {
@@ -131,11 +144,14 @@ class ConfigurationPersistenceManager:
                     'token_count_rag': prompt_config.token_count_rag,
                     'saved_at': datetime.now().isoformat()
                 }
-                
+
                 self._save_config_file(self.prompt_config_path, config_dict)
                 self._save_config_to_db('prompt_config', config_dict)
-                
-                logger.info("Prompt configuration saved")
+
+                if silent:
+                    logger.debug("Prompt configuration saved")
+                else:
+                    logger.info("Prompt configuration saved")
                 return True
                 
         except Exception as e:
@@ -150,8 +166,13 @@ class ConfigurationPersistenceManager:
             logger.error(f"Failed to load prompt config: {e}")
             return None
     
-    def save_data_config(self, data_config) -> bool:
-        """Save data configuration to disk"""
+    def save_data_config(self, data_config, silent=False) -> bool:
+        """Save data configuration to disk
+
+        Args:
+            data_config: Data configuration to save
+            silent: If True, use DEBUG logging instead of INFO (for periodic auto-saves)
+        """
         try:
             with self.lock:
                 config_dict = {
@@ -171,11 +192,14 @@ class ConfigurationPersistenceManager:
                     'total_rows': data_config.total_rows,
                     'saved_at': datetime.now().isoformat()
                 }
-                
+
                 self._save_config_file(self.data_config_path, config_dict)
                 self._save_config_to_db('data_config', config_dict)
-                
-                logger.info("Data configuration saved")
+
+                if silent:
+                    logger.debug("Data configuration saved")
+                else:
+                    logger.info("Data configuration saved")
                 return True
                 
         except Exception as e:
@@ -190,8 +214,13 @@ class ConfigurationPersistenceManager:
             logger.error(f"Failed to load data config: {e}")
             return None
     
-    def save_rag_config(self, rag_config) -> bool:
-        """Save RAG configuration to disk - FIXED: includes rag_query_fields"""
+    def save_rag_config(self, rag_config, silent=False) -> bool:
+        """Save RAG configuration to disk - FIXED: includes rag_query_fields
+
+        Args:
+            rag_config: RAG configuration to save
+            silent: If True, use DEBUG logging instead of INFO (for periodic auto-saves)
+        """
         try:
             with self.lock:
                 config_dict = {
@@ -207,11 +236,14 @@ class ConfigurationPersistenceManager:
                     'config_hash': str(hash(tuple(sorted(rag_config.documents)) if rag_config.documents else ())),
                     'saved_at': datetime.now().isoformat()
                 }
-                
+
                 self._save_config_file(self.rag_config_path, config_dict)
                 self._save_config_to_db('rag_config', config_dict)
-                
-                logger.info("RAG configuration saved")
+
+                if silent:
+                    logger.debug("RAG configuration saved")
+                else:
+                    logger.info("RAG configuration saved")
                 return True
                 
         except Exception as e:
@@ -226,8 +258,13 @@ class ConfigurationPersistenceManager:
             logger.error(f"Failed to load RAG config: {e}")
             return None
     
-    def save_processing_config(self, processing_config) -> bool:
-        """Save processing configuration to disk"""
+    def save_processing_config(self, processing_config, silent=False) -> bool:
+        """Save processing configuration to disk
+
+        Args:
+            processing_config: Processing configuration to save
+            silent: If True, use DEBUG logging instead of INFO (for periodic auto-saves)
+        """
         try:
             with self.lock:
                 config_dict = {
@@ -240,11 +277,14 @@ class ConfigurationPersistenceManager:
                     'output_path': processing_config.output_path,
                     'saved_at': datetime.now().isoformat()
                 }
-                
+
                 self._save_config_file(self.processing_config_path, config_dict)
                 self._save_config_to_db('processing_config', config_dict)
-                
-                logger.info("Processing configuration saved")
+
+                if silent:
+                    logger.debug("Processing configuration saved")
+                else:
+                    logger.info("Processing configuration saved")
                 return True
                 
         except Exception as e:
@@ -259,8 +299,13 @@ class ConfigurationPersistenceManager:
             logger.error(f"Failed to load processing config: {e}")
             return None
 
-    def save_agentic_config(self, agentic_config) -> bool:
-        """Save agentic configuration to disk"""
+    def save_agentic_config(self, agentic_config, silent=False) -> bool:
+        """Save agentic configuration to disk
+
+        Args:
+            agentic_config: Agentic configuration to save
+            silent: If True, use DEBUG logging instead of INFO (for periodic auto-saves)
+        """
         try:
             with self.lock:
                 config_dict = {
@@ -275,7 +320,10 @@ class ConfigurationPersistenceManager:
                 self._save_config_file(self.agentic_config_path, config_dict)
                 self._save_config_to_db('agentic_config', config_dict)
 
-                logger.info(f"Agentic configuration saved (enabled={config_dict['enabled']})")
+                if silent:
+                    logger.debug(f"Agentic configuration saved (enabled={config_dict['enabled']})")
+                else:
+                    logger.info(f"Agentic configuration saved (enabled={config_dict['enabled']})")
                 return True
 
         except Exception as e:
@@ -290,8 +338,13 @@ class ConfigurationPersistenceManager:
             logger.error(f"Failed to load agentic config: {e}")
             return None
 
-    def save_optimization_config(self, optimization_config) -> bool:
-        """Save optimization configuration to disk (v1.0.0)"""
+    def save_optimization_config(self, optimization_config, silent=False) -> bool:
+        """Save optimization configuration to disk (v1.0.0)
+
+        Args:
+            optimization_config: Optimization configuration to save
+            silent: If True, use DEBUG logging instead of INFO (for periodic auto-saves)
+        """
         try:
             with self.lock:
                 config_dict = {
@@ -310,7 +363,10 @@ class ConfigurationPersistenceManager:
                 self._save_config_file(self.optimization_config_path, config_dict)
                 self._save_config_to_db('optimization_config', config_dict)
 
-                logger.info(f"Optimization configuration saved")
+                if silent:
+                    logger.debug("Optimization configuration saved")
+                else:
+                    logger.info("Optimization configuration saved")
                 return True
 
         except Exception as e:
@@ -716,38 +772,48 @@ class ConfigurationPersistenceManager:
             logger.error(f"Failed to load configurations: {e}")
             return False
 
-    def save_all_configs(self, app_state) -> bool:
-        """Save all configurations from the app state"""
+    def save_all_configs(self, app_state, silent=False) -> bool:
+        """
+        Save all configurations from the app state
+
+        Args:
+            app_state: Application state containing all configs
+            silent: If True, use DEBUG logging instead of INFO (for periodic auto-saves)
+        """
         success_count = 0
-        
+
         try:
             if app_state.model_config:
-                if self.save_model_config(app_state.model_config):
+                if self.save_model_config(app_state.model_config, silent=silent):
                     success_count += 1
-            
+
             if app_state.prompt_valid:
-                if self.save_prompt_config(app_state.prompt_config):
+                if self.save_prompt_config(app_state.prompt_config, silent=silent):
                     success_count += 1
-            
+
             if app_state.data_valid:
-                if self.save_data_config(app_state.data_config):
+                if self.save_data_config(app_state.data_config, silent=silent):
                     success_count += 1
-            
-            if self.save_rag_config(app_state.rag_config):
-                success_count += 1
-            
-            if self.save_processing_config(app_state.processing_config):
+
+            if self.save_rag_config(app_state.rag_config, silent=silent):
                 success_count += 1
 
-            if self.save_agentic_config(app_state.agentic_config):
+            if self.save_processing_config(app_state.processing_config, silent=silent):
                 success_count += 1
 
-            if self.save_optimization_config(app_state.optimization_config):
+            if self.save_agentic_config(app_state.agentic_config, silent=silent):
                 success_count += 1
 
-            logger.info(f"Saved {success_count} configurations")
+            if self.save_optimization_config(app_state.optimization_config, silent=silent):
+                success_count += 1
+
+            # Use DEBUG for auto-saves, INFO for manual saves
+            if silent:
+                logger.debug(f"Auto-saved {success_count} configurations")
+            else:
+                logger.info(f"Saved {success_count} configurations")
             return success_count > 0
-            
+
         except Exception as e:
             logger.error(f"Failed to save configurations: {e}")
             return False

@@ -216,13 +216,14 @@ def create_main_interface() -> gr.Blocks:
         
         # Auto-save configurations periodically
         def auto_save_configs():
-            """Automatically save configurations"""
+            """Automatically save configurations (silent mode)"""
             try:
-                persistence_manager.save_all_configs(app_state)
+                # Save with silent=True to use DEBUG logging instead of INFO
+                persistence_manager.save_all_configs(app_state, silent=True)
                 logger.debug("Auto-saved configurations")
             except Exception as e:
                 logger.error(f"Auto-save failed: {e}")
-        
+
         # Refresh global status and restore UI state on interface load
         def load_ui_state():
             """Load UI state from persisted config"""
@@ -263,15 +264,16 @@ def create_main_interface() -> gr.Blocks:
                 prompt_components.get('minimal_prompt')
             ]
         )
-        
-        # Set up periodic auto-save (every 30 seconds)
+
+        # Set up periodic auto-save (every 5 minutes)
+        # Changed from 30 seconds to reduce log spam and disk I/O
         import threading
         def periodic_save():
             import time
             while True:
-                time.sleep(30)
+                time.sleep(300)  # 5 minutes (was 30 seconds)
                 auto_save_configs()
-        
+
         save_thread = threading.Thread(target=periodic_save, daemon=True)
         save_thread.start()
     
