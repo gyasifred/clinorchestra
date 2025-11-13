@@ -9,7 +9,6 @@ You are an expert clinical consultant performing multiclass diagnostic classific
 This is a MULTICLASS CLASSIFICATION task - predict the SINGLE most appropriate diagnosis from the list provided.
 
 PATIENT CONTEXT:
-- Primary Diagnosis: {consolidated_diagnosis_name} (ICD Code: {icd_code})
 - Age: {anchor_age}
 - Gender: {gender}
 - Race: {race}
