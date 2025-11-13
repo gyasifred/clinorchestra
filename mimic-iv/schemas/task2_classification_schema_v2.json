@@ -74,7 +74,29 @@
       "properties": {
         "diagnosis_name": {
           "type": "string",
-          "description": "Name of the predicted diagnosis from the provided list"
+          "description": "Name of the predicted diagnosis from the provided list",
+          "enum": [
+            "Chest pain",
+            "Coronary atherosclerosis",
+            "Myocardial infarction",
+            "Heart failure",
+            "Atrial fibrillation",
+            "Hypertensive heart disease with CKD",
+            "Sepsis",
+            "Pneumonia",
+            "Urinary tract infection",
+            "Acute kidney injury",
+            "Depression",
+            "Alcohol use disorder",
+            "Chemotherapy encounter",
+            "Syncope",
+            "Aortic valve disorders",
+            "Acute pancreatitis",
+            "Psychosis",
+            "Stroke",
+            "COPD",
+            "Pulmonary embolism"
+          ]
         },
         "category": {
           "type": "string",
@@ -108,7 +130,29 @@
         "properties": {
           "diagnosis": {
             "type": "string",
-            "description": "Alternative diagnosis considered"
+            "description": "Alternative diagnosis considered",
+            "enum": [
+              "Chest pain",
+              "Coronary atherosclerosis",
+              "Myocardial infarction",
+              "Heart failure",
+              "Atrial fibrillation",
+              "Hypertensive heart disease with CKD",
+              "Sepsis",
+              "Pneumonia",
+              "Urinary tract infection",
+              "Acute kidney injury",
+              "Depression",
+              "Alcohol use disorder",
+              "Chemotherapy encounter",
+              "Syncope",
+              "Aortic valve disorders",
+              "Acute pancreatitis",
+              "Psychosis",
+              "Stroke",
+              "COPD",
+              "Pulmonary embolism"
+            ]
           },
           "category": {
             "type": "string",

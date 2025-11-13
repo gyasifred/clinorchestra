@@ -13,6 +13,7 @@ This task creates high-quality training data for developing AI systems that func
 Your annotations will train LLMs to think like experienced clinicians, providing consultative-level clinical analysis.
 
 PATIENT CONTEXT:
+- Primary Diagnosis: {consolidated_diagnosis_name} (ICD Code: {icd_code})
 - Age: {anchor_age}
 - Gender: {gender}
 - Race: {race}
@@ -22,7 +23,7 @@ CLINICAL RECORD:
 {clinical_text}
 
 YOUR TASK:
-Extract and annotate ALL evidence from the clinical record. Your annotation should be comprehensive, precise, and clinically accurate.
+Extract and annotate ALL evidence from the clinical record that supports the primary diagnosis "{consolidated_diagnosis_name}". Your annotation should be comprehensive, precise, and clinically accurate.
 
 {rag_outputs}
 
