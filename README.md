@@ -1,26 +1,31 @@
-# ClinOrchestra
+# ClinOrchestra v1.0.0
 
 **Universal LLM-Powered Clinical Data Extraction Platform**
 
-ClinOrchestra is an intelligent system for extracting structured information from clinical text using large language models (LLMs), retrieval-augmented generation (RAG), custom functions, and task-specific hints.
+ClinOrchestra is a **universal** intelligent system for extracting structured information from ANY clinical data using large language models (LLMs), retrieval-augmented generation (RAG), custom functions, and domain knowledge. While examples include malnutrition classification and MIMIC-IV diagnosis annotation, the platform adapts to **any clinical extraction task** through customizable prompts and schemas.
 
 ![ClinOrchestra Logo](assets/clinorchestra_logo.svg)
 
 ---
 
-## Features
+## Key Features
 
-- **Universal System**: Define any extraction task via prompts and JSON schemas
-- **Dual Execution Modes**:
+- **🌐 Universal Platform**: Adapts to ANY clinical extraction task via prompts and JSON schemas
+  - No hardcoded task logic - completely configurable
+  - Examples provided (malnutrition, MIMIC-IV) demonstrate capability, not limits
+- **⚙️ Dual Execution Modes**:
   - **STRUCTURED**: Reliable 4-stage pipeline for production workloads
-  - **ADAPTIVE**: Autonomous iterative loop for complex cases
-- **RAG Integration**: Retrieve clinical guidelines from PDFs and URLs
-- **Custom Functions**: Medical calculations (BMI, growth percentiles, lab conversions)
-- **Clinical Hints**: Pre-loaded domain knowledge (WHO, ASPEN, diagnostic criteria)
-- **Pattern Normalization**: Standardize clinical abbreviations and formats
-- **Multi-LLM Support**: OpenAI, Anthropic, Google, Azure, Unsloth (local)
-- **Batch Processing**: Process large datasets with error handling
-- **Web Interface**: User-friendly Gradio UI
+  - **ADAPTIVE**: Autonomous iterative loop with parallel tool execution for complex cases
+- **🔧 Multi-Column Prompt Variables**: Pass multiple dataset columns as prompt placeholders
+  - Configure which columns feed into prompts (e.g., patient_id, age, gender, diagnosis)
+  - Full backward compatibility with simple text-only workflows
+- **📚 RAG Integration**: Retrieve clinical guidelines from PDFs and URLs during extraction
+- **🧮 Custom Functions**: Create and use medical calculations (BMI, scores, conversions)
+- **💡 Clinical Knowledge**: Pre-load domain expertise (WHO standards, diagnostic criteria)
+- **🔤 Pattern Normalization**: Standardize clinical abbreviations and formats automatically
+- **🤖 Multi-LLM Support**: OpenAI, Anthropic, Google, Azure, Unsloth (local models)
+- **⚡ High Performance**: Parallel processing, caching, async tool execution (60-75% faster)
+- **🖥️ Web Interface**: User-friendly Gradio UI with real-time progress tracking
 
 ---
 
@@ -69,10 +74,12 @@ Systematic 4-stage pipeline for reliable, production-ready extraction:
 
 ```
 Stage 1: Task Analysis → Determine required tools
-Stage 2: Tool Execution → Run functions, RAG, extras
+Stage 2: Tool Execution → Run functions, RAG, extras (async/parallel)
 Stage 3: Extraction → Generate structured JSON output
 Stage 4: RAG Refinement → Enhance selected fields (optional)
 ```
+
+**Best for**: Predictable workflows, production deployments, maximum reliability
 
 ### ADAPTIVE Mode
 
@@ -82,11 +89,13 @@ Autonomous iterative loop for complex extractions:
 Continuous Loop:
 1. LLM analyzes clinical text
 2. Decides which tools to call
-3. Executes tools in parallel
+3. Executes tools in parallel (async)
 4. Analyzes results
 5. Iterates until extraction complete
 6. Outputs final JSON
 ```
+
+**Best for**: Evolving requirements, complex cases, maximum flexibility
 
 Enable ADAPTIVE mode in the Config tab with max iterations and tool call limits.
 
@@ -128,7 +137,7 @@ BP 145/92. Current meds: Metformin 1000mg BID.
 - Growth percentiles and z-scores
 - Lab value corrections (calcium, anion gap)
 - Unit conversions (kg/lbs, cm/inches)
-- Clinical scores (MAP, CrCl)
+- Clinical scores (MAP, CrCl, HEART, TIMI, CAGE, NIHSS, KDIGO, GOLD)
 
 ### Patterns (33+ text normalizations)
 - Vital signs: BP, HR, RR, temperature, SpO2
@@ -154,32 +163,57 @@ BP 145/92. Current meds: Metformin 1000mg BID.
 ## Advanced Features
 
 - **PHI Redaction**: Detect and redact protected health information
-- **Multi-format Output**: Save redacted/normalized text
-- **Error Handling**: Configurable retry strategies
+- **Multi-format Output**: Save redacted/normalized text alongside extractions
+- **Error Handling**: Configurable retry strategies with intelligent fallback
 - **Progress Tracking**: Real-time batch processing status
 - **Configuration Persistence**: Auto-save all settings
 - **Performance Monitoring**: Track extraction timing metrics
+- **Prompt Variables**: Pass any dataset columns as template variables
 
 ---
 
-## Use Cases
+## Use Cases (Platform is Universal - Not Limited to These)
 
-- **Clinical Data Curation**: Create annotated datasets for AI/ML
-- **Chart Review**: Extract information from large record sets
-- **Quality Improvement**: Measure guideline adherence
-- **Research**: Extract variables from clinical narratives
-- **Decision Support**: Extract parameters for clinical alerts
+The platform is **universal** and adapts to any clinical extraction task. Examples include:
+
+- **Clinical Data Curation**: Create annotated datasets for AI/ML training
+- **Chart Review**: Extract structured information from large medical record sets
+- **Quality Improvement**: Measure guideline adherence across patient populations
+- **Research Data Extraction**: Extract research variables from clinical narratives
+- **Decision Support**: Extract parameters for clinical decision support systems
+- **Diagnosis Annotation**: Comprehensive evidence extraction for medical AI training
+- **Multiclass Classification**: Probabilistic diagnostic predictions with reasoning
+- **Nutritional Assessment**: Extract malnutrition indicators and growth metrics
+- **Clinical Trial Screening**: Extract eligibility criteria from patient charts
+- **Adverse Event Detection**: Identify and categorize adverse events from notes
+
+**The only limit is your prompt and schema design** - ClinOrchestra provides the universal infrastructure.
 
 ---
 
 ## Documentation
 
-### Architecture
+### Core Documentation
+- **`SDK_GUIDE.md`**: **Comprehensive guide for programmatic usage (Python SDK)**
 - `ARCHITECTURE.md`: System design and component overview
+- `README.md`: This file (quick start and overview)
 
-### Examples
-- `examples/`: Sample datasets and use cases
-- `scripts/`: Utility scripts for setup
+### SDK vs UI Usage
+
+**🖥️ Web UI** (Default): Launch with `clinorchestra` command - best for interactive exploration and testing
+
+**🐍 Python SDK**: Import and use programmatically - best for:
+- Integration into data pipelines
+- Batch processing automation
+- Custom applications
+- Reproducible research workflows
+
+**→ See [`SDK_GUIDE.md`](SDK_GUIDE.md) for complete programmatic usage examples**
+
+### Examples (Demonstrating Universal Capability)
+- `examples/malnutrition_classification/`: Malnutrition assessment example
+- `examples/`: Additional sample datasets and use cases
+- `mimic-iv/`: MIMIC-IV diagnosis annotation example (comprehensive clinical AI training)
 
 ### Evaluation
 - `evaluation/`: Benchmarking and testing tools
@@ -218,5 +252,6 @@ MIT License
 
 ---
 
-**Version**: 1.0.0
+**Version**: 1.0.0 (Production Release)
+**Platform Type**: Universal Clinical Data Extraction System
 **Author**: Frederick Gyasi

@@ -1,6 +1,23 @@
-# MIMIC-IV Clinical Annotation & Classification Project
+# MIMIC-IV Example: Clinical Annotation & Classification
 
-This project uses ClinOrchestra to create comprehensive clinical annotation datasets from MIMIC-IV for training medical AI systems.
+**⚠️ THIS IS AN EXAMPLE USE CASE - ClinOrchestra is a Universal Platform**
+
+This directory demonstrates ClinOrchestra's capabilities through a comprehensive MIMIC-IV clinical annotation project. **ClinOrchestra is NOT limited to MIMIC-IV or diagnosis tasks** - it adapts to ANY clinical extraction task through customizable prompts and schemas.
+
+---
+
+## What This Example Demonstrates
+
+✅ **Multi-column prompt variables**: Passing patient demographics, diagnosis info as template variables
+✅ **Complex structured extraction**: 200-500 data points per patient
+✅ **Multiclass probabilistic classification**: 20-way diagnosis prediction with calibrated probabilities
+✅ **RAG integration**: Retrieving clinical guidelines during extraction
+✅ **Custom functions**: Medical calculations (HEART score, NIHSS, KDIGO staging)
+✅ **Large-scale processing**: 113,000+ clinical cases
+
+**But you can use ClinOrchestra for ANY clinical task** - just define your own prompts and schemas.
+
+---
 
 ## Quick Start
 
@@ -29,41 +46,40 @@ This project uses ClinOrchestra to create comprehensive clinical annotation data
    - Upload schemas from `schemas/`
    - Upload datasets and process
 
-## Project Overview
+---
 
-### Two Main Tasks
+## Two Example Tasks
 
-**Task 1: Clinical Consultant AI Training**
-- Extract comprehensive clinical evidence supporting a diagnosis
-- Train LLMs for clinical reasoning and evidence-based assessment
-- Output: 200-500 structured data points per patient
+### Task 1: Clinical Consultant AI Training
+**Goal**: Extract comprehensive clinical evidence supporting a diagnosis
+**Use Case**: Train LLMs for clinical reasoning and evidence-based assessment
+**Output**: 200-500 structured data points per patient
 
-**Task 2: Multiclass Diagnosis Prediction**
-- Predict probability distribution across all 20 diagnoses
-- Evaluate diagnostic accuracy with calibrated probabilities
-- Output: Probability scores for each diagnosis (sum = 1.0)
+### Task 2: Multiclass Diagnosis Prediction
+**Goal**: Predict probability distribution across all 20 diagnoses
+**Use Case**: Evaluate diagnostic accuracy with calibrated probabilities
+**Output**: Probability scores for each diagnosis (sum = 1.0)
 
-### Dataset Scope
+---
+
+## Dataset Scope
 
 - **20 consolidated diagnoses** (no ICD-9/ICD-10 duplicates)
 - **Categories**: Cardiovascular (9), Infectious (3), Renal (1), Psychiatric (3), Gastrointestinal (1), Neurological (1), Respiratory (1), Oncology (1)
-- **Total cases**: 114,020 patients
+- **Total cases**: 113,421 patients
 - **Data sources**: Discharge summaries, radiology reports, labs, medications, vitals
 
-### Key Features
-
-✅ **No Duplicates**: ICD-9 and ICD-10 codes for same condition consolidated
-✅ **One Clear Pathway**: Single workflow from extraction to train/test split
-✅ **Publication-Ready**: EDA generates tables and figures for manuscripts
-✅ **Comprehensive Documentation**: See [GUIDE.md](GUIDE.md) for everything
+---
 
 ## Project Structure
 
 ```
 mimic-iv/
 ├── GUIDE.md                             # Complete step-by-step guide (START HERE)
-├── README.md                            # This file
+├── README.md                            # This file (emphasizing universal platform)
 ├── diagnosis_mapping.py                 # 20 consolidated diagnoses mapping
+├── diagnosis_mapping.yaml               # Label context import file
+├── diagnosis_mapping.json               # Label context import file (JSON format)
 │
 ├── scripts/                             # All scripts in order
 │   ├── get_top_diagnoses_consolidated.py   # Step 1: Extract diagnoses
@@ -73,23 +89,25 @@ mimic-iv/
 │   ├── eda_train_test_publication.py       # Step 5: Generate EDA
 │   └── evaluate_classification.py          # Step 8: Evaluate results
 │
-├── prompts/                             # Ready-to-use prompts
+├── prompts/                             # Example prompts
 │   ├── task1_annotation_prompt.txt
 │   └── task2_classification_prompt_v2.txt
 │
-├── schemas/                             # JSON schemas
+├── schemas/                             # Example JSON schemas
 │   ├── task1_annotation_schema.json
 │   └── task2_classification_schema_v2.json
 │
-├── patterns/                            # Regex preprocessing
-├── functions/                           # Clinical calculations
-└── extras/                              # Clinical knowledge
+├── patterns/                            # Regex preprocessing (optional)
+├── functions/                           # Clinical calculations (optional)
+└── extras/                              # Clinical knowledge (optional)
 ```
 
-## The 20 Consolidated Diagnoses (Based on Actual MIMIC-IV Top 70)
+---
 
-| # | Diagnosis | Category | Cases | ICD Codes Consolidated |
-|---|-----------|----------|-------|----------------------|
+## The 20 Consolidated Diagnoses (Based on MIMIC-IV Top 70)
+
+| # | Diagnosis | Category | Cases | ICD Codes |
+|---|-----------|----------|-------|-----------|
 | 1 | Chest pain | Cardiovascular | 17,535 | 78650, 78659, R079, R0789 |
 | 2 | Coronary atherosclerosis | Cardiovascular | 8,903 | 41401, I25110, I2510 |
 | 3 | Myocardial infarction | Cardiovascular | 6,138 | I214, 41071 |
@@ -111,8 +129,9 @@ mimic-iv/
 | 19 | COPD | Respiratory | 2,403 | 49121, J441 |
 | 20 | Pulmonary embolism | Cardiovascular | 2,354 | 41519, I2699 |
 
-**Total**: 20 unique clinical conditions consolidated from 43 ICD codes
-**Total Cases**: 114,020
+**Total**: 113,421 cases consolidated from 43 ICD codes
+
+---
 
 ## Workflow Overview
 
@@ -132,18 +151,25 @@ Step 6-7: Process with ClinOrchestra
 Step 8: Evaluate Results → evaluation_results/ with metrics
 ```
 
+---
+
 ## Prerequisites
 
 1. **MIMIC-IV Dataset**: PhysioNet credentialed access required
 2. **Python 3.8+**: With pandas, numpy, matplotlib, seaborn
-3. **ClinOrchestra**: Installed and configured
+3. **ClinOrchestra v1.0.0**: Installed and configured
+
+---
 
 ## Documentation
 
 - **[GUIDE.md](GUIDE.md)** - Complete step-by-step guide (START HERE)
 - **[diagnosis_mapping.py](diagnosis_mapping.py)** - ICD code consolidation logic
+- **[diagnosis_mapping.yaml](diagnosis_mapping.yaml)** - Label context for ClinOrchestra import
 - **[scripts/README_EDA.md](scripts/README_EDA.md)** - EDA documentation
 - **[scripts/README_train_test_split.md](scripts/README_train_test_split.md)** - Train/test split docs
+
+---
 
 ## Expected Outputs
 
@@ -184,6 +210,8 @@ For each patient:
 }
 ```
 
+---
+
 ## Performance Estimates
 
 | Dataset Size | Processing Time (Task 1) | Cost (GPT-4) |
@@ -191,6 +219,8 @@ For each patient:
 | 100 records  | 2-4 hours               | $50-100      |
 | 1,000 records| 20-40 hours             | $500-1,000   |
 | 10,000 records| 8-16 days              | $5,000-10,000|
+
+---
 
 ## Evaluation Metrics (Task 2)
 
@@ -201,13 +231,9 @@ For each patient:
 - **Brier Score**: Prediction accuracy (0-2, lower is better)
 - **Per-Class Precision/Recall/F1**: Performance per diagnosis
 
-**Good Performance**:
-- Top-1 Accuracy > 70%
-- Top-5 Accuracy > 90%
-- Cross-Entropy < 0.5
-- Brier Score < 0.3
+---
 
-## Key Benefits
+## Key Benefits of This Example
 
 1. **No ICD Duplicates**: Same condition with different codes = ONE diagnosis
 2. **Single Clear Pathway**: No confusion about which scripts to run
@@ -215,13 +241,25 @@ For each patient:
 4. **Publication-Ready**: EDA generates tables and figures for papers
 5. **Comprehensive Documentation**: Everything explained in [GUIDE.md](GUIDE.md)
 
-## Usage Tips
+---
 
-1. **Start Small**: Test with 100 records before processing thousands
-2. **Review Quality**: Manually check first outputs
-3. **Use RAG**: Upload clinical guidelines to significantly improve quality
-4. **Monitor Costs**: Track API usage for large datasets
-5. **Iterate Prompts**: Refine based on initial results
+## Adapting to Your Own Task
+
+**This is just an example!** To use ClinOrchestra for YOUR task:
+
+1. **Define your prompt**: Describe what you want to extract
+2. **Create your schema**: Define the JSON structure you want
+3. **Prepare your data**: CSV with clinical text column
+4. **Optional - Add tools**:
+   - Functions for your domain calculations
+   - Patterns for your text normalization
+   - Extras for your domain knowledge
+   - RAG documents for your guidelines
+5. **Run ClinOrchestra**: Same interface, different task!
+
+**See the main [ClinOrchestra README](../README.md) for universal platform documentation.**
+
+---
 
 ## Data Privacy
 
@@ -232,9 +270,11 @@ For each patient:
 - For research and educational purposes only
 - Not for actual patient care
 
+---
+
 ## Citation
 
-If you use this dataset or methodology, please cite:
+If you use this example methodology, please cite:
 
 **MIMIC-IV Database**:
 ```
@@ -242,20 +282,21 @@ Johnson, A., Bulgarelli, L., Pollard, T., Horng, S., Celi, L. A., & Mark, R. (20
 MIMIC-IV (version 2.2). PhysioNet. https://doi.org/10.13026/6mm1-ek67
 ```
 
-**ClinOrchestra**: [Your citation]
+**ClinOrchestra v1.0.0**: [Citation for the universal platform]
 
-**Your research paper**: Describing the dataset creation methodology
+---
 
 ## Support
 
 - **MIMIC-IV data questions**: PhysioNet support
-- **ClinOrchestra questions**: Main project README
-- **This workflow questions**: Open an issue in the repository
+- **ClinOrchestra platform questions**: See main [README](../README.md)
+- **This example workflow**: See [GUIDE.md](GUIDE.md) or open an issue
 
 ---
 
-**Last Updated**: 2025-11-12
+**Version**: 1.0.0 (Example Use Case)
+**Platform**: ClinOrchestra Universal Clinical Data Extraction System
+**Last Updated**: 2025-11-13
+**Status**: Production-ready example demonstrating platform capabilities
 
-**Status**: Production-ready with 20 consolidated diagnoses
-
-**Next Steps**: See [GUIDE.md](GUIDE.md) for complete instructions
+**⚠️ Remember**: This is ONE example. ClinOrchestra adapts to ANY clinical task!
