@@ -21,6 +21,12 @@ PATIENT INFORMATION:
 CLINICAL RECORD:
 {clinical_text}
 
+{rag_outputs}
+
+{function_outputs}
+
+{extras_outputs}
+
 TOP 20 POSSIBLE PRIMARY DIAGNOSES:
 You must assign a probability (0.0 to 1.0) to EACH of these diagnoses. All probabilities must sum to exactly 1.0.
 
@@ -237,5 +243,7 @@ Your goal is to:
 This is training data for clinical AI - accuracy AND calibration matter!
 
 ═══════════════════════════════════════════════════════════════════════════
+
+{json_schema_instructions}
 
 BEGIN YOUR SYSTEMATIC CLINICAL ASSESSMENT NOW.
