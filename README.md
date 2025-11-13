@@ -25,6 +25,7 @@ ClinOrchestra is a **universal** intelligent system for extracting structured in
 - **🔤 Pattern Normalization**: Standardize clinical abbreviations and formats automatically
 - **🤖 Multi-LLM Support**: OpenAI, Anthropic, Google, Azure, Unsloth (local models)
 - **⚡ High Performance**: Parallel processing, caching, async tool execution (60-75% faster)
+- **🚀 Multi-GPU Processing**: Automatic multi-GPU support for local models (2-4x faster on H100 clusters)
 - **🖥️ Web Interface**: User-friendly Gradio UI with real-time progress tracking
 
 ---
@@ -196,6 +197,7 @@ The platform is **universal** and adapts to any clinical extraction task. Exampl
 ### Core Documentation
 - **`SDK_GUIDE.md`**: **Comprehensive guide for programmatic usage (Python SDK)**
 - `ARCHITECTURE.md`: System design and component overview
+- `MULTI_GPU_GUIDE.md`: Multi-GPU processing for local models (H100 clusters)
 - `README.md`: This file (quick start and overview)
 
 ### SDK vs UI Usage

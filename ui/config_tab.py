@@ -319,6 +319,28 @@ def create_config_tab(app_state) -> Dict[str, Any]:
                 )
                 components['use_gpu_faiss'] = use_gpu_faiss
 
+                # Multi-GPU settings (v1.0.0 - NEW)
+                use_multi_gpu = gr.Checkbox(
+                    label="Enable Multi-GPU Processing (Local Models Only)",
+                    value=app_state.optimization_config.use_multi_gpu,
+                    info="Automatically use multiple GPUs for parallel processing when available"
+                )
+                components['use_multi_gpu'] = use_multi_gpu
+
+                # Detect available GPUs
+                import torch
+                max_gpus = torch.cuda.device_count() if torch.cuda.is_available() else 1
+
+                num_gpus = gr.Slider(
+                    minimum=1,
+                    maximum=max(max_gpus, 2),
+                    value=app_state.optimization_config.num_gpus if app_state.optimization_config.num_gpus != -1 else max_gpus,
+                    step=1,
+                    label="Number of GPUs to Use",
+                    info=f"Detected {max_gpus} GPU(s). Set to match detected for auto-use all GPUs."
+                )
+                components['num_gpus'] = num_gpus
+
     gr.Markdown("---")
     gr.Markdown("### Test Connection")
     gr.Markdown("""
@@ -521,7 +543,8 @@ Status: Model is ready for processing."""
          az_endpoint, az_deploy, g_proj_id, l_path, max_seq, quant, gpu,
          agen_enabled, agen_max_iter, agen_max_tools,
          llm_cache_en, llm_cache_bypass_val, llm_cache_path, perf_mon,
-         use_parallel, max_workers, use_batch_preproc, use_profiles, use_gpu_f) = args
+         use_parallel, max_workers, use_batch_preproc, use_profiles, use_gpu_f,
+         use_multi_gpu_val, num_gpus_val) = args  # NEW: Multi-GPU params
 
         try:
             config = ModelConfig(
@@ -567,7 +590,9 @@ Status: Model is ready for processing."""
                     max_parallel_workers=int(max_workers),
                     use_batch_preprocessing=use_batch_preproc,
                     use_model_profiles=use_profiles,
-                    use_gpu_faiss=use_gpu_f
+                    use_gpu_faiss=use_gpu_f,
+                    use_multi_gpu=use_multi_gpu_val,  # NEW: Multi-GPU support
+                    num_gpus=int(num_gpus_val)  # NEW: Number of GPUs
                 )
 
                 # Save optimization configuration to disk
@@ -643,7 +668,8 @@ Status: Model is ready for processing."""
             adaptive_mode_enabled, agentic_max_iterations, agentic_max_tool_calls,
             llm_cache_enabled, llm_cache_bypass, llm_cache_db_path, performance_monitoring_enabled,
             use_parallel_processing, max_parallel_workers, use_batch_preprocessing,
-            use_model_profiles, use_gpu_faiss
+            use_model_profiles, use_gpu_faiss,
+            use_multi_gpu, num_gpus  # NEW: Multi-GPU parameters
         ],
         outputs=[validation_result]
     )

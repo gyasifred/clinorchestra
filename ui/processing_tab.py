@@ -340,19 +340,61 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                 })()
                 final_texts = all_texts  # Use raw texts directly
 
-            # OPTIMIZATION: Use parallel processing for batch extractions (if enabled, > 1 row and cloud API)
-            use_parallel = (app_state.optimization_config.use_parallel_processing and
-                          total_rows > 1 and
-                          app_state.model_config.provider in ['openai', 'anthropic', 'google', 'azure'])
+            # OPTIMIZATION: Use parallel processing for batch extractions
+            provider = app_state.model_config.provider
+            is_local = provider == 'local'
+            is_cloud = provider in ['openai', 'anthropic', 'google', 'azure']
 
-            if use_parallel:
+            use_parallel = (
+                app_state.optimization_config.use_parallel_processing and
+                total_rows > 1 and
+                (is_cloud or is_local)
+            )
+
+            # Check if multi-GPU processing should be used (for local models only)
+            use_multi_gpu = False
+            num_gpus_to_use = 1
+
+            if is_local and use_parallel and app_state.optimization_config.use_multi_gpu:
+                import torch
+                if torch.cuda.is_available():
+                    num_gpus_available = torch.cuda.device_count()
+                    if num_gpus_available > 1:
+                        # Multi-GPU enabled: use all GPUs or user-specified count
+                        num_gpus_config = app_state.optimization_config.num_gpus
+                        if num_gpus_config == -1:
+                            num_gpus_to_use = num_gpus_available
+                        else:
+                            num_gpus_to_use = min(num_gpus_config, num_gpus_available)
+
+                        if num_gpus_to_use > 1:
+                            use_multi_gpu = True
+                            log_lines.append(f"🚀 Multi-GPU Processing: Using {num_gpus_to_use}/{num_gpus_available} GPUs for {total_rows} rows")
+                            process_state.add_log(process_id, f"Multi-GPU processing with {num_gpus_to_use} GPUs")
+
+            if use_multi_gpu:
+                # Use multi-GPU processor for local models
+                from core.multi_gpu_processor import MultiGPUProcessor
+
+                parallel_processor = MultiGPUProcessor(
+                    num_gpus=num_gpus_to_use,
+                    app_state=app_state
+                )
+
+            elif use_parallel:
+                # Use standard parallel processor for cloud APIs or single-GPU local
                 max_workers = min(app_state.optimization_config.max_parallel_workers, total_rows)
-                log_lines.append(f"⚡ Parallel Processing: Using {max_workers} workers for {total_rows} rows")
+
+                if is_local:
+                    log_lines.append(f"⚡ Parallel Processing (Single GPU): Using {max_workers} workers for {total_rows} rows")
+                else:
+                    log_lines.append(f"⚡ Parallel Processing (Cloud API): Using {max_workers} workers for {total_rows} rows")
+
                 process_state.add_log(process_id, f"Parallel processing with {max_workers} workers")
 
                 parallel_processor = ParallelProcessor(
                     max_workers=max_workers,
-                    provider=app_state.model_config.provider,
+                    provider=provider,
                     rate_limit=60  # API rate limit
                 )
 
@@ -390,11 +432,56 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                                 prompt_variables[col] = row[col]
                     return agent.extract(task.clinical_text, task.label_value, prompt_variables)
 
-                results = parallel_processor.process_batch(
-                    tasks=tasks,
-                    process_function=extract_with_prompt_vars,  # NEW: Use function that includes prompt variables
-                    progress_callback=progress_callback
-                )
+                if use_multi_gpu:
+                    # Multi-GPU: Convert tasks to MultiGPUTask format
+                    from core.multi_gpu_processor import MultiGPUTask
+
+                    multi_gpu_tasks = []
+                    for task in tasks:
+                        row = df.iloc[int(task.task_id)]
+                        prompt_variables = {}
+                        if prompt_input_cols:
+                            for col in prompt_input_cols:
+                                if col in row.index:
+                                    prompt_variables[col] = row[col]
+
+                        multi_gpu_tasks.append(MultiGPUTask(
+                            task_id=int(task.task_id),
+                            row_index=int(task.task_id),
+                            clinical_text=task.clinical_text,
+                            label_value=task.label_value,
+                            prompt_variables=prompt_variables
+                        ))
+
+                    # Process with multi-GPU (different progress callback signature)
+                    def multi_gpu_progress_callback(completed, total):
+                        progress = (completed / total) * 100
+                        process_state.update_progress(process_id, completed, failed, progress)
+                        app_state.update_progress(completed, failed, progress)
+
+                    multi_gpu_results = parallel_processor.process_batch(
+                        tasks=multi_gpu_tasks,
+                        progress_callback=multi_gpu_progress_callback
+                    )
+
+                    # Convert MultiGPUResult to standard ProcessingResult format
+                    from core.parallel_processor import ProcessingResult
+                    results = []
+                    for mgr in multi_gpu_results:
+                        results.append(ProcessingResult(
+                            task_id=str(mgr.task_id),
+                            success=mgr.success,
+                            result=mgr.result,
+                            error=mgr.error,
+                            processing_time=mgr.duration
+                        ))
+                else:
+                    # Standard parallel or cloud API processing
+                    results = parallel_processor.process_batch(
+                        tasks=tasks,
+                        process_function=extract_with_prompt_vars,  # NEW: Use function that includes prompt variables
+                        progress_callback=progress_callback
+                    )
 
                 # Process results
                 for result in results:

@@ -144,6 +144,10 @@ class OptimizationConfig:
     # GPU optimizations
     use_gpu_faiss: bool = False  # Enable GPU FAISS (requires compatible FAISS-GPU)
 
+    # Multi-GPU processing (v1.0.0 - NEW)
+    use_multi_gpu: bool = True  # Auto-enable multi-GPU for local models when multiple GPUs detected
+    num_gpus: int = -1  # Number of GPUs to use (-1 = all available)
+
 class StateObserver:
     """Observer for state changes"""
     
