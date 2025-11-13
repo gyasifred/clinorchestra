@@ -19,6 +19,9 @@ PATIENT CONTEXT:
 - Race: {race}
 - Admission Type: {admission_type}
 
+DIAGNOSIS CLINICAL CONTEXT:
+{label_context}
+
 CLINICAL RECORD:
 {clinical_text}
 
