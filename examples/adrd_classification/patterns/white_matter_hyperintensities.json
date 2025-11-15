@@ -1,0 +1,7 @@
+{
+  "name": "detect_white_matter_hyperintensities",
+  "pattern": "white matter (?:hyperintensities?|disease|changes?)|WMH|leukoaraiosis",
+  "replacement": "[WHITE_MATTER_HYPERINTENSITIES]",
+  "description": "Detect white matter hyperintensities (suggestive of vascular disease)",
+  "enabled": true
+}

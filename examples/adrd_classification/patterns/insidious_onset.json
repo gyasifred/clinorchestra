@@ -1,0 +1,7 @@
+{
+  "name": "detect_insidious_onset",
+  "pattern": "insidious(?:ly)? onset|gradual(?:ly)? onset",
+  "replacement": "[INSIDIOUS_ONSET]",
+  "description": "Detect insidious/gradual onset (typical of Alzheimer's disease)",
+  "enabled": true
+}

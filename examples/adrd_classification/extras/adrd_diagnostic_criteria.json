@@ -1,0 +1,13 @@
+{
+  "id": "extra_adrd_criteria_012",
+  "name": "ADRD Diagnostic Criteria References",
+  "type": "keyword_list",
+  "content": "Diagnostic criteria for ADRD: NIA-AA criteria, NIA-AA, National Institute on Aging, Alzheimer's Association criteria, DSM-5, DSM-IV, ICD-10, ICD-11, NINDS-AIREN, NINCDS-ADRDA, DLB consortium criteria, Lewy body criteria, FTD criteria, Rascovsky criteria, McKhann criteria",
+  "metadata": {
+    "category": "diagnostic_criteria",
+    "diagnosis": "adrd",
+    "priority": "HIGH",
+    "domain": "guidelines"
+  },
+  "created_at": "2025-11-15T00:00:00"
+}

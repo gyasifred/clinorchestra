@@ -1,0 +1,7 @@
+{
+  "name": "extract_boston_naming",
+  "pattern": "Boston Naming.*?(\\d{1,2})\\s*/\\s*(\\d{1,2})",
+  "replacement": "Boston Naming Test: \\1/\\2",
+  "description": "Extract Boston Naming Test score (language, semantic memory)",
+  "enabled": true
+}

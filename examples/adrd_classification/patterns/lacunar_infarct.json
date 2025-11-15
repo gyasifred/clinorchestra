@@ -1,0 +1,7 @@
+{
+  "name": "detect_lacunar_infarct",
+  "pattern": "lacunar (?:infarcts?|stroke)|lacunes?",
+  "replacement": "[LACUNAR_INFARCT]",
+  "description": "Detect lacunar infarcts (small vessel disease, vascular dementia)",
+  "enabled": true
+}

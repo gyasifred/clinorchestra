@@ -1,0 +1,7 @@
+{
+  "name": "detect_b12_deficiency",
+  "pattern": "(?:vitamin )?B12 (?:deficiency|def(?:icient)?|low)",
+  "replacement": "[B12_DEFICIENCY]",
+  "description": "Detect B12 deficiency (reversible cause of cognitive impairment)",
+  "enabled": true
+}

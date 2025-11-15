@@ -82,7 +82,7 @@ app_state.prompt_config.json_schema = {
 }
 
 # OPTIONAL: Enable Agentic Mode (v1.0.0) for autonomous tool calling
-# app_state.set_agentic_config(enabled=True, max_iterations=20, max_tool_calls=50)
+# app_state.set_agentic_config(enabled=True, max_iterations=20, max_tool_calls=100)
 
 # Create agent (uses factory to select Classic or Agentic mode)
 agent = create_agent(

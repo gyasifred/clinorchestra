@@ -62,7 +62,7 @@ app_state = AppState()
 # ... configure your malnutrition task ...
 
 # OPTIONAL: Enable Agentic Mode for better accuracy (slower but more thorough)
-# app_state.set_agentic_config(enabled=True, max_iterations=20, max_tool_calls=50)
+# app_state.set_agentic_config(enabled=True, max_iterations=20, max_tool_calls=100)
 
 # Create appropriate agent (Classic or Agentic based on config)
 agent = create_agent(

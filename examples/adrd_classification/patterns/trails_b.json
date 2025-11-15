@@ -1,0 +1,7 @@
+{
+  "name": "extract_trails_b",
+  "pattern": "Trail(?:s?).*?(?:Making)?.*?(?:Test|Part).*?B.*?(\\d+)\\s*(?:sec(?:ond)?s?|s)",
+  "replacement": "Trail Making Test B: \\1 seconds",
+  "description": "Extract Trail Making Test Part B time (executive function, set-shifting)",
+  "enabled": true
+}
