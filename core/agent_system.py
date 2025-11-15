@@ -234,10 +234,19 @@ class ExtractionAgent:
                         
                         # Convert to tool requests with fallback query generation
                         self._convert_task_understanding_to_tool_requests()
-                        
+
                         # ENHANCED: Validate and improve RAG queries
                         self._validate_and_improve_rag_queries()
-                        
+
+                        # SOFT LIMIT: Warn if Stage 1 planned excessive tools
+                        STAGE1_TOOL_BUDGET = 50  # Recommended limit for Stage 1 planning
+                        if len(self.context.tool_requests) > STAGE1_TOOL_BUDGET:
+                            logger.warning(
+                                f"⚠️ STAGE 1 COMPLEXITY WARNING: Planned {len(self.context.tool_requests)} tools "
+                                f"(recommended: ≤{STAGE1_TOOL_BUDGET}). Consider reviewing task complexity or "
+                                f"optimizing tool selection to reduce processing time and costs."
+                            )
+
                         logger.info(f"Task analysis successful")
                         logger.info(f"Generated {len(self.context.tool_requests)} tool requests")
                         return True
@@ -1024,6 +1033,15 @@ class ExtractionAgent:
             if analysis:
                 tool_requests = analysis.get('additional_tools_needed', [])
                 needs_refinement = analysis.get('needs_refinement', True)
+
+                # SOFT LIMIT: Warn if Stage 4 requesting excessive additional tools
+                STAGE4_TOOL_BUDGET = 20  # Recommended limit for Stage 4 gap-filling
+                if len(tool_requests) > STAGE4_TOOL_BUDGET:
+                    logger.warning(
+                        f"⚠️ STAGE 4 COMPLEXITY WARNING: Requesting {len(tool_requests)} additional tools "
+                        f"(recommended: ≤{STAGE4_TOOL_BUDGET}). Consider if all gap-filling tools are necessary "
+                        f"to avoid excessive refinement complexity."
+                    )
 
                 logger.info(f"Gap analysis complete: {len(tool_requests)} additional tools requested")
                 if tool_requests:
