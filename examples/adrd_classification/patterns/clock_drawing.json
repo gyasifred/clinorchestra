@@ -1,0 +1,7 @@
+{
+  "name": "extract_clock_drawing",
+  "pattern": "Clock.*?(?:drawing|draw).*?(\\d{1,2})\\s*/\\s*(\\d{1,2})",
+  "replacement": "Clock Drawing: \\1/\\2",
+  "description": "Extract Clock Drawing Test score",
+  "enabled": true
+}

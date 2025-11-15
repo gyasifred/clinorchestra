@@ -1,0 +1,93 @@
+TASK: REFINE ADRD CLASSIFICATION WITH CLINICAL GUIDELINES
+
+You previously extracted clinical data for ADRD classification. Now refine your assessment using authoritative clinical guidelines and diagnostic criteria.
+
+ORIGINAL CLINICAL TEXT:
+{clinical_text}
+
+INITIAL CLASSIFICATION:
+{stage3_json_output}
+
+CLINICAL GUIDELINES AND EVIDENCE:
+{retrieved_evidence_chunks}
+
+═══════════════════════════════════════════════════════════════════════════
+REFINEMENT OBJECTIVES
+═══════════════════════════════════════════════════════════════════════════
+
+1. **VALIDATE CRITERIA APPLICATION**
+   - Review NIA-AA 2011/2018 criteria against your classification
+   - Ensure DSM-5 major/mild neurocognitive disorder criteria met
+   - Check specific criteria for VaD, LBD, FTD if applicable
+
+2. **ENHANCE DIAGNOSTIC PRECISION**
+   - Use retrieved MMSE/MoCA interpretation guidelines for severity staging
+   - Apply CDR scoring guidelines for functional assessment
+   - Reference imaging interpretation standards for atrophy patterns
+
+3. **STRENGTHEN DIFFERENTIAL DIAGNOSIS**
+   - Use guidelines to better distinguish ADRD subtypes (AD vs VaD vs LBD vs FTD)
+   - Reference criteria for ruling out depression, delirium, MCI
+   - Validate metabolic/reversible cause exclusion
+
+4. **IMPROVE BIOMARKER INTERPRETATION** (if available)
+   - Apply A/T/N framework (Amyloid/Tau/Neurodegeneration) for AD
+   - Reference CSF biomarker cutoffs from guidelines
+   - Integrate PET imaging interpretation standards
+
+5. **REFINE CONFIDENCE ASSESSMENT**
+   - High confidence: Meets all core criteria, supported by biomarkers/imaging
+   - Moderate confidence: Meets clinical criteria, limited biomarker data
+   - Low confidence: Atypical presentation, conflicting findings, missing data
+
+═══════════════════════════════════════════════════════════════════════════
+GUIDELINE-INFORMED REFINEMENTS
+═══════════════════════════════════════════════════════════════════════════
+
+Compare your initial assessment against guideline standards:
+
+**COGNITIVE THRESHOLDS** (from retrieved guidelines):
+- Review if cognitive test scores align with guideline-defined cutoffs
+- Check if severity staging matches CDR/MMSE guideline ranges
+- Validate domain-specific impairments against neuropsych norms
+
+**FUNCTIONAL CRITERIA** (from retrieved guidelines):
+- Ensure functional decline meets threshold for dementia vs MCI
+- Validate ADL/IADL impairment against guideline definitions
+- Check if decline interferes with independence per criteria
+
+**TEMPORAL PATTERNS** (from retrieved guidelines):
+- Verify onset/progression pattern matches guideline descriptions
+- Insidious onset (AD) vs stepwise (VaD) vs fluctuating (LBD)
+- Duration criteria met (symptoms >6 months typically)
+
+**SUPPORTING FEATURES** (from retrieved guidelines):
+- Biomarker interpretation against guideline cutoffs
+- Imaging findings against guideline-defined patterns
+- Behavioral symptoms against guideline BPSD descriptions
+
+═══════════════════════════════════════════════════════════════════════════
+REFINEMENT INSTRUCTIONS
+═══════════════════════════════════════════════════════════════════════════
+
+1. **DO NOT change classification unless guidelines reveal error**
+   - Most refinements should enhance detail, not flip diagnosis
+   - Only change ADRD ↔ Non-ADRD if clear guideline misapplication
+
+2. **DO enhance specificity within ADRD**
+   - Better distinguish AD vs VaD vs LBD vs FTD using guideline criteria
+   - Improve severity staging precision using guideline cutoffs
+
+3. **DO improve confidence justification**
+   - Reference specific guideline criteria met/not met
+   - Quantify certainty using guideline-based evidence strength
+
+4. **DO add guideline-based recommendations** (if appropriate):
+   - Suggest additional testing if guidelines indicate it would clarify diagnosis
+   - Note if presentation warrants specialist referral per guidelines
+
+═══════════════════════════════════════════════════════════════════════════
+
+{json_schema_instructions}
+
+Output refined classification with guideline-supported reasoning.

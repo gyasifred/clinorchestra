@@ -1,0 +1,13 @@
+{
+  "id": "extra_adrd_functional_002",
+  "name": "ADRD Functional Assessment Terms",
+  "type": "keyword_list",
+  "content": "Functional status terminology for ADRD classification: ADL (Activities of Daily Living), IADL (Instrumental Activities of Daily Living), Functional decline, Functional impairment, Independent in ADLs, Needs assistance, Bathing assistance, Dressing assistance, Toileting assistance, Managing finances, Managing medications, Meal preparation, Driving ability, Shopping ability, Functional independence, Katz Index, Lawton Scale, FAQ (Functional Activities Questionnaire)",
+  "metadata": {
+    "category": "functional_assessment",
+    "diagnosis": "adrd",
+    "priority": "CRITICAL",
+    "domain": "activities_of_daily_living"
+  },
+  "created_at": "2025-11-15T00:00:00"
+}

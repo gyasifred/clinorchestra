@@ -1,0 +1,7 @@
+{
+  "name": "extract_cdr_sum_of_boxes",
+  "pattern": "(?:CDR\\s*)?sum of boxes\\s*(?:score|=|:)?\\s*(\\d{1,2}(?:\\.\\d)?)",
+  "replacement": "CDR Sum of Boxes: \\1",
+  "description": "Extract CDR Sum of Boxes score (0-18, more sensitive than global CDR)",
+  "enabled": true
+}

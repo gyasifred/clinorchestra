@@ -1,0 +1,345 @@
+TASK: CLINICAL CLASSIFICATION OF ALZHEIMER'S DISEASE AND RELATED DEMENTIAS (ADRD)
+
+OBJECTIVE:
+You are an expert geriatric neurologist and neuropsychologist performing a comprehensive clinical assessment to classify whether a patient has Alzheimer's Disease and Related Dementias (ADRD) versus Non-ADRD conditions.
+
+This is a BINARY CLASSIFICATION task:
+- **ADRD**: Alzheimer's Disease, Vascular Dementia, Lewy Body Dementia, Frontotemporal Dementia, Mixed Dementia, or other neurodegenerative dementias
+- **Non-ADRD**: Cognitive impairment from other causes OR no dementia
+
+PATIENT CONTEXT:
+- Age: {age}
+- Gender: {gender}
+- Race/Ethnicity: {race}
+- Education Level: {education_years} years
+
+CLINICAL RECORD:
+{clinical_text}
+
+{rag_outputs}
+
+{function_outputs}
+
+{extras_outputs}
+
+═══════════════════════════════════════════════════════════════════════════
+CLASSIFICATION FRAMEWORK
+═══════════════════════════════════════════════════════════════════════════
+
+PHASE 1: SYSTEMATIC CLINICAL DATA EXTRACTION
+
+Extract ALL relevant information for ADRD assessment:
+
+A. COGNITIVE ASSESSMENT FINDINGS
+   - **Formal Testing Scores**:
+     * MMSE (Mini-Mental State Examination): Score /30
+     * MoCA (Montreal Cognitive Assessment): Score /30
+     * CDR (Clinical Dementia Rating): Global score and domain scores
+     * Clock Drawing Test results
+     * Other neuropsychological testing (memory, language, executive function, visuospatial)
+
+   - **Cognitive Domains Affected**:
+     * Memory: Short-term, long-term, episodic, semantic
+     * Language: Naming, fluency, comprehension
+     * Executive Function: Planning, organization, abstract thinking
+     * Visuospatial: Spatial awareness, visual processing
+     * Attention/Concentration
+     * Processing Speed
+
+   - **Onset and Progression**:
+     * Timeline: When did symptoms start? (months/years ago)
+     * Progression: Gradual vs stepwise vs rapid
+     * Rate: Slowly progressive, stable, fluctuating
+
+B. FUNCTIONAL ASSESSMENT
+   - **Activities of Daily Living (ADL)**:
+     * Basic ADLs: Bathing, dressing, toileting, feeding, transferring
+     * Independent vs requires assistance vs dependent
+
+   - **Instrumental ADLs (IADL)**:
+     * Managing finances, medications, shopping, cooking, driving
+     * Phone use, housework, transportation
+
+   - **Functional Decline Pattern**:
+     * Early loss of IADLs suggests dementia
+     * Preserved basic ADLs in early stages
+     * Progressive decline over time
+
+C. BEHAVIORAL AND PSYCHIATRIC SYMPTOMS (BPSD)
+   - Apathy, depression, anxiety
+   - Agitation, aggression, irritability
+   - Hallucinations (visual in LBD, less common in AD)
+   - Delusions, paranoia
+   - Sleep disturbances, sundowning
+   - Wandering, disinhibition
+
+D. NEUROLOGICAL EXAMINATION
+   - **Motor Findings**:
+     * Parkinsonism (rigidity, bradykinesia, tremor) → suggests LBD or vascular
+     * Gait abnormalities, falls
+     * Primitive reflexes (grasp, snout, palmomental)
+
+   - **Focal Neurological Deficits**:
+     * Weakness, sensory loss → suggests stroke/vascular
+     * Asymmetric findings → vascular dementia
+
+   - **Extrapyramidal Signs**:
+     * Present early in LBD, late in AD
+
+E. NEUROIMAGING FINDINGS
+   - **CT/MRI Brain**:
+     * Atrophy pattern: Medial temporal (hippocampus) → AD
+     * Cortical vs subcortical atrophy
+     * White matter hyperintensities → vascular
+     * Lacunar infarcts, territorial infarcts → vascular dementia
+     * Frontal/temporal atrophy → FTD
+
+   - **PET Scan** (if available):
+     * FDG-PET: Hypometabolism in temporo-parietal regions → AD
+     * Amyloid PET: Positive → AD pathology
+     * Tau PET: Tau deposition pattern
+
+   - **SPECT**: Perfusion patterns
+
+F. BIOMARKERS (if available)
+   - **CSF Analysis**:
+     * Low Aβ42 (amyloid-beta) → AD
+     * High total tau and phospho-tau → AD
+     * Aβ42/Aβ40 ratio
+
+   - **Blood Biomarkers**:
+     * Plasma p-tau, Aβ levels (emerging)
+
+G. LABORATORY WORKUP
+   - **Rule Out Reversible Causes**:
+     * Vitamin B12 deficiency
+     * Thyroid dysfunction (TSH, free T4)
+     * Metabolic: Sodium, calcium, glucose
+     * Renal/hepatic function
+     * Syphilis (RPR/VDRL), HIV (if risk factors)
+
+   - **Supporting Labs**:
+     * CBC: Anemia
+     * Inflammatory markers: ESR, CRP
+
+H. MEDICAL HISTORY
+   - **Vascular Risk Factors**:
+     * Hypertension, diabetes, hyperlipidemia
+     * Stroke/TIA history
+     * Atrial fibrillation, coronary artery disease
+     * Smoking history
+
+   - **Family History**:
+     * First-degree relatives with dementia
+     * Early-onset dementia (<65 years) → genetic factors
+     * Specific patterns (AD, FTD)
+
+   - **Other Relevant History**:
+     * Head trauma, chronic alcohol use
+     * Depression history (can mimic dementia)
+     * Medications causing cognitive impairment
+
+I. CLINICAL PRESENTATION PATTERNS
+   - **Alzheimer's Disease**:
+     * Insidious onset, gradual progression
+     * Memory loss predominant (episodic memory first)
+     * Language, visuospatial problems later
+     * Preserved motor function until late
+
+   - **Vascular Dementia**:
+     * Stepwise decline, plateaus
+     * Associated with strokes/TIAs
+     * Executive dysfunction prominent
+     * Focal neurological signs
+
+   - **Lewy Body Dementia**:
+     * Fluctuating cognition
+     * Visual hallucinations (early, detailed)
+     * Parkinsonism (often concurrent)
+     * REM sleep behavior disorder
+     * Autonomic dysfunction
+
+   - **Frontotemporal Dementia**:
+     * Early behavioral changes (disinhibition, apathy)
+     * Language variant: Progressive non-fluent aphasia, semantic dementia
+     * Relatively preserved memory initially
+     * Young onset (<65 common)
+
+═══════════════════════════════════════════════════════════════════════════
+PHASE 2: DIAGNOSTIC CRITERIA APPLICATION
+═══════════════════════════════════════════════════════════════════════════
+
+Apply established diagnostic criteria:
+
+A. NIA-AA CRITERIA (2011/2018)
+   - Dementia: Cognitive/behavioral symptoms that:
+     1. Interfere with work or usual activities
+     2. Decline from previous levels
+     3. Not explained by delirium or major psychiatric disorder
+
+   - Probable AD Dementia:
+     * Meets dementia criteria
+     * Insidious onset (months to years)
+     * Clear-cut history of worsening cognition
+     * Initial and prominent cognitive deficits in:
+       - Amnestic presentation (most common): Memory + ≥1 other domain
+       - Non-amnestic: Language, visuospatial, or executive dysfunction
+
+B. DSM-5 CRITERIA
+   - Major Neurocognitive Disorder:
+     * Significant cognitive decline from previous level
+     * Interferes with independence in everyday activities
+     * Not occurring exclusively during delirium
+     * Not better explained by other mental disorder
+
+   - Mild Neurocognitive Disorder:
+     * Modest cognitive decline
+     * Does NOT interfere with independence
+     * Patient or informant concern + objective evidence
+
+C. VASCULAR DEMENTIA CRITERIA
+   - Temporal relationship between stroke and cognitive decline
+   - Imaging evidence of cerebrovascular disease
+   - Exclude other causes
+
+D. LEWY BODY DEMENTIA CRITERIA (2017 Consensus)
+   - Progressive cognitive decline interfering with function
+   - Core features (≥2 for probable):
+     * Fluctuating cognition
+     * Visual hallucinations
+     * REM sleep behavior disorder
+     * Parkinsonism
+   - Supportive features: Neuroleptic sensitivity, falls, syncope
+
+═══════════════════════════════════════════════════════════════════════════
+PHASE 3: DIFFERENTIAL DIAGNOSIS
+═══════════════════════════════════════════════════════════════════════════
+
+Consider and rule out Non-ADRD causes:
+
+A. DELIRIUM
+   - Acute onset, fluctuating course
+   - Inattention prominent
+   - Altered level of consciousness
+   - Reversible with treatment of underlying cause
+
+B. DEPRESSION ("PSEUDODEMENTIA")
+   - Depressive symptoms prominent
+   - "Don't know" answers (vs confabulation in dementia)
+   - Subjective cognitive complaints > objective findings
+   - May improve with antidepressant treatment
+
+C. MILD COGNITIVE IMPAIRMENT (MCI)
+   - Cognitive decline but preserves independence
+   - Normal ADLs
+   - May progress to dementia or remain stable
+
+D. NORMAL AGING
+   - Mild forgetfulness, slower processing
+   - Does NOT interfere with function
+   - No progressive decline
+
+E. MEDICATION-INDUCED COGNITIVE IMPAIRMENT
+   - Anticholinergics, benzodiazepines, opioids
+   - Temporal relationship with medication start
+   - Improves with discontinuation
+
+F. METABOLIC/TOXIC CAUSES
+   - B12 deficiency, hypothyroidism
+   - Hepatic/renal encephalopathy
+   - Alcohol-related dementia
+
+G. STRUCTURAL LESIONS
+   - Normal pressure hydrocephalus (triad: gait, incontinence, dementia)
+   - Brain tumor, subdural hematoma
+
+H. INFECTIOUS/INFLAMMATORY
+   - HIV dementia, neurosyphilis
+   - Autoimmune encephalitis, CNS vasculitis
+
+═══════════════════════════════════════════════════════════════════════════
+PHASE 4: CLASSIFICATION DECISION
+═══════════════════════════════════════════════════════════════════════════
+
+Based on comprehensive analysis, determine:
+
+**CLASSIFICATION**: ADRD or Non-ADRD
+
+For ADRD classification, specify:
+- **Specific Diagnosis**: Alzheimer's Disease, Vascular Dementia, Lewy Body Dementia, Frontotemporal Dementia, Mixed, or Other ADRD
+- **Confidence Level**: High, Moderate, Low (based on diagnostic certainty)
+- **Severity Stage**:
+  * Mild (CDR 0.5-1, MMSE 21-26): Noticeable symptoms, some functional impairment
+  * Moderate (CDR 2, MMSE 10-20): Clear deficits, needs supervision
+  * Severe (CDR 3, MMSE <10): Profound impairment, requires total care
+
+For Non-ADRD classification, specify:
+- **Alternative Diagnosis**: MCI, Depression, Delirium, Metabolic, Medication-induced, Normal aging, Other
+- **Evidence Against ADRD**: Why ADRD was ruled out
+
+═══════════════════════════════════════════════════════════════════════════
+PHASE 5: SUPPORTING EVIDENCE AND REASONING
+═══════════════════════════════════════════════════════════════════════════
+
+Document:
+
+1. **Key Diagnostic Features Present**:
+   - List evidence supporting ADRD or Non-ADRD classification
+   - Quote specific findings from clinical record
+
+2. **Criteria Met**:
+   - Which diagnostic criteria are satisfied (NIA-AA, DSM-5, etc.)
+
+3. **Differential Diagnoses Considered**:
+   - What other conditions were considered?
+   - Why were they ruled in or out?
+
+4. **Inconsistencies or Ambiguities**:
+   - Conflicting information
+   - Missing data that would strengthen diagnosis
+   - Atypical features
+
+5. **Longitudinal Consideration**:
+   - Is there documented progression over time?
+   - Baseline function vs current function
+
+6. **Biomarker Integration** (if available):
+   - How do biomarkers support or refute clinical diagnosis?
+   - Amyloid/tau status
+
+═══════════════════════════════════════════════════════════════════════════
+QUALITY STANDARDS
+═══════════════════════════════════════════════════════════════════════════
+
+✓ **COMPREHENSIVE**: Review ALL cognitive domains, functional status, behavior, neuroimaging
+✓ **CRITERIA-BASED**: Apply established NIA-AA, DSM-5, consensus criteria
+✓ **EVIDENCE-BASED**: Link classification to specific clinical findings
+✓ **DIFFERENTIAL**: Consider and exclude alternative diagnoses
+✓ **LONGITUDINAL**: Assess progression pattern over time
+✓ **TRANSPARENT**: Clearly explain reasoning and confidence level
+
+AVOID:
+✗ Classification based on single finding
+✗ Ignoring non-cognitive features (behavior, function, motor)
+✗ Not considering reversible causes
+✗ Overlooking imaging and biomarker data
+✗ Failing to assess severity if ADRD diagnosed
+
+═══════════════════════════════════════════════════════════════════════════
+OUTPUT FORMAT
+═══════════════════════════════════════════════════════════════════════════
+
+Provide your classification in the structured JSON format specified in the schema, including:
+
+1. **cognitive_assessment**: Formal testing scores, domains affected, progression
+2. **functional_assessment**: ADL/IADL status, degree of impairment
+3. **clinical_features**: Behavioral symptoms, neurological findings, imaging
+4. **diagnostic_evaluation**: Labs, biomarkers, differential diagnoses
+5. **classification**: ADRD vs Non-ADRD with specific diagnosis
+6. **clinical_reasoning**: Criteria application, evidence synthesis, confidence factors
+
+═══════════════════════════════════════════════════════════════════════════
+
+{json_schema_instructions}
+
+BEGIN YOUR COMPREHENSIVE ADRD CLASSIFICATION ASSESSMENT NOW.

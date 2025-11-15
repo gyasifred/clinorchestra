@@ -1,0 +1,17 @@
+{
+  "name": "calculate_moca_severity",
+  "code": "\ndef calculate_moca_severity(moca_score, education_years=None):\n    \"\"\"\n    Interpret MoCA score with education correction\n\n    MoCA scoring (Nasreddine et al., 2005):\n    - ≥26: Normal (add 1 point if education ≤12 years)\n    - 18-25: Mild cognitive impairment range\n    - <18: Suggests dementia\n\n    Args:\n        moca_score (int): MoCA total score (0-30)\n        education_years (int, optional): Years of formal education\n\n    Returns:\n        dict: Interpretation including education-corrected score\n    \"\"\"\n    if not isinstance(moca_score, (int, float)):\n        return {\n            \"category\": \"Unable to determine\",\n            \"interpretation\": \"Invalid MoCA score provided\",\n            \"impairment_suggested\": None\n        }\n\n    score = float(moca_score)\n\n    if score < 0 or score > 30:\n        return {\n            \"category\": \"Invalid score\",\n            \"interpretation\": \"MoCA score must be between 0-30\",\n            \"impairment_suggested\": None\n        }\n\n    # Education correction\n    corrected_score = score\n    education_adjustment = False\n    if education_years is not None and education_years <= 12 and score < 30:\n        corrected_score = min(score + 1, 30)\n        education_adjustment = True\n\n    # Interpretation\n    if corrected_score >= 26:\n        category = \"Normal Cognition\"\n        interpretation = \"MoCA ≥26 suggests normal cognitive function.\"\n        impairment_suggested = False\n    elif corrected_score >= 18:\n        category = \"Mild Cognitive Impairment Range\"\n        interpretation = \"MoCA 18-25 consistent with mild cognitive impairment (MCI). May progress to dementia or remain stable.\"\n        impairment_suggested = True\n    else:\n        category = \"Dementia Range\"\n        interpretation = \"MoCA <18 suggests dementia. Significant cognitive impairment across multiple domains.\"\n        impairment_suggested = True\n\n    result = {\n        \"raw_score\": score,\n        \"corrected_score\": corrected_score if education_adjustment else score,\n        \"education_adjustment_applied\": education_adjustment,\n        \"category\": category,\n        \"interpretation\": interpretation,\n        \"impairment_suggested\": impairment_suggested,\n        \"note\": \"MoCA is more sensitive than MMSE for detecting MCI and early dementia, especially executive dysfunction.\"\n    }\n\n    return result\n",
+  "description": "Interpret MoCA score with education correction (more sensitive than MMSE for MCI)",
+  "parameters": {
+    "moca_score": {
+      "type": "number",
+      "description": "MoCA total score (0-30)"
+    },
+    "education_years": {
+      "type": "number",
+      "description": "Years of formal education (optional, adds 1 point if ≤12 years)"
+    }
+  },
+  "returns": "dict with corrected score, severity category, and interpretation",
+  "signature": "(moca_score, education_years=None)"
+}

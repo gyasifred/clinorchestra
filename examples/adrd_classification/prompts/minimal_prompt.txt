@@ -1,0 +1,45 @@
+TASK: ADRD CLASSIFICATION (Simplified Assessment)
+
+Classify patient as **ADRD** (Alzheimer's/Related Dementias) or **Non-ADRD** based on clinical record.
+
+PATIENT: Age {age}, {gender}, {race}
+
+CLINICAL RECORD:
+{clinical_text}
+
+{rag_outputs}
+{function_outputs}
+{extras_outputs}
+
+═══════════════════════════════════════════════════════════════════════════
+ASSESSMENT PRIORITIES
+═══════════════════════════════════════════════════════════════════════════
+
+1. **COGNITIVE TESTING**: MMSE, MoCA, CDR scores → Low scores suggest dementia
+2. **MEMORY LOSS**: Progressive, episodic memory affected first → AD pattern
+3. **FUNCTIONAL DECLINE**: Loss of ADLs/IADLs → Dementia present
+4. **PROGRESSION**: Gradual decline over months/years → Neurodegenerative
+5. **IMAGING**: Hippocampal atrophy, white matter changes → ADRD
+6. **RULE OUT**: Depression, delirium, B12 deficiency, medications → Non-ADRD causes
+
+═══════════════════════════════════════════════════════════════════════════
+CLASSIFICATION
+═══════════════════════════════════════════════════════════════════════════
+
+**ADRD Indicators**:
+- MMSE <24, MoCA <26, CDR ≥0.5
+- Progressive memory loss + functional decline
+- Gradual onset over 6+ months
+- Atrophy on imaging
+- No reversible cause identified
+
+**Non-ADRD Indicators**:
+- Normal/near-normal cognitive testing
+- Acute onset (delirium)
+- Depressive symptoms > cognitive
+- Reversible cause (metabolic, medication)
+- Preserved ADLs despite complaints
+
+{json_schema_instructions}
+
+Output classification with key supporting evidence.
