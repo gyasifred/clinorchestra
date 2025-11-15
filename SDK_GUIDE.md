@@ -141,7 +141,7 @@ data_config = {
 agentic_config = {
     'enabled': True,
     'max_iterations': 10,
-    'max_tool_calls': 50
+    'max_tool_calls': 100
 }
 
 # Optimization Configuration
@@ -476,7 +476,7 @@ from core.agentic_agent import AgenticAgent
 app_state.set_agentic_config({
     'enabled': True,
     'max_iterations': 10,
-    'max_tool_calls': 50
+    'max_tool_calls': 100
 })
 
 # Create agentic agent
@@ -890,7 +890,7 @@ app_state.set_prompt_config({
 app_state.set_agentic_config({
     'enabled': True,
     'max_iterations': 15,
-    'max_tool_calls': 50
+    'max_tool_calls': 100
 })
 
 # RAG with nutrition guidelines
@@ -1244,7 +1244,7 @@ app_state.set_rag_config({
 app_state.set_agentic_config({
     'enabled': False,  # From "Use Agentic Mode" toggle
     'max_iterations': 10,  # From slider
-    'max_tool_calls': 50  # From slider
+    'max_tool_calls': 100  # From slider
 })
 
 app_state.set_optimization_config({

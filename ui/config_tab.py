@@ -133,7 +133,7 @@ def create_config_tab(app_state) -> Dict[str, Any]:
             )
             components['agentic_max_iterations'] = agentic_max_iterations
 
-            max_tool_calls_value = app_state.agentic_config.max_tool_calls if hasattr(app_state, 'agentic_config') else 50
+            max_tool_calls_value = app_state.agentic_config.max_tool_calls if hasattr(app_state, 'agentic_config') else 100
             agentic_max_tool_calls = gr.Number(
                 value=max_tool_calls_value,
                 label="Max Tool Calls",

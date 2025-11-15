@@ -87,7 +87,7 @@ class AgenticContext:
     iteration: int = 0
     max_iterations: int = 10  # CHANGED: Reduced from 20 to 10
     total_tool_calls: int = 0
-    max_tool_calls: int = 50
+    max_tool_calls: int = 100  # Max tool calls budget (increased from 50 for complex cases)
     tool_calls_this_iteration: List[ToolCall] = field(default_factory=list)
     tool_results: List[ToolResult] = field(default_factory=list)
     final_output: Optional[Dict[str, Any]] = None
@@ -205,8 +205,14 @@ class AgenticAgent:
                 ConversationMessage(role='user', content=initial_prompt)
             )
 
-            # Add iteration planning message to help LLM plan efficiently
-            planning_message = f"""You have a maximum of {max_iterations} iterations to complete this extraction task. Plan your tool usage efficiently to complete within this limit. Each iteration allows you to call tools or output final JSON."""
+            # Add iteration and tool call budget planning messages to help LLM plan efficiently
+            planning_message = f"""You have a maximum of {max_iterations} iterations and {max_tool_calls} total tool calls to complete this extraction task. Plan your tool usage efficiently to complete within these limits. Each iteration allows you to call tools or output final JSON.
+
+BUDGET:
+- Maximum Iterations: {max_iterations}
+- Maximum Tool Calls: {max_tool_calls}
+
+Be strategic: prioritize essential tools, avoid redundant calls, and output JSON when you have sufficient information."""
             self.context.conversation_history.append(
                 ConversationMessage(role='user', content=planning_message)
             )
@@ -225,6 +231,40 @@ class AgenticAgent:
                 logger.info(f"Total tool calls so far: {self.context.total_tool_calls}")
                 logger.info(f"Tool results collected: {len(self.context.tool_results)}")
                 logger.info("=" * 60)
+
+                # Check tool call budget status
+                tool_calls_remaining = self.context.max_tool_calls - self.context.total_tool_calls
+                tool_call_usage_pct = (self.context.total_tool_calls / self.context.max_tool_calls) * 100
+
+                # Enforce hard limit: stop if tool calls exceeded
+                if self.context.total_tool_calls >= self.context.max_tool_calls:
+                    logger.error(f"TOOL CALL LIMIT EXCEEDED: {self.context.total_tool_calls}/{self.context.max_tool_calls}")
+                    logger.error("Forcing extraction completion with available information")
+
+                    # Try to extract JSON from current conversation
+                    extracted = self._extract_json_from_conversation()
+                    if extracted:
+                        logger.info(" Extracted JSON from conversation - completing extraction")
+                        self.context.final_output = extracted
+                        self.context.state = AgenticState.COMPLETED
+                        extraction_complete = True
+                        continue
+                    else:
+                        # Force completion message
+                        self.context.conversation_history.append(
+                            ConversationMessage(
+                                role='user',
+                                content=f"""CRITICAL: Tool call budget EXHAUSTED ({self.context.total_tool_calls}/{self.context.max_tool_calls}). You MUST output final JSON NOW with available information. No more tools will be executed."""
+                            )
+                        )
+
+                # Warn LLM if approaching tool call limit (>80% used)
+                elif tool_call_usage_pct >= 80:
+                    logger.warning(f"TOOL CALL BUDGET WARNING: {self.context.total_tool_calls}/{self.context.max_tool_calls} used ({tool_call_usage_pct:.0f}%)")
+                    warning_message = f"""⚠️ TOOL CALL BUDGET WARNING: You have used {self.context.total_tool_calls}/{self.context.max_tool_calls} tool calls ({tool_call_usage_pct:.0f}%). Only {tool_calls_remaining} calls remaining. Prioritize essential tools and prepare to output JSON soon."""
+                    self.context.conversation_history.append(
+                        ConversationMessage(role='user', content=warning_message)
+                    )
 
                 # Warn LLM if this is the last iteration
                 if self.context.iteration == self.context.max_iterations:
