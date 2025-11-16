@@ -372,6 +372,7 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                             log_lines.append(f"🚀 Multi-GPU Processing: Using {num_gpus_to_use}/{num_gpus_available} GPUs for {total_rows} rows")
                             process_state.add_log(process_id, f"Multi-GPU processing with {num_gpus_to_use} GPUs")
 
+            # Create processors based on mode
             if use_multi_gpu:
                 # Use multi-GPU processor for local models
                 from core.multi_gpu_processor import MultiGPUProcessor
@@ -398,6 +399,8 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                     rate_limit=60  # API rate limit
                 )
 
+            # CRITICAL: Create tasks for ALL parallel modes (both multi-GPU and standard parallel)
+            if use_parallel or use_multi_gpu:
                 # Get prompt input columns
                 prompt_input_cols = app_state.data_config.prompt_input_columns
 
@@ -432,56 +435,56 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                                 prompt_variables[col] = row[col]
                     return agent.extract(task.clinical_text, task.label_value, prompt_variables)
 
-                if use_multi_gpu:
-                    # Multi-GPU: Convert tasks to MultiGPUTask format
-                    from core.multi_gpu_processor import MultiGPUTask
+            if use_multi_gpu:
+                # Multi-GPU: Convert tasks to MultiGPUTask format
+                from core.multi_gpu_processor import MultiGPUTask
 
-                    multi_gpu_tasks = []
-                    for task in tasks:
-                        row = df.iloc[int(task.task_id)]
-                        prompt_variables = {}
-                        if prompt_input_cols:
-                            for col in prompt_input_cols:
-                                if col in row.index:
-                                    prompt_variables[col] = row[col]
+                multi_gpu_tasks = []
+                for task in tasks:
+                    row = df.iloc[int(task.task_id)]
+                    prompt_variables = {}
+                    if prompt_input_cols:
+                        for col in prompt_input_cols:
+                            if col in row.index:
+                                prompt_variables[col] = row[col]
 
-                        multi_gpu_tasks.append(MultiGPUTask(
-                            task_id=int(task.task_id),
-                            row_index=int(task.task_id),
-                            clinical_text=task.clinical_text,
-                            label_value=task.label_value,
-                            prompt_variables=prompt_variables
-                        ))
+                    multi_gpu_tasks.append(MultiGPUTask(
+                        task_id=int(task.task_id),
+                        row_index=int(task.task_id),
+                        clinical_text=task.clinical_text,
+                        label_value=task.label_value,
+                        prompt_variables=prompt_variables
+                    ))
 
-                    # Process with multi-GPU (different progress callback signature)
-                    def multi_gpu_progress_callback(completed, total):
-                        progress = (completed / total) * 100
-                        process_state.update_progress(process_id, completed, failed, progress)
-                        app_state.update_progress(completed, failed, progress)
+                # Process with multi-GPU (different progress callback signature)
+                def multi_gpu_progress_callback(completed, total):
+                    progress = (completed / total) * 100
+                    process_state.update_progress(process_id, completed, failed, progress)
+                    app_state.update_progress(completed, failed, progress)
 
-                    multi_gpu_results = parallel_processor.process_batch(
-                        tasks=multi_gpu_tasks,
-                        progress_callback=multi_gpu_progress_callback
-                    )
+                multi_gpu_results = parallel_processor.process_batch(
+                    tasks=multi_gpu_tasks,
+                    progress_callback=multi_gpu_progress_callback
+                )
 
-                    # Convert MultiGPUResult to standard ProcessingResult format
-                    from core.parallel_processor import ProcessingResult
-                    results = []
-                    for mgr in multi_gpu_results:
-                        results.append(ProcessingResult(
-                            task_id=str(mgr.task_id),
-                            success=mgr.success,
-                            result=mgr.result,
-                            error=mgr.error,
-                            processing_time=mgr.duration
-                        ))
-                else:
-                    # Standard parallel or cloud API processing
-                    results = parallel_processor.process_batch(
-                        tasks=tasks,
-                        process_function=extract_with_prompt_vars,  # NEW: Use function that includes prompt variables
-                        progress_callback=progress_callback
-                    )
+                # Convert MultiGPUResult to standard ProcessingResult format
+                from core.parallel_processor import ProcessingResult
+                results = []
+                for mgr in multi_gpu_results:
+                    results.append(ProcessingResult(
+                        task_id=str(mgr.task_id),
+                        success=mgr.success,
+                        result=mgr.result,
+                        error=mgr.error,
+                        processing_time=mgr.duration
+                    ))
+            elif use_parallel:
+                # Standard parallel or cloud API processing
+                results = parallel_processor.process_batch(
+                    tasks=tasks,
+                    process_function=extract_with_prompt_vars,  # NEW: Use function that includes prompt variables
+                    progress_callback=progress_callback
+                )
 
                 # Process results
                 for result in results:
