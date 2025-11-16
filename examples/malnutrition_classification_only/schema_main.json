@@ -1,0 +1,95 @@
+{
+  "type": "object",
+  "properties": {
+    "assessment_type": {
+      "type": "string",
+      "enum": ["Single-point", "Serial", "Longitudinal"],
+      "description": "Type of assessment based on available measurements"
+    },
+    "assessment_justification": {
+      "type": "string",
+      "description": "Brief explanation of why this assessment type was determined"
+    },
+    "criteria_satisfied": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "criterion": {
+            "type": "string",
+            "enum": [
+              "WHO BMI-for-age z-score classification",
+              "WHO weight-for-height z-score classification",
+              "WHO height-for-age z-score classification",
+              "ASPEN anthropometric deficit",
+              "ASPEN growth velocity deceleration",
+              "ASPEN inadequate intake",
+              "ASPEN physical findings"
+            ],
+            "description": "Specific criterion assessed"
+          },
+          "specific_documentation": {
+            "type": "string",
+            "description": "Exact criterion met with measured values (e.g., 'Moderate malnutrition per ASPEN anthropometric criterion z-score -2 to -2.9 (BMI-for-age z-score -2.3 measured on 3/15/25)')"
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["Mild", "Moderate", "Severe", "N/A"],
+            "description": "Severity level for this specific criterion"
+          }
+        },
+        "required": ["criterion", "specific_documentation", "severity"]
+      },
+      "description": "List of all criteria satisfied with specific documentation"
+    },
+    "criteria_not_met": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of standard criteria that were assessed but not satisfied"
+    },
+    "missing_data": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of recommended assessments needed with clinical rationale"
+    },
+    "malnutrition_status": {
+      "type": "string",
+      "enum": ["Present", "Absent"],
+      "description": "Final malnutrition classification"
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["Mild", "Moderate", "Severe", "N/A"],
+      "description": "Overall malnutrition severity (highest severity among satisfied criteria)"
+    },
+    "aspen_indicator_count": {
+      "type": "string",
+      "description": "Number of ASPEN indicators met out of 4 possible (e.g., '3/4 indicators met - exceeds threshold of 2+ for diagnosis')"
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["High", "Moderate", "Low"],
+      "description": "Confidence level in classification based on data completeness and assessment type"
+    },
+    "clinical_reasoning": {
+      "type": "string",
+      "description": "Comprehensive clinical summary integrating all findings with temporal context and specific criterion references"
+    }
+  },
+  "required": [
+    "assessment_type",
+    "assessment_justification",
+    "criteria_satisfied",
+    "criteria_not_met",
+    "missing_data",
+    "malnutrition_status",
+    "severity",
+    "aspen_indicator_count",
+    "confidence",
+    "clinical_reasoning"
+  ]
+}

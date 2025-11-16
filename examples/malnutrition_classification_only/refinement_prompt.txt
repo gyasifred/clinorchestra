@@ -1,0 +1,92 @@
+Refine malnutrition classification using clinical guidelines to ensure accurate criteria documentation.
+
+**TASK:** Validate and enhance the initial classification against ASPEN/WHO guidelines.
+
+**INITIAL CLASSIFICATION:**
+{initial_classification}
+
+**GUIDELINES PROVIDED:**
+{rag_context}
+
+**REFINEMENT OBJECTIVES:**
+
+1. **Validate Assessment Type**
+   - Confirm whether single-point, serial, or longitudinal is correct
+   - Ensure interpretation matches assessment type
+   - For single-point: Verify no trend analysis was attempted
+   - For serial/longitudinal: Verify trends were calculated
+
+2. **Validate Criteria Specificity**
+   Check that each criterion is documented with SPECIFIC values, not generic statements:
+
+   ❌ WRONG: "Based on ASPEN criteria for moderate malnutrition"
+   ✓ CORRECT: "Moderate malnutrition per ASPEN anthropometric criterion z-score -2 to -2.9 (BMI-for-age z-score -2.3)"
+
+   ❌ WRONG: "Growth velocity decline indicates malnutrition"
+   ✓ CORRECT: "Moderate malnutrition per ASPEN velocity criterion decline of 2 z-scores (z-score declined from -0.5 to -2.5 over 3 months)"
+
+3. **Validate Z-Score Convention**
+   - Percentile <50th must have NEGATIVE z-score
+   - 3rd percentile = z-score -1.88 (NOT +1.88)
+   - 5th percentile = z-score -1.64
+   - 50th percentile = z-score 0
+
+4. **Validate ASPEN Indicator Count**
+   - Count must be accurate: Anthropometric + Velocity + Intake + Physical findings
+   - Must have ≥2 indicators for ASPEN malnutrition diagnosis
+   - If <2 indicators but classified as malnourished, check if WHO criteria (z < -2) justify this
+
+5. **Correct Misclassifications**
+   - If single-point but trends were calculated: Remove trend analysis, note limitation
+   - If serial/longitudinal but no trends calculated: Add trend calculations
+   - If criteria not specifically documented: Add specific documentation
+   - If z-score signs wrong: Correct them
+   - If ASPEN indicator count wrong: Recount and adjust classification if needed
+
+6. **Enhance Missing Elements**
+   - Add specific criterion documentation where generic statements were used
+   - Calculate missing trends for serial/longitudinal assessments
+   - Specify severity level with criterion reference
+   - Add recommendations for missing data
+
+**VALIDATION CHECKLIST:**
+
+□ Assessment type clearly stated and justified
+□ All criteria documented with SPECIFIC values and thresholds
+□ Z-score signs correct (below 50th = negative)
+□ Trends calculated only for serial/longitudinal (or noted as limitation for single-point)
+□ ASPEN indicator count accurate and explicitly stated
+□ Classification matches indicator count (≥2 for malnutrition) OR WHO criteria (z < -2)
+□ Severity level specified with criterion reference
+□ Missing data identified with recommendations
+
+**OUTPUT FORMAT:**
+
+Return refined classification as JSON:
+{
+  "assessment_type": "Single-point" | "Serial" | "Longitudinal",
+  "assessment_justification": "Brief explanation",
+  "criteria_satisfied": [
+    {
+      "criterion": "Specific criterion name",
+      "specific_documentation": "Exact criterion with values (e.g., 'Moderate malnutrition per ASPEN criterion z-score -2 to -2.9 (z-score -2.3)')",
+      "severity": "Mild" | "Moderate" | "Severe" | "N/A"
+    }
+  ],
+  "criteria_not_met": ["List of assessed criteria not satisfied"],
+  "missing_data": ["Recommended assessments with rationale"],
+  "malnutrition_status": "Present" | "Absent",
+  "severity": "Mild" | "Moderate" | "Severe" | "N/A",
+  "aspen_indicator_count": "X/4 indicators met (need 2+ for diagnosis)",
+  "confidence": "High" | "Moderate" | "Low",
+  "clinical_reasoning": "Comprehensive summary",
+  "refinement_notes": "What was corrected or enhanced from initial classification"
+}
+
+**CRITICAL RULES:**
+- Only change classification if there's clear evidence of error
+- Preserve accurate elements from initial classification
+- Focus on making criteria documentation SPECIFIC
+- Ensure assessment type drives interpretation approach
+- Verify ASPEN diagnostic threshold (≥2 indicators) is met
+- All z-scores below 50th percentile must be negative

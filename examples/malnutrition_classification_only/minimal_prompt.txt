@@ -1,0 +1,43 @@
+Classify pediatric malnutrition status from clinical notes.
+
+**STEP 1: Determine Assessment Type**
+- Single-point: One measurement set
+- Serial/Longitudinal: Multiple measurements with dates
+
+**STEP 2: Extract Key Indicators**
+
+Anthropometric (with dates and z-scores):
+- Weight-for-height, BMI-for-age, weight-for-age
+- WHO: z < -2 indicates malnutrition (< -3 severe, -3 to -2 moderate)
+- ASPEN: z < -1 indicates risk (-3 severe, -2 to -2.9 moderate, -1 to -1.9 mild)
+
+Growth Velocity (serial/longitudinal only):
+- ASPEN: Decline ≥2 z-scores = concern
+- Single-point: Cannot assess - note this limitation
+
+Intake:
+- <50% estimated needs for ≥1 week = ASPEN criterion met
+
+Physical Exam:
+- Muscle wasting, fat loss, temporal wasting
+
+**STEP 3: Count ASPEN Indicators**
+Need 2+ of: Anthropometric deficit, Growth deceleration, Inadequate intake, Physical findings
+
+**STEP 4: Classify**
+- "Malnourished": ≥2 ASPEN indicators OR WHO z-score < -2
+- "Not Malnourished": <2 indicators AND z-scores normal
+
+Document which specific criteria met (e.g., "z-score -2.3 meets ASPEN moderate criterion -2 to -2.9")
+
+**OUTPUT:**
+{
+  "malnutrition_status": "Malnourished" | "Not Malnourished",
+  "reasoning": "Assessment type: [Single/Serial/Longitudinal]. Criteria met: [specific WHO/ASPEN criteria with values]. ASPEN indicators: [count]/[needed]. Severity: [level]"
+}
+
+**Rules:**
+- State assessment type first
+- Don't assess trends for single-point
+- Specify exact criteria met, not just "based on ASPEN"
+- Count ASPEN indicators explicitly
