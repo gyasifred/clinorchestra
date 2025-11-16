@@ -378,33 +378,46 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
     Returns:
         Result of processing
     """
+    import sys
+    import io
+    from contextlib import redirect_stdout, redirect_stderr
+
+    # Capture all output from this worker
+    stdout_capture = io.StringIO()
+    stderr_capture = io.StringIO()
+
     start_time = time.time()
     gpu_id = task.gpu_id
 
+    # Redirect stdout/stderr to capture worker output
+    success = False
+    result_obj = None
+    error_msg = None
+    worker_result = None
+    duration = 0.0
+
     try:
-        print(f"[WORKER-{gpu_id}] Starting task {task.task_id}")
+        with redirect_stdout(stdout_capture), redirect_stderr(stderr_capture):
+            print(f"[WORKER-{gpu_id}] Starting task {task.task_id}")
 
-        # Set GPU for this process
-        torch.cuda.set_device(gpu_id)
-        os.environ['CUDA_VISIBLE_DEVICES'] = str(gpu_id)
-        print(f"[WORKER-{gpu_id}] GPU set to {gpu_id}")
+            # Set GPU for this process
+            torch.cuda.set_device(gpu_id)
+            os.environ['CUDA_VISIBLE_DEVICES'] = str(gpu_id)
+            print(f"[WORKER-{gpu_id}] GPU set to {gpu_id}")
 
-        # Import required modules
-        from core.llm_manager import LLMManager
-        from core.regex_preprocessor import RegexPreprocessor
-        from core.extras_manager import ExtrasManager
-        from core.function_registry import FunctionRegistry
-        from core.rag_engine import RAGEngine
-        from core.agent_factory import create_agent
-        from core.app_state import AppState
-        print(f"[WORKER-{gpu_id}] Imported all required modules")
+            # Import required modules
+            from core.llm_manager import LLMManager
+            from core.regex_preprocessor import RegexPreprocessor
+            from core.extras_manager import ExtrasManager
+            from core.function_registry import FunctionRegistry
+            from core.rag_engine import RAGEngine
+            from core.agent_factory import create_agent
+            print(f"[WORKER-{gpu_id}] Imported all required modules")
 
-        # CRITICAL: Recreate all managers from serializable config
-        # Cannot use pickled app_state - must rebuild everything
+            # CRITICAL: Recreate all managers from serializable config
+            # Cannot use pickled app_state - must rebuild everything
 
-        try:
             # Create minimal app_state for agent creation
-            # We create a mock app_state with just the configuration needed
             print(f"[WORKER-{gpu_id}] Creating minimal app_state from config...")
 
             # Import config classes from app_state.py and model_config.py
@@ -431,7 +444,7 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
             prompt_cfg = PromptConfig(
                 main_prompt=config.main_prompt,
                 minimal_prompt=config.minimal_prompt,
-                rag_prompt=config.rag_refinement_prompt,  # Use rag_prompt field
+                rag_prompt=config.rag_refinement_prompt,
                 json_schema=config.json_schema
             )
 
@@ -443,7 +456,7 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
 
             rag_cfg = RAGConfig(
                 enabled=config.rag_enabled,
-                k_value=config.rag_top_k  # RAGConfig uses k_value, not top_k
+                k_value=config.rag_top_k
             )
 
             agentic_cfg = AgenticConfig(
@@ -487,7 +500,6 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
             if config.rag_enabled and config.rag_documents_path:
                 print(f"[WORKER-{gpu_id}] Creating RAG engine...")
                 rag_engine = RAGEngine(config.rag_top_k)
-                # Note: Would need to load documents here if path provided
                 print(f"[WORKER-{gpu_id}] RAG engine created")
 
             # Create agent for this process with ALL required parameters
@@ -501,60 +513,81 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
                 app_state=mock_app_state
             )
             print(f"[WORKER-{gpu_id}] Agent created successfully")
-        except Exception as init_error:
-            print(f"[WORKER-{gpu_id}] INITIALIZATION FAILED: {init_error}")
-            import traceback
-            traceback.print_exc()
-            raise
 
-        # Ensure model is on correct device
-        if hasattr(agent, 'llm_manager') and hasattr(agent.llm_manager, 'model'):
-            if agent.llm_manager.model is not None:
-                print(f"[WORKER-{gpu_id}] Moving model to GPU {gpu_id}...")
-                agent.llm_manager.model.to(f'cuda:{gpu_id}')
-                print(f"[WORKER-{gpu_id}] Model moved to GPU {gpu_id}")
+            # Ensure model is on correct device
+            if hasattr(agent, 'llm_manager') and hasattr(agent.llm_manager, 'model'):
+                if agent.llm_manager.model is not None:
+                    print(f"[WORKER-{gpu_id}] Moving model to GPU {gpu_id}...")
+                    agent.llm_manager.model.to(f'cuda:{gpu_id}')
+                    print(f"[WORKER-{gpu_id}] Model moved to GPU {gpu_id}")
 
-        # Process the extraction
-        result = agent.extract(
-            clinical_text=task.clinical_text,
-            label_value=task.label_value,
-            prompt_variables=task.prompt_variables
-        )
+            # Process the extraction
+            print(f"[WORKER-{gpu_id}] Running extraction...")
+            result_obj = agent.extract(
+                clinical_text=task.clinical_text,
+                label_value=task.label_value,
+                prompt_variables=task.prompt_variables
+            )
+            print(f"[WORKER-{gpu_id}] Extraction complete")
 
+            duration = time.time() - start_time
+            success = True
+
+            # Update progress
+            with completed_count.get_lock():
+                completed_count.value += 1
+                current = completed_count.value
+
+            if current % 10 == 0 or current == total_tasks:
+                print(f"[PROGRESS] {current}/{total_tasks} ({current/total_tasks*100:.1f}%) - "
+                      f"GPU {gpu_id} completed task {task.task_id}")
+
+    except Exception as e:
         duration = time.time() - start_time
+        error_msg = f"{type(e).__name__}: {str(e)}"
+        success = False
 
-        # Update progress
         with completed_count.get_lock():
             completed_count.value += 1
-            current = completed_count.value
 
-        if current % 10 == 0 or current == total_tasks:
-            print(f"[PROGRESS] {current}/{total_tasks} ({current/total_tasks*100:.1f}%) - "
-                  f"GPU {gpu_id} completed task {task.task_id}")
+    # NOW we're outside the redirect context - output will actually show
+    worker_output = stdout_capture.getvalue()
+    worker_errors = stderr_capture.getvalue()
+
+    if success:
+        # Print success output to main process
+        if worker_output:
+            sys.__stdout__.write(f"\n{'='*80}\n[WORKER-{gpu_id} OUTPUT - Task {task.task_id}]\n{'='*80}\n{worker_output}\n")
+            sys.__stdout__.flush()
+        if worker_errors:
+            sys.__stderr__.write(f"\n[WORKER-{gpu_id} ERRORS]\n{worker_errors}\n")
+            sys.__stderr__.flush()
 
         return MultiGPUResult(
             task_id=task.task_id,
             row_index=task.row_index,
             gpu_id=gpu_id,
             success=True,
-            result=result,
+            result=result_obj,
             duration=duration
         )
-
-    except Exception as e:
-        duration = time.time() - start_time
-        error_msg = f"{type(e).__name__}: {str(e)}"
-        print(f"[ERROR] GPU {gpu_id}, Task {task.task_id}: {error_msg}")
-
-        with completed_count.get_lock():
-            completed_count.value += 1
+    else:
+        # Print failure output to main process
+        sys.__stdout__.write(f"\n{'='*80}\n[WORKER-{gpu_id}] FAILED Task {task.task_id}: {error_msg}\n{'='*80}\n")
+        sys.__stdout__.flush()
+        if worker_output:
+            sys.__stdout__.write(f"[WORKER-{gpu_id} OUTPUT]\n{worker_output}\n")
+            sys.__stdout__.flush()
+        if worker_errors:
+            sys.__stderr__.write(f"[WORKER-{gpu_id} ERRORS]\n{worker_errors}\n")
+            sys.__stderr__.flush()
 
         return MultiGPUResult(
             task_id=task.task_id,
             row_index=task.row_index,
             gpu_id=gpu_id,
             success=False,
-            error=error_msg,
+            error=f"{error_msg}\n\nCaptured Output:\n{worker_output}\n\nCaptured Errors:\n{worker_errors}",
             duration=duration
         )
 
