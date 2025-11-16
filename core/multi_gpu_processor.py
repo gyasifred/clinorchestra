@@ -25,12 +25,20 @@ import traceback
 @dataclass
 class MultiGPUConfig:
     """Serializable configuration for multi-GPU workers"""
-    # Model configuration
+    # Model configuration (from ModelConfig)
     provider: str
     model_name: str
     temperature: float
     max_tokens: int
-    model_kwargs: Dict[str, Any]
+    max_seq_length: int
+    model_type: str
+    api_key: Optional[str]
+    azure_endpoint: Optional[str]
+    azure_deployment: Optional[str]
+    google_project_id: Optional[str]
+    local_model_path: Optional[str]
+    quantization: Optional[str]
+    gpu_layers: int
 
     # Paths
     extras_path: str
@@ -149,16 +157,28 @@ class MultiGPUProcessor:
 
         # Get RAG documents path if available
         rag_documents_path = None
-        if app_state.rag_config.enabled and hasattr(app_state.rag_config, 'uploaded_files'):
-            rag_documents_path = app_state.rag_config.uploaded_files
+        if app_state.rag_config.enabled and hasattr(app_state.rag_config, 'documents'):
+            rag_documents_path = app_state.rag_config.documents
+
+        # Get rag_refinement_prompt - handle both rag_prompt and rag_refinement_prompt
+        rag_refinement_prompt = getattr(app_state.prompt_config, 'rag_refinement_prompt',
+                                       getattr(app_state.prompt_config, 'rag_prompt', ''))
 
         return MultiGPUConfig(
-            # Model config
+            # Model config - use actual ModelConfig attributes
             provider=app_state.model_config.provider,
             model_name=app_state.model_config.model_name,
             temperature=app_state.model_config.temperature,
             max_tokens=app_state.model_config.max_tokens,
-            model_kwargs=app_state.model_config.model_kwargs or {},
+            max_seq_length=getattr(app_state.model_config, 'max_seq_length', 16384),
+            model_type=getattr(app_state.model_config, 'model_type', 'chat'),
+            api_key=getattr(app_state.model_config, 'api_key', None),
+            azure_endpoint=getattr(app_state.model_config, 'azure_endpoint', None),
+            azure_deployment=getattr(app_state.model_config, 'azure_deployment', None),
+            google_project_id=getattr(app_state.model_config, 'google_project_id', None),
+            local_model_path=getattr(app_state.model_config, 'local_model_path', None),
+            quantization=getattr(app_state.model_config, 'quantization', '4bit'),
+            gpu_layers=getattr(app_state.model_config, 'gpu_layers', -1),
 
             # Paths
             extras_path=extras_path,
@@ -167,14 +187,14 @@ class MultiGPUProcessor:
 
             # RAG config
             rag_enabled=app_state.rag_config.enabled,
-            rag_top_k=app_state.rag_config.top_k,
+            rag_top_k=app_state.rag_config.rag_top_k,
             rag_documents_path=rag_documents_path,
 
             # Prompt config
-            main_prompt=app_state.prompt_config.main_prompt,
-            minimal_prompt=app_state.prompt_config.minimal_prompt,
-            rag_refinement_prompt=app_state.prompt_config.rag_refinement_prompt,
-            json_schema=json.loads(app_state.prompt_config.json_schema) if isinstance(app_state.prompt_config.json_schema, str) else app_state.prompt_config.json_schema,
+            main_prompt=app_state.prompt_config.main_prompt or "",
+            minimal_prompt=app_state.prompt_config.minimal_prompt or "",
+            rag_refinement_prompt=rag_refinement_prompt,
+            json_schema=json.loads(app_state.prompt_config.json_schema) if isinstance(app_state.prompt_config.json_schema, str) else (app_state.prompt_config.json_schema or {}),
 
             # Data config
             enable_phi_redaction=app_state.data_config.enable_phi_redaction,
@@ -387,52 +407,64 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
             # We create a mock app_state with just the configuration needed
             print(f"[WORKER-{gpu_id}] Creating minimal app_state from config...")
 
-            # This is a workaround - ideally we'd refactor to not need app_state at all
-            # But for now we create a minimal version with just config
-            from core.config_models import (
-                ModelConfig, PromptConfig, DataConfig,
-                RAGConfig, AgenticConfig
-            )
+            # Import config classes from app_state.py and model_config.py
+            from core.app_state import PromptConfig, DataConfig, RAGConfig, AgenticConfig
+            from core.model_config import ModelConfig
 
-            mock_app_state = type('MockAppState', (), {
-                'model_config': ModelConfig(
-                    provider=config.provider,
-                    model_name=config.model_name,
-                    temperature=config.temperature,
-                    max_tokens=config.max_tokens,
-                    model_kwargs=config.model_kwargs
-                ),
-                'prompt_config': PromptConfig(
-                    main_prompt=config.main_prompt,
-                    minimal_prompt=config.minimal_prompt,
-                    rag_refinement_prompt=config.rag_refinement_prompt,
-                    json_schema=config.json_schema
-                ),
-                'data_config': DataConfig(
-                    enable_phi_redaction=config.enable_phi_redaction,
-                    enable_pattern_normalization=config.enable_pattern_normalization,
-                    phi_entity_types=config.phi_entity_types
-                ),
-                'rag_config': RAGConfig(
-                    enabled=config.rag_enabled,
-                    top_k=config.rag_top_k
-                ),
-                'agentic_config': AgenticConfig(
-                    enabled=config.agentic_enabled,
-                    max_iterations=config.max_iterations,
-                    max_tool_calls=config.max_tool_calls
-                )
-            })()
-
-            # Initialize LLM manager for this process
-            print(f"[WORKER-{gpu_id}] Creating LLM manager...")
-            llm_manager = LLMManager(
+            # Create config objects from serialized data
+            model_cfg = ModelConfig(
                 provider=config.provider,
                 model_name=config.model_name,
                 temperature=config.temperature,
                 max_tokens=config.max_tokens,
-                **config.model_kwargs
+                max_seq_length=config.max_seq_length,
+                model_type=config.model_type,
+                api_key=config.api_key,
+                azure_endpoint=config.azure_endpoint,
+                azure_deployment=config.azure_deployment,
+                google_project_id=config.google_project_id,
+                local_model_path=config.local_model_path,
+                quantization=config.quantization,
+                gpu_layers=config.gpu_layers
             )
+
+            prompt_cfg = PromptConfig(
+                main_prompt=config.main_prompt,
+                minimal_prompt=config.minimal_prompt,
+                rag_prompt=config.rag_refinement_prompt,  # Use rag_prompt field
+                json_schema=config.json_schema
+            )
+
+            data_cfg = DataConfig(
+                enable_phi_redaction=config.enable_phi_redaction,
+                enable_pattern_normalization=config.enable_pattern_normalization,
+                phi_entity_types=config.phi_entity_types
+            )
+
+            rag_cfg = RAGConfig(
+                enabled=config.rag_enabled,
+                k_value=config.rag_top_k  # RAGConfig uses k_value, not top_k
+            )
+
+            agentic_cfg = AgenticConfig(
+                enabled=config.agentic_enabled,
+                max_iterations=config.max_iterations,
+                max_tool_calls=config.max_tool_calls
+            )
+
+            # Create mock app_state with config objects
+            mock_app_state = type('MockAppState', (), {
+                'model_config': model_cfg,
+                'prompt_config': prompt_cfg,
+                'data_config': data_cfg,
+                'rag_config': rag_cfg,
+                'agentic_config': agentic_cfg
+            })()
+
+            # Initialize LLM manager for this process with config dict
+            print(f"[WORKER-{gpu_id}] Creating LLM manager...")
+            from dataclasses import asdict
+            llm_manager = LLMManager(config=asdict(model_cfg))
             print(f"[WORKER-{gpu_id}] LLM manager created")
 
             # Initialize regex preprocessor
