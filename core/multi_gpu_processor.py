@@ -228,11 +228,36 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
         torch.cuda.set_device(gpu_id)
         os.environ['CUDA_VISIBLE_DEVICES'] = str(gpu_id)
 
-        # Import agent (must be done inside process to get separate model instance)
+        # Import required managers and agent factory
         from core.agent_factory import create_agent
 
-        # Create agent for this process (will load model on assigned GPU)
-        agent = create_agent(app_state)
+        # CRITICAL FIX: Recreate all managers in this worker process
+        # Cannot share managers across processes - must recreate from app_state
+
+        # Initialize LLM manager for this process
+        llm_manager = app_state.get_llm_manager()
+
+        # Initialize regex preprocessor
+        regex_preprocessor = app_state.get_regex_preprocessor()
+
+        # Initialize extras manager
+        extras_manager = app_state.get_extras_manager()
+
+        # Initialize function registry
+        function_registry = app_state.get_function_registry()
+
+        # Initialize RAG engine if enabled
+        rag_engine = app_state.get_or_initialize_rag_engine()
+
+        # Create agent for this process with ALL required parameters
+        agent = create_agent(
+            llm_manager=llm_manager,
+            rag_engine=rag_engine,
+            extras_manager=extras_manager,
+            function_registry=function_registry,
+            regex_preprocessor=regex_preprocessor,
+            app_state=app_state
+        )
 
         # Ensure model is on correct device
         if hasattr(agent, 'llm_manager') and hasattr(agent.llm_manager, 'model'):
