@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "properties": {
+    "malnutrition_status": {
+      "type": "string",
+      "enum": ["Malnourished", "Not Malnourished"],
+      "description": "Binary malnutrition classification"
+    },
+    "reasoning": {
+      "type": "string",
+      "description": "Concise summary including: assessment type, specific criteria met with values, ASPEN indicator count, and severity level"
+    }
+  },
+  "required": [
+    "malnutrition_status",
+    "reasoning"
+  ]
+}
