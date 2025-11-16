@@ -102,6 +102,7 @@ class MultiGPUProcessor:
             List of results (same order as tasks)
         """
         if not tasks:
+            print("[ERROR] No tasks provided to process_batch")
             return []
 
         # Assign GPUs to tasks (round-robin)
@@ -111,6 +112,8 @@ class MultiGPUProcessor:
 
         total_tasks = len(tasks)
         print(f"[START] Processing {total_tasks} tasks across {self.num_gpus} GPUs")
+        print(f"[DEBUG] app_state type: {type(self.app_state)}")
+        print(f"[DEBUG] Attempting to serialize app_state for worker processes...")
 
         # Shared progress counter
         manager = Manager()
@@ -118,25 +121,57 @@ class MultiGPUProcessor:
         results_dict = manager.dict()
 
         # Process in parallel using separate processes
-        with ProcessPoolExecutor(max_workers=self.num_gpus) as executor:
+        try:
+            print("[DEBUG] Creating ProcessPoolExecutor...")
+            executor = ProcessPoolExecutor(max_workers=self.num_gpus)
+            print(f"[DEBUG] ProcessPoolExecutor created with {self.num_gpus} workers")
+        except Exception as e:
+            print(f"[ERROR] Failed to create ProcessPoolExecutor: {e}")
+            import traceback
+            traceback.print_exc()
+            return []
+
+        with executor:
             # Submit tasks
             futures = {}
-            for task in tasks:
-                future = executor.submit(
-                    _process_single_task_on_gpu,
-                    task,
-                    self.app_state,
-                    completed_count,
-                    total_tasks
-                )
-                futures[future] = task.task_id
+            submit_errors = 0
+            for i, task in enumerate(tasks):
+                try:
+                    print(f"[DEBUG] Submitting task {i}/{total_tasks}...")
+                    future = executor.submit(
+                        _process_single_task_on_gpu,
+                        task,
+                        self.app_state,
+                        completed_count,
+                        total_tasks
+                    )
+                    futures[future] = task.task_id
+                    if i == 0:
+                        print(f"[DEBUG] First task submitted successfully")
+                except Exception as e:
+                    submit_errors += 1
+                    print(f"[ERROR] Failed to submit task {task.task_id}: {e}")
+                    import traceback
+                    traceback.print_exc()
+                    # Create failed result immediately
+                    results_dict[task.task_id] = MultiGPUResult(
+                        task_id=task.task_id,
+                        row_index=task.row_index,
+                        gpu_id=-1,
+                        success=False,
+                        error=f"Submit failed: {str(e)}"
+                    )
+
+            print(f"[DEBUG] Submitted {len(futures)} tasks, {submit_errors} submit errors")
 
             # Collect results
+            completed_tasks = 0
             for future in as_completed(futures):
                 task_id = futures[future]
                 try:
                     result = future.result()
                     results_dict[task_id] = result
+                    completed_tasks += 1
 
                     # Progress callback
                     if progress_callback:
@@ -145,14 +180,18 @@ class MultiGPUProcessor:
                         progress_callback(current, total_tasks)
 
                 except Exception as e:
-                    print(f"[ERROR] Task {task_id} failed: {e}")
+                    print(f"[ERROR] Task {task_id} failed during execution: {e}")
+                    import traceback
+                    traceback.print_exc()
                     results_dict[task_id] = MultiGPUResult(
                         task_id=task_id,
                         row_index=task_id,
                         gpu_id=-1,
                         success=False,
-                        error=str(e)
+                        error=f"Execution failed: {str(e)}"
                     )
+
+            print(f"[DEBUG] Completed collecting {completed_tasks} task results")
 
         # Convert dict to ordered list
         results = [results_dict.get(i) for i in range(total_tasks)]
@@ -224,40 +263,62 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
     gpu_id = task.gpu_id
 
     try:
+        print(f"[WORKER-{gpu_id}] Starting task {task.task_id}")
+
         # Set GPU for this process
         torch.cuda.set_device(gpu_id)
         os.environ['CUDA_VISIBLE_DEVICES'] = str(gpu_id)
+        print(f"[WORKER-{gpu_id}] GPU set to {gpu_id}")
 
         # Import required managers and agent factory
         from core.agent_factory import create_agent
+        print(f"[WORKER-{gpu_id}] Imported create_agent")
 
         # CRITICAL FIX: Recreate all managers in this worker process
         # Cannot share managers across processes - must recreate from app_state
 
-        # Initialize LLM manager for this process
-        llm_manager = app_state.get_llm_manager()
+        try:
+            # Initialize LLM manager for this process
+            print(f"[WORKER-{gpu_id}] Getting LLM manager...")
+            llm_manager = app_state.get_llm_manager()
+            print(f"[WORKER-{gpu_id}] LLM manager created")
 
-        # Initialize regex preprocessor
-        regex_preprocessor = app_state.get_regex_preprocessor()
+            # Initialize regex preprocessor
+            print(f"[WORKER-{gpu_id}] Getting regex preprocessor...")
+            regex_preprocessor = app_state.get_regex_preprocessor()
+            print(f"[WORKER-{gpu_id}] Regex preprocessor created")
 
-        # Initialize extras manager
-        extras_manager = app_state.get_extras_manager()
+            # Initialize extras manager
+            print(f"[WORKER-{gpu_id}] Getting extras manager...")
+            extras_manager = app_state.get_extras_manager()
+            print(f"[WORKER-{gpu_id}] Extras manager created")
 
-        # Initialize function registry
-        function_registry = app_state.get_function_registry()
+            # Initialize function registry
+            print(f"[WORKER-{gpu_id}] Getting function registry...")
+            function_registry = app_state.get_function_registry()
+            print(f"[WORKER-{gpu_id}] Function registry created")
 
-        # Initialize RAG engine if enabled
-        rag_engine = app_state.get_or_initialize_rag_engine()
+            # Initialize RAG engine if enabled
+            print(f"[WORKER-{gpu_id}] Getting RAG engine...")
+            rag_engine = app_state.get_or_initialize_rag_engine()
+            print(f"[WORKER-{gpu_id}] RAG engine created")
 
-        # Create agent for this process with ALL required parameters
-        agent = create_agent(
-            llm_manager=llm_manager,
-            rag_engine=rag_engine,
-            extras_manager=extras_manager,
-            function_registry=function_registry,
-            regex_preprocessor=regex_preprocessor,
-            app_state=app_state
-        )
+            # Create agent for this process with ALL required parameters
+            print(f"[WORKER-{gpu_id}] Creating agent...")
+            agent = create_agent(
+                llm_manager=llm_manager,
+                rag_engine=rag_engine,
+                extras_manager=extras_manager,
+                function_registry=function_registry,
+                regex_preprocessor=regex_preprocessor,
+                app_state=app_state
+            )
+            print(f"[WORKER-{gpu_id}] Agent created successfully")
+        except Exception as init_error:
+            print(f"[WORKER-{gpu_id}] INITIALIZATION FAILED: {init_error}")
+            import traceback
+            traceback.print_exc()
+            raise
 
         # Ensure model is on correct device
         if hasattr(agent, 'llm_manager') and hasattr(agent.llm_manager, 'model'):
