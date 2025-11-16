@@ -390,8 +390,14 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
     gpu_id = task.gpu_id
 
     # Redirect stdout/stderr to capture worker output
-    with redirect_stdout(stdout_capture), redirect_stderr(stderr_capture):
-        try:
+    success = False
+    result_obj = None
+    error_msg = None
+    worker_result = None
+    duration = 0.0
+
+    try:
+        with redirect_stdout(stdout_capture), redirect_stderr(stderr_capture):
             print(f"[WORKER-{gpu_id}] Starting task {task.task_id}")
 
             # Set GPU for this process
@@ -517,7 +523,7 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
 
             # Process the extraction
             print(f"[WORKER-{gpu_id}] Running extraction...")
-            result = agent.extract(
+            result_obj = agent.extract(
                 clinical_text=task.clinical_text,
                 label_value=task.label_value,
                 prompt_variables=task.prompt_variables
@@ -525,6 +531,7 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
             print(f"[WORKER-{gpu_id}] Extraction complete")
 
             duration = time.time() - start_time
+            success = True
 
             # Update progress
             with completed_count.get_lock():
@@ -535,54 +542,54 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
                 print(f"[PROGRESS] {current}/{total_tasks} ({current/total_tasks*100:.1f}%) - "
                       f"GPU {gpu_id} completed task {task.task_id}")
 
-            # Get captured output
-            worker_output = stdout_capture.getvalue()
-            worker_errors = stderr_capture.getvalue()
+    except Exception as e:
+        duration = time.time() - start_time
+        error_msg = f"{type(e).__name__}: {str(e)}"
+        success = False
 
-            # Print to actual stdout (will show in main process)
-            if worker_output:
-                sys.__stdout__.write(f"[WORKER-{gpu_id} OUTPUT]\n{worker_output}\n")
-            if worker_errors:
-                sys.__stderr__.write(f"[WORKER-{gpu_id} ERRORS]\n{worker_errors}\n")
+        with completed_count.get_lock():
+            completed_count.value += 1
 
-            return MultiGPUResult(
-                task_id=task.task_id,
-                row_index=task.row_index,
-                gpu_id=gpu_id,
-                success=True,
-                result=result,
-                duration=duration
-            )
+    # NOW we're outside the redirect context - output will actually show
+    worker_output = stdout_capture.getvalue()
+    worker_errors = stderr_capture.getvalue()
 
-        except Exception as e:
-            duration = time.time() - start_time
-            error_msg = f"{type(e).__name__}: {str(e)}"
+    if success:
+        # Print success output to main process
+        if worker_output:
+            sys.__stdout__.write(f"\n{'='*80}\n[WORKER-{gpu_id} OUTPUT - Task {task.task_id}]\n{'='*80}\n{worker_output}\n")
+            sys.__stdout__.flush()
+        if worker_errors:
+            sys.__stderr__.write(f"\n[WORKER-{gpu_id} ERRORS]\n{worker_errors}\n")
+            sys.__stderr__.flush()
 
-            # Get captured output
-            worker_output = stdout_capture.getvalue()
-            worker_errors = stderr_capture.getvalue()
+        return MultiGPUResult(
+            task_id=task.task_id,
+            row_index=task.row_index,
+            gpu_id=gpu_id,
+            success=True,
+            result=result_obj,
+            duration=duration
+        )
+    else:
+        # Print failure output to main process
+        sys.__stdout__.write(f"\n{'='*80}\n[WORKER-{gpu_id}] FAILED Task {task.task_id}: {error_msg}\n{'='*80}\n")
+        sys.__stdout__.flush()
+        if worker_output:
+            sys.__stdout__.write(f"[WORKER-{gpu_id} OUTPUT]\n{worker_output}\n")
+            sys.__stdout__.flush()
+        if worker_errors:
+            sys.__stderr__.write(f"[WORKER-{gpu_id} ERRORS]\n{worker_errors}\n")
+            sys.__stderr__.flush()
 
-            # Print error details to actual stdout
-            sys.__stdout__.write(f"[WORKER-{gpu_id}] FAILED: {error_msg}\n")
-            if worker_output:
-                sys.__stdout__.write(f"[WORKER-{gpu_id} OUTPUT]\n{worker_output}\n")
-            if worker_errors:
-                sys.__stderr__.write(f"[WORKER-{gpu_id} ERRORS]\n{worker_errors}\n")
-
-            print(f"[ERROR] GPU {gpu_id}, Task {task.task_id}: {error_msg}")
-            traceback.print_exc()
-
-            with completed_count.get_lock():
-                completed_count.value += 1
-
-            return MultiGPUResult(
-                task_id=task.task_id,
-                row_index=task.row_index,
-                gpu_id=gpu_id,
-                success=False,
-                error=f"{error_msg}\nOutput: {worker_output}\nErrors: {worker_errors}",
-                duration=duration
-            )
+        return MultiGPUResult(
+            task_id=task.task_id,
+            row_index=task.row_index,
+            gpu_id=gpu_id,
+            success=False,
+            error=f"{error_msg}\n\nCaptured Output:\n{worker_output}\n\nCaptured Errors:\n{worker_errors}",
+            duration=duration
+        )
 
 
 def check_multi_gpu_readiness() -> Dict[str, Any]:
