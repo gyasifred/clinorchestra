@@ -23,6 +23,43 @@ import traceback
 
 
 @dataclass
+class MultiGPUConfig:
+    """Serializable configuration for multi-GPU workers"""
+    # Model configuration
+    provider: str
+    model_name: str
+    temperature: float
+    max_tokens: int
+    model_kwargs: Dict[str, Any]
+
+    # Paths
+    extras_path: str
+    functions_path: str
+    patterns_path: str
+
+    # RAG configuration
+    rag_enabled: bool
+    rag_top_k: int
+    rag_documents_path: Optional[str]
+
+    # Prompt configuration
+    main_prompt: str
+    minimal_prompt: str
+    rag_refinement_prompt: str
+    json_schema: Dict[str, Any]
+
+    # Data configuration
+    enable_phi_redaction: bool
+    enable_pattern_normalization: bool
+    phi_entity_types: List[str]
+
+    # Agentic configuration
+    agentic_enabled: bool
+    max_iterations: int
+    max_tool_calls: int
+
+
+@dataclass
 class MultiGPUTask:
     """Task for multi-GPU processing"""
     task_id: int
@@ -88,6 +125,68 @@ class MultiGPUProcessor:
         # GPU device IDs to use
         self.gpu_ids = list(range(self.num_gpus))
 
+        # Create serializable config from app_state
+        self.config = self._create_serializable_config(app_state)
+
+    def _create_serializable_config(self, app_state) -> MultiGPUConfig:
+        """
+        Extract serializable configuration from app_state
+
+        Args:
+            app_state: AppState instance
+
+        Returns:
+            MultiGPUConfig with serializable data
+        """
+        import json
+
+        # Get paths
+        from pathlib import Path
+        base_path = Path.cwd()
+        extras_path = str(base_path / "extras")
+        functions_path = str(base_path / "functions")
+        patterns_path = str(base_path / "patterns")
+
+        # Get RAG documents path if available
+        rag_documents_path = None
+        if app_state.rag_config.enabled and hasattr(app_state.rag_config, 'uploaded_files'):
+            rag_documents_path = app_state.rag_config.uploaded_files
+
+        return MultiGPUConfig(
+            # Model config
+            provider=app_state.model_config.provider,
+            model_name=app_state.model_config.model_name,
+            temperature=app_state.model_config.temperature,
+            max_tokens=app_state.model_config.max_tokens,
+            model_kwargs=app_state.model_config.model_kwargs or {},
+
+            # Paths
+            extras_path=extras_path,
+            functions_path=functions_path,
+            patterns_path=patterns_path,
+
+            # RAG config
+            rag_enabled=app_state.rag_config.enabled,
+            rag_top_k=app_state.rag_config.top_k,
+            rag_documents_path=rag_documents_path,
+
+            # Prompt config
+            main_prompt=app_state.prompt_config.main_prompt,
+            minimal_prompt=app_state.prompt_config.minimal_prompt,
+            rag_refinement_prompt=app_state.prompt_config.rag_refinement_prompt,
+            json_schema=json.loads(app_state.prompt_config.json_schema) if isinstance(app_state.prompt_config.json_schema, str) else app_state.prompt_config.json_schema,
+
+            # Data config
+            enable_phi_redaction=app_state.data_config.enable_phi_redaction,
+            enable_pattern_normalization=app_state.data_config.enable_pattern_normalization,
+            phi_entity_types=app_state.data_config.phi_entity_types or [],
+
+            # Agentic config
+            agentic_enabled=app_state.agentic_config.enabled,
+            max_iterations=app_state.agentic_config.max_iterations,
+            max_tool_calls=app_state.agentic_config.max_tool_calls
+        )
+
     def process_batch(self,
                      tasks: List[MultiGPUTask],
                      progress_callback: Optional[Callable[[int, int], None]] = None) -> List[MultiGPUResult]:
@@ -102,6 +201,7 @@ class MultiGPUProcessor:
             List of results (same order as tasks)
         """
         if not tasks:
+            print("[ERROR] No tasks provided to process_batch")
             return []
 
         # Assign GPUs to tasks (round-robin)
@@ -111,6 +211,7 @@ class MultiGPUProcessor:
 
         total_tasks = len(tasks)
         print(f"[START] Processing {total_tasks} tasks across {self.num_gpus} GPUs")
+        print(f"[INFO] Using serializable config for worker processes")
 
         # Shared progress counter
         manager = Manager()
@@ -118,25 +219,58 @@ class MultiGPUProcessor:
         results_dict = manager.dict()
 
         # Process in parallel using separate processes
-        with ProcessPoolExecutor(max_workers=self.num_gpus) as executor:
+        try:
+            print("[DEBUG] Creating ProcessPoolExecutor...")
+            executor = ProcessPoolExecutor(max_workers=self.num_gpus)
+            print(f"[DEBUG] ProcessPoolExecutor created with {self.num_gpus} workers")
+        except Exception as e:
+            print(f"[ERROR] Failed to create ProcessPoolExecutor: {e}")
+            import traceback
+            traceback.print_exc()
+            return []
+
+        with executor:
             # Submit tasks
             futures = {}
-            for task in tasks:
-                future = executor.submit(
-                    _process_single_task_on_gpu,
-                    task,
-                    self.app_state,
-                    completed_count,
-                    total_tasks
-                )
-                futures[future] = task.task_id
+            submit_errors = 0
+            for i, task in enumerate(tasks):
+                try:
+                    if i == 0:
+                        print(f"[DEBUG] Submitting first task...")
+                    future = executor.submit(
+                        _process_single_task_on_gpu,
+                        task,
+                        self.config,  # Pass serializable config instead of app_state
+                        completed_count,
+                        total_tasks
+                    )
+                    futures[future] = task.task_id
+                    if i == 0:
+                        print(f"[DEBUG] First task submitted successfully")
+                except Exception as e:
+                    submit_errors += 1
+                    print(f"[ERROR] Failed to submit task {task.task_id}: {e}")
+                    import traceback
+                    traceback.print_exc()
+                    # Create failed result immediately
+                    results_dict[task.task_id] = MultiGPUResult(
+                        task_id=task.task_id,
+                        row_index=task.row_index,
+                        gpu_id=-1,
+                        success=False,
+                        error=f"Submit failed: {str(e)}"
+                    )
+
+            print(f"[DEBUG] Submitted {len(futures)} tasks, {submit_errors} submit errors")
 
             # Collect results
+            completed_tasks = 0
             for future in as_completed(futures):
                 task_id = futures[future]
                 try:
                     result = future.result()
                     results_dict[task_id] = result
+                    completed_tasks += 1
 
                     # Progress callback
                     if progress_callback:
@@ -145,14 +279,18 @@ class MultiGPUProcessor:
                         progress_callback(current, total_tasks)
 
                 except Exception as e:
-                    print(f"[ERROR] Task {task_id} failed: {e}")
+                    print(f"[ERROR] Task {task_id} failed during execution: {e}")
+                    import traceback
+                    traceback.print_exc()
                     results_dict[task_id] = MultiGPUResult(
                         task_id=task_id,
                         row_index=task_id,
                         gpu_id=-1,
                         success=False,
-                        error=str(e)
+                        error=f"Execution failed: {str(e)}"
                     )
+
+            print(f"[DEBUG] Completed collecting {completed_tasks} task results")
 
         # Convert dict to ordered list
         results = [results_dict.get(i) for i in range(total_tasks)]
@@ -204,7 +342,7 @@ class MultiGPUProcessor:
 
 
 def _process_single_task_on_gpu(task: MultiGPUTask,
-                                  app_state,
+                                  config: MultiGPUConfig,
                                   completed_count,
                                   total_tasks) -> MultiGPUResult:
     """
@@ -213,7 +351,7 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
 
     Args:
         task: Task to process
-        app_state: AppState for configuration
+        config: Serializable configuration
         completed_count: Shared counter for progress
         total_tasks: Total number of tasks
 
@@ -224,20 +362,125 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
     gpu_id = task.gpu_id
 
     try:
+        print(f"[WORKER-{gpu_id}] Starting task {task.task_id}")
+
         # Set GPU for this process
         torch.cuda.set_device(gpu_id)
         os.environ['CUDA_VISIBLE_DEVICES'] = str(gpu_id)
+        print(f"[WORKER-{gpu_id}] GPU set to {gpu_id}")
 
-        # Import agent (must be done inside process to get separate model instance)
+        # Import required modules
+        from core.llm_manager import LLMManager
+        from core.regex_preprocessor import RegexPreprocessor
+        from core.extras_manager import ExtrasManager
+        from core.function_registry import FunctionRegistry
+        from core.rag_engine import RAGEngine
         from core.agent_factory import create_agent
+        from core.app_state import AppState
+        print(f"[WORKER-{gpu_id}] Imported all required modules")
 
-        # Create agent for this process (will load model on assigned GPU)
-        agent = create_agent(app_state)
+        # CRITICAL: Recreate all managers from serializable config
+        # Cannot use pickled app_state - must rebuild everything
+
+        try:
+            # Create minimal app_state for agent creation
+            # We create a mock app_state with just the configuration needed
+            print(f"[WORKER-{gpu_id}] Creating minimal app_state from config...")
+
+            # This is a workaround - ideally we'd refactor to not need app_state at all
+            # But for now we create a minimal version with just config
+            from core.config_models import (
+                ModelConfig, PromptConfig, DataConfig,
+                RAGConfig, AgenticConfig
+            )
+
+            mock_app_state = type('MockAppState', (), {
+                'model_config': ModelConfig(
+                    provider=config.provider,
+                    model_name=config.model_name,
+                    temperature=config.temperature,
+                    max_tokens=config.max_tokens,
+                    model_kwargs=config.model_kwargs
+                ),
+                'prompt_config': PromptConfig(
+                    main_prompt=config.main_prompt,
+                    minimal_prompt=config.minimal_prompt,
+                    rag_refinement_prompt=config.rag_refinement_prompt,
+                    json_schema=config.json_schema
+                ),
+                'data_config': DataConfig(
+                    enable_phi_redaction=config.enable_phi_redaction,
+                    enable_pattern_normalization=config.enable_pattern_normalization,
+                    phi_entity_types=config.phi_entity_types
+                ),
+                'rag_config': RAGConfig(
+                    enabled=config.rag_enabled,
+                    top_k=config.rag_top_k
+                ),
+                'agentic_config': AgenticConfig(
+                    enabled=config.agentic_enabled,
+                    max_iterations=config.max_iterations,
+                    max_tool_calls=config.max_tool_calls
+                )
+            })()
+
+            # Initialize LLM manager for this process
+            print(f"[WORKER-{gpu_id}] Creating LLM manager...")
+            llm_manager = LLMManager(
+                provider=config.provider,
+                model_name=config.model_name,
+                temperature=config.temperature,
+                max_tokens=config.max_tokens,
+                **config.model_kwargs
+            )
+            print(f"[WORKER-{gpu_id}] LLM manager created")
+
+            # Initialize regex preprocessor
+            print(f"[WORKER-{gpu_id}] Creating regex preprocessor...")
+            regex_preprocessor = RegexPreprocessor(patterns_path=config.patterns_path)
+            print(f"[WORKER-{gpu_id}] Regex preprocessor created")
+
+            # Initialize extras manager
+            print(f"[WORKER-{gpu_id}] Creating extras manager...")
+            extras_manager = ExtrasManager(extras_path=config.extras_path)
+            print(f"[WORKER-{gpu_id}] Extras manager created")
+
+            # Initialize function registry
+            print(f"[WORKER-{gpu_id}] Creating function registry...")
+            function_registry = FunctionRegistry(functions_path=config.functions_path)
+            print(f"[WORKER-{gpu_id}] Function registry created")
+
+            # Initialize RAG engine if enabled
+            rag_engine = None
+            if config.rag_enabled and config.rag_documents_path:
+                print(f"[WORKER-{gpu_id}] Creating RAG engine...")
+                rag_engine = RAGEngine(config.rag_top_k)
+                # Note: Would need to load documents here if path provided
+                print(f"[WORKER-{gpu_id}] RAG engine created")
+
+            # Create agent for this process with ALL required parameters
+            print(f"[WORKER-{gpu_id}] Creating agent...")
+            agent = create_agent(
+                llm_manager=llm_manager,
+                rag_engine=rag_engine,
+                extras_manager=extras_manager,
+                function_registry=function_registry,
+                regex_preprocessor=regex_preprocessor,
+                app_state=mock_app_state
+            )
+            print(f"[WORKER-{gpu_id}] Agent created successfully")
+        except Exception as init_error:
+            print(f"[WORKER-{gpu_id}] INITIALIZATION FAILED: {init_error}")
+            import traceback
+            traceback.print_exc()
+            raise
 
         # Ensure model is on correct device
         if hasattr(agent, 'llm_manager') and hasattr(agent.llm_manager, 'model'):
             if agent.llm_manager.model is not None:
+                print(f"[WORKER-{gpu_id}] Moving model to GPU {gpu_id}...")
                 agent.llm_manager.model.to(f'cuda:{gpu_id}')
+                print(f"[WORKER-{gpu_id}] Model moved to GPU {gpu_id}")
 
         # Process the extraction
         result = agent.extract(
