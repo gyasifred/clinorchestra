@@ -1,0 +1,51 @@
+{
+  "name": "calculate_growth_velocity",
+  "code": "from datetime import datetime\nfrom dateutil import parser\n\ndef calculate_growth_velocity(initial_height_cm, final_height_cm, initial_date=None, final_date=None, time_interval_days=None, age_months=None) -> dict:\n    \"\"\"\n    Calculate growth velocity (rate of growth over time)\n    \n    Growth velocity is critical for pediatric assessment. Normal growth velocity varies by age:\n    - Infants (0-12 months): ~25 cm/year (highest velocity)\n    - Toddlers (1-2 years): ~12-13 cm/year\n    - Preschool (2-5 years): ~7-8 cm/year\n    - School age (5-10 years): ~5-6 cm/year\n    - Puberty: Variable, can reach 8-12 cm/year during growth spurt\n    \n    Args:\n        initial_height_cm: Initial height/length in centimeters\n        final_height_cm: Final height/length in centimeters\n        initial_date: Initial measurement date (string, optional if time_interval_days provided)\n        final_date: Final measurement date (string, optional if time_interval_days provided)\n        time_interval_days: Time between measurements in days (optional if dates provided)\n        age_months: Age in months at initial measurement (optional, for interpretation)\n    \n    Returns:\n        Dictionary with growth velocity in various units and interpretation\n    \"\"\"\n    # Calculate change in height\n    height_change_cm = final_height_cm - initial_height_cm\n    \n    # Determine time interval\n    if time_interval_days is not None:\n        days = time_interval_days\n    elif initial_date and final_date:\n        try:\n            date1 = parser.parse(str(initial_date))\n            date2 = parser.parse(str(final_date))\n            days = abs((date2 - date1).days)\n        except Exception as e:\n            return {\n                'error': f'Could not parse dates: {str(e)}',\n                'height_change_cm': round(height_change_cm, 2)\n            }\n    else:\n        return {\n            'error': 'Must provide either dates or time_interval_days',\n            'height_change_cm': round(height_change_cm, 2)\n        }\n    \n    if days == 0:\n        return {\n            'error': 'Time interval cannot be zero',\n            'height_change_cm': round(height_change_cm, 2),\n            'time_interval_days': days\n        }\n    \n    # Calculate velocity in different units\n    velocity_cm_per_day = height_change_cm / days\n    velocity_cm_per_month = velocity_cm_per_day * 30.44  # Average days per month\n    velocity_cm_per_year = velocity_cm_per_day * 365.25  # Account for leap years\n    \n    # Build result\n    result = {\n        'height_change_cm': round(height_change_cm, 2),\n        'time_interval_days': days,\n        'time_interval_months': round(days / 30.44, 2),\n        'time_interval_years': round(days / 365.25, 2),\n        'velocity_cm_per_day': round(velocity_cm_per_day, 3),\n        'velocity_cm_per_month': round(velocity_cm_per_month, 2),\n        'velocity_cm_per_year': round(velocity_cm_per_year, 2)\n    }\n    \n    # Add interpretation based on velocity\n    velocity_yearly = velocity_cm_per_year\n    \n    # Determine if growth velocity is appropriate based on age (if provided)\n    if age_months is not None:\n        if age_months < 12:  # Infant\n            expected_range = (20, 30)\n            age_group = 'infant (0-12 months)'\n        elif age_months < 24:  # Toddler\n            expected_range = (10, 15)\n            age_group = 'toddler (1-2 years)'\n        elif age_months < 60:  # Preschool\n            expected_range = (6, 9)\n            age_group = 'preschool (2-5 years)'\n        elif age_months < 120:  # School age\n            expected_range = (4, 7)\n            age_group = 'school age (5-10 years)'\n        else:  # Adolescent\n            expected_range = (3, 12)  # Wide range due to pubertal variation\n            age_group = 'adolescent (10+ years)'\n        \n        result['age_group'] = age_group\n        result['expected_velocity_range_cm_per_year'] = f'{expected_range[0]}-{expected_range[1]} cm/year'\n        \n        # Assess if within normal range\n        if velocity_yearly < expected_range[0] * 0.7:  # <70% of minimum\n            result['interpretation'] = f'Growth velocity ({velocity_yearly:.1f} cm/year) is SIGNIFICANTLY BELOW expected for {age_group}. Consider growth evaluation.'\n            result['growth_assessment'] = 'significantly_low'\n        elif velocity_yearly < expected_range[0]:  # Below minimum\n            result['interpretation'] = f'Growth velocity ({velocity_yearly:.1f} cm/year) is BELOW expected for {age_group}. Monitor closely.'\n            result['growth_assessment'] = 'low'\n        elif velocity_yearly <= expected_range[1]:  # Within range\n            result['interpretation'] = f'Growth velocity ({velocity_yearly:.1f} cm/year) is NORMAL for {age_group}.'\n            result['growth_assessment'] = 'normal'\n        elif velocity_yearly <= expected_range[1] * 1.3:  # Slightly above\n            result['interpretation'] = f'Growth velocity ({velocity_yearly:.1f} cm/year) is ABOVE AVERAGE for {age_group}.'\n            result['growth_assessment'] = 'high'\n        else:  # Significantly above\n            result['interpretation'] = f'Growth velocity ({velocity_yearly:.1f} cm/year) is SIGNIFICANTLY ABOVE expected for {age_group}. May indicate growth spurt or other factors.'\n            result['growth_assessment'] = 'significantly_high'\n    else:\n        # No age provided - general interpretation\n        if velocity_yearly < 0:\n            result['interpretation'] = f'NEGATIVE growth velocity ({velocity_yearly:.1f} cm/year) - measurement error or pathology. Verify measurements.'\n            result['growth_assessment'] = 'negative'\n        elif velocity_yearly < 3:\n            result['interpretation'] = f'VERY LOW growth velocity ({velocity_yearly:.1f} cm/year). Consider evaluation if child is growing.'\n            result['growth_assessment'] = 'very_low'\n        elif velocity_yearly < 5:\n            result['interpretation'] = f'LOW growth velocity ({velocity_yearly:.1f} cm/year). May be normal for older children or concern for younger children.'\n            result['growth_assessment'] = 'low'\n        elif velocity_yearly <= 8:\n            result['interpretation'] = f'MODERATE growth velocity ({velocity_yearly:.1f} cm/year). Normal for many age groups.'\n            result['growth_assessment'] = 'moderate'\n        elif velocity_yearly <= 15:\n            result['interpretation'] = f'HIGH growth velocity ({velocity_yearly:.1f} cm/year). Normal for infants/toddlers or during puberty.'\n            result['growth_assessment'] = 'high'\n        else:\n            result['interpretation'] = f'VERY HIGH growth velocity ({velocity_yearly:.1f} cm/year). Typical for young infants or verify measurements.'\n            result['growth_assessment'] = 'very_high'\n    \n    return result\n",
+  "description": "Calculate growth velocity (rate of linear growth over time) in cm/day, cm/month, and cm/year. Provides age-appropriate interpretation when age is provided. Critical for pediatric growth assessment and identifying growth disorders.",
+  "parameters": {
+    "initial_height_cm": {
+      "type": "number",
+      "description": "Initial height or length measurement in centimeters",
+      "required": true
+    },
+    "final_height_cm": {
+      "type": "number",
+      "description": "Final height or length measurement in centimeters",
+      "required": true
+    },
+    "initial_date": {
+      "type": "string",
+      "description": "Date of initial measurement (format: YYYY-MM-DD, MM/DD/YYYY, or natural language). Required if time_interval_days not provided.",
+      "required": false
+    },
+    "final_date": {
+      "type": "string",
+      "description": "Date of final measurement (format: YYYY-MM-DD, MM/DD/YYYY, or natural language). Required if time_interval_days not provided.",
+      "required": false
+    },
+    "time_interval_days": {
+      "type": "number",
+      "description": "Time between measurements in days. Optional if initial_date and final_date are provided.",
+      "required": false
+    },
+    "age_months": {
+      "type": "number",
+      "description": "Age in months at initial measurement. Optional but recommended for age-appropriate interpretation.",
+      "required": false
+    }
+  },
+  "returns": {
+    "height_change_cm": "Change in height in centimeters",
+    "time_interval_days": "Time between measurements in days",
+    "time_interval_months": "Time between measurements in months",
+    "time_interval_years": "Time between measurements in years",
+    "velocity_cm_per_day": "Growth velocity in cm/day",
+    "velocity_cm_per_month": "Growth velocity in cm/month",
+    "velocity_cm_per_year": "Growth velocity in cm/year (primary metric)",
+    "age_group": "Age group classification (if age_months provided)",
+    "expected_velocity_range_cm_per_year": "Expected normal range for age (if age_months provided)",
+    "interpretation": "Clinical interpretation of growth velocity",
+    "growth_assessment": "Assessment category (normal, low, high, etc.)"
+  },
+  "signature": "(initial_height_cm, final_height_cm, initial_date=None, final_date=None, time_interval_days=None, age_months=None) -> dict"
+}
