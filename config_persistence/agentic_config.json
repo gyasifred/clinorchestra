@@ -1,8 +1,0 @@
-{
-  "enabled": true,
-  "max_iterations": 5,
-  "max_tool_calls": 100,
-  "iteration_logging": true,
-  "tool_call_logging": true,
-  "saved_at": "2025-11-16T12:53:55.433144"
-}
