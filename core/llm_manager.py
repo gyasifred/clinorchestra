@@ -108,8 +108,24 @@ class LLMManager:
         )
 
         # Initialize adaptive retry manager for generation failures
-        self.retry_manager = AdaptiveRetryManager(max_retries=5)
+        retry_config = config.get('adaptive_retry_config')
+        metrics_tracker = None
+
+        if retry_config and retry_config.track_retry_metrics:
+            from core.retry_metrics import get_retry_metrics_tracker
+            metrics_tracker = get_retry_metrics_tracker(
+                db_path=retry_config.track_retry_metrics if isinstance(retry_config.track_retry_metrics, str) else "cache/retry_metrics.db"
+            )
+
+        max_retries = retry_config.max_retry_attempts if retry_config else 5
+        self.retry_manager = AdaptiveRetryManager(
+            max_retries=max_retries,
+            config=retry_config,
+            metrics_tracker=metrics_tracker
+        )
         self.enable_adaptive_retry = config.get('enable_adaptive_retry', True)
+        if retry_config:
+            self.enable_adaptive_retry = retry_config.enabled
 
         self._initialize_client()
 
@@ -371,10 +387,13 @@ class LLMManager:
 
         Implements progressive prompt reduction if generation fails
         """
-        # Create retry context
+        # Create retry context with configuration
         retry_context = create_retry_context(
             clinical_text=prompt,
-            max_attempts=self.retry_manager.max_retries
+            max_attempts=self.retry_manager.max_retries,
+            config=self.retry_manager.config,
+            provider=self.provider,
+            model_name=self.model_name
         )
 
         # Define generation function that uses modified prompt

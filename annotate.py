@@ -28,6 +28,7 @@ from ui.functions_tab import create_functions_tab
 from ui.rag_tab import create_rag_tab
 from ui.playground_tab import create_playground_tab
 from ui.processing_tab import create_processing_tab
+from ui.retry_metrics_tab import create_retry_metrics_tab
 from ui.footer import create_footer
 from core.app_state import AppState, StateEvent
 from core.config_persistence import get_persistence_manager
@@ -195,7 +196,10 @@ def create_main_interface() -> gr.Blocks:
             
             with gr.Tab("Processing"):
                 processing_components = create_processing_tab(app_state)
-        
+
+            # v1.0.0: Retry metrics tab for adaptive retry system monitoring
+            retry_metrics_components = create_retry_metrics_tab(app_state)
+
         create_footer()
         
         all_components = {

@@ -123,6 +123,85 @@ class AgenticConfig:
     tool_call_logging: bool = True  # Log each tool call
 
 @dataclass
+class AdaptiveRetryConfig:
+    """Adaptive retry system configuration (v1.0.0)"""
+    # Enable/disable adaptive retry
+    enabled: bool = True  # Enable adaptive retry for LLM generation failures
+
+    # Retry limits
+    max_retry_attempts: int = 5  # Maximum number of retry attempts
+
+    # Progressive input reduction levels (applied at each retry attempt)
+    # Format: [attempt_2, attempt_3, attempt_4, attempt_5]
+    clinical_text_reduction_ratios: List[float] = field(
+        default_factory=lambda: [0.8, 0.6, 0.4, 0.2]
+    )  # Percentage of text to keep at each retry
+
+    # Conversation history reduction levels
+    history_reduction_levels: List[int] = field(
+        default_factory=lambda: [0, 1, 2, 3]
+    )  # 0=none, 1=moderate, 2=aggressive, 3=maximum
+
+    # Tool context reduction levels
+    tool_context_reduction_levels: List[int] = field(
+        default_factory=lambda: [0, 0, 1, 2]
+    )  # 0=none, 1=moderate, 2=maximum
+
+    # Minimal prompt fallback
+    switch_to_minimal_at_attempt: int = 4  # Switch to minimal prompt at this attempt
+
+    # Context preservation strategy
+    preserve_context_beginning_ratio: float = 0.6  # Keep 60% from beginning
+    preserve_context_ending_ratio: float = 0.4  # Keep 40% from end
+
+    # Smart context preservation (embeddings-based)
+    use_smart_context_preservation: bool = False  # Use embeddings to identify important sections
+    smart_preservation_model: str = "sentence-transformers/all-MiniLM-L6-v2"  # Lightweight model
+
+    # Exponential backoff for transient errors
+    enable_exponential_backoff: bool = True  # Use backoff for network/API errors
+    backoff_base_seconds: float = 2.0  # Base backoff time
+    backoff_max_seconds: float = 16.0  # Maximum backoff time
+
+    # Provider-specific settings
+    provider_specific_strategies: Dict[str, Dict[str, Any]] = field(default_factory=dict)
+
+    # Metrics tracking
+    track_retry_metrics: bool = True  # Track retry attempts and success rates
+
+    def __post_init__(self):
+        """Validate configuration"""
+        # Ensure reduction ratios match retry attempts
+        expected_ratios = self.max_retry_attempts - 1
+        if len(self.clinical_text_reduction_ratios) < expected_ratios:
+            # Pad with last value
+            last_ratio = self.clinical_text_reduction_ratios[-1] if self.clinical_text_reduction_ratios else 0.2
+            while len(self.clinical_text_reduction_ratios) < expected_ratios:
+                self.clinical_text_reduction_ratios.append(last_ratio)
+
+        # Initialize default provider strategies if empty
+        if not self.provider_specific_strategies:
+            self.provider_specific_strategies = {
+                'openai': {
+                    'max_retries': 5,
+                    'prioritize_context_reduction': True,  # OpenAI has large context windows
+                },
+                'anthropic': {
+                    'max_retries': 5,
+                    'prioritize_context_reduction': True,  # Claude has large context windows
+                },
+                'google': {
+                    'max_retries': 4,
+                    'prioritize_history_reduction': True,  # Gemini prefers shorter conversations
+                },
+                'local': {
+                    'max_retries': 3,
+                    'aggressive_reduction': True,  # Local models have smaller context windows
+                    'early_minimal_prompt': True,  # Switch to minimal earlier (attempt 3)
+                }
+            }
+
+@dataclass
 class OptimizationConfig:
     """Performance optimization configuration (v1.0.0)"""
     # LLM optimizations
@@ -181,6 +260,7 @@ class AppState:
         self.processing_config = ProcessingConfig()
         self.agentic_config = AgenticConfig()  # v1.0.0 - Agentic mode config
         self.optimization_config = OptimizationConfig()  # v1.0.0 - Performance optimizations
+        self.adaptive_retry_config = AdaptiveRetryConfig()  # v1.0.0 - Adaptive retry system
 
         self.config_valid = False
         self.prompt_valid = False
@@ -261,7 +341,8 @@ class AppState:
                 'llm_cache_enabled': self.optimization_config.llm_cache_enabled,
                 'llm_cache_db_path': self.optimization_config.llm_cache_db_path,
                 'llm_cache_bypass': self.optimization_config.llm_cache_bypass,
-                'prompt_config_hash': self.prompt_config.config_hash  # For cache invalidation on config changes
+                'prompt_config_hash': self.prompt_config.config_hash,  # For cache invalidation on config changes
+                'adaptive_retry_config': self.adaptive_retry_config  # Adaptive retry configuration
             }
 
             if self.model_config.provider == "azure":

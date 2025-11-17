@@ -18,6 +18,7 @@ Version: 1.0.0
 """
 
 import time
+import uuid
 from typing import Dict, Any, Optional, List, Callable
 from dataclasses import dataclass
 from enum import Enum
@@ -25,6 +26,15 @@ from enum import Enum
 from core.logging_config import get_logger
 
 logger = get_logger(__name__)
+
+# Optional: Smart context preservation with embeddings
+try:
+    from sentence_transformers import SentenceTransformer
+    import numpy as np
+    SENTENCE_TRANSFORMERS_AVAILABLE = True
+except ImportError:
+    SENTENCE_TRANSFORMERS_AVAILABLE = False
+    logger.warning("sentence-transformers not available - smart context preservation disabled")
 
 
 class RetryStrategy(Enum):
@@ -50,33 +60,73 @@ class RetryContext:
     switched_to_minimal: bool = False
     last_error: Optional[str] = None
 
+    # Metrics tracking
+    extraction_id: str = ""
+    provider: str = ""
+    model_name: str = ""
+    start_time: float = 0.0
+
+    # Config-driven settings
+    reduction_ratios: List[float] = None
+    history_levels: List[int] = None
+    tool_levels: List[int] = None
+    switch_to_minimal_at: int = 4
+    preserve_beginning_ratio: float = 0.6
+    preserve_ending_ratio: float = 0.4
+
     def __post_init__(self):
         if self.conversation_history is None:
             self.conversation_history = []
         if self.tool_results is None:
             self.tool_results = []
+        if not self.extraction_id:
+            self.extraction_id = str(uuid.uuid4())
+        if self.start_time == 0.0:
+            self.start_time = time.time()
 
 
 class AdaptiveRetryManager:
     """
     Manages adaptive retry strategies for LLM generation failures
 
-    Progressive reduction strategy:
-    1. First retry: Reduce clinical text to 80%
-    2. Second retry: Reduce to 60%, trim conversation history
-    3. Third retry: Reduce to 40%, aggressive history trim, reduce tool context
-    4. Fourth retry: Reduce to 20%, switch to minimal prompt
+    Progressive reduction strategy (configurable):
+    1. First retry: Reduce clinical text based on config
+    2. Second retry: Further reduction + trim conversation history
+    3. Third retry: Aggressive reduction + tool context reduction
+    4. Fourth retry: Maximum reduction + switch to minimal prompt
     5. Fifth retry: Emergency fallback - bare minimum context
     """
 
-    def __init__(self, max_retries: int = 5):
+    def __init__(
+        self,
+        max_retries: int = 5,
+        config: Optional[Any] = None,
+        metrics_tracker: Optional[Any] = None
+    ):
         """
         Initialize adaptive retry manager
 
         Args:
             max_retries: Maximum number of retry attempts
+            config: AdaptiveRetryConfig instance (optional)
+            metrics_tracker: RetryMetricsTracker instance (optional)
         """
         self.max_retries = max_retries
+        self.config = config
+        self.metrics_tracker = metrics_tracker
+
+        # Smart context preservation
+        self.smart_model = None
+        if config and config.use_smart_context_preservation:
+            if SENTENCE_TRANSFORMERS_AVAILABLE:
+                try:
+                    self.smart_model = SentenceTransformer(config.smart_preservation_model)
+                    logger.info(f"Smart context preservation enabled with {config.smart_preservation_model}")
+                except Exception as e:
+                    logger.warning(f"Failed to load smart preservation model: {e}")
+            else:
+                logger.warning("Smart context preservation requested but sentence-transformers not available")
+
         logger.info(f"AdaptiveRetryManager initialized with max_retries={max_retries}")
 
     def execute_with_retry(
@@ -99,10 +149,23 @@ class AdaptiveRetryManager:
         Raises:
             Exception: If all retries are exhausted
         """
+        from core.retry_metrics import RetryAttemptMetrics, ExtractionRetryMetrics
+
         last_exception = None
+
+        # Initialize metrics tracking
+        extraction_metrics = None
+        if self.metrics_tracker:
+            extraction_metrics = ExtractionRetryMetrics(
+                extraction_id=retry_context.extraction_id,
+                provider=retry_context.provider,
+                model_name=retry_context.model_name,
+                original_text_length=retry_context.original_clinical_text_length
+            )
 
         for attempt in range(1, self.max_retries + 1):
             retry_context.attempt = attempt
+            attempt_start_time = time.time()
 
             try:
                 logger.info(f"=== ADAPTIVE RETRY ATTEMPT {attempt}/{self.max_retries} ===")
@@ -116,6 +179,22 @@ class AdaptiveRetryManager:
 
                 # Success!
                 logger.info(f"✓ Generation successful on attempt {attempt}")
+
+                # Record successful attempt
+                if extraction_metrics:
+                    attempt_metrics = RetryAttemptMetrics(
+                        attempt_number=attempt,
+                        success=True,
+                        clinical_text_length=len(retry_context.clinical_text),
+                        conversation_history_length=len(retry_context.conversation_history),
+                        tool_context_length=len(retry_context.tool_results),
+                        switched_to_minimal=retry_context.switched_to_minimal
+                    )
+                    extraction_metrics.add_attempt(attempt_metrics)
+                    extraction_metrics.final_text_length = len(retry_context.clinical_text)
+                    extraction_metrics.total_retry_time_seconds = time.time() - retry_context.start_time
+                    self.metrics_tracker.record_extraction(extraction_metrics)
+
                 return result
 
             except Exception as e:
@@ -123,6 +202,19 @@ class AdaptiveRetryManager:
                 retry_context.last_error = str(e)
 
                 logger.warning(f"✗ Attempt {attempt} failed: {e}")
+
+                # Record failed attempt
+                if extraction_metrics:
+                    attempt_metrics = RetryAttemptMetrics(
+                        attempt_number=attempt,
+                        success=False,
+                        error_type=type(e).__name__,
+                        clinical_text_length=len(retry_context.clinical_text),
+                        conversation_history_length=len(retry_context.conversation_history),
+                        tool_context_length=len(retry_context.tool_results),
+                        switched_to_minimal=retry_context.switched_to_minimal
+                    )
+                    extraction_metrics.add_attempt(attempt_metrics)
 
                 # Determine retry strategy
                 strategy = self._classify_error(e)
@@ -140,15 +232,29 @@ class AdaptiveRetryManager:
                     break
 
                 # Apply exponential backoff for transient errors
-                if strategy == RetryStrategy.TRANSIENT_ERROR:
-                    backoff_time = min(2 ** (attempt - 1), 16)  # Max 16 seconds
+                if self.config and self.config.enable_exponential_backoff and strategy == RetryStrategy.TRANSIENT_ERROR:
+                    backoff_time = min(
+                        self.config.backoff_base_seconds * (2 ** (attempt - 1)),
+                        self.config.backoff_max_seconds
+                    )
+                    logger.info(f"Transient error detected - backing off {backoff_time:.1f}s before retry")
+                    time.sleep(backoff_time)
+                elif strategy == RetryStrategy.TRANSIENT_ERROR:
+                    # Default backoff
+                    backoff_time = min(2 ** (attempt - 1), 16)
                     logger.info(f"Transient error detected - backing off {backoff_time}s before retry")
                     time.sleep(backoff_time)
                 else:
                     # Small delay for other errors
                     time.sleep(0.5)
 
-        # All retries exhausted
+        # All retries exhausted - record final failure
+        if extraction_metrics:
+            extraction_metrics.successful = False
+            extraction_metrics.total_retry_time_seconds = time.time() - retry_context.start_time
+            if self.metrics_tracker:
+                self.metrics_tracker.record_extraction(extraction_metrics)
+
         logger.error(f"All {self.max_retries} retry attempts failed")
         logger.error(f"Final error: {retry_context.last_error}")
         raise last_exception
@@ -193,7 +299,7 @@ class AdaptiveRetryManager:
 
     def _apply_adaptive_strategy(self, context: RetryContext, attempt: int):
         """
-        Apply adaptive strategy based on retry attempt
+        Apply adaptive strategy based on retry attempt (config-driven)
 
         Args:
             context: Current retry context
@@ -201,56 +307,79 @@ class AdaptiveRetryManager:
         """
         logger.info(f"Applying adaptive strategy for attempt {attempt}")
 
-        # Progressive clinical text reduction
-        if attempt == 2:
-            # 80% of original text
-            context.clinical_text = self._truncate_clinical_text(
-                context.clinical_text, 0.8
-            )
-            logger.info(f"  → Clinical text reduced to 80% ({len(context.clinical_text)} chars)")
+        # Get reduction strategy from context or use defaults
+        ratio_index = attempt - 2  # Attempts 2+ use reduction
+        if ratio_index >= 0:
+            # Get reduction ratio
+            if context.reduction_ratios and ratio_index < len(context.reduction_ratios):
+                ratio = context.reduction_ratios[ratio_index]
+            else:
+                # Fallback to default progressive reduction
+                default_ratios = [0.8, 0.6, 0.4, 0.2]
+                ratio = default_ratios[min(ratio_index, len(default_ratios) - 1)]
 
-        elif attempt == 3:
-            # 60% of original text + conversation history trim
+            # Truncate clinical text
             context.clinical_text = self._truncate_clinical_text(
-                context.clinical_text, 0.6
+                context.clinical_text,
+                ratio,
+                use_smart=self.smart_model is not None,
+                context_obj=context
             )
-            context.history_reduction_level = 1
-            logger.info(f"  → Clinical text reduced to 60% ({len(context.clinical_text)} chars)")
-            logger.info(f"  → Conversation history trimming: level 1")
+            logger.info(f"  → Clinical text reduced to {ratio*100:.0f}% ({len(context.clinical_text)} chars)")
 
-        elif attempt == 4:
-            # 40% of original text + aggressive history trim + tool context reduction
-            context.clinical_text = self._truncate_clinical_text(
-                context.clinical_text, 0.4
-            )
-            context.history_reduction_level = 2
-            context.tool_context_reduction_level = 1
-            context.switched_to_minimal = True
-            logger.info(f"  → Clinical text reduced to 40% ({len(context.clinical_text)} chars)")
-            logger.info(f"  → Conversation history trimming: level 2 (aggressive)")
-            logger.info(f"  → Tool context reduction: level 1")
-            logger.info(f"  → Switching to MINIMAL PROMPT")
+            # Get history reduction level
+            if context.history_levels and ratio_index < len(context.history_levels):
+                context.history_reduction_level = context.history_levels[ratio_index]
+            elif ratio_index == 0:
+                context.history_reduction_level = 0
+            elif ratio_index == 1:
+                context.history_reduction_level = 1
+            elif ratio_index == 2:
+                context.history_reduction_level = 2
+            else:
+                context.history_reduction_level = 3
 
-        elif attempt == 5:
-            # Emergency: 20% of text + maximum reduction
-            context.clinical_text = self._truncate_clinical_text(
-                context.clinical_text, 0.2
-            )
-            context.history_reduction_level = 3
-            context.tool_context_reduction_level = 2
-            logger.warning(f"  → EMERGENCY FALLBACK: Clinical text reduced to 20% ({len(context.clinical_text)} chars)")
-            logger.warning(f"  → Maximum conversation history reduction")
-            logger.warning(f"  → Maximum tool context reduction")
+            if context.history_reduction_level > 0:
+                logger.info(f"  → Conversation history trimming: level {context.history_reduction_level}")
 
-    def _truncate_clinical_text(self, text: str, ratio: float) -> str:
+            # Get tool context reduction level
+            if context.tool_levels and ratio_index < len(context.tool_levels):
+                context.tool_context_reduction_level = context.tool_levels[ratio_index]
+            elif ratio_index >= 2:
+                context.tool_context_reduction_level = ratio_index - 1
+
+            if context.tool_context_reduction_level > 0:
+                logger.info(f"  → Tool context reduction: level {context.tool_context_reduction_level}")
+
+            # Switch to minimal prompt at configured attempt
+            if attempt >= context.switch_to_minimal_at and not context.switched_to_minimal:
+                context.switched_to_minimal = True
+                logger.info(f"  → Switching to MINIMAL PROMPT")
+
+            # Emergency warnings for final attempts
+            if attempt >= self.max_retries - 1:
+                logger.warning(f"  → EMERGENCY FALLBACK MODE")
+                logger.warning(f"  → Maximum context reduction applied")
+
+    def _truncate_clinical_text(
+        self,
+        text: str,
+        ratio: float,
+        use_smart: bool = False,
+        context_obj: Optional[RetryContext] = None
+    ) -> str:
         """
         Intelligently truncate clinical text while preserving important sections
 
-        Strategy: Keep beginning (patient info) and end (recent findings)
+        Strategies:
+        1. Simple: Keep beginning (patient info) and end (recent findings)
+        2. Smart: Use embeddings to identify most important sentences
 
         Args:
             text: Original clinical text
             ratio: Ratio to keep (0.0-1.0)
+            use_smart: Use smart embedding-based truncation
+            context_obj: RetryContext for config access
 
         Returns:
             Truncated text
@@ -263,9 +392,19 @@ class AdaptiveRetryManager:
         if target_length >= len(text):
             return text
 
-        # Keep 60% from beginning, 40% from end
-        begin_length = int(target_length * 0.6)
-        end_length = int(target_length * 0.4)
+        # Use smart truncation if available and enabled
+        if use_smart and self.smart_model:
+            try:
+                return self._smart_truncate(text, target_length, context_obj)
+            except Exception as e:
+                logger.warning(f"Smart truncation failed: {e}, falling back to simple")
+
+        # Simple truncation: Keep beginning and end
+        begin_ratio = context_obj.preserve_beginning_ratio if context_obj else 0.6
+        end_ratio = context_obj.preserve_ending_ratio if context_obj else 0.4
+
+        begin_length = int(target_length * begin_ratio)
+        end_length = int(target_length * end_ratio)
 
         beginning = text[:begin_length]
         ending = text[-end_length:] if end_length > 0 else ""
@@ -273,6 +412,86 @@ class AdaptiveRetryManager:
         truncated = f"{beginning}\n\n[... CLINICAL TEXT TRUNCATED FOR CONTEXT SIZE ...]\n\n{ending}"
 
         logger.debug(f"Truncated clinical text: {len(text)} → {len(truncated)} chars (ratio={ratio})")
+
+        return truncated
+
+    def _smart_truncate(
+        self,
+        text: str,
+        target_length: int,
+        context_obj: Optional[RetryContext] = None
+    ) -> str:
+        """
+        Use embeddings to identify and preserve most important sentences
+
+        Args:
+            text: Original text
+            target_length: Target length in characters
+            context_obj: RetryContext for additional context
+
+        Returns:
+            Smartly truncated text
+        """
+        # Split into sentences
+        sentences = [s.strip() for s in text.split('.') if s.strip()]
+
+        if len(sentences) <= 3:
+            # Too few sentences for smart truncation
+            return text[:target_length] + "..."
+
+        # Encode all sentences
+        embeddings = self.smart_model.encode(sentences)
+
+        # Calculate importance scores (distance from mean)
+        mean_embedding = np.mean(embeddings, axis=0)
+        importance_scores = []
+
+        for i, emb in enumerate(embeddings):
+            # Distance from mean (less distance = more representative/important)
+            distance = np.linalg.norm(emb - mean_embedding)
+            # Also prioritize first and last sentences
+            position_bonus = 0
+            if i == 0:
+                position_bonus = 0.3  # First sentence bonus
+            elif i == len(sentences) - 1:
+                position_bonus = 0.2  # Last sentence bonus
+
+            score = (1.0 / (distance + 1.0)) + position_bonus
+            importance_scores.append((i, score, sentences[i]))
+
+        # Sort by importance
+        importance_scores.sort(key=lambda x: x[1], reverse=True)
+
+        # Select sentences until we reach target length
+        selected_indices = []
+        current_length = 0
+
+        for idx, score, sentence in importance_scores:
+            sentence_len = len(sentence) + 2  # +2 for ". "
+            if current_length + sentence_len <= target_length:
+                selected_indices.append(idx)
+                current_length += sentence_len
+            elif not selected_indices:
+                # Always include at least one sentence
+                selected_indices.append(idx)
+                break
+
+        # Reconstruct text in original order
+        selected_indices.sort()
+        selected_sentences = [sentences[i] for i in selected_indices]
+
+        # Add markers for omitted sections
+        result = []
+        last_idx = -1
+        for idx in selected_indices:
+            if idx > last_idx + 1:
+                result.append("[... CONTENT OMITTED ...]")
+            result.append(selected_sentences[selected_indices.index(idx)])
+            last_idx = idx
+
+        truncated = ". ".join(result) + "."
+
+        logger.debug(f"Smart truncation: kept {len(selected_sentences)}/{len(sentences)} sentences, {len(truncated)} chars")
 
         return truncated
 
@@ -400,26 +619,59 @@ def create_retry_context(
     clinical_text: str,
     conversation_history: Optional[List[Any]] = None,
     tool_results: Optional[List[Any]] = None,
-    max_attempts: int = 5
+    max_attempts: int = 5,
+    config: Optional[Any] = None,
+    provider: str = "",
+    model_name: str = ""
 ) -> RetryContext:
     """
-    Create a retry context for adaptive retry
+    Create a retry context for adaptive retry with configuration
 
     Args:
         clinical_text: Original clinical text
         conversation_history: Current conversation history
         tool_results: Current tool results
         max_attempts: Maximum retry attempts
+        config: AdaptiveRetryConfig instance (optional)
+        provider: LLM provider name
+        model_name: LLM model name
 
     Returns:
         RetryContext instance
     """
-    return RetryContext(
+    context = RetryContext(
         attempt=0,
         max_attempts=max_attempts,
         clinical_text=clinical_text,
         conversation_history=conversation_history or [],
         tool_results=tool_results or [],
         original_clinical_text_length=len(clinical_text),
-        current_clinical_text_length=len(clinical_text)
+        current_clinical_text_length=len(clinical_text),
+        provider=provider,
+        model_name=model_name
     )
+
+    # Apply configuration if provided
+    if config:
+        context.reduction_ratios = config.clinical_text_reduction_ratios
+        context.history_levels = config.history_reduction_levels
+        context.tool_levels = config.tool_context_reduction_levels
+        context.switch_to_minimal_at = config.switch_to_minimal_at
+        context.preserve_beginning_ratio = config.preserve_context_beginning_ratio
+        context.preserve_ending_ratio = config.preserve_context_ending_ratio
+
+        # Apply provider-specific overrides
+        if provider in config.provider_specific_strategies:
+            provider_config = config.provider_specific_strategies[provider]
+
+            if 'max_retries' in provider_config:
+                context.max_attempts = provider_config['max_retries']
+
+            if provider_config.get('early_minimal_prompt'):
+                context.switch_to_minimal_at = 3
+
+            if provider_config.get('aggressive_reduction'):
+                # More aggressive reduction for local models
+                context.reduction_ratios = [0.7, 0.5, 0.3, 0.15]
+
+    return context
