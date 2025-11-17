@@ -496,7 +496,18 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
             rag_engine = None
             if config.rag_enabled and config.rag_documents_path:
                 print(f"[WORKER-{gpu_id}] Creating RAG engine...")
-                rag_engine = RAGEngine(config.rag_top_k)
+                rag_engine = RAGEngine({
+                    'embedding_model': 'sentence-transformers/all-mpnet-base-v2',
+                    'chunk_size': 512,
+                    'chunk_overlap': 50,
+                    'cache_dir': './rag_cache',
+                    'force_refresh': False
+                })
+                # Initialize with documents if available
+                if config.rag_documents_path:
+                    # Note: documents initialization might need app_state context
+                    # For now, RAG engine is created but may need initialization later
+                    pass
                 print(f"[WORKER-{gpu_id}] RAG engine created")
 
             # Create agent for this process
