@@ -510,14 +510,19 @@ class AppState:
             raise
 
     def get_prompt_for_processing(self, retry_count: int = 0) -> str:
-        """Get appropriate prompt based on retry count"""
-        if self.prompt_config.use_minimal and retry_count >= self.processing_config.max_retries:
-            logger.info(f"Switching to minimal prompt after {retry_count} retries")
+        """
+        Get appropriate prompt based on retry count
+
+        Strategy: Always start with main prompt, fall back to minimal on max retries
+        """
+        # Fall back to minimal prompt if we've hit max retries AND minimal prompt is configured
+        if retry_count >= self.processing_config.max_retries and self.prompt_config.minimal_prompt:
+            logger.warning(f"[FALLBACK] Switching to minimal prompt after {retry_count} retries (max={self.processing_config.max_retries})")
             self.is_using_minimal_prompt = True
-            return self.prompt_config.assembled_minimal_prompt
+            return self.prompt_config.assembled_minimal_prompt or self.prompt_config.minimal_prompt
         else:
             self.is_using_minimal_prompt = False
-            return self.prompt_config.assembled_main_prompt
+            return self.prompt_config.assembled_main_prompt or self.prompt_config.main_prompt
 
     def set_label_mappings(self, mappings: Dict[Any, str]) -> bool:
         """Set label mappings for all label categories"""

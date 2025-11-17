@@ -124,9 +124,9 @@ class ExtrasManager:
         matched.sort(key=lambda x: x['relevance_score'], reverse=True)
         
         logger.info(f"Matched {len(matched)} extras with keyword relevance > 0.2")
-        
-        # Return top 5 most relevant
-        return matched[:5]
+
+        # Return top 7 most relevant (increased from 5 for better context)
+        return matched[:7]
     
     def match_extras(self, text: str, current_output: Optional[Dict[str, Any]] = None, 
                      keywords: Optional[List[str]] = None) -> List[Dict[str, Any]]:
@@ -176,8 +176,9 @@ class ExtrasManager:
                 })
         
         matched.sort(key=lambda x: x['relevance_score'], reverse=True)
-        
-        return matched[:5]
+
+        # Return top 7 most relevant (increased from 5 for better context)
+        return matched[:7]
     
     def _calculate_keyword_relevance_score(self, extra: Dict[str, Any], 
                                           keywords_lower: List[str]) -> float:

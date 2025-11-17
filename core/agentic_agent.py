@@ -554,13 +554,17 @@ Example format:
         # Parse for tool calls or JSON output
         return self._parse_text_response_for_tools(response_text)
 
-    def _get_tool_schema(self) -> List[Dict[str, Any]]:
+    def _get_tool_schema(self, max_functions: int = 100) -> List[Dict[str, Any]]:
         """
         Get tool schema in OpenAI/Anthropic function calling format
+
+        Args:
+            max_functions: Maximum number of custom functions to include (default: 100)
+                          Some LLM providers have limits (e.g., 128 tools max)
         """
         tools = []
 
-        # RAG tool
+        # RAG tool (always include if available - critical for retrieval)
         if self.rag_engine:
             tools.append({
                 'type': 'function',
@@ -584,25 +588,7 @@ Example format:
                 }
             })
 
-        # Function tool (use consistent instance)
-        if self.function_registry:
-            # Get all available functions
-            functions = self.function_registry.get_all_functions_info()
-            for func in functions:
-                tools.append({
-                    'type': 'function',
-                    'function': {
-                        'name': f"call_{func['name']}",
-                        'description': f"{func.get('description', 'Calculation or transformation function')}. Can be called multiple times with different inputs.",
-                        'parameters': {
-                            'type': 'object',
-                            'properties': func.get('parameters', {}),
-                            'required': list(func.get('parameters', {}).keys())
-                        }
-                    }
-                })
-
-        # Extras tool
+        # Extras tool (always include if available - critical for hints)
         if self.extras_manager:
             tools.append({
                 'type': 'function',
@@ -623,6 +609,36 @@ Example format:
                 }
             })
 
+        # Function tool (use consistent instance)
+        # INTELLIGENT LIMITING: Only include up to max_functions to avoid exceeding model limits
+        if self.function_registry:
+            # Get all available functions
+            functions = self.function_registry.get_all_functions_info()
+
+            # Calculate remaining space for functions (accounting for RAG + Extras)
+            remaining_slots = max_functions - len(tools)
+
+            if len(functions) > remaining_slots:
+                logger.warning(f"[LIMIT] {len(functions)} functions available, but limiting to {remaining_slots} to avoid exceeding model tool limit")
+                # Prioritize functions that might be more relevant
+                # For now, just take the first N functions (could be improved with relevance scoring)
+                functions = functions[:remaining_slots]
+
+            for func in functions:
+                tools.append({
+                    'type': 'function',
+                    'function': {
+                        'name': f"call_{func['name']}",
+                        'description': f"{func.get('description', 'Calculation or transformation function')}. Can be called multiple times with different inputs.",
+                        'parameters': {
+                            'type': 'object',
+                            'properties': func.get('parameters', {}),
+                            'required': list(func.get('parameters', {}).keys())
+                        }
+                    }
+                })
+
+        logger.debug(f"[TOOLS] Built tool schema with {len(tools)} tools (RAG: {1 if self.rag_engine else 0}, Extras: {1 if self.extras_manager else 0}, Functions: {len(tools) - (1 if self.rag_engine else 0) - (1 if self.extras_manager else 0)})")
         return tools
 
     def _extract_json_from_conversation(self) -> Optional[Dict[str, Any]]:
