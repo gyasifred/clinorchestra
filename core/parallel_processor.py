@@ -113,14 +113,15 @@ class ParallelProcessor:
 
     def process_batch(self,
                      tasks: List[ProcessingTask],
-                     process_function: Callable[[str, Any], Dict[str, Any]],
+                     process_function: Callable[[ProcessingTask], Dict[str, Any]],
                      progress_callback: Optional[Callable[[int, int], None]] = None) -> List[ProcessingResult]:
         """
         Process batch of tasks in parallel
 
         Args:
             tasks: List of processing tasks
-            process_function: Function to process single row (text, label) -> result
+            process_function: Function to process single task (task) -> result
+                             Takes a ProcessingTask object and returns extraction result dict
             progress_callback: Optional callback for progress updates (completed, total)
 
         Returns:
@@ -154,8 +155,8 @@ class ParallelProcessor:
                 if self.provider != 'local':
                     self.rate_limiter.acquire()
 
-                # Process the row
-                result = process_function(task.clinical_text, task.label_value)
+                # Process the row - FIXED: Pass entire task object for flexibility
+                result = process_function(task)
 
                 duration = time.time() - start_time
 
