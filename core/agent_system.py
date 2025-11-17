@@ -34,6 +34,8 @@ from core.prompt_templates import (
 )
 from core.logging_config import get_logger, log_extraction_stage
 from core.performance_monitor import get_performance_monitor, TimingContext
+from core.tool_dedup_preventer import create_tool_dedup_preventer
+from core.adaptive_retry import AdaptiveRetryManager, create_retry_context
 
 logger = get_logger(__name__)
 perf_monitor = get_performance_monitor(enabled=True)
@@ -102,7 +104,14 @@ class ExtractionAgent:
         self.max_retries = 3
         self.json_parser = JSONParser()
 
+        # Initialize tool deduplication preventer
+        self.tool_dedup_preventer = None  # Created per extraction
+
+        # Initialize adaptive retry manager
+        self.retry_manager = AdaptiveRetryManager(max_retries=5)
+
         logger.info(" ExtractionAgent v1.0.0 initialized - STRUCTURED Mode (predictable workflows with ASYNC)")
+        logger.info(" Enhanced with: Adaptive Retry + Proactive Tool Deduplication")
         
     
     def extract(self, clinical_text: str, label_value: Optional[Any] = None,
@@ -133,6 +142,10 @@ class ExtractionAgent:
                 prompt_variables=prompt_variables or {},  # NEW: Store prompt variables
                 original_text=clinical_text
             )
+
+            # Initialize tool deduplication preventer for this extraction
+            # Use a high budget for STRUCTURED mode since tools are planned upfront
+            self.tool_dedup_preventer = create_tool_dedup_preventer(max_tool_calls=200)
             
             # Preprocess the clinical text (skip if batch preprocessing was already done)
             if self.app_state.optimization_config.use_batch_preprocessing:
@@ -569,9 +582,23 @@ class ExtractionAgent:
             logger.info("No tool requests to execute")
             return
 
-        # CRITICAL FIX: Deduplicate tool requests before execution
+        # CRITICAL FIX: Deduplicate tool requests before execution using preventer
         original_count = len(self.context.tool_requests)
-        self.context.tool_requests = self._deduplicate_tool_requests(self.context.tool_requests)
+
+        if self.tool_dedup_preventer:
+            # Use advanced deduplication preventer
+            unique_requests, num_duplicates = self.tool_dedup_preventer.filter_duplicates(self.context.tool_requests)
+            self.context.tool_requests = unique_requests
+
+            if num_duplicates > 0:
+                logger.warning(f"⚠️ PREVENTED {num_duplicates} DUPLICATE TOOL REQUESTS IN STAGE 2")
+                logger.info(f"   Original: {original_count} requests → Unique: {len(unique_requests)} requests")
+
+            # Log budget status
+            logger.info(f"📊 {self.tool_dedup_preventer.get_budget_status()}")
+        else:
+            # Fallback to old deduplication
+            self.context.tool_requests = self._deduplicate_tool_requests(self.context.tool_requests)
 
         if len(self.context.tool_requests) == 0:
             logger.warning(" No tool requests to execute after deduplication")
@@ -1064,9 +1091,20 @@ class ExtractionAgent:
         - RAG: Retrieve additional guidelines
         - Extras: Get supplementary hints
         """
-        # CRITICAL FIX: Deduplicate tool requests before execution
+        # CRITICAL FIX: Deduplicate tool requests before execution using preventer
         original_count = len(tool_requests)
-        tool_requests = self._deduplicate_tool_requests(tool_requests)
+
+        if self.tool_dedup_preventer:
+            # Use advanced deduplication preventer
+            unique_requests, num_duplicates = self.tool_dedup_preventer.filter_duplicates(tool_requests)
+            tool_requests = unique_requests
+
+            if num_duplicates > 0:
+                logger.warning(f"⚠️ PREVENTED {num_duplicates} DUPLICATE TOOL REQUESTS IN STAGE 4")
+                logger.info(f"   Original: {original_count} requests → Unique: {len(unique_requests)} requests")
+        else:
+            # Fallback to old deduplication
+            tool_requests = self._deduplicate_tool_requests(tool_requests)
 
         if len(tool_requests) == 0:
             logger.warning(" No refinement tools to execute after deduplication")

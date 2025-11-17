@@ -30,6 +30,8 @@ from core.json_parser import JSONParser
 from core.prompt_templates import format_schema_as_instructions
 from core.logging_config import get_logger
 from core.performance_monitor import get_performance_monitor, TimingContext
+from core.tool_dedup_preventer import create_tool_dedup_preventer
+from core.adaptive_retry import AdaptiveRetryManager, create_retry_context
 
 logger = get_logger(__name__)
 perf_monitor = get_performance_monitor(enabled=True)
@@ -138,7 +140,14 @@ class AgenticAgent:
         self.context: Optional[AgenticContext] = None
         self.json_parser = JSONParser()
 
+        # Initialize tool deduplication preventer
+        self.tool_dedup_preventer = None  # Created per extraction
+
+        # Initialize adaptive retry manager
+        self.retry_manager = AdaptiveRetryManager(max_retries=5)
+
         logger.info(" AdaptiveAgent v1.0.0 initialized - ADAPTIVE Mode (evolving tasks with ASYNC)")
+        logger.info(" Enhanced with: Adaptive Retry + Proactive Tool Deduplication")
 
     def extract(self, clinical_text: str, label_value: Optional[Any] = None,
                 prompt_variables: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
@@ -185,9 +194,13 @@ class AgenticAgent:
                 prompt_variables=prompt_variables or {}  # NEW: Store prompt variables
             )
 
+            # Initialize tool deduplication preventer for this extraction
+            self.tool_dedup_preventer = create_tool_dedup_preventer(max_tool_calls=max_tool_calls)
+
             logger.info("=" * 80)
             logger.info("ADAPTIVE MODE EXTRACTION STARTED (v1.0.0 - Evolving Tasks & Async)")
             logger.info(f"Configuration: Max Iterations={max_iterations}, Max Tool Calls={max_tool_calls}")
+            logger.info(f"Enhanced Features: Adaptive Retry + Proactive Tool Deduplication")
             logger.info("=" * 80)
 
             # Build initial prompt
@@ -212,7 +225,9 @@ BUDGET:
 - Maximum Iterations: {max_iterations}
 - Maximum Tool Calls: {max_tool_calls}
 
-Be strategic: prioritize essential tools, avoid redundant calls, and output JSON when you have sufficient information."""
+Be strategic: prioritize essential tools, avoid redundant calls, and output JSON when you have sufficient information.
+
+🚫 CRITICAL: Do NOT call the same tool with the same parameters multiple times. If you've already called a function with specific parameters, the result is available in tool results - do not recalculate it!"""
             self.context.conversation_history.append(
                 ConversationMessage(role='user', content=planning_message)
             )
@@ -261,10 +276,20 @@ Be strategic: prioritize essential tools, avoid redundant calls, and output JSON
                 # Warn LLM if approaching tool call limit (>80% used)
                 elif tool_call_usage_pct >= 80:
                     logger.warning(f"TOOL CALL BUDGET WARNING: {self.context.total_tool_calls}/{self.context.max_tool_calls} used ({tool_call_usage_pct:.0f}%)")
-                    warning_message = f"""⚠️ TOOL CALL BUDGET WARNING: You have used {self.context.total_tool_calls}/{self.context.max_tool_calls} tool calls ({tool_call_usage_pct:.0f}%). Only {tool_calls_remaining} calls remaining. Prioritize essential tools and prepare to output JSON soon."""
+                    warning_message = f"""⚠️ TOOL CALL BUDGET WARNING: You have used {self.context.total_tool_calls}/{self.context.max_tool_calls} tool calls ({tool_call_usage_pct:.0f}%). Only {tool_calls_remaining} calls remaining. Prioritize essential tools and prepare to output JSON soon.
+
+🚫 AVOID DUPLICATE CALLS: Do not re-request tools you've already used!"""
                     self.context.conversation_history.append(
                         ConversationMessage(role='user', content=warning_message)
                     )
+
+                # Inject duplicate prevention prompt if we have tool history
+                if self.tool_dedup_preventer and len(self.tool_dedup_preventer.call_history) > 0:
+                    prevention_prompt = self.tool_dedup_preventer.generate_prevention_prompt()
+                    if prevention_prompt:
+                        self.context.conversation_history.append(
+                            ConversationMessage(role='user', content=prevention_prompt)
+                        )
 
                 # Warn LLM if this is the last iteration
                 if self.context.iteration == self.context.max_iterations:
@@ -296,17 +321,44 @@ Be strategic: prioritize essential tools, avoid redundant calls, and output JSON
 
                     self.context.state = AgenticState.AWAITING_TOOL_RESULTS
 
-                    # Track tool calls for stall detection and duplicate detection
+                    # PROACTIVE DEDUPLICATION: Filter duplicates using preventer
+                    if self.tool_dedup_preventer:
+                        # Convert ToolCall objects to dicts for filtering
+                        tool_call_dicts = []
+                        for tc in self.context.tool_calls_this_iteration:
+                            tool_call_dicts.append({
+                                'type': tc.type,
+                                'name': tc.name,
+                                'parameters': tc.parameters
+                            })
+
+                        # Filter duplicates
+                        unique_dicts, num_duplicates = self.tool_dedup_preventer.filter_duplicates(tool_call_dicts)
+
+                        if num_duplicates > 0:
+                            logger.warning(f"⚠️ PREVENTED {num_duplicates} DUPLICATE TOOL CALLS")
+                            logger.info(f"   Original: {len(tool_call_dicts)} calls → Unique: {len(unique_dicts)} calls")
+
+                            # Rebuild tool_calls_this_iteration with only unique calls
+                            unique_tool_calls = []
+                            for unique_dict in unique_dicts:
+                                # Find matching ToolCall object
+                                for tc in self.context.tool_calls_this_iteration:
+                                    tc_dict = {'type': tc.type, 'name': tc.name, 'parameters': tc.parameters}
+                                    if self.tool_dedup_preventer.create_call_signature(tc_dict) == \
+                                       self.tool_dedup_preventer.create_call_signature(unique_dict):
+                                        unique_tool_calls.append(tc)
+                                        break
+
+                            self.context.tool_calls_this_iteration = unique_tool_calls
+
+                        # Log budget status
+                        logger.info(f"📊 {self.tool_dedup_preventer.get_budget_status()}")
+
+                    # Track tool calls for stall detection
                     tool_signature = self._get_tool_calls_signature(self.context.tool_calls_this_iteration)
                     self.context.tool_call_history.append(tool_signature)
                     logger.debug(f" Tool signature: {tool_signature}")
-
-                    # Detect duplicate function calls with same parameters
-                    duplicates = self._detect_duplicate_function_calls(self.context.tool_calls_this_iteration)
-                    if duplicates:
-                        logger.warning(f" DUPLICATE CALCULATIONS DETECTED: {len(duplicates)} functions called with same parameters as before")
-                        for dup in duplicates:
-                            logger.warning(f"   - {dup['function']}({dup['params']}) - already calculated in previous iteration")
 
                     # Check for repeated tool calls (stall detection)
                     if len(self.context.tool_call_history) >= 3:
