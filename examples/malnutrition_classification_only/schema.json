@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "properties": {
+    "reasoning": {
+      "type": "string",
+      "description": "Clinical reasoning including: (1) Assessment type with justification, (2) Specific criteria met with exact values and dates, (3) ASPEN indicator count if applicable, (4) Severity level if malnourished, (5) Confidence level and limitations"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["Malnourished", "Not Malnourished"],
+      "description": "Binary classification result - indicates presence or absence of malnutrition based on clinical criteria"
+    }
+  },
+  "required": [
+    "reasoning",
+    "status"
+  ]
+}
