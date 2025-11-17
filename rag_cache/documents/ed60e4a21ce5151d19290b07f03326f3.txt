@@ -1,0 +1,330 @@
+156 CHEST Original Research
+CHEST INFECTIONS
+Original Research     Community-acquired pneumonia (CAP), along with 
+inﬂ uenza, is the eighth leading cause of death in 
+the United States.  1   About 6 million cases are reported 
+annually, resulting in an estimated 500,000 to 1.1 mil-lion hospitalizations.  2,3   Treatment costs $8.4 billion to 
+$10 billion annually, with the cost of inpatient care 25 times that of outpatient care.  
+3   The outcome of CAP 
+is extremely variable and depends upon the affected host’s response, the underlying pathogen, and the treatment delivered. Site of care is a major decision in   Background:     Accurate severity assessment is crucial to the initial management of community-
+acquired pneumonia (CAP). The CURB-65 (confusion, uremia, respiratory rate, BP, age  /H11350  65 years) 
+score contains data that are entered routinely in electronic medical records and are, thus, elec-tronically calculable. The aim of this study was to determine whether an electronically generated severity estimate using CURB-65 elements as continuous and weighted variables better predicts 30-day mortality than the traditional CURB-65.   Methods:     In a retrospective cohort study at a US university-afﬁ  liated community teaching hospi-
+tal, we identiﬁ  ed 2,069 patients aged 18 years or older with CAP conﬁ  rmed by radiographic ﬁ  nd-
+ings in the ED. CURB-65 elements were extracted from the electronic medical record, and 30-day mortality was identiﬁ  ed with the Utah Population Database. Performance of a severity prediction 
+model using continuous and weighted CURB-65 variables was compared with the traditional CURB-65 in the US derivation population and validated in the original 1,048 patients from the CURB-65 international derivation study  . 
+  Results:     The traditional, binary CURB-65 score predicted mortality in the US cohort with an area 
+under the curve (AUC) of 0.82. Our severity prediction model generated from continuous, weighted CURB-65 elements was superior to the traditional CURB-65, with an out-of-bag AUC of 0.86 ( P   ,  .001). This ﬁ  nding was validated in the international database, with an AUC of 0.85 for 
+the electronic model compared with 0.80 for the traditional CURB-65 ( P   5  .01). 
+  Conclusions:     Using CURB-65 elements as continuous and weighted data improved prediction of 
+30-day mortality and could be used as a real-time, electronic decision support tool or to adjust outcomes by severity when comparing processes of care.   CHEST 2011; 140(1):156–163  
+  Abbreviations:  AUC  5  area under the curve; CAP  5  community-acquired pneumonia; CURB-65  5  confusion, uremia, 
+respiratory rate, BP , age  .  65 years; ICD-9  5   International    Statistical Classiﬁ  cation of Diseases, 9th edition  ; LDS  5  Latter- day 
+Saints; PSI  5  pneumonia severity index  CURB-65 Pneumonia Severity Assessment 
+Adapted for Electronic Decision Support  
+  Barbara E.   Jones ,  MD ;  Jason   Jones ,  PhD ;  Thomas   Bewick ,  MD ;  Wei Shen   Lim ,  MD ; 
+ Dominik   Aronsky ,  MD ,  PhD ;  Samuel M.   Brown ,  MD ;  Wim G.   Boersma ,  MD ;  Menno M.   van der Eerden ,  MD ; and  Nathan C.   Dean ,  MD ,  FCCP  
+ Manuscript received May 21, 2010; revision accepted November 9, 
+2010      .   Afﬁ liations:   From the Department of Medicine, Division of 
+ Pulmonary and Critical Care Medicine (Drs B. E. Jones, Brown, and Dean), University of Utah, Salt Lake City, UT; the Depart-ment of Medical Informatics (Drs J. Jones, Brown, and Dean), Intermountain Medical Center, Murray, UT; the Nottingham University Hospitals NHS Trust (Drs Bewick and Lim), Nottingham, England; the Department of Biomedical Informatics and Emer-gency Medicine (Dr Aronsky), Vanderbilt Hospital, Nashville, TN; and the Department of Pulmonary Disease (Drs Boersma and van der Eerden), Medical Centre Alkmaar, The Netherlands.Dr van der Eerden is currently as the Erasmus Center (Rotterdam, The Netherlands).   Funding/Support:   This research is supported by the Deseret 
+Foundation of Salt Lake City, UT.   Correspondence to  : Barbara E. Jones, MD, Division of Pulmo-
+nary and Critical Care Medicine, University of Utah, 26 N 1900 E, Wintrobe Bldg, Room 701, Salt Lake City, UT 84132; e-mail: barbara.jones@hsc.utah.edu   © 2011 American College of Chest Physicians.   Reproduction 
+of this article is prohibited without written permission from the American College of Chest Physicians ( http://www.chestpubs.org/site/misc/reprints.xhtml ).  DOI: 10.1378/chest.10-1296 
+www.chestpubs.org CHEST / 140 / 1 / JULY , 2011   157  3. Validate our derived severity prediction model 
+in an international multicenter database of patients with pneumonia.  
+11   
+ Materials and Methods 
+ Study Population 
+ The study was performed at Latter-day Saints (LDS) Hospital, 
+a university-afﬁ  liated community teaching hospital in Salt Lake 
+City, Utah, with 520 beds. An electronic medical record was imple-mented in the ED in 1995, followed that same year by a paper-based, standardized pneumonia treatment protocol.  
+17   
+ In a retrospective analysis of data in the electronic medical 
+record, we identiﬁ  ed all patients  .  18 years of age evaluated in 
+the ED at LDS Hospital from 1996 to 2006 with  International 
+Statistical Classiﬁ  cation of Diseases, 9th edition   (ICD-9) codes 
+ speciﬁ  c for a primary diagnosis of pneumonia (480-487.1), or 
+respi ratory failure or sepsis (518.x, 038.x) as a primary diagnosis 
+with pneumonia secondary. Patients diagnosed with aspiration pneu-monia (507.0), immunocompromised conditions including AIDS or receipt of antiretroviral therapy (042), solid organ transplants (v420-7), hematologic malignancies (v106.x, 200.x, 208.x), and those meeting criteria for health-care-associated pneumonia  
+18   were 
+excluded. We included only the ﬁ  rst episode of pneumonia in a given 
+12-month period; however, 45 individuals presented with more than one case of pneumonia outside a 12-month period. Chest radiograph and CT scan reports upon admission to the ED were manually reviewed for radiographic evidence of pneumonia by three physicians, with a three-way  k  agreement score of 0.95 for 
+a random sample of 100 reports. Patients lacking radiographic evidence for pneumonia were excluded. This study was approved by the LDS Hospital institutional review board   and the Utah Pop-ulation Database. Patient consent was not required. 
+ Validation Cohort 
+ Patient records contained in the database from the prior inter-
+national CURB-65 derivation and validation study  
+11   were used to 
+validate the model derived in our population. The study included patients with CAP in England, The Netherlands, and New Zealand. Exclusion criteria were similar to our study, with the exception that only patients admitted to the hospital as an emergency were included. Data for calculation of CURB-65 were recorded pro-spectively upon hospital admission, with 30-day all-cause mortal-ity determined during follow-up. 
+ Measurements 
+ The ﬁ  rst 6 hours of vital signs, orientation status (entered rou-
+tinely during nursing assessment), and the ﬁ  rst 12 hours of routine 
+laboratory results were extracted from the electronic medical record. A manual review of 50 charts showed  .  90% agreement 
+between electronic and paper records; the majority of the dis-agreements were minor discrepancies in BP that were not signiﬁ  -
+cant enough to result in a change in CURB-65 classiﬁ  cation. The 
+methodology of an electronic, continuous-weighted CURB-65 requires a speciﬁ  c value for BUN. The PSI and CURB-65 conven-
+tionally assume normality for missing data. Additionally, CRB-65 has been validated as a predictive score for patients lacking a BUN.  
+11,15,19    Of   the 304 patients missing BUN values, 268 were not 
+admitted to the hospital. Therefore, for patients lacking a BUN determination, we imputed a median BUN matched by age quartile derived from nonadmitted patients in our cohort (e-Table 2  ). This same imputation was applied to the 40 patients with missing the management of pneumonia and is guided by esti-
+mated severity of the patient’s disease.  4,5   However, 
+variability in physician decision making regarding the need for hospital admission has been repeatedly dem-onstrated.  
+6-8   Therefore, accurate severity assessment 
+during initial management is critical. 
+ Two severity assessment tools have become widely 
+used by clinicians to help distinguish high-risk patients who require inpatient management from those able to thrive with outpatient management. The pneu-monia severity index (PSI) developed by Fine and colleagues  
+9   is a prognostic model that calculates a 
+severity-of-illness score based on 20 separate patient characteristics, including underlying comorbidities. The CURB-65 score is composed of ﬁ  ve separate ele-
+ments: confusion, uremia  , respiratory rate, BP, and age  /H11350  65 years ( Table 1  ). This was initially developed 
+by the British Thoracic Society in 1987 as the CRB criteria,  
+10   later modiﬁ  ed to the CURB-65 and vali-
+dated by Lim et al  11   in an international, multicenter 
+derivation/validation study from Nottingham, England; Christchurch and Waikato, New Zealand; and Alkmaar, The Netherlands. 
+ Both the PSI and the CURB-65 are accepted meth-
+ods of assessing severity by the American Thoracic Society  
+4  ; the British Thoracic Society recommends 
+use of the CURB-65.  5   Although the PSI has been 
+shown to be slightly more accurate at predicting out-come,  
+12-16   CURB-65 is simpler to use. Additionally, 
+all elements of the CURB-65 are routinely entered into the electronic medical record, making it possible to generate a mortality prediction automatically for each patient at the point of care. 
+ CURB-65 attributes a point to each criterion in a 
+dichotomous and equally weighted fashion. However, excluding confusion, CURB-65 elements are actually continuous variables that may not be of equal predic-tive value. CURB-65, therefore, may be more accurate if calculated with continuous and weighted variables. Instead of a severity score, a computer could generate an individualized mortality risk estimate using data elements from the electronic medical record. Gener-ating an automated, accurate mortality estimate imme-diately available to providers could improve severity assessment and thus improve care. 
+ Our aims were to: 
+ 1. Validate the CURB-65 severity assessment tool 
+in patients with CAP presenting to a US ED using information from the electronic medical record. 
+ 2. Examine whether a computer-generated CURB-65 
+using continuous and weighted variables avail-able electronically (e-Table 1) improves accu-racy in mortal ity prediction over the traditional 
+dichot omous CURB-65. 
+158 Original ResearchED reduced the number to 2,076 cases in 2,027 patients. 
+Seven patients lacked an electronic record of ori-
+entation, respiratory rate, or systolic BP during the 
+6-h time window, and were, therefore, excluded from 
+analysis. The resulting study population comprised 2,069 cases, of which 58% resulted in admission to the hospital ( Fig 1  ). In the validation cohort, 20 patients lacked a vital sign and were thus excluded from the comparison. 
+ Seventy percent of the patients in the LDS Hospi-
+tal cohort presented with a CURB-65 score of 0 or 1. The mean age was 57 years, and 48% were women. Compared with the international CURB-65 valida-tion study, our study population was younger (mean age 57 vs 64 years,  P   ,  .001 by Welch  t  test), had a 
+lower mortality rate (4.1% vs 9.1%,  P   ,  .001 by Fisher 
+exact test), and included patients discharged from the ED as well as those admitted to the hospital ( Table 2  ). Of the patients from our study population who were admitted to the hospital, the age (64 years, SD 19 years) and mortality rate (6.8%) were not sig-niﬁ cantly different from the international study pop-
+ulation ( P 
+  5  .931 and .059, respectively, by Fisher 
+exact test). 
+ A strong relationship between mortality and 
+CURB-65 score was demonstrated, with a mortality rate of 2.1% for patients with a CURB-65 score of 1 vs 7.7% for those with a CURB-65 score of 2. This relationship was similar to that found in the interna-tional cohort ( Fig 2  ). 
+ Effect plots  
+26   for the CURB-65 elements are shown 
+in  Figure 3  . CURB-65 thresholds are represented by a vertical line. The effect plots for age, BUN, and respiratory rate suggest polytonic   relationships with 30-day mortality; few patients had extreme values and the conﬁ  dence intervals at these points are wide. 
+  Figure 4A   shows the performance of the dichot-
+omous CURB-65 (AUC
+  5  0.82) compared with the 
+penalized logistic regression model using continuous, spline transformed values (AUC
+  5  0.87) for the LDS 
+Hospital data ( P   ,  .001) The AUC is known to be 
+overestimated using the same data to train and test the model. The out-of-bag AUC estimate for the logistic regression model was 0.86 (95% CI, 0.80-0.91). 
+ Figure 4B   shows the performance of the CURB-65 
+score (AUC
+  5  0.80) compared with the model derived 
+from the LDS Hospital data and applied to the inter-national data (AUC
+  5  0.85). This shows a statistically 
+signiﬁ  cant improvement in predictive performance 
+( P   5  .01). Our derived electronic CURB-65 model is 
+available in e-Tables 1-4 for application. 
+ Discussion 
+ Our study demonstrates that the traditional 
+CURB-65 pneumonia severity score reliably predicts BUN values in the validation cohort. The outcome measure 
+of 30-day all-cause mortality was determined by both the Inter-mountain Healthcare electronic database and the Utah Population Database.  
+20   
+ Because many patients had several measurements of CURB 
+elements during their ED evaluation, we created summary mea-sures (ﬁ  rst, last, minimum, and maximum) to determine which 
+measure to carry forward. The summary measure for each ele-ment was selected in a forward stepwise selection procedure using out-of-bag area under the curve (AUC) for the receiver operating characteristic as a selection criterion. The ﬁ  rst measurements of 
+vital signs and orientation status performed as well or better than subsequent measurements and were thus used in the analysis. Additionally, systolic BP was used, as it was found to be nonsig-niﬁ cantly better than diastolic BP, and the latter did not add any 
+additional predictive value. 
+ Statistical Analysis 
+ In the derivation (US) cohort, we compared 30-day mortality 
+for the CURB-65 model vs a lasso penalized logistic regression model. Nonlinear effects were expected for CURB-65 elements, so natural cubic splines with three knots were applied to the BUN, respiratory rate, BP, and age elements. The lasso penalty (L1-5) was imposed on the logistic regression parameters to prevent overﬁ  tting, especially at extreme values and after using spline 
+transforms.  
+21   
+ In order to avoid overestimating modeling performance during 
+the derivation phase, the prediction modeling strategy was evalu-ated within the derivation cohort using a bootstrap sampling method.  
+22   The method resulted in 63.2% of the original observa-
+tions (“in-the-bag”) available to construct the logistic regression model and 36.8% of observations withheld (“out-of-bag”) for assessing predictive performance across each of 1,000 iterations. The ﬁ  nal model sent to the international cohort for validation was 
+based on the entire US derivation cohort. Receiver operating characteristic curves and  P  values for differences between the 
+discrete CURB-65 score and the logistic regression model were then calculated and compared between the US and the interna-tional cohorts.  
+23,24   Analyses were performed using the R   statistical 
+package, version 2.9 (www.r-project.org).  25   
+ Results 
+ We identiﬁ  ed 4,973 cases; 3,289 of those had radio-
+graphic evidence of pneumonia. We excluded 621 for risk factors for health-care-associated pneumonia and previous diagnosis of pneumonia within 1 year. Restrict-ing the study population to patients evaluated in the 
+ Table 1 — Elements of the CURB-65 Severity Score  
+Confusion  
+ Abbreviated mental score  /H11349  8 or orientation  ,  3 (time, place, self)
+BUN  /H11350  20 mg/dL
+Respiratory rate  /H11350  30 breaths/min
+Systolic BP  ,  90 mm Hg or diastolic BP  ,  60 mm Hg
+Age  /H11350  65 years
+Score of 0 or 1: mild to moderate CAP . Need additional assessment 
+ but may consider outpatient management.
+Score of  /H11350  2: severe CAP . Recommend hospitalization.
+Data from Reference  2 . CAP  5  community-acquired pneumonia; 
+CURB-65  5  confusion, uremia, respiratory rate, BP , age  .  65 years.
+www.chestpubs.org CHEST / 140 / 1 / JULY , 2011   159 into dichotomous categories. Patients whose data are 
+near the dichotomous cutpoints may be more accu-rately assessed with eCURB than CURB-65. For example, a 62-year-old man who is oriented  3  3 with 
+a BUN of 44 mg/dL, a BP of 95/65 mm Hg, and a respiratory rate of 28/min, although scoring 1 by the CURB-65 (mortality rate 2%), would generate a 30-day mortality estimate of 14% by the eCURB. The eCURB method is contained in e-Tables 1-4, which allows the user to enter values to estimate 30-day mortality. We believe that eCURB will be most use-ful as a method of severity assessment for a personal data assistant or automated as part of a real-time elec-tronic medical record. The methodology is simple enough to be widely used in different electronic plat-forms, not confined to EDs with fully electronic medical records. A more accurate, fully automated severity assessment tool is likely to be more useful 30-day all-cause mortality in a large population of 
+ED patients with pneumonia in a North American community teaching hospital, comparable to results obtained abroad. This validation was achieved using data elements routinely entered in the electronic medical record. We were able to improve this predic-tive power by preserving the continuous nature of BUN, respiratory rate, BP , and age. We have vali-dated this approach in an independent, prospectively identiﬁ  ed, and more severely ill population in an 
+international pneumonia database.  
+11   
+ This more accurate pneumonia severity prediction 
+model (hereafter referred to as eCURB) could be implemented as a real-time, electronic decision sup-port tool. In contrast to the PSI, no predictors beyond those routinely present in the electronic record are required. The eCURB calculates a point estimate of 30-day mortality, instead of lumping mortality risk   Figure   1. Study population. HCAP  5  health-care-acquired pneumonia.   
+ Table 2 — Patient Demographics  
+Measure  US Cohort  
+International Cohort Total Inpatients Outpatients
+Study population, No. (%) 2,069 1,199 (58) 87 (42) 1,048
+Mean age, y (SD) 57 (18) 63 (18) 46 (18) 64 (18)
+% Women 48.0 48.8 47.2 48.5
+30-d Mortality, % (CI) 4.1 (3.3-5.1) 6.80 (5.48-8.42) 0.34 (0.07-1.00) 9 (7.4-11.0)
+160 Original Researchto F io  2 ,  4   could also be added to further improve 
+mortality prediction. However, we chose to focus on the ﬁ  ve CURB-65 variables because of the estab-
+lished nature of this score and because the interna-tional validation database does not consistently contain oxy genation data. to clinicians than less accurate tools that require 
+hand calculation.  
+27   The eCURB has the additional 
+potential to be adapted to risk stratifications and admission thresholds speciﬁ  c to different populations. 
+ Additional variables found to inﬂ  uence mortality, 
+such as the ratio of oxygen saturation by pulse oximetry   Figure   2. CURB-65 score vs 30-day mortality. CURB-65  5  confusion, uremia, respiratory rate, BP , 
+age  .  65 years.   
+  Figure   3. Effect plots of CURB-65 variables vs event probability of 30-day mortality. Dashed lines 
+represent CIs. Vertical lines represent threshold for CURB-65 severity score. BUN given in mg/dL, RR in breaths/min, BPs in mm Hg, age in years. DBP  5  diastolic BP; RR  5  respiratory rate; SBP  5  systolic 
+BP . See Figure 2 legend for expansion of other abbreviation.   
+www.chestpubs.org CHEST / 140 / 1 / JULY , 2011   161 require few additional resources compared with the 
+current method of performance measurement. 
+ Our ED database is distinct from many large pneu-
+monia study populations.  9,11   It includes not only hos-
+pital inpatients but also patients discharged home from the ED and managed as outpatients, thereby providing representation of patients with less severe disease. The cohort of patients used for validation of our prediction model contained only patients admit-ted to the hospital. Although both CURB-65 score and the eCURB had lower predictive performance in the international data, the relative superiority of the eCURB was similar in both cohorts. 
+ Our study has limitations. It is retrospective and 
+relies upon ICD-9 coding rather than prospective screening. In The Netherlands and Sweden, this methodology missed some pneumonias, particularly in patients with prolonged hospital admissions.  
+30,31   In 
+the United States and particularly in our hospital, however, ICD-9 codes have demonstrated reason-able sensitivity for diagnosis of CAP .  
+32,33   The speciﬁ  c-
+ity of our technique was augmented by manual review of chest radiology reports. In addition, our use of real-time electronic charting for recording data signiﬁ  -
+cantly reduces the missing values generally associated with retrospective analyses. Validation of eCURB in the international database is also reassuring, as 
+these patients were prospectively identiﬁ  ed using 
+different methodology. Our use of both Intermoun-tain Health care and the Utah Population Databases 
+to track statewide mortality further strengthens our 
+analysis, although some out-of-state deaths may have escaped detection. 
+ Calculation of CURB-65 using continuous and 
+weighted variables is a logical extension of prior work, easily accomplished by a computer or personal digital assistant. Future research is directed toward further  Electronic severity prediction could be integrated 
+with other guideline elements in a clinical decision support tool available at the point of care. Although the pneumonia guideline implementation in our health-care system has been more successful than most,  
+28   provider use of severity assessment as a 
+decision support tool has lagged behind use of other guideline elements. Automatic calculation of individ-ualized risk prediction as part of a comprehensive decision support tool that can be adapted to local needs could be an important strategy for local implemen-tation of national pneumonia treatment guidelines, as recommended by the British Thoracic Society, the Infectious Diseases Society of America, and the American Thoracic Society.  
+4,5   The ultimate clinical 
+decision support tool would integrate severity assess-ment and triage recommendations with additional manage ment guidelines, such as antibiotic selection and duration. 
+ Beyond decision support, the eCURB could also be 
+used to improve severity adjustment methods when comparing quality of care between hospitals. The US Center for Medicare Service’s Hospital Compare (www.hospitalcompare.hhs.gov) assesses outcomes and performance measures among hospitals, making results available to the public for common medical conditions, including CAP. However, analysis has shown only a modest relationship between adherence to performance measures and outcome, suggesting that attention should be focused on identifying mea-sures more tightly linked to outcome.  
+29   Hospital 
+Compare makes risk adjustments using past medical history and comorbidities, but it does not adjust for severity of illness upon presentation. A more accurate severity-adjusted mortality estimate might improve comparisons of mortality in the absence of reliable performance measures. Calculating eCURB would   Figure   4. A, Receiver operator curves for traditional vs electronic CURB-65 models in the US cohort. 
+B, Receiver operator curves for traditional vs electronic CURB-65 models in the international cohort. AUC  5  area under the curve.   
+
+162 Original Research    3 .  Niederman   MS ,  McCombs   JS ,  Unger   AN ,  Kumar   A , 
+ Popovian   R .  The cost of treating community-acquired pneu-monia .   Clin Ther   .  1998 ; 20 ( 4 ): 820 - 837 .  
+    4 .  Mandell   LA ,  Wunderink   RG ,  Anzueto   A ,  et al ;  Infectious 
+Diseases Society of America ;  American Thoracic Society .  Infectious Diseases Society of America/American Thoracic Society consensus guidelines on the management of community-acquired pneumonia in adults .   Clin Infect Dis   .  
+ 2007 ; 44 ( suppl 2 ): S27 - S72 .  
+    5 .  Lim   WS ,  Baudouin   SV  ,  George   RC ,  et al ,  Pneumonia Guide-
+lines Commette of the BTS Standards of Care Committee .  British Thoracic Society guidelines for the management of community acquired pneumonia in adults: update 2009 .   Thorax   .  2009 ; 64 ( suppl III ): iii1 - iii55 .   
+    6 .  McMahon   LF   Jr ,  Wolfe   RA ,  Tedeschi   PJ .  Variation in hospi-
+tal admissions among small areas. A comparison of Maine and Michigan .   Med Care   .  1989 ; 27 ( 6 ): 623 - 631 .  
+    7 .  Rosenthal   GE ,  Harper   DL ,  Shah   A ,  Covinsky   KE .  A regional 
+evaluation of variation in low-severity hospital admissions .   J Gen Intern Med   .  1997 ; 12 ( 7 ): 416 - 422 .  
+    8 .  Halm   EA ,  Atlas   SJ ,  Borowsky   LH ,  et al.  Understanding physi-
+cian adherence with a pneumonia practice guideline: effects of patient, system, and physician factors.  Arch Intern Med.   
+ 2000 ;160(1):98-104.  
+    9 .  Fine   MJ ,  Auble TE ,  Yealy DM ,  et al . A prediction rule to 
+identify low-risk patients with community-acquired pneumo-nia.  N Engl J Med.   1997;336(4):243-250.  
+    10 .  The British Thoracic Society and the Public Health Lab-
+oratory Service .  Community-acquired pneumonia in adults in British hospitals in 1982-1983: a survey of aetiology, mortality, prognostic factors and outcome .   Q J Med   .  1987 ;
+ 62 ( 239 ): 195 - 220 .  
+    11 .  Lim   WS ,  van der Eerden   MM ,  Laing   R ,  et al .  Deﬁ  ning com-
+munity acquired pneumonia severity on presentation to hos-pital: an international derivation and validation study .   Thorax   .  
+ 2003 ; 58 ( 5 ): 377 - 382 .  
+    12 .  Aujesky   D ,  Auble   TE ,  Yealy   DM ,  et al .  Prospective com-
+parison of three validated prediction rules for prognosis in community-acquired pneumonia .   Am J Med   .  2005 ; 118 ( 4 ):
+ 384 - 392 .  
+    13 .  Buising   KL ,  Thursky   KA ,  Black   JF ,  et al .  A prospective com-
+parison of severity scores for identifying patients with severe community acquired pneumonia: reconsidering what is meant by severe pneumonia .   Thorax   .  2006 ; 61 ( 5 ): 419 - 424 .  
+    14 .  Capelastegui   A ,  España   PP ,  Quintana   JM ,  et al .  Validation of 
+a predictive rule for the management of community-acquired pneumonia .   Eur Respir J   .  2006 ; 27 ( 1 ): 151 - 157 .  
+    15 .  Man   SY ,  Lee   N ,  Ip   M ,  et al .  Prospective comparison of three 
+predictive rules for assessing severity of community-acquired pneumonia in Hong Kong .   Thorax   .  2007 ; 62 ( 4 ): 348 - 353 .  
+    16 .  Ananda-Rajah   MR ,  Charles   PG ,  Melvani   S ,  Burrell   LL , 
+ Johnson   PD ,  Grayson   ML .  Comparing the pneumonia sever-ity index with CURB-65 in patients admitted with community acquired pneumonia .   Scand J Infect Dis   .  2008 ; 40 ( 4 ): 293 - 300 .  
+    17 .  Dean   NC ,  Bateman   KA .  Local guidelines for community-
+acquired pneumonia: development, implementation, and out-come studies .   Infect Dis Clin North Am   .  2004 ; 18 ( 4 ): 975 - 991 .  
+    18 .  Craven   DE ,  Palladino   R ,  McQuillen   DP .  Healthcare-associated 
+pneumonia in adults: management principles to improve outcomes .   Infect Dis Clin North Am   .  2004 ; 18 ( 4 ): 939 - 962 .  
+    19 .  Bauer   TT ,  Ewig   S ,  Marre   R ,  Suttorp   N ,  Welte   T ;  CAPNETZ 
+Study Group .  CRB-65 predicts death from community-acquired pneumonia .   J Intern Med   .  2006 ; 260 ( 1 ): 93 - 101 .  
+    20 .  Skolnick   M . The Utah genealogical database: a resource for 
+genetic epidemiology. In: Cairns JL, Skolnick, M, eds.  Banbury 
+Report No 4; Cancer Incidence in Deﬁ  ned Populations  . 
+New York, NY: Cold Spring Harbor Laboratory;  1980 :285-297.  improving our model by integrating additional vari-
+ables found to inﬂ  uence mortality, investigating per-
+formance of eCURB in predicting in-hospital mortality, length of stay, and the need for hospital admission. 
+In addition, the improved severity estimate should be integrated into a real-time electronic pneumonia decision support tool, followed by implementation at the point of care. The ultimate test of electronic admis-sion decision support will be to evaluate its inﬂ  uence 
+on admission rate, mortality, length of stay, and cost. 
+ Acknowledgments 
+  Author contributions     :   Dr B. E. Jones:   contributed as primary 
+and corresponding author to study design, database reﬁ  nement, 
+model development, and manuscript preparation and revision.   Dr J. Jones:   contributed to model derivation, statistical analysis, 
+and manuscript revision.   Dr Bewick:   contributed to validation of the cohort analysis and 
+manuscript revision.   Dr Lim:   contributed to validation of the cohort database and 
+analysis and manuscript review.   Dr Aronsky:   contributed to study design, derivation of the cohort 
+database, and manuscript revision.   Dr Brown:   contributed to derivation of the cohort database 
+reﬁ nement, chest radiograph review, and manuscript revision. 
+  Dr Boersma:   contributed to validation of the cohort database and 
+manuscript review.   Dr van der Eerden:   contributed to validation of the cohort data-
+base and manuscript review.   Dr Dean:   contributed as senior author to study design, database 
+reﬁ nement, model development, and manuscript revision and 
+approval.   Financial/nonﬁ  nancial disclosures:   The authors have reported 
+to  CHEST   the following conﬂ  icts of interest: Dr Lim has received 
+an unrestricted educational grant from Wyeth/Pzier for clinical research. Dr Dean has received an unrestricted educational grant from Pﬁ  zer. He has also served on advisory boards for Forest, 
+Merck, Ortho-McNeil, and Advanced Life Sciences. The remain-ing authors have reported that no potential conﬂ  icts of interest 
+exist with any companies/organizations whose products or services may be discussed in this article  .   Role of sponsors:   The sponsor had no role in the design of the 
+study, the collection and analysis of the data, or in the preparation of the manuscript.   Other contributions:   We thank Al Jephson, BS, Susan Crapo, BS, 
+and Joe Dalto, MS, for data extraction; Greg Snow, PhD, for preliminary statistical analyses; Marc-Aurel Martial, RN, for quality assurance; and Tamara Bracken, BA, for administrative 
+support. We also thank R. Laing, N. Karalus, and G. I. Town for 
+allowing and supporting further analysis of international data derived from their work.   Additional Information:   The e-Tables can be found in the 
+Online Supplement at http://chestjournal.chestpubs.org/content/140/1/156/suppl/DC1. 
+ References 
+    1 .  Center for Health Statistics . Health, United States, May 20, 
+ 2010 . Centers for Disease Control and Prevention Web site.  http://www.cdc.gov/nchs/data/nvsr58/nvsr58_19.pdf . Accessed January 9, 2011  .  
+    2 .  Marston   BJ ,  Plouffe   JF ,  File   TM   Jr ,  et al ;  The Community-
+Based Pneumonia Incidence Study Group .  Incidence of community-acquired pneumonia requiring hospitalization. Results of a population-based active surveillance study in Ohio .   Arch Intern Med   .  1997 ; 157 ( 15 ): 1709 - 1718 .  
+www.chestpubs.org CHEST / 140 / 1 / JULY , 2011   163     21 .  Tibshirani ,  R.  Regression shrinkage and selection via the 
+LASSO.  J R Stat Soc Series B Stat Methodol.    1996; 58(1):
+267-288.  
+    22 .  Efron   B ,  Tibshirani   R .  Improvements on cross-validation: the 
+632+ bootstrap method .   J Am Stat Assoc   .  1997 ; 92 ( 438 ): 548 - 560 .   
+    23 .  DeLong   ER ,  DeLong   DM ,  Clarke-Pearson   DL .  Comparing 
+the areas under two or more correlated receiver operating characteristic curves: a nonparametric approach .   Biometrics   .  
+ 1988 ; 44 ( 3 ): 837 - 845 .  
+    24 .  Hanley   JA ,  McNeil   BJ .  The meaning and use of the area under 
+a receiver operating characteristic (ROC) curve .   Radiology   .  
+ 1982 ; 143 ( 1 ): 29 - 36 .  
+    25 .  R: A Language and Environment for Statistical Computing. 
+ Version v2.9.1. Vienna, Austria: R Foundation for Statistical Computing;  2009 .  
+    26 .  Fox   J .  Effect displays in R for generalised linear models . 
+  J Stat Softw    .   2003 ; 8 ( 15 ): 1 - 27 .  
+    27 .  Lee   RW ,  Lindstrom   ST .  A teaching hospital’s experience 
+applying the PSI and antibiotics guidelines in the manage-ment of community-acquired pneumonia .   Respirology   .  2007 ;
+ 12 ( 5 ): 754 - 758 .       28 .  Dean   NC ,  Silver   MP ,  Bateman   KA ,  James   B ,  Hadlock   CJ , 
+ Hale   D .  Decreased mortality after implementation of a treat-ment guideline for community-acquired pneumonia .   Am J Med   .  
+ 2001 ; 110 ( 6 ): 451 - 457 .  
+    29 .  Werner   RM ,  Bradlow   ET .  Relationship between Medicare’s 
+hospital compare performance measures and mortality rates .   JAMA   .  2006 ; 296 ( 22 ): 2694 - 2702 .  
+    30 .  van de Garde   EM ,  Oosterheert   JJ ,  Bonten   M ,  Kaplan   RC , 
+ Leufkens   HG .  International classiﬁ  cation of diseases codes 
+showed modest sensitivity for detecting community-acquired pneumonia .   J Clin Epidemiol   .  2007 ; 60 ( 8 ): 834 - 838 .  
+    31 .  Gedeborg   R ,  Furebring   M ,  Michaëlsson   K .  Diagnosis-
+dependent misclassiﬁ  cation of infections using administrative 
+data variably affected incidence and mortality estimates in ICU patients .   J Clin Epidemiol   .  2007 ; 60 ( 2 ): 155 - 162 .  
+    32 .  Whittle   J ,  Fine   MJ ,  Joyce   DZ ,  et al .  Community-acquired 
+pneumonia: can it be deﬁ  ned with claims data?    Am J Med 
+Qual   .  1997 ; 12 ( 4 ): 187 - 193 .  
+    33 .  Aronsky   D ,  Haug   PJ ,  Lagor   C ,  Dean   NC .  Accuracy of admin-
+istrative data for identifying patients with pneumonia .   Am J 
+Med Qual   .  2005 ; 20 ( 6 ): 319 - 328 .  
+        

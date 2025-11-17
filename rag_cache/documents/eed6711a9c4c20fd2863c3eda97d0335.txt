@@ -1,0 +1,729 @@
+Vol.:(0123456789)1 3Internal and Emergency Medicine (2022) 17:205–214 
+https://doi.org/10.1007/s11739-021-02669-0
+EM - ORIGINAL
+Emergency room comprehensive assessment of demographic, 
+radiological, laboratory and clinical data of patients with COVID‑19: 
+determination of its prognostic value for in‑hospital mortality
+Marco Gatti1  · Marco Calandri2,3 · Andrea Biondo1 · Carlotta Geninatti2 · Clara Piatti2 · Irene Ruggirello1 · 
+Ambra Santonocito1 · Sara Varello1 · Laura Bergamasco4 · Paolo Bironzo3,5 · Adriana Boccuzzi6 · Luca Brazzi7 · 
+Pietro Caironi3,8 · Luciano Cardinale2 · Rossana Cavallo9 · Franco Riccardini10 · Giorgio Limerutti11 · Andrea Veltri2,3 · 
+Paolo Fonio1 · Riccardo Faletti1
+Received: 8 August 2020 / Accepted: 10 February 2021 / Published online: 8 March 2021 
+© The Author(s) 2021
+Abstract
+Mortality risk in COVID-19 patients is determined by several factors. The aim of our study was to adopt an integrated 
+approach based on clinical, laboratory and chest x-ray (CXR) findings collected at the patient’s admission to Emergency 
+Room (ER) to identify prognostic factors. Retrospective study on 346 consecutive patients admitted to the ER of two North-
+Western Italy hospitals between March 9 and April 10, 2020 with clinical suspicion of COVID-19 confirmed by reverse 
+transcriptase-polymerase reaction chain test (RT-PCR), CXR performed within 24 h (analyzed with two different scores) and 
+recorded prognosis. Clinical and laboratory data were collected. Statistical analysis on the features of 83 in-hospital dead 
+vs 263 recovered patients was performed with univariate (uBLR), multivariate binary logistic regression (mBLR) and ROC 
+curve analysis. uBLR identified significant differences for several variables, most of them intertwined by multiple correla-
+tions. mBLR recognized as significant independent predictors for in-hospital mortality age > 75 years, C-reactive protein 
+(CRP) > 60 mg/L,  PaO2/FiO2 ratio (P/F) < 250 and CXR “Brixia score” > 7. Among the patients with at least two predictors, 
+the in-hospital mortality rate was 58% against 6% for others [p  < 0.0001; RR = 7.6 (4.4–13)]. Patients over 75 years had 
+three other predictors in 35% cases against 10% for others [p  < 0.0001, RR = 3.5 (1.9–6.4)]. The greatest risk of death from 
+COVID-19 was age above 75 years, worsened by elevated CRP and CXR score and reduced P/F. Prompt determination of 
+these data at admission to the emergency department could improve COVID-19 pretreatment risk stratification.
+Keywords Chest X-ray · Coronavirus disease 2019 (COVID-19) · Severe acute respiratory syndrome coronavirus 2 (SARS-
+CoV-2) · Prognosis · Outcome
+Abbreviations
+COVID-19  Coronavirus disease 2019
+SARS-CoV-2  Severe acute respiratory syndrome corona-
+virus 2
+RT-PCR  Real-time reverse transcriptase-polymer -
+ase reaction chain test
+CXR  Chest X-rays
+WBC  White blood cellscount
+NLR  Neutrophil to lymphocyte ratio
+CRP  C-reactive protein
+LDH  Lactate dehydrogenaseCK  Creatine kinase
+PCT  Procalcitonin
+PaO2  Arterial partial pressure of oxygen ()
+PaCO2  Arterial partial pressure of carbon dioxide 
+().
+FiO2  Fraction of inspired oxygen ()
+A–a gradient  Alveolar–arterial gradient
+P/F  PaO2/FiO2 ratio
+BLR  Binary logistic regression
+Introduction
+Coronavirus disease 2019 (COVID-19) is caused by Severe 
+Acute Respiratory Syndrome Coronavirus 2 (SARS-CoV-2). 
+Medical symptoms vary from asymptomatic inflammation  * Marco Gatti 
+ marcogatti17@gmail.com
+Extended author information available on the last page of the article
+206 Internal and Emergency Medicine (2022) 17:205–214
+1 3
+to a wide range of systemic and/or respiratory manifesta-
+tions, causing a mortality rate of about 2.4% according to 
+the World Health Organization (WHO) [1 ]. Recent data 
+suggest that the mortality risk is higher in patients with 
+advanced age, presence of systemic comorbidities, inflam-
+matory markers and extent of lung anomalies [2 –5]. An early 
+and comprehensive assessment of all these parameters is 
+therefore, crucial as soon as a suspected COVID-19 patient 
+arrives to the emergency room.
+Imaging plays a key role in the evaluation of COVID-19 
+patients by assessing the extent of pulmonary involvement. 
+Even if computed tomography (CT) is the technique with the 
+highest sensitivity for the evaluation of the patient’s progno-
+sis [6 –9], the Fleischner Society’s Multinational Consensus 
+Statement [10] stated that the CT scan should not be used 
+for screening or as a first-line diagnostic test for COVID-19, 
+also because the use of a non-dedicated CT scanner requires 
+time-consuming and laborious decontamination procedures 
+to reduce the risk of cross-infection. Chest x-ray (CXR) suf-
+fers from low sensitivity [11]; on the other hand, it has the 
+advantage of the ease and speed of equipment cleaning and 
+the wide availability of portable devices. Therefore, many 
+radiological societies [12, 13] recommend the use of CXR as 
+a first-line imaging tool in emergency departments, reserv -
+ing specific roles for chest CT, as identifying typical features 
+of COVID-19 pneumonia in selected cases. In this perspec-
+tive, a few studies have evaluated the contribution of CXR 
+to the prognostic assessment of patients with COVID-19 
+[14–16], confirming that extensive lung involvement is asso-
+ciated with several demographic and clinical characteristics 
+of the patients leading to a worse prognosis.
+Even if the evaluation of a patient admitted to an emer -
+gency room includes a variety of clinical, laboratory and 
+CXR findings, to the best of our knowledge there are no 
+studies on how the entire set of these data and their relations 
+impact on the early COVID-19 patient’s prognostic assess-
+ment. We considered the issue worth of further exploration and planned a retrospective study based on an integrated 
+approach to the data usually collected in ER to better define 
+the comprehensive scenario behind the positive or negative 
+outcome of COVID-19 patients.
+Methods
+Study design and population
+The study, piloted in agreement with the 1964 Helsinki dec -
+laration and its later amendments, was approved by the insti-
+tutional review board. The requirement for informed patient 
+consent was waived.
+This was a retrospective two-center study on 448 consec-
+utive patients admitted to the emergency department of two 
+large North-Western Italy hospitals between March 9 and 
+April 10, 2020, at the peak of the local Covid-19 pandemic 
+outburst. The study flow chart is reported in Fig.  1. The 
+final study sample was composed of 346 patients who met 
+the inclusion criteria of: (1) clinical suspicion of COVID-
+19 confirmed by RT-PCR, (2) CXR performed within 24 h 
+of the swab execution, (3) official records of the prognosis.
+The primary outcome variable was in-hospital mortality; 
+primary predictors was the ER data on demographical, clini-
+cal and laboratory parameters and CXR outcome.
+Clinical and laboratory data
+The clinical and laboratory data of the patients were col-
+lected in accordance with the structured report released by 
+the “Società Italiana di Radiologia Medica e Interventistica 
+(SIRM)” [ 17]. Comorbidities included in the analysis were: 
+presence of diabetes, obesity (i.e. BMI > 30), hypertension, 
+smoke history, ACEi/Sartan or FANS therapy. As for clini-
+cal data: fever, cough, rhinitis, dyspnea, anosmia, dysgeusia, 
+pharyngodynia, myalgias, asthenia, conjunctivitis, headache, 
+Fig. 1  Study flow chart
+
+207 Internal and Emergency Medicine (2022) 17:205–214 
+1 3
+nausea, vomit and diarrhea. Regarding laboratory data: 
+white blood cells (WBC) count (neutrophils, lymphocytes), 
+procalcitonin (PCT), C-reactive protein (CRP), lactate dehy -
+drogenase (LDH), hepatic enzymes, creatine kinase (CK), 
+blood pH and arterial partial pressure of oxygen  (PaO2) and 
+carbon dioxide  (PaCO2) and fraction of inspired oxygen 
+ (FiO2). Moreover, we calculated the neutrophil–to-lympho-
+cyte ratio (NLR), the alveolar–arterial gradient (A–a gradi-
+ent) and the  PaO2/FiO2 ratio (P/F). The RT-PCR protocol 
+included extraction with  QIAsymphony® DSP Virus/Patho-
+gen Midi Kit and amplification with Seegene AllplexTM 
+2019-nCoV Assay (target genes E, N, RdRP).
+Image acquisition and analysis
+CXRs were acquired as computerized or digital radio -
+graphs following the local protocols. All CXR studies were 
+analyzed by two observers (MC and MG with more than 
+5 years’ experience) using a picture archiving and commu-
+nication system (PACS) workstation [Carestream Vue PACS 
+v11.3.4 (Carestream Health, Inc, Rochester, NY)]. In the few 
+cases of disagreement, the decision was reached by consulta-
+tion with a senior radiologist (RF with more than 10 years’ 
+experience).
+CXRs were evaluated using two separate scores: the first 
+[14] measured the involvement of each lung field (upper, 
+middle and lower) in a binary manner, ranging from 0 to 
+6; whereas, the second, the so-called “Brixia score” [18], 
+assessed the severity of the involvement of each lung field 
+on a scale from 0 to 3, for a total score from 0 to 18. The 
+presence of pleural effusion and reduction of lung volumes 
+were also evaluated.
+Statistical analysis
+The first step of the statistical analysis of the set of data 
+included univariate tests. Continuous variables were checked 
+for normality with the Shapiro–Wilks W test. Age was nor -
+mal and was thus expressed as mean and standard deviation. 
+Normality was rejected for all other data, which were thus 
+expressed as median with first (Q1) and third (Q3) quar -
+tile; categorical variables were presented as absolute num-
+bers and percentages. Univariate binary logistic regression 
+(uBLR) was run on all variables, with an outcome expressed 
+by the beta coefficient, which describes the size and the 
+direction of the relationship between predictor and the 
+response variable (in this case in-hospital mortality), p  value 
+and odds ratio (OR) with its 95% confidence interval (CI). 
+Continuous variables with significant differences assessed 
+by uBLR were tested for their ability to discriminate between 
+event and no-event by means of the ROC curve [plot of sen -
+sitivity vs (1 − specificity)]. Only variables for which the 
+area under the curve (AUC) was ≥ 0.80, corresponding to good discrimination (AUC  = 0.50 corresponds to chance) 
+were dichotomized, setting the threshold at the value which 
+satisfied the triple condition of: (1) maximization of the 
+harmonic mean of sensitivity (SNS) and specificity (SPC), 
+(2) maximation of Youden’s index (SNS + SPSC-1), and (3) 
+minimization of the distance of the curve from the upper left 
+corner (SNS = SPC = 1).
+The dichotomous and dichotomized variables determined 
+significant by the univariate analysis were then analyzed 
+with a multivariate binary logistic regression (mBLR) to 
+adjust for correlations between variables and extract the 
+independent significant predictors of in-hospital mortality.
+Correlation between variables was studied with the non-
+parametric Spearman correlation coefficient rho (range 
+− 1:1).
+Significance corresponded to p  < 0.05 and 95% CI for RR 
+and OR not including 1; 95% CI > 1 and beta > 0 indicated 
+risk of the event; whereas, 95% CI < 1 and beta < 0 indicated 
+protection.
+The analysis was run on StatPlus: Mac v.7 (AnalysisSoft.
+Walnut.CA,USA).
+Results
+The study sample of 346 patients was subdivided in two 
+groups according to their final prognosis: patients who died 
+during hospitalization ( n = 83) and patients discharged after 
+recovery (n  = 263).
+The baseline characteristics, comorbidities, clinical, labo-
+ratory and radiological data of the two groups are reported in 
+Table  1 (Comorbidity, clinical, laboratory and radiological 
+data of death vs. recovery COVID-19 patients),  subdivided 
+for major clarity in four sections: I_Comorbidities, II_Clini-
+cal data, III_Laboratory data and IV_CRX. The results of 
+the uBLR evidenced several significant differences between 
+the two groups.
+The continuous variables with significant differences 
+were tested for their ability to discriminate between in-hos-
+pital death and recovery by computing their ROC curve. 
+Age, CXR simplified score, CXR Brixia score, P/F, A–a 
+gradient, NLR, CRP, procalcitonin, WBC,  PO2 and LDH, 
+had AUC values between 0.75 and 0.90 (see Fig.  2) and 
+were thus dichotomized. Both X-ray scores were signifi-
+cantly different between patients with good and bad prog-
+nosis (p  < 0.0001), but the “Brixia score” had a slightly 
+greater discriminating capacity than the simplified score 
+(AUC = 0.81 vs. 0.79, p = 0.046). The dichotomization pro-
+cedure determined as regions associated with significantly 
+increased risk of in-hospital mortality: age  > 75 years, 
+Brixia score > 7, P/F < 250, A–a gradient > 50 mmHg, 
+NLR > 4, CRP > 60 mg/L, procalcitonin > 0.20 ng/mL, 
+WBC > 10 ×  109/L,  PO2 < 65 mmHg and LDH  ≥ 400 UI/L. 
+208 Internal and Emergency Medicine (2022) 17:205–214
+1 3
+Table 1  Comorbidity, clinical, laboratory and radiological data of death vs. recovery COVID-19 patients
+Dead Recovered uBLR
+(n = 83) (n = 263) Beta p value OR (95% CI)
+Section I. Comorbidities
+ Age (years old) 79 ± 11 60 ± 15 0.11  < 0.0001*
+ Age > 75 years 56 (67%) 42 (16%) 2.40  < 0.0001 10.9 (6.2–19.2)
+ Sex (male) 49 (59%) 159 (60%) − 0.06 0.82 0.94 (0.57–1.56)
+ Hypertension 51/82 (62%) 96/251 (38%) 0.95 0.0002 2.6 (1.6–4.3)
+ Diabetes 17/79 (22%) 28/238 (12%) 0.72 0.03 2.1 (1.1–4.0)
+ Obesity 10/76 (13%) 17/241 (7%) 0.69 0.1 2.0 (0.9–4.6)
+ Smokers 18/80 (23%) 33/250 (13%) 0.65 0.05 1.9 (1.0–3.6)
+ Current smoker 7/39 (18%) 10/158 (6%) 1.20 0.03 3.2 (1.1–9.1)
+ Ex-smoker 9/39 (23%) 18/158 (11%) 0.84 0.06 2.3 (0.95–5.7)
+ Oncologic history 25/80 (31%) 32/263 (12%) 1.20 0.0001 3.4 (1.8–6.2)
+ FANS 3/60 (5%) 6/219 (3%) 0.63 0.39 1.9 (0.5–7.7)
+ ACEi 7/61 (11%) 28/223 (13%) − 0.10 0.82 0.9 (0.4–2.2)
+ Sartans 11/55 (20%) 29/198 (15%) 0.40 0.31 1.5 (0.7–3.2)
+Section II. Clinical data
+ Onset of symptoms—CXR (days) 3 (2–6.5) 6 (2–8) − 0.14 0.0005* 0.9 (0.8–0.94)
+ Fever 70/80 (88%) 236/254 (93%) − 0.63 0.13 0.5 (0.2–1.2)
+ Cough 32/80 (40%) 171/255 (67%) − 1.13 < 0.0001 0.3 (0.2–0.5)
+ Rhinitis 1/79 (1%) 6/254 (2%) − 0.63 0.56 0.5 (0.1–4.5)
+ Dyspnea 40/80 (50%) 94/254 (37%) 0.53 0.04 1.7 (1.0–2.8)
+ Pharyngodynia 1/79 (1%) 22/254 (9%) − 2.00 0.05 0.14 (0.02–0.99)
+ Myalgias 2/79 (2%) 30/254 (30%) − 1.60 0.03 0.19 (0.04–0.83)
+ Asthenia 6/79 (8%) 30/254 (12%) 0.49 0.3 0.61 (0.2–1.5)
+ Conjunctivitis 0/79 (0%) 3/254 (1%) − 14.00 0.99 Nd
+ Anosmia 0/72 (0%) 4/248 (2%) − 14.00 0.98 Nd
+ Dysgeusia 0/72 (0%) 9/248 (4%) − 15.00 0.99 Nd
+ Headache 1/79 (1%) 13/254 (5%) − 1.40 0.17 0.24 (0.03–1.85)
+ Nausea 2/79 (2%) 13/254 (5%) − 0.73 0.34 0.5 (0.1–2.2)
+ Vomit 0/79 (0%) 9/254 (4%) − 15.00 0.99 Nd
+ Diarrhea 5/79 (6%) 35/254 (14%) − 0.86 0.08 0.42 (0.16–1.12)
+Section III. Laboratory data
+ WBC count  (109/L) 8.2 (5.3–12.6) 5.9 (4.6–7.9) 0.07 0.008* 1.07 (1.02–1.13)
+ WBC > 10 ×  109/L 33/74 (45%) 15/224 (7%) 2.40 < 0.0001 9.2 (2.6–3.2)
+ Nr. of neutrophils  (109/L) 6.2 (3.6–9.5) 4.3 (3.0–5.8) 0.07 0.015* 1.1 (1.01–1.13)
+ % of neutrophils 81 (72–86) 72 (61–79) 1.94 0.05 6.9 (0.99–4.8)
+ Nr. of lymphocytes  (109/L) 0.9 (0.7–1.3) 1.1 (0.8–1.5) 0.01 0.62 1 (0.97–1.05)
+ % of lymphocytes 13 (8–20) 19 (13–27) − 2.10 0.08 0.12 (0.01–1.3)
+ Neutrophils to lymphocytes ratio 6 (3–10) 3 (2–5) 0.37 < 0.0001* 1.4 (1.3–1.6)
+ Neutrophils to lymphocytes ratio > 4 48/65 (74%) 55/140 (39%) 1.80 < 0.0001 6.1 (3.4–11.0)
+ Procalcitonin (ng/mL) 0.31 (0.14–0.81) 0.09 (0.05–0.14) 0.75 0.001* 2.1 (1.3–3.4)
+ Procalcitonin > 0.20 ng/mL 41/65 (63%) 24/143 (17%) 2.30 < 0.0001  10.2 (5.5–19.0)
+ CRP (mg/L) 118 (64–185) 31 (10–92) 0.03 < 0.0001* 1.03 (1.02–1.03)
+ CRP > 60 mg/L 59/76 (78%) 83/234 (35%) 1.60 < 0.0001 4.9 (2.9–8.3)
+ LDH (UI/L) 487.5 (383–745) 342 (283–422.5) 0.002 0.004* 1.002 (1.00–1.004)
+ LDH > 400UI/L 43/63 (68%) 37/116(32%) 1.15 0.001 3.2 (1.6–6.3)
+ Alteration hepatic values 43/75 (57%) 72/222 (32%) 1.05 < 0.0001 2.9 (1.7–4.9)
+ CK elevation 20/42 (49%) 24/161 (15%) 1.70 < 0.0001 5.4 (2.5–11.4)
+ PH 7.46 (7.42–7.49) 7.46 (7.44–7.49) − 5.10 0.04 0.006 (0.00–0.84)
+209 Internal and Emergency Medicine (2022) 17:205–214 
+1 3
+The results on the dichotomized variable are reported in 
+Table  1 in the line under the correspondent continuous one.
+The mBLR run on the ensemble of dichotomous or 
+dichotomized variables determined significant by univari-
+ate analysis yielded four independent significant predic-
+tors for in-hospital mortality: age > 75 years, Brixia > 7, 
+P/F < 250 and CRP > 60 mg/L. Their number was limited 
+by the intricate pattern of correlations among the vari-
+ables of Table  1. As examples, age > 75 is directly cor -
+related with hypertension (rho = 0.24), diabetes (0.18), 
+oncological history (0.28), A–a gradient > 50 mmHg (0.24) 
+and  PO2 < 65 mmHg (0.30); Brixia > 7 is correlated with LDH > 400 (0.39), procalcitonin > 0.20 ng/mL (0.30) and 
+NLR > 4 (0.30); CRP > 60 is correlated with  PO2 < 65 mmHg 
+(0.46) and LDH > 400UI/L (0.44); finally, P/F < 250 cor -
+relates with A–a gradient > 50 mmHg (0.60) and with 
+ PO2 < 65 mmHg(0.26). The main parameters of the mBLR 
+outcome for the four independent predictors and two protec-
+tors are reported in Table  2 (outcome of multivariate binary 
+logistic regression: predictors and protectors of in-hospital 
+mortality) and show that age > 75 years was the factor most 
+heavily associated with in-hospital mortality.
+The total number of independent prognostic factors diag-
+nosed for each patient was NTOT = 1(0–2). The distributions Significant differences were reported in italics
+uBLR univariate binary logistic regression, CXR chest X-ray, WBC white blood cells, CRP C-reactive protein, LDH lactate dehydrogenase, CK  
+creatine kinase
+*Continuous variablesTable 1  (continued)
+Dead Recovered uBLR
+(n = 83) (n = 263) Beta p value OR (95% CI)
+  pO2 (mmHg) 59 (48–67) 70 (61–82) − 0.04 0.0002* 0.96 (0.94–0.98)
+  pO2 < 65 (mmHg) 49/69 (71%) 59/164(36%) 1.45 < 0.0001 4.3 (2.3–8.3)
+  pCO2 (mmHg) 34 (31–38) 34 (31–37) 0.03 0.14 1.03 (0.99–1.08)
+ Alveolar-arterial  O2 gradient (mmHg) 74 (50–269) 45 (35–59) 0.01 < 0.0001*  1.006 (1.003–1.008)
+ Alveolar-arterial  O2 gradient > 50 mmHg 48/65 (74%) 55/140 (39%) 1.50 < 0.0001 4.4 (2.3–8.3)
+  PaO2/FiO2 ratio 222 (131–285) 309.5 (268–352) − 0.01 < 0.0001* 0.99 (0.98–0.99)
+  PaO2/FiO2 ratio < 250 41/62 (66%) 24/143 (17%) 2.10 < 0.0001 8.6 (4.4–17)
+Section IV. CXR
+ CXR simplified score 6 (4–6) 2 (0–5) 0.52 < 0.0001* 1.78 (1.45–1.95)
+ Brixia score 11 (7–14) 3(0–8) 0.23 < 0.0001* 1.26 (1.2–1.3)
+ Brixia score > 7 60 (72%) 71 (27%) 1.36 < 0.0001 3.9 (2.3–6.5)
+ Pleural effusion 7 (8%) 16 (6%) 0.30 0.55 1.3(0.5–3.6)
+ Volume loss 7 (8%) 11 (4%) 0.81 0.15 2.2(0.8–6.1)
+Fig. 2  ROC curves. Left panel: 
+age (red, AUC = 0.86); Brixia 
+Score (green, AUC = 0.84), 
+LDH (blue, AUC = 0.81). Right 
+panel: CPR (red, AUC = 0.89), 
+NLR (green, AUC = 0.89), 
+ PaO2/FiO2 (blue, AUC = 0.82) 
+(color figure online)
+
+210 Internal and Emergency Medicine (2022) 17:205–214
+1 3
+of NTOT for the patients who met in-hospital mortality and 
+for the recovered patients are displayed and compared in 
+Fig.  3, top panel (p  < 0.0001). The ROC curve testing the 
+discriminating ability of NTOT is shown in Fig.  3, bottom 
+panel: AUC = 0.87, with threshold for increased in-hospital 
+mortality NTOT ≥ 2. Among the patients with NTOT < 2, the 
+in-hospital mortality rate was 6% (no death for NTOT = 0), 
+against 58% for patients with NTOT ≥ 2 (p  < 0.0001; 
+RR = 7.6(4.4–13). Actually 92% of patients who suffered in-
+hospital mortality arrived at the ER with a poor prognostic 
+scenario including at least two out of the four independent 
+negative predictors.
+Age > 75 years was accompanied by NTOT = 2 (1–3) other 
+predictors against 1(0–2) for age ≤ 75 years (p  < 0.001): in 
+particular, the older age patients were further aggravated by Table 2  Outcome of multivariate binary logistic regression: predic-
+tors (beta coefficient > 0) and protectors (beta coefficient < 0) of in-
+hospital mortality
+Variable Beta coefficient p value Odds ratio (95% CI)
+Age > 75 years 2.8 < 0.0001 16 (6–43)
+Brixia score > 7 1.05 0.03 2.9 (1.1–7)
+CRP > 60 mg/L 1.3 0.01 3.6 (1.35–9.5)
+PaO2/FiO2 
+ratio < 2501.9 < 0.0001 7 (2.7–18)
+Onset of symp-
+toms− 0.12 0.004 0.89 (0.82–0.96)
+Cough − 1.2 < 0.0001 0.29 (0.16–0.51)
+Fig. 3  Number of in-hospital 
+mortality predictors for each 
+patient. Top panel: distribu-
+tion of the total number n of 
+risk predictors between dead 
+and recovered patients. Bottom 
+panel: ROC curve testing the 
+discriminating ability of n 
+
+211 Internal and Emergency Medicine (2022) 17:205–214 
+1 3
+Brixia  > 7, P/F  < 250 and CRP  > 60 mg/L in 35% of cases 
+against 10% for patients with minor seniority (p  < 0.0001, 
+RR = 3.5 (1.9–6.4).
+The impact of an increasing number of predictors  NTOT is 
+illustrated in Fig.  4, which compares the CXR of patient A 
+without predictors with those of patient B, with one predic-
+tor, and patient C with three predictors, including the most 
+powerful, i.e. age > 75 years.
+As final information, mBLR determined a short time 
+lapse between onset of symptoms and CRX and coughing 
+as significant protective factors (beta coefficient < 0): their 
+figures are reported in the two bottom lines of Table  2.
+Discussion
+Our study investigated the relationship of the set of demo-
+graphics, clinical, laboratory and CXR data of 346 patients 
+with COVID-19 as collected at their admission to the ER 
+with their final prognosis (83 dead and 263 recovered). The 
+intra-hospital mortality rate of 23% is in line with a recent 
+meta-analysis that analyzed 60 studies and 51,225 hospital-
+ized patients finding an in-hospital mortality rate of 24.3% 
+[19].
+Multivariate analysis determined the existence of 
+four independent predictors for in-hospital mortality: 
+age > 75 years, CRP > 60 mg/L, P/F < 250 and CXR “Brixia 
+score” > 7. All these predictors had significant direct cor -
+relations with several other variables with prognostic value 
+at the univariate analysis. The key finding was that a patient 
+with a number of prognostic predictors NTOT ≥ 2 had an 
+eightfold higher risk of in-hospital mortality than patients 
+with a minor number of predictors (58% vs 6%, p  < 0.0001).The result on age agrees with previous studies [5 , 15, 
+20–22]. Older age is significantly associated with an 
+increasing presence of several comorbidities such as diabe-
+tes, hypertension, oncological history, cardiovascular and 
+kidney diseases, each of which tends to enhance the death 
+risk. In particular, the age range > 75 years we determined 
+associated with the worst prognosis is consistent with the 
+data of Borghesi et al. [15], who identified in a population 
+of the same ethnicity and with similar socio-demographic 
+characteristics a cut-off of 71 years.
+Among laboratory parameters, regression analysis 
+showed elevated CRP values and low P/F (in our sample 
+of patients, respectively, > 60 mg/L and < 250) as predic-
+tors for worse prognosis. An elevation of the concentration 
+of CRP is often observed in COVID-19 patients. The study 
+of Guan et al. [5 ] found that laboratory parameters that 
+assessed inflammation and cell damage, such as CRP, were 
+significantly higher in patients with a severe disease than 
+in patients with a non-severe disease. CRP level signifi-
+cantly increases in COVID-19 patients due to inflamma -
+tory reaction and tissue destruction. High concentrations 
+of CRP were reported to indicate more severe illness-cor -
+related with lung damage and worse prognosis [21, 23].
+The severity of respiratory failure appears to be the 
+driving force behind the prognosis of COVID-19. Indeed, 
+the clinical situation in the advanced stages of COVID19 is 
+that of hypoxemic respiratory failure (hypo or hypercapnic 
+depending on the phase and comorbidities). This results 
+in severe arterial hypoxemia refractory to supplementary 
+ O2 therapy. The cause is the formation of intrapulmonary 
+shunts as a result of interstitial involvement. This is also 
+confirmed by our finding on the direct correlation between 
+Brixia score and A–a gradient and the inverse correla-
+tion between Brixia score and P/F (Brixia vs A–a gradient 
+Fig. 4  a 62-Year-old man who had the following values for the 
+risk predictors when admitted to the emergency room: P/F = 417, 
+CRP = 25.6  mg/L and Brixia score 2. Overall, the patient had no 
+risk factor and he was discharged after recovery without the need of 
+intensive care unit. b 67-Year-old man who had the following values: P/F = 314, CRP = 92.3 mg/L and Brixia score 7. Overall, the patient 
+had one risk factor and was discharged after discharged after need of 
+the intensive care unit. c 87-Year-old female who had the following 
+values: P/F = 262, CRP = 91.2 mg/L and Brixia score 13. Overall, the 
+patients had three risk factors and died during hospitalization
+212 Internal and Emergency Medicine (2022) 17:205–214
+1 3
+rho = 0.27, vs P/F rho = − 0.36; Brixia > 7 vs P/F < 250, 
+rho = 0.29). Our data confirmed P/F as an independent 
+parameter for determining the severity and prognosis of 
+acute respiratory distress syndrome [24]. The importance 
+of P/F in these patients was recently stressed by Kishaba 
+et al. [25], who demonstrated that serial monitoring of P/F 
+was useful for predicting short-term prognosis in COVID-
+19 patients. [25]
+Regarding radiological data, our study confirmed the use-
+fulness of CXR classification as a prognostic factor, with 
+a greater extension of lung involvement corresponding to 
+a worse prognosis [14– 16]. Toussie et al. [14] evaluated 
+demographic, clinical and radiological data, without includ-
+ing laboratory data, and firstly demonstrated that baseline 
+CXR, when using a lung zone severity score, could pre -
+dict outcomes in young and middle-aged adults affected by 
+COVID-19. In their study, the radiological score together 
+with obesity resulted predictor of hospitalization, while 
+only the radiologic score was predictor of hospitalization in 
+intensive care; however, the impact of these data on the final 
+outcome of the patients was not evaluated.
+Another CXR score created for COVID-19 is the so-
+called Brixia score [15], first used for predicting the risk 
+of intra-hospital mortality in a sample of 302 patients; 
+Brixia score over 8 and age over 71 were associated with an 
+increased risk of intra-hospital mortality, but without consid-
+ering the laboratory data. In our study, we tested both scores 
+and observed that the Brixia score, even if more complex, 
+was more discriminating than the score proposed by Toussie 
+et al. [14], and was therefore, chosen to be inserted among 
+the predictors as Brixia score > 7.
+Two of the variables analyzed appeared to be protec -
+tive factors. First of all, a short time lapse between onset 
+of symptoms and CXR theoretically correspond to an early 
+diagnosis (since the CXR was made less than 24 h from 
+RT-PCR) which is often synonymous with early treatment 
+and was associated with a better prognosis in COVID19 
+patients: in particular, Huang et al. [26] found a positive 
+correlation of the time from symptom onset to diagnosis 
+and treatment and the time to disease resolution. Second, the 
+presence of coughing, one of the most prevalent symptoms 
+in COVID-19, resulted a protective factor, this data is in 
+accordance with the recent meta-analysis of Mesas et al. [19] 
+who reported an OR of 0.7 for COVID19 patient with cough.
+This study has some limitations. The first is being a ret-
+rospective study on a relatively limited number of patients, 
+even if it is one of largest in the literature dealing with the 
+complex relation between clinical, laboratory, CXR and 
+prognosis. The second is the lack of an external validation 
+on different samples of patients.
+In conclusion, our research indicates a set of early prog-
+nostic data for improving the COVID-19 pretreatment 
+risk stratification. Even if the greatest risk of death from COVID-19 is aged above 75 years, elevated CXR score, 
+high CRP levels and a low P/F at admission to the emer -
+gency department represent significant prognostic factors. 
+A patient admitted to the emergency department with ≥ 2 
+predictors should immediately undergo intensive and aggres-
+sive treatments to reduce the risk of a more severe course of 
+the disease, which may otherwise lead to an eightfold higher 
+in-hospital mortality rate than for patients with a lower num-
+ber of predictors.
+Acknowledgements The authors would like to acknowledge the entire 
+emergency departments staff of the “A.O.U. Città della Salute e della 
+Scienza di Torino” and “A.O.U. San Luigi Gonzaga di Orbassano”.
+Author contributions MG: conceptualization, data curation, formal 
+analysis, investigation, methodology, project administration, supervi-
+sion, validation, visualization, writing–original draft, writing—review 
+and editing. MC: conceptualization, data curation, methodology, 
+resources, supervision, validation, visualization, writing—review and 
+editing. AB: data curation, investigation, writing—review and editing. 
+CG: data curation, investigation, writing—review and editing. CP: data 
+curation, investigation, writing—review and editing. IR: data curation, 
+investigation, writing—review and editing. AS: data curation, investi-
+gation, writing—review and editing. SV: data curation, investigation, 
+writing—review and editing. LB: data curation, formal analysis, meth-
+odology, project administration, supervision, writing—original draft, 
+writing—review and editing. PB: investigation, supervision, writing—
+review and editing. AB: investigation, supervision, writing—review 
+and editing. LB: investigation, methodology, project administration, 
+supervision, writing—review and editing. PC: investigation, super -
+vision, writing—review and editing. LC: investigation, supervision, 
+writing—review and editing. RC: data curation, methodology, project 
+administration, supervision, writing—review and editing. FR: investi-
+gation, project administration, supervision, writing—review and edit-
+ing. GL: data curation, investigation, methodology, project adminis-
+tration, supervision, writing—review and editing. AV: data curation, 
+methodology, project administration, supervision, writing—review and 
+editing. PF: methodology, project administration, supervision, writ -
+ing—review and editing. RF: data curation, investigation, methodol-
+ogy, project administration, supervision, writing—review and editing.
+Funding Open access funding provided by Università degli Studi di 
+Torino within the CRUI-CARE Agreement.
+Compliance with ethical standards  
+Conflict of interest Authors declare no conflict of interests for this ar -
+ticle.
+Human and animal rights This study was reviewed and approved by 
+the ethics committee of our institution.
+Informed consent The requirement for informed patient consent was 
+waived. Patients’ information was anonymized prior to the analysis.
+Availability of data and material All data are available on request at the 
+Department of Surgical Sciences, Radiology Unit, “Città della Salute 
+e della Scienza” Hospital, University of Turin, Via Genova 3, 10126, 
+Turin, Italy.
+213 Internal and Emergency Medicine (2022) 17:205–214 
+1 3
+Open Access This article is licensed under a Creative Commons Attri-
+bution 4.0 International License, which permits use, sharing, adapta-
+tion, distribution and reproduction in any medium or format, as long 
+as you give appropriate credit to the original author(s) and the source, 
+provide a link to the Creative Commons licence, and indicate if changes 
+were made. The images or other third party material in this article are 
+included in the article’s Creative Commons licence, unless indicated 
+otherwise in a credit line to the material. If material is not included in 
+the article’s Creative Commons licence and your intended use is not 
+permitted by statutory regulation or exceeds the permitted use, you will 
+need to obtain permission directly from the copyright holder. To view a 
+copy of this licence, visit http://creat iveco mmons .org/licen ses/by/4.0/.
+References
+ 1. Coronavirus. https ://www.who.int/emerg  encie s/disea ses/novel  
+-coron aviru s-2019. Accessed 23 Nov 2020
+ 2. Wynants L, Van Calster B, Collins GS et al (2020) Prediction 
+models for diagnosis and prognosis of COVID-19 infection: sys-
+tematic review and critical appraisal. BMJ 369:m1328. https ://doi.
+org/10.1136/bmj.m1328  
+ 3. Petrilli CM, Jones SA, Yang J et al (2020) Factors associated with 
+hospital admission and critical illness among 5279 people with 
+coronavirus disease 2019 in New York City: prospective cohort 
+study. BMJ 369:m1966. https ://doi.org/10.1136/bmj.m1966  
+ 4. Cummings MJ, Baldwin MR, Abrams D et al (2020) Epidemi-
+ology, clinical course, and outcomes of critically ill adults with 
+COVID-19 in New York City: a prospective cohort study. Lan-
+cet Lond Engl 395:1763–1770. https ://doi.org/10.1016/S0140  
+-6736(20)31189 -2
+ 5. Guan W-J, Ni Z-Y, Hu Y et al (2020) Clinical characteristics of 
+coronavirus disease 2019 in China. N Engl J Med 382:1708–1720. 
+https ://doi.org/10.1056/NEJMo a2002 032
+ 6. Liu Z, Jin C, Wu CC et al (2020) Association between initial chest 
+CT or clinical features and clinical course in patients with coro-
+navirus disease 2019 pneumonia. Korean J Radiol 21:736–745. 
+https ://doi.org/10.3348/kjr.2020.0171
+ 7. Yu Q, Wang Y, Huang S et al (2020) Multicenter cohort study 
+demonstrates more consolidation in upper lungs on initial CT 
+increases the risk of adverse clinical outcome in COVID-19 
+patients. Theranostics 10:5641–5648. https ://doi.org/10.7150/
+thno.46465  
+ 8. Li Y, Yang Z, Ai T et al (2020) Association of “initial CT” find-
+ings with mortality in older patients with coronavirus disease 
+2019 (COVID-19). Eur Radiol. https ://doi.org/10.1007/s0033  
+0-020-06969 -5
+ 9. Li K, Wu J, Wu F et al (2020) The clinical and chest CT features 
+associated with severe and critical COVID-19 pneumonia. Invest 
+Radiol. https ://doi.org/10.1097/RLI.00000 00000 00067 2
+ 10. Rubin GD, Ryerson CJ, Haramati LB et al (2020) The role of chest 
+imaging in patient management during the COVID-19 pandemic: 
+a multinational consensus statement from the Fleischner Society. 
+Radiology. https ://doi.org/10.1148/radio l.20202 01365  
+ 11. Gatti M, Calandri M, Barba M et al (2020) Baseline chest X-ray 
+in coronavirus disease 19 (COVID-19) patients: association with 
+clinical and laboratory data. Radiol Med (Torino). https ://doi.
+org/10.1007/s1154 7-020-01272 -1
+ 12. ACR recommendations for the use of chest radiography and com -
+puted tomography (CT) for suspected COVID-19 infection. https  
+://www.acr.org/Advoc acy-and-Econo mics/ACR-Posit ion-State  ments /Recom menda tions -for-Chest -Radio graph  y-and-CT-for-
+Suspe cted-COVID 19-Infec tion. Accessed 5 May 2020
+ 13. https  ://www.sirm.org/wp-conte  nt/uploa  ds/2020/03/DI-COVID  
+-19-docum ento-inter socie  tario .pdf. Accessed 5 May 2020
+ 14. Toussie D, Voutsinas N, Finkelstein M et al (2020) Clinical and 
+chest radiography features determine patient outcomes in young 
+and middle age adults with COVID-19. Radiology. https ://doi.
+org/10.1148/radio l.20202 01754  
+ 15. Borghesi A, Zigliani A, Golemi S et al (2020) Chest X-ray sever -
+ity index as a predictor of in-hospital mortality in coronavirus 
+disease 2019: a study of 302 patients from Italy. Int J Infect Dis 
+96:291–293. https ://doi.org/10.1016/j.ijid.2020.05.021
+ 16. Cozzi D, Albanesi M, Cavigli E et al (2020) Chest X-ray in new 
+coronavirus disease 2019 (COVID-19) infection: findings and cor -
+relation with clinical outcome. Radiol Med (Torino). https ://doi.
+org/10.1007/s1154 7-020-01232 -9
+ 17. Redazione COVID-19: il referto strutturato | SIRM. https ://www.
+sirm.org/2020/02/28/covid -19-il-refer  to-strut turat  o/. Accessed 5 
+May 2020
+ 18. Borghesi A, Maroldi R (2020) COVID-19 outbreak in Italy: exper -
+imental chest X-ray scoring system for quantifying and monitoring 
+disease progression. Radiol Med (Torino) 125:509–513. https ://
+doi.org/10.1007/s1154 7-020-01200 -3
+ 19. Mesas AE, Cavero-Redondo I, Álvarez-Bueno C et al (2020) 
+Predictors of in-hospital COVID-19 mortality: a comprehensive 
+systematic review and meta-analysis exploring differences by age, 
+sex and health conditions. PLoS ONE 15:e0241742. https ://doi.
+org/10.1371/journ al.pone.02417 42
+ 20. Zhou F, Yu T, Du R et al (2020) Clinical course and risk factors 
+for mortality of adult inpatients with COVID-19 in Wuhan, China: 
+a retrospective cohort study. Lancet Lond Engl 395:1054–1062. 
+https ://doi.org/10.1016/S0140 -6736(20)30566 -3
+ 21. Deng Y, Liu W, Liu K et al (2020) Clinical characteristics of fatal 
+and recovered cases of coronavirus disease 2019 (COVID-19) in 
+Wuhan, China: a retrospective study. Chin Med J (Engl). https ://
+doi.org/10.1097/CM9.00000 00000 00082 4
+ 22. Shi Y, Yu X, Zhao H et al (2020) Host susceptibility to severe 
+COVID-19 and establishment of a host risk score: findings of 
+487 cases outside Wuhan. Crit Care Lond Engl 24:108. https ://
+doi.org/10.1186/s1305 4-020-2833-7
+ 23. Wang Z, Yang B, Li Q et al (2020) Clinical features of 69 cases 
+with coronavirus disease 2019 in Wuhan, China. Clin Infect Dis. 
+https ://doi.org/10.1093/cid/ciaa2 72
+ 24. Griffiths MJD, McAuley DF, Perkins GD et al (2019) Guide-
+lines on the management of acute respiratory distress syndrome. 
+BMJ Open Respir Res 6:e000420. https ://doi.org/10.1136/bmjre  
+sp-2019-00042 0
+ 25. Kishaba T, Maeda A, Nabeya D, Nagano H (2020) Potential 
+predictors of poor prognosis among critical COVID-19 pneu-
+monia patients requiring tracheal intubation. Tohoku J Exp Med 
+252:103–107. https ://doi.org/10.1620/tjem.252.103
+ 26. Huang G, Gong T, Wang G et al (2020) Timely diagnosis and 
+treatment shortens the time to resolution of coronavirus disease 
+(COVID-19) pneumonia and lowers the highest and last CT scores 
+from sequential chest CT. Am J Roentgenol 215:367–373. https ://
+doi.org/10.2214/AJR.20.23078  
+Publisher’s Note Springer Nature remains neutral with regard to 
+jurisdictional claims in published maps and institutional affiliations.
+214 Internal and Emergency Medicine (2022) 17:205–214
+1 3
+Authors and Affiliations
+Marco Gatti1  · Marco Calandri2,3 · Andrea Biondo1 · Carlotta Geninatti2 · Clara Piatti2 · Irene Ruggirello1 · 
+Ambra Santonocito1 · Sara Varello1 · Laura Bergamasco4 · Paolo Bironzo3,5 · Adriana Boccuzzi6 · Luca Brazzi7 · 
+Pietro Caironi3,8 · Luciano Cardinale2 · Rossana Cavallo9 · Franco Riccardini10 · Giorgio Limerutti11 · Andrea Veltri2,3 · 
+Paolo Fonio1 · Riccardo Faletti1
+ Marco Calandri 
+ marco.calandri@unito.it
+ Andrea Biondo 
+ andrea.biondo25@gmail.com
+ Carlotta Geninatti 
+ geninatticarlotta@gmail.com
+ Clara Piatti 
+ clara.piatti@hotmail.it
+ Irene Ruggirello 
+ ireneruggirello@gmail.com
+ Ambra Santonocito 
+ santonocitoambra@gmail.com
+ Sara Varello 
+ sara.varello@gmail.com
+ Laura Bergamasco 
+ laura.bergamasco@gmail.com
+ Paolo Bironzo 
+ paolo.bironzo@unito.it
+ Adriana Boccuzzi 
+ a.boccuzzi@sanluigi.piemonte.it
+ Luca Brazzi 
+ luca.brazzi@unito.it
+ Pietro Caironi 
+ pietro.caironi@unito.it
+ Luciano Cardinale 
+ luciano.cardinale@gmail.com
+ Rossana Cavallo 
+ rossana.cavallo@unito.it
+ Franco Riccardini 
+ zioofranco@yahoo.it
+ Giorgio Limerutti 
+ giorgio.limerutti@tin.it Andrea Veltri 
+ andrea.veltri@unito.it
+ Paolo Fonio 
+ paolo.fonio@unito.it
+ Riccardo Faletti 
+ riccardo.faletti@unito.it
+1 Department of Surgical Sciences, Radiology Unit, University 
+of Turin, Turin, Italy
+2 Radiology Department A.O.U. San Luigi Gonzaga, Regione 
+Gonzole 10, Orbassano, Italy
+3 Department of Oncology, University of Turin, Turin, Italy
+4 Department of Surgical Sciences, University of Turin, Turin, 
+Italy
+5 Thoracic Oncology Unit, A.O.U. San Luigi Gonzaga, 
+Regione Gonzole 10, Orbassano, Italy
+6 Emergency Department, San Luigi Gonzaga University 
+Hospital, Orbassano, TO, Italy
+7 Department of Surgical Sciences, Anesthesia Unit, University 
+of Turin, Turin, Italy
+8 Department of Anesthesia and Critical Care, A.O.U. San 
+Luigi Gonzaga, Regione Gonzole 10, Orbassano, Italy
+9 Department of Public Health and Pediatrics, Laboratory 
+of Microbiology and Virology, Città della Salute e della 
+Scienza Hospital, University of Turin, Turin, Italy
+10 Department of Medical Science, University of Turin, Turin, 
+Italy
+11 Department of Radiology, S.C. Radiodiagnostica 
+Ospedaliera, Turin, Italy

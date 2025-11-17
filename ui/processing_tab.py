@@ -16,7 +16,7 @@ from core.process_persistence import get_process_state
 from core.agent_factory import create_agent, get_agent_info
 from core.app_state import StateEvent
 from core.logging_config import get_logger
-from core.parallel_processor import ParallelProcessor, ProcessingTask, ProcessingResult
+from core.parallel_processor import ParallelProcessor, ProcessingTask
 from core.batch_preprocessor import BatchPreprocessor
 
 logger = get_logger(__name__)
@@ -257,10 +257,9 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
             log_lines.append("")
 
             # Create agent using factory
-            # Note: rag_engine is already auto-initialized if enabled, or None if disabled/no docs
             agent = create_agent(
                 llm_manager=llm_manager,
-                rag_engine=rag_engine,  # Already None if not available
+                rag_engine=rag_engine,
                 extras_manager=extras_manager,
                 function_registry=function_registry,
                 regex_preprocessor=regex_preprocessor,
@@ -285,6 +284,7 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
             text_column = app_state.data_config.text_column
             label_column = app_state.data_config.label_column
             has_labels = app_state.data_config.has_labels
+            prompt_input_cols = app_state.data_config.prompt_input_columns
             
             log_lines.append(f"📊 Dataset: {total_rows} rows")
             log_lines.append(f"📝 Text Column: {text_column}")
@@ -323,7 +323,6 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                 process_state.add_log(process_id, f"Batch preprocessing complete: {preprocessed_batch.duration:.2f}s")
 
                 # Determine which texts to use for extraction
-                # Priority: redacted > normalized > original
                 if app_state.data_config.enable_phi_redaction and preprocessed_batch.redacted_texts:
                     final_texts = preprocessed_batch.redacted_texts
                 elif app_state.data_config.enable_pattern_normalization and preprocessed_batch.normalized_texts:
@@ -331,14 +330,14 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                 else:
                     final_texts = preprocessed_batch.original_texts
             else:
-                # No batch preprocessing - prepare simple structure with raw texts
+                # No batch preprocessing
                 all_texts = [str(row[text_column]) for _, row in df.iterrows()]
                 preprocessed_batch = type('obj', (object,), {
                     'original_texts': all_texts,
                     'redacted_texts': None,
                     'normalized_texts': None
                 })()
-                final_texts = all_texts  # Use raw texts directly
+                final_texts = all_texts
 
             # OPTIMIZATION: Use parallel processing for batch extractions
             provider = app_state.model_config.provider
@@ -351,7 +350,7 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                 (is_cloud or is_local)
             )
 
-            # Check if multi-GPU processing should be used (for local models only)
+            # Check if multi-GPU processing should be used
             use_multi_gpu = False
             num_gpus_to_use = 1
 
@@ -360,7 +359,6 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                 if torch.cuda.is_available():
                     num_gpus_available = torch.cuda.device_count()
                     if num_gpus_available > 1:
-                        # Multi-GPU enabled: use all GPUs or user-specified count
                         num_gpus_config = app_state.optimization_config.num_gpus
                         if num_gpus_config == -1:
                             num_gpus_to_use = num_gpus_available
@@ -374,8 +372,8 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
 
             # Create processors based on mode
             if use_multi_gpu:
-                # Use multi-GPU processor for local models
-                from core.multi_gpu_processor import MultiGPUProcessor
+                # Use multi-GPU processor
+                from core.multi_gpu_processor import MultiGPUProcessor, MultiGPUTask
 
                 parallel_processor = MultiGPUProcessor(
                     num_gpus=num_gpus_to_use,
@@ -383,7 +381,7 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                 )
 
             elif use_parallel:
-                # Use standard parallel processor for cloud APIs or single-GPU local
+                # Use standard parallel processor
                 max_workers = min(app_state.optimization_config.max_parallel_workers, total_rows)
 
                 if is_local:
@@ -396,99 +394,101 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                 parallel_processor = ParallelProcessor(
                     max_workers=max_workers,
                     provider=provider,
-                    rate_limit=60  # API rate limit
+                    rate_limit=60
                 )
 
-            # CRITICAL: Create tasks for ALL parallel modes (both multi-GPU and standard parallel)
+            # Create tasks for parallel/multi-GPU processing
             if use_parallel or use_multi_gpu:
-                # Get prompt input columns
-                prompt_input_cols = app_state.data_config.prompt_input_columns
-
-                # Create tasks for all rows
                 tasks = []
-                for idx, row in df.iterrows():
-                    label_value = row[label_column] if has_labels and label_column in row.index else None
-                    tasks.append(ProcessingTask(
-                        task_id=str(idx),
-                        clinical_text=final_texts[idx],
-                        label_value=label_value,
-                        row_index=idx
-                    ))
-
-                # Progress callback
-                def progress_callback(completed, total, task_id):
-                    progress = (completed / total) * 100
-                    process_state.update_progress(process_id, completed, failed, progress)
-                    app_state.update_progress(completed, failed, progress)
-
-                # Execute in parallel
-                log_lines.append("")
-
-                # Define extraction function that includes prompt variables
+                
+                if use_multi_gpu:
+                    # Multi-GPU mode: Use MultiGPUTask
+                    from core.multi_gpu_processor import MultiGPUTask
+                    
+                    for idx, row in df.iterrows():
+                        label_value = row[label_column] if has_labels and label_column in row.index else None
+                        
+                        # Extract prompt variables
+                        prompt_variables = {}
+                        if prompt_input_cols:
+                            for col in prompt_input_cols:
+                                if col in row.index:
+                                    prompt_variables[col] = row[col]
+                        
+                        tasks.append(MultiGPUTask(
+                            task_id=int(idx),
+                            row_index=int(idx),
+                            clinical_text=final_texts[idx],
+                            label_value=label_value,
+                            prompt_variables=prompt_variables
+                        ))
+                else:
+                    # Standard parallel mode: Use ProcessingTask
+                    for idx, row in df.iterrows():
+                        label_value = row[label_column] if has_labels and label_column in row.index else None
+                        
+                        tasks.append(ProcessingTask(
+                            row_index=idx,
+                            clinical_text=final_texts[idx],
+                            label_value=label_value
+                        ))
+                
+                # Define extraction function for standard parallel (FIXED signature)
                 def extract_with_prompt_vars(task):
-                    # Extract prompt variables from the row
-                    row = df.iloc[int(task.task_id)]
+                    """Extract with prompt variables - FIXED to only take task"""
+                    # Get row from dataframe
+                    row = df.iloc[task.row_index]
+                    
+                    # Extract prompt variables from row
                     prompt_variables = {}
                     if prompt_input_cols:
                         for col in prompt_input_cols:
                             if col in row.index:
                                 prompt_variables[col] = row[col]
+                    
+                    # Call agent.extract
                     return agent.extract(task.clinical_text, task.label_value, prompt_variables)
-
-            if use_multi_gpu:
-                # Multi-GPU: Convert tasks to MultiGPUTask format
-                from core.multi_gpu_processor import MultiGPUTask
-
-                multi_gpu_tasks = []
-                for task in tasks:
-                    row = df.iloc[int(task.task_id)]
-                    prompt_variables = {}
-                    if prompt_input_cols:
-                        for col in prompt_input_cols:
-                            if col in row.index:
-                                prompt_variables[col] = row[col]
-
-                    multi_gpu_tasks.append(MultiGPUTask(
-                        task_id=int(task.task_id),
-                        row_index=int(task.task_id),
-                        clinical_text=task.clinical_text,
-                        label_value=task.label_value,
-                        prompt_variables=prompt_variables
-                    ))
-
-                # Process with multi-GPU (different progress callback signature)
-                def multi_gpu_progress_callback(completed, total):
+                
+                # Progress callback
+                def progress_callback(completed, total):
                     progress = (completed / total) * 100
                     process_state.update_progress(process_id, completed, failed, progress)
                     app_state.update_progress(completed, failed, progress)
+                
+                log_lines.append("")
+                
+                # Execute based on mode
+                if use_multi_gpu:
+                    # Multi-GPU processing
+                    multi_gpu_results = parallel_processor.process_batch(
+                        tasks=tasks,
+                        progress_callback=progress_callback
+                    )
 
-                multi_gpu_results = parallel_processor.process_batch(
-                    tasks=multi_gpu_tasks,
-                    progress_callback=multi_gpu_progress_callback
-                )
+                    # Convert MultiGPUResult to standard format
+                    results = []
+                    for mgr in multi_gpu_results:
+                        # Create a simple object with needed attributes
+                        result_obj = type('ProcessingResult', (), {
+                            'row_index': mgr.row_index,
+                            'success': mgr.success,
+                            'result': mgr.result,
+                            'error': mgr.error,
+                            'duration': mgr.duration
+                        })()
+                        results.append(result_obj)
 
-                # Convert MultiGPUResult to standard ProcessingResult format
-                from core.parallel_processor import ProcessingResult
-                results = []
-                for mgr in multi_gpu_results:
-                    results.append(ProcessingResult(
-                        task_id=str(mgr.task_id),
-                        success=mgr.success,
-                        result=mgr.result,
-                        error=mgr.error,
-                        processing_time=mgr.duration
-                    ))
-            elif use_parallel:
-                # Standard parallel or cloud API processing
-                results = parallel_processor.process_batch(
-                    tasks=tasks,
-                    process_function=extract_with_prompt_vars,  # NEW: Use function that includes prompt variables
-                    progress_callback=progress_callback
-                )
+                else:
+                    # Standard parallel processing
+                    results = parallel_processor.process_batch(
+                        tasks=tasks,
+                        process_function=extract_with_prompt_vars,
+                        progress_callback=progress_callback
+                    )
 
                 # Process results
                 for result in results:
-                    idx = int(result.task_id)
+                    idx = result.row_index
                     row = df.iloc[idx]
 
                     if result.success:
@@ -524,253 +524,99 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                                 'rag_used': rag_used,
                                 'functions_called': functions_called,
                                 'parallel_processing': True,
-                                'processing_time': result.processing_time
+                                'processing_time': result.duration
                             }
                         )
                         processed += 1
-                        log_lines.append(f"[Row {idx+1}/{total_rows}] ✅ SUCCESS ({result.processing_time:.2f}s)")
+                        log_lines.append(f"[Row {idx+1}/{total_rows}] ✅ SUCCESS ({result.duration:.2f}s)")
                     else:
                         failed += 1
                         log_lines.append(f"[Row {idx+1}/{total_rows}] ❌ FAILED: {result.error}")
 
                 log_lines.append("")
                 log_lines.append(f"⚡ Parallel processing complete: {processed} successful, {failed} failed")
-                log_lines.append(f"   Total time: {sum(r.processing_time for r in results):.2f}s wall time")
                 log_lines.append("")
 
             else:
-                # Sequential processing (for local models or single row)
+                # Sequential processing
                 if not use_parallel and total_rows > 1:
-                    log_lines.append("📝 Sequential Processing: Using single-threaded mode (local model or single row)")
+                    log_lines.append("📝 Sequential Processing: Using single-threaded mode")
                     log_lines.append("")
 
-            for idx, row in df.iterrows():
-                if use_parallel:
-                    continue  # Already processed in parallel
-
-                if not app_state.is_processing:
-                    log_lines.append("⏹️ Processing stopped by user")
-                    process_state.add_log(process_id, "Processing stopped by user")
-                    break
-                
-                # Use preprocessed text from batch preprocessing
-                clinical_text = final_texts[idx]
-                label_value = row[label_column] if has_labels and label_column in row.index else None
-                # FIXED: Check for None explicitly, not truthiness (allows 0, False, "" as valid labels)
-                label_context = app_state.data_config.label_mapping.get(str(label_value), None) if label_value is not None else None
-
-                # NEW: Extract prompt variables from row
-                prompt_variables = {}
-                prompt_input_cols = app_state.data_config.prompt_input_columns
-                if prompt_input_cols:
-                    for col in prompt_input_cols:
-                        if col in row.index:
-                            prompt_variables[col] = row[col]
-
-                log_lines.append(f"[Row {idx+1}/{total_rows}] Processing...")
-                process_state.add_log(process_id, f"Processing row {idx+1}/{total_rows}")
-
-                try:
-                    result = agent.extract(clinical_text, label_value, prompt_variables)  # NEW: Pass prompt variables
-                    
-                    extras_used = result.get('extras_used', 0)
-                    rag_used = result.get('rag_used', 0)
-                    functions_called = result.get('functions_called', 0)
-                    metadata = result.get('processing_metadata', {})
-                    
-                    total_extras_used += extras_used
-                    total_rag_used += rag_used
-                    total_functions_called += functions_called
-                    
-                    if result.get('rag_refinement_applied', False):
-                        final_output = result.get('stage4_final_output', {})
-                    else:
-                        final_output = result.get('stage3_output', {})
-
-                    # Check if agent actually succeeded
-                    agent_metadata = result.get('agentic_metadata', {})
-                    final_state = agent_metadata.get('final_state', metadata.get('final_state', 'unknown'))
-
-                    if final_state == 'completed' and final_output:
-                        log_lines.append(f"  ✅ SUCCESS - Extraction completed with valid JSON output")
-                    elif final_state == 'completed':
-                        log_lines.append(f"  ⚠️ COMPLETED - Agent completed but no JSON output generated")
-                    elif final_state == 'failed':
-                        log_lines.append(f"  ❌ FAILED - Agent reached final state: {final_state}")
-                        log_lines.append(f"     Error: {agent_metadata.get('error', 'Unknown error')}")
-                    else:
-                        log_lines.append(f"  ℹ️ FINISHED - Agent state: {final_state}")
-
-                    log_lines.append(f"     Extras: {extras_used} | RAG: {rag_used} | Functions: {functions_called}")
-                    process_state.add_log(process_id, f"Row {idx+1} processed: Extras={extras_used}, RAG={rag_used}, Functions={functions_called}")
-                    
-                    if extras_used > 0:
-                        extras_details = metadata.get('extras_details', [])
-                        log_lines.append(f"     Extras Details:")
-                        for extra in extras_details[:3]:
-                            log_lines.append(f"       • {extra.get('type', 'unknown')}: {extra.get('content', '')[:60]}...")
-                    
-                    if rag_used > 0:
-                        rag_details = metadata.get('rag_details', [])
-                        log_lines.append(f"     RAG Details:")
-                        for rag_item in rag_details[:2]:
-                            log_lines.append(f"       • Score: {rag_item.get('score', 0):.2f}, Source: {rag_item.get('source', 'Unknown')}")
-                    
-                    if functions_called > 0:
-                        func_details = metadata.get('function_calls_details', [])
-                        log_lines.append(f"     Function Calls:")
-                        for func in func_details:
-                            log_lines.append(f"       • {func.get('function', 'unknown')}() = {func.get('result', 'N/A')}")
-                    
-                    output_handler.add_record(
-                        row=row,
-                        llm_output=final_output,
-                        redacted_text=preprocessed_batch.redacted_texts[idx] if preprocessed_batch.redacted_texts else None,
-                        normalized_text=preprocessed_batch.normalized_texts[idx] if preprocessed_batch.normalized_texts else None,
-                        label_context=label_context,
-                        metadata={
-                            'processing_timestamp': datetime.now().isoformat(),
-                            'llm_provider': app_state.model_config.provider,
-                            'llm_model': app_state.model_config.model_name,
-                            'llm_temperature': app_state.model_config.temperature,
-                            'prompt_type': 'minimal' if result.get('used_minimal_prompt', False) else 'main',
-                            'retry_count': result.get('retry_count', 0),
-                            'extras_used': extras_used,
-                            'rag_used': rag_used,
-                            'functions_called': functions_called,
-                            'rag_refinement_applied': result.get('rag_refinement_applied', False),
-                            'parsing_method': result.get('parsing_method_used', 'unknown'),
-                            'batch_preprocessed': True
-                        }
-                    )
-                    
-                    processed += 1
-                    progress = ((idx + 1) / total_rows) * 100
-                    process_state.update_progress(process_id, processed, failed, progress)
-                    app_state.update_progress(processed, failed, progress)
-                    log_lines.append("")
-
-                    # PERFORMANCE: Clear GPU cache periodically for local models
-                    if app_state.model_config.provider == 'local' and (idx + 1) % 10 == 0:
-                        try:
-                            import torch
-                            if torch.cuda.is_available():
-                                torch.cuda.empty_cache()
-                                logger.debug(f"GPU cache cleared after row {idx + 1}")
-                        except Exception as cache_e:
-                            logger.debug(f"Could not clear GPU cache: {cache_e}")
-
-                except Exception as e:
-                    logger.error(f"Row {idx} failed: {e}")
-                    log_lines.append(f"  ❌ ERROR: {str(e)}")
-                    process_state.add_log(process_id, f"Row {idx+1} failed: {str(e)}")
-                    log_lines.append("")
-                    failed += 1
-                    
-                    if error_strat == "halt":
-                        log_lines.append("⏹️ HALTING due to error strategy")
-                        process_state.add_log(process_id, "Halting due to error strategy")
+                for idx, row in df.iterrows():
+                    if not app_state.is_processing:
+                        log_lines.append("⏹️ Processing stopped by user")
+                        process_state.add_log(process_id, "Processing stopped by user")
                         break
-                    elif error_strat == "retry":
-                        log_lines.append("🔄 RETRYING...")
-                        process_state.add_log(process_id, f"Retrying row {idx+1}")
+                    
+                    clinical_text = final_texts[idx]
+                    label_value = row[label_column] if has_labels and label_column in row.index else None
+                    label_context = app_state.data_config.label_mapping.get(str(label_value), None) if label_value is not None else None
+
+                    # Extract prompt variables
+                    prompt_variables = {}
+                    if prompt_input_cols:
+                        for col in prompt_input_cols:
+                            if col in row.index:
+                                prompt_variables[col] = row[col]
+
+                    log_lines.append(f"[Row {idx+1}/{total_rows}] Processing...")
+                    process_state.add_log(process_id, f"Processing row {idx+1}/{total_rows}")
+
+                    try:
+                        result = agent.extract(clinical_text, label_value, prompt_variables)
                         
-                        retry_success = False
-                        for attempt in range(1, app_state.processing_config.max_retries + 1):
-                            try:
-                                result = agent.extract(clinical_text, label_value, prompt_variables)  # NEW: Pass prompt variables
-                                
-                                extras_used = result.get('extras_used', 0)
-                                rag_used = result.get('rag_used', 0)
-                                functions_called = result.get('functions_called', 0)
-                                metadata = result.get('processing_metadata', {})
-                                
-                                total_extras_used += extras_used
-                                total_rag_used += rag_used
-                                total_functions_called += functions_called
-                                
-                                if result.get('rag_refinement_applied', False):
-                                    final_output = result.get('stage4_final_output', {})
-                                else:
-                                    final_output = result.get('stage3_output', {})
+                        extras_used = result.get('extras_used', 0)
+                        rag_used = result.get('rag_used', 0)
+                        functions_called = result.get('functions_called', 0)
+                        metadata = result.get('processing_metadata', {})
+                        
+                        total_extras_used += extras_used
+                        total_rag_used += rag_used
+                        total_functions_called += functions_called
+                        
+                        if result.get('rag_refinement_applied', False):
+                            final_output = result.get('stage4_final_output', {})
+                        else:
+                            final_output = result.get('stage3_output', {})
 
-                                # Check if agent actually succeeded on retry
-                                agent_metadata = result.get('agentic_metadata', {})
-                                final_state = agent_metadata.get('final_state', metadata.get('final_state', 'unknown'))
+                        log_lines.append(f"  ✅ SUCCESS")
+                        log_lines.append(f"     Extras: {extras_used} | RAG: {rag_used} | Functions: {functions_called}")
+                        process_state.add_log(process_id, f"Row {idx+1} processed: Extras={extras_used}, RAG={rag_used}, Functions={functions_called}")
+                        
+                        output_handler.add_record(
+                            row=row,
+                            llm_output=final_output,
+                            redacted_text=preprocessed_batch.redacted_texts[idx] if preprocessed_batch.redacted_texts else None,
+                            normalized_text=preprocessed_batch.normalized_texts[idx] if preprocessed_batch.normalized_texts else None,
+                            label_context=label_context,
+                            metadata={
+                                'processing_timestamp': datetime.now().isoformat(),
+                                'llm_provider': app_state.model_config.provider,
+                                'llm_model': app_state.model_config.model_name,
+                                'llm_temperature': app_state.model_config.temperature,
+                                'extras_used': extras_used,
+                                'rag_used': rag_used,
+                                'functions_called': functions_called
+                            }
+                        )
+                        
+                        processed += 1
+                        progress = ((idx + 1) / total_rows) * 100
+                        process_state.update_progress(process_id, processed, failed, progress)
+                        app_state.update_progress(processed, failed, progress)
+                        log_lines.append("")
 
-                                if final_state == 'completed' and final_output:
-                                    log_lines.append(f"  ✅ SUCCESS on retry (Attempt {attempt}) - Extraction completed with valid JSON output")
-                                elif final_state == 'completed':
-                                    log_lines.append(f"  ⚠️ COMPLETED on retry (Attempt {attempt}) - Agent completed but no JSON output")
-                                elif final_state == 'failed':
-                                    log_lines.append(f"  ❌ FAILED on retry (Attempt {attempt}) - Agent state: {final_state}")
-                                    log_lines.append(f"     Error: {agent_metadata.get('error', 'Unknown error')}")
-                                else:
-                                    log_lines.append(f"  ℹ️ FINISHED on retry (Attempt {attempt}) - Agent state: {final_state}")
-
-                                log_lines.append(f"     Extras: {extras_used} | RAG: {rag_used} | Functions: {functions_called}")
-                                process_state.add_log(process_id, f"Row {idx+1} retry success: Extras={extras_used}, RAG={rag_used}, Functions={functions_called}")
-                                
-                                if extras_used > 0:
-                                    extras_details = metadata.get('extras_details', [])
-                                    log_lines.append(f"     Extras Details:")
-                                    for extra in extras_details[:3]:
-                                        log_lines.append(f"       • {extra.get('type', 'unknown')}: {extra.get('content', '')[:60]}...")
-                                
-                                if rag_used > 0:
-                                    rag_details = metadata.get('rag_details', [])
-                                    log_lines.append(f"     RAG Details:")
-                                    for rag_item in rag_details[:2]:
-                                        log_lines.append(f"       • Score: {rag_item.get('score', 0):.2f}, Source: {rag_item.get('source', 'Unknown')}")
-                                
-                                if functions_called > 0:
-                                    func_details = metadata.get('function_calls_details', [])
-                                    log_lines.append(f"     Function Calls:")
-                                    for func in func_details:
-                                        log_lines.append(f"       • {func.get('function', 'unknown')}() = {func.get('result', 'N/A')}")
-                                
-                                output_handler.add_record(
-                                    row=row,
-                                    llm_output=final_output,
-                                    redacted_text=result.get('redacted_text'),
-                                    normalized_text=result.get('normalized_text'),
-                                    label_context=label_context,
-                                    metadata={
-                                        'processing_timestamp': datetime.now().isoformat(),
-                                        'llm_provider': app_state.model_config.provider,
-                                        'llm_model': app_state.model_config.model_name,
-                                        'llm_temperature': app_state.model_config.temperature,
-                                        'prompt_type': 'minimal' if result.get('used_minimal_prompt', False) else 'main',
-                                        'retry_count': result.get('retry_count', attempt),
-                                        'extras_used': extras_used,
-                                        'rag_used': rag_used,
-                                        'functions_called': functions_called,
-                                        'rag_refinement_applied': result.get('rag_refinement_applied', False),
-                                        'parsing_method': result.get('parsing_method_used', 'unknown')
-                                    }
-                                )
-                                
-                                processed += 1
-                                failed -= 1
-                                progress = ((idx + 1) / total_rows) * 100
-                                process_state.update_progress(process_id, processed, failed, progress)
-                                app_state.update_progress(processed, failed, progress)
-                                log_lines.append("")
-                                retry_success = True
-                                break
-                                
-                            except Exception as retry_e:
-                                logger.error(f"Row {idx} failed on retry {attempt}: {retry_e}")
-                                log_lines.append(f"  ❌ RETRY {attempt} FAILED: {str(retry_e)}")
-                                process_state.add_log(process_id, f"Row {idx+1} retry {attempt} failed: {str(retry_e)}")
-                                
-                                if attempt == app_state.processing_config.max_retries:
-                                    log_lines.append(f"  ❌ All {app_state.processing_config.max_retries} retries exhausted")
-                                    log_lines.append("")
-                                continue
-                    else:
-                        log_lines.append("  ⏭️ Skipping row")
-                        continue
+                    except Exception as e:
+                        logger.error(f"Row {idx} failed: {e}")
+                        log_lines.append(f"  ❌ ERROR: {str(e)}")
+                        process_state.add_log(process_id, f"Row {idx+1} failed: {str(e)}")
+                        log_lines.append("")
+                        failed += 1
+                        
+                        if error_strat == "halt":
+                            log_lines.append("⏹️ HALTING due to error strategy")
+                            break
             
             log_lines.append("")
             log_lines.append("=" * 80)
@@ -806,9 +652,7 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                     'temperature': app_state.model_config.temperature,
                     'batch_size': batch_sz,
                     'dry_run': is_dry_run,
-                    'error_strategy': error_strat,
-                    'phi_redaction_enabled': app_state.data_config.enable_phi_redaction,
-                    'pattern_normalization_enabled': app_state.data_config.enable_pattern_normalization
+                    'error_strategy': error_strat
                 },
                 'component_usage': {
                     'total_extras_used': total_extras_used,
@@ -826,9 +670,8 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                 output_path=str(output_dir_path),
                 filename=stats_filename
             )
-            log_lines.append(f"✅ Statistics saved: {stats_file if stats_success else 'Failed'}")
-            process_state.add_log(process_id, f"Statistics saved: {stats_file if stats_success else 'Failed'}")
-            
+            log_lines.append(f"Statistics saved: {stats_file if stats_success else 'Failed'}")
+            process_state.add_log(process_id, f"Statistics saved: {stats_file if stats_success else 'Failed'}")         
             log_lines.append("")
             log_lines.append("=" * 80)
             log_lines.append("PROCESSING COMPLETE")

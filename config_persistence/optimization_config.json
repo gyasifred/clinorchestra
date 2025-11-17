@@ -1,0 +1,14 @@
+{
+  "llm_cache_enabled": false,
+  "llm_cache_db_path": "cache/llm_responses.db",
+  "llm_cache_bypass": false,
+  "performance_monitoring_enabled": false,
+  "use_parallel_processing": false,
+  "use_batch_preprocessing": true,
+  "max_parallel_workers": 2,
+  "use_model_profiles": true,
+  "use_gpu_faiss": true,
+  "use_multi_gpu": false,
+  "num_gpus": 2,
+  "saved_at": "2025-11-16T12:53:55.522455"
+}

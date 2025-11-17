@@ -1,0 +1,18 @@
+{
+  "name": "kdigo_aki_stages",
+  "type": "guideline",
+  "keywords": [
+    "aki",
+    "acute kidney injury",
+    "kdigo",
+    "creatinine",
+    "renal failure",
+    "kidney injury",
+    "aki stage",
+    "aki staging"
+  ],
+  "content": "KDIGO Acute Kidney Injury (AKI) Staging Criteria:\n\nDefinition: AKI is defined as any of the following:\n- Increase in serum creatinine by \u22650.3 mg/dL within 48 hours\n- Increase in serum creatinine to \u22651.5 times baseline within 7 days\n- Urine output <0.5 mL/kg/h for 6 hours\n\nStaging:\n\nStage 1:\n- Serum creatinine: 1.5-1.9 times baseline OR \u22650.3 mg/dL increase\n- Urine output: <0.5 mL/kg/h for 6-12 hours\n\nStage 2:\n- Serum creatinine: 2.0-2.9 times baseline\n- Urine output: <0.5 mL/kg/h for \u226512 hours\n\nStage 3:\n- Serum creatinine: 3.0 times baseline OR increase to \u22654.0 mg/dL OR initiation of renal replacement therapy (RRT)\n- Urine output: <0.3 mL/kg/h for \u226524 hours OR anuria for \u226512 hours\n\nBaseline Creatinine:\n- Use the lowest creatinine value in the previous 7 days as baseline\n- If no prior creatinine available, may estimate using MDRD equation assuming baseline GFR 75 mL/min/1.73m\u00b2\n\nClinical Significance:\n- Even Stage 1 AKI is associated with increased mortality and morbidity\n- AKI increases risk of progression to chronic kidney disease (CKD)\n- Early recognition allows for preventive interventions (fluid management, medication adjustment, nephrotoxin avoidance)\n\nSource: KDIGO Clinical Practice Guideline for Acute Kidney Injury (Kidney International Supplements 2012)",
+  "source": "KDIGO AKI Guidelines 2012",
+  "relevance_score": 1.0,
+  "id": "extra_20251112_011642_190956"
+}

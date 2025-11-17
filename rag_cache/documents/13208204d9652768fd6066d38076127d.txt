@@ -1,0 +1,461 @@
+Proc.Nat!.Acad.Sci.USAVol.86,pp.6812-6815, September 1989Neurobiology
+cGMPinduces phaseshiftsofamammalian circadian pacemaker at
+night,inantiphase tocAMPeffects
+(suprachiasmatic nuclei/circadian rhythms/brain slice/circadian dock/rat)
+REBECCA A.PROSSER*, ANGELA J.MCARTHURt, ANDMARTHA U.GILLETTE*t1
+University ofIllinoisatUrbana-Champaign, *NeuralandBehavioral BiologyProgram, andtDepartment ofPhysiology andBiophysics, 524BurrillHall,407
+SouthGoodwin, Urbana, IL61801
+Communicated byC.LaddProsser, June19,1989
+ABSTRACT Thesuprachiasmatic nuclei(SCN)ofmam-
+malscontainacircadian clockthatsynchronizes behavioral
+andphysiological rhythms tothedailycycleoflightand
+darkness. Wehavebeenprobingthebiochemical substrates of
+thisendogenous pacemaker byexamining theabilityoftreat-
+mentsaffecting cyclicnucleotide-dependent pathways toinduce
+changesinthephaseofoscillation inelectrical activityofrat
+SCNisolatedinbrainslices.Ourpreviousworkhasshownthat
+daytimetreatments thatstimulate cAMP-dependent pathways
+inducephaseshiftsoftheSCNpacemaker invitrobuttreat-
+mentsduringthesubjective nightarewithouteffect.Inthis
+studywereportthatthephaseofSCNoscillation isresetby
+treatments thatstimulate cGMP-dependent pathways, butonly
+duringthesubjective night.Thus,thenocturnal periodofSCN
+sensitivity tocGMPisinantiphase tothediurnalperiodof
+sensitivity tocAMP.TheseresultssuggestthatcAMPand
+cGMPaffecttheSCNpacemaker throughseparatebiochemical
+pathways intrinsictotheSCN.Thesestudiesprovideevidence
+thatchanging biochemical substrates withintheSCNcircadian
+clockmayunderlie someaspectsofdiferential temporal sen-
+sitivityofmammals toresetting stimuli.
+Mammals, likeothereukaryotic organisms, possessanen-
+dogenous pacemaker thatkeepsnear24-hrtime(1).This
+circadian clock,whichcanbeentrained bytheenvironmental
+lightingcycle,organizes ananimal's behavior andphysiology
+intodailyrhythms. Theprimarycircadian clockinmammals
+islocatedinthesuprachiasmatic nuclei(SCN)(2,3).The
+endogenous natureofthisoscillator isapparent fromexper-
+imentsdemonstrating thattheSCNgenerate astablecirca-
+dianrhythmofneuronal activityforatleastthreecycleswhen
+isolatedinahypothalamic brainslice(4,5).Furthermore, the
+pacemaker appearsunperturbed bytheprocessofbrain-slice
+preparation duringtheanimal's day(6)sincethisinvitro
+rhythmmatches therhythmofelectrical activityproduced by
+theSCNinvivo(7).
+Circadian rhythms inintactanimals areresetbystep
+changesinconstant lightingconditions atdifferent phasesof
+theirentrained lightingcycle.Organisms undergocircadian
+changesinsensitivity toresetting stimulisothatinconstant
+darkness theirrhythms areresetby15-minpulsesoflight
+duringthenight,butnottheday(8,9).Conversely, in
+constantlighttheirrhythms areadvanced by2-to3-hrpulsesofdarkness primarily whentheyoccurduringtheday,
+although longer(6hr)pulsesofdarkness caninducedelays
+duringthenight(10,11).Specificneurotransmitters injected
+intotheSCNregioncanalsoinducephaseresetting of
+behavioral rhythms (12-17). Likephoticstimuli,theireffi-
+cacyisusuallylimitedtoaspecificportionofthecircadian
+cycle,although theresultsoftheinvivopharmacological
+studiesaresometimes contradictory (13,15-17).Thecellularbasisofcircadian changeinsensitivity toresetting stimuliis
+unknown andisthesubjectofourinvestigations.
+Wehavebeenstudying theresetting characteristics ofthe
+SCNcircadian pacemaker invitro.Thisapproach should
+revealwhichproperties predicted frominvivostudiesare
+endogenous tothisbiological clockandshouldallowidenti-
+ficationoftheirbiochemical substrates. Inearlierexperi-
+mentsweshowed(4,5)thatinvitrotreatments thatincrease
+endogenous cAMPlevelsresetthephaseoftheSCNclock
+whenappliedduringsubjective day(thetimeoflights-on in
+thedonorcolony)butnotduringsubjective night.These
+resultssuggested thatchanging sensitivity tocAMP,within
+eitheranentrainment pathway ortheclockmechanism, may
+underlie thesensitivity oftheorganism tosomedaytime
+phase-shifting stimuli.Tofurtherprobebiochemical mecha-
+nismsassociated withtheSCNclock,wehaveinvestigated
+theabilityoftreatments thatstimulate cGMP-dependent
+pathways toresettheSCNclockinvitro.cAMPandcGMP
+areinvolved inawidevarietyofcellfunctions (18,19),
+sometimes inanantagonistic relationship (20),andsoitwas
+ofinteresttodetermine whether theSCNclockshowsa
+differentsensitivity tocGMPascompared withitssensitivity
+tocAMP.
+MATERIALS ANDMETHODS
+Thepreparation, maintenance, andrecording procedures
+usedintheseexperiments havebeenreported indetail(5).
+Briefly,500-,umcoronalbrainsliceswereprepared during
+lights-on fromadultLong-Evans ratsborninourinbred
+colonyandhousedunder12hroflight/12hrofdarkcondi-
+tions.Slicesweremaintained inabrain-slice chamber (21)
+continuously perifused withEarle'sbalanced saltsolution
+(GIBCO) supplemented with24.6mMglucoseand26.2mM
+sodiumbicarbonate (pH7.4)at370Candsaturated withan
+atmosphere of95%02/5%CO2.Inthe3-dayexperiment,
+0.5%gentamicin wasaddedtotheperifusion medium that
+wassterilized byfiltration. Atvarioustimesafterslice
+preparation, perifukion wasstopped andthebathmedium
+wasreplaced for1hrwithfreshlymademediumcontaining
+either0.5mM8-bromoguanosine 3',5'-cyclic monophos-
+phate(Br-cGMP) or0.5mMN2,02'-dibutyrylguanosine3',5'-cyclic monophosphate (Bt2-cGMP) atpH7.4thathad
+beenoxygenated andwarmedfor5min.Thesemembrane-
+solubleanalogsofcGMPactivatecGMP-dependent protein
+kinasesandresistdegradation byphosphodiesterase (22,23).
+After1hrthismedium wasreplaced completely withnormal
+medium, andperifusion wasresumed. Previous experiments
+Abbreviations: BzA-cAMP, 8-benzylaminoadenosine 3',5'-cyclicmonophosphate; Br-cGMP, 8-bromoguanosine 3',5'-cyclic mono-
+phosphate; CT,circadian time;Bt2-cGMP, N202'-dibutyrylgua-nosine3',5'-cyclic monophosphate; SCN,suprachiasmatic nuclei.tTowhomreprintrequests shouldbeaddressed.
+6812Thepublication costsofthisarticleweredefrayed inpartbypagecharge
+payment. Thisarticlemusttherefore beherebymarked"advertisement"
+inaccordance with18U.S.C.§1734solelytoindicatethisfact.
+Proc.Natl.Acad.Sci.USA86(1989) 6813
+haveshownthattheprocedure ofchanging theperifusion
+mediumbyitselfdoesnotphase-shift theSCNclock(4).
+Ineachexperiment theeffectofthistreatment uponthe
+circadian pacemaker wasassessed bymonitoring thesubse-
+quentcycle(s)ofneuronal activityinoneSCN.Thesponta-
+neousactivities ofsingleSCNcellsencountered atrandom
+throughout thenucleus weremonitored extracellularly by
+usingglassmicroelectrodes filledwith5MNaCl.Only
+clearlyisolatedsingleunitswithasignal/noise ratioof-2
+werestudied.Afterassessing thestabilityofitsfiringrate,
+eachcellwasmonitored fortwo120-secperiodsusing10-sec
+binsandthenthemeanfiringratewasdetermined. On
+average, fourcellsweremonitored perhouroverthecourse
+of7-18hrduringeachexperiment. Thefiringratesof
+individual cellswereaveraged over2-hrintervals using1-hr
+lagstoobtainameasure oftheSCNneuronal population's
+circadian rhythmoffiringrate,andfromthiswedetermined
+thetimeofpeakfiringrateinthecircadian cycle(s)after
+treatment.
+Ourprevious workshowedthatthetimeofpeakneuronal
+activityrecorded fromSCNinuntreated slicesvarieslittle
+acrossanimalsfromourinbredline(6).Furthermore, the
+rhythmremainsstableforatleast3daysinvitro:themean
+timeofpeakelectrical activityinunperturbed slicesoccursat
+circadian time(CT)7.1±0.1hr(n=3),6.9±0.2hr(n=8),
+and6.6±0.4hr(n=3)ondays1-3invitro,respectively
+(whereCTdividesthecircadian cycleinto24hrandCT0=
+lights-on inthedonorcolony)(5).Thusthetimeofpeak
+activityisareliablemeasure ofthephaseoftheunderlying
+circadian pacemaker, andwecould,therefore, determine
+phaseshiftsbycomparing thetimeofpeakactivityintreated
+sliceswiththatofuntreated slices(5).
+RESULTS
+Treatment withBr-cGMP duringthemiddleofsubjective day
+hadlittleeffectuponthesubsequent timeofpeakactivity.
+Forexample, asshowninFig.IA,afterBr-cGMP treatment
+between CT7-8onday1invitrotheelectrical activity
+rhythmpeaked atCT6.25ofday2,indicating aphase
+advanceof0.65hr.Theresultsof1-hrBr-cGMP treatments
+duringthesubjective daytime aresummarized inthephase-
+response curveinFig.2,wheretheresponse ofthepace-
+maker(thechangeinthetimeofpeakactivityineach
+experiment) isplottedaccording tothecircadian phaseofthe
+treatment. Ascanbeseen,Br-cGMP treatments between CT
+0and11inducedphaseshiftsrangingfrom-0.75to1.25hr,
+withameanphaseadvance of0.24±0.24hr(n=8).
+Incontrast todaytimetreatments, application ofBr-cGMP
+duringsubjective nightinducedlargeshiftsinthephaseofthe
+electrical activityrhythm, withthemagnitude ofphase
+changedependent uponthetimeoftreatment. Forexample,asshowninFig.1B,treatment atCT18-19induced aphase
+advanceof6.5hr,suchthatthepeakinactivityoccurred at
+CT0.5.Overall, themeanphaseadvance inducedby1-hr
+Br-cGMP treatments betweenCT12and22was4.38±0.71
+hr(n=10).Thephaseshiftsinducedbythesenocturnal
+Br-cGMP treatments aresummarized inFig.2.Thelargestphaseadvances, 6-7hr,occurred after1-hrBr-cGMP treat-
+mentsbetween CT16and18,withsmalleradvances induced
+bytreatments earlierandlaterduringthesubjective night.
+Theresponses tonighttime Br-cGMP treatments were
+stableacrosstwocycles,asshowninFig.3.Theadvanced
+time-of-peak (atCT0.5)observed duringthefirstcycleafter
+treatment wasseenagainnearly24hrlater(atCT1.0)duringthesecondcycleaftertreatment. Thisindicates thatBr-
+cGMPtreatment for1hratCT18completely resetsthe
+underlying circadian pacemaker duringthefirst6hrafter
+treatment.6+
+0-%
+N
+w
+W4)
+0*;44
+2
+10
+8
+6
+4
+21
+h481216202448A
++i
+B
+4-4
+12
+Circadian time(hr)
+FIG.1.Differential effectsofBr-cGMP ontheSCN'srhythmof
+electrical activity. Plottedarerunning2-hrvalues(mean±SEM),laggedby1hr,ofallsingleunitsrecorded inindividual experiments
+according tothecircadian timeatwhichtheywererecorded. (A)
+Br-cGMP (0.5mM)treatment atCT7-8hadlittleeffectonthephaseoftheelectrical activityrhythminthecycleaftertreatment, sothat
+thesubsequent timeofpeakactivityoccurred atCT6.25.(B)
+Br-cGMP treatment atCT18-19phase-advanced thesubsequent
+timeofpeakactivityby6.5hr,toCT0.5.Horizontal stippledbar,
+subjective nightfortheSCN,thetimeoflights-off inthedonor
+colony;verticalhatchedbar,timeoftreatment; dottedline,mean
+timeofpeakactivity inuntreated slices;arrow,timeoftissue
+preparation.
+IfthephaseshiftsinducedbyBr-cGMP treatment atnight
+weretheresultofspecifically stimulating cGMP-dependent
+pathways, thentreatment withotheractiveanalogsofcGMP
+shouldinducesimilarshifts.Totestthis,wetreatedslices
+withBt2-cGMP, theonlyothercGMPanalogwefound
+commercially available, attwocircadian times.Application
+of0.5mMBt2-cGMP duringthesubjective nightatCT18-19
+phase-advanced theelectrical activityrhythmby4.71±0.41
+hr(n=4),whereasapplication duringthesubjective dayat
+0-
+WI
+VU)0~~~~~
+6-
+04- 0
+0
+2-
+o0%*s:0
+-2 -I mi1i11a .1
+04812162024
+Circadian time(hr)
+FIG.2.Phase-response curvefor1-hrtreatments with0.5mM
+Br-cGMP. Changes inthephaseoftheelectrical activityrhythminducedbyBr-cGMP treatments invitrovs.unperturbed controls are"
+plottedaccording tothecircadian timeoftreatment. Eachdot
+indicates theresultofasingleexperiment. Thelargestphasead-
+vancesoccurred aftertreatments duringmid-subjective night,whereas treatments duringsubjective dayhadlittleeffect.INeurobiology: Prosser etal.
+8T
+ - -
+-1. .
+f
+ifI
+iA i
+6814Neurobiology: Prosseretal.
+5
+6
+4
+*~2
+81624816248
+Circadian time(hr)
+FIG.3.Br-cGMP inducesstablephaseshiftsinvitro.Sliceswere
+treatedatCT18-19onday1invitro.Peakactivityondays2and3
+isatCT0.5and1.0,respectively. Thus,thephaseadvances are
+complete within6hrandrepresent stableshiftsoftheunderlyingpacemaker. SeeFig.1fordetails.
+CT7hadlittleeffectonthetimeofpeakelectrical activityin
+thesubsequent cycle(0.25-hrphasedelay,n=2).
+Thedifferential responsiveness oftheSCNclocktoana-
+logsofcAMPandcGMPisillustrated inFig.4,wherethe
+phase-response curvesfor8-benzylaminoadenosine 3',5'-
+cyclicmonophosphate (BzA-cAMP, resultsreplotted from
+ref.5)andBr-cGMP areshowntogether. Thisfiguresum-
+marizestheresultsof28experiments withBzA-cAMP treat-
+mentat16CTsand18experiments withBr-cGMP treatment
+at13CTs.Itcanbeseenthatthesensitivities oftheSCN
+clocktostimulation ofcAMP-andcGMP-dependent path-waysare12hrout-of-phase andvirtuallynonoverlapping:sensitivity tothecAMPanalogappearsinthesubjective daybetweenCT3and12,whereassensitivity tothecGMPanalog
+occursinthesubjective nightbetween CT14and22.
+DISCUSSION
+Theseresultsdemonstrate thatthephaseoftheSCNpace-
+makercanberesetinvitrobytreatments thatselectivelystimulate cGMP-dependent pathways. Further,theyindicate
+thattheSCNclockissensitive tocGMPanalogsonlyduringthesubjective nightofthecircadian cycle,atimewhenlightstimuliinvivoadvancebehavioral rhythms. Thesensitivity of
+theSCNtocGMPanalogsoccursinantiphase tothetimeof
+sensitivity tocAMPanalogs.Thus,theseresultssuggestthat
+thechanging sensitivity oftheorganism toresetting stimuli
+mayhaveitsorigin,atleastinpart,inthedifferential
+8
+7
+6
+,~5i5tFXA/ \
+4--I
+)2
+0-
+04812162024
+Circadian time(hr)
+FIG.4.Combined phase-response curvesfor1-hrtreatments of
+0.5mMBzA-cAMP (dashedline)andBr-cGMP (solidline).Changes
+inthephaseoftheSCNelectrical activityrhythminducedbythese
+treatments areplottedaccording totheCToftreatment. The
+phase-response curveforBzA-cAMP isbasedupon28experiments
+over16CTs(replotted fromref.5).ThedataforBr-cGMP, replotted
+fromFig.2,isbasedupon18experiments at13CTs.Proc.Natl.Acad.Sci.USA86(1989)
+sensitivity oftheSCNtostimulation ofcGMP-orcAMP-
+dependent pathways.
+Thephaseadvances inducedbythese1-hrtreatments with
+cGMPanalogsarerobustandappeartobecomplete within
+6hroftreatment. Intheseaspectsthephaseshiftsinducedby
+Br-cGMP andBt2-cGMP aresimilartothoseinduced bya
+seriesofthree10-minpulsesofhigh(50mM)K+invitro,
+whichalsophase-advances therhythm6-7hrwhenapplied
+between CT17and19(24).TheabilityofcGMPanalogs to
+phase-shift onlyatnightisalsosimilartotheeffectsofseveral
+invivotreatments, including lightpulses(9)andelectrical
+stimulation (25).Although themechanisms through which
+thesetreatments shifttheSCNpacemaker haveyettobe
+determined, ourresultssuggestthatatleastonestepin
+nighttime phaseshiftingmayinvolveelevating endogenous
+cGMPwithinsomeSCNneurons.
+Onehypothesis thatisconsistent withthesedataisthatin
+intactanimalslightpulsesduringmid-subjective nightexcite
+opticnerveafferents toreleasetransmitter thatstimulates
+guanylate cyclase.Theincreased levelofcGMPcouldinturn
+stimulate phosphorylation ofoneormoreproteins present
+onlyduringthecGMP-sensitive periodandtherebyaltertheir
+activity.Theconsequence couldbeacellularchangeinstate
+thatadvances thepacemaker toanewphase,fromwhich
+time-keeping proceeds normally. Tobegintestingthishy-
+pothesis onecouldinvestigate whether lightoropticnerve
+stimulation caninduceincreases incGMPlevelsintheSCN.
+Photicstimulation hasbeenshowntoincrease cGMPlevels
+inseveralothersystems, including theocularcircadian
+pacemaker ofmollusks (26).
+ThephaseoftheSCNclock'ssensitivity toBr-cGMP
+differsbynearly12hrfromitssensitivity tocAMPanalogs,
+including 8-bromoadenosine 3',5'-cyclic monophosphate,
+andtreatments thatincrease endogenous cAMPlevels(4,5).
+Theseresultsareimportant forseveralreasons. First,they
+supportthehypothesis thatBr-cGMP phase-shifts theclock
+through stimulation ofcGMP-dependent pathways, rather
+thanthroughnonspecific effects.Sincethemolecular struc-
+turesofthebromoanalogsofcGMPandcAMPdifferonly
+slightly(22),theyshouldhavesimilarnonspecific effects.
+However, theyactontheSCNclockduringalmostnon-
+overlapping times,andthuseachanalogappearstoaffectthe
+SCNthroughitsseparate specificactions.Thisconclusion is
+furthersupported bythedatashowing thatasecondcGMP
+analog,Bt2-cGMP, alsophase-advances theSCNwhenap-
+pliedduringthesubjective nightbutnotduringthesubjective
+day.
+Second,theseresultsindicatethattheisolatedSCNclock
+retainsthecharacteristic ofdifferential day-night sensitivity
+tophase-shifting agentsseeninvivo.Inthisregard,cGMP
+canbegroupedwithinvivotreatments, including lightpulses
+(9),carbachol (refs.16and17;however, seealsoref.15),and
+electrical stimulation (25),thatphase-shift rodentcircadian
+rhythms whenappliedduringsubjective night.Conversely,
+cAMPappearstoactlikeaseparate groupofinvivotreat-
+mentsthatphase-advance onlywhenappliedduringsubjec-
+tiveday,including darkpulses(10,11),neuropeptide Y(12),
+andglutamate (14).Theretention bytheisolatedSCNof
+differential day-night sensitivity toresetting stimulisupports
+theideathattheseseparate entrainment pathways actona
+clockthatitselfchanges withtheprocession oftime.Itafso
+reinforces theevidence thattheSCNcontainanautonomous
+circadian clockthatcontinues tofunction normally when
+isolatedinabrain-slice preparation.
+Third,theseresultsstrongly support theconclusion that
+cAMPandcGMPaffecttheSCNcircadian pacemakerthroughseparatebiochemical pathways. Theirsiteofaction
+couldbewithinpathways afferenttothepacemaker orwithin
+thetime-keeping mechanism itself.Ineithercase,theindi-
+cationthatthesetwocyclicnucleotides accessdifferent,
+Proc.Natl.Acad.Sci.USA86(1989) 6815
+temporally limitedcomponents mayprovideadditional clues
+astobiochemical substrates withintheSCN.Forexample,
+cAMPmayaffectthepacemaker throughphosphorylating
+proteins available onlyduringtheday;conversely, cGMP
+mayactthroughphosphorylating proteinsthatareavailable
+onlyduringthenight.Eachphosphorylated substrate would
+havetheabilitytomaximally advance thepacemaker by
+nearlyaquarterofitscycle.Preliminary evidence suggests
+thatindeedthereareday-night differences inproteinand
+phosphoprotein profilesintheSCNinvivo(27,28).Thus,
+proteinchanges mayunderlie thedifferential sensitivity of
+theSCNclocktoresetting bycAMPandcGMP.
+Theresultsofprevious experiments providefurthersup-
+portforthehypothesis thatcAMPandcGMPmayplay
+differential roleswithinthehypothalamus, and,morespe-
+cifically, withintheSCN.ThelevelsofcAMPandcGMP
+havebeenshowntooscillate 1800out-of-phase witheach
+otherinfreshlydissected hypothalami ofrat,withcAMP
+levelshighintheearlydayandcGMPlevelshighintheearly
+night(29).Also,cGMPandcAMPanalogshavebeenshown
+toincreaseanddecrease thefiringratesofsomeSCNcellsin
+vitro,respectively (30).However, interpretation ofthese
+resultswithrespecttotheabilityofcAMPandcGMPanalogs
+toresettheSCNpacemaker isdifficult, sinceitisnotknown
+atwhatCTthesetreatments wereperformed.
+Thedifferential sensitivity oftheSCNclocktocAMPand
+cGMPanalogsisinsomewayssimilartothatseeninthe
+circadian pacemaker locatedintheAplysia eye.Inthe
+isolatedeyepreparation ofthismollusk, 6-hrtreatments with
+Br-cGMP inducephaseadvances whenappliedduringsub-
+jectivenightandphasedelaysduringsubjective day;con-
+versely,6-hrtreatments withBzA-cAMP inducephasead-
+vanceswhenappliedduringthesubjective dayandphase
+delaysduringsubjective night(26,31).Severaldifferences
+between thesetwosystemsshouldbenoted,however. (i)
+Br-cGMP andBzA-cAMP appeartoinduceonlyphase
+advances intheSCNpacemaker, whereastheyinduceboth
+advances anddelaysinAplysia. (ii)WhileBzA-cAMP and
+Br-cGMP appeartophase-shift theSCNduringnonoverlap-
+ping12-hrperiods, theseanalogsaffecttheAplysia eye
+pacemaker duringoverlapping phases,although theypro-
+duceopposite changes. (iii)ThephaseshiftsseenintheSCN
+clockafter1-hrtreatments ofBzA-cAMP andBr-cGMP are
+muchlargerthanthoseseeninAplysiaafter6-hrtreatments
+withtheseanalogs. Thus,although bothpacemakers appear
+tobedifferentially sensitive toBzA-cAMP andBr-cGMP,
+theirresponses totheseanalogsdifferbothqualitatively and
+quantitatively.
+Inconclusion, theSCNpacemaker isresetinvitroby
+nighttime butnotdaytime treatments thatstimulate cGMP-
+dependent pathways, suggesting thatcGMPmayunderlie
+someaspectsoflight-induced phaseshiftsinvivo.The
+actionsofcGMPmustresideeitherwithintheSCNpace-
+makerorwithinapathway accessing it.Nocturnal sensitivity
+tocGMPisdistinctfromtheSCN'ssensitivity tocAMP,
+whichisrestricted tothesubjective daytime. Thisdifferentialsensitivity tocAMPandcGMPparallels thedifferential
+day-night sensitivity oftheSCNtoavarietyofinvivo
+treatments andsuggests thatthesecyclicnucleotides nor-
+mallymayactontheSCNcircadian clockthrough the
+stimulation ofseparate biochemical pathways.
+WethankDr.RhanorGilletteforcriticalreadingofthemanu-
+script.Thisworkwassupported byGrantNS22155fromthe
+National InstituteofNeurological andCommunicative Disorders and
+Stroke.
+1.Rusak,B.&Zucker,I.(1979)Physiol. Rev.59,449-526.
+2.Moore,R.Y.(1979)inEndocrine Rhythms, ed.Krieger, D.T.
+(Raven,NewYork),pp.63-87.
+3.Turek,F.W.(1985)Annu.Rev.Physiol. 47,49-64.
+4.Gillette, M.U.&Prosser, R.A.(1988)BrainRes.474,348-
+352.
+5.Prosser, R.A.&Gillette, M.U.(1989)J.Neurosci. 9,1073-
+1081.
+6.Gillette, M.U.(1986)BrainRes.379,176-181.
+7.Inouye,S.-I.T.&Kawamura, H.(1979)Proc.Natl.Acad.Sci.
+USA76,5962-5966.
+8.Daan,S.&Pittendrigh, C.S.(1976)J.Comp.Physiol. 106,
+253-266.
+9.DeCoursey, P.J.(1964)J.Comp.Cell.Physiol.63,189-1%.10.Boulos,Z.&Rusak,B.(1982)J.Comp.Physiol.146,411-417.
+11.Ellis,G.B.,McKlveen, E.&Turek,F.W.(1982)Am.J.
+Physiol. 242,R44-R50.
+12.Albers,H.E.&Ferris,C.F.(1984)Neurosci. Lett.50,163-
+168.
+13.Earnest, D.J.&Turek,F.W.(1985)Proc.Nati.Acad.Sci.
+USA82,4277-4281.
+14.Meijer,J.H.,vanderZee,E.A.&Dietz,M.(1988)Neurosci.
+Lett.86,177-183.
+15.Meijer,J.H.,vanderZee,E.&Dietz,M.(1988)J.Biol.
+Rhythms 3,333-348.
+16.Zatz,M.&Brownstein, M.J.(1979)Science203,358-361.
+17.Zatz,M.&Herkenham, M.A.(1981)BrainRes.212,234-238.
+18.Waldman, S.A.&Murad,F.(1987)Pharmacol. Rev.39,
+163-195.
+19.Dudai,Y.(1987)CRCCrit.Rev.Biochem. 22,221-281.
+20.Goldberg, N.D.,Haddox, M.K.,Nicol,S.E.,Glass,D.B.,
+Sanford, C.H.,Kuehl,F.A.&Estensen, R.(1975)Adv.Cyclic
+Nucleotide Res.5,307-330.
+21.Hatton,G.I.,Doran,A.D.,Salm,A.K.&Tweedle, C.D.
+(1980)BrainRes.Bull.5,405-414.
+22.Meyer,R.B.&Miller,J.P.(1974)LifeSci.14,1019-1040.
+23.Simon,L.N.,Shuman, D.A.&Robins, R.K.(1973)Adv.
+CyclicNucleotide Res.3,225-353.
+24.Gillette, M.U.(1987)Soc.Neurosci. Abstr.13,51.
+25.Rusak,B.&Groos,G.(1982)Science215,1407-1409.
+26.Eskin,A.,Takahashi, J.S.,Zatz,M.&Block,G.D.(1984)J.
+Neurosci. 4,2466-2471.
+27.Gillette, M.,Reiman, A.M.&Lipeski, L.E.(1986)Soc.
+Neurosci. Abstr.12,845.
+28.Roberts, M.H.&Moore,R.Y.(1986)Soc.Neurosci. Abstr.
+12,211.
+29.Valases,C.,Wright,S.J.,Jr.,&Catravas, G.N.(1980)Exp.
+BrainRes.40,261-264.
+30.Liou,S.Y.,Shibata, S.,Shiratsuchi, A.&Ueki,S.(1986)
+Neurosci. Lett.67,339-343.
+31.Eskin,A.,Corrent, G.,Lin,C.-Y.&McAdoo, D.J.(1982)Proc.Natl.Acad.Sci.USA79,660-664.Neurobiology: Prosser etal.

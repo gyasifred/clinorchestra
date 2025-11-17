@@ -1,0 +1,756 @@
+DOI:10.1002/ncp.10814
+INVITED REVIEW
+Applyingtherecommendedindicatorsforthediagnosisof
+pretermandneonatalmalnutrition:Answerstofrequently
+askedquestions
+DenaL.GoldbergPhD,RDN1PatriciaJ.BeckerMS,RDN2
+1CarilionChildren’sHospital,Roanoke,
+Virginia,USA
+2ClinicalNutrition,DaytonChildren’s
+Hospital,Dayton,Ohio,USA
+Correspondence
+DenaL.Goldberg,PhD,RDN,Caril-
+ionChildren’sHospital,1906Belleview
+Avenue,Roanoke,VA24014,USA.
+Email:dlgoldberg@carilionclinic.orgAbstract
+In2018,acommitteeofexpertpreterm/neonatalregistereddietitiannutritionists
+publishedrecommendedindicatorsforthediagnosisofmalnutritioninpreterm
+infantsandneonates.Thiswasinresponsetoaneedforindicatorsappropriate
+tothepreterm/neonatalpopulation,giventheemphasisondiagnosingmalnu-
+tritioninthepediatricandadultpopulation.Sincethepublication,theauthors
+havereceivednumerousquestionsregardingtheapplicationanduseoftheindi-
+cators.Thispaperanswersquestionsregardingthethreecategoriesofindicators
+andbillingandreimbursement.Thegoalistodevelopuniformityintheapplica-
+tionofthemalnutritionindicatorsforqualityimprovementandresearchefforts.
+KEYWORDS
+billing,hospitalcosts,malnutrition,neonate,pediatric,preterminfant,registereddietitian
+INTRODUCTION
+InSeptember2018,thearticle“IdentifyingMalnutritionin
+Preterm and Neonatal Populations: Recommended Indi-
+cators” was published in the J o u r n a lo ft h eA c a d e m yo f
+NutritionandDietetics .1Thearticleprovidedasetofindi-
+catorsrecommendedforuseininpatienthospitalsettings
+and postdischarge settings for infants who are no longer
+neonates (preterm infants <37 weeks and term infants
+<30daysold).Agroupofregistereddietitiannutritionists
+(RDNs)withexpertiseinneonatalnutritiondevelopedthe
+indicatorsusingaliteraturereviewandgroupconsensus.
+The authors stated that the 2018 recommended indi-
+cators for identifying neonatal malnutrition are not
+a definitive statement of the diagnostic indicators of
+preterm/neonatal malnutrition but are instead a recom-
+mendation based on an evidence-informed, consensus-
+derivedprocessthatrepresentsasummaryofexpertRDN
+©2021AmericanSocietyforParenteralandEnteralNutritionopinion on this topic, as the criteria have not been val-
+idated. The indicators and recommendations are subject
+tochangeasevidencefromfutureresearchrelatedtothis
+topicisgenerated.
+As clinicians have begun to use these recommended
+indicators, the original authors have received frequently
+asked questions (FAQs). This article responds to those
+FAQstopromotetheuniformapplicationoftheseindica-
+torstoclinicalcaretoinformfuturequalityimprovement
+andresearchefforts.
+Whataresomeresourcesforuseand
+implementationofthepreterm/neonatal
+malnutritionindicators?
+Table1listsavailableresourcesontheuseandimplemen-
+tationofthepreterm/neonatalmalnutritionguidelines.
+50wileyonlinelibrary.com/journal/ncp Nutr.Clin.Pract. 2022;37:50–58.
+
+NutritioninClinicalPractice 51
+TABLE 1 Preterm/neonatalmalnutritionresources
+Category Title Sourceorauthor Description
+Article Identifyingmalnutritionin
+pretermandneonatal
+populations:Recommended
+Indicators.GoldbergDL,BeckerPJ,Brigham
+K,etal.JAcadNutrDiet.
+2018;118(9):1571-1582.Inthisarticle,acommitteeofneonatalnutrition
+expertsfromtheAcademyofNutritionand
+DieteticsPediatricNutritionPracticeGroup
+recommendindicatorstoidentify
+preterm/neonatalmalnutritionbasedona
+literaturereviewandexperienceofthecommittee
+members
+Article Pediatricandneonatal
+malnutrition:Acollaborative,
+family-centeredapproach
+improvesoutcomes.GoldbergDL,VanPootsHA.
+PediatricNeonatalNursOpen
+J.2019;6(1):e1-e4.Thisarticlediscussestheimportantrolenursesplay
+intheidentificationandtreatmentofpediatric
+malnutrition.
+https://openventio.org/wp-content/uploads/PNNOJ-
+6-1.pdf
+Article Diagnosingmalnutritionin
+preterminfantsandneonates:
+GettingStarted.GoldbergD,BrighamK,
+SandrockM. BuildingBlockfor
+LifeNewsletterPediatric
+NutritionPracticeGroup
+AcademyofNutritionand
+Dietetics. 2018;42(1):1-6.Thisarticlereviewstherationaleforselectionof
+indicatorsfordiagnosisofmalnutritioninpreterm
+infantsandneonates,thebenefitsofidentifying
+malnutritionandtheroleofRDNsinleadingthe
+implementationofmalnutritioncriteria
+Article Applyingmalnutritionindicators
+inthepretermandneonatal
+population.
+PediatricGoldbergD,SandrockM
+PediatricCurrents.2019;10(1):
+8-15Thisarticlereviewstherecommendedindicators,
+describeshowidentifyingmalnutritioninpreterm
+infantsandneonatescanimproveclinical
+outcomes,andusescasestudiestodiscuss
+applicationofthemalnutritionindicators.
+https://anhi.org/education/course-
+catalog/7F1CBF0F83984B52B72460A85AB90A89
+Infographic PretermandNeonatal
+MalnutritionIndicatorCardASPENMalnutritionSolution
+Center:Nutritioncare.org.Thiscardprovidestherecommendedmalnutrition
+indicatorsinpretermandneonatalpopulations,as
+wellasrecommendedparenteralandenteral
+energyandproteinintakesforneonates.These
+recommendationsarefrom theJournalofthe
+AcademyofNutritionandDietetics .
+https://www.nutritioncare.org/uploadedFiles/
+Documents/Malnutrition/Malnutrition%
+20Indicators%20in%20Preterm%20and%
+20Neonatal%20Populations%20Card.pdf
+Webinar PuttingtheNeonatal/Preterm
+InfantMalnutritionIndicators
+intoPractice/ASPENWEB180925Nutritioncare.org
+AteLearningresources:
+MalnutritionAwarenessWeek
+Resources2018InthiswebinarDenaGoldberg,PhD,RDNandSusan
+CarlsonMMSc,RDN,CSP,LDdefinethecriteria
+bywhichinfantsareclassifiedasaneonateand/or
+preterm,providedetaileddiscussionofeach
+recommendedindicatorofmalnutrition,and
+outlinethethresholdsusedtodefinemild,
+moderate,andseveremalnutrition
+Webinar Assessingmalnutrition,growth,
+andnutritionpracticesfor
+VLBWinfantsProlactaBioscience InthiswebinarOliviaMayerRDN,CSP,IBCLC
+focusesonoptimalneonatalgrowthand
+evidence-basedpracticeincludingareviewof
+malnutrition
+https://www.prolacta.com/en/resource-
+library/assessing-malnutrition-growth-and-
+nutrition-practices-for-vlbw-infants/
+Webinar NACperspectives:Applying
+malnutritioncriteriato
+neonatalandpediatricpatientsProlactaBioscience Inthiswebinar,PattiPerks,MS,RDN,CNSC,and
+MeganHorsely,RDN,LD,CNSCreviewthe
+preterm/neonatalandpediatricmalnutrition
+indicatorsandtheirapplicationinreallife
+scenarios.
+https://www.prolacta.com/en/resource-library/ce-
+webinar-nac-perspectives-applying-malnutrition-
+criteria-neonatal-and-pediatric-patients/
+(Continues)
+ 19412452, 2022, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10814 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+52 GOLDBERGandBECKER
+TABLE 1 (Continued)
+Category Title Sourceorauthor Description
+Podcast Podcastepisode2:Identifying
+malnutritioninpreterm
+infantsandneonatesProlactaBioscience InthispodcastbyDenaGoldberg,PhD,RDNand
+KeliHawthorne,MS,RD,LDanswerquestions
+regardingtheuseofthepreterminfantand
+neonatalmalnutritionindicators.
+https://www.prolacta.com/en/resource-
+library/podcast-episode-2-identifying-
+malnutrition-in-preterm-infants-and-neonates/
+Website PediTools https://peditools.org PediToolsisapubliclyaccessiblewebsitecalculates
+theexactzscoreforweight,lengthandhead
+circumferenceforseveraldifferentgrowthcharts
+includingtheOlsen,Fenton,andWHOgrowth
+standardsfor0-24months.Weeklyincrementsfor
+thepretermgrowthchartsandmonthly
+incrementsfortheWHOgrowthchartsin
+anthropometricmeasurementsneededtomaintain
+currentpercentilearealsoprovided.Seereference
+8fordetailedinformationonthedevelopmentand
+useofthistool
+Abbreviations:ASPEN,AmericanSocietyforParenteralandEnteralNutrition;RDN,registereddietitiannutritionist.
+Purposeandbenefitofdiagnosing
+malnutritioninthepreterminfant
+The malnutrition diagnosis identifies preterm infants at
+highest nutrition risk of poor growth and neurodevelop-
+mentaloutcomes,alertingthecareteamtoinfantsinneed
+ofclosemonitoring.Standardizedcriteriatoidentifymal-
+nutrition will facilitate regional and national collabora-
+tionandcontributetomorevalidestimationsofthepreva-
+lenceofmalnutritionanditsimpactonhospitalcostand
+outcomes.Thelargestpercentageofhospitalizedpediatric
+patients are under 2 years of age and are found to be the
+most medically fragile with the highest rates of morbid-
+ity and mortality.2,3The diagnosis of malnutrition docu-
+mentedintheRDNandattendingphysiciannotesallows
+the hospital coders to add malnutrition as a diagnosis,
+whichcanincreasereimbursementforcare.
+Howdoesbillingandreimbursementwork
+intheneonatalintensivecareunit?Does
+theRDN’sdiagnosisofmalnutritionimpact
+thehospital’sreimbursementforthecare
+ofthepatient?
+Processesinplacetocapturemedicaldocumentationtobe
+includedinreimbursementaredependentupontheinsti-
+tution.Allnutritionpractitionersshoulddiscussthepro-
+cess with their billing and coding teams to learn more
+about their facility-specific methods. To avoid insurancepayment denials, the steps should include the following,
+ataminimum:
+1. RDN documents the nutrition diagnosis of malnutri-
+tion,includingtherecommendedindicatorsforneona-
+tal malnutrition. The RDN should include the acu-
+ity of the malnutrition and the criteria in the diag-
+nosis statement to support the claim—for example,
+severemalnutritionrelatedtoincreasednutrientneeds
+(energy/protein)andfeedingdifficultyasevidencedby
+declineinweight-for-age z-score>2.21SD.
+2. Theattendingphysicianmustalsodocumentthepres-
+ence of malnutrition, in concurrence with the degree
+andindicatorsasdocumentedbytheRDN.
+3. BoththeRDNandphysicianmustdocumentthenutri-
+tioncareplaninresponsetothediagnosis.
+4. The coding department will translate the medical
+documentation to codes for the billing claim. The
+International Classification of Disease, 10th Edition
+(ICD-10)codes44.1(mildproteinmalnutrition),E44.0
+(moderate protein/calorie malnutrition), and E43.0
+(severe protein/calorie malnutrition) should be used
+whenappropriate.4
+The steps outlined above will enable the malnutrition
+diagnosistobeaddedtotheAllPatientRefined–Diagnosis
+RelatedGroup(APR-DRG)paymentmethodologyforthat
+patient and that admission, thereby potentially increas-
+ingtheactualhospitalreimbursement.Furthermore,mal-
+nutrition impacts the severity of illness and risk of
+ 19412452, 2022, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10814 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+NutritioninClinicalPractice 53
+mortalityscores,whichcaninfluencethehospital’sperfor-
+manceonrequiredquality-reportingdashboardsandhave
+downstreaminfluencesonreimbursement.Afullexplana-
+tionofthisprocessisbeyondthescopeofthisarticle.Addi-
+tionally, reimbursement can be impacted via risk adjust-
+ment.Underriskadjustment,hospitalsthatcoverahigher
+numberofhigh-riskclientsthanaveragereceivecompen-
+sationfortheextracostofcareforthesepatients.
+It is essential that in the documentation of the diag-
+nosis of malnutrition, the neonatal dietitian is thorough
+in the assessment of the infant. All data available related
+to the diagnosis of malnutrition should be assessed. The
+assessment,thediagnosis,andthereasonforthediagno-
+sisshouldbedocumented.Theinterventionshouldreflect
+the diagnosis, and the monitoring and evaluation should
+state the response to the intervention. Documentation of
+communicationoftheseactionswiththemedicalteamin
+the medical record is beneficial. These steps will help to
+ensure that accurate coding, billing, and reimbursement
+forservicesrecordedinthemedicalrecordcanbedefended
+shouldtheneedarise.
+Whyaretherethreedifferentmethodsfor
+assessingweightstatus?
+Thefirstcriterionforassessingweightstatusisthenumber
+ofdaystoregainbirthweight.Thiscriterionisintendedto
+beusedasanearlyindicatorofmalnutritioninthispopu-
+lation.Thesecondcriterionisweightgainvelocity,which
+allowsforshort-termassessmentingrowthaftertheinfant
+hasregainedbirthweight.Thethirdcriterionisdeclinein
+weight-for-age z-score,whichisintendedforlonger-term
+assessmentofgrowthandnutritionstatus( >2weeks).Cal-
+culationofweightgainvelocityisusedtoguidenutrition
+andfluid-managementpracticesinneonatalintensivecare
+units(NICUs).
+Howoftenshouldweightgaingoalsbe
+established,andoverwhatperiodshould
+weightgainvelocitybedetermined?
+Calculationsovershorttimeperiodsmaybemorerespon-
+sive tonutritioninterventionsbutarelesspreciseforthe
+purposesofdiagnosingneonatalmalnutrition.Weightgain
+velocitycalculatedover5–7 +dayshaslowervariabilityand
+morestablegrowthtrendsthanshorterperiodshave.5
+Weightgainvelocityisashort-termindicatormeantto
+bemeasuredoveraperiodof1–2weeks.Short-terminter-
+ruptions to nutrient intake and increased energy expen-
+diture that result in poor weight gain may not reflect
+thepresenceofmalnutrition.Athoroughassessmentandgood clinical judgment are required with ongoing nutri-
+tionmonitoring.Therefore,weightgainvelocitygoalsand
+velocityshouldbecalculatedfora1-to2-weekperiod.
+Howareweightgaingoalsdetermined?
+First, it is appropriate to discuss the purpose of a weight
+gainvelocitygoal,andthatistomaintainastablegrowth
+trajectory on an established growth curve. Greer and
+Olsen6suggestthatinfantswhoareappropriateforgesta-
+tionalage(AGA)andinfantswhoaresmallforgestational
+age (SGA) grow at a rate consistent with their birth per-
+centile.Otherresearchindicatesthatafterpostnataldiure-
+sis,thegrowthtrajectoryformostbutnotallinfantsisat
+0.80SDbelowbirth z-score.7Itisuptotheneonatalnutri-
+tionproviderstodeterminethebestgrowthgoal/trajectory
+foreachinfantintheircare.
+Weight gain goals can be established using PediTools,
+an online tool ( https://peditools.org/ ).8See Table1for a
+description of this tool. In the example from PediTools
+(Table2), a male infant at 32 3/7 weeks old needs to
+gain214gtomaintaincurrentweightpercentile.However,
+these goals’ projected growth rate maintains the current
+rate of growth. Optimal growth of infants for whom the
+currentrateofgrowthissuboptimalmaybehigher.Addi-
+tionalgrowthforrecoveryfrommalnutritionmaybewar-
+rantedbutisnotincludedinthePediToolsgoal.Additional
+nutritionmaybeneededduringtherecoveryperiod.
+Other stated goals in the literature include the goals
+of 15–20 g/kg/day for infants <2000 g and 25–35 g/day
+for infants >2000 g.5The growth velocity for the neona-
+tal malnutrition indicators did not recommend use of
+these goals, as they can underestimate the amount of
+weight gain needed to maintain a stable weight-for-age
+trajectory.8
+K e l l e re ta l9published weight gain and length gain
+velocitytables,whichwereconstructedusingthe50thper-
+centiledatasetfromtheFenton2013GrowthCharts.These
+valuescouldbeusedasgrowthgoalsforthispopulation.
+Whataresomeissuesthatimpactdaysto
+regainbirthweight?
+If infants have not regained birth weight by day of life
+(DOL) 15, they can be diagnosed with mild malnutrition
+iftheirnutrientintakeforenergyorproteinis <75%ofthe
+estimated need for 3 days or more. The rationale for the
+needforasecondindicatoristhatmostbutnotallneonates
+willregainbirthweightbyDOL14.10–15
+Inadequatenutritionresultingfrominadequateintake,
+increased nutrient needs, increased nutrient loss, altered
+ 19412452, 2022, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10814 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+54 GOLDBERGandBECKER
+TABLE 2 ExampleofPediToolsweightgaingoalcalculation
+Value Imperialunits Percentile z-Score 50thpercentile Weeklya
+Weight 1550g 3lb6.7oz 19% −0.88 1886g 214g
+aExpectedweeklyincreasetomaintaincurrentpercentile.
+nutrientutilization,orothercausesisoftenacauseoffail-
+uretoregainbirthweightbyDOL14.Methodofdeliveryis
+anotherfactorthatcanaffectdaystoregainbirthweight.
+In a data analysis of 161,471 infants born at 36 weeks or
+later, 14% of infants born vaginally failed to regain birth
+weight by DOL 14 compared with 24% of infants born by
+cesareandelivery.12Thisemphasizestheneedforthepedi-
+atric/neonatalRDNtoexercisesoundclinicaljudgmentin
+the diagnosis of malnutrition in this patient population.
+Intheiranalysisofinfantswithfailure-to-thrive(FTT)vs
+infantswithoutFTT,Gaoetalfoundthattheinfantswith
+FTT were those with the lowest birth weights and that
+growth velocities slowed for each additional day it took
+theinfantstoregainbirthweight.Theyconcludedthatthe
+numberofdaystoregainbirthweightwasconsistentlythe
+strongestpredictorofneonatalgrowthvelocity,highlight-
+ingtheimportanceofthefirstweeksoflifeintheestablish-
+mentofagrowthpattern.16Therefore,iftheinfantmeets
+the criteria for failure to regain birth weight, the malnu-
+tritiondiagnosisshouldbedocumented,astheimpacton
+outcomesappearstobeongoing.
+Whatarespecialconsiderationsfor
+diagnosingmalnutritionintheSGAinfant?
+Intrauterine growth restriction is associated with short-
+term and long-term complications such as poor growth
+and subtle to major cognitive and neurodevelopmental
+outcomes as well as adult-onset disease.18SGA preterm
+infants without subsequent recovery growth were more
+likely to have poor long-term developmental outcomes
+than infants with recovery growth.19Recovery growth in
+SGAinfantsoccursmostrapidlyuptoacorrectedageof4
+monthsbutcancontinueuntil6yearsofage.20,21Hernan-
+dezetalreportedthatverylow-birth-weightSGAinfants
+grew faster after reaching term than their AGA counter-
+partssuchthat93%ofinfantswerenolongerSGAat1year
+ofage.22ComparedwithterminfantswhoareAGAorlarge
+for gestational age (LGA), SGA term infants have signif-
+icantly lower fat mass at birth. They increase their body
+weight and length at a significantly higher rate between
+birthand3–4months.Theyincreasetheirfatmassby23
+times vs 2.8 times for LGA infants between birth and 3–
+4monthsofage.At3–4monthsofage,LGAinfantstend
+to reach a threshold in body fat mass (as measured by
+percentageofbodymass),whereasSGAinfantswerestillacquiringbodyfat.17Theauthorsconcludethatthediffer-
+encemaybedueinparttofeedingmethodology,asalarger
+percentageofLGAinfantswerebreastfedondemandcom-
+paredwithSGAinfants.
+In the first 2 weeks of life, this population is expected
+to have a weight gain velocity above the norm. There-
+fore, SGA infants who meet the “days to regain birth
+weight” indicator for malnutrition in combination with
+anotherappropriateindicator,suchasinadequateenergy
+and/or protein intake, should receive a diagnosis of
+malnutrition.16,17
+Whatareappropriategrowthexpectations
+fortheLGAinfantsforthediagnosisof
+malnutrition?
+LimiteddataareavailableontheexpectedgrowthofLGA
+infants.23AstudyoftermLGAinfantsreportedgrowthwas
+slowerduringthefirst6monthsoflife,resultinginweight
+and length that was similar to those of AGA infants.12
+Daviesetal24reportedaslowerthanaverageweightgainin
+thefirst6monthsandadownwardshiftinlengthincrease
+during the first 3 months of life in LGA infants. More
+recently, Taal et al25confirmed a “catch-down” or down-
+ward trajectory in growth in both weight and length in
+LGA infants, mainly occurring during the first 3 months
+oflife,leadingtoasubstantialrealignmentonallgrowth
+parameters compared with infants born AGA. Bocca-
+Tjeertes et al26found that LGA preterm infants gained
+weightfasterthantheirlineargrowthsothatat4yearsof
+age,theirbodymassindex(BMI)wasgreaterthanthatof
+AGApretermandfull-terminfants.Thus,ithasbeenspec-
+ulated that, after escaping the strong maternal influence
+onintrauterinegrowth,LGAinfantsreturntotheirgenet-
+ically determined growth trajectory.23Clinical judgment,
+includinganevaluationoftheadequacyofnutrientintake,
+andmedicalconditionsthatimpactgrowth,suchasbeing
+aninfantofadiabeticmother,andwhetherthereissteady
+growtharerequiredtodeterminewhethermalnutritionis
+present.
+Takingallofthisintoconsideration,thenumberofdays
+toregainbirthweightintheLGAinfantmaynotbethebest
+indicatorforthediagnosisofmalnutritioninthispatient
+population,astheLGAinfantmaytakeaprolongedtime
+periodtoregainbirthweight.Thedownwardtrendshould
+alsobetakenintoconsiderationwhenevaluatingwhether
+ 19412452, 2022, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10814 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+NutritioninClinicalPractice 55
+weight gain velocity or decline in weight z-score meets
+thecriteriaformalnutrition.Itmaybeappropriateforan
+infant born LGA to have a decline in weight-for-age z-
+score of>0.8 SD from birth. Maintenance of the infant’s
+currentpercentileand z-scoresmaynotbeanappropriate
+goal.
+Whencalculatingthedeclinein
+weight-for-age z-scores,whatweight
+shouldbeusedastheinitialorfirstweight
+ofthecalculation?Atwhatpoint(DOL)
+shouldthisindicatorbeusedtodiagnose
+malnutrition?
+Greer and Olsen maintain that AGA infants and SGA
+infants should maintain a rate of weight gain and length
+gainthatisconsistentwiththeirbirthpercentiles’ z-scores
+andnotwiththepercentilethatoccurssubsequenttotheir
+postnataldiuresis.6Therefore,itisreasonabletousebirth
+weight as the initial data point for the calculation for
+declineinweight-for-age z-score.Theclinicianshoulduse
+clinicaljudgmenttodeterminethebestchoicefortheindi-
+vidualinfantastowhetherbirthweight-for-age z-scoreor
+postnatal weight-for-age z-score most accurately reflects
+thenutritionstatusofthepatient.27
+In fact, decline in weight-for-age z-s c o r em a yb eb a s e d
+on any weight as the initial reference point. This could
+be birth weight or admission weight or highest achieved
+weight.Itisappropriatetousethehighestandmostaccu-
+rate achieved weight available. For an LGA infant, as
+statedelsewhere,birthweightmaynotbeadesiredweight
+goal.
+Decline in weight-for-age z-score occurs over a longer
+periodof2–4weeks.Itisalong-termindicatorofmalnu-
+trition.Itisrecommendedthatthisindicatornotbeused
+withinthefirst2weeksoflife,owingtotheweightlossthat
+occurs with postnatal diuresis. The neonatal RDN must
+useclinicaljudgmentintheuseofthisindicator,giventhe
+wide range of the gestational age of infants in the NICU
+population.
+Howshouldnutrientintakebeassessed
+duringthetransitionfromparenteralto
+enteralnutrition?
+As with the weight and length indicators, clinical judg-
+ment is important when assessing nutrient intake, as
+there are no specific caloric and protein recommenda-
+tionsforthetransitionphaseofnutritionsupport.Nutrient
+intake estimates can be based on the percentage of calo-riesandproteinfromparenteralfeedingsandthepercent-
+ageofcaloriesandproteinfromenteralfeedings.Themid-
+points of requirements from enteral and parenteral feed-
+ing, respectively, can be multiplied by the percentage for
+eachandthenaddedtogether.
+Consider, for example, a 2-week-old preterm infant,
+now280/7weeksold,withrespiratorydistresssyndrome.
+Parenteral nutrition (PN) provides 65% of nutrition, and
+enteralnutrition(EN)provides35%ofnutrition.
+ThePNgoalrangeis85–111kcal/kg.Themidpointis98
+kcal/kg×65%=64kcal/kg.
+The EN goal range is 110–130 kcal/kg. The midpoint is
+120kcal/kg ×35%=42kcal/kg.
+The calorie goal for this patient is 64 +42 or 106
+kcal/kg/day.
+ThePNproteingoalrangeis3–4g/kg,andtheENpro-
+tein goalrange is 3.5–4.5 g/kg. The protein intake goal of
+3.5g/kgforthispatientisreasonable.
+WhenshouldIchangefromthepretermto
+thepediatricgrowthcharts?CanIusethe
+INTERGROWTHpretermgrowthchartsto
+diagnosepretermmalnutrition?What
+abouttheBMIparameterontheOlsen
+chart;canthatbeusedtodiagnose
+malnutrition?
+Preterm BMI using the BMI curve developed by Olsen
+et al, is not a recommended indicator for the diagnosis
+of preterm/neonatal malnutrition. Once the Olsen or the
+Fentonchartischosen,itshouldbeuseduntiltheinfant
+iscorrectedtotermanduntiltheWorldHealthOrganiza-
+tion(WHO)growthchartisadopted,asthepercentilesand
+z-scoresarenotidentical.TheFentongrowthchartcanbe
+usedtoassessthegrowthofpreterminfantsupto50weeks’
+postmenstrualage(PMA).
+TheWHOgrowthchartwithcorrectedplotsshouldbe
+usedtodiagnosemalnutritiononcetheinfant’sageiscor-
+rected to term if the pediatric criteria are being used to
+diagnosemalnutrition.Seethenextsectionfordetails.
+The INTERGROWTH growth charts are not rec-
+ommended for use to diagnose preterm malnutrition.
+The sample size of infants <3 5w e e k si se x t r e m e l y
+small.28
+PretermBMIontheOlsengrowthchartisnotarecom-
+mended indicator for the diagnosis of preterm/neonatal
+malnutrition. These curves are designed to be used
+together with weight- or length-for-age curves.29BMI
+does not identify infants who are proportionately
+stunted.30
+ 19412452, 2022, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10814 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+56 GOLDBERGandBECKER
+FIGURE 1 Malnutritionindicator
+selectionguide
+Atwhatageshouldthecriteriaforthe
+diagnosisofmalnutritionchangefromthe
+neonataltothepediatriccriteria?
+Thisquestionhastwoparts,soletusfirstdiscusstheuse
+ofbothindicatorsandtheintendedpopulationsforclarifi-
+cation.
+The population that should be evaluated using the
+preterm/neonatalmalnutritionindicatorsincludesinfants
+bornat<37weeks’PMAandinfantswhoareyoungerthan
+30 DOL. The population that should be evaluated using
+thepediatricmalnutritionindicatorsincludesterminfants
+whowerebornat37weeks’PMAorlaterandwhoarenow
+older than 30 DOL. The original intent for the pediatric
+malnutrition indicators was to exclude neonates because
+postnatalweightlosswasaconfoundingissueforthediag-
+nosis of pediatric malnutrition. Figure 1provides clari-
+fication on when to use the preterm/neonatal indicators
+andwhentousethepediatricindicators(doesnotprovide
+informationonselectionofgrowthchart).
+Several of the indicators are common to both the
+pretermandpediatricpopulations.Theseincludeexpected
+percentageofweightgainvelocityandpercentageofesti-
+mated nutrient intake for energy and protein. Both or
+either of these could continue to be used for the identifi-
+cationanddiagnosisofmalnutritionregardlessoftheges-
+tationalorchronologicalageoftheinfant.
+Theindicatorsofdeclineinweight-for-age z-score,days
+to regain birth weight, decline in length-for-age z-score,
+andlineargrowthvelocityarespecifictothepretermmal-
+nutritionindicators.Weight-for-length z-score, decline in weight-for-length
+z-score,andlength-for-age z-scorearespecifictothepedi-
+atricmalnutritionindicators.
+Now to the question of when to utilize each indicator
+and/orhoworwhentotransitionfromthepretermindica-
+torstothepediatricindicators.
+The preterm/neonatal malnutrition indicators are
+intendedtobeusedforinfantsthatarepreterm—thatis,
+infants born at <37 weeks’ PMA and term infants until
+they are 30 days old. Figure 1provides details on the
+initialdeterminationofwhethertousepreterm/neonatal
+indicators or pediatric indicators and when to switch to
+thepediatricindicators.
+In the NICU, when the neonatal RDN finds that the
+infantmeetsthecriteriaformalnutritionusingthepreterm
+indicators and makes the nutrition diagnosis, assigns a
+levelofseverity,anddocumentsthediagnosisusingthese
+criteria,thosecriteriashouldcontinuetobeuseduntilthe
+malnutritionresolves.Ifthisinfantshould“ageout”ofthe
+premature criteria during that time, the diagnostic crite-
+ria should not change until the malnutrition resolves. In
+other words, once a diagnosis has been made using a set
+of criteria, it is reasonable to continue to use those crite-
+ria until the malnutrition resolves regardless of the PMA
+oftheinfant.
+However,fortheinfantbornpreterm,therearebenefits
+tousingthepediatricmalnutritionindicatorsasadiagnos-
+tictoolfornewdiagnosisininfantsoncetheyareconsid-
+ered term (37 weeks’ PMA or greater). At this point, the
+referencestandardsfortheweightgainvelocityindicator
+aretheWHOweightgainvelocitytables.Thesetablesare
+ 19412452, 2022, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10814 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+NutritioninClinicalPractice 57
+based on a large cohort of infants that included breast-
+fedinfantsasagoldstandard.Otherbenefitsofusingthe
+pediatricmalnutritionindicatorsfortheseinfantsinclude
+theendorsementbytheAmericanAcademyofPediatrics
+(AAP), the Academy of Nutrition and Dietetics, and the
+American Society for Parenteral and Enteral Nutrition
+(ASPEN).Also,thepractitionercanutilizetheweight-for-
+lengthz-scoreparameterasanindicatorfortheidentifica-
+tionofmalnutritioninadditiontoweightgainvelocityand
+adequacyofintakeasapercentageofestimatedneed.
+For example, consider two infants newly admitted to
+the hospital with a PMA of 41 weeks. Infant 1 is born at
+32 weeks’ gestational age and is 9 weeks old (PMA of 41
+weeks);infant2isaterminfantbornat37weeksandisnow
+4weeksold,admittedtothepediatricintensivecareunit
+forheartsurgery.Neitherareneonatesatthisinitialassess-
+ment.Therefore,thepediatriccriteriawouldbeappropri-
+ateinbothcases.Again,theuseofclinicaljudgmentonthe
+partoftheneonatalRDNiskeytothediagnosisofmalnu-
+tritionintheseinfantsandtheuseofthesecriteria.
+Whydoeslineargrowthrequireasecond
+indicator?
+Lineargrowthvelocityrequiresasecondindicatorbecause
+of the difficulty of obtaining accurate length measure-
+ments.Measurementsobtainedusingameasuringtapeor
+nonstandardlengthboardarefrequentlyinaccuratewhen
+compared with measurements using recommended mea-
+surementtechniques.31Additionally,weightgainwillfal-
+ter before linear growth falters. Evaluation of nutrient
+intake may be the preferred indicator, as linear growth
+requiresadequateprotein,calories,andothernutrients.
+CONCLUSION
+The article “Identifying Malnutrition in Preterm and
+Neonatal Populations: Recommended Indicators,” pub-
+lishedinthe JournaloftheAcademyofNutritionandDietet-
+ics,hasprovidedastartingpointforidentifyinganddocu-
+mentingneonatalmalnutrition.1Aswecontinuetoexplore
+themanyquestionsraisedbytheidentificationofmalnu-
+trition in this population, we must also begin to address
+the need to document outcomes and validate the indica-
+tors.Continuedeffortstoaddressbestpracticesinapplying
+the recommended indicators along with research should
+bethegoalofneonataldietitiansinpracticeandacademic
+settingsalike.
+CONFLICT OF INTEREST
+Nonedeclared.FINANCIAL DISCLOSURE
+Nonedeclared.
+AUTHOR CONTRIBUTIONS
+Dena L. Goldberg and Patricia J. Becker equally con-
+tributed to the conception and design of the manuscript.
+Bothauthorsdraftedthemanuscript,criticallyrevisedthe
+manuscript,agreetobefullyaccountableforensuringthe
+integrityandaccuracyofthework,andreadandapproved
+thefinalmanuscript.
+ORCID
+DenaL.GoldbergPhD,RDN https://orcid.org/0000-
+0002-1805-8839
+PatriciaJ.BeckerMS,RDN https://orcid.org/0000-0003-
+0538-419X
+REFERENCES
+1. GoldbergDL,BeckerPJ,BrighamK,etal.Identifyingmalnutri-
+tion in preterm and neonatal populations: recommended indi-
+cators.JAcadNutrDiet .2018;118(9):1571-1582.
+2. Sukhosa O, Kittisakmontri K. The financial burden of malnu-
+tritioninhospitalizedpediatricpatientsunderfiveyearsofage.
+ClinNutrESPEN .2016;15:38-43.
+3. Carvalho-Salemi J, Salemi JL, Wong-Vega MR. Malnutrition
+among hospitalized children in the United States: changing
+prevalence, clinical correlates, and practice patterns between
+2002and2011. JAcadNutrDiet .2018;118(1):40-51.e7.
+4. Bierman SM, Peterson SJ, Chen Y. Identification, coding, and
+reimbursementofpediatricmalnutritionatanurbanacademic
+medicalcenter. NutrClinPract .2018;33(5):640-646.
+5. Fenton TR, Anderson D, Groh-Wargo S, Hoyos A, Ehrenkranz
+RA, Senterre T. An attempt to standardize the calculation of
+growthvelocityofpreterminfants—evaluationofpracticalbed-
+sidemethods. JPediatr.2018;196:77-83.
+6. GreerFR,OlsenIE.Howfastshouldthepreterminfantgrow?
+CurrPediatRep .2013;1(4):240-246.
+7. RochowN,RajaP,LiuK,etal.Physiologicaladjustmenttopost-
+natalgrowthtrajectoriesinhealthypreterminfants. PediatrRes .
+2016;79(6):870-879.
+8. ChouJH,RoumiantsevS,SinghR.PediToolselectronicgrowth
+chart calculators: applications in clinical care, research, and
+qualityimprovement. JMedInternetRes .2020;22(1):e16204.
+9. Keller JA. Counting the weighs: growth velocity tables for
+preterminfants. NutrClinPract .2020;35(6):1119-1128.
+10. SenterreT,RigoJ.Optimizingearlynutritionalsupportbasedon
+recentrecommendationsinVLBWinfantsandpostnatalgrowth
+restriction. JPediatrGastroenterolNutr .2011;53(5):536-542.
+11. Rochow N, Fusch G, Mühlinghaus A, et al. A nutritional pro-
+gramtoimproveoutcomeofverylowbirthweightinfants. Clin
+Nutr.2012;31(1):124-131. http://10.0.3.248/j.clnu.2011.07.004 .
+12. PaulIM,SchaeferEW,MillerJR.Weightchangenomogramsfor
+thefirstmonthafterbirth. Pediatrics.2016;138(6):70-71.
+13. Moyer-MileurLJ.Anthropometricandlaboratoryassessmentof
+very low birth weight infants: the most helpful measurements
+andwhy.SeminPerinatol .2007;31(2):96-103.
+ 19412452, 2022, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10814 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+58 GOLDBERGandBECKER
+14. SakuraiM,ItabashiK,SatoY,HibinoS,MizunoK.Extrauterine
+growthrestrictioninpreterminfantsofgestationalage <or=32
+weeks.PediatrInt.2008;50(1):70-75.
+15. WrightCM,ParkinsonKN.Postnatalweightlossinterminfants:
+whatisnormalanddogrowthchartsallowforit?. ArchDisChild
+FetalNeonatalEd .2004;89(3):F254-F257.
+16. GaoC,EhsanL,JonesM.Timetoregainbirthweightpredicts
+neonatalgrowthvelocity:asingle-centerexperience. ClinNutr
+ESPEN.2020;38:165-171.
+17. Larsson A, Ottosson P, Törnqvist C. Body composition and
+growthinfull-term smallforgestationalageandlargeforges-
+tational age Swedish infants assessed with air displacement
+plethysmographyatbirthandat3–4monthsofage. PLoSOne.
+2019;14(5):e0207978.
+18. Sharma D, Shastri S, Sharma P. Intrauterine growth restric-
+tion:antenatalandpostnatalaspects. ClinMedInsightsPediatr .
+2016;10:67-83.
+19. Ruys CA, Hollanders JJ, Bröring T, et al. Early-life growth of
+preterm infants and its impact on neurodevelopment. Pediatr
+Res.2019;85(3):283-292. https://doi.org/10.1038/s41390-018-0139-
+0
+20. Toftlund LH, Halken S, Agertoft L, Zachariassen G. Catch-up
+growth,rapidweightgrowth,andcontinuousgrowthfrombirth
+to 6 years of age in very-preterm-born children. Neonatology .
+2018;114(4):285-293.
+21. Song IG, Kim E, Cho H, Shin SH, Sohn JA, Kim H. Differen-
+tial effect of growth on development between AGA and SGA
+preterminfants. IntJEnvironResPublicHealth .2020;17(9):3022.
+https://doi.org/10.3390/ijerph17093022
+22. Hernandez MI, Rossel K, Peña V, et al. Patterns of infancy
+growth and metabolic hormonal profile are different in very-
+low-birth-weightpreterminfantsbornsmallforgestationalage
+compared to those born appropriate for gestational age. Horm
+ResPaediatr .2018;89(4):233-245.
+23. ChiavaroliV,CutfieldWS,DerraikJGB,PanZ,NgoS,Sheppard
+A, et al. Infants born large-for-gestational-age display slowergrowthinearlyinfancy,butnoepigeneticchangesatbirth. Sci
+Rep.2015;5(1):14540.
+24. Davies DP. Size at birth and growth in the first year of life of
+babieswhoareoverweightandunderweightatbirth. ProcNutr
+Soc.1980;39(1):25-33.
+25. Taal HR, vd Heijden AJ, Steegers EAP. Small and large size
+forgestationalageatbirth,infantgrowth,andchildhoodover-
+weight.Obesity.2013;21(6):1261-1268.
+26. Bocca-TjeertesIFA,KerstjensJM,ReijneveldSA,etal.Growth
+patternsoflargeforgestationalagechildrenuptoage4years.
+Pediatrics.2014;133(3):e643-e649.
+27. Landau-CrangleE,RochowN,FentonTR,etal.Individualized
+postnatal growth trajectories for preterm infants. JPEN J Par-
+enterEnterNutr .2018;42(6):1084-1092.
+28. Villar J, Giulliani F, Bhutta ZA, et al. Postnatal growth stan-
+dardsforpreterminfants:thePretermPostnatalFollow-upStudy
+of the INTERGROWTH-21st Project. MIDIRS Midwifery Dig .
+2016;26(2):250-251.
+29. Olsen IE, Lawson ML, Ferguson AN, et al. BMI curves for
+preterminfants. Pediatrics.2015;135(3):e572-81.
+30. ClarkRH,OlsenIE,SpitzerAR.Assessmentofneonatalgrowth
+inprematurelyborninfants. ClinPerinatol .2014;41(2):295-307.
+31. Wood AJ, Raynes-Greenow CH, Carberry AE, Jeffery HE.
+Neonatallengthinaccuraciesinclinicalpracticeandrelatedper-
+centilediscrepanciesdetectedbyasimplelength-board. JPaedi-
+atrChildHealth .2013;49(3):199-203.
+Howtocitethisarticle: GoldbergDL,BeckerPJ.
+Applyingtherecommendedindicatorsforthe
+diagnosisofpretermandneonatalmalnutrition:
+Answerstofrequentlyaskedquestions. NutrClin
+Pract.2022;37:50–58.
+https://doi.org/10.1002/ncp.10814
+ 19412452, 2022, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10814 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+

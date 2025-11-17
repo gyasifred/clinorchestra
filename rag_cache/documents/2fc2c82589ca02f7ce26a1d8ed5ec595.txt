@@ -1,0 +1,379 @@
+The 2019 European guidelines on pulmonary
+embolism illustrated with the aid of anexemplary case report
+Andrea Gallo1,2, Luca Valerio1, and Stefano Barco1,3
+1Center for Thrombosis and Hemostasis (CTH), University Medical Center Mainz, Langenbeckstraße 1, Building 403, Room 117, 55131 Mainz, Germany;2Department of
+Medicine and Surgery, Research Centre on Thromboembolic Diseases and Antithrombotic Therapies, University of Insubria, Varese, Italy; and3Clinic of Angiology, University
+Hospital Zurich, Zurich, Switzerland
+Received 28 June 2020; ﬁrst decision 2 September 2020; accepted 4 December 2020
+Background The European Society of Cardiology guidelines for the diagnosis and management of acute pulmonary embolism
+(PE) developed in collaboration with the European Respiratory Society (ERS) has been updated in 2019.
+Recommendations were added or updated on all stages of the evaluation and management of pulmonary embolism,
+encompassing diagnosis, early treatment, and long-term management................................................................................................................................ ....................................................................
+Case summary We illustrate an exemplary case, assembled for the purposes of this review, of a 70-year-old woman who pre-
+sented at the emergency department with dyspnoea and thoracic pain. She was diagnosed with intermediate–high-
+risk acute PE and promptly treated with low molecular weight heparin. After 24 h of stay in intensive care unit, shewas transferred to the cardiology department and switched to non-vitamin K-dependent oral anticoagulant apixa-
+ban 10 mg b.i.d. for 7 days and then 5 mg b.i.d. After discharge from the hospital 8 days later, she received standard-
+dose apixaban 5 mg b.i.d. for 6 months; the dose was reduced to 2.5 mg b.i.d. for long-term secondary prevention.During follow-up, investigations for PE sequelae were performed due to persisting dyspnoea.
+............................................................................................................................... ....................................................................
+Discussion This exemplary case report puts into context the main novel recommendations from the 2019 ESC Guidelines, includ-
+ing the combination of clinical (pre-test) probability and adjusted D-dimer cut-offs for diagnosis of acute PE, the keyrole of right ventricular dysfunction in risk stratiﬁcation, the choice and dosage of oral anticoagulant agents in early and
+extended anticoagulation, and the identiﬁcation and management of chronic sequelae in the long-term follow-up.
+/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039 /H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039/H17039
+Keywords Pulmonary embolism Guidelines Venous thromboembolism Anticoagulation Case report
+Learning points
+•The diagnosis of acute pulmonary embolism (PE) is based on the combination of clinical pre-test probability, D-dimer levels, and imaging
+tests.
+•The assessment of right ventricular function is key in risk stratification of patients with acute PE.
+•Non-vitamin-K-dependent oral anticoagulants (NOACs) became the drug of choice for the early and the extended anticoagulant treatmentin most patients with PE.
+•Post-PE care and long-term follow-up represent a crucial part of PE management.
+* Corresponding author. Tel: þ41 (0) 432531150, Fax: þ49 6131 17 8461, Email: stefano.barco@usz.ch
+Handling Editor: Tom De PotterPeer-reviewers: Dmitry Duplyakov and Dan Octavian Nistor
+Compliance Editor: Alexander Tindale
+Supplementary Material Editor: Deepti Ranganathan
+VCThe Author(s) 2021. Published by Oxford University Press on behalf of the European Society of Cardiology.
+This is an Open Access article distributed under the terms of the Creative Commons Attribution Non-Commercial License (http://creativecommons.or g/licenses/by-nc/4.0/ ),
+which permits non-commercial re-use, distribution, and reproduction in any medium, provided the original work is properly cited. For commercial re -use, please contact
+journals.permissions@oup.comEuropean Heart Journal - Show Case CLASSIC CASE REPORT
+doi:10.1093/ehjcr/ytaa542 Other
+..................................................................... Introduction
+In 2019, the European Society of Cardiology (ESC), developed with
+the endorsement of the European Respiratory Society (ERS), pub-lished the new guidelines for the diagnosis and management of acute
+pulmonary embolism (PE)
+1updating the previous version from
+2014.2
+In this article, we present an exemplary case of acute PE with the
+aim of putting into context and discussing some of the novel recom-mendations concerning PE management from the 2019 ESCGuidelines. The updates most likely to affect clinical practice include
+the combination of clinical (pre-test) probability and adjusted D-
+dimer cut-offs for diagnosis, the role of right ventricular dysfunctionin risk stratification, the choice and dosage of oral anticoagulantagents in early and extended anticoagulation, and the identification
+and management of chronic sequelae in the long-term follow-up. The
+readers will follow the case as it unfolds with each clinical decisionaccompanied by a discussion of the recommendations supporting it.
+Timeline
+Case presentation
+A 70-year-old non-smoker Caucasian woman with
+arterial hypertension presented with a two-day his-tory of dyspnoea and thoracic pain. Her bloodpressure was 130/65 mmHg; heart rate was 112
+beats per minute; peripheral oxygen saturation
+was 98 %on room air and the respiratory fre-
+quency was 36/min. The remainder of her physical
+examination was normal, including soft, non-
+tender calves; her body weight was 75 kg. Shedescribed the chest pain as moderate and exacer-
+bated by deep breathing. Dyspnoea was present atrest at the time of evaluation. Two weeks before,
+she had suffered an ankle sprain that required bedrest with bathroom privileges for a few days. The
+patient denied any previous personal or family his-
+tory of venous thromboembolic (VTE) events orany additional risk factors for VTE.
+Routine tests included electrocardiogram (sinus
+tachycardia with negative T waves V2-V4), chest X-ray (normal findings), arterial blood gas (pO2 59mmHg, pCO2 32 mmHg, normal pH and bicarbon-
+ate level). High-sensitivity troponin T was 52 ng/mL
+(normal range: <14 ng/mL) and NT-proBNP was
+610 pg/mL (normal reference range <100 pg/dL).
+The physicians at the Emergency Department cal-
+culated the Wells score, which was 3 (1.5 points forimmobilization and 1.5 for tachycardia), indicatingan intermediate pre-test probability of PE, Therefore,
+a D-dimer test was performed that returned a level
+of 1060 ng/mL (normal reference range <500 ng/
+mL). Administration of low-molecular-weight heparin(LMWH) at therapeutic dose was promptly started.
+The diagnostic workup of PE without haemodynamic instability
+begins with the assessment of the patient’s clinical (pre-test) probabil-
+ity of PE, which encompasses a combination of clinical findings and
+the evaluation of predisposing factors for venous thromboembolism(VTE). The Wells and the Geneva score, or their simplified versions,
+are simple and extensively validated prediction rules to assess the
+patient’s probability of having acute PE.
+3,4Specifically, the Wells score
+includes seven items regarding clinical history, symptoms, and signs
+suggestive of deep vein thrombosis (DVT) or PE. The 2019 ESC
+Guidelines endorse their use with a recommendation Class I and alevel of evidence B (I, B). Their assessment serves to (i) initiate antico-
+agulation without any delay in patients with high or intermediate clin-
+ical probability of PE (I, C); (ii) perform an imaging test in patientswith a high or intermediate clinical probability of PE; (iii) test D-dimerHOSPITAL STAY 3 MONTHS FOLLOW -UP 6 MONTHS FOLLOW -UPDay 1 –Emergency department
+- Clinical evaluation 
+- Diagnostic work-up and 
+assessment of pre-test probability 
+- Administration of LMWH 
+- Radiologic diagnosis 
+- Risk assessment 
+- Admission to intensive care unit 
+Day 2 -Intensive care 
+unit 
+- Switch to apixaban 
+10 mg bid 
+- Transfer to 
+cardiology department 
+Day 8 –Cardiology department
+- Switch to apixaban 5 mg bid 
+- Hospital discharge Day 30
+- Blood testing 
+Day 90 -Follow -up visit
+- Clinic and echocardiographic re-evaluation 
+- Blood testing 
+- Assessment of recurrence and bleeding risk 
+and decision on therapy duration Day 180 -Follow -up visit
+- Clinic re-evaluation 
+- Blood testing - Switch to apixaban 2.5 mg bid 
+- Investigations for chronic sequelae: 
+cardiopulmonary exercise testing, 6-minute-walk distance, lung scintigraphy, computed tomography 
+of the chest and pulmonary function tests 
+............................................2 A. Gallo et al.
+.............................................................................................................................................................................levels in patients with a low clinical probability, in order to decide
+whether to perform computed tomography pulmonary angiography(CTPA) or a ventilation-perfusion (V/Q) lung scan.
+In case of low or intermediate clinical probability of PE, guidelines
+recommend plasma D-dimer measurement (I, A). In contrast, D-dimer testing is not recommended in patients with high clinical prob-ability of PE as a normal test does not safely exclude PE (III, A) and,therefore, a CTPA or a V/Q lung scan should be done without delay.
+As the D-Dimer was above the age-adjusted cut-off
+of 700 ng/nL (for a patient aged 70 years), the physi-cians decided to perform an urgent CTPA. The
+CTPA showed multiple bilateral segmental pulmon-
+ary emboli and right ventricle enlargement.
+A novelty of the 2019 ESC guidelines is the introduction of two
+alternatives (both rated as IIa, B) to a fixed D-dimer cut-off with theaim of increasing the specificity of D-dimer testing without affectingits sensitivity, thus reducing the number of patients unnecessarily
+undergoing CTPA. The first alternative is an age-adjusted D-dimer
+cut-off (age /C210 mg/L, in patients aged >50 years), the second is the
+YEARS decision rule, which adapts the D-dimer cut-off measured atthe time of clinical assessment to the clinical probability as assessedby a simplified Wells score with only three items.
+5,6
+Computed tomography pulmonary angiography is the imaging
+method of choice in patients with suspected PE.7Pre-test clinical
+probability heavily influences both its negative and its positive predict-ive value. Accordingly, guidelines recommend rejecting the diagnosisPE if CTPA is normal in patients with a low or intermediate clinicalprobability of PE (I, A), accepting the diagnosis of PE if CTPA is posi-
+tive in patients with an intermediate or high clinical probability (I, B).
+The possibility of findings supporting alternative diagnoses is an ad-
+vantage of CTPA over other imaging modalities. However, a study on
+patients undergoing CTPA for suspected PE found that findings sup-
+porting an alternative diagnosis only rarely had therapeutic conse-quences.
+8Therefore, physicians should be aware that an
+inappropriate use of CTPA without a solid diagnostic work-up mayhave a limited value in the global management of the patient.
+The echocardiogram confirmed right ventricle en-
+largement (RV/LV: 1.1 with a normal range consid-
+ered to be below 1.0) with increased systolic
+pulmonary arterial hypertension (PAPs: 42 mmHg),decreased tricuspid systolic velocity (TAPSE; 14 mm)and decreased tricuspid annular peak systolic (S’)velocity ( <9.5 cm/s) on tissue Doppler imaging;
+McConnell’s sign was absent while the 60/60 sign
+was positive. The patient was admitted to the inten-sive care unit (ICU) for 24-hour monitoring.
+Diagnosis of PE must be accompanied by risk stratification: the risk
+categories are high risk, intermediate risk (further distinguished intointermediate-low and intermediate-high risk), and low risk.
+Haemodynamic instability, defined as the presence of cardiac ar-
+rest, obstructive shock, or persistent hypotension, identifies high-riskpatients, which must be monitored in an intensive care unit.In patients without haemodynamic instability, further stratification
+into intermediate or low-risk categories is recommended by theguidelines as a next step (I, B) based on clinical prediction rules suchas the Pulmonary Embolism Severity Index (PESI) or its simplified ver-sion (sPESI; IIa, B). Overall, a PESI of Class I–II is a reliable predictor of
+low-risk PE. Echocardiography or CTPA can identify signs of right
+ventricular (RV) dysfunction the findings most frequently associatedwith unfavourable prognosis include a right ventricular/left ventriculardiameter ratio (RV/LV) > _ 1.0 and a TAPSE < 16 mm.
+9,10Plasma levels
+of troponin and N-terminal (NT)-proBNP are markers of myocardial
+injury and RV pressure overload, respectively.11,12Patients in the
+intermediate-risk group who display evidence of both RV dysfunctionon imaging and elevated cardiac biomarker levels are classified intothe intermediate–high-risk category. These patients should be moni-tored in an intensive care unit to permit the early detection of
+haemodynamic decompensation or collapse, so that appropriate
+measures can be taken promptly (I, B). Conversely, patients with nosigns of RV dysfunction and/or normal cardiac biomarker levels be-long to the intermediate–low-risk category; these patients do not re-quire monitoring in an intensive care unit but should be hospitalized.
+Selected patients with low-risk PE should be considered for early
+discharge and home anticoagulant treatment. Purely clinical assess-ment tools, such as the PESI, evaluate PE-related complications or
+comorbidities. Tools such as the Hestia exclusion criteria also include
+the patient’s expected compliance, family, and social environment, aswell as the local coordination between primary and secondary care.The recommendation of home treatment for selected patientsremains unchanged from the 2014 ESC guidelines, but its grade was
+increased on account of the results of the international investigator-
+initiated Home Treatment of patients with acute PE (HoT-PE) phaseIV trial
+13and of a meta-analysis of observational studies showing that
+in low-risk patients with acute PE classified based on clinical scoresalone, the absence of RV dysfunction on admission on top of otherclinical criteria was associated with a negligible rate of early PE-
+related complications and death
+14. In line with this principle, the
+guidelines specify that assessment of RV function should be includedin the risk stratification of all patients with acute PE if early dischargeis considered.
+During ICU stay, rescue thrombolytic therapy was
+not necessary. After transferral to the cardiologyward, she was switched to the non-vitamin K-de-
+pendent oral anticoagulant (NOAC) apixaban at a
+dosage of 10 mg twice daily, based on her bodyweight of 75 kg and an estimated glomerular filtra-tion rate of 69 mL/min. A compression ultrasoundof the lower limb excluded DVT.
+The 2019 ESC guidelines confirm previous recommendations to
+reserve systemic thrombolytic therapy to high-risk patients (I, B).Surgical pulmonary embolectomy (I, C) or percutaneous catheter-directed treatment (IIa, C) are recommended if thrombolysis is con-traindicated or has failed. In intermediate-risk patients, the clinical
+benefit of systemic thrombolysis is absent due to the substantial
+bleeding rate of this treatment strategy.
+15Therefore, guidelines dis-
+courage routine use for these patients (III, B).2019 PE Guidelines and an exemplary case 3
+.............................................................................................................................................................................In all patients, anticoagulation therapy should be started. The opti-
+mal anticoagulant in the early stages depends on the risk group.
+Immediate start of unfractionated heparin (UFH) is recommended in
+high-risk patients (I, B) because its anticoagulant effect can be easilymonitored and rapidly reversed by protamine.
+16Notably, in the
+PEITHO study LMWH or fondaparinux were administered before
+randomization in 30.1% of patients.15
+In all other patients, physicians can choose primarily oral anticoa-
+gulation using one of the non-vitamin K antagonist oral anticoagulants
+(NOAC) apixaban or rivaroxaban with an increased initial dose of
+apixaban for 7 days17or rivaroxaban for 21 days.18If physicians
+choose initial parenteral anticoagulation, LMWH or fondaparinux are
+recommended over UFH for patients without severe renal impair-
+ment [creatinine clearance (CrCl) < _ 30 mL/min] or severe obesity (I,
+A). When initiating oral anticoagulation, the 2019 ESC Guidelinesnow recommend that a NOAC be preferred to a vitamin K antagon-
+ist (VKA) (I, A). The grade of this recommendation is higher than in
+the 2014 ESC guidelines where the choice of a NOAC over a VKA
+was graded I, B.
+2
+The patient was discharged with no residual dys-
+pnoea after 8 days of hospital stay with the follow-ing instruction: continue apixaban 5 mg twice daily;perform routine control of blood cell count, renaland liver function; clinical and echocardiographic as-sessment after 3 months. In occasion of the lattervisit, the patient complained of persisting and pro-gressively worsening exertional dyspnoea ( New York
+Heart Association – NYHA functional class II–III) .
+She denied any episode of bleeding during the threemonths of anticoagulant treatment. The echocardio-gram revealed normalized morphology and functionof the right heart.
+The index event was attributed to leg injury
+(without fracture) with reduced mobility, a minortransient risk factor. Tolerance and compliance totreatment were excellent. No bleeding risk factorwas identified. During the control visit, the patientsaid she was afraid of recurrence.
+The physicians decided to continue with apixaban
+5m gt w i c ed a i l yf o rt h r e ef u r t h e rm o n t h sa n dt h e n
+reduce the dose to 2.5 mg twice daily for long-term
+secondary prevention of venous thromboembolism.They noted in the patient’s chart that this decisionwas taken in light of a non-negligible risk of throm-bosis recurrence, as the index PE was associatedwith a minor transient risk factor; a low estimatedrisk of bleeding under anticoagulation; and thepatient’s preference. A control visit was planned at 6months from the index event.
+Therapeutic anticoagulation for at least 3 months is recommended
+in all patients with PE (1 A), with routine clinical evaluation at
+3–6 months after the acute PE episode (I, B).The optimal duration of anticoagulant treatment after three
+months should be based on patient’s preference and a careful evalu-ation of the individual concurring risks of recurrence of venous
+thromboembolism (VTE), which is related to the features of the
+index PE and bleeding under anticoagulation.
+Discontinuation of therapeutic oral anticoagulation after three
+months is recommended in patients with first PE secondary to amajor transient/reversible risk factor (I, B).
+Oral anticoagulant treatment of indefinite duration is recom-
+mended for patients presenting with recurrent VTE (I, B) and anti-
+phospholipid antibody syndrome (I, B). Patients with this kind of
+persistent risk factors are considered to be at high risk of recurrence(>8% per year).
+19,20
+In all other patients, the risk of VTE recurrence is neither so low
+nor so high as to permit a one-size-fits-all recommendation concern-
+ing extended anticoagulation. The guidelines specify that indefinite
+anticoagulation should be considered in these patients. This impliesthat, regardless of the final decision, the underlying rationale should
+be well documented. In the first instance, this provision applies to
+patients with a first PE associated with minor transient or reversiblerisk factors (IIa, C).
+19,20The same recommendation regards patients
+with a persistent risk factor (IIa, C) and those without identifiable risk
+factors (IIa, A).
+The recommendation to consider indefinite anticoagulation in all
+patients is based on the superior safety profile of NOACs comparedwith VKA that was shown in extension trials.
+21If extended oral anti-
+coagulation is chosen, a reduced dose of the NOACs apixaban
+(2.5 mg twice daily)22or rivaroxaban (10 mg once daily)23should be
+considered after 6 months of therapeutic anticoagulation (IIa, A).
+Oral anticoagulant treatment with a VKA for an indefinite period is
+recommended for patients with antiphospholipid antibody syndrome
+(I, B); cancer-associated VTE is a specific situation discussed in a sep-
+arate chapter in the guidelines.
+In patients who receive extended anticoagulation, the 2019 ESC
+guidelines recommend reassessment of drug tolerance and adherence,hepatic and renal function, and bleeding risk at regular intervals (I, C).
+After 6 months from the index event exertional
+dyspnoea persisted, and no bleeding had occurred.NT-proBNP was within the normal limits and noother laboratories abnormalities were found.Cardiopulmonary exercise testing (CPET) showedreduced maximal aerobic capacity (peak oxygenconsumption) and the 6-minute-walk distancewas significantly reduced.
+A V/Q ventilation/perfusion (lung scintigraphy)
+scan failed to demonstrate any mismatched perfu-sion defects. Physicians ordered a CT of the chestwith both vascular and parenchymal evaluation,which showed a complete recanalization of the pul-monary circle, mild pulmonary emphysema andbronchial disease. Finally, Pulmonary Function Tests(PFTs) revealed a chronic obstructive pulmonary dis-ease (COPD) stage GOLD II. Tiotropium bromidewas prescribed with clinical benefit.4 A. Gallo et al.
+.............................................................................................................................................................................The specifications of the 2019 ESC Guidelines for the long-term
+management of PE reflect an understanding of PE as a chronic disease.Persisting dyspnoea may be one of the signs of chronic conditions dir-
+ectly related to the underlying thrombo-embolic disorder. Chronic
+thromboembolic pulmonary hypertension (CTEPH), a life-threatening condition being diagnosed in approximately 3% of PE sur-vivors,
+24is associated with substantial morbidity and mortality and
+defined by a mean pulmonary arterial pressure of more than
+25 mmHg with a pulmonary arterial wedge pressure of less than15 mmHg, documented at right heart catheterization in a patient withmismatched perfusion defects on V/Q lung scan.
+25Post-PE impair-
+ment (PPEI) is an umbrella definition encompassing echocardiograph-
+ic abnormalities pointing to the presence of pulmonary hypertensioncombined with a cardiopulmonary symptomatology.
+26Chronic
+thromboembolic disease (CTED) should be considered in symptom-
+atic patients with documented post-thrombotic obstructions butnormal pulmonary haemodynamic parameters at rest and withoutany other cause of their marked exercise limitation.
+27
+Accordingly, further diagnostic evaluation should be considered in
+patients with persistent or new-onset dyspnoea/exercise limitation
+after PE (IIa, C). In symptomatic patients with mismatched perfusion
+defects persisting on V/Q scan beyond 3 months after acute PE, refer-ral to a PH/CTEPH expert centre is recommended, after taking intoaccount the results of echocardiography, natriuretic peptide levels,
+and/or CPET (I, C).
+Lead author biography
+Stefano Barco completed his resi-
+dency in internal medicine at the
+University of Pavia, Italy, and
+received a PhD in Vascular
+Medicine from the University of
+Amsterdam, the Netherlands. He
+leads a research group at the
+Center for Thrombosis and
+Hemostasis (Mainz, Germany) and
+is staff physician at the Clinic of
+Angiology, University Hospital
+Zurich, Switzerland. Dr Barco’s re-
+search interests are in the manage-
+ment of pulmonary embolism and rare thromboembolic disorders.
+He is involved as Steering Committee member of multinational trials
+in pulmonary embolism. He is associate editor for ThrombosisResearch and Haemostaseologie-Progress in Haemostasis, and
+serves as a referee for several top journals in the field.
+Supplementary material
+Supplementary material is available at European Heart Journal - Case
+Reports online.
+Slide sets: A fully edited slide set detailing this case and suitable for
+local presentation is available online as Supplementary data .Consent: This is an exemplary case, as such, patient consent is not
+required.
+Conflict of interest: S.B. reports personal fees from Bayer
+HealthCare, personal fees from BTG Pharmaceuticals, personal feesfrom LeoPharma, personal fees from Daiichi Sankyo, personal feesfrom Bayer HealthCare, outside the submitted work.
+Funding: This work was not funded. The work of Andrea Gallo,
+Luca Valerio and Stefano Barco was supported by the GermanFederal Ministry of Education and Research [BMBF 01EO1003 and01EO1503].
+References
+1. Konstantinides SV, Meyer G, Becattini C, Bueno H, Geersing GJ, Harjola VP, et
+al.; ESC Scientific Document Group. 2019 ESC Guidelines for the diagnosis and
+management of acute pulmonary embolism developed in collaboration with the
+European Respiratory Society (ERS). Eur Heart J 2020; 41:543–603.
+2. Konstantinides SV, Torbicki A, Agnelli G, Danchin N, Fitzmaurice D, Galie N, et
+al.; Task Force for the Diagnosis and Management of Acute Pulmonary Embolism
+of the European Society of Cardiology (ESC) 2014 ESC guidelines on the diagno-sis and management of acute pulmonary embolism. Eur Heart J 2014; 35:
+3033–3069.
+3. Wells PS, Anderson DR, Rodger M, Ginsberg JS, Kearon C, Gent M et al.
+Derivation of a simple clinical model to categorize patients probability of pul-
+monary embolism: increasing the models utility with the SimpliRED D-dimer.
+Thromb Haemost 2000; 83:416–420.
+4. Wicki J, Perneger TV, Junod AF, Bounameaux H, Perrier A. Assessing clinical
+probability of pulmonary embolism in the emergency ward: a simple score. Arch
+Intern Med 2001; 161:92–97.
+5. van der Hulle T, Cheung WY, Kooij S, Beenen LFM, van Bemmel T, van Es J et al.
+Simplified diagnostic management of suspected pulmonary embolism (the YEARS
+study): a prospective, multicentre, cohort study. Lancet 2017; 390:289–297.
+6. Kearon C, de Wit K, Parpia S, Schulman S, Afilalo M, Hirsch A et al. Diagnosis of
+pulmonary embolism with d-dimer adjusted to clinical probability. N Engl J Med
+2019; 381:2125–2134.
+7. Patel S, Kazerooni EA, Cascade PN. Pulmonary embolism: optimization of small
+pulmonary artery visualization at multi-detector row CT. Radiology 2003; 227:
+455–460.
+8. van Es J, Douma RA, Schreuder SM, Middeldorp S, Kamphuisen PW, Gerdes
+VEA et al. Clinical impact of findings supporting an alternative diagnosis on CT
+pulmonary angiography in patients with suspected pulmonary embolism. Chest
+2013; 144:1893–1899.
+9. Pruszczyk P, Goliszek S, Lichodziejewska B, Kostrubiec M, Ciurzy /C19nski M,
+Kurnicka K et al. Prognostic value of echocardiography in normotensive patients
+with acute pulmonary embolism. JACC Cardiovasc Imaging 2014; 7:553–560.
+10. Meinel FG, Nance JW Jr, Schoepf UJ, Hoffmann VS, Thierfelder KM, Costello P
+et al. Predictive value of computed tomography in acute pulmonary embolism:
+systematic review and meta-analysis. Am J Med 2015; 128:747–759 e2.
+11. Becattini C, Vedovati MC, Agnelli G. Prognostic value of troponins in acute pul-
+monary embolism: a meta-analysis. Circulation 2007; 116:427–433.
+12. Henzler T, Roeger S, Meyer M, Schoepf UJ, Nance JW, Jr., Haghi D et al.
+Pulmonary embolism: CT signs and cardiac biomarkers for predicting right ven-
+tricular dysfunction. Eur Respir J 2012; 39:919–926.
+13. Barco S, Schmidtmann I, Ageno W, Bauersachs RM, Becattini C, Bernardi E
+et al.
+Early discharge and home treatment of patients with low-risk pulmonary embol-
+ism with the oral factor Xa inhibitor rivaroxaban: an international multicentre
+single-arm clinical trial. Eur Heart J 2020; 41:509–518.
+14. Barco S, Mahmoudpour SH, Planquette B, Sanchez O, Konstantinides SV, Meyer
+G. Prognostic value of right ventricular dysfunction or elevated cardiac bio-
+markers in patients with low-risk pulmonary embolism: a systematic review and
+meta-analysis. Eur Heart J 2019; 40:902–910.
+15. Meyer G, Vicaut E, Danays T, Agnelli G, Becattini C, Beyer-Westendorf J et al.
+Fibrinolysis for patients with intermediate-risk pulmonary embolism. NE n g lJ
+Med2014; 370:1402–1411.
+16. Raschke RA, Gollihare B, Peirce JC. The effectiveness of implementing the
+weight-based heparin nomogram as a practice guideline. Arch Intern Med 1996;
+156:1645–1649.
+17. Agnelli G, Buller HR, Cohen A, Curto M, Gallus AS, Johnson M et al. Oral apixa-
+ban for the treatment of acute venous thromboembolism. N Engl J Med 2013;
+369:799–808.
+2019 PE Guidelines and an exemplary case 5
+........................................... 18. Buller HR, Prins MH, Lensin AW, Decousus H, Jacobson BF, Minar E et al. Oral
+rivaroxaban for the treatment of symptomatic pulmonary embolism. N Engl J
+Med2012; 366:1287–1297.
+19. Baglin T, Luddington R, Brown K, Baglin C. Incidence of recurrent venous
+thromboembolism in relation to clinical and thrombophilic risk factors: prospect-
+ive cohort study. Lancet 2003; 362:523–526.
+20. Iorio A, Kearon C, Filippucci E, Marcucci M, Macura A, Pengo V et al. Risk of recur-
+rence after a first episode of symptomatic venous thromboembolism provoked by atransient risk factor: a systematic review. Arch Intern Med 2010;170:1710–1716.
+21. Kakkos SK, Kirkilesis GI, Tsolakis IA. Efficacy and safety of the new oral anticoa-
+gulants dabigatran, rivaroxaban, apixaban, and edoxaban in the treatment andsecondary prevention of venous thromboembolism: a systematic review andmeta-analysis of phase III trials. Eur J Vasc Endovasc Surg 2014; 48:565–575.
+22. Agnelli G, Buller HR, Cohen A, Curto M, Gallus AS, Johnson M et al. Apixaban
+for extended treatment of venous thromboembolism. N Engl J Med 2013; 368:
+699–708.
+23. Weitz JI, Lensing AWA, Prins MH, Bauersachs R, Beyer-Westendorf J,
+Bounameaux H et al. Rivaroxaban or aspirin for extended treatment of venous
+thromboembolism. N Engl J Med 2017; 376:1211–1222.24. Ende-Verhaar YM, Cannegieter SC, Noordegraaf AV, Delcroix M, Pruszczyk P,
+Mairuhu ATA et al. Incidence of chronic thromboembolic pulmonary hyperten-
+sion after acute pulmonary embolism: a contemporary view of the published lit-erature. Eur Respir J 2017; 49:1601792.
+25. Galie N, Humbert M, Vachiery JL, Gibbs S, Lang I, Torbicki A et al. 2015 ESC/
+ERS Guidelines for the diagnosis and treatment of pulmonary hypertension: theJoint Task Force for the Diagnosis and Treatment of Pulmonary Hypertension ofthe European Society of Cardiology (ESC) and the European Respiratory Society(ERS): Endorsed by: Association for European Paediatric and Congenital
+Cardiology (AEPC), International Society for Heart and Lung Transplantation
+(ISHLT). Eur Heart J 2016; 37:67–119.
+26. Barco S, Russo M, Vicaut E, Becattini C, Bertoletti L, Beyer-Westendorf J et al.
+Incomplete echocardiographic recovery at 6 months predicts long-term sequelae
+after intermediate-risk pulmonary embolism. A post-hoc analysis of the
+Pulmonary Embolism Thrombolysis (PEITHO) trial. Clin Res Cardiol 2019; 108:
+772–778.
+27. Held M, Kolb P, Grun M, Jany B, Hubner G, Grgic A et al. Functional character-
+ization of patients with chronic thromboembolic disease. Respiration 2016; 91:
+503–509.6 A. Gallo et al.

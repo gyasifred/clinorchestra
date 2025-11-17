@@ -1,0 +1,505 @@
+Recommendations for the evaluation of risk and prophylaxis
+of tumour lysis syndrome (TLS) in adults and children with
+malignant diseases: an expert TLS panel consensus
+It is essential to identify patients at risk of tumour lysis
+syndrome (TLS) because this life-threatening condition may
+occur rapidly and is preventable. However, standardized
+procedures for assessing risk have been lacking until now.
+The new, comprehensive TLS risk classiﬁcation system
+reported here for adults and children accounts for all
+malignancies and known risk factors, integrating them into a
+simple and easy to use clinical tool that provides a basis for
+recent TLS management guidelines as well as future TLS
+studies.
+TLS is a group of metabolic abnormalities that result from
+the rapid release of intracellular metabolites such as nucleic
+acids, proteins, phosphorus and potassium from lysed
+malignant cells. This process can potentially cause hyperuri-
+caemia, hyperkalaemia, hyperphosphataemia, with or without
+hypocalcaemia and uraemia that can lead to renal failure,arrhythmias, seizures and even death. TLS symptoms can
+occur spontaneously or within 12–72 h after initiation of
+cytoreductive chemotherapy and require prompt recognition
+followed by aggressive management. Complications resulting
+from TLS, can compromise the efﬁcacy or further adminis-
+tration of chemotherapy (Levine, 2002; Yim et al, 2003; Hsu
+et al, 2004) and have an impact on morbidity and mortality.
+They are also associated with longer and more costly hospital
+stays (Annemans et al, 2003; Candrilli et al, 2008).
+TLS is most frequently associated with non-Hodgkin
+lymphoma (NHL), particularly Burkitt lymphoma/leukaemia,
+as well as other haematological malignancies, such as acute
+myeloid leukaemia (AML) and acute lymphoblastic leukaemia
+(ALL), after initiation of cytotoxic treatment (Annemans et al,
+2003; Akoz et al, 2007; Coifﬁer et al, 2008; Hochberg & Cairo,
+2008; Konuma et al, 2008; Chen & Chuang, 2009; Choi et al,Mitchell S. Cairo,1* Bertrand Coifﬁer,2
+Alfred Reiter3and Anas Younes4on
+behalf of the TLS Expert Panel
+1Departments of Pediatrics, Medicine and
+Pathology, Columbia University, Morgan Stanley
+Children’s Hospital, NY-Presbyterian, NY, USA,
+2Department of Haematology, Hospices Civils de
+Lyon and University Claude Bernard, Lyon,
+France,3Children’s University Hospital, Division
+of Paediatric Haematology and Oncology, Justus-
+Liebig University, Giessen, Germany, and4The
+University of Texas M.D. Anderson Cancer
+Center, Houston, TX, USA
+Received 18 November 2009; accepted for
+publication 28 January 2010
+Correspondence: Mitchell S. Cairo, MD, Chief,
+Division Blood and Marrow Transplantation,
+Professor, Pediatrics, Medicine & Pathology,
+Morgan Stanley Children’s Hospital, New York
+Presbyterian, Columbia University, New York,
+NY, USA. E-mail: mc1310@columbia.edu
+*All authors contributed equally to this
+manuscript.Summary
+Tumour lysis syndrome (TLS) is a life-threatening oncological emergency
+characterized by metabolic abnormalities including hyperuricaemia,
+hyperphosphataemia, hyperkalaemia and hypocalcaemia. These metabolic
+complications predispose the cancer patient to clinical toxicities including
+renal insufﬁciency, cardiac arrhythmias, seizures, neurological complications
+and potentially sudden death. With the increased availability of newer
+therapeutic targeted agents, such as rasburicase (recombinant urate oxidase),
+there are no published guidelines on the risk classiﬁcation of TLS for
+individual patients at risk of developing this syndrome. We convened an
+international TLS expert consensus panel to develop guidelines for a medical
+decision tree to assign low, intermediate and high risk to patients with
+cancer at risk for TLS. Risk factors included biological evidence of
+laboratory TLS (LTLS), proliferation, bulk and stage of malignant tumour
+and renal impairment and/or involvement at the time of TLS diagnosis. An
+international TLS consensus expert panel of paediatric and adult oncologists,
+experts in TLS pathophysiology and experts in TLS prophylaxis and
+management, developed a ﬁnal model of low, intermediate and high risk
+TLS classiﬁcation and associated TLS prophylaxis recommendations.
+Keywords :tumour lysis syndrome, risk, malignancy, prophylaxis.
+research paper
+First published online 16 March 2010
+doi:10.1111/j.1365-2141.2010.08143.x ª2010 Blackwell Publishing Ltd, British Journal of Haematology ,149, 578–586
+
+2009). In an observational study of patients with AML
+(Montesinos et al, 2008), TLS was observed in 130 (17%)
+out of 772 patients and was considered the major cause ofdeath in 2% of patients. An overall TLS incidence of 4 Æ4% was
+reported in two multicentre studies of 1791 children andadolescents with NHL (Wossmann et al, 2003) and, of these,
+TLS occurred in 8 Æ4% (66 out of 790) of patients with Burkitt
+lymphoma/leukaemia or B-cell ALL (B-ALL). TLS may also
+occur in other tumour types, especially tumours sensitive to
+cytotoxic treatment, that have a high proliferative rate or havea large tumuor size or burden (Coifﬁer et al, 2008). Unex-
+pected cases of TLS where a high TLS risk was not immediatelyevident and for which appropriate risk assessment andmanagement could make the difference between life and deathhave also been reported (Kalemkerian et al, 1997; Vaisban
+et al, 2001; Francescone et al, 2009; Lin et al, 2009). For
+example, an adult patient with end-stage renal disease and
+diffuse large B-cell lymphoma (DLBCL) developed acute TLSafter receiving low dose COP chemotherapy (cyclophospha-mide, vincristine and dexamethasone) and allopurinol (Linet al, 2009). A computed tomography scan revealed a retro-
+peritoneal mass (8 Æ5·9Æ5c m
+2) while laboratory values on
+presentation included a creatinine level of 566 lmol/l and a
+lactate dehydrogenase (LDH) level of 523 u/l. In another case,
+an adult patient with chronic lymphocytic leukaemia (CLL)
+and pre-existing asotemia developed acute TLS and renalfailure after initiation of high-dose corticosteroid therapy(Vaisban et al, 2001). Both of these cases highlight that overall
+TLS risk derives from the collective contribution of severalindividual risk factors and underline the critical need for a riskmodel that integrates them in order to identify high TLS risk,even in unusual settings. Risk factors for TLS include age, type
+of malignancy, tumour burden (stage/LDH), white blood cell
+(WBC) counts and whether renal function is compromised(Michallet et al, 2005; Coifﬁer et al, 2008). Some risk strati-
+ﬁcation systems have been developed by regional entities, buteach system addresses different diseases, uses different criteriaand establishes different thresholds for risk (Seidemann et al,
+1998; Wossmann et al, 2003; Bertrand et al, 2008; Coifﬁer
+et al, 2008; Montesinos et al, 2008; Tosi et al, 2008). TLS risk
+guidelines (Bertrand et al, 2008) developed by the French
+Society for the Prevention of Cancer in Children andAdolescents (SCFE) only addressed T-cell lymphoma, B-celllymphoma, ALL and AML and did not assess TLS risk in adultpatients. Similarly, the TLS risk stratiﬁcation system developedby the Berlin–Frankfurt–Mu ¨nster (BFM) Group is restricted to
+children (Seidemann et al, 1998; Wossmann et al, 2003) and
+focuses only on B-NHL and T-LBL, while recent guidelines
+proposed by an international panel of experts (Coifﬁer et al,
+2008) do not address all malignancies or uniformly assess riskbased on renal involvement/function. Consequently, none ofthese guidelines can be uniformly applied to all patients at riskof developing TLS. The need for a straightforward andunifying risk stratiﬁcation model is particularly importantfor TLS because it is encountered almost exclusively byphysicians with a haematology/oncology, nephrology and/or
+emergency room background.
+Methods
+To address this unmet need an international panel of experts(Appendix I) met in Paris in November 2008 to reach aconsensus concerning a comprehensive TLS risk classiﬁcationsystem based on the peer-reviewed literature, standards ofpractice and clinical experience. The panel was chosen for their
+expertise in adult and paediatric malignancies as well as TLS
+pathophysiology and management. A review of the literaturefor the last 43 (1966–2009) years on the incidence, prophylaxisand treatment of TLS was conducted by the TLS expert panel.Both an evidenced-based literature and expert opinion-basedapproach was utilized (Tables I and II).
+A preliminary version of the proposed TLS risk evaluation
+model was produced in advance of this meeting by a steering
+committee. Low-risk disease (LRD) was deﬁned as an approx-
+imate risk of less than 1% of developing TLS, intermediate riskdisease (IRD) was deﬁned as a risk of approximately 1–5% ofdeveloping TLS and high risk disease (HRD) was deﬁned as arisk of greater than 5% (>5%) of developing TLS based on theincidence deﬁned in the literature (Annemans et al, 2003;
+Wossmann et al, 2003; Akoz et al, 2007; Coifﬁer et al, 2008;
+Konuma et al, 2008; Montesinos et al, 2008; Chen & Chuang,
+2009; Choi et al, 2009). Each proposed recommendation was
+discussed at length by the entire expert panel during themeeting and required consensual agreement by all panelmembers before being included in the ﬁnal model.
+The diverse specialties of the panel ensured that the risk
+stratiﬁcation model reﬂected best clinical practice andaddressed the issues and concerns relevant to each specialty.Furthermore, this risk model complements and builds upon
+recent guidelines for the diagnosis and management of
+paediatric and adult TLS proposed by Coifﬁer et al (2008).
+Results
+TLS risk classiﬁcation model
+TLS risk evaluation was based on three sequential phases,
+which collectively deﬁned the ﬁnal evaluation of TLS risk.Firstly, patients were assessed for the presence of laboratoryTLS (LTLS) (Hande & Garrow, 1993; Cairo & Bishop, 2004).Patients were required to have two or more abnormalities ofuric acid (increased), potassium (increased), or phosphate(increased) in order to be deﬁned as LTLS (Cairo & Bishop,2004). Next, haematological malignancies and solid tumours
+were classiﬁed as LRD, IRD or HRD. Patients were also
+stratiﬁed by age and stage, bulk disease, WBC count and LDHlevel. The third step required an adjustment to be made basedon renal function and renal involvement, and patients wouldthen be ﬁnally classiﬁed as having a high risk, intermediate riskor low risk of developing TLS.TLS Risk Classiﬁcation in Adults/Children with Malignancies
+ª2010 Blackwell Publishing Ltd, British Journal of Haematology ,149, 578–586 579
+ 13652141, 2010, 4, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/j.1365-2141.2010.08143.x by Medical University Of South Carolina, Wiley Online Library on [12/11/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+Biological signs of TLS
+In the present model LTLS was diagnosed by one of three
+clinical scenarios. Serum uric acid levels were within normallimits but serum phosphate and potassium levels exceeded the
+upper limit of normal. LTLS was also diagnosed when uric acid
+levels were above the upper limit of normal and concurrentlyeither phosphate or potassium levels were above the upperlimit of normal. An elevated uric acid, potassium andphosphate has previously been determined to be ‡476lmol/l
+or‡25% increase from baseline, ‡6Æ0 mmol/l or ‡25% increase
+from baseline and ‡2Æ1 mmol/l or ‡25% increase from
+baseline, respectively (Cairo & Bishop, 2004). During the time
+period where patients are at risk of developing LTLS,
+electrolyte and chemistry monitoring should be conducted atleast every 6 h or earlier, depending on the clinical conditionof the patient. Calcium levels were not included as a criterionfor establishing LTLS in this risk classiﬁcation system because
+hypocalcaemia may not be considered a direct consequence ofTLS and is associated with high phosphate levels in the vastmajority of cases (Navolanic et al, 2003). This TLS risk
+classiﬁcation model should not be used for patients withpre-existing elevated uric acid levels due to gout prior to thediagnosis of their malignancy.
+Risk assessment based on malignant disease type
+Most solid tumours were classiﬁed as LRD (Fig 1). However,bulky solid tumours that were sensitive to chemotherapy, suchas neuroblastoma, germ-cell tumours and small-cell lungcancers, were classiﬁed as IRD. In general, most solid tumourswere at very low risk of developing TLS (LRD) (Drakos et al,
+1994; Kalemkerian et al, 1997; Baeksgaard & Sorensen, 2003;
+Vaisban et al, 2003; Tosi et al, 2008). Myelomas were also
+classiﬁed as LRD (Fig 1).
+The panel subdivided leukaemias into two categories:
+chronic and acute leukaemias. Chronic myeloid leukaemia(CML) was an LRD (Fig 1) in the present risk classiﬁcationsystem. To take into account the therapy-dependent risk forTLS in patients with CLL (Cheson et al, 1998; Dillman &
+Hendrix, 2003; Hussain et al, 2003; Hummel et al, 2005;
+Calvo-Villas et al, 2008; Lin, 2008; Phelps et al, 2009), CLL was
+an LRD when treated exclusively with alkylating agents, but an
+IRD in the presence of an elevated WBC ( ‡50·10
+9/l) and/or
+were treated with targeted and/or biological therapies (ﬂudar-abine/rituximab).
+Acute leukaemias were divided into three categories: AML,
+ALL and Burkitt lymphoma/leukaemia (B-ALL) (Fig 2). Therisk of TLS was assessed in each of these categories, based onWBC counts and LDH levels, as both factors correlated withTLS risk (Navolanic et al, 2003; Truong et al, 2007; Monte-
+sinos et al, 2008). This is the ﬁrst risk classiﬁcation system that
+takes into account all of these variables for all types ofleukaemia. AML was either an LRD, IRD or HRD, dependingon WBC counts and LDH levels. Similarly ALL was an IRD orHRD depending on WBC counts and LDH levels (Fig 2).B-ALL was always considered an HRD.
+The panel classiﬁed Hodgkin, small lymphocytic, follicular,
+marginal zone B-cell, mucosa-associated lymphoid tissue,
+mantle cell (non-blastoid variants) and cutaneous T-cell
+lymphomas as LRDs (Fig 3A). The panel decided to classifyearly-stage Burkitt lymphoma/leukaemia and lymphoblasticlymphomas as IRD, except when LDH levels were twice ormore above the upper limit of normal, in which case they wereHRD. Advanced-stage Burkitt lymphoma/leukaemia and lym-phoblastic lymphomas were always considered as HRD.
+Anaplastic large cell lymphoma (ALCL) was an LRD in
+children with stage I and II disease and an IRD in children with
+stage III or stage IV disease. ALCL was an LRD in adults,irrespective of disease staging (Fig 3B). Adult T-cell (ATL),DLBCL, peripheral T-cell, transformed and mantle cell(blastoid variants) lymphomas were classiﬁed as either LRD,Table I. Levels of evidence.
+1++ Meta-analyses, systematic reviews or randomized
+clinical trials with low risk of bias
+1+ Meta-analyses, systematic reviews or randomized
+clinical trials with high risk of bias
+2++ Systemic reviews or case-control or cohort studies
+with a high probability that relationship is causal
+2+ Systemic reviews or case-control or cohort studies
+with a low probability that relationship is causal
+3 Non-analytic studies, e.g. case reports, case series4 Expert opinion
+Modiﬁed from A new system for grading recommendations in evi-
+dence based guidelines. Bmj, Harbour, R. & Miller, J. 323, 334-336,
+copyright 2001 with permission from BMJ Publishing Group Ltd.
+Table II. Grades of recommendation.
+A At least one meta-analysis, systematic review or randomized
+clinical trial rated as 1++ and directly applicable topopulation, or
+A systematic review of randomized clinical trials or a body
+of evidence consisting principally of studies rated as 1+directly applicable to the target population and
+demonstrating consistency of results.
+B A body of evidence rated as 2++ directly applicable to target
+population and demonstrating overall consistency of
+results, or
+Extrapolated evidence from studies with level of evidence as
+1++ or 1+
+C A body of evidence rated as 2+, directly applicable to target
+population and demonstrating consistency of results, or
+Extrapolated evidence from studies rated as 2++
+D Level of evidence 3 or 4, or
+Extrapolated evidence from studies rated as 2+
+Reproduced from A new system for grading recommendations in
+evidence based guidelines. Bmj, Harbour, R. & Miller, J. 323, 334-336,
+copyright 2001 with permission from BMJ Publishing Group Ltd.M. S. Cairo et al
+580 ª2010 Blackwell Publishing Ltd, British Journal of Haematology ,149, 578–586
+ 13652141, 2010, 4, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/j.1365-2141.2010.08143.x by Medical University Of South Carolina, Wiley Online Library on [12/11/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+IRD or HRD, depending on patient age, LDH levels, disease
+staging and tumour bulk (Fig 3B). Finally, myelomas were
+classiﬁed as LRD (Fig 1).
+Adjustment of TLS risk based on renal function
+and/or involvement
+Several renal conditions may predispose patients to developing
+TLS, such as pre-existing uraemia or hyperuricaemia,decreased urinary ﬂow or acidic urine, dehydration, oliguria,anuria and renal insufﬁciency or renal failure (DeConti &Calabresi, 1966; Arseneau et al, 1975; Landgrebe et al, 1975;
+Tsokos et al, 1981; Kunkel et al, 2000; Annemans et al, 2003;Bosly et al, 2003; Cairo & Bishop, 2004). Apart from renal
+failure, kidney(s) involvement at diagnosis represents a rare
+but signiﬁcant risk factor (Stapleton et al, 1988; Locatelli &
+Rossi, 2005).
+In the proposed classiﬁcation system, this ﬁnal level aggre-
+gated all individual risk factors described above, plus renal riskfactors, for the ﬁnal classiﬁcation of patients. This is the ﬁrstTLS risk classiﬁcation system that combines multiple factorsinto a ﬁnal assessment of the patient’s risk of developing TLSrather than restricting analysis to individual parameters.
+Consequently, patients with lymphomas or leukaemias consid-
+ered to be LRDs, were classiﬁed as being at an intermediate riskof developing TLS if there was renal dysfunction and/or renal
+Fig 1. TLS risk assessment of solid tumours, myelomas and chronic leukaemias. Most solid tumours are low-risk diseases (LRD). Bulky, solid
+tumours that are sensitive to chemotherapy are intermediate-risk diseases (IRD). Myelomas are LRD. Risk classiﬁcation of chronic leukaemia varies
+according to type of leukaemia and treatment strategy.
+Fig 2. TLS risk assessment for acute leukaemia. Classiﬁcation of acute myeloid leukaemia and acute lymphoblastic leukaemia depends on white blood
+cell (WBC) counts and lactate dehydrogenase (LDH) levels. Burkitt lymphoma/leukaemia is always classiﬁed as an HRD. LRD, low risk disease; IRD,
+intermediate risk disease; HRD, high risk disease.TLS Risk Classiﬁcation in Adults/Children with Malignancies
+ª2010 Blackwell Publishing Ltd, British Journal of Haematology ,149, 578–586 581
+ 13652141, 2010, 4, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/j.1365-2141.2010.08143.x by Medical University Of South Carolina, Wiley Online Library on [12/11/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+involvement (Fig 4A). Similarly, patients with leukaemias and
+lymphomas considered to be IRDs were classiﬁed as being at ahigh-risk of developing TLS if there was renal dysfunction and/or renal involvement (Fig 4B). Patients with IRDs and normalrenal function would also be high-risk for TLS if their uric acidlevels and either phosphate or potassium levels were higherthan the upper limit of normal (Fig 4B).
+Discussion
+The above TLS risk stratiﬁcation and classiﬁcation developedby the TLS expert risk panel is a medical decision tree thatincorporates histological diagnosis, extent and bulk of disease(stage, LDH, bulk), use of speciﬁc cytotoxic agents, age atdiagnosis and pre-existing renal dysfunction or renal involve-ment as major risk factors in this model. The level of evidence(Table I) is based on Harbour and Miller (2001). The risk ofdeveloping TLS for patients with LRD was estimated to be
+<1% with a level of evidence ranging from 2+ to 4 (Table I).
+The risk of developing TLS for patients with IRD wasestimated to be 1–5% with a level of evidence of 1+ to 2+
+(Table I). The risk for patients with HRD of developing TLS
+was estimated to be >5% with a level of evidence of 1++ to 1+
+(Table I) (modiﬁed Harbour & Miller, 2001).
+The prophylaxis recommendations were a modiﬁcation of
+the previous review by Coifﬁer et al (2008). The grade of
+recommendations (Table II) was based on Harbour and Miller(2001). The TLS prophylaxis recommendation based on TLSrisk is summarized in Table III. In general, patients with a lowrisk (LRD) of developing TLS should be monitored for
+development of TLS and complications; normal hydration
+and no prophylaxis for hyperuricaemia should be given exceptin cases of signs of metabolic changes, bulky and/or advan-ced disease and/or high proliferative disease, in which case
+(A)
+(B)
+Fig 3. TLS risk assessment for lymphomas. (A) Some types of lym-
+phomas are always classiﬁed as LRD, whereas classiﬁcation of Burkitt
+lymphoma/leukaemia and lymphoblastic lymphomas depends on the
+stage of the disease and lactate dehydrogenase (LDH) levels. (B) Othertypes of lymphomas are classiﬁed according to patient age, stage of
+disease, tumour mass and LDH levels. ATL, adult T-cell lymphoma;
+WNL, within normal limits; ULN, upper limit of normal; LRD, lowrisk disease; IRD, intermediate risk disease; HRD, high risk disease.
+(A)
+(B)
+Fig 4. Final TLS risk adjustment is based on renal function. (A)
+Patients with low risk disease (LRD) are intermediate-risk (IR) for TLS
+when renal dysfunction and/or renal involvement is present. LR, low
+risk (B) Patients with intermediate risk disease (IRD) are high-risk(HR) for TLS when renal dysfunction and/or renal involvement is
+present or uric acid, phosphate or potassium levels are elevated. WNL,
+within normal limits; ULN, upper limit of normal.M. S. Cairo et al
+582 ª2010 Blackwell Publishing Ltd, British Journal of Haematology ,149, 578–586
+ 13652141, 2010, 4, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/j.1365-2141.2010.08143.x by Medical University Of South Carolina, Wiley Online Library on [12/11/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+allopurinol should be added (Table III). This grade of recom-
+mendation is a level B (Table II). Patients with an intermediaterisk (IRD) of developing TLS should be monitored for TLS andcomplications, administered increased hydration (3l/m
+2per d)
+and administered allopurinol (100–300 mg, po, q8h, daily)without the need for alkalinization (Table III). This grade ofrecommendation is a level B (Table II). In patients with highrisk (HRD) of developing TLS, frequent monitoring should be
+performed, increased hydration (3l/m
+2per d), unless evidence of
+renal insufﬁciency and oliguria, and rasburicase (0 Æ1–0Æ2 mg/kg)
+for one dose and repeated only if clinically necessary. Inpatients with a prior history of glucose-6-phosphate dehydro-genase, rasburicase is contraindicated and allopurinol shouldbe utilized instead of rasburicase (Table III). This grade ofrecommendation is a level A (Table II). Furthermore, man-agement of hyperkalemia and/or hyperphosphataemia should
+be managed as per institutional routine and/or based on
+previous TLS treatment guidelines (Cairo & Bishop, 2004;Coifﬁer et al, 2008). Lastly, patients who develop LTLS whowere originally classiﬁed as either LRD or IRD, should receive
+rasburicase unless clinically contraindicated.
+Returning to the two case reports discussed above, in the
+dialysis patient with DLBCL (Lin et al, 2009) the risk
+classiﬁcation of this patient would be moved from inter-mediate to high risk of TLS according to this new riskclassiﬁcation system due to increased LDH levels, renaldysfunction and the presence of bulky disease, while the CLL
+patient (Vaisban et al, 2001) would be elevated from low risk
+to intermediate risk of TLS due to the presence of pre-existingasotemia. These two examples demonstrate the broad appli-cability of this new risk classiﬁcation model and its ability toidentify TLS risk even in unusual settings, such as DLBCL,where it is not immediately considered. Importantly, physi-cians must consider that TLS risk derives from the collectivecontribution of individual risk factors and is not exclusively
+associated with a particular malignancy.
+This risk classiﬁcation model, developed by a panel of TLS
+experts, integrates diverse criteria into a user-friendly, simple
+Table III. TLS Prophylaxis recommendations based on TLS risk.
+Low risk disease (LRD) Intermediate risk disease (IRD) High risk disease (HRD)
+ST* N/A N/A
+MM N/A N/ACML N/A N/A
+Indolent NHL N/A N/A
+HL N/A N/ACLL /C160 N/A N/A
+AML and WBC <25 ·10
+9/l
+and LDH <2 ·ULNAML with WBC 25–100 ·109/l
+AML and WBC <25 ·109/l and LDH ‡2·ULNAML and WBC ‡100·109/l
+Adult Intermediate grade
+NHL and LDH <2 ·ULNAdult intermediate grade NHL and LDH ‡2·ULN N/A
+Adult ALCL Childhood ALCL stage III/IV N/A
+N/A Childhood intermediate grade NHL stage III/IV
+with LDH <2 ·ULNN/A
+N/A ALL and WBC <100 ·109/l and LDH <2 ·ULN ALL and WBC ‡100·109/l and/or LDH ‡2·ULN
+N/A BL and LDH <2 ·ULN BL stage III/IV and/or LDH ‡2·ULN
+N/A LL stage I/II and LDH <2 ·ULN LL stage III/IV and/or LDH ‡2·ULN
+N/A N/A IRD with renal dysfunction and/or renal involvement
+IRD with uric acid, potassium and/or phosphate >ULN
+Prophylaxis recommendationsMonitoring Monitoring Monitoring
+Hydration Hydration Hydration
+±Allopurinol Allopurinol Rasburicase /C224
+ST, solid tumours; MM, multiple myeloma; CML, chronic myeloid leukaemia; NHL, non-Hodgkin lymphoma; HL, Hodgkin lymphoma; CLL,
+chronic lymphoid leukaemia; AML, acute myeloid leukaemia; WBC, white blood cell count; LDH, lactate dehydrogenase; ULN, upper limit of
+normal; ALCL, anaplastic large cell lymphoma; N/A, not applicable; ALL, acute lymphoblastic leukaemia; BL, Burkitt lymphoma/leukaemia; LL,
+lymphoblastic lymphoma.*Rare solid tumours, such as neuroblastoma, germ cell tumours and small cell lung cancer or others with bulky or advanced stage disease, may be
+classiﬁed as IRD.
+/C160CLL treated with ﬂudarabine, rituximab and/or those with high WBC ( ‡50·10
+9/l), should be classiﬁed as IRD.
+/C224Contraindicated in patients with a history consistent with glucose-6 phosphate dehydrogenase. In these patients, rasburicase should be substitut ed
+with allopurinol.TLS Risk Classiﬁcation in Adults/Children with Malignancies
+ª2010 Blackwell Publishing Ltd, British Journal of Haematology ,149, 578–586 583
+ 13652141, 2010, 4, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/j.1365-2141.2010.08143.x by Medical University Of South Carolina, Wiley Online Library on [12/11/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+and convenient clinical tool designed especially for physicians
+who frequently see patients at risk for TLS. We recommendthat it be adopted and is validated through future internationalcollaborative research efforts.
+Acknowledgements
+The authors would like to thank Robert Pitcher, PhD, WellsHealthcare Communications and Erin Morris, RN, ColumbiaUniversity, for their assistance in the development and
+ﬁnalization, respectively, of this manuscript.
+Disclosures
+MSC is an advisor/consultant for and has received honoraria
+from Sanoﬁ-Aventis; BC is an advisor/consultant for and hasreceived honoraria from Sanoﬁ-Aventis, AR is an advisor/consultant for Sanoﬁ-Aventis; and AY is an advisor/consultantfor and has received honoraria and research support fromSanoﬁ-Aventis.
+Funding
+This work was supported by an unrestricted educational grantfrom Sanoﬁ-Aventis. The TLS risk model described in thismanuscript was ﬁnalized during a meeting supported bySanoﬁ-Aventis. Editorial support was funded by Sanoﬁ-Aventis. The authors were fully responsible for all contentand editorial decisions.
+References
+Akoz, A.G., Yildirim, N., Engin, H., Dagdas, S., Ozet, G., Tekin, I.O. &
+Ceran, F. (2007) An unusual case of spontaneous acute tumorlysis syndrome associated with acute lymphoblastic leukemia: a
+case report and review of the literature. Acta Oncologica ,46,
+1190–1192.
+Annemans, L., Moeremans, K., Lamotte, M., Garcia Conde, J., van den
+Berg, H., Myint, H., Pieters, R. & Uyttebroeck, A. (2003) Incidence,
+medical resource utilisation and costs of hyperuricemia and tumourlysis syndrome in patients with acute leukaemia and non-Hodgkin’s
+lymphoma in four European countries. Leukaemia & Lymphoma ,44,
+77–83.
+Arseneau, J.C., Canellos, G.P., Banks, P.M., Berard, C.W., Gralnick,
+H.R. & DeVita, Jr, V.T. (1975) American Burkitt’s lymphoma: a
+clinicopathologic study of 30 cases. I. Clinical factors relating to
+prolonged survival. American Journal of Medicine ,58,314–321.
+Baeksgaard, L. & Sorensen, J.B. (2003) Acute tumor lysis syndrome in
+solid tumors–a case report and review of the literature. Cancer
+Chemotherapy and Pharmacology ,51,187–192.
+Bertrand, Y., Mechinaud, F., Brethon, B., Mialou, V., Auvrignon, A.,
+Nelken, B., Notz-Carrere, A., Plantaz, D., Patte, C., Urbieta, M.,
+Baruchel, A. & Leverger, G. (2008) SFCE (Societe Francaise de Luttecontre les Cancers et Leucemies de l’Enfant et de l’Adolescent)
+recommendations for the management of tumor lysis syndrome
+(TLS) with rasburicase: an observational survey. Journal of Pediatric
+Hematology/oncology ,30,267–271.Bosly, A., Sonet, A., Pinkerton, C.R., McCowage, G., Bron, D., Sanz, M.A.
+& Van den Berg, H. (2003) Rasburicase (recombinant urate oxidase)for the management of hyperuricemia in patients with cancer: reportof an international compassionate use study. Cancer ,98,1048–1054.
+Cairo, M.S. & Bishop, M. (2004) Tumour lysis syndrome: new ther-
+apeutic strategies and classiﬁcation. British Journal of Haematology ,
+127, 3–11.
+Calvo-Villas, J.M., Urcuyo, B.M., Umpierrez, A.M. & Sicilia, F. (2008)
+Acute tumor lysis syndrome during oral ﬂudarabine treatment forchronic lymphocytic leukemia. Role of treatment with rasburicase.
+Onkologie ,31,197–199.
+Candrilli, S., Bell, T., Irish, W., Morris, E., Goldman, S. & Cairo, M.S.
+(2008) A comparison of inpatient length of stay and costs among
+patients with hematologic malignancies (excluding hodgkin disease)
+associated with and without acute renal failure. Clinical Lymphoma
+& Myeloma ,8,44–51.
+Chen, R.L. & Chuang, S.S. (2009) Transient spontaneous remission
+after tumor lysis syndrome triggered by a severe pulmonary infec-
+tion in an adolescent boy with acute lymphoblastic leukemia. Journal
+of Pediatric Hematology/oncology ,31,76–79.
+Cheson, B.D., Frame, J.N., Vena, D., Quashu, N. & Sorensen, J.M.
+(1998) Tumor lysis syndrome: an uncommon complication ofﬂudarabine therapy of chronic lymphocytic leukemia. Journal
+of Clinical Oncology ,16,2313–2320.
+Choi, K.A., Lee, J.E., Kim, Y.G., Kim, D.J., Kim, K., Ko, Y.H., Oh, H.Y.,
+Kim, W.S. & Huh, W. (2009) Efﬁcacy of continuous venovenoushemoﬁltration with chemotherapy in patients with Burkitt lym-
+phoma and leukemia at high risk of tumor lysis syndrome. Annals of
+Hematology ,88,639–645.
+Coifﬁer, B., Altman, A., Pui, C.H., Younes, A. & Cairo, M.S. (2008)
+Guidelines for the management of pediatric and adult tumor lysis
+syndrome: an evidence-based review. Journal of Clinical Oncology ,
+26,2767–2778.
+DeConti, R.C. & Calabresi, P. (1966) Use of allopurinol for prevention
+and control of hyperuricemia in patients with neoplastic disease.New England Journal of Medicine ,274,
+481–486.
+Dillman, R.O. & Hendrix, C.S. (2003) Unique aspects of supportive
+care using monoclonal antibodies in cancer treatment. Supportive
+Cancer Therapy ,1,38–48.
+Drakos, P., Bar-Ziv, J. & Catane, R. (1994) Tumor lysis syndrome in
+nonhematologic malignancies. Report of a case and review of the
+literature. American Journal of Clinical Oncology ,17,502–505.
+Francescone, S.A., Murphy, B., Fallon, J.T., Hammond, K. & Pinney, S.
+(2009) Tumor lysis syndrome occurring after the administration of
+rituximab for posttransplant lymphoproliferative disorder. Trans-
+plantation Proceedings ,41,1946–1948.
+Hande, K.R. & Garrow, G.C. (1993) Acute tumor lysis syndrome in
+patients with high-grade non-Hodgkin’s lymphoma. American
+Journal of Medicine ,94,133–139.
+Harbour, R. & Miller, J. (2001) A new system for grading recom-
+mendations in evidence based guidelines. BMJ,323, 334–336.
+Hochberg, J. & Cairo, M.S. (2008) Tumor lysis syndrome: current
+perspective. Haematologica ,93,9–13.
+Hsu, H.H., Chan, Y.L. & Huang, C.C. (2004) Acute spontaneous tumor
+lysis presenting with hyperuricemic acute renal failure: clinicalfeatures and therapeutic approach. Journal of Nephrology ,17,50–56.
+Hummel, M., Buchheidt, D., Reiter, S., Bergmann, J., Adam, K. &
+Hehlmann, R. (2005) Recurrent chemotherapy-induced tumorlysis syndrome (TLS) with renal failure in a patient with chronicM. S. Cairo et al
+584 ª2010 Blackwell Publishing Ltd, British Journal of Haematology ,149, 578–586
+ 13652141, 2010, 4, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/j.1365-2141.2010.08143.x by Medical University Of South Carolina, Wiley Online Library on [12/11/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+lymphocytic leukemia - successful treatment and prevention of TLS
+with low-dose rasburicase. European Journal of Haematology ,75,
+518–521.
+Hussain, K., Mazza, J.J. & Clouse, L.H. (2003) Tumor lysis syndrome
+(TLS) following ﬂudarabine therapy for chronic lymphocytic leu-
+kemia (CLL): case report and review of the literature. American
+Journal of Hematology ,72,212–215.
+Kalemkerian, G.P., Darwish, B. & Varterasian, M.L. (1997) Tumor lysis
+syndrome in small cell carcinoma and other solid tumors. American
+Journal of Medicine ,103, 363–367.
+Konuma, T., Ooi, J., Takahashi, S., Tomonari, A., Tsukada, N., Kato,
+S., Sato, A., Monma, F., Uchimaru, K. & Tojo, A. (2008) Fatal acutetumor lysis syndrome following intrathecal chemotherapy for acute
+lymphoblastic leukemia with meningeal involvement. Internal
+Medicine ,47,1987–1988.
+Kunkel, L., Wong, A., Maneatis, T., Nickas, J., Brown, T., Grillo-Lopez,
+A., Benyunes, M., Grobman, B. & Dillman, R.O. (2000) Optimizing
+the use of rituximab for treatment of B-cell non-Hodgkin’s lym-
+phoma: a beneﬁt-risk update. Seminars in Oncology ,27,53–61.
+Landgrebe, A.R., Nyhan, W.L. & Coleman, M. (1975) Urinary-tract
+stones resulting from the excretion of oxypurinol. New England
+Journal of Medicine ,292, 626–627.
+Levine, A.M. (2002) Challenges in the management of Burkitt’s lym-
+phoma. Clinical Lymphoma ,3(Suppl. 1) ,S19–S25.
+Lin, T.S. (2008) Novel agents in chronic lymphocytic leukemia: efﬁcacy
+and tolerability of new therapies. Clinical Lymphoma & Myeloma ,
+8(Suppl. 4) ,S137–S143.
+Lin, C.J., Chen, H.H., Hsieh, R.K., Chen, Y.C. & Wu, C.J. (2009) Acute
+tumor lysis syndrome in a hemodialysis patient with diffuse large Bcell lymphoma. Medical Oncology ,26,93–95.
+Locatelli, F. & Rossi, F. (2005) Incidence and pathogenesis of tumor
+lysis syndrome. Contributions to Nephrology ,147, 61–68.
+Michallet, A.S., Tartas, S. & Coifﬁer, B. (2005) Optimizing manage-
+ment of tumor lysis syndrome in adults with hematologic malig-
+nancies. Supportive Cancer Therapy ,2,159–166.
+Montesinos, P., Lorenzo, I., Martin, G., Sanz, J., Perez-Sirvent, M.L.,
+Martinez, D., Orti, G., Algarra, L., Martinez, J., Moscardo, F., de la
+Rubia, J., Jarque, I., Sanz, G. & Sanz, M.A. (2008) Tumor lysissyndrome in patients with acute myeloid leukemia: identiﬁcation ofrisk factors and development of a predictive model. Haematologica ,
+93,67–74.
+Navolanic, P.M., Pui, C.H., Larson, R.A., Bishop, M.R., Pearce, T.E.,
+Cairo, M.S., Goldman, S.C., Jeha, S.C., Shanholtz, C.B., Leonard, J.P.
+& McCubrey, J.A. (2003) Elitek-rasburicase: an effective means to
+prevent and treat hyperuricemia associated with tumor lysis syn-drome, a Meeting Report, Dallas, Texas, January 2002. Leukemia ,17,
+499–514.
+Phelps, M.A., Lin, T.S., Johnson, A.J., Hurh, E., Rozewski, D.M.,
+Farley, K.L., Wu, D., Blum, K.A., Fischer, B., Mitchell, S.M., Moran,M.E., Brooker-McEldowney, M., Heerema, N.A., Jarjoura, D.,
+Schaaf, L.J., Byrd, J.C., Grever, M.R. & Dalton, J.T. (2009) Clinical
+response and pharmacokinetics from a phase 1 study of an activedosing schedule of ﬂavopiridol in relapsed chronic lymphocytic
+leukemia. Blood ,
+113, 2637–2645.
+Seidemann, K., Meyer, U., Jansen, P., Yakisan, E., Rieske, K., Fuhrer,
+M., Kremens, B., Schrappe, M. & Reiter, A. (1998) Impaired renal
+function and tumor lysis syndrome in pediatric patients with non-
+Hodgkin’s lymphoma and B-ALL. Observations from the BFM-tri-als.Klinische Padiatrie ,210, 279–284.Stapleton, F.B., Strother, D.R., Roy, III, S., Wyatt, R.J., McKay, C.P. &
+Murphy, S.B. (1988) Acute renal failure at onset of therapy foradvanced stage Burkitt lymphoma and B cell acute lymphoblasticlymphoma. Pediatrics ,82,863–869.
+Tosi, P., Barosi, G., Lazzaro, C., Liso, V., Marchetti, M., Morra, E.,
+Pession, A., Rosti, G., Santoro, A., Zinzani, P.L. & Tura, S. (2008)Consensus conference on the management of tumor lysis syndrome.
+Haematologica ,93,1877–1885.
+Truong, T.H., Beyene, J., Hitzler, J., Abla, O., Maloney, A.M., Weitz-
+man, S. & Sung, L. (2007) Features at presentation predict children
+with acute lymphoblastic leukemia at low risk for tumor lysis syn-
+drome. Cancer ,110, 1832–1839.
+Tsokos, G.C., Balow, J.E., Spiegel, R.J. & Magrath, I.T. (1981) Renal
+and metabolic complications of undifferentiated and lymphoblastic
+lymphomas. Medicine (Baltimore) ,60,218–229.
+Vaisban, E., Zaina, A., Braester, A., Manaster, J. & Horn, Y. (2001)
+Acute tumor lysis syndrome induced by high-dose corticosteroids in
+a patient with chronic lymphatic leukemia. Annals of Hematology ,
+80,314–315.
+Vaisban, E., Braester, A., Mosenzon, O., Kolin, M. & Horn, Y. (2003)
+Spontaneous tumor lysis syndrome in solid tumors: really a rare
+condition? American Journal of the Medical Sciences ,325, 38–40.
+Wossmann, W., Schrappe, M., Meyer, U., Zimmermann, M. & Reiter,
+A. (2003) Incidence of tumor lysis syndrome in children with ad-
+vanced stage Burkitt’s lymphoma/leukemia before and after intro-duction of prophylactic use of urate oxidase. Annals of Hematology ,
+82,160–165.
+Yim, B.T., Sims-McCallum, R.P. & Chong, P.H. (2003) Rasburicase for
+the treatment and prevention of hyperuricemia. Annals of Phar-
+macotherapy ,37,1047–1054.
+Appendix I
+TLS Expert Panel
+Steering committee: Mitchell S. Cairo (Department of Pedi-
+atrics, Medicine and Pathology, Columbia University, NewYork, NY, USA), Bertrand Coifﬁer (Department of Haema-tology, Hospices Civils de Lyon and University ClaudeBernard, Lyon, France), Alfred Reiter (Children’s University
+Hospital, Division of Paediatric Haematology and Oncology,
+Justus-Liebig University, Giessen, Germany) and Anas Younes(The University of Texas M.D. Anderson Cancer Center,Houston, TX, USA).
+Participants: Andre ´Baruchel (Department of Haematology,
+Hoˆpital Saint-Louis, AP-HP, and University Pari Diderot,
+Paris, France), Andre ´Bosly (Department of Haematology,
+University Hospital of Mont-Godinne, Yvoir, Belgium), Stan C.
+Goldman (Department of Pediatric Hematology/Oncology,
+North Texas Hospital for Children at Medical City, Dallas, TX,USA), Guy Leverger (Department of Paediatric HaematologyOncology, Ho ˆpital Armand-Trousseau, AP-HP, Paris, France),
+Kazuma Ohyashiki (First Department of Internal Medicine,Tokyo Medical College, Tokyo, Japan), Panagiotis Panagiotidis(Aristotle University of Thessaloniki, Thelassoniki, Greece),Andrea Pession (Clinica Pediatrica, Universita `di Bologna,TLS Risk Classiﬁcation in Adults/Children with Malignancies
+ª2010 Blackwell Publishing Ltd, British Journal of Haematology ,149, 578–586 585
+ 13652141, 2010, 4, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/j.1365-2141.2010.08143.x by Medical University Of South Carolina, Wiley Online Library on [12/11/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+Bologna, Italy), Ching-Hon Pui (Department of Oncology, St
+Jude Children’s Research Hospital, and the University ofTennessee Health Science Center, Memphis, TN, USA), Jose-Maria Ribera (Clinical Haematology Department, InstitutCatala `d’Oncologia-Hospital Universitari Germans Trias i
+Pujol, Badalona, Universitat Auto `noma de Barcelona, Barce-
+lona, Spain), Giovanni Rosti (Oncology Unit, OspedaleRegionale, Treviso, Italy), Simon Rule (Derriford Hospital,
+Plymouth Hospitals NHS Trust, Plymouth, UK), IchiroTsukimoto (Children’s Medical Centre & Institute of SeverelyHandicapped Children, Saiseikai Yokohamashi Tobu Hospital,Kanagawa, Japan), Pier-Luigi Zinzani (Haematology Unit,Istituto Seragnoli, Ospedale Sant’Orsola Malpighi, Bologna,Italy).M. S. Cairo et al
+586
+ª2010 Blackwell Publishing Ltd, British Journal of Haematology ,149, 578–586
+ 13652141, 2010, 4, Downloaded from https://onlinelibrary.wiley.com/doi/10.1111/j.1365-2141.2010.08143.x by Medical University Of South Carolina, Wiley Online Library on [12/11/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+

@@ -1,0 +1,596 @@
+STATE-OF-THE-ART PAPER
+Cardiorenal Syndrome
+Claudio Ronco, MD,* Mikko Haapio, MD,† Andrew A. House, MS C, MD,‡ Nagesh Anavekar, MD,§
+Rinaldo Bellomo, MD¶
+Vicenza, Italy; Helsinki, Finland; London, Ontario, Canada; and Melbourne, Australia
+The term cardiorenal syndrome (CRS) increasingly has been used without a consistent or well-accepted deﬁni-
+tion. To include the vast array of interrelated derangements, and to stress the bidirectional nature of heart-kidney interactions, we present a new classiﬁcation of the CRS with 5 subtypes that reﬂect the pathophysiology,the time-frame, and the nature of concomitant cardiac and renal dysfunction. CRS can be generally deﬁned as apathophysiologic disorder of the heart and kidneys whereby acute or chronic dysfunction of 1 organ may induceacute or chronic dysfunction of the other. Type 1 CRS reﬂects an abrupt worsening of cardiac function (e.g.,acute cardiogenic shock or decompensated congestive heart failure) leading to acute kidney injury. Type 2 CRScomprises chronic abnormalities in cardiac function (e.g., chronic congestive heart failure) causing progressivechronic kidney disease. Type 3 CRS consists of an abrupt worsening of renal function (e.g., acute kidney isch-emia or glomerulonephritis) causing acute cardiac dysfunction (e.g., heart failure, arrhythmia, ischemia). Type 4CRS describes a state of chronic kidney disease (e.g., chronic glomerular disease) contributing to decreased car-diac function, cardiac hypertrophy, and/or increased risk of adverse cardiovascular events. Type 5 CRS reﬂects asystemic condition (e.g., sepsis) causing both cardiac and renal dysfunction. Biomarkers can contribute to anearly diagnosis of CRS and to a timely therapeutic intervention. The use of this classiﬁcation can help physicianscharacterize groups of patients, provides the rationale for speciﬁc management strategies, and allows the de-sign of future clinical trials with more accurate selection and stratiﬁcation of the population underinvestigation. (J Am Coll Cardiol 2008;52:1527–39) © 2008 by the American College of Cardiology Foundation
+A large proportion of patients admitted to hospital have
+various degrees of heart and kidney dysfunction (1). Primarydisorders of 1 of these 2 organs often result in secondarydysfunction or injury to the other (2). Such interactionsrepresent the pathophysiological basis for a clinical entitycalled cardiorenal syndrome (CRS) (3). Although generallydeﬁned as a condition characterized by the initiation and/orprogression of renal insufﬁciency secondary to heart failure(4), the term CRS is also used to describe the negativeeffects of reduced renal function on the heart and circulation(5). The absence of a clear deﬁnition and the complexity ofthis cluster of conditions contribute to lack of clarity withregard to diagnosis and management (6). This is unfortu-nate, because recent advances in basic and clinical scienceshave improved our understanding of organ crosstalk andhave demonstrated the efﬁcacy of some therapies in atten-uating both cardiac and renal injury (7). Thus, a more
+articulated deﬁnition in terms of clinical presentation, patho-physiology, diagnosis, and management is needed to explorethe complex nature of CRS and its different clinical subtypes.CRS: A Deﬁnition
+The simplistic view of CRS is that a relatively normal
+kidney is dysfunctional because of a diseased heart, with the
+assumption that, in the presence of a healthy heart, the samekidney would perform normally (8). This concept has been
+recently challenged, and a more articulated deﬁnition of theCRS has been advocated (5). The CRS includes a variety ofacute or chronic conditions, where the primary failing organcan be either the heart or the kidney (9).
+Previous terminology did not allow physicians to identify
+and fully characterize the chronology of the pathophysio-logical interactions that characterize a speciﬁc type ofcombined heart/kidney disorder. A diseased heart has nu-merous negative effects on kidney function but, at the sametime, renal insufﬁciency can signiﬁcantly impair cardiacfunction (9). Thus, direct and indirect effects of each organ
+that is dysfunctional can initiate and perpetuate the com-bined disorder of the 2 organs through a complex combi-nation of neurohormonal feedback mechanisms. For thisreason, a subdivision of CRS into 5 different subtypes seemsto provide a more concise and logically correct approach.CRS type 1 (acute CRS). Type 1 CRS is characterized by
+a rapid worsening of cardiac function, leading to acutekidney injury (AKI) (Fig. 1). Acute heart failure (HF) maybe divided into 4 subtypes: hypertensive pulmonary edemawith preserved left ventricular (LV) systolic function,
+From the *Department of Nephrology, St. Bortolo Hospital, Vicenza, Italy; †Division
+of Nephrology, Helsinki University Central Hospital, Helsinki, Finland; ‡Division ofNephrology, London Health Sciences Centre, London, Ontario, Canada; §Depart-ment of Cardiology, Northern Hospital, Melbourne, Australia; and the ¶Departmentof Intensive Care, Austin Hospital, Melbourne, Australia.
+Manuscript received June 12, 2008; revised manuscript received July 14, 2008,
+accepted July 28, 2008.Journal of the American College of Cardiology Vol. 52, No. 19, 2008
+© 2008 by the American College of Cardiology Foundation ISSN 0735-1097/08/$34.00
+Published by Elsevier Inc. doi:10.1016/j.jacc.2008.07.051
+acutely decompensated chronic
+HF, cardiogenic shock, and pre-dominant right ventricular fail-ure (10). Type 1 CRS is a com-
+mon occurrence. More than 1million patients in the U.S. areadmitted to the hospital everyyear with either de novo acuteHF or acutely decompensatedchronic HF (11). Among thesepatients, pre-morbid chronic re-nal dysfunction is a common oc-currence and predisposes them toAKI (12,13). The mechanismsby which the onset of acute HFor acutely decompensated chronicHF leads to AKI are multipleand complex (4)( Fig. 1). The
+clinical importance of eachmechanism is likely to vary frompatient to patient (e.g., acute car-diogenic shock vs. hypertensivepulmonary edema) and situationto situation (acute HF secondaryto perforation of a mitral valveleaﬂet from endocarditis vs.
+worsening right HF secondary to noncompliance withdiuretic therapy). In acute HF, AKI appears to be moresevere in patients with impaired LV ejection fraction com-pared with those with preserved LV function, achieving anincidence /H1102270% in patients with cardiogenic shock (14).
+Furthermore, impaired renal function is consistently foundas an independent risk factor for 1-year mortality in acuteHF patients, including patients with ST-segment elevationmyocardial infarction (15). A plausible reason for thisindependent effect might be that an acute decline in renalfunction does not simply act as a marker of illness sever-ity but also carries an associated acceleration in cardiovas-cular pathobiology through activation of inﬂammatorypathways (9,16).
+In CRS type 1, a salient clinical issue is how the onset of
+AKI impacts on prognosis and treatment of acute HF. Theﬁrst clinical principle is that the onset of AKI in this settingimplies inadequate renal perfusion until proven otherwise,which should prompt clinicians to consider the diagnosis ofa low cardiac output state and/or marked increase in venouspressure leading to kidney congestion through the use ofphysical examination, ancillary signs, imaging, and labora-tory ﬁndings.
+The second important consequence of type 1 CRS is
+decreased diuretic responsiveness. In a congestive state,decreased response to diuretics may result from the physi-ological phenomena of diuretic braking (diminished diureticeffectiveness secondary to postdiuretic sodium retention)(17) and post-diuretic sodium retention (18). In addition,concerns of aggravating AKI by the administration ofdiuretics at greater doses or in combination also can act as anadditional, iatrogenic mechanism. Diuretics are best pro-vided to HF patients with evidence of systemic ﬂuidoverload with the goal of achieving a gradual diuresis. Loopdiuretics may be titrated according to renal function, systolicblood pressure, and history of chronic diuretic use. Highdoses may cause tinnitus, and a continuous low-dose di-uretic infusion might be more efﬁcient (19).
+Measurement of cardiac output (arterial pressure monitoring
+combined with pulse contour analysis or by Doppler ultra-sound) and venous pressure may help ensure adequate andtargeted diuretic therapy (20–22) and allow safer navigationthrough the precarious situation of combined HF and AKI.If diuretic-resistant ﬂuid overload exists despite an opti-mized cardiac output, removal of isotonic ﬂuid can beachieved by the use of extracorporeal ultraﬁltration ( 23,24).
+The presence of AKI with or without concomitant
+hyperkalemia may also affect patient outcome by inhibitingthe prescription of angiotensin-converting enzyme (ACE)inhibitors, angiotensin receptor blockers (ARBs), and aldo-sterone inhibitors (drugs that have been shown in largerandomized controlled trials to increase survival in thesetting of heart failure and myocardial infarction) (25).
+However, provided there is close monitoring of renal functionand potassium levels, the potential beneﬁts of these interven-tions often outweigh their risks, even in these patients.
+The acute administration of beta-blockers in the setting
+of type 1 CRS generally is not advised. Such therapy shouldwait until the patient has stabilized physiologically and untilconcerns about a low output syndrome have been resolved.In some patients, stroke volume cannot be increased, andrelative or absolute tachycardia sustains the adequacy ofcardiac output. Blockade of such compensatory tachycardiaand sympathetic system-dependent inotropic compensationcan precipitate cardiogenic shock with associated highmortality (26). Particular concern applies to beta-blockersexcreted by the kidney, such as atenolol or sotalol, alone orin combination with calcium antagonists (27). This shouldnot inhibit the slow, careful, titrated administration of beta-blockers later on, once patients are hemodynamically stable.
+In patients with kidney dysfunction, undertreatment after
+myocardial infarction is common (28). Attention should bepaid to preserving renal function, perhaps with the samevigor as we attempt to salvage and protect cardiac muscle.Worsening of renal function during admission for ST-segment elevation myocardial infarction is a powerful andindependent predictor of in-hospital and 1-year mortality(14,15). In patients who receive percutaneous coronaryintervention or cardiac surgery, even a small increase inserum creatinine (/H110220.3 mg/dl) is associated with increasedhospital stay and mortality (29,30). In this context, anincrease in creatinine is not simply a marker of illnessseverity but, rather, it represents the onset of AKI acting asa causative factor for cardiovascular injury accelerationthrough the activation of neurohormonal, immunologicaland inﬂammatory pathways (9,16). No speciﬁc kidney-
+Abbreviations
+and Acronyms
+ACE/H11549angiotensin-
+converting enzyme
+AKI/H11549acute kidney injury
+ARB/H11549angiotensin
+receptor blockerBNP/H11549B-type natriuretic
+peptideCKD/H11549chronic kidney
+diseaseCRS/H11549cardiorenal
+syndromeGFR/H11549glomerular ﬁltration
+rateHF/H11549heart failure
+ICU/H11549intensive care unit
+IL/H11549interleukin
+LV/H11549left ventricular
+NGAL/H11549neutrophil
+gelatinase-associated
+lipocalin
+TNF/H11549tumor necrosis
+factor1528 Ronco et al. JACC Vol. 52, No. 19, 2008
+Cardiorenal Syndrome November 4, 2008:1527–39
+protective treatments have yet emerged for this condition.
+Despite some initial promising results, the use of nesiritideremains controversial, and a recent negative randomizedcontrolled trial in these very patients (31) suggests that thisagent is unlikely to have signiﬁcant clinical beneﬁt.
+A very speciﬁc and common threat to kidney function in
+the setting of acute cardiac disease relates to the adminis-tration of radiocontrast for heart imaging procedures. Thistopic, recently reviewed in the Journal (32), would require
+separate detailed discussion and is beyond the scope of thisarticle. Sufﬁce it to say that this high-risk group requiresappropriate prophylaxis to avoid radiocontrast nephropathy.Given that the presence of type 1 CRS deﬁnes a populationwith high mortality, a prompt, careful, systematic, multi-disciplinary approach involving cardiologists, nephrologists,critical care physicians, and cardiac surgeons is both logicaland desirable.
+In CRS type 1, the early diagnosis of AKI remains a
+challenge (33). This is also true in CRS type 3, where AKIis believed to be the primary inciting factor leading tocardiac dysfunction. In both cases, classic markers such ascreatinine increase when AKI is already established and verylittle can be done to prevent it or to protect the kidney. Aninteresting evolution in the early diagnosis of CRS has beenthe discovery of novel AKI biomarkers. With the use of acomplementary deoxyribonucleic acid microarray as ascreening technique, a subset of genes whose expression isup-regulated within the ﬁrst few hours after renal injury hasbeen discovered (34,35).
+Neutrophil gelatinase-associated lipocalin (NGAL) ap-
+pears to be one of the earliest markers detected in the bloodand urine of humans with AKI (36–39). Urine and serumNGAL are early predictors of AKI both in adult andchildren either in cardiac surgery or patients in the intensivecare unit (ICU) (40,41). In these patients, an increase in
+creatinine is observed only 48 to 72 h later (42). NGAL
+is also a biomarker of delayed graft function in kidneytransplantation (43), AKI caused by contrast-media (44),and AKI in critically ill patients admitted to intensivecare (45). Figure 1 CRS Type 1
+Pathophysiological interactions between heart and kidney in type 1 cardiorenal syndrome (CRS) or “acute CRS” (abrupt worsening of cardiac function, e.g., acute cardio-
+genic shock or acute decompensation of chronic heart failure) leading to kidney injury. ACE /H11005angiotensin-converting enzyme; ANP /H11005atrial natriuretic peptide; BNP /H11005
+B-type natriuretic peptide; CO /H11005cardiac output; GFR /H11005glomerular ﬁltration rate; KIM /H11005kidney injury molecule; N-GAL /H11005neutrophil gelatinase-associated lipocalin; RAA
+/H11005renin angiotensin aldosterone. Figure illustration by Rob Flewell.1529 JACC Vol. 52, No. 19, 2008 Ronco et al.
+November 4, 2008:1527–39 Cardiorenal Syndrome
+Cystatin C appears to be a better predictor of glomerular
+function than serum creatinine in patients with chronic
+kidney disease (CKD) because its blood levels are notaffected by age, gender, race, or muscle mass (46). Cystatin
+C predicts AKI and the requirement for renal replacementtherapy earlier than creatinine (47). Serum cystatin C hasbeen compared with NGAL in cardiac surgery-mediatedAKI (48). Both biomarkers predicted AKI at 12 h, althoughNGAL outperformed cystatin C at earlier time points.Considering them together, they may represent a combina-tion of structural and functional damage of the kidney.
+Kidney injury molecule 1 is a protein detectable in the
+urine after ischemic or nephrotoxic insults to proximaltubular cells (49–51) and seems to be highly speciﬁc for
+ischemic AKI. Combined with NGAL which is highlysensitive, it may represent an important marker in the earlyphases of AKI.
+Biomarkers such as N-acetyl-
+/H9252-(D)glucosaminidase (52),
+interleukin (IL)-18 (53) and others reported in Table 1 have
+been proposed as an interesting and promising contributionto diagnosis of AKI and progression of CKD. The mostlikely evolution will be a “panel” of biomarkers that includeseveral molecules both in serum and urine that combinetheir best characteristics in terms of speciﬁcity and sensitiv-ity of each marker molecule.CRS type 2 (chronic CRS). Type 2 CRS is characterized
+by chronic abnormalities in cardiac function (e.g., chroniccongestive HF) causing progressive CKD ( Fig. 2). Wors-
+ening renal function in the context of HF is associated withadverse outcomes and prolonged hospitalizations (32). The
+prevalence of renal dysfunction in chronic HF has beenreported to be approximately 25% (54). Even slight de-
+creases in estimated glomerular ﬁltration rate (GFR) signif-icantly increase mortality risk (54) and are considered amarker of severity of vascular disease (55). Independentpredictors of worsening function include old age, hyperten-sion, diabetes mellitus, and acute coronary syndromes.
+The mechanisms underlying worsening renal function
+likely differs based on acute versus chronic HF. Chronic HFis likely to be characterized by a long-term situation ofreduced renal perfusion, often predisposed by microvascularand macrovascular disease. Although a greater proportion ofpatients with low estimated GFR have a worse New YorkHeart Association functional class, no evidence of associa-tion between LV ejection fraction and estimated GFR canbe consistently demonstrated. Thus, patients with chronicHF and preserved LV function appear to have similarestimated GFR than patients with impaired LV (ejectionfraction /H1102145%) (55).
+There is very limited understanding of the pathophys-
+iology of renal dysfunction in the setting of even ad-vanced cardiac failure. In this setting, where one wouldintuitively consider hemodynamic issues to be dominant,the ESCAPE (Evaluation Study of Congestive Heart Fail-ure and Pulmonary Catheterization Effectiveness) trial (56)found no link between any pulmonary artery catheter-measured hemodynamic variables and serum creatinine in194 patients. The only link was with right atrial pressure,suggesting that renal congestion may be more importantthan appreciated. Clearly, hypoperfusion alone cannot ex-plain renal dysfunction in this setting. More work needs to
+be performed to understand the mechanisms at play to developtargeted and physiologically sound approaches to treatment.
+Neurohormonal abnormalities are present with excessive
+production of vasoconstrictive mediators (epinephrine, an-giotensin, endothelin) and altered sensitivity and/or releaseof endogenous vasodilatory factors (natriuretic peptides,nitric oxide). Pharmacotherapies used in the managementof HF may worsen renal function. Diuresis-associatedhypovolemia, early introduction of renin-angiotensin-aldosterone system blockade, and drug-induced hypoten-sion have all been suggested as contributing factors (4 ).
+More recently, there has been increasing interest in the
+pathogenic role of relative or absolute erythropoietin deﬁ-ciency contributing to a more pronounced anemia in thesepatients than might be expected for renal failure alone (57).Erythropoietin receptor activation in the heart may protectit from apoptosis, ﬁbrosis, and inﬂammation ( 58,59). Pre-
+liminary clinical studies show that erythropoiesis-stimulating agents in patients with chronic HF, CKD, andanemia lead to improved cardiac function, reduction in LVsize, and the lowering of B-type natriuretic peptide (BNP)(60). Patients with type 2 CRS are more likely to receiveloop diuretics and vasodilators and also to receive greaterdoses of such drugs compared with those patients withstable renal function (61). Treatment with these drugs mayparticipate in the development and progression of renalinjury. However, such therapies may simply identify patientswith severe hemodynamic compromise and, thus, a predis-position to renal dysfunction rather than being responsiblefor worsening function.
+Renal insufﬁciency is highly prevalent among patients
+with HF and is an independent negative prognostic factor inboth diastolic and systolic ventricular dysfunction and severeHF (62). The logical practical implications of the plethora
+Protein Biomarkers forthe Early Detection of Acute Kidney Injury
+Table 1Protein Biomarkers for
+the Early Detection of Acute Kidney Injury
+Biomarker Associated Injury
+Cystatin C Proximal tubule injury
+KIM-1 Ischemia and nephrotoxins
+NGAL (lipocalin) Ischemia and nephrotoxins
+NHE3 Ischemia, pre-renal, post-renal AKI
+Cytokines (IL-6, IL-8, IL-18) Toxic, delayed graft function
+Actin-actin depolymerizing F Ischemia and delayed graft function
+/H9251-GST Proximal T injury, acute rejection
+/H9266-GST Distal tubule injury, acute rejection
+L-FABP Ischemia and nephrotoxins
+Netrin-1 Ischemia and nephrotoxins, sepsis
+Keratin-derived chemokine Ischemia and delayed graft function
+GST/H11005glutathione S-transferase; IL /H11005interleukin; KIM /H11005kidney injury molecule; L-FABP /H11005L-type
+fatty acid binding protein; NGAL /H11005neutrophil gelatinase-associated lipocalin; NHE /H11005sodium-
+hydrogen exchanger.1530 Ronco et al. JACC Vol. 52, No. 19, 2008
+Cardiorenal Syndrome November 4, 2008:1527–39
+of data linking CKD with cardiovascular disease are that
+more attention needs to be paid to reducing risk factors andoptimizing medications in these patients and that under-treatment due to concerns about pharmacodynamics in thissetting may have lethal consequences at an individual leveland huge potential adverse consequences at a public healthlevel. Nonetheless, it is equally important to acknowledgethat clinicians looking after these patients often are facedwith competing therapeutic choices and that, with theexception of MERIT-HF (Metoprolol Controlled-ReleaseRandomised Intervention Trial in Heart Failure) ( 63), large
+randomized controlled trials that have shaped the treatmentof chronic HF in the last 2 decades have consistentlyexcluded patients with signiﬁcant renal disease. More on theuse of speciﬁc agents is covered in the sections on type 3 and4 CRS.CRS type 3 (acute renocardiac syndrome). Type 3 CRS is
+characterized by an abrupt and primary worsening of kidneyfunction (e.g., AKI, ischemia, or glomerulonephritis), lead-ing to acute cardiac dysfunction (e.g., HF, arrhythmia,ischemia). Type 3 CRS appears less common than type 1CRS, but this may only be due to the fact that, unlike type1 CRS, it has not been systematically studied. AKI is agrowing disorder in hospital and ICU patients. When theRIFLE (risk, injury, and failure; loss; and end-stage kidneydisease) consensus deﬁnition is used, AKI has been identi-ﬁed in close to 9% of hospital patients ( 64). In a large ICU
+database, AKI was observed in more than 35% of patients(65). Acute kidney injury can affect the heart throughseveral pathways (Fig. 3), whose hierarchy is not yetestablished. Fluid overload can contribute to the develop-ment of pulmonary edema. Hyperkalemia can contribute toarrhythmias and may cause cardiac arrest. Untreated uremiaaffects myocardial contractility through the accumulation ofmyocardial depressant factors (66) and pericarditis (67).Acidemia produces pulmonary vasoconstriction ( 68), which
+can signiﬁcantly contribute to right-sided HF. Acidemiaappears to have a negative inotropic effect (69) and might,together with electrolyte imbalances, contribute to an in-creased risk of arrhythmias (70). Finally, renal ischemia
+Figure 2 CRS Type 2
+Pathophysiological interactions between heart and kidney in type 2 cardiorenal syndrome (CRS) or “chronic CRS” (chronic abnormalities in cardiac function,
+e.g., chronic heart failure) causing progressive chronic kidney disease (CKD). Figure illustration by Rob Flewell. LVH /H11005left ventricular hypertrophy; RAA /H11005renin angioten-
+sin aldosterone.1531 JACC Vol. 52, No. 19, 2008 Ronco et al.
+November 4, 2008:1527–39 Cardiorenal Syndrome
+itself may precipitate activation of inﬂammation and apo-
+ptosis at cardiac level (9).
+A unique situation leading to type 3 CRS is bilateral
+renal artery stenosis (or unilateral stenosis in a solitarykidney). Patients with this condition may be prone toacute or decompensated HF because of diastolic dysfunc-tion related to chronic increase of blood pressure fromexcessive activation of the renin-angiotensin-aldosteroneaxis, renal dysfunction with sodium and water retention,and acute myocardial ischemia from an increase inmyocardial oxygen demand related to intense peripheralvasoconstriction (71,72). In these patients, angiotensinblockade is generally required to manage the hyperten-sion and HF. However, the GFR is highly dependentupon angiotensin and signiﬁcant decompensation of kid-ney function may ensue. Although the management ofthese unusual patients has not been subject to scrutiny inlarge randomized trials, those exhibiting renal decom-pensation with ACE inhibition or ARB are likely candi-dates for renal revascularization (72).
+Sensitive and speciﬁc biomarkers of cardiac injury may
+help physicians to diagnose and treat type 3 CRS earlier and
+perhaps more effectively (73). Cardiac troponins are bio-markers for ischemic myocardial injury (74,75), and theycorrelate with outcomes in the general population and
+speciﬁcally in renal patients (76–78). A marker of myocyte
+stress is BNP and allows the diagnosis of acute and acutelydecompensated chronic HF (79). It also is an independentpredictor of cardiovascular events and overall mortality inthe general population (80,81) and also in patients with
+renal insufﬁciency (82–84). In HF, despite high levels ofserum BNP, its physiological effects (vasodilatory, diuretic,and natriuretic) do not appear sufﬁcient to prevent thedisease progression and CRS. Recent ﬁndings suggest aresistance to BNP (85) and/or a relative preponderance ofthe biologically inactive precursor of BNP (86). In CRStype 4 (discussed in the following text), an associationbetween increased levels of BNP and the accelerated pro-gression of nondiabetic CKD to end-stage kidney diseasehas been observed (87).
+Myeloperoxidase is a marker of altered myocyte metabolism,
+oxidative stress, and inﬂammation, especially in acute coronarysyndrome (88). Oxidative stress may cause myocyte apoptosisand necrosis, and it is associated with arrhythmias and endo-
+thelial dysfunction with a potential role in the pathogenesis ofCRS (89). Cytokines such as tumor necrosis factor (TNF),IL-1, and IL-6 may have a diagnostic role as early biomarkersof CRS, but also a pathogenic role causing myocardial cell
+Figure 3 CRS Type 3
+Pathophysiological interactions between heart and kidney in type 3 CRS or “acute renocardiac syndrome” (abrupt worsening of renal function, e.g., acute kidney failure
+or glomerulonephritis) causing acute cardiac disorder (e.g., heart failure, arrhythmia, pulmonary edema). MPO /H11005myeloperoxidase; other abbreviations as in Figure 1.
+Figure illustration by Rob Flewell.1532 Ronco et al. JACC Vol. 52, No. 19, 2008
+Cardiorenal Syndrome November 4, 2008:1527–39
+injury and apoptosis (90,91) and mediating myocardial damage
+in ischemic AKI (92).
+The development of AKI can affect the use of medica-
+tions normally prescribed in patients with chronic HF. Forexample, an increase in serum creatinine from 1.5 mg/dl(130
+/H9262mol/l) to 2 mg/dl (177 /H9262mol/l), with diuretic therapy
+and ACE inhibitors, may provoke some clinicians to de-crease or even stop diuretic prescription; they may alsodecrease or even temporarily stop ACE inhibitors. Thismay, in some cases, lead to acute decompensation of HF. Itshould be remembered that ACE inhibitors do not damagethe kidney but rather modify intrarenal hemodynamics andreduce ﬁltration fraction. They protect the kidney by reduc-ing pathological hyperﬁltration. Unless renal function failsto stabilize, or other dangerous situations arise (i.e., hypo-tension, hyperkalemia) continued treatment with ACEinhibitors and ARBs may be feasible.
+Finally, if AKI is severe and renal replacement therapy is
+necessary, cardiovascular instability generated by rapid ﬂuidand electrolyte shifts secondary to conventional dialysis caninduce hypotension, arrhythmias, and myocardial ischemia(93). Continuous techniques of renal replacement, whichminimize such cardiovascular instability, appear physiolog-ically safer and more logical in this setting (94).CRS type 4 (chronic renocardiac syndrome). Type 4
+CRS is characterized by a condition of primary CKD (e.g.,chronic glomerular disease) contributing to decreased car-diac function, ventricular hypertrophy, diastolic dysfunc-tion, and/or increased risk of adverse cardiovascular events(Fig. 4). Today, CKD is divided into 5 stages based on acombination of severity of kidney damage and GFR (95).
+When these criteria are used, current estimates of CKD
+account for at least 11% of the U.S. adult population ( 96),
+thus becoming a major public health problem. In fact CKDtoday includes individuals with serum creatinine levelspreviously dismissed as not representative of signiﬁcantrenal dysfunction.
+Individuals with CKD are at extremely high cardiovas-
+cular risk (97). More than 50% of deaths in CKD stage 5
+cohorts are attributed to cardiovascular disease. The 2-yearmortality rate after myocardial infarction in patients withCKD stage 5 is estimated to be 50% (98). In comparison,the 10-year mortality rate post-infarct for the generalpopulation is 25%. Patients with CKD have between a 10-and 20-fold increased risk of cardiac death compared withage-/gender-matched control subjects without CKD (98–100). Part of this problem may be related to the fact thatsuch individuals are also less likely to receive risk-modifyinginterventions compared to their non-CKD counterparts ( 101).
+Less severe forms of CKD also may be associated with
+signiﬁcant cardiovascular risk. Evidence for increasing cardio-vascular disease morbidity and mortality tracking with mild-to-moderate renal dysfunction (stages 1 to 3) has mainlystemmed from community-based studies ( 102–105). These
+studies documented an inverse relationship between renalfunction and adverse cardiovascular outcomes (consistently
+occurring at estimated GFR levels /H1102160 ml/min/1.73 m
+2).
+Among high-risk cohorts, baseline creatinine clearance is
+a signiﬁcant and independent predictor of short-term out-comes, namely death and myocardial infarction (99). Similarﬁndings also were noted among patients presenting withST-segment elevation myocardial infarction ( 106), an effect
+independent of the Thrombolysis In Myocardial Infarctionrisk score (107).
+In large-scale studies (e.g., SOLVD [Studies Of Left
+Ventricular Dysfunction], TRACE [Trandolapril CardiacEvaluation], SAVE [Survival And Ventricular Enlarge-ment], and VALIANT [Valsartan in Acute MyocardialInfarction]) in which the authors excluded individuals withbaseline serum creatinine of /H113502.5 mg/dl, reduced renal
+function was associated with signiﬁcantly greater mortalityand adverse cardiovascular event rates (108–111).
+Adverse cardiovascular outcomes in renal patients are
+associated with plasma levels of speciﬁc biomarkers(112–114). Troponins, asymmetric dimethylarginine,
+plasminogen-activator inhibitor type 1, homocysteine, na-triuretic peptides, C-reactive protein, serum amyloid Aprotein, hemoglobin, and ischemia-modiﬁed albumin arebiomarkers whose levels correlate with cardiovascular out-comes in patients with CKD (115–117). These observationsprovide a mechanistic link between chronic inﬂammation(118), subclinical infections (119), accelerated atherosclero-
+sis, heart–kidney interactions, and negative cardiovascularand renal outcomes.
+The proportion of individuals with CKD receiving ap-
+propriate cardiovascular risk modiﬁcation treatment is lowerthan in the general population. This “therapeutic nihilism”(120) is based on the concern of worsening kidney function
+(121,122) and leads to treating /H1102150% of patients with CKD
+with the combination of aspirin, beta-blockers, ACE inhib-itors, and statins (123). In a cohort involving /H11022140,000
+patients, 1,025 with documented CKD were less likely toreceive aspirin, beta-blockade, or ACE inhibition afterinfarction than patients without CKD. Yet CKD patientshad 30-day mortality risk reductions similar to non-CKDpatients when receiving the drug combination (123).
+Potential reasons for this subtherapeutic performance
+include concerns about further worsening of renal function,and/or therapy-related toxic effects due to low clearancerates (124,125). Many medications necessary for manage-ment of complications of advanced CKD generally areconsidered safe with concomitant cardiac disease. Theseinclude regimens for calcium-phosphate balance and hyper-parathyroidism, vitamins, and erythropoiesis-stimulatingagents (126–129). The same appears to hold true for novelregimens, for instance, endothelin system antagonists,adenosine and vasopressin receptor antagonists, and in-ﬂammation suppressors (130–133). For immunosuppres-sive drugs, controversy exists regarding the effects ofcertain agents on the heart, indicating a need for moreresearch in the area (134).1533 JACC Vol. 52, No. 19, 2008 Ronco et al.
+November 4, 2008:1527–39 Cardiorenal Syndrome
+Bleeding concerns contribute to the decreased likelihood
+of patients with severe CKD receiving aspirin and/or
+clopidogrel despite the minor bleeding risk and beneﬁts thatare sustained in these patients (135). Other medicationsrequiring thorough considerations of pros and cons includediuretics, digitalis, calcium-channel blockers, and nesiritide(136–141). Nevertheless, when appropriately titrated andmonitored, cardiovascular medications can be safely admin-istered to CKD patients with beneﬁts similar to the generalpopulation (142).
+Lack of CKD population-speciﬁc treatment effect data
+makes therapeutic choices particularly challenging. In particu-lar, in patients with advanced CKD, the initiation or increaseddosage of ACE inhibitors or ARBs can precipitate clinicallysigniﬁcant worsening of renal function or marked hyperkale-mia. The latter may be dangerously exacerbated by the use ofFigure 4 CRS Type 4
+Pathophysiological interactions between heart and kidney in type 4 cardiorenal syndrome (CRS) or “chronic renocardiac syndrome” (chronic kidney disease [CKD], e.g.,
+chronic glomerular disease, contributing to decreased cardiac function, cardiac hypertrophy, or increased risk of adverse cardiovascular events). BMI /H11005body mass index;
+EPO/H11005erythropoietin; LDL /H11005low-density lipoprotein. Figure illustration by Rob Flewell.1534 Ronco et al. JACC Vol. 52, No. 19, 2008
+Cardiorenal Syndrome November 4, 2008:1527–39
+aldosterone antagonists. Such patients, if aggressively treated,
+become exposed to a signiﬁcant risk of developing dialysisdependence or life-threatening hyperkalemic arrhythmias. Yet,if too cautiously treated, they may develop equally life-threatening cardiovascular complications.
+It is comforting to note that up to a 30% increase in
+creatinine that stabilizes within 2 months was actuallyassociated with long-term nephroprotection in a systematicreview of 12 randomized controlled studies (143). Thisresult leads to the practical advice that ACE inhibitors andARBs can be cautiously used in patients with CKD,provided the serum creatinine does not increase beyond thisamount and potassium remains consistently /H110215.6 mmol/l.
+Regarding patients with end-stage renal disease, and inparticular those with anuria and a tendency to hyperkalemiainterdialytically, the administration of ACE inhibitors orARBs may be problematic; however, even the combination
+of these medications has been used safely in select popula-tions (144). At present, most end-stage kidney disease
+patients with LV dysfunction seem to be undertreated withACE inhibitors or ARBs (145).With respect to aldosterone blockade, drugs such as spi-
+ronolactone have been widely used for severe HF patients with
+evidence of beneﬁcial effects on morbidity and mortality ( 146).
+Concerns have been raised, however, about the use of aldoste-rone blockade, particularly in conjunction with angiotensinblockade, since after publication of RALES (RandomizedAldactone Evaluation Study) (146), prescriptions for spirono-lactone and rates of hospitalizations and mortality related tohyperkalemia increased sharply (147). Proper patient selection,
+including patients with diminished LV ejection fraction andexcluding ones with moderate CKD (creatinine level /H113502.5
+mg/dl) or hyperkalemia /H110225 mmol/l, would help minimize
+potential life-threatening hyperkalemia (140).
+CRS type 5 (secondary CRS). Type 5 CRS is character-
+ized by the presence of combined cardiac and renal dysfunc-tion due to acute or chronic systemic disorders (Fig. 5).
+There is limited systematic information on type 5 CRS,
+although there is an appreciation that as more organs failin this setting, mortality increases. There is limitedinsight into how combined renal and cardiovascularfailure may differentially affect such an outcome com-
+Organ 
+damage/dysfunctionSympathetic 
+system activation
+Neurohormonal stress
+inflammation
+Hemodynamic changes
+Hypoperfusion
+Perfusion pressure
+RVR
+Ischemia/reperfusion
+Hypoxia
+Oxidative stress
+Toxemia
+Exogenous toxins
+Heme proteins, antibiotics
+Contrast media
+LPS/endotoxin
+Monocyte activation
+CytokinesHeart 
+failure
+Renal 
+insufficiencySystemic diseases
+DiabetesAmyloidosisVasculitisSepsis
+Figure 5 CRS Type 5
+Pathophysiological interactions between heart and kidney in type 5 cardiorenal syndrome (CRS) or “secondary CRS”
+(systemic condition, e.g., diabetes mellitus, sepsis, causing both cardiac and renal dysfunction). LPS /H11005lipopolysaccharide (endotoxin); RVR /H11005renal vascular resistance.
+Figure illustration by Rob Flewell.1535 JACC Vol. 52, No. 19, 2008 Ronco et al.
+November 4, 2008:1527–39 Cardiorenal Syndrome
+pared to, for example, combined pulmonary and renal
+failure. Nonetheless, it is clear that several acute andchronic diseases can affect both organs simultaneouslyand that the disease induced in one can affect the otherand vice versa. Examples include sepsis, diabetes, amy-loidosis, systemic lupus erythematosus, and sarcoidosis.Several chronic conditions such as diabetes and hyper-tension may contribute to type 2 and 4 CRS.
+In the acute setting, severe sepsis represents the most
+common and serious condition which can affect both organs. Itcan induce AKI while leading to profound myocardial depres-sion. The mechanisms responsible for such changes are poorlyunderstood but may involve the effect of TNF and othermediators on both organs (148,149). The onset of myocardialfunctional depression and a state of inadequate cardiac outputcan further decrease renal function as discussed in type 1 CRS,and the development of AKI can affect cardiac function asdescribed in type 3 CRS. Renal ischemia may then inducefurther myocardial injury (9 ) in a vicious cycle, which is
+injurious to both organs. Treatment is directed at the promptidentiﬁcation, eradication, and treatment of the source ofinfection while supporting organ function with invasivelyguided ﬂuid resuscitation in addition to inotropic and vaso-pressor drug support.
+In this setting, all the principles discussed for type 1 and 3
+CRS apply. In these septic patients, preliminary data derivedfrom the use of more intensive renal replacement technologysuggest that blood puriﬁcation may have a role in improvingmyocardial performance while providing optimal small soluteclearance (150). Despite the emergence of consensus deﬁni-tions (151) and many studies (152,153), no therapies have yetemerged to prevent or attenuate AKI in critically ill patients.However, evidence of the injurious effects of pentastarch ﬂuidresuscitation in septic AKI recently has emerged ( 154). Such
+therapy should, therefore, be avoided in septic patients.
+Conclusions
+In both chronic and acute situations, an appreciation of the
+interaction between heart and kidney during dysfunction ofeach or both organs has practical clinical implications. Thedepth of knowledge and complexity of care necessary to offerbest therapy to these patients demands a multidisciplinaryapproach, combining the expertise of cardiology, nephrology,and critical care. In addition, achievement of a consensusdeﬁnition for each type of cardiorenal syndrome will allowphysicians to describe treatments and interventions that arefocused and pathophysiologically sound. It will also help toconduct and compare epidemiological studies in differentcountries and more easily identify aspects of each syndrome.This is a priority for improvement and further research.Randomized controlled trials can then be designed to targetinterventions aimed at decreasing morbidity and mortality inthese increasingly common conditions. Developing awareness,the ability to identify and deﬁne, and physiological understand-ing will help improve the outcome of these complex patients.Acknowledgments
+The authors thank Drs. Alan Maisel, Alexandre Mebazaa,
+Alan Cass, and Martin Gallagher for their useful advice inthe development of the manuscript.
+Reprint requests and correspondence: Dr. Claudio Ronco, De-
+partment of Nephrology, St. Bortolo Hospital, Viale Rodolﬁ 37,
+36100 Vicenza, Italy. E-mail: cronco@goldnet.it.
+REFERENCES
+1. Dar O, Cowie MR. Acute heart failure in the intensive care unit:
+epidemiology. Crit Care Med 2008;36:S3–8.
+2. Schrier RW. Cardiorenal versus renocardiac syndrome: is there a
+difference? Nat Clin Pract Nephrol 2007;3:637.
+3. Ronco C. Cardiorenal and renocardiac syndromes: clinical disorders
+in search of a systematic deﬁnition. Int J Artif Organs 2008;31:1–2.
+4. Liang KV, Williams AW, Greene EL, Redﬁeld MM. Acute decom-
+pensated heart failure and the cardiorenal syndrome. Crit Care Med
+2008;36:S75–88.
+5. Ronco C, House AA, Haapio M. Cardiorenal syndrome: reﬁning the
+deﬁnition of a complex symbiosis gone wrong. Intensive Care Med2008;34:957–62.
+6. Patel J, Heywood JT. Management of the cardiorenal syndrome in
+heart failure. Curr Cardiol Rep 2006;8:211–6.
+7. Silverberg DS, Wexler D, Iaina A, Steinbruch S, Wollman Y,
+Schwartz D. Anemia, chronic renal disease and congestive heartfailure—the cardio renal anemia syndrome: the need for cooperationbetween cardiologists and nephrologists. Int Urol Nephrol 2006;38:295–310.
+8. Bongartz LG, Cramer MJ, Doevendans PA, Joles JA, Braam B. The
+severe cardiorenal syndrome: ‘guyton revisited.’ Eur Heart J 2005;26:11–7.
+9. Berl T, Henrich W. Kidney-heart interactions: epidemiology, patho-
+genesis, and treatment. Clin J Am Soc Nephrol 2006;1:8–18.
+10. Mebazaa A, Gheorghiade M, Pina IL, et al. Practical recommenda-
+tions for prehospital and early in-hospital management of patientspresenting with acute heart failure syndromes. Crit Care Med2008;36:S129–39.
+11. Haldeman GA, Croft JB, Giles WH, Rashidee A. Hospitalization of
+patients with heart failure: national hospital discharge survey, 1985 to1995. Am Heart J 1999;137:352–60.
+12. Adams KF, Jr, Fonarow GC, Emerman CL, et al. Characteristics and
+outcomes of patients hospitalized for heart failure in the UnitedStates: rationale, design, and preliminary observations from the ﬁrst100,000 cases in the acute decompensated heart failure nationalregistry (ADHERE). Am Heart J 2005;149:209–16.
+13. Fonarow GC, Stough WG, Abraham WT, et al. Characteristics,
+treatments, and outcomes of patients with preserved systolic functionhospitalized for heart failure: a report from the OPTIMIZE-HFregistry. J Am Coll Cardiol 2007;50:768–77.
+14. Jose P, Skali H, Anavekar N, et al. Increase in creatinine and
+cardiovascular risk in patients with systolic dysfunction after myocar-dial infarction. J Am Soc Nephrol 2006;17:2886–91.
+15. Goldberg A, Hammerman H, Petcherski S, et al. Inhospital and
+1-year mortality of patients who develop worsening renal functionfollowing acute ST-elevation myocardial infarction. Am Heart J2005;150:330–7.
+16. Tokuyama H, Kelly DJ, Zhang Y, Gow RM, Gilbert RE. Macro-
+phage inﬁltration and cellular proliferation in the non-ischemickidney and heart following prolonged unilateral renal ischemia.Nephron Physiol 2007;106:54–62.
+17. Ellison DH. Diuretic resistance: physiology and therapeutics. Semin
+Nephrol 1999;19:581–97.
+18. Almeshari K, Ahlstrom NG, Capraro FE, Wilcox CS. A volume-
+independent component to postdiuretic sodium retention in humans.J Am Soc Nephrol 1993;3:1878–83.
+19. Howard PA, Dunn MI. Aggressive diuresis for severe heart failure in
+the elderly. Chest 2001;119:807–10.1536 Ronco
+et al. JACC Vol. 52, No. 19, 2008
+Cardiorenal Syndrome November 4, 2008:1527–39
+20. Opdam HI, Wan L, Bellomo R. A pilot assessment of the FloTrac
+cardiac output monitoring system. Intensive Care Med 2007;33:
+344–9.
+21. Wan L, Naka T, Uchino S, Bellomo R. A pilot study of pulse contour
+cardiac output monitoring in patients with septic shock. Crit Care
+Resusc 2005;7:165.
+22. Nguyen HB, Losey T, Rasmussen J, et al. Interrater reliability of
+cardiac output measurements by transcutaneous Doppler ultrasound:
+Implications for noninvasive hemodynamic monitoring in the ED.Am J Emerg Med 2006;24:828–35.
+23. Ronco C, Ricci Z, Brendolan A, Bellomo R, Bedogni F. Ultraﬁltra-
+tion in patients with hypervolemia and congestive heart failure. Blood
+Purif 2004;22:150–63.
+24. Costanzo MR, Guglin ME, Saltzberg MT, et al. Ultraﬁltration
+versus intravenous diuretics for patients hospitalized for acute decom-
+pensated heart failure. J Am Coll Cardiol 200713;49:675–83.
+25. Verma A, Solomon SD. Optimizing care of heart failure after acute
+MI with an aldosterone receptor antagonist. Curr Heart Fail Rep2007;4:183–9.
+26. Chen ZM, Pan HC, Chen YP, et al. Early intravenous then oral
+metoprolol in 45,852 patients with acute myocardial infarction:randomised placebo-controlled trial. Lancet 2005;366:1622–32.
+27. Yorgun H, Deniz A, Aytemir K. Cardiogenic shock secondary to
+combination of diltiazem and sotalol. Intern Med J 2008;38:221–2.
+28. Tessone A, Gottlieb S, Barbash IM, et al. Underuse of standard care
+and outcome of patients with acute myocardial infarction and chronicrenal insufﬁciency. Cardiology 2007;108:193–9.
+29. Roghi A, Savonitto S, Cavallini C, et al. Impact of acute renal failure
+following percutaneous coronary intervention on long-term mortal-ity. J Cardiovasc Med 2008;9:375–81.
+30. Lassnigg A, Schmid ER, Hiesmayr M, et al. Impact of minimal
+increases in serum creatinine on outcome in patients after cardiotho-racic surgery: do we have to revise current deﬁnitions of acute renalfailure? Crit Care Med 2008;36:1129–37.
+31. Witteles RM, Kao D, Christopherson D, et al. Impact of nesiritide
+on renal function in patients with acute decompensated heart
+failure and pre-existing renal dysfunction a randomized, double-
+blind, placebo-controlled clinical trial. J Am Coll Cardiol 2007;50:1835–40.
+32. McCullough PA. Contrast induced nephropathy. J Am Coll Cardiol
+2008;51:1419–28.
+33. Han WK, Bonventre JV. Biologic markers for the early detection of
+acute kidney injury. Curr Opin Crit Care 2004;10:476–82.
+34. Devarajan P, Mishra J, Supavekin S, Patterson LT, Steven Potter S.
+Gene expression in early ischemic renal injury: clues towards patho-genesis, biomarker discovery, and novel therapeutics. Mol GenetMetab 2003;80:365–76.
+35. Nguyen MT, Ross GF, Dent CL, Devarajan P. Early prediction of
+acute renal injury using urinary proteomics. Am J Nephrol 2005;25:318–26.
+36. Ronco C. NGAL: an emerging biomarker of acute kidney injury. Int
+J Artif Organs 2008;31:199–200.
+37. Xu S, Venge P. Lipocalins as biochemical markers of disease.
+Biochim Biophys Acta 2000;1482:298–307.
+38. Mishra J, Ma Q, Prada A, et al. Identiﬁcation of neutrophil
+gelatinase-associated lipocalin as a novel early urinary biomarker forischemic renal injury. J Am Soc Nephrol 2003;14:2534–43.
+39. Supavekin S, Zhang W, Kucherlapati R, Kaskel FJ, Moore LC,
+Devarajan P. Differential gene expression following early renalischemia/reperfusion. Kidney Int 2003;63:1714–24.
+40. Mori K, Nakao K. Neutrophil gelatinase-associated lipocalin as the
+real-time indicator of active kidney damage. Kidney Int 2007;71:967–70.
+41. Mishra J, Dent C, Tarabishi R, et al. Neutrophil gelatinase-
+associated lipocalin (NGAL) as a biomarker for acute renal injuryafter cardiac surgery. Lancet 2005;365:1231–8.
+42. Wagener G, Jan M, Kim M, et al. Association between increases in
+urinary neutrophil gelatinase-associated lipocalin and acute renaldysfunction after adult cardiac surgery. Anesthesiology 2006;105:485–91.
+43. Parikh CR, Jani A, Mishra J, et al. Urine NGAL and IL-18 are
+predictive biomarkers for delayed graft function following kidneytransplantation. Am J Transplant 2006;6:1639–45.44. Bachorzewska-Gajewska H, Malyszko J, Sitniewska E, Malyszko JS,
+Dobrzycki S. Neutrophil-gelatinase-associated lipocalin and renal
+function after percutaneous coronary interventions. Am J Nephrol2006;26:287–92.
+45. Zappitelli M, Washburn KK, Arikan AA, et al. Urine neutrophil
+gelatinase-associated lipocalin is an early marker of acute kidneyinjury in critically ill children: a prospective cohort study. Crit Care2007;11:R84.
+46. Dharnidharka VR, Kwon C, Stevens G. Serum cystatin C is superior
+to serum creatinine as a marker of kidney function: a meta-analysis.Am J Kidney Dis 2002;40:221–6.
+47. Herget-Rosenthal S, Marggraf G, Husing J, et al. Early detection of
+acute renal failure by serum cystatin C. Kidney Int 2004;66:1115–22.
+48. VandeVoorde RG, Katlman TI, Ma Q, et al. Serum NGAL and
+cystatin C as predictive biomarkers for acute kidney injury. J Am SocNephrol 2006;17:404A.
+49. Han WK, Bailly V, Abichandani R, Thadhani R, Bonventre JV.
+Kidney injury molecule-1 (KIM-1): A novel biomarker for humanrenal proximal tubule injury. Kidney Int 2002;62:237–44.
+50. Ichimura T, Hung CC, Yang SA, Stevens JL, Bonventre JV. Kidney
+injury molecule-1: a tissue and urinary biomarker for nephrotoxicant-induced renal injury. Am J Physiol Renal Physiol 2004;286:F552–63.
+51. Vaidya VS, Ramirez V, Ichimura T, Bobadilla NA, Bonventre JV.
+Urinary kidney injury molecule-1: a sensitive quantitative biomarker
+for early detection of kidney tubular injury. Am J Physiol RenalPhysiol 2006;290:F517–29.
+52. Liangos O, Perianayagam MC, Vaidya VS, et al. Urinary N-acetyl-
+beta-(D)-glucosaminidase activity and kidney injury molecule-1 levelare associated with adverse outcomes in acute renal failure. J Am SocNephrol 2007;18:904–12.
+53. Parikh CR, Abraham E, Ancukiewicz M, Edelstein CL. Urine IL-18
+is an early diagnostic marker for acute kidney injury and predicts
+mortality in the intensive care unit. J Am Soc Nephrol 2005;16:3046–52.
+54. Hillege HL, Nitsch D, Pfeffer MA, et al. Renal function as a
+predictor of outcome in a broad spectrum of patients with heart
+failure. Circulation 2006;113:671–8.
+55. Bhatia RS, Tu JV, Lee DS, et al. Outcome of heart failure with
+preserved ejection fraction in a population-based study. N Engl
+J Med 2006;355:260–9.
+56. Nohria A, Hasselblad V, Stebbins A, et al. Cardiorenal interac-
+tions—insights form the ESCAPE trial. J Am Coll Cardiol 2007;51:1268–74.
+57. Jie KE, Verhaar MC, Cramer MJ, et al. Erythropoietin and the
+cardiorenal syndrome: Cellular mechanisms on the cardiorenal con-nectors. Am J Physiol Renal Physiol 2006;291:F932–44.
+58. Fu P, Arcasoy MO. Erythropoietin protects cardiac myocytes against
+anthracycline-induced apoptosis. Biochem Biophys Res Commun2007;354:372–8.
+59. Riksen NP, Hausenloy DJ, Yellon DM. Erythropoietin: ready for
+prime-time cardioprotection. Trends Pharmacol Sci 2008;29:258–67.
+60. Palazzuoli A, Silverberg DS, Iovine F, et al. Effects of beta-
+erythropoietin treatment on left ventricular remodeling, systolicfunction, and B-type natriuretic peptide levels in patients with thecardiorenal anemia syndrome. Am Heart J 2007;154:645.e9–15.
+61. Butler J, Forman DE, Abraham WT, et al. Relationship between
+heart failure treatment and development of worsening renal functionamong hospitalized patients. Am Heart J 2004;147:331–8.
+62. McAlister FA, Ezekowitz J, Tonelli M, Armstrong PW. Renal
+insufﬁciency and heart failure: Prognostic and therapeutic implica-tions from a prospective cohort study. Circulation 2004;109:1004–9.
+63. Hjalmarson A, Goldstein S, Fagerberg B, et al., MERIT-HF Study
+Group. Effects of controlled-release metoprolol on total mortality,hospitalizations, and well-being in patients with heart failure: theMetoprolol CR/XL Randomized Intervention Trial in CongestiveHeart Failure (MERIT-HF). JAMA 2000;283:1295–302.
+64. Uchino S, Bellomo R, Goldsmith D, Bates S, Ronco C. An
+assessment of the RIFLE criteria for acute renal failure in hospital-ized patients. Crit Care Med 2006;34:1913–7.
+65. Bagshaw SM, George C, Dinu I, Bellomo R. A multi-centre
+evaluation of the RIFLE criteria for early acute kidney injury incritically ill patients. Nephrol Dial Transplant 2008;23:1203–10.1537
+JACC Vol. 52, No. 19, 2008 Ronco et al.
+November 4, 2008:1527–39 Cardiorenal Syndrome
+66. Blake P, Hasegawa Y, Khosla MC, Fouad-Tarazi F, Sakura N,
+Paganini EP. Isolation of “myocardial depressant factor(s)” from the
+ultraﬁltrate of heart failure patients with acute renal failure. ASAIOJ 1996;42:M911–5.
+67. Meyer TW, Hostetter TH. Uremia. N Engl J Med 2007;357:
+1316–25.
+68. Figueras J, Stein L, Diez V, Weil MH, Shubin H. Relationship
+between pulmonary hemodynamics and arterial pH and carbondioxide tension in critically ill patients. Chest 1976;70:466–72.
+69. Brady JP, Hasbargen JA. A review of the effects of correction of
+acidosis on nutrition in dialysis patients. Semin Dial 2000;13:252–5.
+70. McCullough PA, Sandberg KR. Chronic kidney disease and sudden
+death: strategies for prevention. Blood Purif 2004;22:136–42.
+71. Gandhi SK, Powers JC, Nomeir AM, et al. The pathogenesis of
+acute pulmonary edema associated with hypertension. N Engl J Med2001;344:17–22.
+72. Hirsch AT, Haskal ZJ, Hertzer NR, et al. ACC/AHA guidelines for
+the management of patients with peripheral arterial disease (lowerextremity, renal, mesenteric, and abdominal aortic): a collaborativereport from the American Association for Vascular Surgery/Societyfor Vascular Surgery, Society for Cardiovascular Angiography andInterventions, Society of Interventional Radiology, Society for Vas-cular Medicine and Biology, and the American College of Cardiol-ogy/American Heart Association Task Force on Practice Guidelines(Writing Committee to Develop Guidelines for the Management ofPatients With Peripheral Arterial Disease). J Am Coll Cardiol2006;47:e1–192.
+73. Parikh SV, de Lemos JA. Biomarkers in cardiovascular disease:
+integrating pathophysiology into clinical practice. Am J Med Sci2006;332:186–97.
+74. Cameron SJ, Sokoll LJ, Laterza OF, Shah S, Green GB. A
+multi-marker approach for the prediction of adverse events in
+patients with acute coronary syndromes. Clin Chim Acta 2007;376:168–73.
+75. Howie-Esquivel J, White M. Biomarkers in acute cardiovascular
+disease. J Cardiovasc Nurs 2008;23:124–31.
+76. Ooi DS, Veinot JP, Wells GA, House AA. Increased mortality in
+hemodialyzed patients with elevated serum troponin T: a one-yearoutcome study. Clin Biochem 1999;32:647–52.
+77. Needham DM, Shufelt KA, Tomlinson G, Scholey JW, Newton
+GE. Troponin I and T levels in renal failure patients without acutecoronary syndrome: a systematic review of the literature. Can J Car-diol 2004;20:1212–8.
+78. Sommerer C, Beimler J, Schwenger V, et al. Cardiac biomarkers and
+survival in haemodialysis patients. Eur J Clin Invest 2007;37:350–6.
+79. Maisel A, Hollander JE, Guss D, et al. Primary results of the rapid
+emergency department heart failure outpatient trial (REDHOT). Amulticenter study of B-type natriuretic peptide levels, emergencydepartment decision making, and outcomes in patients presentingwith shortness of breath. J Am Coll Cardiol 2004;44:1328–33.
+80. Meyer B, Huelsmann M, Wexberg P, et al. N-terminal pro-B-type
+natriuretic peptide is an independent predictor of outcome in anunselected cohort of critically ill patients. Crit Care Med 2007;35:2268–73.
+81. Latini R, Masson S, Anand I, et al. The comparative prognostic value
+of plasma neurohormones at baseline in patients with heart failureenrolled in Val-HeFT. Eur Heart J 2004;25:292–9.
+82. Carr SJ, Bavanandan S, Fentum B, Ng L. Prognostic potential of
+brain natriuretic peptide (BNP) in predialysis chronic kidney diseasepatients. Clin Sci (Lond) 2005;109:75–82.
+83. Austin WJ, Bhalla V, Hernandez-Arce I, et al. Correlation and
+prognostic utility of B-type natriuretic peptide and its amino-terminal fragment in patients with chronic kidney disease. Am J ClinPathol 2006;126:506–12.
+84. Suresh M, Farrington K. Natriuretic peptides and the dialysis patient.
+Semin Dial 2005;18:409–19.
+85. Forﬁa PR, Lee M, Tunin RS, Mahmud M, Champion HC, Kass
+DA. Acute phosphodiesterase 5 inhibition mimics hemodynamiceffects of B-type natriuretic peptide and potentiates B-type natriureticpeptide effects in failing but not normal canine heart. J Am CollCardiol 2007;49:1079–88.
+86. Liang F, O’Rear J, Schellenberger U, et al. Evidence for functional
+heterogeneity of circulating B-type natriuretic peptide. J Am CollCardiol 2007;49:1071–8.87. Spanaus KS, Kronenberg F, Ritz E, et al. B-type natriuretic peptide
+concentrations predict the progression of nondiabetic chronic kidney
+disease: the mild-to-moderate kidney disease study. Clin Chem2007;53:1264–72.
+88. Loria V, Dato I, Graziani F, Biasucci LM. Myeloperoxidase: a new
+biomarker of inﬂammation in ischemic heart disease and acutecoronary syndromes. Mediators Inﬂamm 2008;2008:135625.
+89. Braunwald E. Biomarkers in heart failure. N Engl J Med 2008;358:
+2148–59.
+90. Krishnagopalan S, Kumar A, Parrillo JE, Kumar A. Myocardial
+dysfunction in the patient with sepsis. Curr Opin Crit Care 2002;8:376–88.
+91. Chen D, Assad-Kottner C, Orrego C, Torre-Amione G. Cytokines
+and acute heart failure. Crit Care Med 2008;36:S9–16.
+92. Kelly KJ. Distant effects of experimental renal ischemia/reperfusion
+injury. J Am Soc Nephrol 2003;14:1549–58.
+93. Selby NM, McIntyre CW. The acute cardiac effects of dialysis.
+Semin Dial 2007;20:220–8.
+94. Ronco C, Bellomo R, Ricci Z. Continuous renal replacement therapy
+in critically ill patients. Nephrol Dial Transplant 2001;16 Suppl5:67–72.
+95. National Kidney Foundation. K/DOQI clinical practice guidelines
+for chronic kidney disease: Evaluation, classiﬁcation, and stratiﬁca-tion. Am J Kidney Dis 2002;39:S1–266.
+96. Coresh J, Astor BC, Greene T, Eknoyan G, Levey AS. Prevalence of
+chronic kidney disease and decreased kidney function in the adult USpopulation: Third National Health and Nutrition ExaminationSurvey. Am J Kidney Dis 2003;41:1–12.
+97. Foley RN, Parfrey PS, Sarnak MJ. Clinical epidemiology of cardio-
+vascular disease in chronic renal disease. Am J Kidney Dis 1998;32:S112–9.
+98. Herzog CA. Dismal long-term survival of dialysis patients after acute
+myocardial infarction: can we alter the outcome? Nephrol DialTransplant 2002;17:7–10.
+99. Johnson DW, Craven AM, Isbel NM. Modiﬁcation of cardiovascular
+risk in hemodialysis patients: an evidence-based review. Hemodial Int2007;11:1–14.
+100. Logar CM, Herzog CA, Beddhu S. Diagnosis and therapy of
+coronary artery disease in renal failure, end-stage renal disease, andrenal transplant populations. Am J Med Sci 2003;325:214–27.
+101. Collins AJ, Li S, Gilbertson DT, Liu J, Chen SC, Herzog CA.
+Chronic kidney disease and cardiovascular disease in the Medicarepopulation. Kidney Int Suppl 2003;87:S24–31.
+102. Go AS, Chertow GM, Fan D, McCulloch CE, Hsu CY. Chronic
+kidney disease and the risks of death, cardiovascular events, andhospitalization. N Engl J Med 2004;351:1296–305.
+103. Garg AX, Clark WF, Haynes RB, House AA. Moderate renal
+insufﬁciency and the risk of cardiovascular mortality: Results from theNHANES I. Kidney Int 2002;61:1486–94.
+104. Keith DS, Nichols GA, Gullion CM, Brown JB, Smith DH.
+Longitudinal follow-up and outcomes among a population withchronic kidney disease in a large managed care organization. ArchIntern Med 2004;164:659–63.
+105. Sarnak MJ, Coronado BE, Greene T, et al. Cardiovascular disease
+risk factors in chronic renal insufﬁciency. Clin Nephrol 2002;57:327–35.
+106. Al Suwaidi J, Reddan DN, Williams K, et al. Prognostic implications
+of abnormalities in renal function in patients with acute coronarysyndromes. Circulation 2002;106:974–80.
+107. Gibson CM, Pinto DS, Murphy SA, et al. Association of creatinine
+and creatinine clearance on presentation in acute myocardial infarc-tion with subsequent mortality. J Am Coll Cardiol 2003;42:1535–43.
+108. Al-Ahmad A, Rand WM, Manjunath G, et al. Reduced kidney
+function and anemia as risk factors for mortality in patients with left
+ventricular dysfunction. J Am Coll Cardiol 2001;38:955–62.
+109. Sorensen CR, Brendorp B, Rask-Madsen C, Kober L, Kjoller E,
+Torp-Pedersen C. The prognostic importance of creatinine clearanceafter acute myocardial infarction. Eur Heart J 2002;23:948–52.
+110. Tokmakova MP, Skali H, Kenchaiah S, et al. Chronic kidney disease,
+cardiovascular risk, and response to angiotensin-converting enzymeinhibition after myocardial infarction: the survival and ventricularenlargement (SAVE) study. Circulation 2004;110:3667–73.1538 Ronco
+et al. JACC Vol. 52, No. 19, 2008
+Cardiorenal Syndrome November 4, 2008:1527–39
+111. Anavekar NS, McMurray JJ, Velazquez EJ, et al. Relation between
+renal dysfunction and cardiovascular outcomes after myocardial
+infarction. N Engl J Med 2004;351:1285–95.
+112. Rattazzi M, Puato M, Faggin E, Bertipaglia B, Grego F, Pauletto P.
+New markers of accelerated atherosclerosis in end-stage renal disease.J Nephrol 2003;16:11–20.
+113. Liuzzo G, Biasucci LM, Gallimore JR, et al. The prognostic value of
+C-reactive protein and serum amyloid a protein in severe unstableangina. N Engl J Med 1994;331:417–24.
+114. Panichi V, Maggiore U, Taccola D, et al. Interleukin-6 is a stronger
+predictor of total and cardiovascular mortality than C-reactive proteinin haemodialysis patients. Nephrol Dial Transplant 2004 May;19:1154–60.
+115. Tonelli M, Wiebe N, Culleton B, et al. Chronic kidney disease and
+mortality risk: a systematic review. J Am Soc Nephrol 2006;17:2034–47.
+116. Urquhart BL, House AA. Assessing plasma total homocysteine in
+patients with end-stage renal disease. Perit Dial Int 2007;27:476–88.
+117. Levin A, Thompson CR, Ethier J, et al. Left ventricular mass index
+increase in early renal disease: Impact of decline in hemoglobin. Am JKidney Dis 1999;34:125–34.
+118. Schindler R, Beck W, Deppisch R, et al. Short bacterial DNA
+fragments: Detection in dialysate and induction of cytokines. J AmSoc Nephrol 2004;15:3207–14.
+119. Cazzavillan S, Ratanarat R, Segala C, et al. Inﬂammation and
+subclinical infection in chronic kidney disease: a molecular approach.Blood Purif 2007;25:69–76.
+120. McCullough PA. Cardiorenal risk: an important clinical intersection.
+Rev Cardiovasc Med 2002;3:71–6.
+121. Wright RS, Reeder GS, Herzog CA, et al. Acute myocardial
+infarction and renal dysfunction: a high-risk combination. AnnIntern Med 2002;137:563–70.
+122. Beattie JN, Soman SS, Sandberg KR, et al. Determinants of mortality
+after myocardial infarction in patients with advanced renal dysfunc-tion. Am J Kidney Dis 2001 37:1191–200.
+123. Berger AK, Duval S, Krumholz HM. Aspirin, beta-blocker, and
+angiotensin-converting enzyme inhibitor therapy in patients withend-stage renal disease and an acute myocardial infarction. J Am CollCardiol 2003;42:201–8.
+124. French WJ, Wright RS. Renal insufﬁciency and worsened prognosis
+with STEMI: a call for action. J Am Coll Cardiol 2003;42:1544–6.
+125. Levin A, Foley RN. Cardiovascular disease in chronic renal insufﬁ-
+ciency. Am J Kidney Dis 2000;36:S24–30.
+126. Suki WN, Zabaneh R, Cangiano JL, et al. Effects of sevelamer and
+calcium-based phosphate binders on mortality in hemodialysis pa-tients. Kidney Int 2007;72:1130–7.
+127. Garside R, Pitt M, Anderson R, et al. The effectiveness and cost-effectiveness of cinacalcet for secondary hyperparathyroidism in end-stage renal disease patients on dialysis: A systematic review and economicevaluation. Health Technol Assess 2007;11:iii, xi, xiii, 1–167.
+128. Silverberg DS, Wexler D, Blum M, et al. The use of subcutaneous
+erythropoietin and intravenous iron for the treatment of the anemiaof severe, resistant congestive heart failure improves cardiac and renalfunction and functional cardiac class, and markedly reduces hospital-izations. J Am Coll Cardiol 2000;35:1737–44.
+129. Ghali JK, Anand IS, Abraham WT, et al. Randomized double-blind
+trial of darbepoetin alfa in patients with symptomatic heart failureand anemia. Circulation 2008;117:526–35.
+130. Neuhofer W, Pittrow D. Role of endothelin and endothelin receptorantagonists in renal disease. Eur J Clin Invest 2006;36 Suppl 3:78–88.
+131. Gottlieb SS, Brater DC, Thomas I, et al. BG9719 (CVT-124), an
+A1 adenosine receptor antagonist, protects against the decline inrenal function observed with diuretic therapy. Circulation 2002;105:1348–53.
+132. Gheorghiade M, Gattis WA, O’Connor CM, et al. Effects of
+tolvaptan, a vasopressin antagonist, in patients hospitalized withworsening heart failure: A randomized controlled trial. JAMA2004;291:1963–71.
+133. Dufﬁeld JS, Hong S, Vaidya VS, et al. Resolvin D series and
+protectin D1 mitigate acute kidney injury. J Immunol 2006;177:5902–11.
+134. Sakata Y, Masuyama T, Yamamoto K, et al. Calcineurin inhibitor
+attenuates left ventricular hypertrophy, leading to prevention of heartfailure in hypertensive rats. Circulation 2000;102:2269–75.135. Keltai M, Tonelli M, Mann JF, et al. Renal function and outcomes
+in acute coronary syndrome: Impact of clopidogrel. Eur J Cardiovasc
+Prev Rehabil 2007;14:312–8.
+136. Sun WY, Reiser IW, Chou SY. Risk factors for acute renal
+insufﬁciency induced by diuretics in patients with congestive heartfailure. Am J Kidney Dis 2006;47:798–808.
+137. Knight EL, Glynn RJ, McIntyre KM, Mogun H, Avorn J. Predictors
+of decreased renal function in patients with heart failure duringangiotensin-converting enzyme inhibitor therapy: results from theStudies Of Left Ventricular Dysfunction (SOLVD). Am Heart J1999;138:849–55.
+138. Ramadan FH, Masoodi N, El-Solh AA. Clinical factors associated
+with hyperkalemia in patients with congestive heart failure. J ClinPharm Ther 2005;30:233–9.
+139. Pitt B, Zannad F, Remme WJ, et al., Randomized Aldactone
+Evaluation Study Investigators. The effect of spironolactone onmorbidity and mortality in patients with severe heart failure. N EnglJ Med 1999;341:709–17.
+140. Ko DT, Juurlink DN, Mamdani MM, et al. Appropriateness of
+spironolactone prescribing in heart failure patients: a population-based study. J Card Fail 2006;12:205–10.
+141. Sackner-Bernstein JD, Skopicki HA, Aaronson KD. Risk of wors-
+ening renal function with nesiritide in patients with acutely decom-pensated heart failure. Circulation 2005;111:1487–91.
+142. Ruggenenti P, Perna A, Remuzzi G, Gruppo Italiano di Studi
+Epidemiologici in Nefrologia. ACE inhibitors to prevent end-stagerenal disease: when to start and why possibly never to stop: a post hocanalysis of the REIN trial results. Ramipril Efﬁcacy In Nephropathy.J Am Soc Nephrol 2001;12:2832–7.
+143. Bakris GL, Weir MR. Angiotensin-converting enzyme inhibitor-
+associated elevations in serum creatinine: is this a cause for concern?Arch Intern Med 2000;160:685–93.
+144. Han SW, Won YW, Yi JH, Kim HJ. No impact of hyperkalaemia
+with renin-angiotensin system blockades in maintenance haemodi-alysis patients. Nephrol Dial Transplant 2007;22:1150–5.
+145. Roy P, Bouchard J, Amyot R, Madore F. Prescription patterns of
+pharmacological agents for left ventricular systolic dysfunction amonghemodialysis patients. Am J Kidney Dis 2006;48:645–51.
+146. Jessup M. Aldosterone blockade and heart failure. N Engl J Med
+2003;348:1380–2.
+147. Juurlink DN, Mamdani MM, Lee DS, et al. Rates of hyperkalemia
+after publication of the randomized aldactone evaluation study.N Engl J Med 2004;351:543–51.
+148. Cunningham PN, Dyanov HM, Park P, Wang J, Newell KA, Quigg
+RJ. Acute renal failure in endotoxemia is caused by TNF acting
+directly on TNF receptor-1 in kidney. J Immunol 2002;168:5817–23.
+149. Kumar A, Paladugu B, Mensing J, Kumar A, Parrillo JE. Nitric
+oxide-dependent and -independent mechanisms are involved inTNF-alpha-induced depression of cardiac myocyte contractility.Am J Physiol Regul Integr Comp Physiol 2007;292:R1900–6.
+150. Honore PM, Jamez J, Wauthier M, et al. Prospective evaluation of
+short-term, high-volume isovolemic hemoﬁltration on the hemody-namic course and outcome in patients with intractable circulatoryfailure resulting from septic shock. Crit Care Med 2000;28:3581–7.
+151. Bellomo R, Ronco C, Kellum JA, Mehta RL, Palevsky P, Acute
+Dialysis Quality Initiative Workgroup. Acute renal failure—deﬁnition, outcome measures, animal models, ﬂuid therapy andinformation technology needs: the second international consensusconference of the Acute Dialysis Quality Initiative (ADQI) group.Crit Care 2004;8:R204–12.
+152. Bagshaw SM, Delaney A, Haase M, Ghali WA, Bellomo R. Loop
+diuretics in the management of acute renal failure: a systematic reviewand meta-analysis. Crit Care Resusc 2007;9:60–8.
+153. Duke GJ. Renal protective agents: a review. Crit Care Resusc
+1999;1:265–75.
+154. Brunkhorst FM, Engel C, Bloos F, et al. Intensive insulin therapy
+and pentastarch resuscitation in severe sepsis. N Engl J Med2008;358:125–39.
+Key Words: chronic kidney disease yheart failure ycardiorenal
+syndrome yrenocardiac syndrome yheart-kidney interaction y
+biomarkers ycardiovascular risk.1539 JACC Vol. 52, No. 19, 2008 Ronco et al.
+November 4, 2008:1527–39 Cardiorenal Syndrome

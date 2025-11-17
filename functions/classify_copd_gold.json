@@ -1,5 +1,6 @@
 {
   "name": "classify_copd_gold",
+  "code": "\ndef classify_copd_gold(fev1_percent_predicted, symptom_score='unknown', exacerbations_per_year=0):\n    # GOLD Spirometric Grade (1-4)\n    if fev1_percent_predicted >= 80:\n        gold_grade = 1\n        severity = 'Mild'\n    elif fev1_percent_predicted >= 50:\n        gold_grade = 2\n        severity = 'Moderate'\n    elif fev1_percent_predicted >= 30:\n        gold_grade = 3\n        severity = 'Severe'\n    else:\n        gold_grade = 4\n        severity = 'Very Severe'\n    \n    # ABCD Assessment (based on symptoms and exacerbations)\n    abcd_group = None\n    if symptom_score != 'unknown':\n        high_symptoms = symptom_score.lower() == 'high'\n        high_risk = exacerbations_per_year >= 2\n        \n        if not high_risk and not high_symptoms:\n            abcd_group = 'A'\n        elif not high_risk and high_symptoms:\n            abcd_group = 'B'\n        elif high_risk and not high_symptoms:\n            abcd_group = 'C'\n        else:\n            abcd_group = 'D'\n    \n    # Treatment recommendations based on GOLD\n    treatment_map = {\n        1: 'Smoking cessation, influenza/pneumococcal vaccination, short-acting bronchodilator PRN',\n        2: 'Long-acting bronchodilator (LABA or LAMA), pulmonary rehabilitation',\n        3: 'Combination LABA+LAMA, consider ICS if frequent exacerbations, pulmonary rehab',\n        4: 'Combination therapy LABA+LAMA+ICS, oxygen therapy if hypoxemic, consider surgical options'\n    }\n    \n    return {\n        'gold_grade': gold_grade,\n        'severity': severity,\n        'abcd_group': abcd_group if abcd_group else 'Unknown (need symptom/exacerbation data)',\n        'treatment_recommendation': treatment_map.get(gold_grade, 'Unknown')\n    }\n",
   "description": "Classify COPD severity using GOLD (Global Initiative for Chronic Obstructive Lung Disease) criteria based on FEV1 percent predicted.",
   "parameters": {
     "fev1_percent_predicted": {
@@ -9,7 +10,7 @@
     },
     "symptom_score": {
       "type": "str",
-      "description": "Symptom assessment: 'low' (mMRC 0-1, CAT <10) or 'high' (mMRC ≥2, CAT ≥10)",
+      "description": "Symptom assessment: 'low' (mMRC 0-1, CAT <10) or 'high' (mMRC \u22652, CAT \u226510)",
       "required": false,
       "default": "unknown"
     },
@@ -24,5 +25,5 @@
     "type": "dict",
     "description": "Dictionary with gold_grade (1-4), abcd_group, severity, and treatment_recommendation"
   },
-  "code": "\ndef classify_copd_gold(fev1_percent_predicted, symptom_score='unknown', exacerbations_per_year=0):\n    # GOLD Spirometric Grade (1-4)\n    if fev1_percent_predicted >= 80:\n        gold_grade = 1\n        severity = 'Mild'\n    elif fev1_percent_predicted >= 50:\n        gold_grade = 2\n        severity = 'Moderate'\n    elif fev1_percent_predicted >= 30:\n        gold_grade = 3\n        severity = 'Severe'\n    else:\n        gold_grade = 4\n        severity = 'Very Severe'\n    \n    # ABCD Assessment (based on symptoms and exacerbations)\n    abcd_group = None\n    if symptom_score != 'unknown':\n        high_symptoms = symptom_score.lower() == 'high'\n        high_risk = exacerbations_per_year >= 2\n        \n        if not high_risk and not high_symptoms:\n            abcd_group = 'A'\n        elif not high_risk and high_symptoms:\n            abcd_group = 'B'\n        elif high_risk and not high_symptoms:\n            abcd_group = 'C'\n        else:\n            abcd_group = 'D'\n    \n    # Treatment recommendations based on GOLD\n    treatment_map = {\n        1: 'Smoking cessation, influenza/pneumococcal vaccination, short-acting bronchodilator PRN',\n        2: 'Long-acting bronchodilator (LABA or LAMA), pulmonary rehabilitation',\n        3: 'Combination LABA+LAMA, consider ICS if frequent exacerbations, pulmonary rehab',\n        4: 'Combination therapy LABA+LAMA+ICS, oxygen therapy if hypoxemic, consider surgical options'\n    }\n    \n    return {\n        'gold_grade': gold_grade,\n        'severity': severity,\n        'abcd_group': abcd_group if abcd_group else 'Unknown (need symptom/exacerbation data)',\n        'treatment_recommendation': treatment_map.get(gold_grade, 'Unknown')\n    }\n"
+  "signature": "(fev1_percent_predicted, symptom_score='unknown', exacerbations_per_year=0)"
 }

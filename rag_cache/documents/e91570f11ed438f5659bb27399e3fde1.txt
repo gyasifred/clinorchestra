@@ -1,0 +1,511 @@
+CHEST Original Research
+ANTITHROMBOTIC THERAPY
+www.chestpubs.org CHEST / 138 / 5 / NOVEMBER, 2010   1093      Atrial ﬁ  brillation (AF) is associated with a well-
+known increase in ischemic stroke risk,  1   which is 
+further increased by individual conditions such as heart failure, hypertension, diabetes, and prior throm-boembolism.  
+2   Oral anticoagulation (OAC) dramati-
+cally reduces this risk  3   and is therefore recommended 
+in patients with AF at moderate-high risk of stroke and thromboembolism.  
+4   The increasing incidence 
+and prevalence of AF increases the likelihood of OAC use in the AF population, which is usually elderly, and comorbidities commonly coexist.  
+5-7   Indeed, clinical decision making about whether OAC is justiﬁ  ed based 
+on stroke risk is supported by various practical stroke risk classiﬁ  cation schema that incorporate known 
+clinical risk factors.  
+4,8   
+ However, stroke risk is also closely related to 
+bleeding risk,  9   and OAC prescription needs to bal-
+ance the beneﬁ  t from stroke prevention against the 
+risk of bleeding. Thus, there is often suboptimal   Objective:    Despite extensive use of oral anticoagulation (OAC) in patients with atrial ﬁ  brillation 
+(AF) and the increased bleeding risk associated with such OAC use, no handy quantiﬁ  cation tool 
+for assessing this risk exists. We aimed to develop a practical risk score to estimate the 1-year risk 
+for major bleeding (intracranial, hospitalization, hemoglobin decrease  .  2 g/L, and/or transfu-
+sion) in a cohort of real-world patients with AF.   Methods:    Based on 3,978 patients in the Euro Heart Survey on AF with complete follow-up, all 
+univariate bleeding risk factors in this cohort were used in a multivariate analysis along with his-
+torical bleeding risk factors. A new bleeding risk score termed HAS-BLED (Hypertension, Abnormal renal/liver function, Stroke, Bleeding history or predisposition, Labile international normalized ratio, Elderly ( .  65 years), Drugs/alcohol concomitantly) was calculated, incorpo-
+rating risk factors from the derivation cohort. 
+  Results:    Fifty-three (1.5%) major bleeds occurred during 1-year follow-up. The annual bleeding 
+rate increased with increasing risk factors. The predictive accuracy in the overall population 
+using signiﬁ  cant risk factors in the derivation cohort (C statistic 0.72) was consistent when applied in several subgroups. Application of the new bleeding risk score (HAS-BLED) gave similar C statistics except where patients were receiving antiplatelet agents alone or no antithrombotic therapy, with C statistics of 0.91 and 0.85, respectively.   Conclusion:    This simple, novel bleeding risk score (HAS-BLED) provides a practical tool to assess 
+the individual bleeding risk of real-world patients with AF, potentially supporting clinical decision 
+making regarding antithrombotic therapy in patients with AF.   CHEST 2010; 138(5):1093–1100  
+  Abbreviations:  AF  5  atrial ﬁ  brillation; CHADS 2   5  congestive heart failure, hypertension, age  .  75 years, diabetes 
+mellitus, previous stroke/transient ischemic attack (doubled); HAS-BLED  5  Hypertension, Abnormal renal/liver function, 
+Stroke, Bleeding history or predisposition, Labile international normalized ratio, Elderly ( .  65 years), Drugs/alcohol 
+concomitantly; HEMOR 2 RHAGES  5  Hepatic or renal disease, Ethanol abuse, Malignancy, Older age ( .  75 years), 
+Rebleeding, Reduced platelet count or function, Hypertension (uncontrolled), Anemia, Genetic factors, Excessive fall 
+risk, and Stroke; INR  5  international normalized ratio; OAC  5  oral anticoagulation  A Novel User-Friendly Score (HAS-BLED) 
+To Assess 1-Year Risk of Major Bleeding in Patients With Atrial Fibrillation 
+ The Euro Heart Survey 
+  Ron   Pisters ,  MD ;  Deirdre A.   Lane ,  PhD ;  Robby   Nieuwlaat ,  PhD ;  Cees B.   de Vos ,  MD ; 
+ Harry J. G. M.   Crijns ,  MD ; and  Gregory Y. H.   Lip ,  MD  
+For editorial comment see page 1032
+ © 2010 American College of Chest Physicians by Kimberly Henricks on November 8, 2010 chestjournal.chestpubs.org Downloaded from 
+1094 Original Researchstroke. Hemorrhagic stroke was deﬁ  ned as a focal neurologic deﬁ  -
+cit of sudden onset, diagnosed by a neurologist, lasting  .  24 h and 
+caused by bleeding. Presence of chronic dialysis, renal transplan-
+tation, or serum creatinine  /H11350  200  m mol/L was classiﬁ  ed as abnor-
+mal kidney function. Abnormal liver function was deﬁ  ned as chronic hepatic disease (eg, cirrhosis) or biochemical evidence of signiﬁ  cant 
+hepatic derangement (eg, bilirubin  .  2  3  upper limit of normal, 
+in association with aspartate aminotransferase/alanine amin-otransferase/alkaline phosphatase  .  3  3  upper limit normal, and so 
+forth). Finally, valvular heart disease was deﬁ  ned as the presence 
+of any regurgitation or gradient over a valve with hemodynamic signiﬁ  cance and/or related symptoms. 
+ Statistical Analysis and Design of a New Bleeding Risk Score 
+ Data analysis was performed with SPSS, version 16.0 (SPSS 
+Inc., Chicago, IL). The presence of any differences between the 
+groups with and without major bleeding during 1-year follow-up was tested by Fisher exact test for categorical variables and by independent samples  t  test for continuous variables. 
+ All potential bleeding risk factors identiﬁ  ed from the uni-
+variate analyses of the derivation cohort with a  P  value  ,  .10 
+(age  .  65 years, female sex, diabetes mellitus, heart failure, COPD, 
+valvular heart disease, kidney failure, prior major bleeding epi-sode, and clopidogrel use), were used in the multivariate logis-tic regression analyses along with more historical bleeding risk factors: OAC, alcohol use, and hypertension. We disregarded thyroid disease ( P   5  .039) because of difﬁ  culties with interpre-
+tation (only n  5  10 bleeding events), and this had not been iden-
+tiﬁ ed as a bleeding risk in prior systematic reviews.  
+11-13   Given 
+the persistent nature of the evidence of OAC, hypertension, age  .  65 years, renal failure, alcohol abuse, and prior major 
+bleed as bleeding risk factors, these variables were kept in the model at all times. The other, less strongly linked variables were removed stepwise from the model when the  P  value was  .  .10. 
+Variables with  P   ,  .05 in the ﬁ  nal model were considered to be 
+signiﬁ  cant contributors and were checked for interaction effects, 
+which did not exist. 
+ In recognition of the limited number of major bleeds and rela-
+tively short follow-up period in the Euro Heart Survey on AF, we also added consistent risk factors for major bleeding (stroke, alco-hol use, systolic BP  .  160 mm Hg, and so forth) identiﬁ  ed in 
+recent systematic reviews  
+11,13   to use the data from the derivation 
+cohort to test a new bleeding risk score in a ﬁ  nal statistical model, accepting the lack of statistical signiﬁ  cance of some variables in our derivation cohort. For each of the variables in the ﬁ  nal model 
+the regression coefﬁ  cient, net OR, and its 95% CI and  P  value 
+are reported ( Table 1  ). We then calculated the C statistic as a measure of the predictive accuracy of the model incorporating bleeding risk factors from the derivation cohort (that is, prior major bleeding, age  .  65 years, clopidogrel use, and kidney failure), 
+where, based on their respective multivariate regression coefﬁ  -
+cients, two points were awarded for prior major bleeding and one point for each of the other bleeding risk factors. In addition, we report the C statistics in a subgroup analysis of individuals discharged with OAC monotherapy, OAC combined with an antiplate let drug, an antiplatelet drug alone, or no antithrombotic therapy. 
+ A new bleeding risk score (termed HAS-BLED) was calcu-
+lated, incorporating risk factors from the derivation cohort as well as signiﬁ  cant risk factors for major bleeding found in the literature from systematic reviews.  
+11,13     HAS-BLED is an acronym for hyper-
+tension (uncontrolled,  .  160 mm Hg systolic), abnormal renal /
+liver function (one point for presence of renal or liver impairment, maximum two points), stroke (previous history, particularly lacunar), bleeding history or predisposition (anemia), labile international normalized ratio (INR) (ie, therapeutic time in range  ,  60%), 
+elderly (  .  65 years), drugs/alcohol concomitantly (antiplatelet implementation of thromboprophylaxis among patients 
+with AF,  9,10   which may be partly due to the lack of a vali-
+dated bleeding risk-stratiﬁ  cation schema that is user-friendly.  
+11-13   This is further reﬂ  ected by the absence 
+of recommendations on bleeding risk assessment in current antithrombotic guidelines for AF manage-ment.  
+4,12   The available schemas estimating the risk of 
+bleeding associated with use of OAC either do not focus on patients with AF in particular,  
+14,15   address a 
+(very) speciﬁ  c subgroup among patients with AF,  16   o r  
+incorporate routinely unavailable risk factors that also overlap signiﬁ  cantly with stroke risk factors.  
+17   
+Furthermore, all published schema are based on historical cohorts of patients and consequently may not reﬂ  ect advancements in medical care over time 
+(for example, OAC monitoring) and treatment of underlying heart disease.  
+14-17   Our aim was to develop 
+a practical risk score to estimate the 1-year risk of major bleeding (intracranial, hospitalization, hemo-
+globin decrease  .  2 g/L, and/or transfusion) in a con-
+temporary, real-world cohort of patients with AF. 
+ Materials and Methods 
+ We used the large population database of the prospective Euro 
+Heart Survey on AF, with data collected between 2003 and 2004. 
+A detailed study outline of the Euro Heart Survey on AF at base-line  
+5   and follow-up assessment  18   has been previously described. 
+In summary, 5,333 ambulatory and hospitalized patients with AF from 182 university, nonuniversity, and specialized hospitals among 35 member countries of the European Society of Cardiol-ogy were enrolled. Patients had to be  /H11350  18 years of age and have 
+an ECG or Holter-proven diagnosis of AF during the qualifying admission or in the preceding year. A 1-year follow-up assessment was performed to determine survival and major adverse cardio-vascular events, such as major bleeding. Medical records and/or medical information systems were used to populate the data set. 
+ We deﬁ  ned major bleeding as any bleeding requiring hospital-
+ization and/or causing a decrease in hemoglobin level of  .  2 g/L 
+and/or requiring blood transfusion that was not a hemorrhagic 
+ Manuscript received January 17, 2010; revision accepted March 1, 
+2010.   Afﬁ liations:  From the Department of Cardiology (Drs Pisters, 
+Nieuwlaat, de Vos, and Crijns), Maastricht University Medical Centre, Maastricht, The Netherlands; and the University of Bir-mingham Centre for Cardiovascular Sciences (Drs Lane and Lip), City Hospital, Birmingham, England.   Funding/Support:  The Euro Heart Survey has as industry spon-
+sors the main sponsor, AstraZeneca; major sponsor, Sanoﬁ  -Aventis; 
+and sponsor, Eucomed. Funding institutions are the Austrian Heart Foundation, Austrian Society of Cardiology, French Federa-tion of Cardiology, Hellenic Cardiological Society, Netherlands 
+Heart Foundation, Portuguese Society of Cardiology, Spanish 
+Cardiac Society, Swedish Heart and Lung Foundation, and indi-vidual centers.   Correspondence to:  Gregory Y. H. Lip, MD, University of Birmingham Centre for Cardiovascular Sciences, City Hospital, Birmingham B18 7QH, England; e-mail: g.y.h.lip@bham.ac.uk   © 2010 American College of Chest Physicians.  Reproduction of this article is prohibited without written permission from the American College of Chest Physicians ( http://www.chestpubs.org/site/misc/reprints.xhtml ).  DOI: 10.1378/chest.10-0134 
+ © 2010 American College of Chest Physicians by Kimberly Henricks on November 8, 2010 chestjournal.chestpubs.org Downloaded from 
+www.chestpubs.org CHEST / 138 / 5 / NOVEMBER, 2010   1095 hemorrhage. The baseline demographic and clinical 
+characteristics of the 3,456 patients are presented in  Table 3  . 
+ Of all discharged patients, 2,242 (64.8%) were on 
+OAC (286 [12.8%] of whom also received aspirin and/or clopidogrel), 828 (24.0%) received antiplate-let therapy alone (aspirin and/or clopidogrel), and 352 (10.2%) received no antithrombotic therapy. The distribution of the risk factors for major bleeding within 1 year among the different antithrombotic treatment regimens in the derivation cohort is depicted agents, nonsteroidal antiinﬂ  ammatory drugs; one point for drugs 
+plus one point for alcohol excess, maximum two points) as shown in  Table 2  . 
+ In order to compare the predictive accuracy of our novel 
+bleed risk score (HAS-BLED) with the previously proposed HEMOR 
+2 RHAGES (Hepatic or renal disease, Ethanol abuse, 
+Malignancy, Older age [ .  75 years], Rebleeding, Reduced 
+platelet count or function, Hypertension [uncontrolled], Ane-mia, Genetic factors, Excessive fall risk, and Stroke) scheme, patients were classiﬁ  ed accordingly  
+17  ; however, we considered 
+“uncontrolled hypertension” to be  .  160 mm Hg systolic, a “his-
+tory of malignancy” to be similar to “current malignancy,” and we classiﬁ  ed  /H11350  8 units alcoholic consumption per week as “ethanol 
+abuse.” Relevant genetic and laboratory data (required for calcu-lation of the HEMOR 
+2 RHAGES schema), apart from serum crea-
+tinine, were not available for the Euro Heart Survey on AF cohort. 
+ Results 
+ Of the 5,272 patients with AF in the Euro Heart 
+Survey of AF who were discharged alive,  5   3,456 (66%) 
+patients without mitral valve stenosis or valvular 
+surgery had 1-year follow-up status regarding major bleeding. The overall mean (SD) age was 66.8 (12.8) years, and the majority were men (59%). Fifty-three (1.5%) patients experienced a major bleed during the ﬁ rst year, including nine (17%) cases of intracerebral  Table 1— Clinical Risk Factors for Major Bleeding Within 1 Year in Patients With Atrial Fibrillation Enrolled in the 
+Euro Heart Survey  
+Risk Factor  MV Regression 
+Coefﬁ  cientEvent Rate With 
+Risk FactorEvent Rate Without 
+Risk FactorUnivariate 
+ P  Value OR (95% CI) MV    P  Value
+Systolic BP  .  160 mm Hg  - 0.52 4 (1.0) 11 (1.4) .515 0.60 (0.21-1.72) .337
+Kidney failure 1.05 10 (5.4) 43 (1.3)  ,  .001 2.86 (1.33-6.18) .007
+Stroke  - 0.44 4 (2.1) 48 (1.5) .532 0.94 (0.32-2.86) .940
+Prior major bleeding 2.02 9 (14.8) 44 (1.3)  ,  .001 7.51 (3.00-18.78)  ,  .001
+Age  .  65 y 0.98 42 (2.3) 11 (0.7)  ,  .001 2.66 (1.33-5.32) .007
+Antiplatelet agent  a   - 0.22 5 (3.4) 46 (1.4) .066 0.81 (0.43-1.51) .504
+Alcohol use  b   - 16.80 10 (1.6) 31 (1.9) 1.000 0.00 (0.00) .996
+MV  5  multivariate.
+ a Aspirin or clopidogrel.
+ b   .  8 U/wk. 
+ Table 2— Clinical Characteristics Composing the 
+HAS-BLED Bleeding Risk Score  
+Letter Clinical Characteristic  a  Points Awarded
+H Hypertension 1
+A Abnormal renal and liver function 
+ (1 point each)1 or 2
+S Stroke 1
+B Bleeding 1
+L Labile INRs 1
+E Elderly 1
+D Drugs or alcohol (1 point each) 1 or 2
+HAS-BLED  5  Hypertension, Abnormal renal/liver function, Stroke, 
+Bleeding history or predisposition, Labile international normalized 
+ratio, Elderly (  .  65 years), Drugs/alcohol concomitantly; INR  5  inter-
+national normalized ratio.
+ a See “Materials and Methods” for definitions of the clinical 
+characteristics. Table 3— Baseline Characteristics of Patients With 
+Atrial Fibrillation From the Euro Heart Survey With a 
+Known Follow-up Status Regarding Major Bleeding  
+Characteristic Bleed (n  5  53)No Bleed 
+(n  5  3,910)  P  Value
+Age, mean (SD), y 73 (10) 66 (13)  , .001
+Age  .  65 y 42 (79) 1,748 (51)  , .001
+Female sex 28 (53) 1,329 (39) .046
+BMI, mean (SD), kg/m 2 27 (5) 28 (8) .298
+Atrial ﬁ  brillation type .827
+ First detected 9 (17) 628 (19)
+ Paroxysmal 15 (28) 1,029 (31)
+ Persistent/permanent 29 (56) 1,688 (51)
+Medical history Current smoker 6 (11) 450 (13) .716
+ Hypertension 39 (74) 2,228 (65) .245
+ Diabetes mellitus 12 (23) 610 (18) .367
+ Coronary artery disease 15 (29) 1,182 (35) .462 Heart failure 24 (45) 994 (24) .014
+ Valvular heart disease 18 (34) 607 (18) .006 COPD 12 (23) 427 (13) .037
+ Thyroid disease 10 (20) 326 (10) .059
+ Stroke/transient ischemic 
+attack6 (12) 355 (11) .818
+CHADS 
+2  score, mean (SD) 2.07 (1.16) 1.60 (1.27) .008
+Bleeding risk factors Prior major bleed 9 (17) 52 (2)  , .001
+ Systolic BP , mean (SD) 137(20) 136 (22) .856
+ Malignancy 4 (8) 183 (5) .529
+ Renal failure 10 (19) 174 (5)  , .001
+ Alcohol use  /H11350  8 U/wk 0 (0) 170 (5) .111
+Values presented are No. (%) unless otherwise indicated  . CHADS 
+2   5  
+congestive heart failure, hypertension, age  .  75, diabetes mellitus, 
+and previous stroke/transient ischemic attack (doubled).
+ © 2010 American College of Chest Physicians by Kimberly Henricks on November 8, 2010 chestjournal.chestpubs.org Downloaded from 
+1096 Original Research21 patients with a CHADS 2  score  /H11350  1 discharged 
+without OAC who suffered a stroke within 1 year of 
+follow-up, only one had a HAS-BLED score outweigh-ing the individual stroke risk. Of the patients with CHADS 
+2  score  /H11350  1 who were discharged without 
+OAC with a higher HAS-BLED bleeding risk score, all three patients suffered a major bleed. 
+ Discussion 
+ Using a derivation cohort based on the large, real-
+world population of the Euro Heart Survey on AF, we identiﬁ  ed four independent risk factors of major bleed-
+ing within 1 year (prior major bleeding, age  .  65 years, 
+clopidogrel use, and kidney failure). Incorporating these risk factors with other established risk factors from systematic reviews and multivariate analyses,  
+11,13,19    
+we developed and tested a novel, user-friendly bleed-ing risk score, HAS-BLED, which demonstrated a good predictive accuracy in the overall Euro Heart survey cohort (C statistic 0.72) but performed par-ticularly well in predicting bleeding risk where anti-platelet therapy was used alone (C statistic 0.91), or no antithrombotic therapy at all (C statistic 0.85). Assessment of both stroke and bleed risk using the CHADS 
+2  and HAS-BLED schemas, respectively, in 
+the Euro Heart Survey on AF population would have 
+resulted in withholding OAC therapy in 12% of the patients who suffered a major bleed within 1 year and the initiation of OAC in 95% of the patients at high 
+risk for stroke who were discharged without OAC and had suffered a stroke within 1 year. 
+ With the previously published HEMOR 
+2 RHAGES 
+schema  17   and others,  11,19   the concept of a risk score 
+for major bleeding in patients with AF is not new. However, our novel, proposed HAS-BLED score has several key advantages over the previously mentioned bleeding risk stratiﬁ  cation method. First, the shorter 
+acronym means that physicians have fewer risk fac-tors to memorize when using the HAS-BLED score, thereby increasing the user-friendliness and sub-sequent clinical application. Furthermore, in con-trast to certain risk factors incorporated into the HEMOR 
+2 RHAGES score that require laboratory 
+parameters or even genetic testing,  17   all risk factors of 
+the HAS-BLED score are either readily available from the clinical medical history or routinely tested in (new) patients with AF. This characteristic strongly supports its use in all health-care settings and is another signiﬁ  cant contributor to its superior user-friendliness. Because less does not necessarily mean more, it is important to note that the predictive accu-racy of the HAS-BLED score is broadly similar when compared with the HEMOR 
+2 RHAGES model in 
+the overall population (C statistic of 0.72 vs 0.66, in  Table 4  . The risk of major bleeding within 1 year in patients with AF in the Euro Heart Survey determined by the novel bleeding risk score, HAS-BLED, is shown in  Table 5  . The annual bleeding rate increased with the addition of each risk factor from the derivation cohort ( Table 5 ). 
+ The corresponding unadjusted bleeding rates in 
+patients with OAC, antiplatelet therapy alone, or no antithrombotic treatment were 1.75, 0.97, and 1.42 bleeds per 100 patient-years, respectively. The predictive accuracy in the overall population 
+using signiﬁ  cant risk factors in the derivation cohort (C statistic 0.72) was consistent when applied in several subgroups, as shown in  Table 6  . Application 
+of the new bleeding risk score (HAS-BLED) gave similar C statistics to that derived in the derivation 
+cohort overall (0.72), or when patients were estab-lished on OAC at baseline (0.69), or when patients were on OAC plus antiplatelet therapy at baseline (0.78). HAS-BLED substantially improved the predictive 
+accuracy of bleeding risk when patients with AF were receiving antiplatelet therapy alone or in those who were not on antithrombotic therapy at all (with C statistics of 0.91 and 0.85, respectively). The HEMOR 
+2 RHAGES bleeding scheme had a lower pre-
+dictive accuracy compared with the new HAS-BLED score, overall or in relation to antithrombotic therapy use, except in the OAC plus antiplatelet therapy sub-group ( Table 6 ). 
+ Of all the 33 bleeding events in patients discharged 
+with OAC because of a CHADS 
+2  (congestive heart 
+failure, hypertension, age  .  75 years, diabetes melli-
+tus, and previous stroke/transient ischemic attack [doubled]) score  /H11350  1, four (12%) patients had a 
+HAS-BLED-based bleeding risk that outweighed their individual stroke risk. Conversely, of all 1,580 patients discharged with OAC because of a CHADS 
+2  score  /H11350  1 
+who did not suffer a major bleed within 1 year, only 
+34 (2.2%) had a HAS-BLED-based bleeding risk 
+that outweighed their individual stroke risk. Of all 
+ Table 4— Clinical Risk Factors for Major Bleeding 
+Within 1 Year in Patients With Atrial Fibrillation of 
+the Euro Heart Survey According to Antithrombotic 
+Treatment at Discharge  
+Bleeding Risk FactorOral 
+Anticoagulation 
+(n  5  2,115)Aspirin/
+Clopidogrel 
+(n  5  828)Neither 
+(n  5  352)
+Systolic BP  .  160 mm Hg 10.0 13.4 13.7
+Kidney failure 5.3 4.8 6.8
+Stroke 5.9 5.0 3.2
+Prior major bleeding 1.7 1.6 3.2
+Age  .  65 y 53.3 52.8 42.6
+Antiplatelet agent 12.1 100 0.0
+Alcohol use  a  5.7 4.8 5.0
+Data shown as percentages.
+ a  /H11350  8 U/wk.
+ © 2010 American College of Chest Physicians by Kimberly Henricks on November 8, 2010 chestjournal.chestpubs.org Downloaded from 
+www.chestpubs.org CHEST / 138 / 5 / NOVEMBER, 2010   1097 of 0.85 vs 0.81, respectively), the HAS-BLED score 
+is simpler. This score would be particularly useful in everyday clinical practice, when making decisions on whether OAC can be initiated in a patient newly diag-nosed with AF who is not taking any antithrombotic therapy,  
+12   or when antiplatelet therapy (or Nonsteroi-
+dal antiinﬂ  ammatory drugs) use is being considered, for example, in the setting of coronary artery disease.  
+20   
+ As mentioned previously, balancing the individual 
+risk of bleeding and stroke is difﬁ  cult  21   but of the utmost 
+importance to maximize appropriate anti throm-
+botic therapy and minimize adverse events in patients with AF, resulting in a net clinical beneﬁ  t for the treated patient. In daily clinical practice, the CHADS 
+2  
+index  8   is a widely used tool to stratify stroke risk in 
+patients with AF. For now, the HEMOR 2 RHAGES 
+score is the only suitable counterpart available to assess the risk of bleeding in AF patients.  
+17   Closer examina-
+tion of the risk factors composing the CHADS 2  and 
+HEMOR 2 RHAGES schemas reveals an extensive 
+overlap between risk factors for bleeding and stroke, which has obvious drawbacks.  
+8,17   Indeed, the patients 
+at highest stroke and thromboembolic risk are par-adoxically more likely to sustain bleeding complica-tions. This may lead to confusion when trying to decide 
+on the most appropriate antithrombotic regimen to balance the risks of bleeding against the risk of stroke, thereby limiting the applicability of such schemas. 
+ The trade-off in terms of the beneﬁ  ts and risks 
+of OAC using the CHADS 
+2  index and HAS-BLED 
+score demonstrates that in the vast majority of patients with AF who require OAC (CHADS 
+2  index  /H11350  2) the 
+risk of bleeding outweighs the potential beneﬁ  t of 
+OAC if the HAS-BLED bleed score exceeds the indi-vidual CHADS 
+2  index. In the case of a CHADS 2  score 
+of 1, the HAS-BLED score must exceed 2 for the poten-tial harm caused by OAC to offset its beneﬁ  cial effect respectively).  
+17   However, the HAS-BLED score was 
+particularly useful when antiplatelet therapy was used alone or no antithrombotic therapy was used at all (C statistics of 0.91 and 0.85, respectively). Although the HAS-BLED score and the HEMOR 
+2 RHAGES 
+model were broadly similar in subjects who were not taking antithrombotic therapy at baseline (C statistics 
+ Table 6— Predictive Power of the Bleeding Risk Scores 
+Used To Assess Risk of Major Bleeding Within 1 Year in 
+Patients With Atrial Fibrillation  
+Antithrombotic 
+Treatment Bleeding Risk Score No. C Statistic (CI)
+Overall group Derivation cohort  a  3,381 0.72 (0.64-0.79)
+HAS-BLED 3,071 0.72 (0.65-0.79)
+HEMOR 2 RHAGES  b  3,040 0.66 (0.57-0.74)
+OAC alone Derivation cohort 1,947 0.68 (0.58-0.78)
+HAS-BLED 1,722 0.69 (0.59-0.80)HEMOR 
+2 RHAGES 1,706 0.64 (0.53-0.75)
+OAC  1  antiplatelet 
+ therapyDerivation cohort 240 0.80 (0.68-0.93)
+HAS-BLED 239 0.78 (0.65-0.91)
+HEMOR 2 RHAGES 235 0.83 (0.74-0.91)
+Antiplatelet 
+ therapy aloneDerivation cohort 788 0.74 (0.52-0.97)
+HAS-BLED 753 0.91 (0.83-1.00)
+HEMOR 2 RHAGES 728 0.83 (0.68-0.98)
+No antithrombotic 
+ therapyDerivation cohort 348 0.75 (0.51-0.99)
+HAS-BLED 315 0.85 (0.00-1.00)
+HEMOR 2 RHAGES 311 0.81 (0.00-1.00)
+HEMOR 2 RHAGES  5  Hepatic or renal disease, Ethanol abuse, Malig-
+nancy, Older age (  .  75 years), Rebleeding, Reduced platelet count or 
+function, Hypertension (uncontrolled), Anemia, Genetic factors, 
+Excessive fall risk, and Stroke; OAC  5  oral anticoagulation. See Table 
+2 for expansion of other abbreviation.
+ a Derivation cohort risk factors: bleeding history, age  .  65 y, clopidogrel 
+use, and kidney failure.
+ b Classifying bleeding risk by antithrombotic therapy use with the 
+HEMOR 2 RHAGES scheme resulted in mean scores of 1.17, 1.17, 
+1.31, 1.24, and 1.07, respectively. Table 5— The Risk of Major Bleeding Within 1 Year in Patients With Atrial Fibrillation Enrolled 
+in the Euro Heart Survey  
+Derivation Cohort  a  HAS-BLED
+Risk Factors/Score No. No. of Bleeds Bleeds Per 100 Patient-Years No. No. of Bleeds Bleeds Per 100 Patient-Years
+0 1,517 9 0.59 798 9 1.13
+1 1,589 24 1.51 1,286 13 1.02
+2 219 7 3.20 744 14 1.88
+3 41 8 19.51 187 7 3.74
+4 14 3 21.43 46 4 8.70
+5 1 0 … 8 1 12.50
+6 .... .... .... 2 0 0.0
+7 ... ... ... 0 ... ...
+8 ... ... ... 0 ... ...
+9 ... ... ... 0 ... ...
+Any score 3,381 51 1.51 3,071 48 1.56
+ P  value for trend  ,  0.001 0.007
+See Table 2 for expansion of abbreviations.
+ a Derivation cohort risk factors in multivariate analysis: bleeding history (given 2 points), age  .  65 y, clopidogrel use, and kidney failure (maximum 
+score 5).
+ © 2010 American College of Chest Physicians by Kimberly Henricks on November 8, 2010 chestjournal.chestpubs.org Downloaded from 
+1098 Original Researchwith AF before it can be widely implemented into daily 
+practice. Potential selection bias might have occurred because of 25% missing data regarding the occurrence of major bleeding during the follow-up period. Patients who were lost to follow-up were likely to have had more comorbidities and transferred to nursing homes or even have died, which might have led to underes-timation of the overall bleeding rate. Also, we recog-nize that the limited number of major bleeds and the relatively short follow-up period make it possible that other important risk factors for bleeding were 
+not identiﬁ  ed. Indeed, bleeding may occur following 
+changes to warfarin (eg, for surgery or interventions such as pacemaker implant) with institution of bridg-ing therapy with low-molecular heparin. We also did not consider thyroid disease in our model, as this had not been identiﬁ  ed as a bleeding risk in prior system-atic reviews  
+11-13  ; however, some pathophysiologic plau-
+sibility is possible, since hypothyroidism has been described to cause acquired von Willebrand disease associated with low factor VIII levels and platelet dysfunction.  
+26   Of note, there is an improved predictive 
+power of the HAS-BLED score over the HEMOR 2 -
+RHAGES score in patients treated with antiplatelet therapy (or nonsteroidal antiinﬂ  ammatory drugs) or 
+no antithrombotic therapy at all ( Table 6 ). 
+ The risk of major bleeding (especially intracranial 
+hemorrhage) is increased with advanced age.  
+26-28   Of 
+note, the risk of major hemorrhage can be similar among elderly patients receiving warfarin and aspi-rin.  
+29   The relatively small numbers of bleeding events 
+and the modest number of very elderly patients in our cohort makes it rather difﬁ  cult to draw too many ﬁ  rm 
+conclusions by introducing different weights to differ-ent age categories (eg, one point for age 65-74 years, two points for age 75-84 years, three points for age  /H11350  85 years, and so forth), as well as introducing 
+additional complexity to our simple HAS-BLED scoring system. Also, age is a continuous (rather than categorized) risk for bleeding (as well as stroke) and the biologic age of an elderly patient is probably more relevant to bleeding risk than the chronologic age. It must be stressed that in many instances, bleeding risk among the elderly is multifactorial  
+30   and is often 
+the result of associated comorbidities, high anticoag-ulation intensity, and labile INRs in this population.  
+11-13   
+The HAS-BLED score already takes some of these aspects into account, allowing cumulative assessment of risk factors for bleeding. In the present analysis, the HAS-BLED score already outperforms the HEMOR 
+2 RHAGES bleeding scheme, which was an 
+attempt by Gage et al  17   to have a simple method of 
+bleeding assessment. Future validation and reﬁ  ne-
+ment of HAS-BLED among a huge elderly AF popu-lation with prolonged follow-up may address the issue of age as a continuous variable for bleeding risk. on stroke risk reduction. Appropriate use of this prac-
+tical rule in the Euro Heart Survey on AF population could have prevented more than one out of every 10 (4/33) of the major bleeds. However, 34/1,580 (2.2%) of the patients with a CHADS 
+2  score  /H11350  1 discharged 
+with OAC who did not suffer a major bleed within 1 year would have been denied OAC because of a HAS-BLED bleed risk outweighing their stroke risk. 
+ The potential impact on current clinical practice 
+of the novel HAS-BLED score is underlined by the recently published Atrial Fibrillation Clopidogrel Trial with Irbesartan for Prevention of Vascular Events-A (ACTIVE-A) trial.  
+22   This large random-
+ized clinical trial was designed to compare the pre-ventive effect on all-cause vascular events of clopidogrel plus aspirin vs aspirin alone in patients with AF deemed unsuitable for OAC treatment. In half (n  5   /H11601  3,500) of 
+these patients with AF with a high stroke risk, the most common applied classiﬁ  cation was “unsuitable for OAC,” which was solely based on physician clinical judgment, without the presence of any predeﬁ  ned 
+risk factor of bleeding or other objective risk scoring. Perhaps this reﬂ  ects physicians’ uncertainty about what to consider as true risk factors of bleeding and their fear of potential iatrogenic harm caused by OAC use. 
+ Given the recent promising results of the Random-
+ized Evaluation of Long-Term Anticoagulation Ther-apy (RE-LY) trial,  
+23   patients assessed as being at higher 
+bleeding risk using the novel HAS-BLED score could be prescribed the lower dose (110 mg bid) of the oral direct thrombin inhibitor, dabigatran, which demon-strated a signiﬁ  cant reduction in major bleeding compared with warfarin, with a similar stroke risk reduction to warfarin, whereas those at lower bleed-ing risk could be prescribed dabigatran 150 mg bid, which offers superior efﬁ  cacy but a similar major bleeding risk to warfarin.  
+24   Further, the HAS-BLED 
+score could also be used to identify patients who may beneﬁ  t from a left atrial appendage occlusion device  
+25   
+(ie, patients at high risk of ischemic stroke who have such an increased risk of bleeding that OAC is con-traindicated). Thus, physicians initiating OAC (whether with the vitamin K antagonist or new oral anticoagu-lants, such as dabigatran) in a patient with AF could 
+use the HAS-BLED score to assess the potential bleeding risk and feel more conﬁ  dent in prescribing OAC as appropriate or refer the patient for implantation of a left atrial appendage occlusion device. Indeed, bleeding risk scores should also be validated in dabig-atran-treated patients, as well as those being con-
+sidered for left atrial appendage occlusion devices. 
+ Limitations 
+ The HAS-BLED score needs to be validated in at 
+least one other large contemporary cohort of patients 
+ © 2010 American College of Chest Physicians by Kimberly Henricks on November 8, 2010 chestjournal.chestpubs.org Downloaded from 
+www.chestpubs.org CHEST / 138 / 5 / NOVEMBER, 2010   1099     2 .  Risk factors for stroke and efﬁ  cacy of antithrombotic therapy 
+in atrial ﬁ  brillation. Analysis of pooled data from ﬁ  ve ran-
+domized controlled trials .   Arch Intern Med  .  1994 ; 154 ( 13 ):
+ 1449 - 1457 .   
+    3 .  Hart   RG ,  Pearce   LA ,  Aguilar   MI .  Meta-analysis: antithrom-
+botic therapy to prevent stroke in patients who have nonvalvu-
+lar atrial ﬁ  brillation .   Ann Intern Med  .  2007 ; 146 ( 12 ): 857 - 867 .  
+    4 .  Fuster   V  ,  Rydén   LE ,  Cannom   DS ,  et al ;  European Heart 
+Rhythm Association ;  Heart Rhythm Society ;  American College of Cardiology ;  American Heart Association Task Force on Practice Guidelines ;  European Society of Cardiology Com-mittee for Practice Guidelines ;  Writing Committee to Revise the 2001 Guidelines for the Management of Patients With Atrial Fibrillation .  ACC/AHA/ESC 2006 guidelines for the 
+management of patients with atrial ﬁ  brillation—executive 
+summary: a report of the American College of Cardiology/American Heart Association Task Force on Practice Guidelines and the European Society of Cardiology Committee for Practice Guidelines (Writing Committee to Revise the 2001 Guidelines for the Management of Patients With Atrial 
+Fibrillation) .   J Am Coll Cardiol  .  2006 ; 48 ( 4 ): 854 - 906 .   
+    5 .  Nieuwlaat   R ,  Capucci   A ,  Camm   AJ ,  et al ;  European Heart 
+Survey Investigators .  Atrial ﬁ  brillation management: a prospec-tive survey in ESC member countries: the Euro Heart Survey on Atrial Fibrillation .   Eur Heart J  .  2005 ; 26 ( 22 ): 2422 - 2434 .   
+    6 .  Heeringa   J ,  van der Kuip   DA ,  Hofman   A ,  et al .  Prevalence, 
+incidence and lifetime risk of atrial ﬁ  brillation: the Rotterdam study .   Eur Heart J  .  2006 ; 27 ( 8 ): 949 - 953 .   
+    7 .  Miyasaka   Y ,  Barnes   ME ,  Gersh   BJ ,  et al .  Secular trends in 
+incidence of atrial ﬁ  brillation in Olmsted County, Minnesota, 1980 to 2000, and implications on the projections for future prevalence .   Circulation  .  2006 ; 114 ( 2 ): 119 - 125 .   
+    8 .  Gage   BF ,  Waterman   AD ,  Shannon   W ,  Boechler   M ,  Rich  
+ MW ,  Radford   MJ .  Validation of clinical classiﬁ  cation schemes 
+for predicting stroke: results from the National Registry of Atrial Fibrillation .   JAMA  .  2001 ; 285 ( 22 ): 2864 - 2870 .   
+    9 .  Nieuwlaat   R ,  Capucci   A ,  Lip   GY ,  et al ;  Euro Heart Survey 
+Investigators .  Antithrombotic treatment in real-life atrial ﬁ brillation patients: a report from the Euro Heart Survey on 
+Atrial Fibrillation .   Eur Heart J  .  2006 ; 27 ( 24 ): 3018 - 3026 .   
+    10 .  Waldo   AL ,  Becker   RC ,  Tapson   VF ,  Colgan   KJ ;  NABOR 
+Steering Committee .  Hospitalized patients with atrial fibrillation and a high risk of stroke are not being pro-vided with adequate anticoagulation .   J Am Coll Cardiol  .  
+ 2005 ; 46 ( 9 ): 1729 - 1736 .   
+    11 .  Palareti   G ,  Cosmi   B .  Bleeding with anticoagulation therapy— 
+who is at risk, and how best to identify such patients .   Thromb 
+Haemost  .  2009 ; 102 ( 2 ): 268 - 278 .  
+    12.   National Collaborating Centre for Chronic Conditions .  Atrial 
+Fibrillation: National Clinical Guideline for Management in Primary and Secondary Care.  London, England: Royal College of Physicians.  
+    13 .  Hughes   M ,  Lip   GY ;  Guideline Development Group for the 
+NICE national clinical guideline for management of atrial ﬁ  bril-
+lation in primary and secondary care .  Risk factors for antico-agulation-related bleeding complications in patients with atrial ﬁ brillation: a systematic review .   QJM  .  2007 ; 100 ( 10 ): 599 - 607 .   
+    14 .  Beyth   RJ ,  Quinn   LM ,  Landefeld   CS .  Prospective evaluation 
+of an index for predicting the risk of major bleeding in outpa-tients treated with warfarin .   Am J Med  .  1998 ; 105 ( 2 ): 91 - 99 .   
+    15 .  Kuijer   PM ,  Hutten   BA ,  Prins   MH ,  Büller   HR .  Prediction of 
+the risk of bleeding during anticoagulant treatment for venous thromboembolism .   Arch Intern Med  .  1999 ; 159 ( 5 ): 457 - 460 .   
+    16 .  Shireman   TI ,  Howard   PA ,  Kresowik   TF ,  Ellerbeck   EF . 
+ Combined anticoagulant-antiplatelet use and major bleed-ing events in elderly atrial ﬁ  brillation patients .   Stroke  .  2004 ;
+ 35 ( 10 ): 2362 - 2367 .    Finally, data about INR control are obviously not 
+available when having to decide on starting OAC 
+for the ﬁ  rst time in a patient. When on OAC, the INR is often elevated at the time of admission for a bleeding event, but it is unknown which measure of INR control best predicts bleeding in such a manner that clinical action could prevent the bleed-ing. We did not include actual INR values during follow-up but acknowledge its importance as risk factor of bleeding.  
+19   Of note, the current alternative 
+(HEMOR 2 RHAGES model) was also developed 
+without the availability of INR values.  17   
+ Conclusion 
+ We propose a novel bleeding risk score, HAS-BLED, 
+that provides an easy, practical tool to assess the indi-vidual bleeding risk of patients with AF. The use of this simple score may potentially support clinical deci-sion making regarding antithrombotic therapy for stroke prevention. 
+ Acknowledgments 
+  Author contributions:   Dr Pisters:  contributed to statistical anal-
+yses, data interpretation, and drafting of the manuscript.   Dr Lane:  contributed to drafting and revision of the manuscript.   Dr Nieuwlaat:  contributed to statistical analyses, data interpreta-tion, and drafting of the manuscript.   Dr de Vos:  contributed to drafting and revision of the manuscript.   Dr Crijns:  contributed to drafting and revision of the manu-script.   Dr Lip:  contributed to study design and hypothesis, concept of the HAS-BLED score (the Birmingham Atrial Fibrillation Bleeding Risk schema), data interpretation, drafting of manu-script, and revisions.   Financial/nonﬁ  nancial disclosures:  The authors have reported 
+to  CHEST  the following conﬂ  icts of interest: Dr Pisters has con-
+sulting fees from Bayer and Boehringel Ingelheim and lecture fees from Boehringer Ingelheim. Dr Lane is the recipient of an investigator-initiated educational grant from Bayer Healthcare and has received sponsorship to attend the European Society of Cardiology Congress 2009 from AstraZeneca. Dr Crijn has received consulting fees from Boehringer Ingelheim, Sanoﬁ  -Aventis, and 
+AstraZeneca; grant support from St. Jude Medical, Boston Scien-tiﬁ c, Boehringer Ingelheim, Sanoﬁ  -Aventis, Medapharma, and 
+Merck; and honoraria from Medtronic, Sanoﬁ  -Aventis, Medapharma, 
+Merck, Boehringer Ingelheim, and Biosense W ebster. Dr Lip has 
+served as a consultant for Bayer, Astellas, Merck, AstraZeneca, Sanoﬁ  -Aventis, Aryx, Portola, Biotronic, and Boehringher Ingelheim, 
+and has been on the speakers bureau for Bayer, Boehringher Ingelheim, and Sanoﬁ  -Aventis. Drs Nieuwlaat and de Vos have 
+reported that no potential conﬂ  icts of interest exist with any com-
+panies/organizations whose products or services may be discussed in this article.   Other contributions:  We thank the Euro Heart Survey team, national coordinators, investigators, and data collection ofﬁ  cers 
+for performing the survey. 
+ References 
+    1 .  Wolf   PA ,  Abbott   RD ,  Kannel   WB .  Atrial ﬁ  brillation as an 
+independent risk factor for stroke: the Framingham Study . 
+  Stroke  .  1991 ; 22 ( 8 ): 983 - 988 .  
+ © 2010 American College of Chest Physicians by Kimberly Henricks on November 8, 2010 chestjournal.chestpubs.org Downloaded from 
+1100 Original Research    17 .  Gage   BF ,  Yan   Y ,  Milligan   PE ,  et al .  Clinical classiﬁ  ca-
+tion schemes for predicting hemorrhage: results from the 
+National Registry of Atrial Fibrillation (NRAF) .   Am Heart J  .  
+ 2006 ; 151 ( 3 ): 713 - 719 .   
+    18 .  Nieuwlaat   R ,  Prins   MH ,  Le Heuzey   JY ,  et al .  Prognosis, dis-
+ease progression, and treatment of atrial ﬁ  brillation patients 
+during 1 year: follow-up of the Euro Heart Survey on atrial 
+ﬁ brillation .   Eur Heart J  .  2008 ; 29 ( 9 ): 1181 - 1189 .   
+    19 .  Tay   KH ,  Lane   DA ,  Lip   GY .  Bleeding risks with combination 
+of oral anticoagulation plus antiplatelet therapy: is clopidogrel 
+any safer than aspirin when combined with warfarin?    Thromb 
+Haemost  .  2008 ; 100 ( 6 ): 955 - 957 .  
+    20 .  Lip   GY ,  Huber   K ,  Andreotti   F ,  et al .  Management of antithrom-
+botic therapy in atrial ﬁ  brillation patients presenting with acute coronary syndrome and/or undergoing percutaneous coronary intervention/ stenting .   Thromb Haemost  .  2010 ; 103 ( 1 ): 13 - 28 .  
+    21 .  Lip   GY ,  Zariﬁ  s   J ,  Watson   RD ,  Beevers   DG .  Physician varia-
+tion in the management of patients with atrial ﬁ  brillation . 
+  Heart  .  1996 ; 75 ( 2 ): 200 - 205 .   
+    22 .  Connolly   SJ ,  Pogue   J ,  Hart   RG ,  et al ;  ACTIVE Investigators . 
+ Effect of clopidogrel added to aspirin in patients with atrial ﬁ brillation .   N Engl J Med  .  2009 ; 360 ( 20 ): 2066 - 2078 .   
+    23 .  Connolly   SJ ,  Ezekowitz   MD ,  Yusuf   S ,  et al ;  RE-LY Steering 
+Committee and Investigators .  Dabigatran versus warfarin in patients with atrial ﬁ  brillation .   N Engl J Med  .  2009 ; 361 ( 12 ):
+ 1139 - 1151 .   
+    24 .  Fihn   SD ,  Callahan   CM ,  Martin   DC ,  McDonell   MB ,  Henikoff  
+ JG ,  White   RH ;  The National Consortium of Anticoagulation Clinics .  The risk for and severity of bleeding complications in elderly patients treated with warfarin .   Ann Intern Med  .  
+ 1996 ; 124 ( 11 ): 970 - 979 .  
+    25 .  Holmes   DR ,  Reddy   VY ,  Turi   ZG ,  et al ;  PROTECT AF 
+Investigators .  Percutaneous closure of the left atrial appendage versus warfarin therapy for prevention of stroke in patients with 
+atrial ﬁ  brillation: a randomised non-inferiority trial .   Lancet  .  
+ 2009 ; 374 ( 9689 ): 534 - 542 .   
+    26 .  Homoncik   M ,  Gessl   A ,  Ferlitsch   A ,  Jilma   B ,  Vierhapper   H . 
+ Altered platelet plug formation in hyperthyroidism and hypothyroidism .   J Clin Endocrinol Metab  .  2007 ; 92 ( 8 ): 3006 - 3012 .   
+    27 .  Fang   MC ,  Chang   Y ,  Hylek   EM ,  et al .  Advanced age, anticoag-
+ulation intensity, and risk for intracranial hemorrhage among patients taking warfarin for atrial ﬁ  brillation .   Ann Intern Med  .  
+ 2004 ; 141 ( 10 ): 745 - 752 .  
+    28 .  van Walraven   C ,  Hart   RG ,  Connolly   S ,  et al .  Effect of age 
+on stroke prevention therapy in patients with atrial ﬁ  brilla-
+tion: the atrial ﬁ  brillation investigators .   Stroke  .  2009 ; 40 ( 4 ):
+ 1410 - 1416 .   
+    29 .  Mant   J ,  Hobbs   FDR ,  Fletcher   K ,  et al ;  BAFTA investigators ; 
+ Midland Research Practices Network (MidReC)  . Warfarin versus aspirin for stroke prevention in an elderly community population with atrial ﬁ  brillation (the Birminigham Atrial Fibrillation Treatment of the Aged Study, BAFTA): a ran-domised controlled trial .   Lancet  .  2007 ; 370 (9586): 493 - 503 .   
+    30 .  Arboix   A ,  Vall-Llosera   A ,  García-Eroles   L ,  Massons   J , 
+ Oliveres   M ,  Targa   C .  Clinical features and functional outcome of  intracerebral hemorrhage in patients aged 85 and older .   J Am Geriatr Soc  .  2002 ; 50 ( 3 ): 449 - 454 .         
+ © 2010 American College of Chest Physicians by Kimberly Henricks on November 8, 2010 chestjournal.chestpubs.org Downloaded from 

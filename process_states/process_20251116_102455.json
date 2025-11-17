@@ -1,0 +1,74 @@
+{
+  "process_id": "process_20251116_102455",
+  "status": "failed",
+  "created_at": "2025-11-16T10:24:56.343923",
+  "updated_at": "2025-11-16T10:25:07.481476",
+  "metadata": {
+    "total_rows": 2552
+  },
+  "progress": {
+    "processed": 0,
+    "failed": 0,
+    "total": 2552,
+    "percentage": 0.0
+  },
+  "logs": [
+    {
+      "timestamp": "2025-11-16T10:24:56.344310",
+      "message": "Processing started"
+    },
+    {
+      "timestamp": "2025-11-16T10:25:04.762857",
+      "message": "Using LLM Manager: local/unsloth/Qwen2.5-14B-Instruct"
+    },
+    {
+      "timestamp": "2025-11-16T10:25:04.763075",
+      "message": "Using Regex Preprocessor"
+    },
+    {
+      "timestamp": "2025-11-16T10:25:04.763218",
+      "message": "Extras Manager: 348 extras available"
+    },
+    {
+      "timestamp": "2025-11-16T10:25:04.763308",
+      "message": "Function Registry: 38 functions available"
+    },
+    {
+      "timestamp": "2025-11-16T10:25:04.763400",
+      "message": "RAG Engine: 10 documents loaded"
+    },
+    {
+      "timestamp": "2025-11-16T10:25:04.763491",
+      "message": "Initializing agent"
+    },
+    {
+      "timestamp": "2025-11-16T10:25:04.775911",
+      "message": "AdaptiveAgent initialized"
+    },
+    {
+      "timestamp": "2025-11-16T10:25:04.776159",
+      "message": "Output Handler initialized"
+    },
+    {
+      "timestamp": "2025-11-16T10:25:04.776289",
+      "message": "Starting row processing"
+    },
+    {
+      "timestamp": "2025-11-16T10:25:04.776397",
+      "message": "Batch preprocessing started"
+    },
+    {
+      "timestamp": "2025-11-16T10:25:04.835604",
+      "message": "Batch preprocessing complete: 0.00s"
+    },
+    {
+      "timestamp": "2025-11-16T10:25:04.835812",
+      "message": "Multi-GPU processing with 2 GPUs"
+    },
+    {
+      "timestamp": "2025-11-16T10:25:07.480635",
+      "message": "Processing failed: ProcessingResult.__init__() got an unexpected keyword argument 'task_id'"
+    }
+  ],
+  "completed_at": "2025-11-16T10:25:07.481464"
+}

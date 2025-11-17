@@ -1,0 +1,302 @@
+Brief Report
+Documentation of HEART score discordance between emergency
+physician and cardiologist evaluations of ED patients withchest pain☆
+,☆☆ ,★
+W. Kelly Wu, BSca, Maame Yaa A.B. Yiadom, MD, MPHb, Sean P. Collins, MD, MScb,
+Wesley H. Self, MD, MPHb, Ken Monahan, MDc,⁎
+aVanderbilt University School of Medicine, Nashville, TN
+bDepartment of Emergency Medicine, Vanderbilt University Medical Center, Nashville, TN
+cDivision of Cardiovascular Medicine, Vanderbilt University Medical Center, Nashville, TN
+abstract article info
+Article history:
+Received 16 August 2016Received in revised form 8 September 2016
+Accepted 20 September 2016Introduction: A triage cardiology program, in which cardiologists provide consultation to the Emergency Depart-
+ment (ED), may safely reduce admissions. For patients with chest pain, the HEART Pathway may obviate the needfor cardiology involvement, unless there is a difference between ED and cardiology assessments. Therefore, in a
+cohort concurrently evaluated by both specialties, we analyzed discordance between ED and cardiology HEART
+scores.Methods: We performed a single-center, cross-sectional, retrospective study of adults presenting to the ED with
+chest pain who had a documented bedside evaluation by a triage cardiologist. Separate ED and cardiology HEART
+scores were computed based on documentation by the respective physicians. Discrepancies in HEART score be-tween ED physicians and cardiologists were quanti ﬁed using Cohen κcoefﬁcient.
+Results: Thirty-three patients underwent concurrent ED physician and cardiologist evaluation. Twenty-three pa-
+tients (70%) had discordant HEART scores ( κ= 0.13; 95% con ﬁdence interval, −0.02 to 0.32). Discrepancies in
+the description of patients' chest pain were the most common source of discordance and were present in morethan 50% of cases. HEART scores calculated by ED physicians tended to overestimate the scores calculated by car-
+diologists. When categorized into low-risk or high-risk by the HEART Pathway, more than 25% of patients were
+classi ﬁed as high risk by the ED physician, but low risk by the cardiologist.
+Conclusion: There is substantial discordance in HEART scores between ED physicians and cardiologists. A triage
+cardiology system may help re ﬁne risk strati ﬁcation of patients presenting to the ED with chest pain, even
+when the HEART Pathway tool is used.
+© 2016 Elsevier Inc. All rights reserved.
+1. Introduction
+Chest pain accounts for 8 to 10 million emergency department (ED)
+visits each year in the United States [1]. To optimize care delivery to EDpatients, more appropriate risk strati ﬁcation is needed to better allocate
+resources [2,3]. We recently described our experience in implementing
+a triage program in which cardiologists provide consultation to the ED.
+Over a 6-month observation period, 15% to 20% of consulted patients
+were discharged [4], thus potentially avoiding a large number of
+admissions.
+Soon after the observation period for this study ended, our ED
+adopted the HEART Pathway as an initial tool for risk-stratifying pa-
+tients presenting with chest pain [5]. The HEART Pathway is a validated
+decision aid for identifying patients who are safe for discharge [6].I t
+provides recommendations for further management based on the
+HEART score, whereby an increasing number of points is assigned
+based on the level of risk associated with the patient's description of
+their chest pain, risk factors for coronary artery disease, electrocardio-
+graphic ﬁndings, and troponin measurements. The implementation of
+the HEART Pathway at our institution motivated us to assess its poten-
+tial impact on our triage cardiology program.American Journal of Emergency Medicine 35 (2017) 132 –135
+☆Meetings: None.
+☆☆Support/Grants: Dr Self was supported in part by K23GM110469 from the National In-
+stitute of General Medical Sciences. Dr Yiadom was supported by K12 National Heart, Lung,and Blood Institute's Emergency Care K12 Research Training Program at Vanderbilt Uni-versity, award number 5K12HL109019.
+★Conﬂicts of interest: Nothing to disclose.
+⁎Corresponding author at: Vanderbilt Heart and Vascular Institute, 1215 21st Avenue,
+Medical Center East 5th Floor, Nashville, TN 37232.
+E-mail addresses: w.kelly.wu@vanderbilt.edu (W.K. Wu),
+maya.yiadom@vanderbilt.edu (M.Y.A.B. Yiadom), sean.collins@vanderbilt.edu
+(S.P. Collins), wesley.self@vanderbilt.edu (W.H. Self), ken.monahan@vanderbilt.edu
+(K. Monahan).
+http://dx.doi.org/10.1016/j.ajem.2016.09.0580735-6757/© 2016 Elsevier Inc. All rights reserved.
+Contents lists available at ScienceDirect
+American Journal of Emergency Medicine
+journal homepage: www.elsevier.com/locate/ajem
+An important initial step in this assessment is to quantify discrepan-
+cies between HEART scores calculated from ED and cardiology evalua-
+tions of the same patient. If ED and cardiology evaluations produce
+entirely concordant HEART scores, triage cardiology input may be re-
+dundant and unnecessary. However, if there is signi ﬁcant discordance
+in HEART scores between ED physicians and cardiologists, triage cardi-
+ologists could continue to play an important role in the evaluation of
+ED patients with chest pain.
+Because our original dataset because assembled before the introduc-
+tion of the HEART Pathway into routine practice at our institution, doc-
+umentation of clinical encounters by ED and triage cardiology
+personnel, as well as decision making regarding cardiac testing, were
+unbiased with regard to the HEART score. By retrospectively calculating
+HEART Scores and Pathway recommendations for patients evaluated
+concurrently by an emergency physician (EP) and triage cardiologist,
+we sought to (1) quantify the magnitude and direction of discordance
+in HEART scores between EPs and cardiologists evaluating the same pa-
+tient, and (2) evaluate the source(s) of discordance in HEART scores be-
+tween the 2 specialties.
+2. Methods
+2.1. Study design and setting
+We performed a single-center, cross-sectional, retrospective study
+of adults presenting to the ED with chest pain who had a documented
+bedside evaluation by a triage cardiologist. We analyzed concordance
+in HEART scores based on documentation of concurrent clinical encoun-
+ters with each patient by the EP and triage cardiologist.
+This study was approved by our institution's institutional review
+board.
+The details of our triage cardiology program have been described
+previously [4]. Brieﬂy, 7 general cardiologists (referred to as triage car-
+diologists) provide consultation to the ED (by telephone and/or in per-
+son) between 8 AMand 5 PMon nonholiday weekdays. Calls are placedby the EP to a cardiology access center staffed by dedicated cardiac
+nurses. A nurse routes the call to the triage cardiologist and documents
+the encounter. As depicted in the ﬂow diagram ( Fig. 1 ), this study fo-
+cused on the subset of patients presenting with chest pain for whom
+an in-person consultation was performed and documented by the triage
+cardiologist.
+2.2. Population
+We conducted a retrospective medical record review of patients at
+least 18 years of age who presented to our institution's adult ED be-
+tween January 1, 2015, and June 30, 2015, with a chief concern of
+chest pain and for whom (1) the ED physician's concern for acute coro-
+nary syndrome prompted contact with the triage cardiology access cen-
+ter, (2) a formal in-person evaluation of the patient by the triage
+cardiologist was performed before a disposition decision, and (3) theconsultation was documented in the patient's electronic medical record.
+For some patients, the initial in-person consultation by the triage cardi-
+ologist (done without any additional information beyond what was
+available to the ED physician) resulted in a decision for admission. In
+these cases, the triage cardiology note was written from the perspective
+of an admission history and physical and thus did not re ﬂect the thought
+process behind the disposition decision; these patients were excluded
+from the main analysis. The rationale was to include patients who had
+documented concurrent ED and cardiology evaluations with similar
+available clinical data, in addition to equipoise regarding acute coronary
+syndrome diagnosis and disposition.
+2.3. Data collection
+A data dictionary was created before data collection and reviewed by
+the investigators. Data abstraction was completed by one investigator
+(WKW) using a structured data form. A second investigator (MYY) du-
+plicated data abstraction for subjects in whom there was ambiguity in
+categorizing any HEART score component. Consensus between the 2
+Fig. 1. Study ﬂow diagram. The cohort used in the main analysis is highlighted. Further information regarding disposition and the use of additional cardiac testing in the ED is also provided.
+TC, triage cardiologist.133 W.K. Wu et al. / American Journal of Emergency Medicine 35 (2017) 132 –135
+reviewers was reached for each of these data points after additional
+review [5].
+Elements of the HEART Score and Pathway were retrospectively ab-
+stracted from the resident and/or attending EP notes and the triage car-
+diologist note. For each patient, the timing of the electrocardiogram
+(ECG) and initial troponin results was such that those data were avail-
+able to both the ED physician and cardiologist before a disposition was
+determined. Data deemed not available to the clinicians at the time of
+evaluation (ie, information contained in subsequent amendments to
+the original note) were not collected. The HEART Score and HEART Path-
+way risk classi ﬁcation, including the categorization of historical features
+as“low-risk ”or“high-risk, ”were determined for each patient as previ-
+ously described. [5]. For cases with a mix of low-risk and high-risk fea-
+tures, the level of “suspicion ”was assigned as follows: documentation of
+at least 2 more high-risk features than low-risk features was classi ﬁed
+as“highly suspicious ”(2 points) and documentation of at least 2 more
+low-risk features than high-risk features was classi ﬁed as “slightly sus-
+picious ”(0 points). An equivocal number of high- and low-risk features
+(ie, the number of high- and low-risk features differed by 1 or less) was
+documented as moderately suspicious (1 point). Other components of
+the Score were explicitly documented, and no further interpretation
+was necessary. Data elements that were recorded as “missing ”and
+those recorded as “not present ”were treated similarly.
+As in our prior report [4],p a t i e n t sw e r ec l a s s i ﬁed as having cardio-
+vascular disease if a history of any of the following was documented
+in their medical record: coronary artery disease, myocardial infarction,
+arrhythmia, systolic/diastolic heart failure, valvular surgery, or congen-
+ital heart disease.
+2.4. Analysis
+For demographics and clinical characteristics, data for continuous
+variables were reported as mean ± SD and for categorical variables as
+frequency and percentage. Comparisons between continuous variables
+were made using the 2-tailed Student ttest, and comparisons betweencategorical variables were made using Fisher χ2test. P≤.05 were con-
+sidered statistically signi ﬁcant.
+We calculated 2 HEART scores for each patient —one using data col-
+lected from the EP's documentation (EP-HEART) and one using the
+cardiologist's documentation (CARD-HEART). Then we calculated the
+difference between the scores by subtracting the EP's heart score from
+the cardiologist's score (DELTA-HEART = CARD-HEART −EP-HEART).
+A negative DELTA-HEART indicated the cardiologist's score was lower
+than the EP's score.
+Conﬁdence intervals (95% CIs) for percentages were computed using
+the binomial exact method. Agreement between HEART scores derived
+from EP and cardiologist assessments were evaluated with Cohen κco-
+efﬁcient. Con ﬁdence intervals around κwere calculated using the boot-
+strap method with 1000 replications. All analyses were completed in
+Stata 12 IC (Stata Corp, College Station, TX).
+3. Results
+Between January 1 and June 30, 2015, the triage cardiology access
+center received 394 calls requesting input; 232 of these were regarding
+distinct ED patients presenting with chest pain ( Fig. 1 ). Of these pa-
+tients, 47 were seen in person by the triage cardiologist and a consulta-
+tion note was documented for 33. These 33 patients comprised the main
+analysis group. Of this group, 28 patients (85%) were eventually
+discharged, including 15 (54%) of 28 without further testing and 13
+(46%) of 28 after further cardiac testing (ie, formal surface echocardio-
+gram, stress echocardiogram, nuclear perfusion scan, coronary
+computed tomographic angiography, or cardiac catheterization). In
+comparison, of the 199 patients for whom a formal in-person triage car-
+diology consultation was not performed (185/199; 93%) or performed
+but not documented (14/199; 7%), 26 (13%) were discharged fromthe ED.
+Cohort characteristics are displayed in Table 2 . There were no differ-
+ences in age, sex, ethnicity, or prevalence of diabetes between the anal-
+ysis group and the other patients presenting with chest pain. The
+analysis group, most of which was discharged from the ED, did have a
+much lower prevalence of cardiovascular disease than the other chest
+pain patients, consistent with our prior work [4].
+Fig. 2 illustrates the distribution of discordance between HEART
+scores as derived from contemporaneous evaluation by EPs and cardiol-
+ogists. As the EP HEART score increases, negative delta-HEART scores
+predominate, indicating that high HEART scores calculated by EPs
+tended to overestimate the scores calculated by cardiologists.
+Overall, 10 patients (30%; 95% CI, 16-49) had concordant HEART
+scores as calculated by the EP and cardiologist ( κ=0 . 1 3 ;9 5 %C I , −
+0.02 to 0.32; Table 1 ). Nineteen patients (58%; 95% CI, 39-75) had a
+lower score calculated by the cardiologist and 4 patients (12%; 95% CI,
+3-28) had a higher score calculated by the cardiologist. The history com-
+ponent of the HEART score showed the least agreement between the EP
+and cardiologist (45% agreement; κ= 0.13; 95% CI, −0.1 to 0.40),
+whereas ECG interpretation (76% agreement; κ= 0.51; 95% CI, 0.21-
+0.78) and risk factor assessment (85% agreement; κ= 0.72; 95% CI,
+0.48-0.90) showed greater agreement. Age and troponin were
+autopopulated ﬁelds in the electronic medical record and always
+concordant.
+Fig. 2. Comparison of HEART scores between EPs and cardiologists. At higher EP HEART
+scores, the cardiology HEART score is generally lower than the EP HEART score.
+Table 1
+Comparison of HEART scores and HEART score components as derived from EP and cardiologist evaluation of the same patients
+HEART score component
+Full HEART score History ECG Risk factors
+Same score, n (%) 10 (30.3) 15 (46.9) 25 (75.8) 28 (84.9)
+Cardiologist lower, n (%) 19 (57.6) 15 (45.5) 6 (18.8) 4 (12.5)Cardiologist higher, n (%) 4 (12.1) 3 (9.4) 2 (6.3) 1 (3.1)κ(95% CI) 0.13 ( −0.02 to 0.32) 0.13 ( −0.1 to 0.40) 0.51 (0.21 to 0.78) 0.72 (0.48 to 0.90)134 W.K. Wu et al. / American Journal of Emergency Medicine 35 (2017) 132 –135
+Analyzing the HEART Pathway algorithm in a dichotomous manner
+(HEART score ≤3 is low risk, N3 is high risk), EPs and cardiologists clas-
+siﬁed 23 (70%) patients the same ( κ= 0.24; 95% CI, −0.06 to 0.53). Of
+the 10 discordantly classi ﬁed patients, 9 were classi ﬁed as high risk by
+the EP and as low risk by the cardiologist.
+4. Discussion
+This study demonstrates substantial discordance between HEART
+scores based on concurrent EP and cardiologist evaluation of patients
+presenting to the ED with chest pain. The cardiology evaluation gener-
+ally yielded assignment to a lower-risk category and resulted in reclas-
+siﬁcation from high-to low-risk in the HEART Pathway for more than
+25% of patients. The source of discordance was found primarily within
+the history component of the Score, which captured the patients' de-
+scription of their chest pain.
+As shown in the ﬂow diagram ( Fig. 1 ), most patients with docu-
+mented bedside evaluations by a triage cardiologist were discharged
+from the ED. This ﬁnding may be, in part, attributable to a form of “selec-
+tion bias ”by the triage cardiologists. They are likely more inclined to
+provide formal consultation on patients for whom they suspect that dis-
+charge from the ED is ultimately feasible. Mechanisms by which the tri-
+age cardiologist helps facilitate discharge require further investigation,
+but reclassi ﬁcation of patients after cardiology evaluation to a lower-
+risk category, perhaps one that enables further cardiac testing in the
+ED, seems at least partially contributory.
+With relatively few patients to evaluate in a given shift [4], triage
+cardiologists may be able to spend additional time identifying the criti-
+cal elements of the narrative that inform their interpretation of the
+patient's risk. However, this explanation remains speculative, as time
+spent interviewing patients by EPs and cardiologists was not tracked.
+This study has several limitations. The cohort size is small, owing to
+the relatively low frequency of in-person evaluations by the triage car-diologists. The skewed distribution of patients across risk categories
+(few patients had low HEART scores) may limit generalizability, but it
+is unlikely that cardiology input will add value for patients with unam-
+biguously low-risk chest pain. The ED is likely able to achieve a disposi-
+tion in this population without triage cardiology input (ie, a form of
+“referral bias ”). Because neither the ED physicians nor the cardiologists
+were documenting their ﬁndings with the goal of prospectively
+calculating a HEART score, it is possible that some of the discordance,
+particularly in the history, could be due to incomplete documentation
+of the HEART score components rather than a true discrepancy. It was
+not always clear from available documentation whether the follow-up
+troponin results were available at the time of cardiology evaluation.
+However, this potential ambiguity in timing would not be expected to
+directly impact discordance as only the initial troponin factors into the
+calculation of the HEART score. Perhaps most importantly, complete
+and systematic follow-up for discharged patients was not available,
+thus limiting our ability to report meaningfully on the safety of
+discharges as a function of discrepancies in risk categories. More robust
+(ie, prospective) collection of safety outcomes will be necessary for
+future work in this area.
+In summary, our ﬁndings suggest the potential bene ﬁts of a triage
+cardiology program in settings where the HEART Pathway is used. The
+timely input of a cardiologist may re ﬁne the initial ED risk assessment
+and selection of provocative testing, with the goal of facilitating ED dis-
+charge. Further investigation with a larger, prospective, and outcomes-
+driven study is warranted.
+References
+[1]Owens PL, Barrett ML, Gibson TB, Andrews RM, Weinick RM, Mutter RL. Emergency
+department care in the United States: a pro ﬁle of national data sources. Ann Emerg
+Med 2010;56:150 –65.
+[2]Fleischmann KE, Goldman L, Johnson PA, Krasuski RA, Bohan JS, Hartley LH, et al. Crit-
+ical pathways for patients with acute chest pain at low risk. J Thromb Thrombolysis
+2002;13:89 –96.
+[3]Hermann LK, Weingart SD, Duvall WL, Henzlova MJ. The limited utility of routine car-
+diac stress testing in emergency department chest pain patients younger than 40
+years. Ann Emerg Med 2009;54:12 –6.
+[4]Monahan K, Bradham W, Collins S, Baker M, Chidsey G, English CS, et al. Direct cardi-
+ologist involvement in ED triage of cardiology patients. Am J Emerg Med 2016;34(2):
+325–6.
+[5]Mahler SA, Riley RF, Hiestand BC, Russell GB, Hoekstra JW, Lefebvre CW, et al. The
+HEART Pathway randomized trial identifying emergency department patients
+with acute chest pain for early discharge. Circ Cardiovasc Qual Outcomes 2015;
+8:195 –203.
+[6]Six AJ, Cullen L, Backus BE, Greenslade J, Parsonage W, Aldous S, et al. The HEART
+score for the assessment of patients with chest pain in the emergency department:
+a multinational validation study. Crit Pathw Cardiol 2013;12:121 –6.Table 2
+Demographic and clinical characteristics of the cohort
+Analysis group
+(n = 33)Other chest pain patients
+(n = 199)P
+Age (y) 59 ± 13 61 ± 14 .47
+Gender (% female) 52 36 .08
+Ethnicity (% white) 76 70 .49
+Cardiovascular disease (%) 49 77 b.01
+Current smoker (%) 9 26 .03
+Diabetes (%) 39 34 .56
+Bold font denote Pvalues b0.05.135 W.K. Wu et al. / American Journal of Emergency Medicine 35 (2017) 132 –135

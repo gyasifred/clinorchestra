@@ -1,0 +1,17 @@
+{
+  "name": "aki_risk_factors",
+  "type": "guideline",
+  "keywords": [
+    "aki",
+    "acute kidney injury",
+    "risk factors",
+    "aki risk",
+    "nephrotoxic",
+    "renal injury risk",
+    "kidney injury risk"
+  ],
+  "content": "Acute Kidney Injury (AKI) Risk Factors:\n\nPatient Risk Factors:\n1. Advanced age (>65 years)\n2. Pre-existing CKD (baseline creatinine elevation or reduced GFR)\n3. Diabetes mellitus\n4. Hypertension\n5. Heart failure (especially acute decompensated)\n6. Liver disease or cirrhosis\n7. Sepsis or systemic infection\n8. Hypovolemia or dehydration\n9. Previous episodes of AKI\n\nMedication-Related Risk Factors (Nephrotoxins):\n1. NSAIDs (ibuprofen, naproxen, ketorolac)\n2. ACE inhibitors and ARBs (especially with volume depletion)\n3. Aminoglycosides (gentamicin, tobramycin, amikacin)\n4. Vancomycin (especially high trough levels)\n5. Amphotericin B\n6. Contrast agents (IV contrast for CT scans, angiography)\n7. Calcineurin inhibitors (tacrolimus, cyclosporine)\n8. Diuretics (can cause pre-renal AKI if volume depleted)\n9. Chemotherapy agents (cisplatin, methotrexate)\n\nClinical Situations with High AKI Risk:\n1. Major surgery (cardiac, vascular, abdominal)\n2. Critical illness/ICU admission\n3. Severe burns\n4. Rhabdomyolysis (elevated CK)\n5. Tumor lysis syndrome\n6. Shock states (septic, cardiogenic, hypovolemic)\n7. Obstruction (urinary retention, kidney stones, prostatic hypertrophy)\n\nPrevention Strategies:\n- Maintain adequate hydration\n- Avoid nephrotoxic medications when possible\n- Monitor creatinine closely in high-risk patients\n- Adjust medication doses for renal function\n- Prompt treatment of infections and hemodynamic instability\n- Pre-hydration before contrast procedures\n\nSource: KDIGO AKI Guidelines; Clinical practice recommendations",
+  "source": "KDIGO AKI Guidelines and clinical literature",
+  "relevance_score": 1.0,
+  "id": "extra_20251116_121855_402329"
+}

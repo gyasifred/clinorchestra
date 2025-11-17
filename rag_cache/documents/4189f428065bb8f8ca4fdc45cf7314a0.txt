@@ -1,0 +1,801 @@
+Nutrition in Clinical Practice
+Volume 30 Number 1 February 2015 147
+ –161
+© 2014 American Societyfor Parenteral and Enteral Nutritionand Academy of Nutrition and DieteticsDOI: 10.1177/0884533614557642ncp.sagepub.comhosted at  online.sagepub.com
+Special Report
+Introduction
+Pediatric malnutrition (undernutrition) is estimated to contribute 
+to approximately 45% of all child deaths globally.1 Approximately 
+20 million children less than 5 years of age worldwide are severely undernourished, leaving them extremely vulnerable to illness and premature death. Many older children in developing countries enter adolescence undernourished, which increases their vulnerability to disease and premature death.
+2 Poverty, fam-
+ine, and war are primary contributors to global malnutrition and limit food distribution and access, even when food is available for consumption. Development of acute or chronic infectious and/or diarrheal disease in those who are already undernourished contributes to the high mortality rates associated with pediatric malnutrition (undernutrition) in developing nations.
+3
+Pediatric undernutrition has historically been considered an 
+issue exclusive to developing countries. Much of the ground-breaking research and initial development of malnutrition (under -
+nutrition) criteria occurred with populations outside of the United 557642 NCP XXX10.1177/0884533614557642Nutrition in Clinical PracticeBecker et al
+research-article 2014
+From 1University of North Carolina Health Care, Chapel Hill, North 
+Carolina; 2University of Tennessee Health Sciences Center, Memphis, 
+Tennessee; 3The Children’s Hospital of Philadelphia, Philadelphia, 
+Pennsylvania; 4Arnold Palmer Hospital for Children, Orlando, Florida; 
+5Cincinnati Children’s Medical Center, Kings Mill, Ohio; 6University of 
+Alabama, Birmingham, Alabama; and 7University of Tennessee Graduate 
+School of Medicine, Knoxville, Tennessee.
+This paper has been approved by the A.S.P.E.N. 2014-2015 Board of Directors.This document was endorsed by the American Academy of Pediatrics.Authors are listed in alphabetical order.Financial disclosure: None declared.This article originally appeared online on November 24, 2014.Nutrition in Clinical Practice and the Journal of the Academy of Nutrition 
+and Dietetics have arranged to publish this article simultaneously in their publications. Minor differences in style may appear in each publication, but the article is substantially the same in each journal.
+Corresponding Author:
+Liesje Nieman Carney, RD, CSP, LDN, The Children’s Hospital of Philadelphia, Philadelphia, PA 19104, USA. Email: nieman@email.chop.eduConsensus Statement of the Academy of Nutrition  
+and Dietetics/American Society for Parenteral and  Enteral Nutrition: Indicators Recommended for the  Identification and Documentation of Pediatric  Malnutrition (Undernutrition)
+Patricia Becker, MS, RD, CSP, LDN, CNSC1; Liesje Nieman Carney, RD, CSP, LDN3;  
+Mark R. Corkins, MD, CNSC, FAAP2; Jessica Monczka, RD, LDN, CNSC4;  
+Elizabeth Smith, RD, LDN, CNSC3; Susan E. Smith, RD, CSP, LD5;  
+Bonnie A. Spear, PhD, RDN, LD6; Jane V. White, PhD, RD, LDN, FAND7; Academy of  
+Nutrition and Dietetics; and American Society for Parenteral and Enteral Nutrition
+Abstract
+The Academy of Nutrition and Dietetics (the Academy) and the American Society for Parenteral and Enteral Nutrition (A.S.P.E.N.), 
+utilizing an evidence-informed, consensus-derived process, recommend that a standardized set of diagnostic indicators be used to identify and document pediatric malnutrition (undernutrition) in routine clinical practice. The recommended indicators include z  scores 
+for weight-for-height/length, body mass index-for-age, or length/height-for-age or mid–upper arm circumference when a single data point is available. When 2 or more data points are available, indicators may also include weight gain velocity (<2 years of age), weight loss (2–20 years of age), deceleration in weight for length/height z score, and inadequate nutrient intake. The purpose of this consensus 
+statement is to identify a basic set of indicators that can be used to diagnose and document undernutrition in the pediatric population ages 1 month to 18 years. The indicators are intended for use in multiple settings (eg, acute, ambulatory care/outpatient, residential care). Several screening tools have been developed for use in hospitalized children. However, identifying criteria for use in screening for nutritional risk is not the purpose of this paper. Clinicians should use as many data points as available to identify and document the presence of malnutrition. The universal use of a single set of diagnostic parameters will expedite the recognition of pediatric undernutrition, lead to the development of more accurate estimates of its prevalence and incidence, direct interventions, and promote improved outcomes. A standardized diagnostic approach will also inform the prediction of the human and financial responsibilities and costs associated with the prevention and treatment of undernutrition in this vulnerable population and help to further ensure the provision of high-quality, cost-effective nutritional care. (Nutr Clin Pract.2015;30:147-161)
+Keywords
+nutritional assessment; pediatrics; malnutrition; child nutrition disorders; growth
+148 Nutrition in Clinical Practice 30(1)
+States4 where acute or chronic infections and/or diarrheal disease 
+are major contributors to its development and to high rates of 
+mortality. However, the clinical perspective and description of undernutrition has evolved during the past 3 decades. Unlike the undernutrition typically observed in developing countries, and usually categorized as marasmus and/or kwashiorkor, undernutri-tion in developed countries generally occurs in the setting of acute or chronic illness.
+3
+A number of U.S. children suffer from energy imbalance 
+and excess rather than nutrient deficiency. It is estimated that approximately 17% of U.S. children and adolescents between 2 and 19 years of age are obese.
+5 Other data sets estimate that 
+1 in 10 U.S. households with children struggle with food inse-curity.
+6 The current prevalence of U.S. children who experi-
+ence acute or chronic undernutrition is unknown. Children and adolescents who live in homeless shelters, are victims of abuse or neglect, or live in urban or rural areas where access to high-quality food is difficult are thought to be at increased risk for undernutrition.
+Undernutrition in the United States is most frequently 
+observed in hospitalized acute and/or chronically ill children and in U.S. children with special healthcare needs.
+3,7 Children with 
+special needs are defined as “those who have or are at increased risk for a chronic physical, developmental, behavioral, or emo-tional condition and who also require health and related services of a type or amount beyond that of children generally.”
+7 This 
+definition encompasses children with nutrition-related chronic diseases or conditions, congenital anomalies, and severe acute illness or injury and those affected by abuse or neglect.
+Children and youth with special healthcare needs should be 
+routinely screened for malnutrition in primary care settings. Registered dietitian nutritionists (RDNs), nurses, and all mem-bers of the healthcare team should collaborate to ensure that screening for malnutrition becomes an integral part of routine pediatric care. Although research is limited, malnutrition in this population can lead to more complicated hospitalizations due to progression of the underlying disease or condition, poor wound healing, or slow return to previous level of activity, complications that can significantly increase the length of stay and cost of hospitalization.
+8,9 Comprehensive assessment and 
+nutritional intervention in undernourished and malnourished children in primary care settings can reduce the need for more costly hospitalization by addressing nutritional deficits that may predispose the patient to acute illness or exacerbate the underlying disease or condition.
+10 Older studies suggest that up 
+to 25% of all hospitalized children experienced acute protein-energy malnutrition and approximately 27% of children in the community experience chronic food insecurity.
+6,11
+Inadequate intake, self-starvation, and/or purging behaviors 
+associated with disordered eating/eating disorders can lead to malnutrition.
+12 These behaviors are most common among teen-
+age girls. It is estimated that 0.5% of adolescents suffer with anorexia nervosa, with another 1%–2% meeting a diagnosis of bulimia nervosa. However, it is estimated that up to 14% of adolescents have “partial syndromes or eating disorder not oth-erwise specified” and already have signs and symptoms of malnutrition.
+13 Adolescents often try to hide aberrant eating 
+behaviors. Laboratory parameters often remain normal for a period of time after aberrant eating behaviors have begun. Thus, the adolescent may already be in an undernourished state before presenting to a healthcare provider.
+14 In fact, the RDN 
+may be the first provider to recognize the symptoms or the first provider contacted by the patient or caregivers.
+15
+Purpose
+The purpose of this consensus statement is to identify a basic set of indicators that can be used to diagnose and document under -
+nutrition in the pediatric population ages 1 month to 18 years. Several screening tools have been developed for use in hospital-ized children.
+16 The indicators are intended for use in multiple 
+settings (eg, acute, ambulatory care/outpatient, residential care).However, identifying criteria for use in screening for nutritional risk is not the purpose of this paper. The diagnosis and documen-tation of undernutrition in neonates, the recognition and docu-mentation of micronutrient deficits in the pediatric population, and strategies to address micronutrient deficits are beyond the scope of this statement. Please refer to publications/resources specific to these topics for further guidance.
+17–20 The diagnosis 
+and treatment of pediatric obesity (overnutrition) are also not addressed in this statement.
+Definition of Pediatric Malnutrition 
+(Undernutrition)
+The focus of this consensus statement is pediatric undernutri-
+tion. A.S.P.E.N. has defined pediatric malnutrition (undernutri-tion) as “an imbalance between nutrient requirement and intake, resulting in cumulative deficits of energy, protein or micronutrients that may negatively affect growth, development and other relevant outcomes.”
+21 Pediatric undernutrition may 
+be related to illness, adverse environmental or behavioral fac-tors, injury, congenital anomalies, and so on. The United Nations Children’s Fund (UNICEF) states that although mal-nutrition is a broad term, commonly used as an alternative to undernutrition, it technically also encompasses overnutrition.
+22 
+People are considered to be malnourished (undernourished) if their diet does not provide adequate energy and protein for growth and development or if they are unable to fully utilize the food/nutrients due to illness. Children are also classified as malnourished (overnourished) if they consume too much energy. Although obesity is a form of malnutrition, a discus-sion of overnutrition is not the purpose of this article.
+Acute vs Chronic Undernutrition
+Undernutrition is often characterized as acute or chronic. One way to distinguish between “acute” and “chronic” is time. Acute 
+ 19412452, 2015, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1177/0884533614557642 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+Becker et al  149
+diseases or conditions are typically severe and sudden in onset. A 
+chronic disease or condition tends to develop and become more severe over an extended period of time. The National Center for Health Statistics (NCHS) defines “chronic” as a disease or condi-tion that has lasted for 3 months or longer.
+23A chronic condition 
+may contribute to an acute illness, just as an acute illness may evolve into a chronic condition if unaddressed.
+The World Health Organization (WHO) and UNICEF have 
+also provided guidance to distinguish between acute and chronic undernutrition by offering diagnostic parameters that help clini-cians characterize the acuity level of undernutrition experienced by pediatric populations. Weight is primarily affected during periods of acute undernutrition, whereas chronic undernutrition typically manifests as stunting. Severe acute undernutrition, experienced by children ages 6–60 months of age, is defined as a very low weight-for-height (less than −3 standard deviations [SD] [z  scores] of the median WHO growth standards), by visible 
+severe wasting (mid–upper arm circumference [MUAC] ≤115 
+mm), or by the presence of nutritional edema. Wasting is defined as a weight-for-age less than −2 SD (z  score).
+24,25 Chronic under -
+nutrition or stunting is defined by WHO as having a height-for-age (or length-for-age) that is less than −2 SD (z  score) of the 
+median of the NCHS/WHO international reference.
+24,25 An in-
+depth discussion of the z  score is presented later in this paper.
+Stunting is a well-established indicator of chronic malnutri-
+tion, particularly undernutrition related to environmental or socioeconomic circumstances.
+24,25 The height-for-age mea-
+surement represents the linear growth or stature actually achieved by the child at the age at which the child is measured. Height (ie, stature) is measured in the standing position. Length-for-age refers to measurements taken in the recumbent position and is recommended for children ≤2 years of age.
+26 
+Children in the age range of 0–4 years have the best potential outcomes from comprehensive assessment for malnutrition because timely intervention is highly likely to prevent adverse effects.
+26 Stunting may be observed during adolescence, which 
+is also a period of rapid growth and development.Table 1 lists examples of software programs such as 
+ANTHRO that are available for individual z score calcula-tion.
+27 Also, many growth charts (Fenton, WHO, the Centers 
+for Disease Control and Prevention [CDC]) are available  
+on mobile technology applications and have made plotting very easy.
+Indicators of Pediatric Undernutrition
+A standardized approach to the recognition and diagnosis of pediatric undernutrition, particularly in the pediatric popula-tion older than 60 months, is lacking. Controversy surrounding the best and most useful approach(es) abounds. Therefore rou-tine assessment of nutritional status in high-risk children in the United States is sporadic and inconsistent among facilities. A true measure of the impact of pediatric undernutrition on over -
+all health is difficult to obtain. The National Survey of Children With Special Health Care Needs
+7 does not currently include 
+assessment of food/nutrition services provided; this data defi-cit must be addressed and the survey instrument revised to accommodate the collection of such data.
+Attributes of Indicators Selected for 
+Inclusion
+A multitude of parameters have been developed for obtaining 
+measurements in children in an effort to determine nutritional status. However, the increasing economic constraints of the U.S. healthcare system mandate identification of the most reli-able, reproducible, safe/low-risk, and cost-effective indicators to support nutritional evaluation. Thus, attributes of the indica-tors that we recommend are as follows:
+• •are evidence informed and consensus derived,
+• •are universally available and validated,
+• •can be applied inexpensively in multiple settings,
+• •can be properly used with minimal training,Table 1.  Resources for Determining z  Scores for Anthropometrics.
+CDC Growth Charts WHO Growth Charts
+STAT GrowthCharts (compatible with iPod Touch, iPhone, 
+iPad)STAT GrowthCharts WHO (compatible with iPod Touch, iPhone, iPad)
+Epi Info NutStat (available for download): http://www.cdc.
+gov/growthcharts/computer_programs.htmWHO z score charts: http://www.who.int/childgrowth/standards/chart_
+catalogue/en/index.htm
+CDC website (z score data files available as tables): http://
+www.cdc.gov/growthcharts/zscore.htmWHO Multicentre Growth Study website: http://www.who.int/
+childgrowth/software/en/
+   All 4 macros (SAS, S-plus, SPSS, and STATA) calculate the 
+indicators of the attained growth standards
+PediTools Home: www.peditools.org PediTools Home: www.peditools.org
+Clinical tools for pediatric providers; growth charts, 
+calculators, etc; mobile compatibleClinical tools for pediatric providers; growth charts, calculators, etc; 
+mobile compatible
+CDC, Centers for Disease Control and Prevention; WHO, World Health Organization.
+ 19412452, 2015, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1177/0884533614557642 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+150 Nutrition in Clinical Practice 30(1)
+• •can reproducibly identify undernutrition,
+• •can quantify the severity of undernutrition,
+• •can be used to monitor changes in nutritional status.
+Indicators recommended to identify pediatric malnutrition are 
+typically continuous rather than discrete variables. As such, clinical expertise and sound clinical judgment must be exer -
+cised when obtaining a history, completing the physical exam, developing differential diagnostic options, making a diagnosis, and implementing and monitoring a plan of care. Remember that the recommended list of indicators to be assessed may change over time as evidence to support or to discontinue their use accrues or as advances in assessment technology supplant their use.
+Consensus Recommendations
+We recommend that the following list of indicators be used when assessing and diagnosing pediatric malnutrition.
+Food/Nutrient Intake
+Food and nutrient intake are the primary determinants of nutri-tional status. Therefore, accurate assessment of intake and esti-mation of adequacy is critical. The primary concern is whether or not the child’s current intake is adequate to meet their nutri-ent needs in the context of his or her current clinical situation, growth pattern, and developmental level.
+21 Other diagnostic 
+indicators are basically “outcome measures” of dietary adequacy.
+Estimates of the adequacy of protein/energy intake should 
+be routinely determined for all children, especially for those identified at increased risk for malnutrition. Accuracy in the estimation of the adequacy of nutrient needs and assessment of the adequacy of food and nutrient intake are crucial to deter -
+mining the magnitude of the deficit, as well as the extent and acuity of the deficit. Food/nutrient intake details can be obtained by history and/or by direct observation of food and/or nutrients consumed. Prescribed nutrition therapy intake should be monitored to ensure that the intended amounts are actually ingested by the child.
+Assessment of Energy and Protein Needs
+Energy needs can be measured by indirect calorimetry28,29 or 
+estimated through the use of standard equations.30 Each of the 
+methods to estimate energy needs is just that: an estimation. Ideally, clinicians should perform indirect calorimetry to mea-sure a child’s actual energy requirements. Indirect calorimetry is the most precise method for the determination of energy expenditure because predictive equations do not accurately determine energy expenditure or account for the variability of a child’s metabolic state during the course of an illness.
+28,29 The 
+Food and Agriculture Organization (FAO)/WHO31 and Schofield32 equations, although imprecise and developed to 
+estimate the energy utilization of healthy children, are the most widely used formulas to estimate energy needs. These equa-tions are frequently used when equipment for indirect calorim-etry assessment is unavailable. The estimation of energy requirements can also be determined using the 1989 Recommended Dietary Allowance (RDA)
+33 or the 2005 
+Dietary Reference Intake (DRI) estimated energy require-ments.
+19 However, both of these methods also represent esti-
+mations of the energy needs of the healthy child.30 Predictive 
+equations for determining energy requirements can be used initially and are summarized in Table 2.
+The DRI for protein
+19 is typically used to estimate protein 
+needs for both the healthy child and the hospitalized child. However, the child’s clinical status should be considered when estimating protein requirements. Some situations may require protein intakes greater than the DRI to achieve a positive nitro-gen balance (eg, major surgery, wound healing, infection, catch-up growth). Conversely, some situations (eg, critically ill patient with acute renal failure) may warrant moderate protein restriction. A comprehensive discussion of this issue is beyond the scope of this article but may be found elsewhere in the literature.
+30,34-38
+Growth Parameters
+Growth is the primary outcome measure of nutritional status in children.
+21,30,39 Growth should be monitored at regular inter -
+vals throughout childhood and adolescence and should also be measured every time a child presents, in any healthcare setting, for preventive, acute, or chronic care. In children less than 36 months of age, measures of growth include length-for-age, weight-for-age, head circumference-for-age, and weight-for-length. In children ages 2–20 years, standing height-for-age, weight-for-age, and body mass index (BMI)-for-age are typi-cally collected.
+40–44
+Anthropometric measures of growth are typically expressed 
+and reported in comparison with population data. Traditionally, these measures are expressed as percentiles and express the rank or position of a child’s measurements on a standard refer -
+ence curve. Percentiles indicate the portion of the reference population that lies above or below that of the child being mea-sured. It is used to help parents understand where their child “fits” in a population of children of similar ages, heights, and/or weights. The charts are designed so that growth trends in the individual child can be observed over time and growth prob-lems, when detected, addressed in a timely manner.
+40 However, 
+a percentile does not reveal the actual degree of deviation from population norms. The percentile will always be positive because the bell-shaped curve, statistically, has an infinite tail on both sides.
+More recently, growth charts that facilitate comparisons of 
+units of standard deviation from norms for reference age groups, z score (SD) comparisons, are recommended for 
+ 19412452, 2015, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1177/0884533614557642 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+151Table 2.  Estimating Nutrient Needs.
+Name of Equation or Formula, SourceDescription and Application to  
+Patient PopulationCalculations for the Equation  
+or Formula
+ENERGY
+ 1989 Recommended Dietary Allowance 
+(RDA)
+ Subcommittee on the Tenth Edition of the 
+Recommended Dietary Allowances, Food 
+and Nutrition Board, Commission on Life Sciences, National Research Council. Recommended Dietary Allowances. 10th ed. Washington, DC: National Academies Press; 1989.Based on the median energy intakes of children 
+followed in longitudinal growth studies.
+It can overestimate needs in nonactive 
+populations (eg, bedridden) and does not provide a range of energy needs.
+Though an outdated reference, still widely used.Most often used for healthy infants and children.Infants:0–0.5 y:108 × wt (kg)0.5–1 y: 98 × wt
+Children:
+1–3 y: 102 × wt4–6 y: 90 × wt7–10 y: 70 × wt
+Males:
+11–14 y: 55 × wt15–18 y: 45 × wt
+Females:
+11–14 y: 47 × wt15–18 y: 40 × wt
+ Estimated Energy Requirements (EER) (new 
+DRI/IOM equation) and Physical Activity (PA) Coefficients
+ National Academy of Sciences, Institute 
+of Medicine, Food and Nutrition Board. Dietary Reference Intakes for Energy, Carbohydrate, Fiber, Fat, Fatty Acids, Cholesterol, Protein, and Amino Acids. Washington, DC: National Academies Press; 2005.Replaces the 1989 RDA.Energy needs were determined from children with 
+normal growth, body composition, and activity and who are also metabolically normal.
+Children with normal growth, body composition, 
+and activity and who are also metabolically normal.
+Four categories of physical activity level (PAL).EER = TEE + energy depositionAges 0
+–36 mo:
+0–3 mo: (89 × wt [kg] − 100) + 1754–6 mo: (89 × wt [kg] − 100) + 567–12 mo: (89 × wt [kg] − 100) + 2213–36 mo: (89 × wt [kg] −100) + 20Ages 3–8 y—Boys:EER = 88.5 − (61.9 × age [y]) + PA × (26.7 × wt [kg] + 903 × ht 
+[m]) + 20 kcal
+PA = 1 if PAL is estimated to be > 1 < 1.4 (sedentary)PA = 1.13 if PAL is estimated to be > 1.4 < 1.6 (low active)PA = 1.26 if PAL is estimated to be > 1.6 < 1.9 (active)PA = 1.42 if PAL is estimated to be > 1.9 < 2.5 (very active)Ages 3–8 y—Girls:EER = 135.3 − (30.8 × age [y]) + PA × (10 × wt [kg] + 934 × ht 
+[m]) + 20 kcal
+PA = 1 if PAL is estimated to be > 1 < 1.4 (sedentary)PA = 1.16 if PAL is estimated to be > 1.4 < 1.6 (low active)PA = 1.31 if PAL is estimated to be > 1.6 < 1.9 (active)PA = 1.56 if PAL is estimated to be > 1.9 < 2.5 (very active)Ages 9–18 y—Boys:EER = 88.5 − (61.9 × age [y]) + PA × ( 26.7 × wt [kg] + 903 × ht 
+[m]) + 25 kcal
+PA = 1 if PAL is estimated to be > 1 < 1.4 (sedentary)PA = 1.13 if PAL is estimated to be > 1.4 < 1.6 (low active)PA = 1.26 if PAL is estimated to be > 1.6 < 1.9 (active)PA = 1.42 if PAL is estimated to be > 1.9 < 2.5 (very active)
+(continued)
+ 19412452, 2015, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1177/0884533614557642 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+152 
+Name of Equation or Formula, SourceDescription and Application to  
+Patient PopulationCalculations for the Equation  
+or Formula
+Ages 9–18 y—Girls:
+EER = 135.3 − (30.8 × age [y]) + PA × (10 × wt [kg] + 934 × ht 
+[m]) + 25 kcal
+PA = 1 if PAL is estimated to be > 1 < 1.4 (sedentary)PA = 1.16 if PAL is estimated to be > 1.4 < 1.6 (low active)PA = 1.31 if PAL is estimated to be > 1.6 < 1.9 (active)PA = 1.56 if PAL is estimated to be > 1.9 < 2.5 (very active)
+ EER (new DRI/IOM equation) and obesity 
+coefficients/factors
+ National Academy of Sciences, Institute 
+of Medicine, Food and Nutrition Board. Dietary Reference Intakes for Energy, Carbohydrate, Fiber, Fat, Fatty Acids, Cholesterol, Protein, and Amino Acids. Washington, DC: National Academies Press; 2005.Overweight children who are metabolically 
+normal.Weight Maintenance TEE in Overweight Boys Ages 3
+–18 y:
+TEE = 114 − (50.9 × age [y]) + PA × (19.5 × weight [kg] + 
+1161.4 × height [m])
+PA = 1 if PAL is estimated to be > 1 < 1.4 (sedentary)PA = 1.12 if PAL is estimated to be > 1.4 < 1.6 (low active)PA = 1.24 if PAL is estimated to be > 1.6 < 1.9 (active)PA = 1.45 if PAL is estimated to be > 1.9 < 2.5 (very active)
+Weight Maintenance TEE in Overweight Girls Ages 3–18 y:
+TEE = 389 - (41.2 × age [y]) + PA × (15 × weight [kg] + 701.6 × 
+height [m])
+PA = 1 if PAL is estimated to be > 1 < 1.4 (sedentary)PA = 1.18 if PAL is estimated to be > 1.4 < 1.6 (low active)PA = 1.35 if PAL is estimated to be > 1.6 < 1.9 (active)PA = 1.6 if PAL is estimated to be > 1.9 < 2.5 (very active)
+ Schofield WN. Predicting basal metabolic 
+rate, new standards and review of previous work. Hum Nutr Clin Nutr
+. 1985;39(suppl 
+1):5-41.A predictive equation for calculating basal 
+metabolic rate (BMR) in healthy children that was developed by analysis of Fritz Talbot tables.
+Healthy children, acutely ill patients in the 
+hospital setting.Males:0–3 y: (0.167 × wt [kg]) + (15.174 × ht [cm]) − 617.63–10 y: (19.59 × wt [kg]) + (1.303 × ht [cm]) + 414.910–18 y: (16.25 × wt [kg]) + (1.372 × ht [cm]) + 515.5>18 y: (15.057 × wt [kg]) + (1.0004 × ht [cm]) + 705.8
+Females:
+0–3 y: (16.252 × wt [kg]) + (10.232 × ht [cm]) − 413.53–10 y: (16.969 × wt [kg]) + (1.618 × ht [cm]) + 371.210–18 y: (8.365 × wt [kg]) + (4.65 × ht [cm]) + 200>18 y: (13.623 × wt [kg]) + (23.8 × ht [cm]) + 98.2)
+ FAO/WHO
+ World Health Organization. Energy and 
+Protein Requirements. Report of a Joint FAO/WHO/UNU Expert Consultation
+. 
+Geneva, Switzerland: World Health Organization; 1985. Technical Report Series 724.The “WHO equation” was developed for use in 
+healthy children; however, it is commonly used to predict resting energy expenditure (REE) of acutely ill patients in the hospital setting.Males:0–3 y: (60.9 × wt [kg]) − 543–10 y: (22.7 × wt [kg]) + 49510–18 y: (17.5 × wt [kg]) + 651
+Females:
+0–3 y: (61 × wt [kg]) − 513–10 y: (22.5 × wt [kg]) + 49910–18 y: (12.2 × wt [kg]) + 746
+(continued)Table 2.
+ (continued)
+ 19412452, 2015, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1177/0884533614557642 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+153Name of Equation or Formula, SourceDescription and Application to  
+Patient PopulationCalculations for the Equation  
+or Formula
+ Estimating calorie needs for developmental 
+disabilities
+ Rokusek C, Heindicles E. Nutrition and 
+Feeding of the Developmentally Disabled
+. 
+Brookings: South Dakota University 
+Affiliated Program, Interdisciplinary Center for Disabilities; 1985.Children with developmental disabilities (DD) 
+may have a slower basal energy need due to a decreased muscle tone, growth rate, and motor activity.
+The recommendation to calculate energy needs in 
+children with DD per cm of height is based on the fact that they tend to have a shorter height when compared with children with normal growth.
+Children with developmental disabilities.*This reference applies to the specific ages listed. 
+Please refer to another equation for ages outside of the referenced ages, and apply an appropriate activity/stress factor.Cerebral Palsy (age 5–11 y*):Mild-moderate activity: 13.9 kcal/cm heightSevere physical restrictions: 11.1 kcal/cm heightSevere restricted activity: 10 kcal/cm heightAthetoid cerebral palsy: Up to 6000 kcal/d (adolescence)Down Syndrome (5–12 y*):Boys 16.1 kcal/cm heightGirls 14.3 kcal/cm height
+Prader-Willi Syndrome (for all children and adolescents):
+10–11 kcal/cm height for maintenance8.5 kcal/cm height for weight loss
+Myelomeningocele (Spina bifida) (over 8 years of age and 
+minimally active):
+9–11 kcal/cm height for maintenance
+7 kcal/cm height for weight lossApproximately 50% RDA for age after infancy
+ Peterson’s failure to thrive
+ Peterson KE, Washington J, Rathbun JM. 
+Team management of failure to thrive. J Am Diet Assoc
+. 1984;84:810-815.This calculates nutrients in excess of the 
+requirements of the RDA.
+Concerns with using this equation include 
+refeeding syndrome.
+Infants and children who present underweight and 
+need to achieve catch-up growth.[RDA for weight age (kcal/kg) × Ideal body weight for height] ÷ 
+Actual weight
+ FAO/WHO/UNU
+ (aka “Dietz equation”)Food and Agriculture Organization, World Health 
+Organization, United Nations UniversityBoys 10–18 y BMR = 16.6 weight (kg) + 77 height (m) + 572
+ Dietz WH, Bandini LG, Schoeller DA. 
+Estimates of metabolic rate in obese and nonobese adolescents. J Pediatr
+. 
+1991;118:146-149.Overweight/obese adolescents in an outpatient 
+setting.Girls 10–18 y BMR = 7.4 weight (kg) + 482 height (m) + 217
+ White equation
+ White MS, Shepherd RW, McEniery JA. 
+Energy expenditure in 100 ventilated, critically ill children: improving the accuracy of predictive equations. Crit Care Med
+. 2000;28(7):2307-2312.Developed for use in the pediatric critical care 
+population by including temperature as a gauge of the body’s inflammatory response.
+It is not commonly used in clinical practice, and 
+recent studies have shown decreased accuracy especially in smaller, younger patients.
+This equation should not be used in patients less 
+than 2 months of age.
+Pediatric critical care population.EE (kJ/d) = (17 × age [mo]) + (48 × weight [kg]) + (292 × body 
+temperature [C]) − 9677Table 2.
+ (continued)
+(continued)
+ 19412452, 2015, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1177/0884533614557642 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+154 
+Name of Equation or Formula, SourceDescription and Application to  
+Patient PopulationCalculations for the Equation  
+or Formula
+STRESS FACTORS FOR ENERGY
+ Stress factors
+ Leonberg B. ADA Pocket Guide to Pediatric 
+Nutrition Assessment
+. Chicago, IL: 
+American Dietetic Association; 2007. Table 
+8.10.The use of stress factors along with predictive 
+energy equations should be considered for use in hospitalized children whose energy requirements may be altered due to metabolic stress.
+Pediatric hospitalized populationStarvation 0.70–0.85Surgery 1.05–1.5Sepsis 1.2–1.6Closed head injury 1.3Trauma 1.1–1.8Growth failure 1.5–2Burn 1.5–2.5
+PROTEIN
+ A.S.P.E.N. Clinical Guidelines: Nutrition 
+Support of the Critically Ill Child
+ Mehta NM, Compher C; A.S.P.E.N. 
+Board of Directors. A.S.P.E.N. Clinical Guidelines: nutrition support of the critically ill child. JPEN J Parenter Enteral Nutr
+. 2009;33(3):260-276.• •Metabolic stress increases catabolism and breakdown of lean body mass.
+• •To meet the increased demands of metabolic stress and spare the use of endogenous protein stores, a greater amount of protein is needed in this population until the underlying stress has been overcome.
+• •Recommendations are based on limited data.
+Pediatric critical care population0–2 y: 2–3 g/kg/d2–13 y: 1.5–2 g/kg/d13–18 y: 1.5 g/kg/d
+ For the injured child
+ Jaksic T. Effective and efficient nutritional 
+support for the injured child. Surg Clin North Am
+. 2002;82(2):379-391, vii.Metabolic stress increases catabolism and 
+breakdown of lean body mass.
+To meet the increased demands of metabolic 
+stress and spare the use of endogenous protein stores, a greater amount of protein is needed in this population until the underlying stress has been overcome.
+Pediatric critical/surgical care population.0–2 y: 2–3 g/kg/d2–13 y: 1.5–2 g/kg/dAdolescents: 1.5 g/kg/d
+ Dietary Reference Intake (DRI)
+ National Academy of Sciences, Institute 
+of Medicine, Food and Nutrition Board. Dietary Reference Intakes for Energy, Carbohydrate, Fiber, Fat, Fatty Acids, Cholesterol, Protein, and Amino Acids. Washington, DC: National Academies Press; 2005.Replaces the 1989 RDA.Protein needs were determined from children with 
+normal growth, body composition, and activity and who are also metabolically normal.
+Children with normal growth, body composition, 
+and activity and who are also metabolically normal.0–6 mo: 1.52 g/kg/d*
+This is an Adequate Intake recommendation; not enough 
+research has been conducted to establish an RDA for this age group.
+6–12 mo: 1.2 g/kg/d12–36 mo: 1.05 g/kg/d4–13 y: 0.95 g/kg/d14–18 y: 0.85 g/kg/d>18 y: 0.8 g/kg/dTable 2.
+ (continued)
+(continued)
+ 19412452, 2015, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1177/0884533614557642 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+155Name of Equation or Formula, SourceDescription and Application to  
+Patient PopulationCalculations for the Equation  
+or Formula
+ 1989 RDA
+ Subcommittee on the Tenth Edition of the 
+Recommended Dietary Allowances, Food 
+and Nutrition Board, Commission on Life Sciences, National Research Council. Recommended Dietary Allowances. 10th ed. Washington, DC: National Academies Press; 1989.Based on the median nutrient intakes of children 
+followed in longitudinal growth studies.
+It can overestimate needs in nonactive 
+populations (eg, bedridden) and does not provide a range of energy needs. Though an outdated reference, still widely used.
+Children with normal growth, body composition, 
+and activity and who are also metabolically normal.0–6 mo: 2.2 g/kg/d6–12 mo: 1.6 g/kg/d1–3 y: 1.2 g/kg/d4–6 y: 1.1 g/kg/d7–14 y: 1 g/kg/d15–18 y (males): 0.9 g/kg/d15–18 y (females): 0.8 g/kg/d
+ Peterson’s failure to thrive
+ Peterson KE, Washington J, Rathbun JM. 
+Team management of failure to thrive. J Am Diet Assoc
+. 1984;84:810-815.This calculates nutrients in excess of the 
+requirements of the RDA.
+Concerns with using this equation include 
+refeeding syndrome.
+It can be calculated using a method similar to the 
+one for calories above.
+Infants and children who present underweight and 
+need to achieve catch-up growth.[Protein Required for Weight Age (g/kg/d) × Ideal Weight for 
+Age (kg)] ÷ Actual Weight (kg)
+BMR, basal metabolic rate; DRI, Dietary Reference Intake; EER, estimated energy requirements; FAO, Food and Agriculture Organization; IOM, Institute of Medicine; PA, physical activity; PAL, 
+physical activity level; RDA, Recommended Dietary Allowance; REE, resting energy expenditure; TEE, total energy expenditure; WHO, World Health Organization; UNU, United Nations University. Adapted from Carney LN. Assessment of nutrition status by age and determining nutrient needs. In: Corkins MR, Balint J, Bobo E, Plogsted S, Yaworski JA, eds. The A.S.P.E.N. Pediatric Nutrition 
+Support Core Curriculum. Silver Spring, MD: The American Society for Parenteral and Enteral Nutrition; 2010:418-419 with permission from the American Society for Parenteral and Enteral Nutrition (A.S.P.E.N.). A.S.P.E.N. does not endorse the use of this material in any form other than its entirety.Table 2.  (continued)
+ 19412452, 2015, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1177/0884533614557642 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+156 Nutrition in Clinical Practice 30(1)
+tracking and assessing nutritional status in children.21,44,45 A z 
+score is a statistical measure that tells how a single data point 
+compares with normal data and, if above or below “average,” how atypical the measurement is. Growth measurements that cross z score lines indicate possible risk. Children who are 
+growing and developing normally will be on or between −1 and 1 z scores of a given indicator. Interpretation of the signifi-cance of z score data is based on the point at which, in the child’s pattern of growth, the change began and the child’s health status relative to the point and progression of change.
+21,46,47
+The CDC recommends that the WHO comparative data 
+charts be used as normative standards for U.S. children from birth to 2 years of age and that the CDC comparative data charts be used as normative standards for U.S. children ages 2–20 years.
+44 According to the CDC, growth charts are not 
+intended for use as a sole diagnostic instrument but contribute to the formation of an overall clinical impression of the child being assessed.
+Weight Gain Velocity
+Mehta et al21 suggest that a better definition of malnutrition 
+should include goals of early identification of children at risk for malnutrition and the development of thresholds for inter -
+vention. One criterion for the early identification of undernu-trition is the assessment of growth velocity and its comparison with a standard. The A.S.P.E.N. workgroup included growth within its 5 domains, as part of the construct of the definition of pediatric malnutrition.
+21
+Growth is defined as an increase in size and the develop-
+ment to maturity, and growth velocity is defined as the rate of change in weight or length/height over time. This rate of change can be interpreted as an early sign of healthy or unhealthy response to the nutritional environment.
+48 Upon ini-
+tial presentation, length for children under 24 months of age and height for children greater than 24 months of age reflect the child’s nutritional status over a prolonged period of time. A negative z score can be used to determine pediatric malnutri-
+tion when only a single data point is available. Over time, declines in z scores for length/height can also be used as a char -
+acteristic to determine undernutrition.
+Average daily/monthly rates of weight gain that allow a 
+child to remain stable on a growth curve occur when adequate nutrient intake takes place. These rates are determined by the trajectory of the growth curve and vary by age and period of development. During periods of growth, an average daily or monthly weight gain is required for the child to remain stable on the growth curve. Very low weight velocity, as occurs with lack of weight gain, and weight loss in a child has been noted to be “independently and more closely related to mortality than other indicators of malnutrition, such as BMI for age.”
+49
+There is a tremendous amount of plasticity in growth in the 
+short term. This adaptive response is seen when an event such as illness or trauma occurs that results in cessation of growth. With ongoing adequate nutrient intake, the child recovers and “catch-up growth” with greater than normal rates of weight gain velocity results.
+50
+Mid–Upper Arm Circumference
+MUAC should be measured when assessing the nutritional sta-tus of pediatric patients.
+20 MUAC can be used as an indepen-
+dent anthropometric assessment tool in determining malnutrition in children 6–59 months of age when compared with the standards developed by WHO.
+51 Though reference 
+ranges with standard deviations are not available for older chil-dren and adolescents, Frisancho
+52 provides percentile guide-
+lines for ages 1–79 years. MUAC has been correlated to BMI in children
+53,54 and adults55 and has shown to be more sensitive 
+to changes in muscle and fat mass than BMI in adults.55
+MUAC measurements should be part of the full anthropo-
+metric assessment in all patients and are particularly impor -
+tant in those whose weight may be affected by lower extremity edema, ascites, or steroids, as weight trends alone are unreli-able in relation to fluid status. When serial z  scores are 
+unavailable, serial MUAC measurements can be used to mon-itor changes in body composition by using the child as his or her own control. MUAC has been indicated as a more sensi-tive prognostic indicator for mortality than weight-for-height parameters in malnourished pediatric patients.
+56,57 It is advis-
+able to have trained individuals consistently perform these measurements for the best long-term comparison of data.
+Handgrip Strength
+Handgrip strength is a simple noninvasive measurement commonly used to measure baseline functional status and track progress throughout the course of therapy. Using a handheld dynamometer, subjects perform a series of stan-dardized movements that measure the maximum isometric strength of the hand and forearm muscles. The dynamometer is a simple noninvasive and low-cost instrument to measure functional status.
+In the hospitalized setting, handgrip strength has been 
+shown to predict postoperative complications, length of hospi-tal admission, readmission, likelihood of returning to previous home setting, and mortality.
+58 Because muscle function reacts 
+earlier to changes in nutritional status than muscle mass, handgrip strength may be a more acute measurement of response to nutritional interventions than traditional biochem-ical or anthropometric measurements in children ages 6 years and older.
+59 In hospitalized pediatric patients, handgrip 
+strength has been used as a simple noninvasive test of func-tional capacity at admission for surgery. BMI z  scores corre-
+lated with the admission handgrip strength measurement, regardless of gender, age, disease severity, or anthropometric characteristics.
+59
+ 19412452, 2015, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1177/0884533614557642 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+Becker et al  157
+Accurate handgrip measurements require procedure stan-
+dardization. Equipment calibration, adequate staff training 
+(patient positioning/dynamometer setting), and use of the appropriate reference range (device dependent) are important components in ensuring accurate results.
+58–60 Appropriate age- 
+and gender-specific reference ranges must be used. In pediatric populations, handheld dynamometry has been proven feasible and reliable across a wide age range (6 years and older) and multiple diagnoses; however, normal reference ranges in large populations have not been established. Mild, moderate, and severe deficit ranges as measured by handgrip strength have not been established; thus, handgrip strength can help to iden-tify the presence of malnutrition but not to quantify the degree of the deficit.
+Proxy Measures as Substitutes for 
+Traditional Anthropometric Measures
+In selected diseases or conditions, physical anomalies or 
+patient frailty may limit the clinician’s ability to obtain the typical anthropometric measurements used to assess growth. A number of alternative measurements have been used in such instances to estimate weight and length. The clinician is encouraged to review relevant literature to determine which measures offer the greatest accuracy in the clinical context in which the patient presents.
+20,61
+Documentation of Tanner Stage
+There is a well-recognized association between normal puber -
+tal development and nutritional status; however, determinants of the age of onset of puberty are multifactorial. Although Tanner stage cannot be used as a marker of nutritional status in prepubescent children, it may nonetheless be useful as an indi-rect indicator in preteens and adolescents who have entered puberty, when Tanner progression or stagnation may be influ-enced by nutritional status.
+The onset of puberty varies from individual to individual 
+with a range of about 5 years.
+62 Basic inherited genetic deter -
+minants interact with environmental influences to trigger the onset of puberty.
+62 Pubertal development is classically staged 
+by a set of physical parameters described by Marshall and Tanner.
+63,64 Reports from developing countries indicate that 
+girls with lower weight and height are at lower Tanner stages than their peers of the same age
+65,66 U.S. data from the last 
+National Health and Nutrition Examination Survey III (1988–1994) found a significant discordance for Tanner staging between the physical parameters for boys and girls if the weight and BMI were above or below the mean of children in their same age group.
+67
+The use of Tanner staging as a nutrition marker is limited by 
+the significant degree of variability in genetic determinants for the onset of puberty from one child to another. There is also the currently unknown correlation of how pubertal development could be altered to a greater or lesser extent depending on the degree of malnutrition. This is certainly a fertile area for fur -
+ther research.
+Classifying Pediatric Malnutrition
+Historically, pediatric malnutrition related to undernutrition has been classified as a percentage of ideal body weight. This type of distribution of percentages of ideal body weight was first described by Gomez et al,
+41 who demonstrated a correla-
+tion between the severity of undernutrition and death. The Gomez Classification
+41 and the Waterlow Criteria68 use this 
+standard and define mild, moderate, and severe malnutrition as 76%–90%, 61%–75%, and <60%
+41 and 80%–89%, 70%–79%, 
+and <70%,68 respectively.
+In the past, the definitions of undernutrition and failure to 
+thrive included decreases in 2 centile channels or faltering growth as weight below the fifth percentile.
+68–70 A deceleration 
+of weight over time has also been used to define malnutrition.71 
+The use of z score, decline in z score, and negative z score to identify and document pediatric malnutrition/undernutrition is now recommended.
+Classification of undernutrition using MUAC measures 
+was suggested in children between the ages of 6 and 60 months. Children who are severely malnourished are defined as those with measurements of less than 11.5 cm, moderately malnour -
+ished as those with measurements between 11.5 and 12.4 cm, and at risk of malnutrition as those with measurements between 12.5 and 13.4 cm.
+72
+An analysis by WHO and UNICEF showed that children 
+with a weight-for-height z score less than −3 SD were at a 9-fold greater risk of death than children with a z score of −1 SD.
+21 Similar studies using MUAC as a diagnostic criteria 
+showed that risk of dying increased with measures of 11.5 cm.
+73–77
+Mild malnutrition related to undernutrition is usually the 
+result of an acute event, either due to economic circumstances or acute illness, and presents with unintentional weight loss or weight gain velocity less than expected. Moderate malnutrition related to undernutrition occurs due to undernutrition of a sig-nificant duration that results in weight-for-length/height values or BMI-for-age values that are below the normal range. Severe malnutrition related to undernutrition occurs as a result of pro-longed undernutrition and is most frequently quantified by declines in rates of linear growth that result in stunting.
+On initial presentation, a child may have only a single data 
+point for use as a criterion for the identification and diagnosis of malnutrition related to undernutrition. When this is the case, the use of z scores for weight-for-height/length, BMI-for-age, length/height-for-age or MUAC criteria as stated in Table 3 is indicated.
+When a child presents with historical medical information 
+and 2 or more data points are available for use as criteria for  
+the identification and diagnosis of malnutrition related to 
+ 19412452, 2015, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1177/0884533614557642 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+158 Nutrition in Clinical Practice 30(1)
+Table 3.  Primary Indicators When Single Data Point Available.71-74,76,77
+Mild Malnutrition Moderate Malnutrition Severe Malnutrition
+Weight-for-height z score −1 to −1.9 z score −2 to −2.9 z score −3 or greater z score
+BMI-for-age z score −1 to −1.9 z score −2 to −2.9 z score −3 or greater z score
+Length/height-for-age z score No data No data −3 z score
+Mid–upper arm circumference Greater than or equal to 
+−1 to −1.9 z scoreGreater than or equal to 
+−2 to −2.9 z scoreGreater than or equal to 
+−3 z score
+BMI, body mass index.
+Table 4.  Primary Indicators When 2 or More Data Points Available.71-74,76,77
+Mild Malnutrition Moderate Malnutrition Severe Malnutrition
+Weight gain velocity (<2 years 
+of age)Less than 75%a of the normb 
+for expected weight gainLess than 50%a of the normb 
+for expected weight gainLess than 25%a of the normb 
+for expected weight gain
+Weight loss (2–20 years of age) 5% usual body weight 7.5% usual body weight 10% usual body weight
+Deceleration in weight for length/
+height z scoreDecline of 1 z score Decline of 2 z score Decline of 3 z score
+Inadequate nutrient intake 51%–75% estimated 
+energy/protein need26%–50% estimated 
+energy/protein need≤25% estimated energy/
+protein need
+aGuo S, Roche AF, Foman SJ, et al. Reference data on gains in weight and length during the first two years of life. Pediatrics. 1991;119(3):355-362.
+bWorld Health Organization data for patients <2 years old: http://www.who.int/childgrowth/standards/w_velocity/en/index.html.
+undernutrition, the criteria in Table 4 might also be used to sup-
+port malnutrition’s (undernutrition) identification and diagno-sis. The 1982 Foman data are still being used as growth velocity standards, but we recommend using the WHO data for patients <2 years of age.
+78
+Nutrition Surveillance and Continuity of 
+Care
+Once the diagnosis of pediatric undernutrition is made, it is 
+crucial to determine how often nutritional status should be monitored and what processes will be established to ensure continuity of care between settings. These questions require answers that ensure improved outcomes for the child with this diagnosis.
+One of the mandates of the Affordable Care Act and “mean-
+ingful use” is to facilitate care transition across the healthcare system.
+79 The Centers for Medicare and Medicaid Services 
+will require monitoring and reevaluation of patients’ health conditions and that continuation of care is planned, executed, and documented (see www.HealthIT.gov). A specific time-frame for these requirements has yet to be delineated. Providing nutrition surveillance will undoubtedly improve outcomes and reduce hospital readmission rates. The Nutrition Care Process
+80 
+provides guidelines for monitoring and evaluation of nutrition therapy provided. The ideal frequency for nutrition surveil-lance, however, remains elusive.
+It will be difficult to standardize follow-up surveillance 
+intervals because of the great variation in severity of growth failure, nutritional habits, coexisting morbidities, chronic disease(s), social situations, and so on.
+81–84 Optimally, follow-
+up intervals for pediatric malnutrition (undernutrition), like any other medical condition, should be individualized.
+Call to Action: Next Steps
+This consensus statement represents a starting point in the effort to standardize a diagnostic approach to the identifica-tion and documentation of pediatric undernutrition. It is important that all clinicians caring for pediatric patients use the recommended diagnostic indicators to identify and docu-ment nutritional status in children and adolescents. It is also imperative that clinicians make every effort to obtain and enter numerical data into searchable fields in the electronic medical record, in order to make tracking within and among institutions feasible.
+Members of the healthcare team should come together to 
+determine strategies for implementation compatible with their own institution’s policies and practices. Standardized formats for the collection of data associated with each indicator’s use are needed in order to validate and determine which character -
+istics are the most or least reliable in the identification of pedi-atric undernutrition and its treatment. Uniform data collection across facilities at local, regional, and national levels would facilitate feasibility testing on a broad scale. The indicators recommended in this consensus statement should be reviewed and revised at regular intervals to reflect validation data that offer evidence of efficacy.
+ 19412452, 2015, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1177/0884533614557642 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+Becker et al  159
+We also need to begin to develop systems that track the dis-
+eases or conditions and the environmental or socioeconomic 
+circumstances that contribute to, or that are routinely associ-ated with, the development of pediatric undernutrition. The human and financial impact of the routine use of the recom-mended indicators in such areas as resource utilization, reve-nue generation, and personnel needed to adequately address the needs of undernourished children and adolescents in acute, ambulatory, home, and residential care settings should also be tracked.
+The education and training needs of nutrition, medical, and 
+allied health professionals should be determined, with appro-priate outreach initiated to remediate identified deficits. Additional training in the nutrition assessment protocol recom-mended and in the development and utilization of electronic systems that facilitate data collection in this highly vulnerable and costly segment of our population should be offered in mul-tiple venues as specific identified needs arise.
+Summary
+The recommended indicators to diagnose pediatric undernutri-tion delineated in this consensus statement are a work in prog-ress. Clinicians should expect to see an evolution of these recommendations as data regarding their use are systemati-cally collected, analyzed, and disseminated to research and clinical communities. Periodic review and revision of our rec-ommendations will ensure that the health of the public is opti-mized and that utilization of healthcare resources proceeds with maximum efficiency.
+Authors’ Note
+Patricia Becker was affiliated with UNC Chapel Hill at the time 
+the work was done. She is now affiliated with Cincinnati Children’s Hospital Medical Center, Cincinnati, Ohio.
+References
+ 1. World Health Organization. 10 facts on child health. Children: reducing 
+mortality. Fact sheet No. 178. Updated September 2013. http://www.who.int/mediacentre/factsheets/fs178/en/. Accessed May 5, 2014.
+ 2. World Health Organization. Adolescents: health risks and solutions. Fact sheet No. 345. August 2011. http://www.who.int/mediacentre/factsheets/fs345/en/index.html. Accessed May 5, 2014.
+ 3. Grover Z, Ee LC. Protein energy malnutrition. 
+Pediatr Clin North Am. 
+2009;56(5):1055-1068.
+ 4. Schrimshaw NS, Viteri 
+FE. INCAP studies of kwashiorkor and marasmus. 
+Food Nutr Bull. 2010;31(1):34-41.
+ 5. Ogden CL, Carroll MD, Kit BK, Flegal KM. Prevalence of childhood and adult obesity in the United States, 2011-2012. 
+JAMA. 2014;311(8):  
+806-814.
+ 6. Coleman-Jensen A, Nord M, Singh A. Household Food Security in the United States in 2012
+. Washington, DC: U.S. Department of Agriculture, 
+Economic Research Service; September 2013. ERR-155.
+ 7. U.S. Department of Health and Human Services, Health Resources and Services Administration, Maternal and Child Health Bureau. The National Survey of Children With Special Health Care Needs Chartbook 2005–2006
+. Rockville, MD: U.S. Department of Health and Human Services; 
+2007.
+ 8. Hecht C, Weber M, Grote V, et al. Disease associated malnutrition cor-relates with length of hospital stay in children [published online January 11, 2014]. 
+Clin Nutr. 2014.
+ 9. Rodman M, Mack R, Barnoya J, et al. The effect of preoperative nutri-tional status on postoperative outcomes in children undergoing surgery for congenital heart defects in San Francisco (UCSF) and Guatemala City (UNICAR). 
+J Thorac Cardiovasc Sur. 2014;147(1):442-450.
+ 10. Geier LM, Bekx MT, Connor EL. Factors contributing to initial weight loss among adolescents with polycystic ovary syndrome. 
+J Pediatr 
+Adolesc Gynecol. 2012;25(6):367-370.
+ 11. Hendricks KM, Duggan C, Gallagher L, et al. Malnutrition in hospital-ized pediatric patients: current prevalence. 
+Arch Pediatr Adolesc Med. 
+1995;149(10):1118-1122.
+ 12. Sim LA, 
+Lebow J, Billings M. Eating disorders in adolescents with a his-
+tory of obesity. Pediatrics. 2013;132:e1206-e1230.
+ 13. Rosen DS; American Academy of Pediatrics Committee on Adolescence. Identification and management of eating disorders in children and adoles-cents. 
+Pediatrics. 2010;126(6):1240-1253.
+ 14. Sturdevant M, Spear BA. Eating disorders and obesity. In: Burg FD, Polin RA, Gershon AA, Ingelfinger JA, Ingelfinger JR,  eds. 
+Current 
+Pediatric Therapy. 18th ed. Edinburgh, UK: Elsevier Saunders; 2006:334-338.
+ 15. Ozier AD, Henry 
+BW; American Dietetic Association. Position of the 
+American Dietetic Association: nutrition intervention in the treatment of eating disorders. J Am Diet Assoc. 2011;111(8):1236-1241.
+ 16. Joosten KF, Hulst JM. Malnutrition in pediatric hospital patients: current issues. Nutrition
+. 2011;27:133-137.
+ 17. American Society for Parenteral and Enteral Nutrition. The A.S.P.E.N. Pediatric Nutrition Support Core Curriculum
+. Silver Spring, MD: The 
+American Society for Parenteral and Enteral Nutrition; 2010.
+ 18. Academy of Nutrition and Dietetics. Electronic Pediatric Nutrition Care Manual
+. Chicago, IL: Academy of Nutrition and Dietetics; 2012.
+ 19. National Academy of Sciences, Institute of Medicine, Food and Nutrition Board. Dietary Reference Intakes for Energy, Carbohydrate, Fiber, Fat, 
+Fatty Acids, Cholesterol, Protein, and Amino Acids. Washington, DC: National Academies Press; 2005.
+ 20. American Academy 
+of Pediatrics. AAP Pediatric Nutrition Handbook. 6th 
+ed. Elk Grove Village, IL: American Academy of Pediatrics; 2008.
+ 21. Mehta NM, Corkins MR, Lyman B, et al. Defining pediatric malnutrition: a paradigm shift towards etiology-related definitions. JPEN J Parenter Enteral Nutr
+. 2013;37(4):460-481.
+ 22. World Health Organization, United Nations Children’s Fund. WHO Child Growth Standards and the Identification of Severe Acute Malnutrition in Infants and Children: A Joint Statement by the World Health Organization and the United Nations Children’s Fund
+. Geneva, Switzerland: World 
+Health Organization/United Nations Children’s Fund; 2009.
+ 23. Hagan JC. 
+Acute and chronic diseases. In: Mulner RM, ed. Encyclopedia 
+of Health Services Research. Vol 1. Thousand Oaks, CA: Sage;  
+2009:25.
+ 24. World Health Organization. WHO 1995 Expert Committee Report: Physical
+ 
+Status: The Use and Interpretation of Anthropometry. Geneva, Switzerland: World Health Organization; 1995. Technical Report Series 854.
+ 25. World Health Organization. WHO 1996 Catalogue of Health Indicators: A Selection of Important Health Indicators Recommended by WHO Programmes
+. Geneva, Switzerland: World Health Organization; 1996. 
+WHO/HST/SCI/96.8.
+ 26. World Health 
+Organization. Prevalence of stunting in children ages 
+0-4 years. http://www.who.int/entity/ceh/indicators/0_4stunting.pdf. Accessed May 5, 2014.
+ 27. World Health Organization. Determining SD or Z-scores for an indi-vidual using software. Lesson 3.2. http://www.unicef.org/nutrition/train
+-
+ing/3.2/24.html. Accessed May 5, 2014.
+ 19412452, 2015, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1177/0884533614557642 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+160 Nutrition in Clinical Practice 30(1)
+ 28. Sion-Sarid R, Cohen J, Houri Z, Singer P. Indirect calorimetry: a guide 
+for optimizing nutritional support in the critically ill child. Nutrition
+. 
+2013;29(9):1094-1099.
+ 29. Dokken M, Rustøen T, Stubhaug A. Indirect calorimetry reveals that better monitoring of nutrition therapy in pediatric intensive care is needed [published online November 19, 2013]. JPEN J Parenter  
+Enteral Nutr
+.
+ 30. Carney LN, Blair J. Assessment of nutritional status and determining nutrient needs. In: Corkins MR, Balint J, Bobo E, Plogsted S, Yaworski JA, eds. The A.S.P.E.N. Pediatric Nutrition Support Core Curriculum
+. 
+Silver Spring, MD: American Society for Parenteral and Enteral Nutrition; 2010:409-432.
+ 31. World Health Organization. Energy and Protein Requirements: Report of a Joint FAO/WHO/UNU Expert Consultation
+. Geneva, Switzerland: 
+World Health Organization; 1985. Technical Report Series 724.
+ 32. Schofield WN. Predicting basal metabolic rate, new standards and review of previous work. Hum Nutr Clin Nutr
+. 1985;39(suppl 1):5-41.
+ 33. Subcommittee on the Tenth Edition of the Recommended Dietary Allowances, Food and Nutrition Board, Commission on Life Sciences, National Research Council. Recommended Dietary Allowances
+. 10th ed. 
+Washington, DC: National Academies Press; 1989.
+ 34. Meyer R, Kulinskaya E, Briassoulis G, Taylor RM, Cooper M, Pathan N, Habibi P. The challenge of developing a new predictive formula to estimate energy requirements in ventilated critically ill children. Nutr Clin Pract
+. 2012;27(5):669-676.
+ 35. Kim MH, Kim JH, Kim EK. Accuracy of predictive equations for resting energy expenditure (REE) in non-obese and obese Korean children and adolescents. Nutr Res Pract
+. 2012;6(1):51-60.
+ 36. Arrowsmith FE, Allen JR, Gaskin KJ, et al. Nutritional rehabilitation increases the 
+resting energy expenditure of malnourished children with 
+severe cerebral palsy. Dev Med Child Neurol. 2012;54(2):170-175.
+ 37. DeWit B, Meyer R, Desai A, Macrae D, Pathan N. Challenge of predicting resting energy expenditure in children undergoing surgery for congenital heart disease. Pediatr Crit Care Med
+. 2010;11(4):496-501.
+ 38. Hill RJ, Lewindon PJ, Withers GD, et al. Ability of commonly used prediction equations to predict resting energy expenditure in children with inflammatory bowel disease. Inflamm Bowel Dis
+. 2011;17(7): 
+1587-1793.
+ 39. Baer MT, Harris AB. Pediatric nutrition assessment: identifying children at risk. J Am Diet Assoc
+. 1997;97(10)(suppl 2):S107-S115.
+ 40. National Center for Chronic Disease Prevention and Health Promotion: Nutrition & Physical Activity. Use and interpretation of the CDC growth charts: an instructional guide. 2007. http://www.cdc.gov/nccdphp/dnpa/growthcharts/guide_intro.htm. Accessed May 5, 2014.
+ 41. Gomez F, Galvan RR, Cravioto J, Frenk S. Malnutrition in infancy and childhood, with special reference to kwashiorkor. Adv Pediatr
+. 
+1955;7:131-169.
+ 42. Gomez F, Galvin RR, Frenk S, Cravioto MJ, Chavez R, Vazquez J. Mortality in second and third degree malnutrition. J Trop Pediatr
+. 
+1956;2:77-83.
+ 43. Seoane N, Latham MC. Nutritional anthropometry in the identifica-tion of malnutrition in childhood. 
+J Trop Pediatr Environ Child Health. 
+1971;17:98-104.
+ 44. Centers for Disease Control and Prevention. Growth charts. 2000 CDC growth charts for the United States. http://www.cdc.gov/growthcharts/. Accessed May 5, 2014.
+ 45. World Health Organization. Training Course on Child Growth Assessment: WHO 
+Child Growth Standards. Geneva, Switzerland: World 
+Health Organization; 2008. http://www.who.int/nutrition. Accessed May 5, 2014.
+ 46. Waterlow JC, Buzina R, Keller W, Lane JM, Nichaman MZ, Tanner JM. The presentation 
+and use of height and weight data for comparing the 
+nutritional status of groups of children under the age of 10 years. Bull World Health Org. 1977;55(4):489-498. 47. Dibley MJ, Staehling NW, Nieburg P, Trowbridge FL. Interpretation of Z-score anthropometric indicators derived from the international growth reference. Am J Clin Nutr
+. 1987;46:749-762.
+ 48. Iannotti LL, Zavaleta N, Huasasquiche C, Leon Z, Caulfield LE. Early growth velocities and weight gain plasticity improve linear growth in Peruvian infants [published online October 1, 2012]. Matern Child Nutr
+.
+ 49. O’Neill SM, Fitzgerald A, Briend A, Van den Broeck J. Child mortality as predicted by nutritional status and recent weight velocity in children under two in rural Africa. J Nutr
+. 2012;142(3):520-525.
+ 50. Lampl M. 
+Human growth from the cell to the organism: saltations and 
+integrative physiology. Ann Hum Biol. 2009;36(5):478-495.
+ 51. de Onis M, Yip R, Mei Z. The development of MUAC-for-age refer-ence data recommended by a WHO expert committee. 
+Bull World Health 
+Organ. 1997;75:11-18.
+ 52. Frisancho AR. New norms 
+of upper limb fat and muscle areas for assess-
+ment of nutritional status. Am J Clin Nutr. 1981;34: 2540-2545.
+ 53. Schweizer J, 
+Gerver WJ. Mid–upper arm circumference is a reli-
+able predictor of body-mass index in healthy Dutch children. J Pediatr Gastroenterol Nutr. 2005;40(5):695.
+ 54. Martin AC, Pascoe EM, Forbes DA. Monitoring nutritional status accu-rately 
+and reliably in adolescents with anorexia nervosa. J Paediatr Child 
+Health. 2009;45(1-2):53-57.
+ 55. Powell-Tuck J, Hennessy 
+EM. A comparison of mid upper arm circum-
+ference, body mass index and weight loss as indices of undernutrition in acutely hospitalized patients. Clin Nutr. 2003;22(3):307-312.
+ 56. Briend A, Maire B, Fontaine O, Garenne M. Mid–upper arm circumfer-ence and weight-for-height to identify high-risk malnourished under-five children. 
+Matern Child Nutr. 2012;8(1):130-133.
+ 57. Rasmussen J, Andersen A, Fisker AB, et al. Mid-upper-arm-circumference and mid-upper-arm circumference z-score: the best predictor of mortality? Eur J Clin Nutr. 2012;66(9):998-1003.
+ 58. Webb AR, 
+Newman LA, Taylor M, Keogh JB. Hand grip dynamometry as 
+a predictor of postoperative complications reappraisal using age standard-ized grip strengths. JPEN J Parenter Enteral Nutr. 1989;13:30-33.
+ 59. Secker DJ, Jeejeebhoy KN. Subjective Global Assessment for children. Am J Clin Nutr. 2007;85:1083-1089.
+ 60. Hébert LJ, Maltais DB, Lepage C, Saulnier J, Crête M, Perron M. Isometric muscle strength in youth assessed by hand-held dynamometry: a feasibility, reliability, and validity study. Pediatr Phys Ther
+. 2011;23: 
+289-299.
+ 61. Sentongo T. Growth assessment and monitoring. In: Corkins MR, ed. The A.S.P.E.N. Pediatric Nutrition Support Core Curriculum
+. Silver Spring, 
+MD: American Society for Parenteral and Enteral Nutrition; 2010:145.
+ 62. Bourguignon JP, Juul A. Normal female puberty in a developmental per-spective. 
+Endocr Dev. 2012;22:11-23.
+ 63. Marshall WA, Tanner JM. Variations in pattern of pubertal changes in girls. 
+Arch Dis Child. 1969;44:291-303.
+ 64. Marshall WA, Tanner JM. Variations in the pattern of pubertal changes in boys. Arch Dis Child
+. 1970;45:13-23.
+ 65. Gupta N, Singh MP, Dhillon BS, Saxena NC. Preparing for adulthood—patterns of physical growth, sexual maturity and menarche of adoles-cent girls in selected urban slums and urban areas. 
+J Indian Med Assoc. 
+2007;105:119-122.
+ 66. Garnier D, Simondon KB, Bénéfice E. Longitudinal estimates of puberty timing in Senegalese adolescent girls. Am J Hum 
+Biol. 2005;17: 
+718-730.
+ 67. Schubert CM, Chumlea WC, Kulin HE, Lee PA, Himes JH, Sun SS. Concordant and discordant sexual maturation among US children in rela-tion to body weight and BMI. 
+J Adolesc Health. 2005;37:356-362.
+ 68. Waterlow JC. Classification and definition of protein-calorie malnutrition. Br Med J. 1972;3:566-569.
+ 69. Edmond AM, Blair PS, Emmett PM, Drewett RF. Weight faltering in infancy and IQ levels at 8 years in the Avon Longitudinal Study of Parents and Children. Pediatrics
+. 2007;120:e1051-e1058.
+ 19412452, 2015, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1177/0884533614557642 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+Becker et al  161
+ 70. O’Brien LM, Heycock EG, Hanna M, Jones PW, Cox JL. Postnatal 
+depression and 
+faltering of growth: a community study. Pediatrics. 
+2004;113:1242-1247.
+ 71. Eskedal LT, Hagemo PS, Seem E, Eskild A, Cvancarova M, Seiler S. Impaired weight gain predicts risk of late death after surgery for congeni-tal heart defects. 
+Arch Dis Child. 2008;93:495-501.
+ 72. Olsen EM, 
+Peterson J, Skovgaard AM, Welle B, Jorgensen T, Wright CM. 
+Failure to thrive: the prevalence and concurrence of anthropometric crite-ria in a general infant population. Arch Dis Child. 2007;92:109-114.
+ 73. Mogeni P, Twahir H, Bandika V, et al. Diagnostic performance of vis-ible severe wasting for identifying severe acute malnutrition in chil
+-
+dren admitted to hospital in Kenya. Bull World Health Organ. 2011;89: 900-906.
+ 74. Myatt M, Khara T, Collins S. A review of methods to detect cases of severely malnourished children in the community for their admission into community-based therapeutic care programs. Food Nutr Bull
+. 2006;27(3)
+(suppl): S7-S23.
+ 75. Duggan MB. Anthropometry as a 
+tool for measuring malnutrition: impact 
+of the new WHO growth standards and references. Ann Trop Paediatr. 2010;30:1-17.
+ 76. Black RE, Allen LH, Bhutta ZA, et al. Maternal and child undernutri-tion: global and regional exposures and health consequences. 
+Lancet. 
+2008;371:243-260. 77. Secker DJ, Jeejeebhoy KH. How to perform Subjective Global Nutritional assessment in children. J Acad Nutr Diet 
+. 2012;112(3):424-431.
+ 78. Foman SJ, Haschke F, et al. Body composition of reference children from birth to age 10 years. Am J Clin Nutr
+. 1982;35(5)(suppl):1169-1175.
+ 79. The Patient Protection and Affordable Care Act (PPACA), Pub. L. No. 111-148, 124 Stat 119 (March 23, 2010).
+ 80. Pediatric Nutrition Dietetic Practice Group. The Nutrition Care Process in Pediatric Practice
+. Chicago, IL: Academy of Nutrition and Dietetics; 
+2014.
+ 81. Gupta K, Nobel A, Kachelries KE, et al. A novel enteral nutrition pro-tocol for the treatment of pediatric Crohn’s disease. 
+Inflamm Bowel Dis. 
+2013;19(7):1374-1378.
+ 82. Skog A, Eliasson H, Tingstrom J, et al. Long-term growth of children with autoantibody-mediated congenital heart block. Acta Paediatr
+. 
+2013;102:718-726.
+ 83. Ali E, Zachariah R, Shams Z, et al. Is mid–upper arm circumference alone sufficient for deciding 
+admission to a nutritional programme for childhood 
+severe acute malnutrition in Bangladesh? Trans R Soc Trop Med Hyg. 2013;107:319-323.
+ 84. Heushckel R, 
+Salvestrini C, Beattie RM, Hildebrand H, Walters T, 
+Griffiths A. Guidelines for the management of growth failure in child-hood inflammatory bowel disease. Inflamm Bowel Dis. 2008;14(6): 839-849.
+ 19412452, 2015, 1, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1177/0884533614557642 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+

@@ -1,0 +1,437 @@
+ORIGINAL CONTRIBUTION
+The TIMI Risk Score for
+Unstable Angina/Non–ST Elevation MI
+A Method for Prognostication
+and Therapeutic Decision Making
+Elliott M. Antman, MD
+Marc Cohen, MD
+Peter J. L. M. Bernink, MD
+Carolyn H. McCabe, BS
+Thomas Horacek, MD
+Gary Papuchis, MD
+Branco Mautner, MD
+Ramon Corbalan, MD
+David Radley, MS
+Eugene Braunwald, MD
+PATIENTS PRESENTING WITH AN
+acute coronary syndrome with-
+out ST-segment elevation are di-agnosed as having unstable an-
+gina/non–ST elevation myocardialinfarction (MI) (UA/NSTEMI). Giventhe heterogeneous nature of UA/NSTEMI, such patients have a widespectrum of risk for death and cardiacischemic events.
+1-5Many attempts to es-
+timate a gradient of risk among pa-tients with UA/NSTEMI focus on a singlevariable, such as presence or absence ofelectrocardiographic (ECG) changes
+6-9
+or elevated serum cardiac markers.10-13
+Prognostication schemes have been
+developed that categorize patients quali-tatively into high, intermediate, or lowrisk, but they do not provide a quanti-tative statement about finer grada-tions of risk that exist clinically.
+2Al-
+though univariate analyses areinformative as an initial assessment ofthe importance of a potential prognos-
+Author Affiliations and Financial Disclosures are listed
+at the end of this article.Corresponding Author and Reprints: Elliott M.Antman, MD, Cardiovascular Division, Brigham and
+Women’s Hospital, 75 Francis St, Boston, MA 02115(e-mail: eantman@rics.bwh.harvard.edu).Context Patients with unstable angina/non–ST-segment elevation myocardial in-
+farction (MI) (UA/NSTEMI) present with a wide spectrum of risk for death and car-diac ischemic events.
+Objective To develop a simple risk score that has broad applicability, is easily cal-
+culated at patient presentation, does not require a computer, and identifies patientswith different responses to treatments for UA/NSTEMI.
+Design, Setting, and Patients Two phase 3, international, randomized, double-
+blind trials (the Thrombolysis in Myocardial Infarction [TIMI] 11B trial [August 1996–March 1998] and the Efficacy and Safety of Subcutaneous Enoxaparin in Unstable An-gina and Non-Q-Wave MI trial [ESSENCE; October 1994–May 1996]). A total of 1957patients with UA/NSTEMI were assigned to receive unfractionated heparin (test co-hort) and 1953 to receive enoxaparin in TIMI 11B; 1564 and 1607 were assigned re-spectively in ESSENCE. The 3 validation cohorts were the unfractionated heparin groupfrom ESSENCE and both enoxaparin groups.
+Main Outcome Measures The TIMI risk score was derived in the test cohort by
+selection of independent prognostic variables using multivariate logistic regression, as-signment of value of 1 when a factor was present and 0 when it was absent, and sum-ming the number of factors present to categorize patients into risk strata. Relative dif-ferences in response to therapeutic interventions were determined by comparing theslopes of the rates of events with increasing score in treatment groups and by testingfor an interaction between risk score and treatment. Outcomes were TIMI risk scorefor developing at least 1 component of the primary end point (all-cause mortality, newor recurrent MI, or severe recurrent ischemia requiring urgent revascularization) through14 days after randomization.
+Results The 7 TIMI risk score predictor variables were age 65 years or older, at least
+3 risk factors for coronary artery disease, prior coronary stenosis of 50% or more, ST-segment deviation on electrocardiogram at presentation, at least 2 anginal events inprior 24 hours, use of aspirin in prior 7 days, and elevated serum cardiac markers. Eventrates increased significantly as the TIMI risk score increased in the test cohort in TIMI11B: 4.7% for a score of 0/1; 8.3% for 2; 13.2% for 3; 19.9% for 4; 26.2% for 5;and 40.9% for 6/7 ( P,.001 by x
+2for trend). The pattern of increasing event rates
+with increasing TIMI risk score was confirmed in all 3 validation groups ( P,.001). The
+slope of the increase in event rates with increasing numbers of risk factors was sig-nificantly lower in the enoxaparin groups in both TIMI 11B ( P=.01) and ESSENCE ( P=.03)
+and there was a significant interaction between TIMI risk score and treatment ( P=.02).
+Conclusions In patients with UA/NSTEMI, the TIMI risk score is a simple prognos-
+tication scheme that categorizes a patient’s risk of death and ischemic events and pro-vides a basis for therapeutic decision making.
+JAMA. 2000;284:835-842 www.jama.com
+See also p 876 and Patient Page.
+©2000 American Medical Association. All rights reserved. (Reprinted) JAMA, August 16, 2000—Vol 284, No. 7 835
+tic variable, because of the complex pro-
+file of patients with an acute coronarysyndrome, multivariate analyses thatadjust for several prognostic variablessimultaneously provide a more accu-rate tool for risk stratification.
+2,5,14
+Reports of the results of random-
+ized clinical trials of new therapeuticstrategies for UA/NSTEMI typically pro-vide a statement of the overall effec-tiveness of a treatment in a populationthat is a mixture of patients at varyingrisks of the primary end point. Al-though univariate subgroup analysesare frequently presented in clinical trialreports, these provide only a partial pic-ture of the effect of the new treatmentin a given subgroup unless adjust-ment is made for covariates. Given thespectrum of clinical presentations, it isplausible that the magnitude of thetreatment effect of a therapy may varydepending on the profile of risk in anyspecific patient.
+15
+Prognostication of patient risk,
+therefore, is useful not only for allow-ing clinicians to triage patients to theoptimum location for delivery ofmedical care (eg, intensive care unit vshospital ward vs outpatient care)
+16,17
+but also for identification of patientswho may be best served by potent butexpensive—and sometimes risky—new therapies.
+5,18-20To facilitate wide-
+spread use of a prognostic scoring sys-tem for patients with UA/NSTEMI, itmust be readily applicable using stan-dard patient features that are part ofthe routine medical evaluation of suchpatients.
+The primary goal of this article is to
+report the development, testing, andclinical utility of a risk stratification toolfor evaluation of patients with UA/NSTEMI. Previously, we reported thata risk stratification scheme based on age65 years or older, ST deviation on ECG,and positive serum cardiac markers seg-regated patients with UA/NSTEMI intolow-, intermediate-, and high-riskgroups, and the treatment effect ofenoxaparin was greatest in the highestrisk group.
+21However, that risk strati-
+fication scheme used only a limitednumber of baseline characteristics. Wedeveloped a new, more comprehensive
+risk score for UA/NSTEMI using the da-tabase of the Thrombolysis in Myocar-dial Infarction (TIMI) 11B trial, a phase3 trial comparing low-molecular-weight heparin (enoxaparin) with un-fractionated heparin.
+22Our purpose in
+designing a simple risk score was to pro-vide a tool that potentially could be ap-plied in clinical settings in which pa-tients with UA/NSTEMI present forevaluation.
+METHODS
+The design and results of the TIMI 11B
+and Efficacy and Safety of Subcutane-ous Enoxaparin in Unstable Angina andNon-Q-Wave MI (ESSENCE) trials havebeen reported previously.
+22,23All pa-
+tients (n=3910 in TIMI 11B and n=3171in ESSENCE) presented within 24 hoursof an episode of UA/NSTEMI at rest. Ad-ditional enrollment criteria included atleast 1 of the following: ST-segment de-viation on the qualifying ECG (eithertransient ST elevation or persistent ST de-pression of $0.05 mV in TIMI 11B and
+$0.01 mV in ESSENCE), documented
+history of coronary artery disease, andelevated serum cardiac markers. (In TIMI11B, a history of coronary artery dis-ease was acceptable initially but wasdropped later as the sole supportive cri-terion for UA/NSTEMI.) Major exclu-sion criteria were planned revascular-ization in 24 hours or less, a correctablecause of angina, and contraindicationsto anticoagulation.
+All patients received aspirin (100-
+325 mg/d) and, after providing writ-ten informed consent, were randomlyassigned to 1 of 2 antithrombotic strat-egies. Both trials used a double dummytechnique so that all patients receivedboth an intravenous infusion (unfrac-tionated heparin or matched placebo)and subcutaneous injections (enoxa-parin or matched placebo). For the pur-poses of developing the TIMI risk scorefor UA/NSTEMI, the prespecified pri-mary efficacy end point from TIMI 11Bwas applied to both trials in a fashionsimilar to that reported for the TIMI11B–ESSENCE meta-analysis.
+24This
+end point was a composite of all-causemortality, new or recurrent MI, or se-
+vere recurrent ischemia prompting ur-gent revascularization. The analysesshown herein are based on rates for theprimary end point through 14 days af-ter randomization.
+Initially, a multivariate model for
+prognostication of risk for experienc-ing at least 1 element of the primary endpoint was developed. The model incor-porated baseline characteristics thatcould be readily identified at presenta-tion and was restricted to the cohort ofpatients assigned to unfractionated hep-arin in TIMI 11B (test cohort). The ra-tionale for this approach was to focus oninformation that could be ascertained ina relatively short period after encoun-tering a patient and establishing a modelthat could be used for efficient triage forpatient care without waiting for addi-tional tests or results of an initial pe-riod of medical observation over sev-eral days. Baseline characteristics thatwere evaluated include those previ-ously reported to be important vari-ables predicting outcomes in patientswith UA/NSTEMI and are shown inT
+ABLE 1.4,5,14,25,26
+A total of 12 baseline characteristics
+arranged in a dichotomous fashion werescreened as candidate predictor vari-ables of risk of developing an end-point event (Table 1). A multivariate lo-gistic regression model was then usedto assess the statistical significance ofeach candidate prognostic variable. Af-ter each factor was tested indepen-dently in a univariate logistic regres-sion model, those that achieved asignificance level of P,.20 were se-
+lected for testing in a multivariate step-wise (backward elimination) logistic re-gression model. Variables associatedwith P,.05 were retained in the final
+model. Maximum likelihood estimatesof the parameter coefficients were ob-tained using SAS PROC LOGISTIC (SASInstitute Inc, Cary, NC). The goodnessof fit of the model to the observed eventrates was evaluated by calculating theHosmer-Lemeshow statistic.
+27Low x2
+values and high corresponding Pval-
+ues for the Hosmer-Lemeshow statisticindicate that the data can be ad-THE TIMI RISK SCORE FOR UNSTABLE ANGINA
+836 JAMA, August 16, 2000—Vol 284, No. 7 (Reprinted) ©2000 American Medical Association. All rights reserved.
+equately fit to a logistic function. The
+ability of the model to classify patients(ie, its predictive performance) wasevaluated using the C statistic, a termequivalent to the area under a receiveroperating characteristic curve for di-chotomous outcomes.
+28Assessment of
+the impact of missing information forpredictor variables was carried out byMonte-Carlo simulations that ran-domly set fixed proportions of the datato missing and then repeating the logis-tic regression analyses.
+After development of the multivar-
+iate model, the TIMI risk score for UA/NSTEMI was developed for the test co-hort using those variables that had beenfound to be statistically significant pre-dictors of events in the multivariateanalysis. The score was then con-structed by a simple arithmetic sum ofthe number of variables present. Dif-ferences in the event rates for increas-ing TIMI risk score values were as-sessed using the x
+2test for trend.
+The risk score was then validated in
+3 separate cohorts of patients: the enoxa-parin group from TIMI 11B (n=1953),the unfractionated heparin group fromESSENCE (n=1564), and the enoxapa-rin group from ESSENCE (n=1607). Wetested for homogeneity of the unfrac-tionated heparin control groups in TIMI
+11B and ESSENCE by comparing theslope of the increase in the rate of eventswith increasing TIMI risk score usingleast squares linear regression analysis.Differences between the unfraction-ated heparin and enoxaparin groups inboth TIMI 11B and ESSENCE were alsoassessed by comparing the slope of theincrease in rate of events with increas-ing TIMI risk score using least squareslinear regression analysis. In addition,using a merged database of the TIMI 11Band ESSENCE studies, testing for a het-erogeneous treatment effect stratified byrisk score was carried out by examin-ing the statistical significance of the in-teraction term in a multivariate logisticregression model of the following form:outcome=constant + risk score + treat-ment (eg, unfractionated heparin vsenoxaparin) + risk score ptreatment.
+The asterisk in the model desig-
+nates an interaction between the ad-joining terms. To explore whether theinteraction of risk score ptreatment was
+affected by the trial in which the pa-tient was enrolled, we tested for statis-tical significance of terms for trial (TIMI11B vs ESSENCE) and interaction oftrial with risk score and treatment whenadded to the model.As a secondary goal, we examined the
+ability of the TIMI risk score to pre-dict development of each of the indi-vidual components of the compositeprimary end point as well as the com-posite end point of all-cause mortalityor nonfatal MI.
+RESULTS
+The test cohort for development of the
+TIMI risk score consisted of the 1957patients assigned to receive unfraction-ated heparin in TIMI 11B.
+22The pri-
+mary end point (all-cause mortality, MI,or urgent revascularization) occurredby 14 days in 16.7% of patients in thetest cohort. Of the 12 original candi-date variables, 7 remained statisticallysignificant in the multivariate analysisand formed the final set of predictorvariables (Table 1). The Hosmer-Lemeshow statistic was 3.56
+df8,
+(P=.89). The C statistic for the model
+in the test cohort was 0.65.
+Since the parameter estimates for
+each of the 7 predictor variables wereof a similar magnitude (Table 1), therisk score was calculated by assigninga value of 1 when a variable was pres-ent and then categorizing patients in thetest cohort by the number of risk fac-tors present, as shown in F
+IGURE 1. The
+Table 1. Baseline Characteristics Analyzed for Development of TIMI Risk Score for UA/NSTEMI *
+Characteristics†Univariate Analysis Multivariate Analysis
+bCoefficient PValue OR (95% CI) bCoefficient PValue OR (95% CI)
+Age, $65 y 0.4681 ,.001 1.60 (1.25-2.04) 0.5575 ,.001 1.75 (1.35-2.25)
+At least 3 risk factors for CAD‡ 0.3717 .009 1.45 (1.10-1.91) 0.4336 .003 1.54 (1.16-2.06)
+Significant coronary stenosis
+(eg, prior coronary stenosis $50%)0.5473 ,.001 1.73 (1.34-2.23) 0.5284 ,.001 1.70 (1.30-2.21)
+Prior MI 0.2386 .06 1.27 (0.99-1.63)
+Prior CABG 0.3004 .07 1.35 (0.97-1.88)Prior PTCA 0.4828 .004 1.62 (1.16-2.26)ST deviation 0.3356 .02 1.40 (1.06-1.85) 0.4125 .005 1.51 (1.13-2.02)
+Severe anginal symptoms
+(eg, $2 anginal events in last 24 h)0.4521 <.001 1.57 (1.24-2.00) 0.4279 .001 1.53 (1.20-1.96)
+Use of aspirin in last 7 days 0.6179 .002 1.86 (1.26-2.73) 0.5534 .006 1.74 (1.17-2.59)
+Use of IV unfractionated heparin
+within 24 hours of enrollment0.1665 .19 1.18 (0.92-1.51)
+Elevated serum cardiac markers § 0.3486 .004 1.42 (1.12-1.80) 0.4420 ,.001 1.56 (1.21-1.99)
+Prior history of CHF −0.1058 .70 0.90 (0.53-1.53)
+*UA/NSTEMI indicates unstable angina/non−ST elevation myocardial infarction; OR, odds ratio; CI, confidence interval; CAD, coronary artery disea se; MI, myocardial infarction;
+CABG, coronary artery bypass graft surgery; PTCA, percutaneous transluminal coronary angioplasty; IV, intravenous; and CHF, congestive heart fai lure.
+†Bold indicates variables that remained statistically significant in the multivariate analysis and were used as the final set of predictor variable s.
+‡Risk factors included family history of CAD, hypertension, hypercholesterolemia, diabetes, or being a current smoker.§Creatine kinase MB fraction and/or cardiac-specific troponin level.THE TIMI RISK SCORE FOR UNSTABLE ANGINA
+©2000 American Medical Association. All rights reserved. (Reprinted) JAMA, August 16, 2000—Vol 284, No. 7 837
+pattern of the number of risk factors was
+normally distributed. Because of thesmall number of patients with ex-treme risk scores, patients with 0 or 1risk factor(s) and 6 or 7 risk factors werecombined. There was a progressive, sig-nificant pattern of increasing event ratesas the TIMI risk score increased in thetest cohort ( P,.001 by x
+2for trend).
+In the final model, an age cutoff of
+65 years was used because this valuewas close to the median age for the un-fractionated heparin group (66 years)and was the median age for the enoxa-parin group. Use of different age cut-offs showed very little effect on perfor-mance of the model: the C statisticranged between 0.63 and 0.66 for vary-ing age cutoffs in 5-year incrementsfrom 50 to 80 years. Furthermore, treat-ing age as a continuous variable (prob-lematic for the development of a simplerisk score) also had little effect on modelperformance: the C statistic was 0.66in a model using age as a continuousvariable.
+One of the 7 predictor variables shown
+in Table 1, prior coronary stenosis of 50%or more, requires knowledge of the re-sults of a prior cardiac catheterization.
+Construction of the TIMI risk score us-ing the TIMI 11B database was accom-plished from the case report form datafor each patient and, therefore, com-plete information for the predictor ofprior coronary stenosis of 50% or morewas available for all patients; a value of0 was assigned if no cardiac catheteriza-tion had been previously performed orif a prior cardiac catheterization re-vealed no coronary stenoses of 50% ormore; a value of 1 was assigned if a priorcardiac catheterization revealed at least1 coronary stenosis of 50% or more.
+Since the results of a prior cardiac
+catheterization might not be immedi-ately available to a clinician attempt-ing to use the TIMI risk score when apatient with UA/NSTEMI presents forevaluation, we investigated the effect ofmissing values on the prior coronarystenosis of 50% or more variable. Us-ing Monte-Carlo simulation, a fixedproportion of data on prior coronarystenosis of 50% or more was ran-domly set as missing. The model wasreevaluated assuming 0 for missing pa-tients and then reevaluated once againexcluding the missing patients. When10%, 30%, or 50% of the prior coro-nary stenosis data were randomly setas missing an d a 0 was assumed for the
+missing patients, the variable for priorcoronary stenosis of 50% or more re-mained a significant predictor of thecomposite outcome at 14 days: for 10%missing, odds ratio (OR)=1.44 (95%confidence interval [CI], 1.18-1.75;P,.001); for 30% missing, OR=1.35
+(95% CI, 1.09-1.68; P=.007); and for
+50% missing, OR=1.58 (95% CI, 1.25-2.01; P,.001). For the same assump-
+tions of data randomly set as missingbut excluding missing patients, the vari-able for prior coronary stenosis of 50%or more also remained a significant pre-dictor, with ORs of 1.53 (95% CI, 1.25-1.88), 1.50 (95% CI, 1.19-1.90), and1.63 (95% CI, 1.25-2.13), respectively(P,.001 for all). Therefore, under a va-
+riety of assumptions about missing val-ues, prior coronary stenosis of 50% ormore remained a significant predictorof outcome.
+Validation of Risk Score
+Validation of the TIMI risk score isshown in F
+IGURE 2. The unfraction-
+ated heparin control groups in TIMI11B and ESSENCE showed a homogen-eous pattern when patients were strati-fied by risk score since the slope of theincrease in event rates with increasingnumber of risk factors was not statis-tically different ( P=.13) in the 2 un-
+fractionated heparin groups (Figure 2).For all 3 validation cohorts (the enoxa-parin group from TIMI 11B, the un-fractionated heparin group fromESSENCE, and the enoxaparin groupfrom ESSENCE) there was a signifi-cant increase in the rate of events as theTIMI risk score increased ( P,.001).
+Application of TIMI Risk Score
+As shown in Figure 2, the relative rate
+of increase in events among patientswith higher TIMI risk scores was dif-ferent for the unfractionated heparinand enoxaparin groups. For both TIMI11B and ESSENCE, the slope of the in-crease in event rates with increasingnumbers of risk factors was signifi-cantly lower in the enoxaparin groups(3.92 vs 6.41; P=.01 in TIMI 11B; 2.18
+vs 4.36; P=.03 in ESSENCE). A gener-
+ally consistent pattern of increasing ab-solute risk difference and correspond-ing decrease in the number of patientsrequiring treatment to prevent 1 endpoint event by 14 days after random-ization favoring enoxaparin was seenin both trials as the TIMI risk score in-creased.
+Using a merged database from the
+TIMI 11B and ESSENCE trials(N=7081), multivariate logistic regres-sion analysis revealed that the TIMI riskscore and treatment (unfractionated hep-arin vs enoxaparin) were significant pre-dictors ( P,.001 for both terms) of all-
+cause mortality, MI, or urgentrevascularization by 14 days afterrandomization (C statistic=0.63).An interaction term for TIMI riskscore ptreatment was also a significant
+predictor of the composite outcome atday 14 ( P=.02). However, the follow-
+ing terms were not significant pre-Figure 1. TIMI Risk Score
+45
+1530
+25
+203540
+10
+5
+0
+No. of Risk FactorsRate of Composite End Point, %
+0/14.7
+28.3
+313.2
+419.9
+526.2
+6/7
+Test Cohort
+No.
+(%)
+ 85
+(4.3)339
+(17.3)627
+(32.0)573
+(29.3)267
+(13.6)66
+(3.4)40.9
+Rates of all-cause mortality, myocardial infarction, and
+severe recurrent ischemia prompting urgent revascu-larization through 14 days after randomization werecalculated for various patient subgroups based on thenumber of risk factors present in the test cohort (theunfractionated heparin group in the Thrombolysis inMyocardial Infarction [TIMI] 11B trial; n=1957) (seeTable 1). Event rates increased significantly as the TIMIrisk score increased ( P,.001 by x
+2for trend).THE TIMI RISK SCORE FOR UNSTABLE ANGINA
+838 JAMA, August 16, 2000—Vol 284, No. 7 (Reprinted) ©2000 American Medical Association. All rights reserved.
+dictors of the composite outcome at day
+14: trial ( P=.18), trial ptreatment
+(P=.51), trial pTIMI risk score ( P=.13),
+and trial ptreatment pTIMI risk score
+(P=.84); inclusion of these in the lo-
+gistic regression analysis had no effecton overall model performance (Cstatistic=0.63).
+The ability of the TIMI risk score to
+predict outcomes other than all-causemortality, MI, or urgent revasculariza-tion was assessed in TIMI 11B. In theentire trial population, there were pro-gressive, significant ( P,.001) in-
+creases in the rates of all-cause mortal-ity, MI, urgent revascularization, andthe composite of all-cause mortality ornonfatal MI as the TIMI risk score in-creased ( F
+IGURE 3). The event rates
+stratified by risk score for the unfrac-tionated heparin and enoxaparin groupsin TIMI 11B are shown in T
+ABLE 2. For
+both treatment groups, there was a con-sistent, significant increase in the rateof events for each outcome with in-creasing risk score. Also, for each out-come, the slope of the increase in events
+with increasing risk score was lower inthe enoxaparin group: 68% lower forall-cause mortality ( P=.02), 25% lower
+for MI ( P=.41), 38% lower for urgent
+revascularization ( P=.05), and 39%
+lower for all-cause mortality or nonfa-tal MI ( P=.15).
+COMMENT
+Our results indicate that standard clini-
+cal characteristics routinely obtained dur-ing the initial medical evaluation of pa-tients with UA/NSTEMI can be used toconstruct a simple classification systemthat is predictive of risk for death and car-diac ischemic events. The TIMI risk scoreincludes variables that can be easily as-certained when a patient with UA/NSTEMI presents to the medical care sys-tem. The variables used to construct thescore were based on observations fromprior studies of risk stratification and in-corporate demographic and historicalfeatures of the patient, measures of thetempo and acuity of the presenting ill-ness, and indicators of the extent of myo-
+cardial ischemia and necrosis.
+2,9,17,29-31The
+predictor variables were derived from alogistic regression model that con-firmed their independent predictivepower after multivariate adjustment inthe TIMI 11B and ESSENCE data sets.
+The simple arithmetic sum of the
+number of variables present that con-stitutes the risk score can be calcu-lated without the aid of a computer.This distinguishes the TIMI risk scorefrom other scoring systems that aremore complex computationally sincethey require weighting terms for thepredictor variables and cannot be imple-mented easily without computer assis-tance.
+25The approach taken in devel-
+oping the TIMI risk score is similar tothat taken by Centor et al,
+32who intro-
+duced a scoring system for assessmentof the likelihood of streptococcal phar-yngitis based on clinical findings as-certained in the emergency depart-ment, and Croft et al,
+33who developed
+a simple clinical prediction rule for
+Figure 2. Validation of TIMI Risk Score and Assessment of Treatment Effect According to Score
+45
+1530
+25
+203540
+10
+5
+0Rate of Composite End Point, %
+No. (%) of Patients0/14.73.5
+85 (4.3)28.3 8.6
+339 (17.3)313.214.1
+627 (32.0)419.9
+14.9
+573 (29.3)526.2
+20
+267 (13.6)6/740.9
+28.8
+66 (3.4)
+Enoxaparin
+GroupUnfractionated
+Heparin Group
+86 (4.4) 362 (18.5) 631 (32.3) 536 (27.4) 265 (13.6) 73 (3.7)
+ARD 1.2 –0.3 –0.9 5 6.2 12.1
+NNT 83 –333 –111 20 16 8Unfractionated Heparin (n  = 1957)
+Enoxaparin (n  = 1953)
+No. of Risk Factors No. of Risk Factors0/17.2 7.3
+265 (16.9)211.6
+9.5
+438 (28.0)315.8
+12
+476 (30.4)416.8
+12.4
+280 (17.9)531
+18.3
+84 (5.4)6/738.1
+20
+21 (1.3)
+261 (16.2) 465 (28.9) 515 (32.0) 258 (16.1) 93 (5.8) 15 (0.9)
+– 0.1 2.1 3.8 4.4 12.7 18.1
+–910 46 27 23 8 6TIMI 11B
+(n = 3910)
+Unfractionated Heparin (n  = 1564)
+Enoxaparin (n  = 1607)ESSENCE
+(n = 3171)
+Rates of all-cause mortality, myocardial infarction, and severe recurrent ischemia prompting urgent revascularization through 14 days after rand omization were cal-
+culated for the enoxaparin and unfractionated heparin groups in the Thrombolysis in Myocardial Infarction (TIMI) 11B trial and the Efficacy and Safe ty of Subcutaneous
+Enoxaparin in Unstable Angina and Non-Q-Wave MI trial (ESSENCE), based on the TIMI risk score. The pattern of increasing event rates with increasing T IMI risk score
+was confirmed in all 3 validation cohorts ( P,.001 by x2for trend). C statistics were 0.65 for the unfractionated heparin group and 0.61 for the enoxaparin group in
+TIMI 11B; and 0.65 for the unfractionated heparin group and 0.59 for the enoxaparin group in ESSENCE. The rate of increase in events as more risk factors were
+present was significantly lower in the enoxaparin group in both studies (for TIMI 11B, P=.01; for ESSENCE, P=.03). Positive values for absolute risk difference (ARD)
+and number needed to treat to prevent 1 event (NNT) indicate calculations favoring enoxaparin, while negative values indicate calculations favorin g unfractionated
+heparin.THE TIMI RISK SCORE FOR UNSTABLE ANGINA
+©2000 American Medical Association. All rights reserved. (Reprinted) JAMA, August 16, 2000—Vol 284, No. 7 839
+identifying nerve function impair-
+ment in patients with leprosy.
+The TIMI risk score appears statis-
+tically robust in that it was validated in-ternally within TIMI 11B as well as in
+2 separate cohorts of patients from theESSENCE trial. The model is easy to re-call and apply clinically since a simpleage cutoff of 65 years provided similar
+predictive ability to a more complexmodel using age as a continuous vari-able. Also, variables such as knowl-edge of whether the patient had a pre-viously documented coronary stenosisof 50% or more appeared relatively in-sensitive to missing information and re-mained a significant predictor of events.
+The TIMI risk score offers several
+promising applications for clinical use.It categorizes patients with UA/NSTEMI into groups that span a widerange of risk for clinical events—abouta 5- to 10-fold range of risk. A contribu-tion of the TIMI risk score that has notbeen emphasized in other risk stratifi-cation studies is the actual testing of itsuse for identifying patients who wouldbe expected to show particular benefitfrom new antithrombotic regimens suchas enoxaparin.
+4As evidenced by the
+lower slope of the increase in event rateswith increasing risk score in Figure 2 andthe statistical significance of the inter-action term between risk score and treat-ment, the benefit of enoxaparin wasgreatest in those patients with higherTIMI risk scores. That the logistic re-gression modeling did not indicate thatthe trial in which the patient was en-rolled was a predictor of outcome andthat the interactions between trial andrisk score were not significant are con-sistent with an independent effect ofenoxaparin across the 2 trials and illus-trates the use of the TIMI risk score fortherapeutic decision making. The abso-Figure 3. Outcomes for Individual Components of the Composite Primary End Point
+Stratified by TIMI Risk Score
+25
+1520
+10
+5
+0
+No. of Risk FactorsUrgent RevascularizationRate, % Rate, %
+0/1 2 3 4 5 6/7All-Cause Mortality or Nonfatal MI
+0/1 2 3 4 5 6/70/1 2 3 4 5 6/7 0/1 2 3 4 5 6/725
+1520
+10
+5
+0
+25
+1520
+10
+50Rate, % Rate, %25
+1520
+10
+50All-Cause Mortality Myocardial Infarction
+1.2 1.01.72.55.66.5
+2.3 2.13.75.08.515.8
+1.26.09.512.214.320.9
+2.9 2.94.76.711.519.4
+Rates of all-cause mortality, myocardial infarction (MI), urgent revascularization, and all-cause mortality or
+nonfatal MI through 14 days after randomization were calculated for the entire population in the Thromboly-sis in Myocardial Infarction (TIMI) 11B trial based on the TIMI risk score. There was a progressive, significantincrease in the rate of events for each end point as the TIMI risk score increased ( P,.001 by x
+2for trend for
+all). C statistics for the 4 end points shown were 0.74 (all-cause mortality), 0.66 (MI), 0.68 (urgent revascu-larization), and 0.63 (all-cause mortality/MI), respectively.
+Table 2. Event Rates in TIMI 11B Stratified by TIMI Risk Score *
+TIMI Risk Score, Rate of Events, %
+PValue by x2
+for Trend C Statistic SlopePValue for
+Comparison
+of Slopes 0/1 2 3 4 5 6/7
+All-cause mortality
+Unfractionated heparin 0 0.9 1.8 2.6 7.1 10.6 ,.001 0.78 1.88.02
+Enoxaparin 2.3 1.1 1.7 2.4 4.2 2.7 .05 0.72 0.61
+Myocardial infarction
+Unfractionated heparin 3.5 1.8 4.0 5.9 9.7 16.7 ,.001 0.68 2.47.41
+Enoxaparin 1.2 2.5 3.3 4.1 7.2 15.1 ,.001 0.65 1.85
+Urgent revascularization
+Unfractionated heparin 1.2 6.2 9.1 14.0 15.0 27.3 ,.001 0.64 3.93.05
+Enoxaparin 1.2 5.8 10.0 10.3 13.6 15.1 ,.001 0.62 2.43
+All-cause mortality or nonfatal
+myocardial infarction
+Unfractionated heparin 3.5 2.4 4.8 7.5 13.5 22.7 ,.001 0.70 3.53.15
+Enoxaparin 2.3 3.3 4.6 5.8 9.4 16.4 ,.001 0.65 2.15
+*TIMI 11B indicates the Thrombolysis in Myocardial Infarction 11B trial.THE TIMI RISK SCORE FOR UNSTABLE ANGINA
+840 JAMA, August 16, 2000—Vol 284, No. 7 (Reprinted) ©2000 American Medical Association. All rights reserved.
+lute difference in event rates increased
+and the corresponding number of pa-tients needed to treat for prevention of1 event with enoxaparin decreased as therisk score increased (Figure 2). As shownin Figure 3, the risk score also appearsuseful for stratification of patients at riskfor the individual components of com-posite end points used in many contem-porary trials of therapies for UA/NSTEMI. The strength of the evidenceof a greater treatment effect of enoxapa-rin with increasing risk score is not asstrong for the individual components asfor the composite primary end point.This may reflect lower power to detecta treatment benefit from enoxaparin dueto lower absolute event rates for the in-dividual elements of the end point, al-though statistical significance favoringenoxaparin was observed for all-causemortality and for urgent revasculariza-tion (Table 2).
+Several limitations of our analyses
+should be acknowledged. The TIMI riskscore was developed in cohorts of pa-tients who qualified for enrollment in 2recent phase 3 trials of treatment for UA/NSTEMI. Its performance in cohorts ofpatients who present to emergency de-partments and physicians’ offices withchest pain must be assessed to deter-mine its generalizability to a variety ofclinical settings. The precise numericalrelationship between the TIMI risk scoreand event rates described for TIMI 11Band ESSENCE may be altered as the riskscore is applied to other populations.We did not have quantitative data on theresults of serum cardiac markers; in-stead, we used that predictor as a di-chotomous variable. Given the quanti-tative relationship between release ofcardiac biomarkers and prognosis, it ispossible that the performance of themodel could be improved by incorpo-rating a weighting term for small, mod-erate, and large releases of biomarkersdetected at the time of presenta-tion.
+11,12Other novel markers such as
+C-reactive protein may provide addi-tional prognostic information and mayneed to be incorporated in future re-finements of the risk score as such mea-surements become more widely avail-able. Although introduction of weighting
+factors for predictor variables or expan-sion of the list of predictor variables maylead to improvement in statistical mea-sures of the predictive performance ofthe model (eg, C statistic), this is likelyto occur at the cost of a loss of simplic-ity. Risk score development requiresjudgment to determine when a modelpredicts a sufficiently large gradient ofrisk to be clinically useful, and furtherrefinement of the model produces un-attractive levels of complexity.
+Risk assessment of patients with UA/
+NSTEMI is a continuous process that ini-tially involves integration of data at pre-sentation of the patient and laterincorporates hospital-phase data such asthe results of noninvasive and invasivetesting, monitoring for episodes of spon-taneous recurrent ischemia, and re-sponse to initial therapeutic maneu-vers.
+4The TIMI risk score for UA/
+NSTEMI described herein was designedfor prognostication at the time of ini-tial presentation. Updating of the riskscore, as hospital-phase data becomeavailable, is an area worthy of further in-vestigation.
+Since patients with an acute coro-
+nary syndrome are at increased risk ofdeath and nonfatal cardiac events, cli-nicians must assess prognosis on an in-dividual basis to formulate plans forevaluation and treatment. The TIMI riskscore for UA/NSTEMI is a simple prog-nostication scheme that enables a cli-nician to categorize a patient’s risk ofrisk of death and ischemic events at thecritical initial evaluation. A promisingclinical application of this score is iden-tification of a patient for whom new an-tithrombotic therapies would be espe-cially effective. Other considerationsmay bear on the decision to prescribenew therapies, even in lower riskgroups, in whom the treatment ben-efit may be smaller. Finally, the TIMIrisk score for UA/NSTEMI offers the op-portunity for evaluation of cost-effectiveness of other drugs, such as gly-coprotein IIb/IIIa inhibitors, as well asan early invasive vs early conservativestrategy in patients with an acute coro-nary syndrome.Author Affiliations: Cardiovascular Division, Depart-
+ment of Medicine, Brigham and Women’s Hospital,Boston, Mass (Drs Antman and Braunwald and MsMcCabe); Division of Cardiology, Hahnemann Uni-versity Hospital, Philadelphia, Pa (Dr Cohen); Depart-ment of Cardiology, Martini Hospital, Groningen, theNetherlands (Dr Bernink); Evangelisches Kranken-haus, Witten, Germany (Dr Horacek); WashingtonCounty Hospital, Hagerstown, Md (Dr Papuchis); Fun-dacion Favaloro, Buenos Aires, Argentina (Dr Maut-ner); Pontificia Universidad Catolica de Chile, San-tiago (Dr Corbalan); and Rho ˆ ne-Poulenc Rorer,
+Collegeville, Pa (Mr Radley).Financial Disclosure: Drs Antman and Cohen have
+served on the speakers bureau for and have receivedresearch support from Rho ˆ ne-Poulenc Rorer, manu-
+facturer of enoxaparin. Mr Radley is an employee ofRhoˆ ne-Poulenc Rorer (now Aventis Pharma).
+Funding/Support: This work was supported by a grant
+from Rho ˆ ne-Poulenc Rorer (now Aventis Pharma), Col-
+legeville, Pa.Author Contributions: Drs Antman, Cohen, and
+Braunwald and Ms McCabe contributed significantlyto the conception of the study and the analysis andinterpretation of the data. Dr Antman was the pri-mary author of the manuscript. Drs Bernink, Hora-cek, Papuchis, Mautner, and Corbalan enrolled sig-nificant numbers of patients in the clinical trials thatformed the basis for this report and also contributedto the final content of the article. Mr Radley assumedthe major role for data analysis and also contributedto the final content of the article.
+REFERENCES
+1.Farhi JI, Cohen M, Fuster V. The broad spectrum
+of unstable angina pectoris and its implications for fu-ture controlled trials. Am J Cardiol . 1986;58:547-
+550.2.Braunwald E, Mark DB, Jones RH, et al. Unstable
+Angina: Diagnosis and Management. Rockville, Md:
+Dept of Health and Human Services; 1994. ClinicalPractice Guideline 10.3.Calvin JE, Klein LW, VandenBerg BJ, et al. Risk strati-
+fication in unstable angina: prospective validation ofthe Braunwald classification. JAMA . 1995;273:136-
+141.4.Armstrong PW, Fu Y, Chang WC, et al. Acute coro-
+nary syndromes in the GUSTO-IIb Trial: prognostic in-sights and impact of recurrent ischemia. Circulation .
+1998;98:1860-1868.5.Zaacks SM, Liebson PR, Calvin JE, Parrillo JE, Klein
+LW. Unstable angina and non-Q wave myocardial in-farction: does the clinical diagnosis have therapeuticimplications? J Am Coll Cardiol. 1999;33:107-118.
+6.Cohen M, Hawkins L, Greenberg S, Fuster V. Use-
+fulness of ST-segment changes in greater than or equalto 2 leads on the emergency room electrocardiogramin either unstable angina pectoris or non-Q-wave myo-cardial infarction in predicting outcome. Am J Car-
+diol. 1991;67:1368-1373.
+7.Nyman I, Areskog M, Areskog NH, Swahn E, Wal-
+lentin L. Very early risk stratification by electrocardio-gram at rest in men with suspected unstable coro-nary heart disease. J Intern Med. 1993;234:293-
+301.8.Willich SN, Stone PH, Muller JE, et al. High-risk sub-
+groups of patients with non-Q wave myocardial in-farction based on direction and severity of ST seg-ment deviation. Am Heart J. 1987;114:1110-1119.
+9.Cannon CP, McCabe CH, Stone PH, et al. The elec-
+trocardiogram predicts one-year outcome of pa-tients with unstable angina and non-Q wave myo-cardial infarction: results of the TIMI III Registry ECGAncillary Study. J Am Coll Cardiol. 1997;30:133-
+140.10.Lindahl B, Venge P, Wallentin L. Relation be-
+tween troponin T and the risk of subsequent cardiacTHE TIMI RISK SCORE FOR UNSTABLE ANGINA
+©2000 American Medical Association. All rights reserved. (Reprinted) JAMA, August 16, 2000—Vol 284, No. 7 841
+events in unstable coronary artery disease. Circula-
+tion. 1996;93:1651-1657.
+11.Antman EM, Tanasijevic MJ, Thompson B, et al.
+Cardiac-specific troponin I levels to predict the risk ofmortality in patients with acute coronary syndromes.N Engl J Med. 1996;335:1342-1349.
+12.Ohman EM, Armstrong PW, Christenson RH, et
+al. Cardiac troponin T levels for risk stratification in acutemyocardial ischemia. N Engl J Med . 1996;335:1333-
+1341.13.Luscher MS, Thygesen K, Ravkilde J, Heicken-
+dorff L, for the TRIM Study Group. Applicability of car-diac troponin T and I for early risk stratification in un-stable coronary artery disease. Circulation . 1997;96:
+2578-2585.14.Maseri A, Rebuzzi AG, Cianflone D. Need for a
+composite risk stratification of patients with unstablecoronary syndromes tailored to clinical practice. Cir-
+culation . 1997;96:4141-4142.
+15.Schmid CH, Lau J, McIntosh MW, Cappelleri JC.
+An empirical study of the effect of the control rate asa predictor of treatment efficacy in meta-analysis ofclinical trials. Stat Med. 1998;17:1923-1942.
+16.Hutter AM, Amsterdam EA, Jaffe AS. Task force
+2: acute coronary syndromes: section 2B: chest dis-comfort evaluation in the hospital. J Am Coll Car-
+diol. 2000;35:853-862.
+17.Selker HP, Beshansky JR, Griffith JL, et al. Use of
+the acute cardiac ischemia time-insensitive predictiveinstrument (ACI-TIPI) to assist with triage of patientswith chest pain or other symptoms suggestive of acutecardiac ischemia: a multicenter, controlled clinical trial.Ann Intern Med. 1998;129:845-855.18.Reperfusion Therapy Consensus Group. Selec-
+tion of reperfusion therapy for individual patients withevolving myocardial infarction. Eur Heart J. 1997;18:
+1371-1381.19.Hamm CW, Goldmann BU, Heeschen C, Krey-
+mann G, Berger J, Neinertz T. Emergency room tri-age of patients with acute chest pain by means of rapidtesting for cardiac troponin T or troponin I. N Engl J
+Med. 1997;337:1648-1653.
+20.Hamm CW, Heeschen C, Goldmann B, et al. Ben-
+efit of abciximab in patients with refractory unstableangina in relation to serum troponin T levels. N Engl J
+Med. 1999;340:1623-1629.
+21.Holper EM, Antman EM, McCabe CH, et al. A
+simple, readily available method for risk stratificationof patients with unstable angina or non-Q myocar-dial infarction: a TIMI 11B substudy. Circulation . 1998;
+98:I-493.22.Antman EM, McCabe CH, Gurfinkel EP, et al.
+Enoxaparin prevents death and cardiac ischemic eventsin unstable angina/non-Q-wave myocardial infarc-tion: results of the Thrombolysis in Myocardial Infarc-tion (TIMI) 11B trial. Circulation . 1999;100:1593-
+1601.23.Cohen M, Demers C, Gurfinkel EP, et al. A com-
+parison of low-molecular-weight heparin with unfrac-tionated heparin for unstable coronary artery dis-ease. N Engl J Med . 1997;337:447-452.
+24.Antman EM, Cohen M, Radley D, et al. Assess-
+ment of the treatment effect of enoxaparin for un-stable angina/non-Q-wave myocardial infarction: TIMI11B-ESSENCE meta-analysis. Circulation . 1999;100:
+1602-1608.25.Lee KL, Woodlief LH, Topol EJ, et al. Predictors of
+30-day mortality in the era of reperfusion for acute myo-cardial infarction: results from an international trial of41,021 patients. Circulation . 1995;91:1659-1668.
+26.The PURSUIT Trial Investigators. Inhibition of
+platelet glycoprotein IIb/IIIa with eptifibatide in pa-tients with acute coronary syndromes. N Engl J Med.
+1998;339:436-443.27.Hosmer DW, Lemeshow S. Applied Logistic Re-
+gression . New York, NY: John Wiley & Sons Inc; 1989.
+28.Hanley JA, McNeil BJ. The meaning and use of
+the area under a receiver operating characteristic (ROC)curve. Radiology. 1982;143:29-36.
+29.Hochman JS, Tamis JE, Thompson TD, et al. Sex,
+clinical presentation, and outcome in patients withacute coronary syndromes. N Engl J Med. 1999;341:
+226-232.30.Jayes RL Jr, Beshansky JR, D’Agostino RB, Selker
+HP. Do patients’ coronary risk factor reports predictacute cardiac ischemia in the emergency depart-ment? a multicenter study. J Clin Epidemiol . 1992;
+45:621-626.31.Lee TH, Cook EF, Weisberg M, Sargent RK, Wil-
+son C, Goldman L. Acute chest pain in the emer-gency room: identification and examination of low-risk patients. Arch Intern Med. 1985;145:65-69.
+32.Centor RM, Meier FA, Dalton HP. Throat cultures
+and rapid tests for diagnosis of group A streptococcalpharyngitis. Ann Intern Med. 1986;105:892-899.
+33.Croft RP, Nicholls PG, Steyerberg EW, Richardus
+JH, Smith WCS. A clinical prediction rule for nerve-function impairment in leprosy patients. Lancet . 2000;
+355:1603-1606.
+The investigator may be made to dwell in a garret, he
+may be forced to live on crusts and wear dilapidatedclothes, he may be deprived of social recognition, butif he has time, he can steadfastly devote himself toresearch. Take away his free time and he is utterlydestroyed as a contributor to knowledge.
+—Walter B. Cannon (1871-1945)THE TIMI RISK SCORE FOR UNSTABLE ANGINA
+842 JAMA, August 16, 2000—Vol 284, No. 7 (Reprinted) ©2000 American Medical Association. All rights reserved.

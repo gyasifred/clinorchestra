@@ -1,0 +1,18 @@
+{
+  "name": "kdigo_ckd_stages",
+  "type": "guideline",
+  "keywords": [
+    "ckd",
+    "chronic kidney disease",
+    "kdigo",
+    "egfr",
+    "renal insufficiency",
+    "kidney disease",
+    "ckd stage",
+    "chronic renal failure"
+  ],
+  "content": "KDIGO Chronic Kidney Disease (CKD) Classification:\n\nCKD Definition:\nKidney damage or GFR <60 mL/min/1.73m\u00b2 for \u22653 months\n\nStages Based on GFR:\n\nStage 1: Normal or High GFR\n- GFR: \u226590 mL/min/1.73m\u00b2\n- Kidney damage present (albuminuria, hematuria, structural abnormality)\n- Description: Kidney damage with normal or increased GFR\n\nStage 2: Mild Reduction in GFR\n- GFR: 60-89 mL/min/1.73m\u00b2\n- With kidney damage\n- Description: Mildly decreased GFR\n\nStage 3a: Mild to Moderate Reduction\n- GFR: 45-59 mL/min/1.73m\u00b2\n- Description: Mildly to moderately decreased GFR\n- Clinical action: Evaluate and treat complications, slow progression\n\nStage 3b: Moderate to Severe Reduction\n- GFR: 30-44 mL/min/1.73m\u00b2\n- Description: Moderately to severely decreased GFR\n- Clinical action: More intensive management of complications\n\nStage 4: Severe Reduction\n- GFR: 15-29 mL/min/1.73m\u00b2\n- Description: Severely decreased GFR\n- Clinical action: Prepare for kidney replacement therapy\n\nStage 5: Kidney Failure (ESRD)\n- GFR: <15 mL/min/1.73m\u00b2\n- Description: Kidney failure\n- Clinical action: Kidney replacement therapy if uremic\n\nAlbuminuria Categories:\nA1 (Normal/Mild): <30 mg/g creatinine\nA2 (Moderate): 30-300 mg/g creatinine (microalbuminuria)\nA3 (Severe): >300 mg/g creatinine (macroalbuminuria)\n\nRisk Stratification (GFR + Albuminuria):\n- Green: Low risk (Stage 1-2, A1)\n- Yellow: Moderately increased risk\n- Orange: High risk\n- Red: Very high risk (Stage 4-5 or A3)\n\nComplications by Stage:\nStage 3: Anemia, bone disease onset\nStage 4: Hyperkalemia, metabolic acidosis, hyperphosphatemia\nStage 5: Uremia, need for RRT consideration\n\nSource: KDIGO 2012 Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease",
+  "source": "KDIGO CKD Guidelines 2012",
+  "relevance_score": 1.0,
+  "id": "extra_20251112_222950_754176"
+}

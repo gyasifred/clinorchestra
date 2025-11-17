@@ -1,20 +1,21 @@
 {
   "name": "calculate_timi_score",
+  "code": "\ndef calculate_timi_score(age_65_or_older, three_or_more_cad_risk_factors, known_cad_stenosis_50_percent, aspirin_use_in_past_7_days, severe_angina_24h, st_changes, elevated_cardiac_markers):\n    score = 0\n    \n    if age_65_or_older:\n        score += 1\n    if three_or_more_cad_risk_factors:\n        score += 1\n    if known_cad_stenosis_50_percent:\n        score += 1\n    if aspirin_use_in_past_7_days:\n        score += 1\n    if severe_angina_24h:\n        score += 1\n    if st_changes:\n        score += 1\n    if elevated_cardiac_markers:\n        score += 1\n    \n    # Risk percentages based on TIMI study\n    risk_mapping = {\n        0: ('Very Low', 4.7),\n        1: ('Very Low', 4.7),\n        2: ('Low', 8.3),\n        3: ('Moderate', 13.2),\n        4: ('Moderate', 19.9),\n        5: ('High', 26.2),\n        6: ('Very High', 40.9),\n        7: ('Very High', 40.9)\n    }\n    \n    risk_level, risk_percent = risk_mapping.get(score, ('Unknown', 0))\n    \n    return {\n        'score': score,\n        'risk_level': risk_level,\n        'estimated_risk_percent': risk_percent,\n        'interpretation': f'{risk_level} risk ({risk_percent}% risk of death/MI/urgent revasc at 14 days)'\n    }\n",
   "description": "Calculate TIMI Risk Score for UA/NSTEMI. Score range: 0-7. Used to assess 14-day risk of death, MI, or urgent revascularization in patients with unstable angina or NSTEMI.",
   "parameters": {
     "age_65_or_older": {
       "type": "bool",
-      "description": "Patient age ≥65 years",
+      "description": "Patient age \u226565 years",
       "required": true
     },
     "three_or_more_cad_risk_factors": {
       "type": "bool",
-      "description": "≥3 CAD risk factors (HTN, DM, smoking, family history, hyperlipidemia)",
+      "description": "\u22653 CAD risk factors (HTN, DM, smoking, family history, hyperlipidemia)",
       "required": true
     },
     "known_cad_stenosis_50_percent": {
       "type": "bool",
-      "description": "Known CAD with ≥50% stenosis",
+      "description": "Known CAD with \u226550% stenosis",
       "required": true
     },
     "aspirin_use_in_past_7_days": {
@@ -24,12 +25,12 @@
     },
     "severe_angina_24h": {
       "type": "bool",
-      "description": "Severe angina (≥2 episodes in 24h)",
+      "description": "Severe angina (\u22652 episodes in 24h)",
       "required": true
     },
     "st_changes": {
       "type": "bool",
-      "description": "ST-segment deviation ≥0.5mm on ECG",
+      "description": "ST-segment deviation \u22650.5mm on ECG",
       "required": true
     },
     "elevated_cardiac_markers": {
@@ -42,5 +43,5 @@
     "type": "dict",
     "description": "Dictionary with score (0-7), risk_level, and estimated_risk_percent"
   },
-  "code": "\ndef calculate_timi_score(age_65_or_older, three_or_more_cad_risk_factors, known_cad_stenosis_50_percent, aspirin_use_in_past_7_days, severe_angina_24h, st_changes, elevated_cardiac_markers):\n    score = 0\n    \n    if age_65_or_older:\n        score += 1\n    if three_or_more_cad_risk_factors:\n        score += 1\n    if known_cad_stenosis_50_percent:\n        score += 1\n    if aspirin_use_in_past_7_days:\n        score += 1\n    if severe_angina_24h:\n        score += 1\n    if st_changes:\n        score += 1\n    if elevated_cardiac_markers:\n        score += 1\n    \n    # Risk percentages based on TIMI study\n    risk_mapping = {\n        0: ('Very Low', 4.7),\n        1: ('Very Low', 4.7),\n        2: ('Low', 8.3),\n        3: ('Moderate', 13.2),\n        4: ('Moderate', 19.9),\n        5: ('High', 26.2),\n        6: ('Very High', 40.9),\n        7: ('Very High', 40.9)\n    }\n    \n    risk_level, risk_percent = risk_mapping.get(score, ('Unknown', 0))\n    \n    return {\n        'score': score,\n        'risk_level': risk_level,\n        'estimated_risk_percent': risk_percent,\n        'interpretation': f'{risk_level} risk ({risk_percent}% risk of death/MI/urgent revasc at 14 days)'\n    }\n"
+  "signature": "(age_65_or_older, three_or_more_cad_risk_factors, known_cad_stenosis_50_percent, aspirin_use_in_past_7_days, severe_angina_24h, st_changes, elevated_cardiac_markers)"
 }

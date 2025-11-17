@@ -224,6 +224,14 @@ class MultiGPUProcessor:
             print("[ERROR] No tasks provided to process_batch")
             return []
 
+        # CRITICAL FIX: Use 'spawn' method for CUDA compatibility
+        import multiprocessing as mp
+        try:
+            mp.set_start_method('spawn', force=True)
+        except RuntimeError:
+            # Already set, that's fine
+            pass
+
         # Assign GPUs to tasks (round-robin)
         for i, task in enumerate(tasks):
             task.gpu_id = self.gpu_ids[i % self.num_gpus]
@@ -233,9 +241,8 @@ class MultiGPUProcessor:
         print(f"[START] Processing {total_tasks} tasks across {self.num_gpus} GPUs")
         print(f"[INFO] Using serializable config for worker processes")
 
-        # Shared progress counter
+        # FIXED: Use Manager.dict for results - no locks needed
         manager = Manager()
-        completed_count = manager.Value('i', 0)
         results_dict = manager.dict()
 
         # Process in parallel using separate processes
@@ -250,7 +257,7 @@ class MultiGPUProcessor:
             return []
 
         with executor:
-            # Submit tasks
+            # Submit tasks - FIXED: Only pass task and config
             futures = {}
             submit_errors = 0
             for i, task in enumerate(tasks):
@@ -260,9 +267,7 @@ class MultiGPUProcessor:
                     future = executor.submit(
                         _process_single_task_on_gpu,
                         task,
-                        self.config,  # Pass serializable config instead of app_state
-                        completed_count,
-                        total_tasks
+                        self.config  # Only pass task and config
                     )
                     futures[future] = task.task_id
                     if i == 0:
@@ -294,9 +299,7 @@ class MultiGPUProcessor:
 
                     # Progress callback
                     if progress_callback:
-                        with completed_count.get_lock():
-                            current = completed_count.value
-                        progress_callback(current, total_tasks)
+                        progress_callback(completed_tasks, total_tasks)
 
                 except Exception as e:
                     print(f"[ERROR] Task {task_id} failed during execution: {e}")
@@ -362,18 +365,16 @@ class MultiGPUProcessor:
 
 
 def _process_single_task_on_gpu(task: MultiGPUTask,
-                                  config: MultiGPUConfig,
-                                  completed_count,
-                                  total_tasks) -> MultiGPUResult:
+                                  config: MultiGPUConfig) -> MultiGPUResult:
     """
     Process single task on assigned GPU
     This function runs in a separate process
+    
+    FIXED: Removed shared state parameters (completed_count, total_tasks)
 
     Args:
         task: Task to process
         config: Serializable configuration
-        completed_count: Shared counter for progress
-        total_tasks: Total number of tasks
 
     Returns:
         Result of processing
@@ -393,7 +394,6 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
     success = False
     result_obj = None
     error_msg = None
-    worker_result = None
     duration = 0.0
 
     try:
@@ -415,12 +415,9 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
             print(f"[WORKER-{gpu_id}] Imported all required modules")
 
             # CRITICAL: Recreate all managers from serializable config
-            # Cannot use pickled app_state - must rebuild everything
-
-            # Create minimal app_state for agent creation
             print(f"[WORKER-{gpu_id}] Creating minimal app_state from config...")
 
-            # Import config classes from app_state.py and model_config.py
+            # Import config classes
             from core.app_state import PromptConfig, DataConfig, RAGConfig, AgenticConfig
             from core.model_config import ModelConfig
 
@@ -474,7 +471,7 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
                 'agentic_config': agentic_cfg
             })()
 
-            # Initialize LLM manager for this process with config dict
+            # Initialize LLM manager for this process
             print(f"[WORKER-{gpu_id}] Creating LLM manager...")
             from dataclasses import asdict
             llm_manager = LLMManager(config=asdict(model_cfg))
@@ -482,17 +479,17 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
 
             # Initialize regex preprocessor
             print(f"[WORKER-{gpu_id}] Creating regex preprocessor...")
-            regex_preprocessor = RegexPreprocessor(patterns_path=config.patterns_path)
+            regex_preprocessor = RegexPreprocessor(storage_path=config.patterns_path)
             print(f"[WORKER-{gpu_id}] Regex preprocessor created")
 
             # Initialize extras manager
             print(f"[WORKER-{gpu_id}] Creating extras manager...")
-            extras_manager = ExtrasManager(extras_path=config.extras_path)
+            extras_manager = ExtrasManager(storage_path=config.extras_path)
             print(f"[WORKER-{gpu_id}] Extras manager created")
 
             # Initialize function registry
             print(f"[WORKER-{gpu_id}] Creating function registry...")
-            function_registry = FunctionRegistry(functions_path=config.functions_path)
+            function_registry = FunctionRegistry(storage_path=config.functions_path)
             print(f"[WORKER-{gpu_id}] Function registry created")
 
             # Initialize RAG engine if enabled
@@ -502,7 +499,7 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
                 rag_engine = RAGEngine(config.rag_top_k)
                 print(f"[WORKER-{gpu_id}] RAG engine created")
 
-            # Create agent for this process with ALL required parameters
+            # Create agent for this process
             print(f"[WORKER-{gpu_id}] Creating agent...")
             agent = create_agent(
                 llm_manager=llm_manager,
@@ -533,22 +530,10 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
             duration = time.time() - start_time
             success = True
 
-            # Update progress
-            with completed_count.get_lock():
-                completed_count.value += 1
-                current = completed_count.value
-
-            if current % 10 == 0 or current == total_tasks:
-                print(f"[PROGRESS] {current}/{total_tasks} ({current/total_tasks*100:.1f}%) - "
-                      f"GPU {gpu_id} completed task {task.task_id}")
-
     except Exception as e:
         duration = time.time() - start_time
         error_msg = f"{type(e).__name__}: {str(e)}"
         success = False
-
-        with completed_count.get_lock():
-            completed_count.value += 1
 
     # NOW we're outside the redirect context - output will actually show
     worker_output = stdout_capture.getvalue()

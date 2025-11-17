@@ -1,0 +1,31 @@
+{
+  "input_file": "data/notes_train.csv",
+  "text_column": "txt",
+  "has_labels": true,
+  "label_column": "label",
+  "label_mapping": {
+    "0": "Malnutrition Absent - Patient  Diagnosed as  Not  Malnourished",
+    "1": "Malnutrition Present - Patient  Diagnosed as  Malnourished"
+  },
+  "deid_columns": [
+    "DEID"
+  ],
+  "additional_columns": [],
+  "enable_phi_redaction": true,
+  "phi_entity_types": [
+    "PERSON",
+    "PHONE",
+    "EMAIL",
+    "SSN",
+    "MEDICAL_RECORD",
+    "LOCATION",
+    "ID",
+    "HOSPITAL"
+  ],
+  "redaction_method": "Replace with tag",
+  "save_redacted_text": true,
+  "enable_pattern_normalization": true,
+  "save_normalized_text": true,
+  "total_rows": 0,
+  "saved_at": "2025-11-16T12:53:55.158897"
+}

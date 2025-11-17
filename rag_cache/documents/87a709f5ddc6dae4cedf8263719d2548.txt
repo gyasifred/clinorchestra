@@ -1,0 +1,336 @@
+ORIGINAL INVESTIGATION
+A Brief Measure for Assessing Generalized
+Anxiety Disorder
+The GAD-7
+Robert L. Spitzer, MD; Kurt Kroenke, MD; Janet B. W. Williams, DSW; Bernd Lo ¨we, MD, PhD
+Background :Generalized anxiety disorder (GAD) is one
+of the most common mental disorders; however, thereis no brief clinical measure for assessing GAD. The ob-jective of this study was to develop a brief self-report scaleto identify probable cases of GAD and evaluate its reli-ability and validity.
+Methods :A criterion-standard study was performed in
+15 primary care clinics in the United States from No-vember 2004 through June 2005. Of a total of 2740 adultpatients completing a study questionnaire, 965 patientshad a telephone interview with a mental health profes-sional within 1 week. For criterion and construct valid-ity, GAD self-report scale diagnoses were compared withindependent diagnoses made by mental health profes-sionals; functional status measures; disability days; andhealth care use.
+Results :A 7-item anxiety scale (GAD-7) had good re-liability, as well as criterion, construct, factorial, and pro-
+cedural validity. A cut point was identified that opti-mized sensitivity (89%) and specificity (82%). Increasingscores on the scale were strongly associated with mul-tiple domains of functional impairment (all 6 Medical Out-comes Study Short-Form General Health Survey scalesand disability days). Although GAD and depression symp-toms frequently co-occurred, factor analysis confirmedthem as distinct dimensions. Moreover, GAD and de-pression symptoms had differing but independent ef-fects on functional impairment and disability. There wasgood agreement between self-report and interviewer-administered versions of the scale.
+Conclusion :The GAD-7 is a valid and efficient tool for
+screening for GAD and assessing its severity in clinicalpractice and research.
+Arch Intern Med. 2006;166:1092-1097
+ONE OF THE MOST COM -
+mon anxiety disordersseen in general medicalpractice and in the gen-eral population is gener-
+alized anxiety disorder (GAD). The disor-der has an estimated current prevalence ingeneral medical practice of 2.8% to 8.5%
+1-3
+and in the general population of 1.6% to5.0%.
+4-6Whereas depression in clinical set-
+tings has generated substantial research,there have been far fewer studies of anxi-ety. In part, this may be because of the pau-city of brief validated measures for anxietycompared with the numerous measures fordepression,
+7,8such as the Primary Care
+Evaluation of Mental Disorders 9-item Pa-tient Health Questionnaire (PHQ).
+9-11This
+situation is unfortunate, given the highprevalence of anxiety disorders, as well astheir associated disability and the availabil-ity of effective treatments, both pharmaco-logical and nonpharmacological.
+12,13
+Measures of anxiety are seldom used in
+clinical practice because of their length,proprietary nature, lack of usefulness as
+a diagnostic and severity measure,14-17and
+requirement of clinician administrationrather than patient self-report.
+18,19The goal
+of this study was to develop a brief scaleto identify probable cases of GAD and toassess symptom severity. We conducteda study in multiple primary care sites toselect the items for the final scale and toevaluate its reliability and validity.
+METHODS
+GAD SCALE DEVELOPMENT
+We first selected potential items for a brief GAD
+scale. The initial item pool consisted of 9 itemsthat reflected all of the Diagnostic and Statisti-
+cal Manual of Mental Disorders, Fourth Edition(DSM-IV) symptom criteria for GAD and 4
+items on the basis of review of existing anxi-ety scales. A 13-item questionnaire was devel-oped that asked patients how often, during thelast 2 weeks, they were bothered by each symp-tom. Response options were “not at all,” “sev-Author Affiliations: Biometrics
+Research Department, NewYork State Psychiatric Instituteand Department of Psychiatry ,Columbia University , New York(Drs Spitzer and Williams);Regenstrief Institute for HealthCare and Department ofMedicine, Indiana University ,Indianapolis (Dr Kroenke); andDepartment of Psychosomaticand General Internal Medicine,University of Heidelberg,Heidelberg, Germany(Dr Lo ¨we).
+(REPRINTED) ARCH INTERN MED/ VOL 166, MAY 22, 2006 WWW.ARCHINTERNMED.COM
+1092
+©2006 American Medical Association. All rights reserved.
+eral days,” “more than half the days,” and “nearly every day,”
+scored as 0, 1, 2, and 3, respectively. In addition, an item toassess duration of anxiety symptoms was included. Our goalwas to determine the number of items necessary to achieve goodreliability and procedural, construct, and diagnostic criterionvalidity.
+PATIENT SAMPLE
+Patients were enrolled from November 2004 through June 2005from a research network of 15 primary care sites located in 12states (13 family practice, 2 internal medicine) administeredcentrally by Clinvest, Inc (Springfield, Mo). The purpose of theproject’s first phase (n=2149) was to select the scale items andcutoff scores to be used for making a GAD diagnosis. The pur-pose of the second phase (n=591) was to determine the scale’stest-retest reliability. In all, 2982 subjects were approached and2739 (91.9%) completed the study questionnaire with no orminimal missing data. To minimize sampling bias, we ap-proached consecutive patients at each site in clinic sessions un-til the target quota for that week was achieved.
+In the first phase, 1654 subjects also agreed to a telephone
+interview, and of these, a random sample of 965 were inter-viewed within 1 week of their clinic visit by 1 of 2 mentalhealth professionals (MHPs)—a PhD clinical psychologist anda senior psychiatric social worker. In the study’s secondphase, 591 subjects who had completed the research ques-tionnaire were sent a 1-page questionnaire that consisted ofthe 13 potential GAD scale items. Of these, 236 subjectsreturned the completed 1-page questionnaire with no or mini-mal missing data within a week of completing the researchquestionnaire at the clinic. The mean GAD scale score of sub-jects returning the questionnaire did not differ from that ofsubjects who did not return the questionnaire. The study wasapproved by the Sterling Institutional Review Board, Spring-field, Mo.
+SELF-REPORT RESEARCH QUESTIONNAIRE
+Before seeing their physicians, patients completed a 4-page ques-tionnaire that included the 13 items being tested for use in theGAD scale, as well as questions about age, sex, education, eth-nicity, and marital status; the Medical Outcomes Study Short-Form General Health Survey (SF-20),
+20,21which measures func-
+tional status in 6 dimensions; and either the 12-item anxietysubscale from the Symptom Checklist-90
+16(first study phase
+only) or the Beck Anxiety Inventory14(second study phase only).
+Depression was assessed with the PHQ-8, which includes allitems from the PHQ-9 except for the item about suicidal ide-ation; PHQ-8 and PHQ-9 scores are highly correlated and havenearly identical operating characteristics.
+22Finally, patients com-
+pleted items regarding physician visits and disability days dur-ing the previous 3 months.
+MHP INTERVIEW
+The 2 MHPs conducted structured psychiatric interviews bytelephone, blinded to the results of the self-report research ques-tionnaire. The interview consisted of the GAD section of theStructured Clinical Interview for DSM-IV ,
+23modified with sev-
+eral additional questions to assess in greater detail some of theGAD diagnostic criteria of DSM-IV . The resulting DSM-IV GAD
+diagnosis, with the DSM-IV 6-month duration criterion, was
+used as the criterion standard for assessing the validity of thenew scale. The interview also included the 13 potential GADscale items to test agreement between self-report and clinicianadministration (ie, procedural validity).
+24DATA ANALYSIS
+The best items for the GAD scale were selected by rank order-ing the correlation of each item with the total 13-item scale scorein the sample of 1184 patients who did not undergo the MHPinterview. Item-total score correlations were reexamined in 2independent subsamples of the study population: the 965 pa-tients who underwent the MHP interview and the 591 pa-tients in the second phase of the study. In addition, we con-ducted receiver operating characteristic analyses with varyingnumbers of items in these 965 patients by using an MHP di-agnosis of GAD as the criterion standard. Divergent validity ofeach item was assessed by calculating the difference betweenthe item correlations with the 13-item anxiety score and thePHQ-8 depression score. Convergent validity was assessed byexamining correlations of the final version of the GAD scalewith the Beck Anxiety Inventory and the anxiety subscale ofthe Symptom Checklist-90, even though neither scale is spe-cific for GAD.
+To assess construct validity, we used analysis of covari-
+ance to examine associations between anxiety severity on thefinal GAD scale and SF-20 functional status scales, self-reported disability days, and physician visits, controlling fordemographic variables. For criterion validity, we investi-gated sensitivity, specificity, predictive values, and likeli-hood ratios for a range of cutoff scores of the final scale withrespect to the MHP diagnosis. To investigate whether anxi-ety as measured by the GAD-7 and depression as measuredby the PHQ-8 reflect distinct dimensions, we assessed facto-rial validity by using confirmatory factor analyses. Finally,procedural validity and test-retest reliability were assessedby means of intraclass correlation.
+25
+RESULTS
+DESCRIPTION OF PATIENTS
+The mean (SD) age of the patients was 47.4 (15.5) years
+(range, 18-95 years). Most (65%) were female; 80% werewhite non-Hispanic, 8% were African American, and 9%were Hispanic; 64% were married, 13% were divorced,and 15% were never married; and 31% had a high schooldegree or equivalent, whereas 62% had attended somecollege.
+ITEM SELECTION FOR THE GAD SCALES
+The GAD-7 (
+Figure 1 ) consists of the 7 items with
+the highest correlation with the total 13-item scalescore ( r=0.75-0.85). Receiver operating characteristic
+analysis with this set of items showed an area underthe curve (0.906) as good as scales with as much asthe full 13-item set. These 7 items also had the highestrank correlations in the developmental sample(n=1184) and the 2 replication samples (n=965 andn=591). The 2 core criteria (A and B) of the DSM-IV
+definition of GAD are captured by the first 3 items ofthe scale.
+26Of note, 6 of the 7 items had the greatest
+divergent validity (ie, the highest difference betweenthe item-total scale score correlation and item-PHQ-8depression score correlation [ /H9004r=0.16-0.21]). Because
+each of the 7 items is scored from 0 to 3, the GAD-7scale score ranges from 0 to 21.
+(REPRINTED) ARCH INTERN MED/ VOL 166, MAY 22, 2006 WWW.ARCHINTERNMED.COM
+1093
+©2006 American Medical Association. All rights reserved.
+RELIABILITY AND PROCEDURAL VALIDITY
+The internal consistency of the GAD-7 was excellent
+(Cronbach /H9251=.92). Test-retest reliability was also good
+(intraclass correlation=0.83). Comparison of scores de-rived from the self-report scales with those derived fromthe MHP-administered versions of the same scales yieldedsimilar results (intraclass correlation=0.83), indicatinggood procedural validity.
+DIAGNOSTIC CRITERION VALIDITY AND SCALE
+OPERATING CHARACTERISTICS
+Table 1 summarizes the operating characteristics of the
+GAD-7 at various cut points. As expected, as the cut pointincreases, sensitivity decreases and specificity increases ina continuous fashion. At a cut point of 10 or greater, sen-sitivity and specificity exceed 0.80, and sensitivity is nearlymaximized. Results were similar for men and women andfor those aged less and those aged more than the mean ageof 47 years. The proportion of primary care patients whoscore at this level is high (23%). A cut point of 15 or greatermaximizes specificity and approximates a prevalence (9%)more in line with current epidemiologic estimates of GADprevalence in primary care. However, sensitivity at this highcut point is low (48%). Most patients (89%) with GAD hadGAD-7 scores of 10 or greater, whereas most patients (82%)without GAD had scores less than 10.
+The mean (SD) GAD-7 score was 14.4 (4.7) in the 73
+patients with GAD diagnosed according to the MHP and4.9 (4.8) in the 892 patients without GAD. The preva-lence of GAD according to the MHP interview was 9%in women and 4% in men. In the entire sample of 2739patients, the mean GAD-7 score was 6.1 in women and4.6 in men.
+Although the GAD-7 scale inquires about symptoms
+in the past 2 weeks, the criterion-standard MHP inter-view required at least a 6-month duration of symptomsconsistent with DSM-IV diagnostic criteria for GAD. None-
+theless, the operating characteristics of the scale were goodbecause most patients with high symptom scores hadchronic symptoms. Of the 433 patients with GAD-7 scores
+of 10 or greater, 96% had symptoms for 1 month or more,and 67% had symptoms for 6 months or more.
+CONSTRUCT VALIDITY
+There was a strong association between increasing GAD-7
+severity scores and worsening function on all 6 SF-20scales (
+Table 2 ). As GAD-7 scores went from mild to
+moderate to severe, there was a substantial stepwise de-cline in functioning in all 6 SF-20 domains. Most pair-wise comparisons within each SF-20 scale between suc-cessive GAD-7 severity levels were significant. Therelationship between GAD severity and functional im-pairment was similar in men and women.
+Figure 2 illustrates graphically the relationship be-
+tween increasing GAD-7 scale scores and worsening func-tional status. Decrements in SF-20 scores are shown in termsof effect size (ie, the difference in mean SF-20 scores, ex-pressed as the number of SDs, between each GAD-7 inter-val subgroup and the reference group). The reference groupis the group with the lowest GAD-7 scores (ie, 0-4), andthe SD used is that of the entire sample. Effect sizes of 0.5and 0.8 are typically considered moderate and large be-tween-group differences, respectively.
+27
+When the GAD-7 was examined as a continuous vari-
+able, its strength of association with the SF-20 scales wasconcordant with the pattern seen in Figure 2. The GAD-7correlated most strongly with mental health (0.75), fol-lowed by social functioning (0.46), general health per-ceptions (0.44), bodily pain (0.36), role functioning(0.33), and physical functioning (0.30).
+Table 3 shows the association between GAD-7 se-
+verity levels and 3 other measures of construct validity:self-reported disability days, clinic visits, and the gen-eral amount of difficulty patients attribute to their symp-toms. Greater levels of anxiety severity were associatedwith a monotonic increase in disability days, health careuse, and symptom-related difficulty in activities and re-lationships. When the GAD-7 was examined as a con-tinuous variable, its correlation was 0.27 with disabilitydays, 0.22 with physician visits, and 0.63 with symptom-related difficulty.
+Convergent validity of the GAD-7 was good, as dem-
+onstrated by its correlations with 2 anxiety scales: the BeckAnxiety Inventory ( r=0.72) and the anxiety subscale of
+the Symptom Checklist-90 ( r=0.74). Consistent with re-
+sults of previous studies of anxiety and depression,
+4,28the
+GAD-7 and Symptom Checklist-90 anxiety scales alsostrongly correlated with our depression measure, thePHQ-8 ( r=0.75 and r=0.74, respectively). Nonetheless,
+measuring anxiety and depression was complementaryrather than duplicative. We determined the prevalenceof high anxiety and high depression symptom severityin our sample, defined as severe scores ( /H1135015) on the
+GAD-7 and PHQ-8 depression scales, respectively. In the2114 patients who completed the GAD-7 and the PHQ-8,there were 1877 (88.8%) patients with neither high anxi-ety nor high depression, 99 (4.68%) with high anxietyonly, 68 (3.2%) with high depression only, and 70 (3.31%)with high anxiety and high depression. Thus, more thanhalf (99/169) of patients with high anxiety scores did notGAD-7
+7. Feeling afraid as if something awful might happen 0 1 2 3Not
+at allSeveral
+daysMore
+than half
+the daysNearly
+every
+dayOver the last 2 weeks, how often have you been 
+bothered by the following problems?
+01 2 3 1. Feeling nervous, anxious or on edge
+01 2 3 2. Not being able to stop or control worrying
+01 2 3 3. Worrying too much about different things
+01 2 3 4. Trouble relaxing
+01 2 3 5. Being so restless that it is hard to sit still
+01 2 3 6. Becoming easily annoyed or irritable
+Total
+Score=Add
+Columns++
+If you checked off any problems, how difficult have these problems made it for you 
+to do your work, take care of things at home, or get along with other people?
+Not difficult
+at allSomewhat
+difficultVery
+difficultExtremely
+difficult
+Figure 1. The generalized anxiety disorder 7-item (GAD-7) scale.
+(REPRINTED) ARCH INTERN MED/ VOL 166, MAY 22, 2006 WWW.ARCHINTERNMED.COM
+1094
+©2006 American Medical Association. All rights reserved.
+have high depression scores. Also, when patients had high
+anxiety and high depression scores, there was an addi-tive effect on the SF-20 mental health and social func-tioning scales, as well as self-reported disability days andhealth care use.
+FACTORIAL VALIDITY
+Principal component analysis of a set of 15 items that in-
+cludes the 8 depression items of the PHQ-8 and the 7 anxi-ety items of the GAD-7 indicated that the first 2 emer-gent factors had an eigenvalue greater than 1. Sixty-three percent of the total variance was explained by thefirst 2 factors. The varimax-rotated component-matrixclearly confirmed the original allocation of the items tothe PHQ scales, with all depression items having the high-est factor loadings on 1 factor (0.58-0.75) and all anxi-ety items having the highest factor loadings on the sec-ond factor (0.69-0.81).
+COMMENT
+This study has several major findings. First, a 7-item anxi-ety scale—the GAD-7—is a useful tool with strong cri-terion validity for identifying probable cases of GAD. Sec-
+ond, the scale is also an excellent severity measure asdemonstrated by the fact that increasing scores on theGAD-7 are strongly associated with multiple domains offunctional impairment and disability days. Third, al-
+though many patients had anxiety and depressive symp-toms, factor analysis confirms GAD and depression as dis-tinct dimensions.
+This study reports the development and validation of
+a measure for evaluating the presence and severity of GADin clinical practice, the GAD-7, one of the few GAD mea-sures that is also specifically linked to the DSM-IV (Text
+Revision) criteria.
+19,26A score of 10 or greater on the GAD-7
+represents a reasonable cut point for identifying cases ofGAD. Cut points of 5, 10, and 15 might be interpretedas representing mild, moderate, and severe levels of anxi-ety on the GAD-7, similar to levels of depression on thePHQ-9.
+10The GAD-7 may be particularly useful in as-
+sessing symptom severity and monitoring change acrosstime, although its responsiveness to change remains tobe tested in treatment studies.
+Construct validity was demonstrated by the fact that
+increasing scores on the GAD-7 scale were strongly as-sociated with multiple domains of functional impair-Table 1. Operating Characteristics of GAD-7 at Different Cutoffs *
+GAD-7 Scale Score† Sensitivity, % Specificity, % PPV, % NPV, % LR /H11545 Prevalence, %
+8 92 76 24 99 3.8 29
+9 90 79 26 99 4.3 26
+10 89 82 29 99 5.1 2311 82 85 31 98 5.5 2012 73 89 35 98 6.5 1613 66 91 38 97 7.7 1314 56 92 37 96 7.2 1215 48 95 42 96 8.7 9
+Abbreviations: GAD-7, generalized anxiety disorder 7-item scale; LR /H11001, likelihood ratio for a positive test; NPV, negative predictive value; PPV, positive predictive
+value.
+*In 965 patients who underwent structured psychiatric interview by a mental health professional to determine the presence of generalized anxiety dis order by
+using Diagnostic and Statistical Manual of Mental Disorders, Fourth Edition diagnostic criteria.
+†The actual score is greater than or equal to the score shown.
+Table 2. Relationship Between GAD-7 Severity Score and SF-20 Health-Related Quality of Life Scales *
+Level of Anxiety Severity
+GAD-7 Scale ScoreMean (95% Confidence Interval) SF-20 Scale Score
+Mental Social Role General Pain Physical
+Minimal
+0-4 (n = 1182) 82 (81-83) 91 (89-92) 84 (82-86) 68 (67-69) 71 (70-72) 84 (82-85)
+Mild
+5-9 (n = 511) 65 (64-66) 79 (77-81) 69 (66-73) 52 (50-54) 56 (54-58) 74 (72-76)
+Moderate
+10-14 (n = 264) 54 (52-55) 69 (66-71) 59 (54-63) 43† (40-45) 51† (48-54) 66† (63-69)
+Severe
+5-21 (n = 171) 41 (39-43) 55 (52-59) 46 (40-52) 39† (36-43) 47† (43-50) 61† (58-65)
+Abbreviations: GAD-7, generalized anxiety disorder 7-item scale; SF-20, Medical Outcomes Study Short-Form General Health Survey.
+*SF-20 scores are adjusted for age, sex, race, education, and study site. Point estimates for the mean and 95% confidence intervals (±1.96 /H11003standard error of
+the mean) are displayed. Number of patients adds to 2128 because of missing data. Missing data for any subscale of SF-20 was less than 5%.
+†Pairwise comparisons within each scale that are not significant from one another. However, most pairwise comparisons of mean SF-20 scores with each
+GAD-7 scale level within each scale are significant at P/H11021.05 by using a Bonferroni correction for multiple comparisons.
+(REPRINTED) ARCH INTERN MED/ VOL 166, MAY 22, 2006 WWW.ARCHINTERNMED.COM
+1095
+©2006 American Medical Association. All rights reserved.
+ment. Furthermore, there was a strong association with
+self-reported disability days and a modest association withincreased health care use.
+To facilitate assessment of change in severity of anxi-
+ety symptoms, the GAD-7 asks about recent symptoms(ie, in the past 2 weeks). However, most patients withhigh scores had chronic symptoms, which is why the op-erating characteristics proved good with use of our cri-terion-standard MHP interviews based on the conven-tional GAD duration criterion of 6 months. However, theNational Comorbidity Survey showed that patients withepisodes of 1 to 5 months do not differ greatly from thosewith episodes of 6 months or more in onset, persis-tence, impairment, comorbidity, parental GAD, or so-ciodemographic correlates.
+5Kessler et al5conclude that
+there is little basis for excluding these people from a di-agnosis. Notably, 96% of patients with GAD-7scores of10 or greater in our primary care sample had symptomsof a month or more, whereas 67% had symptoms of 6months or longer. It may be that in treatment trials inwhich response to therapy is evaluated, assessing GADsymptom change during a shorter time (eg, the past week)may be desirable.
+The high comorbidity of anxiety and depressive dis-
+orders and the high correlation between depressiveand anxiety measures is well known.
+17,29Not surpris-
+ingly, our depression measure, the PHQ-8, stronglycorrelated with the GAD-7 and the SymptomChecklist-90 anxiety scales. Nonetheless, factor analy-sis confirmed the value of assessing anxiety anddepression as 2 separate dimensions. In addition, anumber of patients with high anxiety symptomsaccording to the GAD-7 did not have high depressionsymptom severity, and patients with increasing sever-ity of anxiety symptoms had corresponding greaterimpairment in multiple domains of functional status.Together, these findings indicate that using only adepression measure to identify depressed patients whomay benefit from treatment will miss a clinicallyimportant part of the patient population with dis-abling anxiety who also would benefit from treatment.Several limitations of our study should be noted. First,
+the GAD-7 scale focuses on only 1 anxiety disorder, al-though there are many patients with other anxiety dis-orders, such as social phobia and posttraumatic stress dis-order, who need clinical attention. However, GAD is oneof the most common mental disorders seen in outpa-tient practice. Second, the GAD-7 provides only prob-able diagnoses that should be confirmed by further evalu-ation. Third, because our study was cross-sectional,prospective observational and treatment studies areneeded to determine the responsiveness of the GAD-7in assessing change across time. Because there is alreadyevidence for the responsiveness of the PHQ-9 and PHQ-2depression scales,
+30,31future research also likely will dem-
+onstrate that the GAD-7 scale is useful in assessing changesin the severity of anxiety over time.
+This study has a number of strengths, including its
+large sample size, diverse clinical settings, and its gen-eralizability to primary care, where most patients withanxiety and depression are treated.
+2Also, the GAD-7 is
+efficient in that it is brief and can be completed entirelyby the patient. This latter feature is particularly impor-tant, given the time constraints and competing de-mands for busy clinicians.
+32Although the GAD-7 was de-
+veloped and validated in primary care, we expect that,like the PHQ-9 depression measure, the GAD-7 will haveconsiderable utility in busy mental health settings andclinical research, which is especially important given thehigh prevalence and substantial disability associated withGAD.0
+–0.5–1.0–1.5–2.0–2.5
+Mental Social General Role Pain Physical
+SF-20 ScaleEffect Size
+Mild
+ModerateSevere
+Figure 2. Relationship between anxiety severity as measured with the
+generalized anxiety disorder 7-item (GAD-7) scale and decline in functionalstatus as measured with the 6 subscales of the Medical Outcomes StudyShort-Form General Health Survey (SF-20). The decrement in SF-20 scoresis shown as the difference between each GAD-7 scale severity group and thereference group (ie, those with GAD-7 scale scores of 0 to 4). Effect size isthe difference in group means divided by the SD.Table 3. Relationship Between GAD-7 Anxiety Severity
+Score and Disability Days, Symptom-Related Difficulty,and Clinic Visits *
+Level of Anxiety
+Severity GAD-7Scale ScoreMean No. of
+Disability Days
+(95% CI)†Mean No. of
+Physician
+Visits
+(95% CI)†Percentage
+of Symptom-
+Related
+Difficulty‡
+Minimal
+0-4 (n = 1182) 3.9 (3.0-4.7) 1.2 (1.1-1.3) 15.0
+Mild
+5-9 (n = 511) 7.5 (6.2-8.7) 1.7 (1.5-1.9) 5.5
+Moderate
+10-14 (n = 264) 10.7 (8.9-12.4) 2.2 (1.9-2.5) 13.7
+Severe
+15-21 (n = 171) 16.8 (14.6-19.1) 2.4 (2.0-2.8) 47.4
+Abbreviations: GAD-7, generalized anxiety disorder 7-item scale;
+CI, confidence interval.
+*All pairwise comparisons between each GAD-7 scale severity level are
+significant at P/H11021.05 by using a Bonferroni correction for multiple
+comparisons, with the exception of mean physician visits at moderate vssevere GAD-7 score severity levels.
+†Disability days refers to number of days in the past 3 months that the
+patients’ symptoms interfered with their usual activities. Physician visits alsorefers to the past 3 months. Both are self-reported, and means are adjustedfor age, sex, race, education, study site, and number of physical disorders.Number of patients adds to 2128 because of missing data. Missing datawere less than 5%.
+‡Response to single question: “How difficult have these problems made it
+for you to do your work, take care of things at home, or get along with otherpeople?” The 4 response categories are “not difficult at all,” “somewhatdifficult,” “very difficult,” and “extremely difficult.” Symptom-relateddifficulty in this table refers to patients reporting “very” or “extremely”difficult.
+(REPRINTED) ARCH INTERN MED/ VOL 166, MAY 22, 2006 WWW.ARCHINTERNMED.COM
+1096
+©2006 American Medical Association. All rights reserved.
+Accepted for Publication: January 2, 2006.
+Correspondence: Robert L. Spitzer, MD, Department of
+Psychiatry, New York State Psychiatric Institute, Unit 60,1051 Riverside Dr, New York, NY 10032 (RLS8@Columbia.edu).Funding/Support: The development of the GAD-7 scale
+was underwritten by an unrestricted educational grantfrom Pfizer Inc (New York, NY). Dr Spitzer had full ac-cess to the data in the study and takes responsibility forthe integrity of the data and the accuracy of the data analy-sis.Acknowledgment: Mark Davies, MS, assisted in the sta-
+tistical analysis. Jeffrey G. Johnson, PhD, assisted in datacollection and commented on early drafts. Diane Engel,MSW, also assisted in data collection.
+REFERENCES
+1. Olfson M, Fireman B, Weissman MM, Leon AC, Sheehan DV, Kathol RG. Mental
+disorders and disability among patients in a primary care group practice. Am J
+Psychiatry . 1997;154:1734-1740.
+2. Roy-Byrne PP, Wagner A. Primary care perspectives on generalized anxiety disorder.
+J Clin Psychiatry . 2004;65(suppl 13):20-26.
+3. Leon AC, Olfson M, Broadhead WE, et al. Prevalence of mental disorders in pri-
+mary care: implications for screening. Arch Fam Med . 1995;4:857-861.
+4. Wittchen HU, Zhao S, Kessler RC, Eaton WW. DSM-III-R generalized anxiety dis-
+order in the National Comorbidity Survey. Arch Gen Psychiatry . 1994;51:355-
+364.
+5. Kessler RC, Brandenburg N, Lane M, et al. Rethinking the duration requirement
+for generalized anxiety disorder: evidence from the National Comorbidity Sur-vey Replication. Psychol Med . 2005;35:1073-1082.
+6. Kessler RC, Keller MB, Wittchen HU. The epidemiology of generalized anxiety
+disorder. Psychiatr Clin North Am . 2001;24:19-39.
+7. Williams JW, Pignone M, Ramirez G, Perez SC. Identifying depression in pri-
+mary care: a literature synthesis of case-finding instruments. Gen Hosp Psychiatry .
+2002;24:225-237.
+8. Lo ¨we B, Spitzer RL, Gra ¨fe K, et al. Comparative validity of three screening ques-
+tionnaires for DSM-IV depressive disorders and physicians’ diagnoses. J Affect
+Disord . 2004;78:131-140.
+9. Spitzer RL, Kroenke K, Williams JB; Patient Health Questionnaire Primary Care
+Study Group. Validation and utility of a self-report version of PRIME-MD: the PHQprimary care study. JAMA . 1999;282:1737-1744.
+10. Kroenke K, Spitzer RL, Williams JB. The PHQ-9: validity of a brief depression
+severity measure. J Gen Intern Med . 2001;16:606-613.
+11. Lo ¨ w eB ,G r a ¨fe K, Zipfel S, Witte S, Loerch B, Herzog W. Diagnosing ICD-10 de-
+pressive episodes: superior criterion validity of the Patient Health Questionnaire.Psychother Psychosom . 2004;73:386-390.
+12. Fricchione G. Clinical practice: generalized anxiety disorder. N Engl J Med . 2004;
+351:675-682.13. Westen D, Morrison K. A multidimensional meta-analysis of treatments for de-
+pression, panic, and generalized anxiety disorder: an empirical examination ofthe status of empirically supported therapies. J Consult Clin Psychol . 2001;
+69:875-899.
+14. Beck AT, Epstein N, Brown G, Steer RA. An inventory for measuring clinical anxi-
+ety: psychometric properties. J Consult Clin Psychol . 1988;56:893-897.
+15. Zimmerman M, Mattia JI. A self-report scale to help make psychiatric diag-
+noses: the Psychiatric Diagnostic Screening Questionnaire. Arch Gen Psychiatry .
+2001;58:787-794.
+16. Derogatis LR, Lipman RS, Rickels K, Uhlenhuth EH, Covi L. The Hopkins Symp-
+tom Checklist (HSCL): a measure of primary symptom dimensions. Mod Probl
+Pharmacopsychiatry . 1974;7:79-110.
+17. Bjelland I, Dahl AA, Haug TT, Neckelmann D. The validity of the Hospital Anxiety
+and Depression Scale: an updated literature review. J Psychosom Res . 2002;
+52:69-77.
+18. Hamilton M. The assessment of anxiety states by rating. Br J Med Psychol . 1959;
+32:50-55.
+19. Antony MM, Orsillo SM, Roemer L, eds. Practitioner’s Guide to Empirically Based
+Measures of Anxiety. New York, NY: Kluwer Academic/Plenum Publishers; 2001.
+20. Stewart AL, Hays RD, Ware JE Jr. The MOS short-form general health survey:
+reliability and validity in a patient population. Med Care . 1988;26:724-735.
+21. Ware JE, Sherbourne CD. The MOS 36-item short-form health survey (SF-36),
+I: conceptual framework and item selection. Med Care . 1992;30:473-483.
+22. Kroenke K, Spitzer RL. The PHQ-9: a new depression diagnostic and severity
+measure. Psychiatr Ann . 2002;9:1-7.
+23. First MB, Spitzer RL, Williams JBW, Gibbon M. Structured Clinical Interview for
+DSM-IV (SCID). Washington, DC: American Psychiatric Association; 1995.
+24. Pinto-Meza A, Serrano-Blanco A, Penarrubia MT, Blanco E, Haro JM. Assessing
+depression in primary care with the PHQ-9: can it be carried out over the telephone?
+J Gen Intern Med . 2005;20:738-742.
+25. Deyo RA, Diehr P, Patrick DL. Reproducibility and responsiveness of health sta-
+tus measures: statistics and strategies for evaluation. Control Clin Trials . 1991;
+12:142S-158S.
+26. American Psychiatric Association. Diagnostic and Statistical Manual of Mental
+Disorders DSM-IV-TR (Text Revision). 4th ed. Washington, DC: American Psy-
+chiatric Association; 2000.
+27. Kazis LE, Anderson JJ, Meenan RF. Effect sizes for interpreting changes in health
+status. Med Care . 1989;27:S178-S189.
+28. Carter RM, Wittchen HU, Pfister H, Kessler RC. One-year prevalence of sub-
+threshold and threshold DSM-IV generalized anxiety disorder in a nationally rep-
+resentative sample. Depress Anxiety . 2001;13:78-88.
+29. Clark DA, Steer RA, Beck AT. Common and specific dimensions of self-reported
+anxiety and depression: implications for the cognitive and tripartite models.J Abnorm Psychol . 1994;103:645-654.
+30. Lo ¨ w eB ,U n u ¨tzer J, Callahan CM, Perkins AJ, Kroenke K. Monitoring depression
+treatment outcomes with the Patient Health Questionnaire-9. Med Care . 2004;
+42:1194-1201.
+31. Lo ¨we B, Kroenke K, Gra ¨fe K. Detecting and monitoring depression with a 2-item
+questionnaire (PHQ-2). J Psychosom Res . 2005;58:163-171.
+32. Klinkman MS. Competing demands in psychosocial care: a model for the iden-
+tification and treatment of depressive disorders in primary care. Gen Hosp
+Psychiatry . 1997;19:98-111.
+(REPRINTED) ARCH INTERN MED/ VOL 166, MAY 22, 2006 WWW.ARCHINTERNMED.COM
+1097
+©2006 American Medical Association. All rights reserved.

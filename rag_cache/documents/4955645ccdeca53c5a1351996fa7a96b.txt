@@ -1,0 +1,616 @@
+2462
+Atrial fibrillation (AF) confers a 5-fold increased risk of 
+stroke compared with patients without AF.1 The risk of 
+AF-associated stroke is not homogeneous and depends on 
+patients’ age and comorbidities, which have resulted in the 
+development of clinical scores to aid stroke risk stratification and guide the use of oral anticoagulation (OAC) for stroke pre-
+vention. Currently, the CHA
+2DS2-V ASc (congestive heart fail-
+ure, hypertension, age ≥ 75 years, diabetes mellitus, prior stroke or transient ischemic attack, vascular disease, age 65–74 years, 
+female) score is recommended by guidelines for stroke risk strat-
+ification in AF2,3 and has been shown to be better than the older 
+CHADS2 (congestive heart failure, hypertension, age ≥ 75 years, 
+diabetes mellitus, and prior stroke or transient ischemic attack) score for stroke risk stratification among Asian AF patients.
+4
+Because age is an important driver of ischemic stroke for 
+AF patients,5 the CHA2DS2-V ASc scheme assigns 1 point for Background and Purpose—The age threshold for an increased stroke risk for patients with atrial fibrillation may be different 
+for Asians and non-Asians. We hypothesized that a modified CHA2DS2-V ASc (congestive heart failure, hypertension, age 
+≥75, diabetes mellitus, prior stroke or transient ischemic attack, vascular disease, age 65–74 years, female) scheme, 
+mCHA2DS2-V ASc, which assigned one point for patients aged 50 to 74 years, may perform better than CHA2DS2-V ASc 
+score for stroke risk stratification in Asians.
+Methods —This study used the Taiwan National Health Insurance Research Database, which included 224 866 newly 
+diagnosed atrial fibrillation patients. The predictive accuracies of ischemic stroke of CHA2DS2-V ASc and mCHA2DS2-
+V ASc scores were compared among 124 271 patients without antithrombotic therapies. From the whole cohort, 15 948 
+patients had a CHA2DS2-V ASc score 0 (males) or 1 (females), and 8654 patients had an mCHA2DS2-V ASc score 1 
+(males) or 2 (females). The latter were categorized into 3 groups, that is, no treatment, antiplatelet therapy, and warfarin, and the risks of ischemic stroke and intracranial hemorrhage (ICH) were compared.
+Results
+—During a follow-up of 538 653 person-years, 21 008 patients experienced ischemic stroke. The mCHA2DS2-V ASc 
+performed better than CHA2DS2-V ASc score in predicting ischemic stroke assessed by C indexes and net reclassification 
+index. For 8654 patients having an mCHA2DS2-V ASc score of 1 (males) or 2 (females) because of the resetting of the age 
+threshold, use of warfarin was associated with a 30% lower risk of ischemic stroke and a similar risk of ICH compared with nontreatment. Net clinical benefit analyses also favored the use of warfarin in different weighted models.
+Conclusions
+—In this Asian atrial fibrillation cohort, the mCHA2DS2-V ASc score performed better than the CHA2DS2-
+V ASc and would further identify atrial fibrillation patients who may derive a positive net clinical benefit from oral anticoagulation.   (Stroke. 2016;47:2462-2469. DOI: 10.1161/STROKEAHA.116.013880.)
+Key Words: age ◼ atrial fibrillation ◼ CHA
+2DS2-V ASc score ◼ ischemic stroke ◼ modified CHA2DS2-V ASc scoreValidation of a Modified CHA2DS2-V ASc Score for Stroke 
+Risk Stratification in Asian Patients With Atrial Fibrillation
+A Nationwide Cohort Study
+Tze-Fan Chao, MD*; Gregory Y .H. Lip, MD*; Chia-Jen Liu, MD; Ta-Chuan Tuan, MD;  
+Su-Jung Chen, MD; Kang-Ling Wang, MD; Yenn-Jiang Lin, MD; Shih-Lin Chang, MD;  
+Li-Wei Lo, MD; Yu-Feng Hu, MD; Tzeng-Ji Chen, MD; Chern-En Chiang, MD, PhD;  
+Shih-Ann Chen, MD
+Received April 23, 2016; final revision received July 20, 2016; accepted August 17, 2016.
+From the Division of Cardiology, Department of Medicine (T.-F.C., T.-C.T., K.-L.W., Y .-J.L., S.-L.C., L.-W.L., Y .-F.H., C.-E.C., S.-A.C.), Division of 
+Hematology and Oncology, Department of Medicine (C.-J.L.), Division of Infectious Diseases, Department of Medicine (S.-J.C.), Department of Family Medicine (T.-J.C.), General Clinical Research Center (C.-E.C.), and Department of Medical Research and Education (C.-E.C.), Taipei Veterans General Hospital, Taiwan; Institute of Clinical Medicine and Cardiovascular Research Center, National Yang-Ming University, Taipei, Taiwan (T.-F.C., T.-C.T., K.-L.W., Y .-J.L., S.-L.C., L.-W.L., Y .-F.H., C.-E.C., S.-A.C.); University of Birmingham Institute of Cardiovascular Sciences, City Hospital, United Kingdom (G.Y .H.L.); and Institute of Public Health and School of Medicine, National Yang-Ming University, Taipei, Taiwan (C.-J.L., S.-J.C.).
+*Drs Chao and Lip are joint first authors.The online-only Data Supplement is available with this article at http://stroke.ahajournals.org/lookup/suppl/doi:10.1161/STROKEAHA.  
+116.013880/-/DC1.
+Correspondence to Chern-En Chiang, MD, PhD, General Clinical Research Center, Taipei Veterans General Hospital, No 201, Sec 2, Shih-Pai Rd, Taipei, 
+Taiwan, E-mail cechiang@vghtpe.gov.tw or Shih-Ann Chen, MD, Division of Cardiology, Department of Medicine, Taipei Veterans General Hospital, No 201, Sec 2, Shih-Pai Rd, Taipei, Taiwan, E-mail epsachen@ms41.hinet.net
+© 2016 American Heart Association, Inc.
+Stroke is available at http://stroke.ahajournals.org DOI: 10.1161/STROKEAHA.116.013880
+Downloaded from http://ahajournals.org by on November 12, 2025
+
+Chao et al  Modified CHA2DS2-V ASc Score and Stroke in AF  2463
+patients aged between 65 and 74 years and 2 points for those 
+aged ≥75 years.6 However, the age threshold for an increased 
+risk of ischemic stroke for Asians may be lower than that of Caucasians.
+7 For Asian AF patients with a CHA2DS2-V ASc 
+score of 0 (males) or 1 (females) aged between 50 and 64 years, the annual risk of ischemic stroke was ≈1.78%,
+7 which 
+exceeds the threshold for the initiation of OACs; 1.7%/y), especially if non–vitamin K antagonist OACs (NOACs) are used (0.9%/y).
+8 However, whether resetting the age threshold 
+at 50 years could refine current clinical stroke risk stratifica-tion for Asian AF patients is unknown.
+In the present study, we propose a simple, modified 
+CHA
+2DS2-V ASc (mCHA2DS2-V ASc) score by resetting 
+the age threshold at 50 years. We hypothesized that the mCHA
+2DS2-V ASc score may perform better than CHA2DS2-
+V ASc score for stroke risk stratification in Asians. Second, we aimed to investigate whether the mCHA
+2DS2-V ASc score 
+could further identify AF patients who may derive benefits from OAC use among those patients with a CHA
+2DS2-V ASc 
+score of 0 (males) or 1 (females).
+Methods
+Database
+The study protocol of the present study is similar to our previous 
+publications.4,7,9–12 This study used the well-validated National 
+Health Insurance Research Database (NHIRD) released by the Taiwan National Health Research Institutes. The National Health 
+Insurance system is a mandatory universal health insurance program 
+that offers comprehensive medical care coverage to all Taiwanese residents. NHIRD consists of detailed healthcare data from >23 mil-lion enrollees, representing >99% of Taiwan’s population. In this cohort data set, the patients’ original identification numbers have been encrypted to protect their privacy, but the encrypting proce-dure was consistent, so that a linkage of the claims belonging to the same patient was feasible within the National Health Insurance 
+database and can be followed continuously. The large sample size 
+of this database provided a good opportunity to study whether reset-ting age threshold at 50 years could refine clinical risk stratification for Asian AF patients.
+Information about important comorbid conditions of each 
+individual was retrieved from the medical claims based on the International Classification of Diseases, Ninth Revision, Clinical Modification (ICD-9-CM) codes. We defined patients with a certain 
+disease only when it was a discharge diagnosis or confirmed more 
+than twice in the outpatient department. The diagnostic accuracies of important comorbidities in NHIRD, such as hypertension, dia-betes mellitus, heart failure, myocardial infarction, hyperlipidemia, and chronic obstructive pulmonary disease, have been validated before.
+13,14 Information about the medications the patients used was 
+retrieved from the NHIRD using the specific code of each drug reg-istered by physicians responsible for the treatment of the patients 
+for the purpose of getting reimbursement from the National Health 
+Insurance system.
+Calculation of CHA2DS2-V ASc and 
+mCHA2DS2-V ASc Scores
+The CHA2DS2-V ASc score was calculated by assigning 1 point each 
+for age between 65 and 74 years, history of hypertension, diabetes 
+mellitus, recent cardiac failure, vascular disease (myocardial infarc-
+tion or peripheral artery disease), and female sex and 2 points each for 
+a history of a stroke, transient ischemic attack, or age ≥75 years.6 The 
+mCHA2DS2-V ASc score was calculated by assigning 1 point each for 
+age between 50 and 74 years, history of hypertension, diabetes mel-
+litus, recent cardiac failure, vascular disease (myocardial infarction or peripheral artery disease), and female sex and 2 points each for a his-
+tory of a stroke, transient ischemic attack, or age ≥75 years ( Table 1).
+Study Cohort
+From January 1, 1996, to December 31, 2006, a total of 224 866 
+newly diagnosed AF patients aged ≥20 years were identified from NHIRD as the study population. AF was diagnosed using ICD-9-CM 
+code (427.31). To ensure the accuracy of diagnosis, we defined 
+patients with AF only when it was a discharge diagnosis or confirmed 
+more than twice in the outpatient department.
+9,10,15 The diagnostic 
+accuracy of AF using this definition in NHIRD has been previously validated.
+16,17
+Among the study population, there were 124 271 patients who 
+did not receive warfarin or any antiplatelet agents, including aspirin, 
+clopidogrel, dipyridamole, and ticlopidine, in whom the diagnos-
+tic accuracies of CHA2DS2-V ASc and mCHA2DS2-V ASc scores in 
+predicting ischemic stroke were compared. Among the whole study 
+population (n=224 866), 15 948 patients had a CHA2DS2-V ASc score 
+of 0 (males) or 1 (females), and 8654 patients had a mCHA2DS2-
+V ASc score of 1 (males) or 2 (females) because of the resetting of the age threshold. These were divided into 3 groups based on the anti-
+thrombotic strategies, that is, no antithrombotic treatment (n=6114), 
+antiplatelet therapy (1433), and warfarin (1107). A flowchart of the 
+enrollment of the study cohort is shown in Figure I in the online-only 
+Data Supplement.
+Definition of Clinical End Point and 
+Calculation of Net Clinical Benefit
+The principal clinical end point was the occurrence of ischemic 
+stroke, with concomitant imaging studies of the brain, including 
+computed tomography or magnetic resonance imaging. The accu-
+racy of diagnosis of ischemic stroke in Taiwan’s NHIRD has been 
+reported to be ≈94%.14 Another validation study also demonstrated 
+that the diagnostic accuracy of ischemic stroke in NHIRD was high, with the positive predictive value and sensitivity of 88.4% and 97.3%, 
+respectively.
+18 The principal safety end point was the occurrence of 
+intracranial hemorrhage (ICH), necessitating admissions to intensive 
+care units.
+The net clinical benefit (NCB) for the use of warfarin or antiplate-
+let therapy compared with no treatment was calculated using the for -
+mula: (ischemic stroke rate on no treatment−ischemic stroke rate on 
+anti-thrombotic therapies)−weighting factor×(ICH rate on antithrom-
+botic therapies−ICH rate on no treatment).
+The weighting factor reflects the relative impact, in terms of death 
+and disability, of an ICH while receiving warfarin or antiplatelet 
+agents versus experiencing an ischemic stroke while on no treat-ment.
+19–21 The NCB with 95% confidence intervals (CI) was cal-
+culated from rate differences and standard errors estimated using 
+Poisson regression based on the weights from Singer et al,19 Connolly 
+et al,20 and Lip et al.21 A positive NCB favors treatment (ie, warfarin) 
+when compared with no treatment.
+Statistical Analysis
+After a test of statistical normality, data are presented as means and 
+standard deviation or medians and interquartile ranges for continuous 
+variables and as n (%) for categorical variables. Incidence rates of 
+ischemic stroke and ICH were calculated from dividing the number of event by person-time at risk, with the 95% CI estimated by exact binomial probabilities. The risks of ischemic stroke and ICH were 
+assessed using the Cox regression analysis.
+We assessed the predictive accuracies of the CHA
+2DS2-V ASc and 
+mCHA2DS2-V ASc scores by calculating C indexes based on the 
+receiver-operating characteristic curve. The areas under the receiver-operating characteristic curves of these 2 scoring systems were com-
+pared using DeLong’s test. The net reclassification index comparing 
+the CHA
+2DS2-V ASc and mCHA2DS2-V ASc scores was also calcu-
+lated. All statistical significances were set at a P<0.05.
+The present study was approved by the Institutional Review Board 
+at Taipei Veterans General Hospital, Taipei, Taiwan.
+Downloaded from http://ahajournals.org by on November 12, 2025
+
+2464  Stroke  October 2016
+Results
+Baseline Characteristics of Study Patients
+Baseline characteristics of the study cohort are shown in 
+Table 2. The mean age of patients was 72.0±13.9 years, and 
+54.3% were male. The median values (interquartile range) 
+of the CHA2DS2-V ASc and mCHA2DS2-V ASc scores were 3 
+(2–5) and 4 (2–5), respectively. Hypertension was the most 
+prevalent comorbidity in 56.8% of patients.CHA2DS2-V ASc, mCHA2DS2-V ASc, and the 
+Risk of Ischemic Stroke Among Patients 
+Without Antithrombotic Treatment
+During a follow-up of 538 653 person-years, 21 008 patients 
+(16.9%) sustained an ischemic stroke with an annual risk 
+of 3.9%. Both the CHA2DS2-V ASc and mCHA2DS2-V ASc 
+scores were significant predictors of ischemic stroke with 
+a hazard ratio (95% CI) of 1.167 (1.159–1.176) and 1.164 
+(1.155–1.173) per 1 point increment of the CHA2DS2-V ASc 
+and mCHA2DS2-V ASc scores, respectively. The incidences 
+(per 100 person-years) of ischemic stroke of patients stratified by CHA
+2DS2-V ASc and mCHA2DS2-V ASc scores are shown 
+in Table 3. For score=0 in males or 1 in females, ischemic 
+stroke rates using the CHA2DS2-V ASc score were ≈1.2 per 
+100 person-years or with the mCHA2DS2-V ASc score, ≈0.46 
+for males and 0.63 for females.
+Figure II in the online-only Data Supplement shows the 
+receiver-operating characteristic curves of CHA2DS2-V ASc and 
+mCHA2DS2-V ASc scores in predicting ischemic stroke. The 
+C indexes based on areas under the curve for the CHA2DS2-
+V ASc and mCHA2DS2-V ASc scores in predicting ischemic 
+stroke were 0.689 (95% CI 0.684–0.694) and 0.708 (95% CI 
+0.703–0.712), respectively. The difference was statistically sig-
+nificant in favor of the mCHA2DS2-V ASc score (DeLong test 
+P<0.0001). The mCHA2DS2-V ASc score also improved the 
+net reclassification index by 3.39% (95% CI 2.16%–4.59%) compared with the CHA
+2DS2-V ASc score (P<0.0001).
+Antithrombotic Strategies With a CHA2DS2-V ASc 
+Score of 0 (Males) or 1 (Females), Having an 
+mCHA2DS2-V ASc Score of 1 (Males) or 2 (Females)
+Among 15 948 patients with a CHA2DS2-V ASc score of 0 
+(males) or 1 (females), there were 8654 patients having an 
+mCHA2DS2-V ASc score of 1 (males) or 2 (females) because 
+of the resetting of the age threshold. The latter were divided into 3 groups based on the antithrombotic strategies, that is, no 
+treatment (n=6114), antiplatelet therapy (1433), and warfarin (1107). The risks of ischemic stroke and ICH on warfarin and antiplatelet agents compared with no antithrombotic therapy 
+are shown in Table 4.
+Compared with patients without antithrombotic therapy, the 
+use of antiplatelet agents was not associated with a lower risk 
+of ischemic stroke (adjusted hazard ratio 1.08 [95% CI 0.94–
+1.24; P=0.275]) but significantly increased the risk of ICH 
+(1.77 [95% CI 1.29–2.41; P<0.001]; Table 4). For the patients 
+receiving warfarin, the risk of ischemic stroke was lower com-pared with no antithrombotic therapy (adjusted hazard ratio of 
+0.70 [95% CI 0.59–0.84; P<0.001]), with no significant differ -
+ence in the risk of ICH (0.95 [95% CI 0.61–1.46; P=0.804]; Table 4. Figure shows the cumulative incidence curves for 
+ischemic stroke (Figure [A]), ICH (Figure [B]), and ischemic stroke/ICH (Figure [C]) in different treatment groups.
+The results of NCB analyses for each treatment according 
+to different weighted models are shown in Table 5. The NCBs 
+were consistently positive for warfarin use and negative for antiplatelet drugs, irrespective of different weighted models 
+used. The NCB for warfarin versus antiplatelet therapy was 
+also positive, in favor of OAC.Table 1. Calculations of CHA2DS2-VASc and mCHA2DS2-VASc 
+Schemes
+Risk FactorsCHA2DS2-VASc 
+ScoremCHA2DS2-
+VASc Score
+Congestive heart failure 1 1
+Hypertension 1 1
+Age ≥75 y 2 2
+Diabetes mellitus 1 1
+Stroke/transient ischemic attack 2 2
+Vascular disease (prior myocardial 
+infarction, peripheral artery disease)1 1
+Age 65–74 y 1  
+Age 50–74 y  1
+Sex category (female sex) 1 1
+CHA2DS2-VASc indicates congestive heart failure, hypertension, age ≥75 
+years, diabetes mellitus, prior stroke or transient ischemic attack, vascular disease, age 65–74 years, female; and modified CHA
+2DS2-VASc (mCHA2DS2-
+VASc), congestive heart failure, hypertension, age ≥75 years, diabetes mellitus, prior stroke or transient ischemic attack, vascular disease, age 50–74 years, female.
+Table 2. Baseline Characteristics of AF Patients Without 
+Antithrombotic Therapies (n=124 271)
+Variables n=124 271
+Age, y 72.0±13.9
+Age 50- to 64-y old, n (%) 19 948 (16.1)
+Age 65- to 74-y old, n (%) 33 942 (27.3)
+Age ≥75-y old, n (%) 60 668 (48.8)
+Sex (male), n (%) 67 461 (54.3)
+Underlying diseases, n (%) (components of the CHA2DS2-VASc scores)
+        Hypertension 70 557 (56.8)
+        Diabetes mellitus 28 915 (23.3)
+        Congestive heart failure 46 821 (37.7)
+        Previous stroke/transient ischemic attack 38 844 (28.0)
+        Previous vascular diseases 13 722 (11.0)
+CHA2DS2-VASc score, median (interquartile range) 3 (2–5)
+mCHA2DS2-VASc score, median (interquartile range) 4 (2–5)
+AF indicates atrial fibrillation; CHA2DS2-VASc, congestive heart failure, 
+hypertension, age ≥75 years, diabetes mellitus, prior stroke or transient 
+ischemic attack, vascular disease, age 65–74 years, female; and modified CHA
+2DS2-VASc (mCHA2DS2-VASc), congestive heart failure, hypertension, age 
+≥75 years, diabetes mellitus, prior stroke or transient ischemic attack, vascular disease, age 50–74 years, female.
+Downloaded from http://ahajournals.org by on November 12, 2025
+
+Chao et al  Modified CHA2DS2-V ASc Score and Stroke in AF  2465
+Discussion
+In this nationwide study, we propose and validate a mCHA2DS2-
+V ASc scheme because of the resetting of the age threshold 
+for stroke risk stratification among Asian AF patients (specifi-
+cally, Taiwanese Chinese). Our results demonstrate that the mCHA
+2DS2-V ASc score performs significantly better than 
+the CHA2DS2-V ASc score (using C indexes and net reclas-
+sification index) and can further identify Asian AF patients 
+who may derive benefits from stroke prevention. Second, we 
+show that the use of OAC results in a positive NCB among AF patients aged 50 to 64 years with mCHA2DS2-V ASc score 
+1 for males or 2 for females; in contrast, antiplatelet therapy 
+resulted in a negative NCB.
+Improved convenience and safety of NOACs compared 
+with vitamin K antagonists have lowered the threshold for initiating OACs for AF patients for stroke prevention.
+8 The 
+tipping point threshold when balancing stroke reduction 
+against serious bleeding for initiating OAC is a stroke rate 
+of 1.7%/y when vitamin K antagonists are used or 0.9%/y with the NOACs.
+8 The treatment threshold with vitamin K 
+antagonist may even be lower with good quality anticoagula-
+tion control, where a high time in therapeutic range (>70%) 
+is achieved, given that a high time in therapeutic range is associated with best efficacy and safety related to vitamin K 
+antagonists.
+22–24
+All clinical risk scoring systems have broadly comparable 
+predictive value for identifying high-risk patients who sustain 
+stroke events. Rather than a categorized approach to stroke 
+risk stratification focusing on high-risk patients, a simple 
+approach to thromboprophylaxis is to initially identify truly low-risk patients in whom OACs could be clearly omitted.
+25 
+The ability of a scoring scheme to identify AF patients who are truly low risk of ischemic stroke is an even more important 
+issue in Asians because this risk among Asians may be much 
+higher than that among Caucasians, as demonstrated in regis-try studies and randomized trials.
+10,26–30
+Indeed, the CHA2DS2-V ASc score has been shown to con-
+sistently better than the older CHADS2 score in identifying 
+low-risk patients, even among Asian patients.31 Take our previ-
+ous study for example, among 25 286 Asian AF patients with a 
+CHADS2 score of 0, the CHA2DS2-V ASc scores of these sub-
+jects ranged from 0 to 3, and the annual risk of ischemic stroke can be as high as 4.47%.
+4 However, the risk of ischemic stroke 
+was still 1.15%/y for patients with a CHA2DS2-V ASc score of 
+0, which is above the suggested threshold for the initiation of NOACs (0.9%/y).
+8
+In our previous study, we suggested that the age threshold 
+in Asian AF patients for an increased risk (>1%/y) of isch-emic stroke could perhaps be lowered to 50 years.
+7 Although 
+the detailed mechanism(s) behind the higher risk of ischemic stroke for younger AF patients in Asians remained unknown, 
+atherosclerosis may play a more important role of ischemic 
+stroke in Chinese AF patients than in Caucasian patients. Indeed, China and other Asian countries are among the coun-
+tries with the highest incidence of stroke,
+32 and intracranial 
+atherosclerosis is common among Chinese patients who expe-
+rienced ischemic event.33 Further prospective studies are nec-
+essary to investigate this issue.
+In the present study, we further demonstrate that the 
+mCHA2DS2-V ASc score (by giving 1 point to age 50–74 
+years) could clearly identify Asians patients who were truly low risk for ischemic stroke. Indeed, the annual risks of isch-emic stroke for males with an mCHA
+2DS2-V ASc score of 0 
+and females with an mCHA2DS2-V ASc score 1 were 0.46% 
+and 0.63%, respectively, and thus, OACs could be clearly omitted for this population. In contrast, the annual risks of ischemic stroke for males with a CHA
+2DS2-V ASc score of 0 
+and females with a CHA2DS2-V ASc score of 1 were 1.21% 
+and 1.18%, respectively.Table 3. Risk of Ischemic Stroke in Untreated Patients 
+Stratified by CHA2DS2-VASc and mCHA2DS2-VASc Scores
+GroupsNumber of 
+PatientsNumber of 
+Ischemic 
+Stroke Person-Years Incidence*
+CHA2DS2-VASc score
+        0 6487 635 52 680 1.21
+        1 13 828 2138 98 835 2.16
+         Males 9441 1683 60 337 2.79
+         Females 4387 455 38 498 1.18
+        2 19 538 3668 104 398 3.51
+        3 23 114 4577 100 358 4.56
+        4 21 996 4200 78 620 5.34
+        5 17 386 2738 51 915 5.27
+        6 12 118 1697 30 570 5.55
+        7 6892 910 15 458 5.89
+        8 2529 363 5054 7.18
+        9 383 82 765 10.72
+        Total 124 271 21 008 538 653 3.90
+mCHA2DS2-VASc scores
+        0 2854 136 29 600 0.46
+        1 11 071 1629 82 183 2.03
+         Males 9165 1499 61 397 2.44
+         Females 1906 130 20 786 0.63
+        2 20 473 3706 114 423 3.24
+        3 24 899 4918 115 205 4.27
+        4 23 692 4539 87 109 5.21
+        5 18 466 2934 55 670 5.27
+        6 12 767 1754 32 273 5.43
+        7 7089 952 16 214 5.87
+        8 2577 358 5211 6.87
+        9 383 82 765 10.72
+        Total 124 271 21 008 538 653 3.90
+CHA2DS2-VASc indicates congestive heart failure, hypertension, age ≥75 
+years, diabetes mellitus, prior stroke or transient ischemic attack, vascular 
+disease, age 65–74 years, female; and modified CHA2DS2-VASc (mCHA2DS2-
+VASc), congestive heart failure, hypertension, age ≥75 years, diabetes mellitus, prior stroke or transient ischemic attack, vascular disease, age 50–74 years, female.
+*Number of ischemic stroke per 100 person-years of follow-up.
+Downloaded from http://ahajournals.org by on November 12, 2025
+
+2466  Stroke  October 2016
+Clinical Implications
+For the 8654 patients with a CHA2DS2-V ASc score of 0 
+(males) or 1 (females) having an mCHA2DS2-V ASc score of 
+1 (males) or 2 (females) because of the resetting of the age 
+threshold, untreated patients had an ischemic stroke rate of 
+2.02%/y, and the use of warfarin was associated with a 30% lower risk of ischemic stroke and a similar risk of ICH ver -
+sus nontreatment (0.25%/y with warfarin versus 0.27% for nontreatment). The observed low risk of ICH among war -
+farin users in patients with a low CHA
+2DS2-V ASc score in 
+the present study is consistent with a previous report.34 The 
+results of our NCB analyses also favored the use of warfarin 
+compared with nontreatment (or aspirin), irrespective of dif-
+ferent weighted models, whereas antiplatelet therapy had a negative NCB compared with nontreatment. Based on the 
+results of NCB analyses, the number needed to treat with 
+warfarin use ranged from 152 to 159 compared with non-
+treatment and ranged from 77 to 101 compared with anti-
+platelet drugs in different weight models. Because 54.3% of patients with a CHA
+2DS2-V ASc score of 0 (males) or 
+1 (females) would have an mCHA2DS2-V ASc score of 1 
+(males) or 2 (females) in our cohort, using the mCHA2DS2-
+V ASc score would approximately identify an additional 54 
+people who may get benefits with warfarin use for every 
+100 patients with a CHA2DS2-V ASc score of 0 (males) or 1 
+(females) screened.
+Based on the findings of the present study, we proposed an 
+algorithm for stroke prevention using the mCHA2DS2-V ASc 
+score for Asian AF patients (Figure III in the online-only 
+Data Supplement). Asian AF patients with an mCHA2DS2-
+V ASc score of 0 (males) or 1 (females) are truly low risk, and OACs could be clearly omitted. For male patients with 
+an mCHA
+2DS2-V ASc score ≥1 and female patients with an 
+mCHA2DS2-V ASc score ≥2, OACs should be prescribed, and 
+NOACs are the preferred option because the risk of warfarin-
+related ICH and major bleeding is higher in Asians compared 
+with non-Asians.35,36
+Limitations
+There are several limitations of the present study. First, the types of AF (paroxysmal or nonparoxysmal) were not avail-
+able from this nationwide data set. Although the risk of stroke did not differ between patients with paroxysmal or nonpar -
+oxysmal AF in previous studies,
+37,38 recent analyses show 
+that the risk of ischemic stroke was higher in patients with nonparoxysmal AF compared with those with paroxysmal 
+AF.
+39 However, current guidelines do not consider AF type 
+as a determinant of OAC use in the presence of stroke risk 
+factors. Second, the diagnosis of AF and occurrence of isch-
+emic stroke were based on the diagnostic codes registered by the physicians responsible for the treatments of patients; 
+nonetheless, the accuracy of diagnosis of AF and ischemic 
+stroke in Taiwan’s NHIRD has been previously validated to 
+be high.
+14,16–18 Third, we do not have time in therapeutic range 
+data available for the warfarin-treated patients, but despite this, a positive NCB was evident even with one stroke risk 
+factor, consistent with prior studies.
+21,40 Fourth, the NCB of 
+each treatment was not analyzed based on randomized com-
+parisons and does not account for drug costs, cost-effec-
+tiveness, patient values, and preferences. Besides, the NCB model only included ischemic stroke and ICH, the most dev-
+astating bleeding complication, and did not consider other 
+bleeding events because the severity of other bleeding varied 
+much and is difficult to be ascertained in the registry data-
+base. Fifth, the age, CHA
+2DS2-V ASc, and mCHA2DS2-V ASc 
+scores of patients were determined using the baseline data at 
+the enrollment and were likely to change during the follow 
+up. However, it is a common limitation that was frequently existent in previous studies. The relationship between the 
+dynamic changes of age and clinical risk scores and the risk 
+of ischemic stroke has not been well investigated before, and 
+it is an important issue that deserves more investigations. In 
+the clinical practice, it is imperative to update the risk scores of AF patients, and the use of OAC should be determined 
+accordingly. Furthermore, the strategies for stroke preven-
+tion of each patient could also change during the long-term follow-up. However, the change of treatment could happen 
+for patients within each treatment group, and the accumu-
+lative incidence curve of ischemic stroke for the warfarin 
+group was consistently different from that of patients without 
+antithrombotic treatments or under antiplatelet agents during the whole study period, as shown in Figure (A). The pattern 
+of antithrombotic treatments preceding ischemic stroke and 
+ICH was broadly consistent to that used for categorization Table 4. Risk of Ischemic Stroke and ICH Stratified Based on the Strategies for Stroke Prevention Among Patients Aged 
+50 to 64 Years (CHA2DS2-VASc Score 0, mCHA2DS2-VASc Score 1 for Males; CHA2DS2-VASc Score 1, mCHA2DS2-VASc Score 
+2 for Females)
+Stroke Prevention Strategy nIschemic Stroke ICH
+Incidence*Adjusted HR† 
+(95% CI) P Value Incidence*Adjusted HR† 
+(95% CI) P Value
+No antithrombotic therapy 
+(reference group)6114 2.02 Reference … 0.27 Reference …
+Antiplatelet drugs 1433 2.11 1.08 (0.94–1.24) 0.275 0.44 1.77 (1.29–2.41) <0.001
+Warfarin 1107 1.43 0.70 (0.59–0.84) <0.001 0.25 0.95 (0.61–1.46) 0.804
+CHA2DS2-VASc indicates congestive heart failure, hypertension, age ≥75 years, diabetes mellitus, prior stroke or transient ischemic attack, vascular 
+disease, age 65–74 years, female; CI, confidence interval; ICH, intracranial hemorrhage; and modified CHA2DS2-VASc (mCHA2DS2-VASc), congestive heart 
+failure, hypertension, age ≥75 years, diabetes mellitus, prior stroke or transient ischemic attack, vascular disease, age 50–74 years, female.
+*Per 100 person-years of follow-up.†Adjusted for age and sex.
+Downloaded from http://ahajournals.org by on November 12, 2025
+
+Chao et al  Modified CHA2DS2-V ASc Score and Stroke in AF  2467
+Figure. Cumulative incidence curves for isch-
+emic stroke (A), ICH (B), and ischemic stroke/ICH (C) in different treatment groups. The cumulative incidence curves with log rank tests demonstrates that warfarin was associ-ated with a lower risk of ischemic stroke with-out an increased risk of ICH among patients with a CHA
+2DS2-VASc score of 0 (males) or 1 
+(females), having a mCHA2DS2-VASc score of 1 
+(males) or 2 (females). AF indicates atrial fibrilla -
+tion; and ICH, intracranial hemorrhage.
+Downloaded from http://ahajournals.org by on November 12, 2025
+
+2468  Stroke  October 2016
+at the enrollment for >80% of the patients. Last, the present 
+study only enrolled Taiwanese Chinese patients, and whether 
+the results can be extrapolated to other populations in Asia remains uncertain. Also, whether our findings are applicable 
+to Asian/Chinese subjects living in Western countries requires 
+further large prospective studies.
+Conclusions
+In this Asian AF cohort, the mCHA2DS2-V ASc score, which 
+assigned 1 point for patients aged 50 to 74 years, performed 
+better than the CHA2DS2-V ASc score for stroke risk stratifica-
+tion and would further identify AF patients who may derive a positive NCB from OAC among those with a CHA
+2DS2-V ASc 
+score of 0 (males) or 1 (females).
+Sources of Funding
+This work was supported in part by grants from the Ministry of Health 
+and Welfare (MOHW105-TDU-B-211-133017), from the Ministry of 
+Science and Technology (MOST 104-2314-B-075-024-MY3), and 
+intramural grants from the Taipei Veterans General Hospital (V103B-
+018, and V105B-023).
+Disclosures
+Dr Lip reports consultant for Bayer/Janssen, Astellas, Merck, Sanofi, BMS/Pfizer, Biotronik, Medtronic, Portola, Boehringer Ingelheim, 
+Microlife, and Daiichi-Sankyo; speaker for Bayer, BMS/Pfizer, 
+Medtronic, Boehringer Ingelheim, Microlife, Roche, and Daiichi-
+Sankyo. Dr Wang has received honoraria for continuing medical edu-cation lectures from AstraZeneca, Bayer, Boehringer Ingelheim, and 
+Daiichi-Sankyo. The other authors report no conflicts.
+References
+ 1. Wolf PA, Abbott RD, Kannel WB. Atrial fibrillation as an independent 
+risk factor for stroke: the Framingham Study. Stroke. 1991;22:983–988.
+ 2. Camm AJ, Lip GY , De Caterina R, Savelieva I, Atar D, Hohnloser SH, et 
+al; ESC Committee for Practice Guidelines (CPG). 2012 focused update 
+of the ESC Guidelines for the management of atrial fibrillation: an 
+update of the 2010 ESC Guidelines for the management of atrial fibril-
+lation. Developed with the special contribution of the European Heart 
+Rhythm Association. Eur Heart J. 2012;33:2719–2747. doi: 10.1093/
+eurheartj/ehs253. 3. January CT, Wann LS, Alpert JS, Calkins H, Cigarroa JE, Cleveland JC 
+Jr, et al; American College of Cardiology/American Heart Association 
+Task Force on Practice Guidelines. 2014 AHA/ACC/HRS guideline 
+for the management of patients with atrial fibrillation: a report of the American College of Cardiology/American Heart Association Task 
+Force on Practice Guidelines and the Heart Rhythm Society. J Am Coll 
+Cardiol. 2014;64:e1–e76. doi: 10.1016/j.jacc.2014.03.022.
+ 4. Chao TF, Liu CJ, Tuan TC, Chen SJ, Wang KL, Lin YJ, et al. Comparisons of CHADS2 and CHA2DS2-V ASc scores for stroke risk stratification in 
+atrial fibrillation: which scoring system should be used for Asians? Heart 
+Rhythm. 2016;13:46–53. doi: 10.1016/j.hrthm.2015.08.017.
+ 5. Pisters R, Lane DA, Marin F, Camm AJ, Lip GY . Stroke and thromboem-
+bolism in atrial fibrillation. Circ J. 2012;76:2289–2304.
+ 6. Lip GY , Nieuwlaat R, Pisters R, Lane DA, Crijns HJ. Refining clinical 
+risk stratification for predicting stroke and thromboembolism in atrial 
+fibrillation using a novel risk factor-based approach: the Euro heart 
+survey on atrial fibrillation. Chest. 2010;137:263–272. doi: 10.1378/chest.09-1584.
+ 7. Chao TF, Wang KL, Liu CJ, Lin YJ, Chang SL, Lo LW, et al. Age threshold for increased stroke risk among patients with atrial fibril-lation: a Nationwide Cohort Study From Taiwan. J Am Coll Cardiol. 
+2015;66:1339–1347. doi: 10.1016/j.jacc.2015.07.026.
+ 8. Eckman MH, Singer DE, Rosand J, Greenberg SM. Moving the tip-
+ping point: the decision to anticoagulate patients with atrial fibrilla-
+tion. Circ Cardiovasc Qual Outcomes. 2011;4:14–21. doi: 10.1161/
+CIRCOUTCOMES.110.958108.
+ 9. Chao TF, Huang YC, Liu CJ, Chen SJ, Wang KL, Lin YJ, et al. Acute myocardial infarction in patients with atrial fibrillation with 
+a CHA2DS2-V ASc score of 0 or 1: a nationwide cohort study. Heart Rhythm. 2014;11:1941–1947. doi: 10.1016/j.hrthm.2014.08.003.
+ 10. Chao TF, Liu CJ, Wang KL, Lin YJ, Chang SL, Lo LW, et al. Using the CHA2DS2-V ASc score for refining stroke risk stratification in ‘low-risk’ Asian patients with atrial fibrillation. J Am Coll Cardiol. 2014;64:1658–
+1665. doi: 10.1016/j.jacc.2014.06.1203.
+ 11. Chao TF, Liu CJ, Wang KL, Lin YJ, Chang SL, Lo LW, et al. Should 
+atrial fibrillation patients with 1 additional risk factor of the CHA2DS2-
+V ASc score (beyond sex) receive oral anticoagulation? J Am Coll 
+Cardiol. 2015;65:635–642. doi: 10.1016/j.jacc.2014.11.046.
+ 12. Chao TF, Liu CJ, Tuan TC, Chen SJ, Wang KL, Lin YJ, et al. Rate-control treatment and mortality in atrial fibrillation. Circulation. 
+2015;132:1604–1612. doi: 10.1161/CIRCULATIONAHA.114.013709.
+ 13. Lin CC, Lai MS, Syu CY , Chang SC, Tseng FY . Accuracy of diabetes 
+diagnosis in health insurance claims data in Taiwan. J Formos Med 
+Assoc. 2005;104:157–163.
+ 14. Cheng CL, Kao YH, Lin SJ, Lee CH, Lai ML. Validation of the National 
+Health Insurance Research Database with ischemic stroke cases in Taiwan. Pharmacoepidemiol Drug Saf. 2011;20:236–242. doi: 10.1002/
+pds.2087.
+ 15. Chao TF, Liu CJ, Chen SJ, Wang KL, Lin YJ, Chang SL, et al. Does digoxin increase the risk of ischemic stroke and mortality in atrial fibril-
+lation? A nationwide population-based cohort study. Can J Cardiol. 
+2014;30:1190–1195. doi: 10.1016/j.cjca.2014.05.009.
+ 16. Lin LJ, Cheng MH, Lee CH, Wung DC, Cheng CL, Kao Yang YH. 
+Compliance with antithrombotic prescribing guidelines for patients with 
+atrial fibrillation–a nationwide descriptive study in Taiwan. Clin Ther. 2008;30:1726–1736. doi: 10.1016/j.clinthera.2008.09.010.
+ 17. Chang CH, Lee YC, Tsai CT, Chang SN, Chung YH, Lin MS, et al. Continuation of statin therapy and a decreased risk of atrial fibrillation/flut-ter in patients with and without chronic kidney disease. Atherosclerosis. 
+2014;232:224–230. doi: 10.1016/j.atherosclerosis.2013.11.036.
+ 18. Hsieh CY , Chen CH, Li CY , Lai ML. Validating the diagnosis of acute 
+ischemic stroke in a National Health Insurance claims database. J Formos Med Assoc. 2015;114:254–259. doi: 10.1016/j.jfma.2013.09.009.
+ 19. Singer DE, Chang Y , Fang MC, Borowsky LH, Pomernacki NK, Udaltsova N, et al. The net clinical benefit of warfarin anticoagulation in atrial fibrillation. Ann Intern Med. 2009;151:297–305.
+ 20. Connolly SJ, Eikelboom JW, Ng J, Hirsh J, Yusuf S, Pogue J, et al; ACTIVE (Atrial Fibrillation Clopidogrel Trial with Irbesartan for Prevention of Vascular Events) Steering Committee and 
+Investigators. Net clinical benefit of adding clopidogrel to aspi-
+rin therapy in patients with atrial fibrillation for whom vitamin K antagonists are unsuitable. Ann Intern Med. 2011;155:579–586. doi: 10.7326/0003-4819-155-9-201111010-00004.
+ 21. Lip GY , Skjøth F, Nielsen PB, Larsen TB. Non-valvular atrial fibrillation patients with none or one additional risk factor of the CHA2DS2-V ASc Table 5. The Net Clinical Benefit Analyses for Each 
+Treatment According to Different Weight Models
+Stroke 
+Prevention StrategyNCB Based on Different Weight Models, % per Year (95% 
+CI)
+Relative Weight 
+of ICH Compared 
+With Ischemic 
+Stroke According 
+to Singer et al,
+18 
+Weight=1.5Relative Weight 
+of ICH Compared 
+With Ischemic 
+Stroke According 
+to Connolly et al,19 
+Weight=3.08Relative Weight 
+of ICH Compared 
+With Ischemic 
+Stroke According 
+to Lip et al,20 
+Weight=2.44
+Compared with no antithrombotic therapy (reference group)
+        Antiplatelet 
+drugs−0.36  
+(−0.47 to −0.25)−0.64  
+(−0.80 to −0.48)−0.53  
+(−0.67 to −0.39)
+        Warfarin 0.63 (0.56–0.69) 0.66 (0.59–0.73) 0.64 (0.58–0.71)
+Compared with antiplatelet drugs (reference group)
+        Warfarin 0.99 (0.74–1.23) 1.30 (0.99–1.61) 1.17 (0.89–1.46)
+CI indicates confidence interval; ICH, intracranial hemorrhage; and NCB, net 
+clinical benefit.
+Downloaded from http://ahajournals.org by on November 12, 2025
+
+Chao et al  Modified CHA2DS2-V ASc Score and Stroke in AF  2469
+score. A comprehensive net clinical benefit analysis for warfarin, aspi-
+rin, or no therapy. Thromb Haemost. 2015;114:826–834. doi: 10.1160/TH15-07-0565.
+ 22. Wan Y , Heneghan C, Perera R, Roberts N, Hollowell J, Glasziou P, et al. Anticoagulation control and prediction of adverse events in patients with atrial fibrillation: a systematic review. Circ Cardiovasc Qual Outcomes. 2008;1:84–91. doi: 10.1161/CIRCOUTCOMES.108.796185.
+ 23. Sjögren V , Grzymala-Lubanski B, Renlund H, Friberg L, Lip GY , Svensson PJ, et al. Safety and efficacy of well managed warfarin. A report from the Swedish quality register Auricula. Thromb Haemost. 2015;113:1370–1377. doi: 10.1160/TH14-10-0859.
+ 24. De Caterina R, Husted S, Wallentin L, Andreotti F, Arnesen H, Bachmann F, et al. Vitamin K antagonists in heart disease: current status and perspectives (Section III). Position paper of the ESC Working Group on Thrombosis–Task Force on Anticoagulants in Heart Disease. Thromb Haemost. 2013;110:1087–1107. doi: 10.1160/TH13-06-0443.
+ 25. Lip GY , Lane DA. Modern management of atrial fibrillation requires ini-tial identification of “low-risk” patients using the CHA2DS2-V ASc score, and not focusing on “high-risk” prediction. Circ J. 2014;78:1843–1845.
+ 26. Siu CW, Lip GY , Lam KF, Tse HF. Risk of stroke and intracranial hem-orrhage in 9727 Chinese with atrial fibrillation in Hong Kong. Heart Rhythm. 2014;11:1401–1408. doi: 10.1016/j.hrthm.2014.04.021.
+ 27. Chiang CE, Wang KL, Lip GY . Stroke prevention in atrial fibrillation: an Asian perspective. Thromb Haemost. 2014;111:789–797. doi: 10.1160/
+TH13-11-0948.
+ 28. Hori M, Connolly SJ, Zhu J, Liu LS, Lau CP, Pais P, et al; RE-LY Investigators. Dabigatran versus warfarin: effects on ischemic and hemor -
+rhagic strokes and bleeding in Asians and non-Asians with atrial fibrillation. Stroke. 2013;44:1891–1896. doi: 10.1161/STROKEAHA.113.000990.
+ 29. Wong KS, Hu DY , Oomman A, Tan RS, Patel MR, Singer DE, et al; Executive Steering Committee and the ROCKET AF Study Investigators. Rivaroxaban for stroke prevention in East Asian patients from the ROCKET AF trial. Stroke. 2014;45:1739–1747. doi: 10.1161/STROKEAHA.113.002968.
+ 30. Goto S, Zhu J, Liu L, Oh BH, Wojdyla DM, Aylward P, et al; ARISTOTLE Investigators. Efficacy and safety of apixaban compared with warfarin for stroke prevention in patients with atrial fibrillation from East Asia: a subanalysis of the Apixaban for Reduction in Stroke and Other Thromboembolic Events in Atrial Fibrillation (ARISTOTLE) Trial. Am Heart J. 2014;168:303–309. doi: 10.1016/j.ahj.2014.06.005. 31. Xiong Q, Chen S, Senoo K, Proietti M, Hong K, Lip GY . The CHADS2 and CHA2DS2-V ASc scores for predicting ischemic stroke among East Asian patients with atrial fibrillation: a systemic review and meta-analysis. Int J Cardiol. 2015;195:237–242. doi: 10.1016/j.ijcard.2015.05.115.
+ 32. Kim AS, Johnston SC. Global variation in the relative burden of stroke and ischemic heart disease. Circulation. 2011;124:314–323. doi: 10.1161/CIRCULATIONAHA.111.018820.
+ 33. Wong LK. Global burden of intracranial atherosclerosis. Int J Stroke. 2006;1:158–159. doi: 10.1111/j.1747-4949.2006.00045.x.
+ 34. Roldán V , Marín F, Manzano-Fernández S, Gallego P, Vílchez JA, Valdés M, et al. The HAS-BLED score has better prediction accuracy for major bleeding than CHADS2 or CHA2DS2-V ASc scores in anticoagulated patients with atrial fibrillation. J Am Coll Cardiol. 2013;62:2199–2204. doi: 10.1016/j.jacc.2013.08.1623.
+ 35. Shen AY , Yao JF, Brar SS, Jorgensen MB, Chen W. Racial/ethnic dif-ferences in the risk of intracranial hemorrhage among patients with atrial fibrillation. J Am Coll Cardiol. 2007;50:309–315. doi: 10.1016/j.jacc.2007.01.098.
+ 36. Lip GY , Wang KL, Chiang CE. Non-vitamin K antagonist oral antico-agulants (NOACs) for stroke prevention in Asian patients with atrial fibrillation: time for a reappraisal. Int J Cardiol. 2015;180:246–254. doi: 10.1016/j.ijcard.2014.11.182.
+ 37. Hart RG, Pearce LA, Rothbart RM, McAnulty JH, Asinger RW, Halperin JL. Stroke with intermittent atrial fibrillation: incidence and predictors during aspirin therapy. Stroke Prevention in Atrial Fibrillation Investigators. J Am Coll Cardiol. 2000;35:183–187.
+ 38. Hohnloser SH, Pajitnev D, Pogue J, Healey JS, Pfeffer MA, Yusuf S, et al; ACTIVE W Investigators. Incidence of stroke in paroxysmal versus sustained atrial fibrillation in patients taking oral anticoagulation or com-bined antiplatelet therapy: an ACTIVE W Substudy. J Am Coll Cardiol. 2007;50:2156–2161. doi: 10.1016/j.jacc.2007.07.076.
+ 39. Vanassche T, Lauw MN, Eikelboom JW, Healey JS, Hart RG, Alings M, et al. Risk of ischaemic stroke according to pattern of atrial fibrillation: analysis of 6563 aspirin-treated patients in ACTIVE-A and A VERROES. Eur Heart J. 2015;36:281–287a. doi: 10.1093/eurheartj/ehu307.
+ 40. Friberg L, Rosenqvist M, Lip GY . Net clinical benefit of warfarin in patients with atrial fibrillation: a report from the Swedish atrial fibril-lation cohort study. Circulation. 2012;125:2298–2307. doi: 10.1161/
+CIRCULATIONAHA.111.055079.
+Downloaded from http://ahajournals.org by on November 12, 2025
+

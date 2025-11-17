@@ -1,0 +1,590 @@
+SPECIAL ARTICLE
+The DSM-5: classiﬁcation and criteria changes
+DARREL A. R EGIER1,EMILYA. K UHL1,DAVIDJ. K UPFER2
+1American Psychiatric Association, Division of Research, Arlington, VA, USA; 2Department of Psychiatry, University of Pittsburgh Medical Center,
+Pittsburgh, PA, USA
+The Diagnostic and Statistical Manual of Mental Disorders, Fifth Edition (DSM-5) marks the ﬁrst signiﬁcant revision of the publication
+since the DSM-IV in 1994. Changes to the DSM were largely informed by advancements in neuroscience, clinical and public health need,and identiﬁed problems with the classiﬁcation system and criteria put forth in the DSM-IV. Much of the decision-making was also driven by
+a desire to ensure better alignment with the International Classiﬁcation of Diseases and its upcoming 11th edition (ICD-11). In this paper,
+we describe select revisions in the DSM-5, with an emphasis on changes projected to have the greatest clinical impact and those that demon-
+strate efforts to enhance international compatibility, including integration of cultural context with diagnostic criteria and changes that facil i-
+tate DSM-ICD harmonization. It is anticipated that this collaborative spirit between the American Psychiatric Association (APA) and the
+World Health Organization (WHO) will continue as the DSM-5 is updated further, bringing the ﬁeld of psychiatry even closer to a singular,
+cohesive nosology.
+Key words: DSM-5, ICD-11, diagnosis, classiﬁcation
+(World Psychiatry 2013;12:92–98)
+The Diagnostic and Statistical Manual of Mental Disorders
+(DSM) provides the standard language by which clinicians,
+researchers, and public health ofﬁcials in the United Statescommunicate about mental disorders. The current edition of
+the DSM, the ﬁfth revision (DSM-5) (1), was published in
+May 2013, marking the ﬁrst major overhaul of diagnostic cri-teria and classiﬁcation since the DSM-IV in 1994 (2).
+Historically, the World Health Organization (WHO) has
+offered its own system of mental disorder classiﬁcation inChapter V of the International Classiﬁcation of Diseases
+(ICD), largely used for reimbu rsement purposes and compil-
+ing national and international health statistics. However, fol-lowing a 1982 international conference on mental disorder
+classiﬁcation in Copenhagen ( 3), there was worldwide agree-
+ment for the ICD to adopt more explicit diagnostic criteria todeﬁne mental disorders that adhered to the 1980 model of
+DSM-III (4). What followed was a decade of consultation
+between the American Psychiatric Association (APA) devel-opers of the DSM-IV and the WHO developers of the ICD-
+10, that was facilitated by a coo perative agreement between
+the National Institute of Me ntal Health and the WHO (5).
+Although the ofﬁcial ICD-10 (6) contains only a brief
+deﬁnition of each disorder, the WHO Division of Mental
+Health obtained an agreement with the APA to publishsimilar Diagnostic Criteria for Research (7) to those in the
+DSM-IV, as well as more general Clinical Descriptions and
+Diagnostic Guidelines (8) as part of the ICD-10 Classiﬁca-tion of Mental and Behavioural Disorders. Having similar
+but separate research criteria resulted in a major interna-
+tional convergence of clinical practice communication andresearch on mental disorders – although the seemingly
+slight differences in diagnostic criteria for research did pro-
+duce some differences in prevalence rates and correlates ofmental disorders (9,10). Based on this experience, the latest
+DSM-5 and ICD-11 development p rocesses offered a further
+opportunity to not only advance the ﬁeld in terms of diagnos-tic utility and validity, but to also increase compatibility withICD-11 clinical guidelines and the global psychiatric commu-
+nity at large.
+DEVELOPMENT OF THE DSM-5
+Details of the research development and the review and ap-
+proval process for DSM-5 are de scribed elsewhere (1,11-14);
+but brieﬂy, the DSM-5 was constructed with the goal of
+addressing limitations in the DS M-IV while integrating the lat-
+est scientiﬁc and clinical evidence on the empirical basis of
+psychiatric disorders. The prio rity was to ensure the best care
+of patients possible and, in the process, improve usability forclinicians and researchers. Through the contribution of more
+than 400 experts from 13 countries, representing disciplines of
+psychiatry, psychology, neurology, pediatrics, primary care,epidemiology, research methodology and statistics, a series of
+13 international research conferences was held (2003–2008),
+in cooperation with the WHO Division of Mental Health andSubstance Abuse – with support from a 5-year National Insti-
+tutes of Health (NIH) cooperative agreement with the Ameri-
+can Psychiatric Institute for Research and Education, theresearch component of the APA (15). The resulting mono-
+graphs were produced to identify gaps in the then-current
+nosology and diagnostic criteria, providing a starting pointfrom where members of the DSM-5 Task Force and Work
+Groups would begin building their proposals for DSM-5.
+One of these monographs, jointly produced by the APA
+and the WHO, was speciﬁcally fo c u s e do np u b l i ch e a l t hc o n -
+siderations in psychiatric diag nosis and classiﬁcation in the
+United States and internation ally (16), but nearly all of the
+monographs included explicit discussion of cultural implica-
+tions of assessment and nosology , including cultural inﬂuen-
+ces on the expression of anxiety and depression (17), the clas-siﬁcation of psychotic disorders in Western and non-Western
+countries (18), and socio-cultural factors relevant to somatic
+syndromes (19). The addition al monographs developed
+92 World Psychiatry 12:2 - June 2013
+
+under this cooperative agreement were used by the speciﬁc
+Work Groups responsible for the relevant disorders covered(20-25).
+Membership in the DSM-5 Task Force and Work Groups
+was determined in part by the range of knowledge needed andalso by diversity of representation. Nearly every DSM-5 Work
+Group included at least one international member. To ensure
+that cultural factors were included in early revision proposals,a DSM-5 Culture and Gender Study Group was appointed to
+provide guidelines for the Work Group literature reviews and
+data analyses that served as the empirical rationale for draftchanges. Recommendations to the Work Groups included
+consideration of possible evidence of racial, ethnic, or gender
+bias in diagnostic criteria; the emergence of new data aboutgender or cultural differences, like discrepancies in prevalence
+or symptom presentations; and the presence of gaps in the lit-
+erature signaling the need for ﬁe ld trial testing or secondary
+data analyses. Given his unique knowledge of international
+diagnostic issues from his leadership of the ICD-10 develop-
+ment, the former Director of WHO’s Division of MentalHealth, Norman Sartorius, w as nominated and served as an
+international consultant to the DSM-5 Task Force.
+Although the subﬁeld of transcultural psychiatry has ﬁrmly
+established the relevance of culture and social context to
+individual help-seeking behavior s, clinical presentation, and
+response to treatment, the DSM leadership recognized thatthese issues would only increase in importance for both clinical
+care and research applications. As the social environment
+becomes more strongly linked to epigenetic mechanisms, herit-ability, disease risk, and resilie ncy factors, attention to these
+matters in the DSM-5 text was encouraged. As a result, in
+developing the chapter outline of text accompanying eachdiagnostic criteria set, it was determined that culture, as well as
+age and gender, warranted separate discussion of variances
+in symptom expression, risk, c ourse, prevalence, and other
+aspects of diagnosis, where evidence was available. Although
+not included for every disorder, a substantial proportion of dis-
+orders include text that references such ﬁndings. This is a nota-ble improvement from the DSM-IV, which more explicitly rec-
+ognizes cultural context than the DSM-III (4), but relegates
+culture, gender, and age to sporadic discussion and collectively,rather than as separate topics. Symptom expression among dif-
+ferent cultures is also referenced in revisions of certain disorder
+criteria. For instance, the B criterion for social anxiety disorder(Criterion A in the DSM-IV) has been expanded beyond just
+fear of embarrassment or humiliation of oneself to now include
+anxiety symptoms about offending others – a nod to the cul-tural syndrome taijin kyofusho and an acknowledgment of the
+fact that this presentation might be observed more in individu-
+als from non-Western cultures (p articularly Japan and Korea).
+DSM-5 CLASSIFICATION
+Despite the fact that the DSM is a US classiﬁcation system
+for the diagnosis of mental disorders, in conjunction with theuse of ofﬁcial ICD statistical code numbers, international in-
+terest in the manual has ﬂourished since the DSM-III waspublished in 1980. The DSM-5 is based on explicit disorder
+criteria, which taken together constitute a “nomenclature” of
+mental disorders, along with a n extensive explanatory text
+that is fully referenced for the ﬁrst time in the electronic ver-
+sion of this DSM. Although there is a more limited ICD-10
+set of criteria for research, the current WHO proposal forICD-11 will be to provide more general clinical descriptions
+and guidelines without the adoption of separate research cri-
+teria. The intent of joint APA and WHO collaborative effortsto date has been to develop a common research base for the
+revision of both DSM-5 and ICD-11, through the NIH sup-
+ported conference meetings and a series of “harmonizationmeetings”. The developers of the DSM-5 sought to maintain
+and, where possible, enhance the consistency of DSM and
+ICD revisions for clinical guidance – a challenging task giventhat revisions to each were not en tirely concurrent (the publi-
+cation of the ICD-11 is pro jected for 2015). However, a
+DSM-ICD harmonization coordinating group was organizedearly in the development process, under the direction of Ste-
+ven Hyman, chair of the WHO’s International Advisory
+Group for the Revision of ICD-10 Mental and BehaviouralDisorders and a DSM-5 Task Force member. The group con-
+vened by teleconference and at several in-person meetings to
+facilitate the sharing of information on development proc-esses for each publication and reduce discrepancies between
+the two. Of note, several of the chairs or members of the ICD
+revision Working Groups were also DSM-5 Work Groupmembers.
+At the outset, it was clear that one of the primary strat-
+egies would be to develop a joint approach to organizingthe “metastructure” or organizational framework by which
+disorders are grouped into similar clusters based on shared
+pathophysiology, genetics, disease risk, and other ﬁndingsfrom neuroscience and clinical experience. The DSM-IV’s
+descriptive and phenomenological approach to classiﬁca-
+tion was outdated and, in the framework of research fromscience that had emerged over the previous two decades,
+also inaccurate. Likewise, the organizational structure for
+the ICD-10 was open to a major restructuring, with the ex-pectation that a new numbering system for ICD-11 codes
+would be initiated to accommodate a major expansion in
+the number of codes available for all medical disorders.
+As a result, a DSM-5 initiative to develop a more valid
+basis for the organization of a mental disorder classiﬁcation
+was rapidly converted into a joint effort of the DSM-5 TaskForce and the ICD-10 revision (ICD-11 development) Ad-
+visory Committee. Using an expanded set of “validity
+criteria” from those originally proposed by Robins andGuze in 1970 (26), a series of analyses and papers were
+developed that were published in an international psychiat-
+ric journal (27-34). It was rapidly recognized that the appli-cation of such “validators” was much more meaningful for
+larger groups or disorder spectra than for individual cate-
+gorical diagnoses. This resulted in a new organizational
+93
+ 20515545, 2013, 2, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/wps.20050 by Medical University Of South Carolina, Wiley Online Library on [12/11/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+structure for the DSM-5 and the ICD-11, that is reﬂected in
+Table 1. The linear structure of this organization is intended
+to better reﬂect the relative strength of relationships be-tween disorder groups, whereas the internal organization of
+disorder groups is intended to reﬂect more of a child-adult
+developmental perspective.
+Much of the research from genetics and psychiatry over
+the past 20 years points to an overlapping genetic liability
+between psychotic and mood disorders, particularly bipolardisorder, that belie DSM-IV’s se paration of these as distinc-
+tive (35). In the DSM-5 classiﬁcation, the chapter on schizo-
+phrenia and other psychotic di sorders is sequenced with that
+of bipolar and related disorders (which are now separated
+from unipolar mood disorders), which is then followed by
+the chapter on depressive disorders. This also is consistentwith recent ﬁndings from the largest genome-wide study of
+mental disorders to date (36), w hich identiﬁed shared poly-
+morphisms between select neurodevelopmental disorders(autism spectrum disorder, ASD a nd attention-deﬁcit/hyper-
+activity disorder, ADHD), schiz ophrenia, bipolar disorder,
+and major depressive disorder. Incidentally, these comprisethe ﬁrst four chapters of the DSM-5.
+A similar pattern – grouping based more so on neuro-
+science and less on symptom expression – also occurs withinthe diagnostic categories. As noted above, ASD and ADHD
+are now grouped together in neurodevelopmental disorders,
+with some of the former DSM-IV “disorders ﬁrst diagnosed ininfancy, childhood, or adolescence” distributed throughout
+DSM-5. In the obsessive-compulsive and related disorderschapter are body dysmorphic disorder (previously classiﬁed in
+DSM-IV’s “somatoform disorders”) and trichotillomania
+(hair-pulling disorder), which belonged to DSM-IV’s chapteron “impulse-control disorders not elsewhere classiﬁed”. For
+trichotillomania, similarities to obsessive-compulsive disorder
+and to other body-focused, repetitive pathologies (e.g., excori-ation [skin-picking] disorder) in terms of symptom expression,
+comorbidity, and familial patterns suggested a closer resem-
+blance to the obsessive-compulsive and related disorders thanto its DSM-IV neighbors of pathological gambling, intermit-
+tent explosive disorder, kleptomania, or pyromania (37).
+Like the pediatric disorders, DSM-IV’s anxiety disorderstoo are distributed into separate chapters of fear circuitry-
+based anxiety disorders (e.g., phobias); anxiety disorders
+related to obsessions and compulsions (e.g., obsessive-com-pulsive disorder); those that arise from trauma or extreme
+stress (e.g., post-traumatic stress disorder, PTSD); and those
+characterized by dissociation (e.g., dissociative amnesia).
+Furthermore, the DSM-5 organization also reﬂects a
+broader clustering among groups of diagnostic categories,
+with those that tend to have similar premorbid personalitytraits and/or co-occur being placed proximally to one
+another, including neurodevelopmental disorders, schizo-
+phrenia and other psychotic diso rders. As indicated in the se-
+ries of “metastructure” papers, bipolar disorder occupies an
+intermediary position betwee n the schizophrenia and other
+psychotic disorders and the emot ional or internalizing disor-
+ders – exhibiting high levels of disinhibition, psychoticism,
+and negative affectivity (31). The internalizing disorders, with
+high levels of negative affectivity, include depressive disor-ders, anxiety disorders, obsessive-com-pulsive and related
+disorders, trauma and stressor- related disorders, and disso-
+ciative disorders. Somatic diso rders also frequently co-occur
+with the emotional or internalizing disorders, that include so-
+matic symptom and related disorders, feeding and eating dis-
+orders, sleep-wake disorders, a nd sexual dysfunctions. Exter-
+nalizing disorders include disr uptive, impulse control, and
+conduct disorders, and the sub stance-related and addictive
+disorders (38).
+INTEGRATION OF DIMENSIONS
+Despite the statement in the DSM-IV that “there is no
+assumption that each category of mental disorder is a com-pletely discrete entity with absolute boundaries dividing it
+from other mental disorders” (2, p. xxxi), the use of strict cat-
+egorical boundaries has given the impression of psychiatricd i s o r d e r sa su n i t a r y ,d i s c r e t e phenomena. Throughout gen-
+eral medicine, conditions are frequently conceptualized on a
+continuum from “normal” to pathological, without relyingon a singular threshold to distinguish the presence or absence
+of disease, as in serum cholest e r o la n dg l y c a t e dh e m o g l o b i n .
+In evolving toward a structure that more closely follows thisTable 1 DSM-5 diagnostic chapters
+Neurodevelopmental disorders
+Schizophrenia spectrum and other psychotic disordersBipolar and related disordersDepressive disordersAnxiety disordersObsessive-compulsive and related disordersTrauma- and stressor-related disordersDissociative disordersSomatic symptom and related disordersFeeding and eating disordersElimination disordersSleep-wake disordersSexual dysfunctionsGender dysphoriaDisruptive, impulse-control, and conduct disorders
+Substance-related and addictive disorders
+Neurocognitive disordersPersonality disordersParaphilic disordersOther mental disorders
+94 World Psychiatry 12:2 - June 2013
+ 20515545, 2013, 2, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/wps.20050 by Medical University Of South Carolina, Wiley Online Library on [12/11/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+approach, the DSM-5 includes dimensional aspects of diag-
+nosis along with categories. Although, ultimately, diagnosis isstill largely dependent on a “yes or no” decision, use of speci-
+ﬁers, subtypes, severity rating s, and cross-cutting symptom
+assessments help clinicians better capture gradients of a dis-order that might otherwise be hin dered by a strict categorical
+approach.
+For instance, the new “with a nxious distress” speciﬁer,
+applied to depressive disorders and bipolar and related disor-
+ders, includes symptoms that a re not a part of the criteria for
+most mood disorders (e.g., difﬁculty concentrating because ofworry) but nonetheless may describe a particular variant of
+mood disorder that causes impairment and/or distress and
+warrants intervention. It also yields clinically useful informa-tion for treatment planning and tracking outcomes that
+would likely be masked under a residual diagnosis of “not
+otherwise speciﬁed” in the D SM-IV, and may bring greater
+awareness to clinicians and researchers about the importance
+o fa s s e s s i n ga n x i e t yi nt h ep r e s e n c eo fm o o ds y m p t o m s .T h e
+DSM-5’s inclusion of severity speciﬁers contributes impor-
+tant details about the present ation and may be particularly
+informative for promoting more appropriate treatment, as
+treatment for certain mild disorders should differ from treat-ment regimens for moderate-to -severe presentations (39).
+Some DSM-IV disorders were combined to form spectra
+disorders in the DSM-5. The most notable example is ASD,which includes symptoms that characterize previous DSM-
+IV autism disorder, Asperger’s disorder, child disintegrative
+disorder, and pervasive developmental disorder NOS. Thisproposed revision was developed because of the presence of
+very poor reliability data, that failed to validate their contin-
+ued separation (40). Although the DSM-5 describes all ofthese presentations under one ru bric, speciﬁers are provided
+to account for ASD variations, including speciﬁers for the
+presence or absence of intellectual impairment, structurallanguage impairment, co-occurring medical conditions, or
+loss of established skills. A child previously diagnosed with
+Asperger’s disorder under t he DSM-IV could therefore be
+diagnosed under the DSM-5 wi th ASD, with the speciﬁers
+“without intellectual impairment” and “without structural
+language impairment”.
+Finally, integration of dimensions in the DSM-5 is encour-
+aged for further study and clinical experience. Such dimen-
+sional assessment can be applied across disorders through
+use of cross-cutting quantitati ve assessments. These patient/
+informant- and clinician-com pleted measures prompt clini-
+cians to assess symptom domains relevant to most, if not all,mental disorders, like mood, anxiety, sleep, and cognition,
+with a second level of measures speciﬁed for more in-depth
+assessment when a particular do main is endorsed. If criteria
+for a diagnosis are fulﬁlled, a third level of dimensional
+assessment can help establish severity. For example, the ﬁrst
+level of cross-cutti ng assessment of a giv en patient indicates
+the presence of depressed mood; the clinician then adminis-
+ters the Patient-Reported Out comes Measurement Informa-
+tion System (PROMIS) Emotional Distress – Depression –Short Form. The score suggests the possible presence of
+major depressive disorder, and after a clinical interview thatassesses the presence of diagnos tic criteria, a depression diag-
+nosis may be given. The Nine-Item Patient Health Question-
+naire can then be administered to establish baseline severity,with repeated administ ration at regular intervals as clinically
+indicated for monitoring cour se and treatment response.
+While the ﬁrst level cross-cutting measure is provided in theprinted DSM-5, all three levels of dimensional measures are
+provided in the electronic version of the manual for down-
+loading and clinical use without additional charge.
+REVISIONS TO DIAGNOSTIC CRITERIA
+By and large, there were not sweeping changes in the diag-
+nostic criteria for most disorders. An abbreviated description
+of the major deviations from the DSM-IV can be found inthe Appendix of the manual itself, with a more detailed ver-
+sion online (
+www.psychiatry.org/dsm 5). What follows below
+is a select summary of revisions.
+Combining and splitting DSM-IV disorders
+Some disorders were revised by combining criteria from
+multiple disorders into a single diagnosis, as in instances
+where there was a lack of data to support their continued
+separation. The most publically discussed example of this isASD. As noted previously, the addition of behavioral speci-
+ﬁers indicates variants of ASD that account for the DSM-IV
+disorders it subsumed. Somatic symptom disorder largelytakes the place of somatization disorder, hypochondriasis,
+pain disorder, and undifferentiated somatoform disorder,
+although many individuals pre viously diagnosed with hypo-
+chondriasis will now meet criteria for illness anxiety disorder
+(new to DSM-5). Substance use disorder is a combination of
+DSM-IV’s substance abuse and substance dependence, thelatter of which was deemed inappropriate due to the pejora-
+tive nature of the term dependence used to describe normal
+physiological responses of withdrawal from certain substan-ces and medications. Further, the addition of severity ratings
+for substance use disorder enables a diagnosis of mild sub-
+stance use disorder, that will be coded separately (with the
+ICD code for substance abuse in DSM-IV) from moderate-
+to-severe levels (coded with the ICD codes previously used
+for substance dependence).
+Alternately, in some instances, a DSM-IV disorder was
+split into independent diso rders under the DSM-5. DSM-
+IV’s reactive attachment diso rder included the subtypes
+“emotionally withdrawn/inhibited” and “indiscriminately
+social/disinhibited”. Despite a shared etiology (i.e., lack of a
+consistent, emotionally supportive caregiving environment),the reactive attachment subtype (reactive attachment disor-
+der) is a manifestation of incomplete, insecure social attach-
+ments and is more similar to int ernalizing disorders, like
+95
+ 20515545, 2013, 2, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/wps.20050 by Medical University Of South Carolina, Wiley Online Library on [12/11/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+major depressive disorder, whereas the social disinhibition
+subtype (disinhibited social engagement disorder) is evidentin children without secure social attachments but is more
+similar to externalizing disorders, including ADHD. The two
+subtypes also demonstrate dispa rities in course and treatment
+response; thus, each was elevated to a separate full disorder
+in the DSM-5 (41). Similarly, the DSM-5 now lists the DSM-
+IV subtypes of breathing-related sleep disorder as independ-ent disorders with separate criteria (i.e., obstructive sleep
+apnea hypopnea syndrome, cent ral sleep apnea, and sleep-
+related hypoventilation), which is more consistent with theInternational Classiﬁcation of Sleep Disorders, 2nd Edition.
+Speciﬁers and subtypes
+Speciﬁers and subtypes deline ate phenomenological var-
+iants of a disorder indicative of speciﬁc subgroupings, which
+impact, among other outcome s, on treatment planning and
+treatment developments. The numbers of speciﬁers and sub-types in the DSM-5 has been expanded to account for efforts
+to dimensionalize disorder s more so than in the DSM-IV.
+Within the depressive disorders and bipolar and related dis-orders, a speciﬁer of “with mixed features” replaces the diag-
+nosis of bipolar I, mixed episode in the DSM-IV, given that
+subthreshold mixed states of major depressive and manic epi-sodes are much more common an d may have speciﬁc treat-
+ment implications (42,43) but w ould be excluded from diag-
+nosis by continuing DSM-IV’s requirement that full criteriaare met for both syndromes. The “with mixed features” speci-
+ﬁer, therefore, now applies to unipolar as well as bipolar con-
+ditions. A speciﬁer of “with limited prosocial emotions” isadded to conduct disorder for children displaying extreme
+callousness and negative affectiv ity, different severity (e.g.,
+more frequent and severe patterns of aggression), and poorertreatment response than children who do not qualify for the
+speciﬁer (44). Speciﬁc treatm ent interventions have been
+developed that are more successful with this subgroup.
+DSM-5’s major neurocognitive disorder (NCD) is
+roughly equivalent to DSM-IV’s dementia, although cri-
+t e r i af o rd e m e n t i ah a v eb e e nr e v i s e dt oa l s of o r mas e p a -rate and new diagnosis of mild NCD, representing the
+presence of neurocognitive disturbance that has not risen
+to the level of severity to warrant signiﬁcant impairmentor disruption in functioning, akin to DSM-IV’s mild cog-
+nitive impairment that was included in the Appendix. In
+addition to the core criteria for major and mild NCD, tenetiological subtypes are now provided, with separate cri-
+teria and text for each. Other than the explicit link to
+speciﬁc known etiologies, most of these subtypes’ criteriaare largely similar to one another. However, there are im-
+portant and often subtle differences between these disor-
+ders, as greater informatio no np o s t - m o r t e ml a b o r a t o r y
+correlations and clinical progression have become avail-
+able over the past two decades. Many, but not all, of
+these subtypes were described brieﬂy in the DSM-IV, butthe DSM-5 recognizes each separately and in greater
+detail to give clinicians more guidance in determiningpossible etiology.
+New disorders
+A rigorous review process was established for assessing all
+proposed revisions to the DSM-5, and those suggesting inclu-
+sion of new disorders were among the most stringently
+assessed. Based on a review of existing evidence from neuro-science, clinical need, and public health signiﬁcance, a handful
+of new disorders are included, many of which were elevated
+from DSM-IV’s chapter on “conditions for further study”.Hoarding disorder addresses the excessive collection of often
+useless items, including garbage, which frequently results in
+hazardous living conditions for patients and/or dependents.
+Disruptive mood dysregulation disorder (DMDD) was pro-
+posed in response to a decade-long debate about whether or
+not chronic irritability in children is a hallmark symptom of pe-diatric bipolar disorder. With the prevalence of childhood
+bipolar disorders growing at an alarming rate, the DSM-5
+Childhood and Adolescent Disorders Work Group comparedevidence from natural history and treatment studies of classic
+bipolar disorder versus bipolar disorder diagnosed using non-
+episodic irritability as a criterion, and determined that separatedisorders based on episodic versus persistent irritability were
+justiﬁed (45). Therefore, children with extreme behavioral dys-
+control but non-episodic irritability no longer qualify for a diag-nosis of bipolar disorder in the DSM-5 and instead would be
+considered for DMDD. Other notable new disorders (which
+were elevated from DSM-IV’s appendix) include binge eatingdisorder, premenstrual dysphoric disorder, restless legs syn-
+drome, and REM sleep behavior disorder.
+Removal from DSM-IV
+One of the most controversial proposals for the DSM-5
+concerned the removal of the bereavement exclusion for
+major depressive episodes. Under the DSM-IV, individualsexhibiting symptoms of major depressive disorder were
+excluded from diagnosis if also bereaved within the past 2
+months. The intention was to prevent individuals experienc-ing normal grief reactions to loss of a loved one from being
+labeled as having a mental disorder. Unfortunately, this also
+prevented bereaved individuals who were experiencing amajor depressive episode from being appropriately diagnosed
+and treated. It also implied an arbitrary time course to
+bereavement and failed to rec ognize that experiences of
+major loss – including losses other than the death of a loved
+one, like job loss – can lead to depressive symptoms that
+needed to be distinguished from those associated with amajor depressive disorder. Although symptoms of grief or
+other losses can mimic those of depression and do not neces-
+sarily suggest a mental disorder, for the subset of individuals
+96 World Psychiatry 12:2 - June 2013
+ 20515545, 2013, 2, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/wps.20050 by Medical University Of South Carolina, Wiley Online Library on [12/11/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+whose loss does lead to a depressive disorder (or for whom a
+depressive disorder was already present), appropriate diagno-sis and treatment may facilitate recovery. As a result, the
+bereavement exclusion was li fted and replaced with much
+more descriptive guidance on the distinction between symp-toms characteristic of normal grief and those that are indica-
+tive of a clinical disorder (46).
+Changes in naming conventions
+Revisions in commonly used ter minology required an eval-
+uation of the most appropriate terms for describing some men-
+tal disorders – an issue of particular concern for consumer-advocate organizations. The term “mental retardation” under-
+went several draft changes before the name “intellectual dis-
+ability (intellectual developm ental disorder)” was approved.
+The joint naming convention reﬂects use of the term
+“intellectual disability” in US law (47), in professional jour-
+nals, and by some advocacy organizations, while the paren-thetical term maintains language proposed for ICD-11 (48).
+As described previously, the te rms “substance abuse and sub-
+stance dependence” have been removed and are nowr e p l a c e dj o i n t l yb y“ s u b s t a n c eu s ed i s o r d e r ” .T h en a m eo ft h e
+substance chapter itself (“substance-related and addictive dis-
+orders”) was altered to include the term “addictive”, matchinga proposed ICD-11 naming conve ntion, which refers to inclu-
+sion of gambling disorder as a behavioral syndrome with
+symptoms and pathophysiology (e.g., reward system activa-
+tion) largely mirroring those in substance-related disorders.
+Also in keeping with ICD language, the “not otherwise spec-
+iﬁed” categories in the DSM-IV have been renamed and re-conceptualized as “other speciﬁed” and “unspeciﬁed” catego-
+ries in the DSM-5.
+CONCLUSIONS
+Final determination of DSM-5’s impact must await judg-
+m e n tu n t i la f t e rt h em a n u a lh a sb e e ni nu s ef o rs o m et i m e .
+Epidemiological studies will aid in detecting changes in prev-alence and comorbidities from the DSM-IV, including imple-
+mentation of cross-national s urveys of disorders with high
+public health relevance worldw ide, such as schizophrenia,
+major depressive disorder, and substance use disorders. The
+more immediate next steps for the DSM-5 include the devel-
+opment of materials that may assist in its use in primary caresettings, adaptation of assessment instruments to DSM-5,
+and documenting the evidence base for revision decisions in
+the DSM-5 electronic archives. There will also be further test-ing and development of the dime nsional assessments in the
+manual, including that of a ped iatric version of the interna-
+tionally used WHO Disability Assessment Schedule 2.0.
+By continuing collaboration with the WHO in future edi-
+tions of the DSM, we can assure a more comparable interna-
+tional statistical classiﬁcati on of mental disorders and movecloser to a truly uniﬁed nosology and approach to diagnosis.
+Such a collaborative effort sh ould assist the 200,000 psychia-
+trists worldwide to better care f or individuals with these life-
+altering and potentially destru ctive conditions, and advance
+a more synergistic and cumulative international researchagenda to ﬁnd the causes and cures for these disorders.
+Acknowledgement
+This paper is published thanks to an agreement with theAmerican Psychiatric Association, which reserves thecopyright. Copyright
+VC2013, American Psychiatric Asso-
+ciation. All rights reserved.
+References
+1. American Psychiatric Association. Diagnostic and statistical man-
+ual of mental disorders, 5th ed. Arlington: American Psychiatric
+Association, 2013.
+2. American Psychiatric Association. Diagnostic and statistical man-
+ual of mental disorders, 4th ed. Washington: American Psychiat-
+ric Association, 1994.
+3. Jablensky A, Sartorius N, Hirschfeld R et al. Diagnosis and classi-
+ﬁcation of mental disorders and alcohol- and drug-related prob-
+lems: a research agenda for the 1980s. Psychol Med 1983;13:907-21.
+4. American Psychiatric Association. Diagnostic and statistical man-
+ual of mental disorders, 3rd ed. Washington: American Psychiat-
+ric Association, 1980.
+5. Sartorius N (Principal Investigator). The WHO/Alcohol, Drug
+Abuse, and Mental Health Administration Joint Project on Diag-
+nosis and Classiﬁcation. Cooperative agreement U01MH035883,
+from the National Institute of Mental Health to the World Health
+Organization, 1983-2001.
+6. World Health Organization. Manual of the international statisti-
+cal classiﬁcation of diseases, injuries, and causes of death. Tenth
+revision of the international classiﬁcation of diseases. Geneva:
+World Health Organization, 1992.
+7. World Health Organization. ICD-10 Classiﬁcation of mental and
+behavioural disorders. Diagnostic criteria for research. Geneva:
+World Health Organization, 1993.
+8. World Health Organization. ICD-10 Classiﬁcation of mental and
+behavioural disorders. Clinical descriptions and diagnostic guide-lines. Geneva: World Health Organization, 1993.
+9. First MB, Pincus HA. Classiﬁcation in psychiatry: ICD-10 vs.
+DSM-IV. A response. Br J Psychiatry 1999;175:205-9.
+10. Andrews G, Slade T, Peters L. Classiﬁcation in psychiatry: ICD-
+10 versus DSM-IV. Br J Psychiatry 1999;174:3-5.
+11. Regier DA, Narrow WE, Kuhl EA et al (eds). Evolution of the
+DSM-V conceptual framework: development, dimensions, dis-
+ability, spectra, and gender/culture. Arlington: American Psychi-
+atric Association, 2010.
+12. Clarke DE, Narrow WE, Regier DA et al. DSM-5 ﬁeld trials in the
+United States and Canada, Part I: study design, sampling strategy,
+implementation, and analytic approaches. Am J Psychiatry 2013;
+170:43-58.
+13. Regier DA, Narrow WE, Clarke DE et al. DSM-5 ﬁeld trials in the
+United States and Canada, Part II: test-retest reliability of selectedcategorical diagnoses. Am J Psychiatry 2013;170:59-70.
+14. Narrow WE, Clarke DE, Kuramoto SJ et al. DSM-5 ﬁeld trials
+in the United States and Canada, Part III: development and
+97
+ 20515545, 2013, 2, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/wps.20050 by Medical University Of South Carolina, Wiley Online Library on [12/11/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+reliability testing of a cross-cutting symptom assessment for
+DSM-5. Am J Psychiatry 2013;170:71-82.
+15. Regier D (Principal Investigator). Developing the Research Base
+for DSM-V and ICD-11. Cooperative agreement U13MH067855
+from the National Institute of Mental Health, National Institute
+on Drug Abuse, and National Institute on Alcohol Abuse and Al-coholism to American Psychiatric Institute for Research and Edu-
+cation, 2003-2008.
+16. Saxena S, Esparza P, Regier DA et al (eds). Public health aspects of
+diagnosis and classiﬁcation of men tal and behavioral disorders. Reﬁn-
+ing the research agenda for DSM-5 and ICD-11. Arlington: American
+Psychiatric Association and World Health Organization, 2012.
+17. Goldberg D, Kendler KS, Sirovatka PJ et al (eds). Diagnostic
+issues in depression and generalized anxiety disorder: reﬁning theresearch agenda for DSM-V. Arlington: American Psychiatric
+Association, 2010.
+18. Tamminga CA, Sirovatka PJ, Regier DA et al (eds). Deconstruct-
+ing psychosis: reﬁning the research agenda for DSM-V. Arlington:
+American Psychiatric Association, 2009.
+19. Dimsdale JE, Xin Y, Kleinman A et al (eds). Somatic presentations
+of mental disorders: reﬁning the research agenda for DSM-V.
+Arlington: American Psychiatric Association, 2009.
+20. Widiger TA, Simonsen E, Sirovatka PJ et al (eds). Dimensional
+models of personality disorders: reﬁning the research agenda forDSM-V. Arlington: American Psychiatric Association, 2006.
+21. Saunders JB, Schuckit MA, Sirovatka PJ et al (eds). Diagnostic
+issues in substance use disorders: reﬁning the research agenda forDSM-V. Arlington: American Psychiatric Association, 2007.
+22. Sunderland T, Jeste DV, Baiyewu O et al (eds). Diagnostic issues
+in dementia: advancing the research agenda for DSM-V. Arling-
+ton: American Psychiatric Association, 2007.
+23. Helzer JE, Kraemer HC, Krueger RF et al (eds). Dimensional
+approaches in diagnostic classiﬁcation: reﬁning the research
+agenda for DSM-V. Washington: American Psychiatric Associa-
+tion, 2008.
+24. Andrews G, Charney DS, Sirovatka PJ et al (eds). Stress-induced
+and fear circuitry disorders: reﬁning the research agenda forDSM-V. Arlington: American Psychiatric Association, 2009.
+25. Hollander E, Zohar J, Sirovatka PJ et al (eds). Obsessive-compul-
+sive behavior spectrum disorders: reﬁning the research agenda
+for DSM-V. Arlington: American Psychiatric Association, 2010.
+26. Robins E, Guze SB. Establishment of diagnostic validity in psy-
+chiatric illness: its application to schizophrenia. Am J Psychiatry
+1970;126:983-7.
+27. Andrews G, Goldberg DP, Krueger RF et al. Exploring the feasi-
+bility of a meta-structure for DSM-V and ICD-11: could it
+improve utility and validity? Psychol Med 2009;39:1993-2000.
+28. Sachdev P, Andrews G, Hobbs MJ et al. Neurocognitive disor-
+ders: cluster 1 of the proposed meta-structure for DSM-V and
+ICD-11. Psychol Med 2009;39:2001-12.
+29. Andrews G, Pine DS, Hobbs MJ et al. Neurodevelopmental disor-
+ders: cluster 2 of the proposed meta-structure for DSM-V and
+ICD-11. Psychol Med 2009;39:2013-23.
+30. Carpenter WT Jr, Bustillo JR, Thaker GK et al. Psychoses: cluster
+3 of the proposed meta-structure for DSM-V and ICD-11. Psy-chol Med 2009;39:2025-42.31. Goldberg DP, Krueger RF, Andrews G et al. Emotional disorders:
+cluster 4 of the proposed meta-structure for DSM-V and ICD-11.
+Psychol Med 2009;39:2043-59.
+32. Krueger RF, South SC. Externalizing disorders: cluster 5 of the
+proposed meta-structure for DSM-V and ICD-11. Psychol Med
+2009;39:2061-70.
+33. Goldberg DP, Andrews G, Hobbs MJ. Where should bipolar ap-
+pear in the meta-structure? Psychol Med 2009;39:2071-81.
+34. Wittchen H-U, Beesdo K, Gloster AT. A new meta-structure of
+mental disorders: a helpful step into the future or a harmful step
+back into the past? Psychol Med 2009;39:2083-9.
+35. Owen MJ, Craddock N, Jablensky A. The genetic deconstruction
+of psychosis. Schizophr Bull 2007;33:905-11.
+36. Cross-Disorder Group of the Psychiatric Genomics Consortium.
+Identiﬁcation of risk loci with shared effects on ﬁve major psychi-
+atric disorders: a genome-wide analysis. Lancet (in press).
+37. Stein DJ, Grant JE, Franklin ME et al. Trichotillomania (hair pull-
+ing disorder), skin picking disorder, and stereotypic movement
+disorder: toward DSM-V. Depress Anxiety 2010;27:611-26.
+38. Krueger RF. The structure of common mental disorders. Arch
+Gen Psychiatry 1999;56:921-6.
+39. Baumeister H. Inappropriate prescriptions of antidepressant dr-
+ugs in patients with subthreshold to mild depression: time for the
+evidence to become practice. J Affect Disord 2012;139:240-3.
+40. Lord C, Petkova E, Hus V et al. A multisite study of the clinical
+diagnosis of different autism spectrum disorders. Arch Gen Psy-
+chiatry 2012;69:306-13.
+41. Zeanah CH, Gleason MM. Reactive attachment disorder: a
+review for DSM-V. Report presented to the American Psychiatric
+Association, 2010; available online at
+www.dsm5.org.
+42. Agosti V, Stewart JW. Hypomania with and without dysphoria:
+comparison of comorbidity and clinical characteristics of respo-ndents from a national community sample. J Affect Disord
+2008;108:177-82.
+43. Suppes T, Mintz J, McElroy SL et al. Mixed hypomania in 908
+patients with bipolar disorder evaluated prospectively in the Stan-
+ley Foundation Bipolar Treatment Network: a sex-speciﬁc phe-nomenon. Arch Gen Psychiatry 2005;62:1089-96.
+44. Frick PJ, Mofﬁtt TE. A proposal to the DSM-V Childhood Disor-
+ders and the ADHD and Disruptive Behavior Disorders Work
+Groups to include a speciﬁer to the diagnosis of conduct disorder
+based on the presence of callous-unemotional traits. Report pre-sented to the American Psychiatric Association, 2010; available
+online at
+www.dsm5.org.
+45. Leibenluft MD. Severe mood dysregulation, irritability, and the
+diagnostic boundaries of bipolar disorder in youths. Am J Psychi-
+atry 2011;168:129-42.
+46. Zisook S, Corruble E, Duan N et al. The bereavement exclusion
+and DSM-5. Depress Anxiety 2012;29:425-43.
+47. Rosa’s Law. Public Law No. 111-256, 2010.48. Salvador-Carulla L, Reed GN, Vaez-Azizi LM et al. Intellectual
+developmental disorders: towards a new name, deﬁnition and
+framework for “mental retardation/intellectual disability” in
+ICD-11. World Psychiatry 2011;10:175-80.
+DOI 10.1002/wps.20050
+98 World Psychiatry 12:2 - June 2013
+ 20515545, 2013, 2, Downloaded from https://onlinelibrary.wiley.com/doi/10.1002/wps.20050 by Medical University Of South Carolina, Wiley Online Library on [12/11/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+

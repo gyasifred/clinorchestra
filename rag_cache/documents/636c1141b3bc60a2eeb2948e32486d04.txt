@@ -1,0 +1,396 @@
+Can Guideline-defined Asthma Control Be Achieved?
+The Gaining Optimal Asthma ControL Study
+Eric D. Bateman, Homer A. Boushey, Jean Bousquet, William W. Busse, Tim J. H. Clark, Romain A. Pauwels,
+and Søren E. Pedersen for the GOAL Investigators Group
+University of Cape Town, Cape Town, South Africa; University of California, San Francisco, San Francisco, California; Ho ˆpital Arnaud De
+Villeneuve, Montpellier, France; University of Wisconsin Medical School, Madison, Wisconsin; Imperial College, London, United Kingdom;Ghent University Hospital, Ghent, Belgium; and University of Southern Denmark, Kolding Hospital, Kolding, Denmark
+For most patients, asthma is not controlled as defined by guidelines;
+whether this is achievable has not been prospectively studied. A1-year, randomized, stratified, double-blind, parallel-group study of3,421 patients with uncontrolled asthma compared fluticasone propi-onate and salmeterol/fluticasone in achieving two rigorous, compos-ite, guideline-based measures of control: totally and well-controlledasthma. Treatment was stepped-up until total control was achieved(or maximum 500 /H9262g corticosteroid twice a day). Significantly more
+patients in each stratum (previously corticosteroid-free, low- andmoderate-dose corticosteroid users) achieved control with salmet-erol/fluticasone than fluticasone. Total control was achieved acrossall strata: 520 (31%) versus 326 (19%) patients after dose escalation(p/H110210.001) and 690 (41%) versus 468 (28%) at 1 year for salmet-
+erol/fluticasone and fluticasone, respectively. Asthma became wellcontrolled in 1,071 (63%) versus 846 (50%) after dose escalation(p/H110210.001) and 1,204 (71%) versus 988 (59%) at 1 year. Control
+was achieved more rapidly and at a lower corticosteroid dose withsalmeterol/fluticasone versus fluticasone. Across all strata, 68% and76% of the patients receiving salmeterol/fluticasone and flutica-sone, respectively, were on the highest dose at the end of treatment.Exacerbation rates (0.07–0.27 per patient per year) and improve-ment in health status were significantly better with salmeterol/fluticasone. This study confirms that the goal of guideline-derivedasthma control was achieved in a majority of the patients.
+Keywords: antiasthmatic agents; fluticasone propionate; guidelines;
+quality of life; salmeterol
+The goal of asthma management is to achieve and maintain
+control of the disease without side effects from the therapiesused (1–3). Large, multinational, community-based surveys ofasthma have shown, however, that the majority of patients havean alarmingly high rate of symptoms and disruption of life fromtheir disease, indicating that this goal is not being achieved (4–6).As a result, some have suggested that asthma control, as deﬁnedin guidelines, is unrealistic for the “vast majority” of patients(7). If this conclusion is correct, it is necessary to considerwhether this shortcoming is caused by the refractory nature ofthe disease, limitations of current treatments, or a problem oftreatment strategies, coupled with low physician and patientexpectations and treatment compliance (8). Surprisingly, mostclinical studies assessing the efﬁcacy of “controller” therapies inasthma do not address whether control was achieved but rather
+(Received in original form January 9, 2004; accepted in final form July 14, 2004 )
+Supported by GlaxoSmithKline R&D Limited.Correspondence and requests for reprints should be addressed to Eric D. Bateman,
+M.D., F.R.C.P., UCT Lung Institute, P.O. Box 34560, Groote Schuur 7937, CapeTown, South Africa. E-mail: ebateman@uctgsh1.uct.ac.za
+This article has an online supplement, which is accessible from this issue’s table
+of contents online at www.atsjournals.org
+Am J Respir Crit Care Med Vol 170. pp 836–844, 2004
+Originally Published in Press as DOI: 10.1164/rccm.200401-033OC on July 15, 2004Internet address: www.atsjournals.orgfocus on improvements in individual end points obtained with
+ﬁxed doses of treatment. Assessment of individual asthma endpoints alone, such as lung function, may overestimate the levelof asthma control achieved (9). Furthermore, such limited endpoints may not reﬂect what is important to the patient, whosequality of life is more dependent on the overall impact of thedisease rather than on a single measure (10). To date, no studieshave assessed the beneﬁts of aiming for complete, comprehen-sive, and sustained clinical control in a controlled study thatallows for dose escalation, as necessary, to achieve this. As aresult, the full efﬁcacy potential or limitations of current treat-ments have not been formally evaluated. We therefore conducteda 1-year prospective trial, Gaining Optimal Asthma controL(GOAL), to com pare the efﬁcacy of two recommended control-
+ler therapies: an increasing dose of ﬂuticasone propionate aloneor in combination with the long-acting /H9252
+2-agonist salmeterol to
+achieve asthma control as deﬁned in the Global Initiative forAsthma/National Institutes of Health guidelines (3, 11). Someof the results of this study have been previously reported inabstract form (12–27).
+METHODS
+Study Design and Assessment of Asthma Control
+GOAL was a 1-year, stratiﬁed, randomized, double-blind, parallel-group
+study comparing the efﬁcacy and safety of individual, predeﬁned, step-wise increases of salmeterol/ﬂuticasone propionate (salmeterol/ﬂuticasone;Seretide/Advair; GlaxoSmithKline, Middlesex, UK) with ﬂuticasone pro-pionate (ﬂuticasone; Flixotide/Flovent; GlaxoSmithKline) alone in achiev-
+ing two predeﬁned composite measures of asthma control.
+The deﬁnitions of control were derived from the treatment goals
+of the Global Initiative for Asthma/National Institutes of Health guide-lines (3, 11): “totally controlled” or “well controlled” or uncontrolled(if neither deﬁnition was fulﬁlled). Both control deﬁnitions were com-posite measures that included the following asthma outcomes: PEF,rescue medication use, symptoms, night-time awakenings, exacerba-tions, emergency visits, and adverse events (Table 1). Equal weightingwas given to each criterion. Totally controlled and well-controlledweeks were deﬁned by achievement of all of the speciﬁed criteria forthat week. Totally controlled asthma was achieved if the patient, duringthe 8 consecutive assessment weeks, recorded 7 totally controlled weeksand had no exacerbations, emergency room criteria, or medication-related adverse event criteria for each day of each week. Well-controlledasthma was achieved if the patient recorded 7 of 8 well-controlledweeks, and failure to achieve any one of these would result in failureto achieve control for that week. Failure of the exacerbation, emergencyvisit, or adverse event criteria resulted in the automatic failure of controlstatus (totally and well-controlled deﬁnitions) for the entire 8-weekperiod, irrespective of how well asthma was controlled at other timepoints during the 8 weeks. Well-controlled asthma was similarly as-sessed over 8 weeks but was allowed a low level of symptoms andrescue medication use, as outlined in Table 1.
+During the run-in period, patients continued on their usual dose (if
+any) of inhaled corticosteroid treatment. Those who did not achieveat least two well-controlled weeks in the 4-week run-in period wererandomized to one of three strata based on their inhaled corticosteroid
+ 
+
+Bateman, Boushey, Bousquet, et al. : Gaining Optimal Asthma Control 837
+TABLE 1. DEFINITIONS OF WELL CONTROLLED AND TOTALLY CONTROLLED ASTHMA BASED ON GLOBAL INITIATIVE
+FOR ASTHMA/NATIONAL INSTITUTES OF HEALTH GUIDELINE AIMS OF TREATMENT
+Totally Controlled Well Controlled
+Goals of GINA/NIH Each Week All of Each Week 2 or More of
+Daytime symptoms Minimal (ideally no) None /H110882 days with symptom score /H110221‡
+Rescue /H92522-agonist use Minimal (ideally no) None Use on /H110882 days and /H110884 occasions/wk
+Morning PEF Near normal /H1109180% predicted†every day /H1109180% predicted†every day
+All of
+Night-time awakening Minimal (ideally no) None None
+Exacerbations* Minimal (infrequent) None NoneEmergency visits No None NoneTreatment-related adverse events Minimal None enforcing change in asthma therapy None enforcing change in asthma therapy
+Definition of abbreviations : GINA /H11005Global Initiative for Asthma; NIH /H11005National Institutes of Health.
+Totally and well-controlled asthma were defined by achievement of all of the specified criteria for that week. Totally controlled asthma was achieve d if the patient
+during the 8 consecutive assessment weeks recorded 7 totally controlled weeks and had no exacerbations, emergency room criteria, or medication-rel ated adverse
+events criteria. Well-controlled asthma was similarly assessed over the 8 weeks. These assessments were for an 8-week period during the double-blin d treatment period.
+Baseline control and control during the open-label phase were assessed over a 4-week period.
+* Exacerbations were defined as deterioration in asthma requiring treatment with an oral corticosteroid or an emergency department visit or hospita lization.
+†Predicted PEF was calculated based on the European Community for Steel and Coal standards (40) for patients 18 years and older and on the Polgar standar ds
+(41) for patients 12–17 years old.
+‡Symptom score: 1 was defined as “symptoms for one short period during the day.” Overall scale: 0 (none)–5 (severe).
+dose during the 6 months before screening: stratum 1, no inhaled corti-
+costeroid; stratum 2, 500 /H9262g or less of beclomethasone dipropionate
+daily or equivalent; or stratum 3, more than 500 to 1,000 /H9262g or less of
+beclomethasone dipropionate daily or equivalent ( seeFigure E1 in the
+online supplement).
+During phase I, the dose escalation phase, treatment was “stepped
+up” every 12 weeks until totally controlled asthma was achieved or thehighest dose of study drug reached (salmeterol/ﬂuticasone 50/500 /H9262g
+twice a day or ﬂuticasone 500 /H9262g twice a day). In strata 1 and 2, there
+were a maximum of three treatment steps: salmeterol/ﬂuticasone 50/100, 50/250, 50/500 /H9262g twice a day or ﬂuticasone 100, 250, 500 /H9262g twice
+a day. In stratum 3, there were up to two treatment steps: salmeterol/ﬂuticasone 50/250, 50/500 /H9262g twice a day or ﬂuticasone 250, 500 /H9262g
+twice a day.
+Patients entered phase II either after achieving totally controlled
+asthma or after 12 weeks on the maximum dose of study medication.During phase II, patients remained on the dose at which they achievedtotally controlled asthma or the maximum dose of study medicationuntil the end of the 1-year double-blind treatment period. To assessthe potential incremental effect of time on attainment of control, partic-ularly in those not achieving the target level of totally controlled asthma,no stepdown in treatment was performed during phase II.
+Patients who failed to achieve totally controlled asthma in phase I
+were reassessed at the end of phase II (Weeks 44–52). Those that stillhad not achieved totally controlled asthma at this time entered a4-week, open-label phase during which all patients, regardless of initialrandomization, were given oral prednisolone (0.5 mg/kg up to 60 mg/dayfor 10 days) and salmeterol/ﬂuticasone 50/500 /H9262g twice a day for 4 weeks.
+Patients
+Patients recruited by investigators from general practice and hospital
+clinics were 12 years old or more and less than 80 years old with atleast a 6-month history of asthma, a demonstrated improvement inFEV
+1of 15% or more (and /H11091200 ml) after inhalation of a short-acting
+/H92522-agonist documented within the previous 6 months or as assessed
+during run-in, a smoking history of less than 10 pack-years, and no useof long-acting inhaled or oral /H9252
+2-agonists within the previous 2 weeks.
+The study was approved by local research ethics committees, and allpatients or their guardians gave written informed consent.
+Outcomes
+Control was assessed over an 8-week period before each clinic visit atWeeks 12, 24, 36, and 52. The primary objective was to determinethe proportion of patients who achieved well-controlled asthma withsalmeterol/ﬂuticasone combination compared with ﬂuticasone aloneduring phase I. Additional end points included the cumulative propor-tion of patients achieving control in phase II, the dose of inhaled cortico-
+steroid and time required to achieve the ﬁrst well-controlled week;proportion of patients and dose to achieve totally controlled asthma;the time to achieve the ﬁrst totally controlled week; asthma quality oflife (using the Asthma Quality of Life Questionnaire [AQLQ]) (28); therate of exacerbations (requiring oral corticosteroids, hospitalizations oremergency visits); and morning predose clinic FEV
+1. Adverse event
+information was collected at each clinic visit, and 24-hour urinary corti-sols were collected in all patients attending study centers in the UnitedStates and Canada. Information on study design and analysis of resultsis provided in the online supplement.
+RESULTS
+Subject Characteristics
+A total of 5,068 patients from 326 centers in 44 countries were
+screened: 3,421 qualiﬁed for inclusion. Baseline characteristicsof the intention-to-treat population (3,416) were comparablebetween treatment groups within each stratum (Table 2 andTable E1 of the online supplement). A total of 3,039 patientscompleted phase I, and 2,890 completed phase II. Reasons forwithdrawal from each phase were adverse events (57 and 17patients in phases I and II, respectively), consent withdrawn (81and 30), lost to follow-up (74 and 37), asthma exacerbation (10and 3), ineligible for the study, protocol violation, or unevaluabledata (98 and 19), and other (57 and 43). Of the 1,659 patientswho had not achieved totally controlled asthma in either phaseI or phase II and were therefore eligible for the 4-week open-label phase, 157 were withdrawn before entry, and 22 werewithdrawn during the 4 weeks. Reasons for withdrawal wereadverse events (3 and 4 patients before or during the 4 weeks,respectively), consent withdrawn (6 and 2), lost to follow-up(3 and 8), protocol violation or unevaluable data (15 and 3), andother (130 and 5), which included a reluctance to take oralcorticosteroids ( seeFigure E2 of the online supplement). Com-
+pliance (the proportion of patients who used /H1109180% of study
+medication, as assessed using the dose counter on the Diskus/
+Accuhaler; GlaxoSmithKline) during the blinded phases was89% for both treatment groups.
+Effect of Treatment on Achievement of Guideline-defined
+Asthma Control
+For all strata, the proportion of patients who achieved well-
+controlled and totally controlled asthma at the end of phase I
+ 
+
+838 AMERICAN JOURNAL OF RESPIRATORY AND CRITICAL CARE MEDICINE VOL 170 2004
+TABLE 2. BASELINE CHARACTERISTICS OF INTENTION-TO-TREAT POPULATION FOR EACH STRATUM
+Strata Stratum 1 Stratum 2 Stratum 3
+(/H11088500/H9262g BDP or Equivalent ( /H11022500 to /H110881,000/H9262g BDP or
+(Inhaled Corticosteroid Use in Previous 6 Months) (No Inhaled Corticosteroid) Daily) Equivalent Daily)
+SFC FP SFC FP SFC FP
+n 548 550 585 578 576 579Mean age, yr (SD) 36.1 (15.6) 36.4 (15.6) 40.4 (16.4) 40.3 (16.6) 44.1 (15.9) 42.7 (15.7)Range 12–80 12–82 12–78 9–80 12–83 12–80Sex, % female 57 57 58 60 57 59Atopy, % 57 54 60 58 63 58Mean prebronchodilator FEV
+1, L (SD) 2.5 (0.87) 2.5 (0.85) 2.4 (0.83) 2.4 (0.80) 2.3 (0.82) 2.3 (0.79)
+% predicted (SD) 77 (18.7) 79 (18.8) 78 (18.2) 77 (18.4) 75 (18.6) 76 (17.6)Mean morning PEF, L/min (SD) 344 (91.2) 345 (92.8) 349 (98.4) 344 (93.6) 345 (98.7) 348 (96.3)% Predicted (SD) 76 (14.6) 77 (14.4) 78 (16.1) 78 (16.3) 78 (16.0) 79 (16.2)Reversibility,* median % (interquartile range) 23 (15.8) 22 (12.2) 22 (13.4) 22 (13.3) 23 (12.8) 22 (12.8)Rescue medication, mean occasions/day, (SD) 1.9 (1.7) 1.7 (1.4) 1.7 (1.5) 1.7 (1.4) 1.9 (1.5) 1.9 (1.4)Mean daily symptom score,
+†(SD) 1.8 (0.8) 1.7 (0.9) 1.8 (0.9) 1.8 (0.9) 1.9 (0.9) 1.9 (0.9)
+Nighttime awakenings, mean occasions/night (SD) 0.6 (0.7) 0.6 (0.6) 0.4 (0.6) 0.4 (0.5) 0.5 (0.6) 0.5 (0.6)Exacerbation rate
+‡(SD) 0.4 (1.4) 0.3 (0.8) 0.6 (1.3) 0.5 (1.0) 0.7 (1.2) 0.7 (1.5)
+Definition of abbreviations : BDP/H11005beclomethasone dipropionate; FP /H11005fluticasone propionate; SFC /H11005salmeterol/fluticasone combination.
+* Reversibility for those patients in whom it was measured during run-in.
+†Symptom score: 0 (none)–5 (severe).
+‡Documented episodes of hospitalization and/or course of oral steroids or antibiotics for the treatment of an exacerbation of asthma during the past 1 2 months.
+of the study was signiﬁcantly greater for salmeterol/ﬂuticasone
+compared with ﬂuticasone. Well-controlled asthma was achievedin 71% and 65% of patients for salmeterol/ﬂuticasone and ﬂuti-casone, respectively, in stratum 1 (odds ratio [OR], 1.32; 95%conﬁdence interval [CI], 1.01–1.73; p /H110050.039), 69% and 52%
+in stratum 2 (OR, 2.13; 95% CI, 1.65–2.74; p /H110210.001), and 51%
+and 33% in stratum 3 (OR, 2.25; 95% CI, 1.75–2.90; p /H110210.001)
+(Figure 1A).
+In phase I, totally controlled asthma was achieved in 42%
+and 31% of patients for salmeterol/ﬂuticasone and ﬂuticasone,
+respectively, in stratum 1 (OR, 1.71; 95% CI, 1.30–2.24; p /H11021
+0.001), 32% and 20% in stratum 2 (OR, 2.07; 95% CI, 1.56–2.76;p/H110210.001), and 19% and 8% in stratum 3 (OR, 2.90; 95% CI,
+1.98–4.26; p /H110210.001) (Figure 1B).
+In each stratum, the proportion of patients achieving control
+at the same or a lower dose of inhaled corticosteroid was greaterfor those treated with salmeterol/ﬂuticasone. A similar numberof patients were able to achieve control with the lowest dose ofsalmeterol/ﬂuticasone compared with up to 250 /H9262g of ﬂuticasone
+alone (Figures 1A and 1B). The odds of achieving well-controlledand totally controlled asthma at the same or lower dose ofinhaled corticosteroid for salmeterol/ﬂuticasone versus ﬂutica-sone in stratum 1 increased by at least 40% (well controlled:OR, 1.40; 95% CI, 1.12–1.76; p /H110050.003; totally controlled: OR,
+1.78; 95% CI, 1.38–2.30; p /H110210.001) and was more than double
+in both stratum 2 (well controlled: OR, 2.20; 95% CI, 1.77–2.74;p/H110210.001; and totally controlled: OR, 2.19; 95% CI, 1.66–2.89;
+p/H110210.001) and stratum 3 (well controlled: OR, 2.32; 95% CI,
+1.82–2.95; p /H110210.001; and totally controlled: OR, 2.95; 95% CI,
+2.01–4.33; p /H110210.001). Of those patients that achieved either
+well-controlled or totally controlled asthma, most (well con-trolled: 60%, 45%, and 50%; and totally controlled: 40%, 40%,and 53% for strata 1, 2, and 3, respectively) did so at the lowestdose of combination treatment used for the stratum; however,because fewer than half of the entire study population achievedtotally controlled asthma during phase I, most patients com-pleted the trial on the highest dose of salmeterol/ﬂuticasone orﬂuticasone (311 [57%] and 345 [63%] in stratum 1, 367 [63%]and 443 [77%] in stratum 2, and 492 [85%] and 510 [88%] instratum 3 for salmeterol/ﬂuticasone and ﬂuticasone propionate,
+respectively).
+Analysis of time to asthma control, deﬁned as the time to
+the ﬁrst well-controlled week or totally controlled week duringWeeks 1–12, showed that control was achieved signiﬁcantlyfaster with salmeterol/ﬂuticasone compared with ﬂuticasonealone (all strata p /H110880.002). The week by which 50% of patients
+achieved their ﬁrst well-controlled week was Week 3 versusWeek 4 for salmeterol/ﬂuticasone and ﬂuticasone, respectively,in stratum 1, Week 2 versus Week 7 in stratum 2, and Week 5versus Week 10 in stratum 3 (all p /H110210.001). The week by which
+50% of patients achieved their ﬁrst totally controlled week overthe 1-year study period was Week 16 versus Week 24 for salmet-erol/ﬂuticasone and ﬂuticasone, respectively, in stratum 1, Week21 versus Week 45 in stratum 2, and Week 38 for salmeterol/ﬂuticasone in stratum 3. For ﬂuticasone, this could not be calcu-lated, as less than 50% of patients achieved a totally controlledweek in stratum 3 on ﬂuticasone alone.
+Longitudinal Effect of Treatment on Achieving
+Guideline-defined Asthma Control
+During the constant dose phase (phase II), additional patients
+achieved both well-controlled and totally controlled asthma (Fig-ures 1A and 1B). The cumulative proportion of patients achiev-ing well-controlled asthma at the end of phase II were as follows:stratum 1, 78% on salmeterol/ﬂuticasone and 70% on ﬂuticasone(p/H110050.003); stratum 2, 75% and 60%, respectively (p /H110210.001);
+and stratum 3, 62% and 47% (p /H110210.001). The results for totally
+controlled asthma by the end of phase II were stratum 1, 50%on salmeterol/ﬂuticasone and 40% on ﬂuticasone; stratum 2,44% and 28%, respectively; and stratum 3, 29% and 16% (allstrata p /H110210.001). Control was also sustained; the majority of
+patients who achieved control in phase I were also controlledat the end of phase II: 77–83% across strata of patients onsalmeterol/ﬂuticasone and 75–77% on ﬂuticasone remained wellcontrolled in phase II and 69–70% and 62–74%, respectively,maintained totally controlled asthma.
+Figure 2 shows the proportion of patients (noncumulative)
+who achieved well-controlled asthma status for a single week
+ 
+
+Bateman, Boushey, Bousquet, et al. : Gaining Optimal Asthma Control 839
+Figure 1. Proportion of patients and dose at which ( A) well-controlled
+and ( B) totally controlled asthma was achieved by treatment with sal-
+meterol/fluticasone (SFC) or fluticasone propionate (FP) across all strata(1–3), according to the use of inhaled corticosteroid (ICS) such as beclo-methasone dipropionate (BDP) or equivalent in the previous 6 months.(A) Well-controlled asthma. For SFC versus FP: phase I: stratum 1, p /H11005
+0.039, strata 2 and 3, p /H110210.001; cumulative phase I and phase II:
+stratum 1, p /H110050.003, strata 2 and 3, p /H110210.001. ( B) Totally controlled
+asthma. phase I: all strata, p /H110210.001; cumulative phase I and phase
+II: all strata p /H110210.001. *Excludes patients with missing baseline FEV
+1.
+(a well-controlled week) in each week of the study. This in-
+creased progressively during the study and reached 1,142 (77%)for salmeterol/ﬂuticasone and 966 (68%) for ﬂuticasone acrossall strata.
+Effect of Oral Corticosteroids and High-dose Combination
+Therapy in Patients not Totally Controlled at the Endof the Study
+An additional 40 (7%), 52 (9%), and 59 (10%) patients of those
+previously on ﬂuticasone alone who had not achieved well con-trolled asthma in phase I or phase II achieved it during themaximum treatment phase with oral corticosteroids plus salmet-erol/ﬂuticasone 50/500 (in strata 1–3, respectively). Similarly, anadditional 35 (6%), 54 (9%), and 63 (11%) patients who hadnot achieved totally controlled asthma in phase I or phase IIachieved it during the maximum treatment phase. Of those pa-tients previously on salmeterol/ﬂuticasone, an additional 25(5%), 23 (4%), and 39 (7%) patients achieved well-controlledstatus, and 25 (5%), 37 (6%), and 31 (5%) achieved totallycontrolled asthma with the addition of oral corticosteroids instrata 1–3, respectively.
+Figure 2. Proportion of patients achieving a well-controlled week (non-
+cumulative) over Weeks /H110024 to 52 for all strata combined on treatment
+with salmeterol/fluticasone or fluticasone propionate.
+Effect of Treatments on Exacerbations
+The mean annual rates of exacerbations requiring oral cortico-
+steroids and/or hospitalization or emergency visits were low inboth treatment groups but were signiﬁcantly lower in the salmet-
+erol/ﬂuticasone group in each stratum (p /H110880.009) (Figure 3).
+In all strata, there was a consistent trend for a reduction in theannualized rate of exacerbations in phase II compared with theexacerbation rates in phase I ( seeonline supplement Figure
+E3). This was seen even when allowing for patients who hadwithdrawn during the study. For patients achieving totally con-trolled and well-controlled asthma in phase I, the annualizedexacerbation rates in phase II were 0.05 and 0.13, respectively;in contrast, the annualized exacerbation rate for those notachieving at least well-controlled asthma was 0.23 (all strata,both treatments combined).
+Figure 3. Mean rate of exacerbations requiring either oral steroids or
+hospitalization/emergency visit per patient per year over Weeks 1–52among patients treated with salmeterol/fluticasone or fluticasone propi-onate according to use of ICS in previous 6 months (S1–S3). p /H110880.009
+salmeterol/fluticasone versus fluticasone propionate, all strata.
+ 
+
+840 AMERICAN JOURNAL OF RESPIRATORY AND CRITICAL CARE MEDICINE VOL 170 2004
+Effect of Treatments on Asthma Quality of Life
+Overall AQLQ scores improved in both groups throughout the
+study, with a statistically signiﬁcant difference in favor of salmet-erol/ﬂuticasone in strata 2 and 3 (Table 3). The proportion ofpatients who achieved near-maximal mean overall AQLQ scores(/H110916) increased from 6–10% at baseline to 62% versus 62% (salmet-
+erol/ﬂuticasone versus ﬂuticasone) in stratum 1; 64% versus 53%in stratum 2; and 57% versus 45% in stratum 3 at Week 52. Therewas a trend for higher quality of life scores in patients who gainedcontrol. Achieving totally controlled and well-controlled asthmain phase I was associated with mean overall AQLQ scores of 6.4and 6.1, respectively, in phase II; in contrast, the mean overallAQLQ score for those not achieving at least well-controlled asthmawas 5.3 (all strata, both treatments combined).
+Effect of Treatments on FEV 1Values
+The mean morning prebronchodilator FEV 1increased in both
+groups, with signiﬁcantly larger improvements in the salmeterol/ﬂuticasone group (Table 3). For patients achieving totally con-trolled and well-controlled asthma in phase I, the percentagepredicted FEV
+1at phase II endpoints were 94% and 87%, respec-
+tively; for those not achieving at least well-controlled asthma, thepercentage predicted FEV
+1was 82% (all strata, both treatments
+combined).
+Adverse Events and Urinary Cortisol
+Serious adverse events were observed during the double-blindperiod in 4% and 3% of patients in the salmeterol/ﬂuticasoneand ﬂuticasone arms, respectively. The most common serious
+adverse events (not necessarily related to treatment) across allstrata were asthma, occurring in 8 ( /H110211%) and 12 ( /H110211%) of
+TABLE 3. MEAN MORNING PREDOSE FEV 1AND ASTHMA QUALITY OF LIFE QUESTIONNAIRE SCORE IN PHASES I AND II
+Strata Stratum 1 Stratum 2 Stratum 3
+(/H11088500/H9262g BDP or Equivalent ( /H11022500 to /H110881,000 /H9262g BDP or
+(Inhaled Corticosteroid Use in Previous 6 Months) (No Inhaled Corticosteroid) Daily) Equivalent Daily)
+SFC FP SFC FP SFC FP
+FEV 1
+n 533 531 572 564 561 555Baseline, L (SD) 2.48 (0.85) 2.52 (0.85) 2.42 (0.83) 2.38 (0.80) 2.28 (0.82) 2.33 (0.79)% predicted (SD) 76 (18.14) 79 (18.83) 78 (18.17) 77 (18.34) 75 (18.55) 76 (17.44)Phase I: adjusted mean change (SE) 0.45 (0.02) 0.31 (0.02) 0.35 (0.02) 0.22 (0.02) 0.29 (0.02) 0.17 (0.02)
+SFC minus FP, (SE) 0.14 (0.03) 0.13 (0.02) 0.12 (0.02)95% CI 0.09, 0.20 0.09, 0.18 0.07, 0.17p Value /H110210.001 /H110210.001 /H110210.001
+Phase II: adjusted mean change (SE) 0.52 (0.02) 0.34 (0.02) 0.37 (0.02) 0.24 (0.02) 0.32 (0.02) 0.18 (0.02)
+SFC minus FP, (SE) 0.17 (0.03) 0.13 (0.02) 0.14 (0.03)95% CI 0.12, 0.22 0.08, 0.18 0.09, 0.19p Value /H110210.001 /H110210.001 /H110210.001
+Mean overall AQLQ score
+n 282 275 339 331 346 345Baseline (SD) 4.4 (1.0) 4.5 (1.0) 4.7 (1.1) 4.5 (1.0) 4.5 (1.0) 4.5 (1.0)Phase I (SD) 5.9 (1.0) 5.8 (1.0) 5.9 (1.0) 5.6 (1.0) 5.6 (1.2) 5.4 (1.1)Phase I: adjusted mean change (SE) 1.5 (0.1) 1.3 (0.1) 1.3 (0.1) 1.0 (0.1) 1.1 (0.1) 0.8 (0.1)
+SFC minus FP (SE) 0.2 (0.1) 0.3 (0.1) 0.2 (0.1)95% CI 0.0, 0.3 0.1, 0.4 0.1, 0.3p Value 0.053 /H110210.001 0.005
+Phase II (SD) 6.0 (1.0) 5.9 (1.1) 6.0 (1.0) 5.8 (1.1) 5.7 (1.2) 5.5 (1.1)Phase II: adjusted mean change (SE) 1.6 (0.1) 1.4 (0.1) 1.3 (0.1) 1.2 (0.1) 1.2 (0.1) 1.0 (0.1)
+SFC minus FP (SE) 0.1 (0.1) 0.2 (0.1) 0.2 (0.1)95% CI 0.0, 0.3 0.1, 0.3 0.1, 0.3p Value 0.081 0.008 0.006
+Definition of abbreviations : AQLQ /H11005Asthma Quality of Life Questionnaire; BDP /H11005beclomethasone dipropionate; CI /H11005confidence interval; FP /H11005fluticasone propionate;
+SFC/H11005salmeterol/fluticasone combination.patients, respectively, and pneumonia, occurring in 6 ( /H110211%)
+and 2 ( /H110211%) of patients. The most common adverse events
+(recorded in /H110915% of patients in either treatment group overall)
+across all strata were nasopharyngitis (13% in salmeterol/ﬂuti-casone group and 14% in ﬂuticasone group), upper respiratorytract infection (13% in both groups), headache (5% and 7%),sinusitis (5% and 4%), and inﬂuenza (5% and 4%). The overallincidence of drug-related adverse events was 10% in each group.The most common drug-related adverse events across all stratawere oral candidal infections (3% in both groups), hoarseness(3% on salmeterol/ﬂuticasone and 2% on ﬂuticasone), and pha-
+ryngolaryngeal pain ( /H110211% and 1%, respectively). In the subset
+of patients in which cortisol data were available at baseline andat Week 52 (n /H11005194), the geometric mean of the cortisol/
+creatinine ratio (nmol/mmol) at these time points was 3.74 versus3.04 for salmeterol/ﬂuticasone (n /H11005102) and 3.92 versus 2.85 for
+ﬂuticasone (n /H1100592). No statistical differences between treatments
+at Week 52 were observed (p /H110050.318; 95% CI, 0.92, 1.31). For
+patients who received the highest dose of corticosteroid (500 /H9262g
+twice a day), the geometric means were 3.76 versus 2.90 forsalmeterol/ﬂuticasone (n /H1100582) and 3.82 versus 2.73 for ﬂutica-
+sone (n /H1100584). Despite these decreases ( seeFigure E4 in the
+online supplement), the majority of patients (92%) had normalor high values at Week 52. Seven of 102 patients on salmeterol/ﬂuticasone and 8 of 92 on ﬂuticasone had ﬁnal values below thelower limit of the normal range, whereas 7 salmeterol/ﬂuticasoneand 5 ﬂuticasone patients with initially low urinary 24-hour freecortisol values returned to normal.
+DISCUSSION
+Our results demonstrate that in the majority of patients with uncon-trolled asthma across a wide range of severities, comprehensive
+ 
+
+Bateman, Boushey, Bousquet, et al. : Gaining Optimal Asthma Control 841
+guideline-deﬁned control can be achieved and maintained. More
+patients achieved both totally controlled and well-controlledasthma with combination inhaled salmeterol/ﬂuticasone more rap-idly and at a lower dose of corticosteroid than with inhaled ﬂutica-sone alone. Patients that achieved control recorded very low
+rates of exacerbations and near-maximal health status scores.Furthermore, in stepping up treatment in an attempt to achieveguideline-deﬁned total control, even those patients who did notattain our stringent deﬁnitions of control showed considerableimprovements in health status and a reduction in exacerbationrates. The overall AQLQ score for all groups and strata ap-proached or surpassed the value of 6, suggesting that asthma nolonger had a signiﬁcant impact on quality of life, and AQLQscores were higher for salmeterol/ﬂuticasone than for ﬂuticasone(10, 28). A greater degree of improvement was also seen in lungfunction; morning FEV
+1improved to within a range considered
+normal. The absence of a reference group prevents a formalassessment of the improvement in these measures, but comparedwith rates and measures recorded before study entry, the im-provements appear substantial, with a consistent trend for fur-ther improvement in the maintenance dose phase.
+Because no widely accepted measures of asthma control were
+available, two composite measures from the Global Initiativefor Asthma/National Institutes of Health guideline goals of treat-ment were developed and proposed as targets for control. Assingle measures are likely to overestimate control, a compositemeasure was selected to assess the total impact of this diseaseon patients (9). Totally controlled asthma was the completeabsence of all features of asthma for at least 7 of 8 weeks.Well controlled was a pragmatic adaptation based on what ispermitted by the guidelines as control, also sustained for at least7 of 8 weeks. Such stringent and sustained measures of asthmacontrol have never previously been assessed in a clinical trial.The results of our study suggest that total control should be theaim of treatment for all asthma patients. It is a realistic outcomefor corticosteroid-naı ¨ve patients, and although it may not be
+achieved by the majority of patients previously on moderate orhigh doses of inhaled corticosteroids, by stepping up treatmentand aiming for total control of asthma, considerable beneﬁtsare achieved in almost all patients. This is particularly true forexacerbations, which were virtually eliminated in patients whoachieved guideline-deﬁned control (either total control or wellcontrolled).
+Because the focus of this study was to establish the proportion
+of patients with asthma that could achieve the target level ofcontrol, even if this took several months, the approach adoptedwas to continue treatment for the full duration of the trial andnot step-down, as recommended in the guidelines. This alsopermitted evaluation of incremental beneﬁt (in secondary out-comes), both in those that reached this level and those that didnot. During sustained treatment, a further 8 to 12% achievedtotally controlled asthma, and further improvements in FEV
+1,
+exacerbation rates, and quality of life were observed, particularlyin those that attained totally controlled asthma. This delayedrealization of the full beneﬁts of treatment may reﬂect a moregradual resolution of the airway inﬂammation with prolonged
+dosing (29, 30). This effect is suggested by the results of theopen-label phase in which relatively few patients beneﬁted fromthe additional “maximum” treatment with 10 days of high-doseoral corticosteroid and 4 weeks of salmeterol/ﬂuticasone 50/500/H9262g twice a day. Those who showed a response in this phase
+were predominantly patients who had not previously receivedsalmeterol/fluticasone. This ﬁnding suggests that the treatmentsand dosing approach had achieved as much as, or close to maxi-mum beneﬁt, at least as far as clinical total control is concerned.However, it must be recognized that some of the reasons fornonattainment of this level were technical (such as patients with
+missing data) and potentially diagnostic errors. In addition, thetarget threshold value for PEF of 80% of predicted used in thedeﬁnition of control was a pragmatic interpretation of the GlobalInitiative for Asthma goal of achieving “normal or near-normal”lung function and for some patients might have been undulystrict. Even among those that failed to achieve the prescribeddeﬁnitions of control, clinical beneﬁt was considerable, as judgedby the group mean data of individual end points, such as lungfunction and health status. Because for ethical reasons the studywas not placebo controlled, the potential placebo effect of parti-cipation in a study on attainment of asthma control (resulting,e.g., from improved adherence to treatment) cannot be evaluated.This would not be expected to affect treatment comparisons. Fur-ther analysis of factors that might potentially be associated withno-attainment of asthma control, such as cigarette smoking history(31, 32), age, atopy, sex, and duration of asthma is required.
+The greater beneﬁt of the salmeterol/ﬂuticasone combination
+over inhaled ﬂuticasone alone is consistent with the results ofmany clinical trials (33, 34), but this is the ﬁrst study to demonstrateits advantage in achieving comprehensive sustained asthma con-trol. D ifferences between treatments were apparent for each end
+point: the number that achieved control, the dose of corticoste-roid at which control was achieved, and the time to ﬁrst controlweek. In addition, salmeterol/ﬂuticasone was more effective thanﬂuticasone in achieving improvement in all secondary end points,irrespective of whether patients achieved the predeﬁned levelsof control. The greater improvements noted with salmeterol/ﬂuticasone over ﬂuticasone alone were maintained over the dura-tion of the trial with no evidence of the ﬂuticasone alone group“catching up.” Such results further conﬁrm the beneﬁts of theaddition of salmeterol to inhaled corticosteroids. These differ-ences in treatment effect were consistently seen across all levelsof baseline therapy, even those patients entering the study ascorticosteroid-naı ¨ve or corticosteroid-free. The greater efﬁcacy
+of combination therapy in patients who were corticosteroid-naı ¨ve
+contrasts with a previous report in which little additional beneﬁtwas found with the addition of the long-acting /H9252
+2-agonist formot-
+erol to the inhaled corticosteroid budesonide in subjects whowere corticosteroid-naı ¨ve with mild disease (35). This difference
+may be accounted for by differences in patient selection (withOPTIMA recruiting patients with very mild asthma), treatmentapproach (as treatments were stepped up, if required, in GOALas opposed to using ﬁxed doses), and outcome selection (withGOAL using a rigorous composite measure).
+Application of these ﬁndings to the management of patients
+with asthma in general is strengthened by the large size of thisstudy, which involved subjects over a wide range of age, geo-graphic location, ethnicity, and baseline treatment. The require-ment for reversibility of at least 15% was to ensure that patientswith asthma were selected, as is generally required in asthmatreatment trials. It is recognized that this may limit the applicabil-ity of the results to patients who do not demonstrate this charac-teristic feature. The high median reversibility obtained likelyreﬂects the fact that short-acting /H9252
+2-agonists were withheld for
+at least 6 hours before reversibility testing and patients were on
+no other bronchodilators. Furthermore, the aim of recruitmentwas to enroll patients who had failed to achieve guideline-deﬁnedcontrol; evidence from recent surveys has shown that over 95%of patients with asthma failed to achieve this (6). A surprisingfeature was the similarity of baseline characteristics across thestrata. This may be explained by the fact that only patients withuncontrolled asthma were recruited, and patients with differentlevels of severity might tolerate similar levels of symptoms andtake just enough treatment to maintain themselves at that level(6, 8, 36).
+ 
+
+842 AMERICAN JOURNAL OF RESPIRATORY AND CRITICAL CARE MEDICINE VOL 170 2004
+Treatment guidelines recommend either a stepwise increase
+in treatment or starting with a high dose and then stepping downonce control is achieved. A stepwise increase in treatment wasused for all three strata. While the aim of this study was not tocompare the stepwise approach to the high-dose approach, in eachstratum, it was observed that between 40% and 53% of patientsreached totally controlled asthma at the lowest dose of inhaledﬂuticasone when used in combination with salmeterol. Similarly,no attempt was made to step down treatment once control wasachieved, as proposed in treatment guidelines. This aspect of treat-ment, although widely used, has not been well researched.
+A study by Reddel and colleagues (30) has shown that reliever
+use, airway hyperresponsiveness, and overall asthma control(though less stringently deﬁned than in GOAL) continued to im-prove during inhaled corticosteroid down titration. The results
+from our study suggest that additional beneﬁt may be derivedfrom sustaining regular treatment for up to 6 to 9 months (theduration of the trial) without stepping down; however, the ab-sence of control arms employing step-down routines in GOALprevents conclusions about whether this is an effect of prolongedtreatment or of sustained dose. Further studies are required.
+As the aim of treatment in this study was total control, it
+called for step up of treatment even though patients had become“well controlled.” For this reason, a majority ended the studyon the highest dose of treatment (68% of patients on salmeterol/ﬂuticasone and 76% of patients on ﬂuticasone; all strata). Be-cause the dose–response relationship for inhaled corticosteroidsin asthma is relatively ﬂat, the beneﬁts of increasing the doserelative to risk diminish as the dose is increased. In relationshipto beneﬁt, the sustained treatment at higher doses enabled morepatients to achieve the goal. However, there was also potentialfor additional adverse effects, particularly because the treatmentwas not stepped down once control was achieved. It is thereforesigniﬁcant that the overall frequency and nature of self-reportedadverse events were similar to most other trials involving inhaledcorticosteroids in asthma and predominantly affected the upperrespiratory tract (33, 34, 37). In clinical practice, the decision onwhether to aim for total control in patients who have reacheda lesser level of control when this involves doubling the dose ofcontroller treatment will need to be made on an individual basisin consultation with the patient.
+One strategy for minimizing the risk of adverse effects is to
+step down treatment when the desired level of control is achieved.Although recommended in guidelines (1, 2), step down has notbeen extensively studied and is largely based on expert opinion.In this study, treatment was sustained at a constant dose through-out phase II to assess whether control could be maintained, andthe study did not attempt to address the matter of step down.Sustained treatment carries the risk of other long-term effectsthat might take years to become signiﬁcant. These include adre-nocortical suppression and reduced bone mineral density. Thedoses of inhaled corticosteroids used in this study were thosefor which registration has been obtained and for which extensivesafety data are available. For this reason, examination of theseeffects was restricted to a comparison of 24-hour urinary cortisollevels (a sensitive indicator of suppression) in a subset of patients.
+Interpretation of these results needs to consider a number ofstudy design variables, including the corticosteroid dose on studyentry and treatment duration at each dose. Consistent with otherstudies (38, 39) with ﬂuticasone at similar doses, lowering ofmean levels of 24-urinary cortisol was evident, but the valuesremained within or above the normal range in most patients(92%). There was also no difference between treatments, inspite of the larger number of patients in the salmeterol/ﬂutica-sone group that did not require the highest dose. Taken together,these results conﬁrm an effect of inhaled corticosteroids on thehypothalamic–pituitary–adrenal axis, but in none was this associ-
+ated with clinical evidence of adrenal suppression.
+The recommendation that total control should be the aim of
+management for all patients with persistent asthma is based onthe fact that, as demonstrated in this study, it is achievable in aconsiderable proportion of patients (41%; all strata) and that itis associated not only with the greatest improvement in usualasthma end points but also results in a majority of patientsachieving health status that approaches complete freedom fromthe impact of asthma (asthmatic but without asthma). Addition-ally, asthma exacerbations are reduced to levels that are arguablyas low as might be expected. As a treatment strategy, aiming attotal control brings asthma management in line with approachesused in other chronic diseases, for example, sustained glycemiccontrol in diabetes or ideal blood pressure in hypertension. Thismay serve to raise the expectations of patients and physiciansand help to address the problem of the relatively poor level ofcare and of asthma control currently being experienced by pa-tients with asthma worldwide (4–6).
+In summary, this study has shown that guideline-deﬁned con-
+trol of asthma can be achieved in the majority of patients withuncontrolled asthma with combination salmeterol/ﬂuticasone treat-ment. This approach should be the preferred treatment selectionfor patients whose asthma is uncontrolled, regardless of theirprevious inhaled corticosteroid regimen. Salmeterol/ﬂuticasoneachieves sustained control of asthma as deﬁned by a compositeof relevant clinical goals of treatment in more patients, morerapidly and at a lower dose of inhaled corticosteroids than ﬂuti-casone alone. In addition, the approach of aiming for total con-trol and maintaining treatment resulted in the virtual eliminationof exacerbations and near-normal quality of life in the majorityof patients and brought substantial beneﬁt even to those whofailed to achieve this high level of control.
+Conflict of Interest Statement :E.D.B. has received honoraria for speaking at scien-
+tific meetings and courses financed by AstraZeneca in 2003 and GlaxoSmithKline(GSK) in 2002 and 2003 and has served on Advisory Boards for AstraZeneca,Boehringer Ingelheim and GSK; H.A.B. has received the following payments fromGSK ($1,399 in 2004 for speaking at an Advisory Board meeting and $7,000 in2003 for chairing and lecturing in a Master Class and at a speakers summit), andas per University of California at San Francisco policy, consulting fees are paid to
+his department; J.B. has been reimbursed by GSK for attending several conferencesas a speaker and received a total honorarium of €13,000 for the past 3 years and
+has been a member of the GSK Advisory Board and received a total honorariumof€13,000 for 2001 and 2002; W.W.B. has received consultancy fees for the
+past 3 years from the following companies with a total consultancy fee for these3 years for Bristol-Myers Squibb ($2,000), Dynavax ($3,000), Hoffman La Roche($2,000), Schering ($3,000 for 2002–2003), and Fujisawa ($3,000) and has alsoserved on Advisory Boards in various capacities over the past three years (2001–2003) with the following reimbursements for GSK ($8,500), Aventis ($2,000),Schering ($4,000), Pfizer ($4,000 for 2004), and AstraZeneca ($2,000) and hasalso received honorarium for speaking or other educational activities in the past3 years from Merck ($7,000 for 2003), GSK ($2,500 for 2003), and Aventis ($2,500for 2003) and has received industry-sponsored support for research from GSK($750,000 for 2002 and 2003) and for participation in multicenter trials forFujisawa ($250,000 for 2002 and 2003), GSK ($500,000 for 2001–2003), Aventis($2000,000 for 2001–2003), Hoffman LaRoche ($120,000 for 2002), Pfizer($100,000 for 2003), Genetech/Novartis ($100,000 for 2002 and 2003), andMerck ($100,000 for 2003); T.J.H.C. has received more than $10,000 per annumover the past 3 years to cover serving as a consultant to GSK as well as servingon advisory boards and giving lectures and has also participated as a speaker atscientific meetings organized and financed by AstraZeneca and Merck, Sharp,and Dohme; R.A.P. has received money from various pharmaceutical companiesfor serving as a consultant for Almirall Prodesfarma ($10,000 in 2003), Altana($10,000 in 2002), AstraZeneca ($10,000 in 2003, $10,000 in 2002, $10,000 in2001), Boehringer Ingelheim ($10,000 in 2003, $10,000 in 2002, $10,000 in 2001),GSK ($10,000 in 2003, $10,000 in 2002, $10,000 in 2001), Schering Plough($10,000 in 2001); S.E.P. has received €13,000 in 2001 and €12,000 in 2002 for
+speaking at scientific meetings or courses organized and financed by AstraZenecaand€8,000 in 2001 and €10,000 in 2002 for speaking at scientific meetings or
+courses organized and financed by GSK. The Regents of the University of Californiahas received payments from GlaxoSmithKline of $485,000 for research conductedunder Homer Boushey’s direction between 1999 and 2001 and made unrestrictedgifts for research and training of $8,323 in 2002 and $4,500 in 2003 and $2,371in 2004 and GSK also paid $7,390 to the Regents of the University of Californiafor Homer Boushey’s service on the Scientific Advisory Board for this study. The
+ 
+
+Bateman, Boushey, Bousquet, et al. : Gaining Optimal Asthma Control 843
+University of Denmark has received unrestricted grants from AstraZeneca
+(€14,000 in 2001) and GSK ( €120,000 in 2001, 2002, and 2003).
+Acknowledgment :The authors acknowledge the contribution of Professor Ann
+Woolcock who assisted with the study design. They thank the investigators andstaff at all study sites and at GlaxoSmithKline who helped to organize and runthe study and L. Frith, M. Gibbs, N. Gul, M. Ho, and D. Lawrence for assistancewith statistical analysis and compilation of the manuscript.
+References
+1. Global Initiative for Asthma (GINA). Global strategy for asthma man-
+agement and prevention: NHLBI/WHO Workshop Report. Bethesda:National Institutes of Health, National Heart, Lung and Blood Insti-tute; 2002. Publication No. 02–3659.
+2. British Thoracic Society (BTS) and Scottish Intercollegiate Guidelines
+Network. British guideline on the management of asthma. Thorax 2003;
+58:i1–i94.
+3. National Asthma Education and Prevention Program. Guidelines for the
+diagnosis and management of asthma: expert panel report 2. Bethesda:National Institutes of Health, National Heart, Lung and Blood Insti-tute; 1997. Publication No. 97–4051.
+4. Adams RJ, Fuhlbrigge A, Guilbert T, Lozano P, Martinez F. Inadequate
+use of asthma medication in the United States: results of the asthma inAmerica national population survey. J Allergy Clin Immunol 2002;110:
+58–64.
+5. Lai CKW, de Guia TS, Kim Y-Y, Kuo S-H, Mukhopadhyay A, Soriano
+JB, Trung PL, Zhong NS, Zainudin N, Zainudin BM. Asthma controlin the Asia-Paciﬁc region: the Asthma Insights and Reality in Asia-Paciﬁc Study. J Allergy Clin Immunol 2003;111:263–268.
+6. Rabe KF, Vermeire PA, Soriano J, Maier WC. Clinical management of
+asthma in 1999: the Asthma Insights and Reality in Europe (AIRE)study. Eur Respir J 2000;16:802–807.
+7. Holt S, Kljakovic M, Reid J. Asthma morbidity, control and treatment
+in New Zealand: results of the Patient Outcomes Management Survey(POMS), 2001. NZM e dJ 2003;116:U436.
+8. Jones KG, Bell J, Fehrenbach C, Pearce L, Grimley D, McCarthy TP.
+Understanding patient perceptions of asthma: results of the AsthmaControl and Expectations (ACE) survey. Int J Clin Pract 2002;56:89–93.
+9. Bateman ED, Bousquet J, Braunstein GL. Is overall asthma control being
+achieved? A hypothesis-generating study. Eur Respir J 2001;17:589–
+595.
+10. Bateman ED, Frith L, Braunstein GL. Achieving guideline-based asthma
+control: does the patient beneﬁt? Eur Respir J 2002;20:588–595.
+11. Global Initiative for Asthma (GINA). Pocket guide for asthma manage-
+ment and prevention. Bethesda: National Institutes of Health, NationalHeart, Lung, and Blood Institute; 1998. Publication No. 95–3659B.
+12. Bateman E, Boushey B, Bousquet J, Busse W, Clark T, Pauwels R,
+Pedersen S. Achievement of guideline-based asthma control with sal-meterol/ﬂuticasone propionate compared with ﬂuticasone propionatealone: results of the GOAL study [abstract]. 4th Triennial WorldAsthma Meeting Abstract Book, February 16–19, 2004. Bangkok,Thailand: Asthma Foundation of Thailand; 2004. p. 131.
+13. Boushey H, Bateman E, Bousquet J, Busse W, Clark T, Pauwels R,
+Pedersen S. Achieving total control of asthma with salmeterol/ﬂutica-sone propionate versus ﬂuticasone propionate alone: GOAL studyresults [abstract]. 4th Triennial World Asthma Meeting Abstract Book,February 16–19, 2004. Bangkok, Thailand: Asthma Foundation of
+Thailand; 2004. p. 132.
+14. Pedersen S, Bateman E, Boushey H, Bousquet J, Busse W, Clark T,
+Pauwels R. Aiming for guideline deﬁned total control of asthma im-proves one-year asthma outcomes: results of the GOAL study [ab-stract]. 4th Triennial World Asthma Meeting Abstract Book, February16–19, 2004. Bangkok, Thailand: Asthma Foundation of Thailand; 2004.p. 120.
+15. Busse W, Bateman E, Boushey H, Bousquet J, Clark T, Pauwels R,
+Pedersen S. Aiming to achieve total control with salmeterol/ﬂuticasonepropionate and ﬂuticasone propionate alone is well tolerated: GOAL1-year safety data [abstract]. 4th Triennial World Asthma MeetingAbstract Book, February 16–19, 2004. Bangkok, Thailand: AsthmaFoundation of Thailand; 2004. p. 138.
+16. Pauwels R, Bateman E, Boushey H, Bousquet J, Busse W, Clark T,
+Pedersen S. Addition of oral corticosteroids to combination therapyhas little impact on achieving total control of asthma [abstract]. 4thTriennial World Asthma Meeting Abstract Book, February 16–19,2004. Bangkok, Thailand: Asthma Foundation of Thailand; 2004. p.135.
+17. Busse W, Bateman E, Boushey H, Bousquet J, Clark T, Pauwels R,Pedersen S. Achieving GINA/NIH guideline-based asthma control with
+salmeterol/ﬂuticasone compared with ﬂuticasone alone: the results ofthe GOAL study . J Allergy Clin Immunol 2004;113(2 Suppl 1):S114.
+18. Pauwels R, Bateman E, Boushey H, Bousquet J, Busse W, Clark T,
+Pedersen S. Can total control of asthma be achieved? The results of theGOAL study. J Allergy Clin Immunol 2004;113(2 Suppl 1):S276–S277.
+19. Boushey H, Bateman E, Bousquet J, Busse W, Clark T, Pauwels R,
+Pedersen S. Improvements in asthma outcomes following 1 year oftreatment with salmeterol/ﬂuticasone or ﬂuticasone alone when
+stepped up to achieve guideline-deﬁned total control. J Allergy Clin
+Immunol 2004;113(2 Suppl 1):S114–S115.
+20. Clark T, Bateman E, Boushey H, Bousquet J, Busse W, Pauwels R,
+Pedersen S. Salmeterol/ﬂuticasone and ﬂuticasone alone are well toler-ated over 1 year of treatment stepped-up to achieve total control: safetyresults of the GOAL study. J Allergy Clin Immunol 2004;113(2 Suppl
+1):S115.
+21. Bousquet J, Bateman E, Boushey H, Busse W, Clark T, Pauwels R,
+Pedersen S. The effect of oral corticosteroids and high-dose combina-tion therapy on achieving control of refractory asthma. J Allergy Clin
+Immunol 2004;113(2 Suppl 1):S113.
+22. Clark T, Bateman E, Boushey H, Bousquet J, Busse W, Pauwels R,
+Pedersen S. Time course of achievement of individual clinical goalsof asthma treatment: the results of the GOAL study [abstract]. Am J
+Respir Crit Care Med 2004;169:A318.
+23. Pauwels R, Bateman E, Boushey H, Bousquet J, Busse W, Clark T,
+Pedersen S. Aiming for total control of asthma reduces the risk ofexacerbations: a comparison of salmeterol/ﬂuticasone propionate vsﬂuticasone propionate alone [abstract]. Am J Respir Crit Care Med
+2004;169:A87.
+24. Bateman E, Boushey H, Bousquet J, Busse W, Clark T, Pauwels R,
+Pedersen S. Achieving and maintaining guideline deﬁned asthma con-trol with salmeterol/ﬂuticasone propionate versus ﬂuticasone propio-nate alone: the results of the GOAL study [abstract]. Am J Respir
+Crit Care Med 2004;169:A87.
+25. Bateman E, Pauwels R, Boushey H, Bousquet J, Busse W, Clark T,
+Pedersen S. Aiming for total control of asthma signiﬁcantly improvesasthma-related quality of life: salmeterol/ﬂuticasone propionate versusﬂuticasone propionate alone. Am J Respir Crit Care Med 2004;169:A87.
+26. Clark TJH, Bateman ED, Boushey H, Bousquet J, Busse W, Pauwels
+R, Pedersen S. Aiming for total control of asthma in ICS-free patientsimproves traditional outcomes: results of the Gaining Optimal AsthmacontroL (GOAL) study [abstract]. 23rd Meeting of the EuropeanAcademy of Allergology and Clinical Immunology Meeting, June 12–16, 2004. Amsterdam, The Netherlands: 204. p. 669.
+27. Pedersen SE, Bateman ED, Boushey H, Bousquet J, Busse W, Clark T,
+Pauwels R. Aiming for total control of asthma in patients takinginhaled corticosteroids improves traditional outcomes: results of theGaining Optimal Asthma controL (GOAL) study [abstract]. 23rd Eu-ropean Academy of Allergology and Clinical Immunology MeetingAbstract Book, June 12–16, 2004. Amsterdam, The Netherlands: 204.p. 670.
+28. Juniper EF, Guyatt GH, Epstein RS, Ferrie PJ, Jaeschke R, Hiller TK.
+Evaluation of impairment of health related quality of life in asthma:development of a questionnaire for use in clinical trials. Thorax 1992;47:
+76–83.
+29. Ward C, Pais M, Bish R, Reid D, Feltis B, Johns D, Walters EH. Airway
+inﬂammation, basement membrane thickening and bronchial hyper-responsiveness in asthma. Thorax 2002;57:309–316.
+30. Reddel HK, Jenkins CR, Marks GB, Ware SI, Xuan W, Salome CM,
+Badcock CA, Woolcock AJ. Optimal asthma control, starting withhigh doses of inhaled budesonide. Eur Respir J 2000;16:226–235.
+31. Chaudhuri R, Livingston E, McMahon AD, Thomson L, Borland W,
+Thomson NC. Cigarette smoking impairs the therapeutic response tooral corticosteroids in chronic asthma. Am J Respir Crit Care Med
+2003;168:1308–1311.
+32. Pedersen B, Dahl R, Karlstrom R, Peterson CG, Venge P. Eosinophil
+and neutrophil activity in asthma in a one-year trial with inhaledbudesonide: the impact of smoking. Am J Respir Crit Care Med 1996;
+153:1519–1529.
+33. Kavuru M, Melamed J, Gross G, LaForce C, House K, Prillaman B,
+Baitinger L, Woodring A, Shah T. Salmeterol and ﬂuticasone propio-nate combined in a new powder inhalation device for the treatment ofasthma: a randomized, double-blind, placebo-controlled trial. J Allergy
+Clin Immunol 2000;150:1108–1116.
+34. Shapiro G, Lumry W, Wolfe J, Given J, White MV, Woodring A, Bai-
+tinger L, House K, Prillaman B, Shah T. Combined salmeterol 50mcg
+ 
+
+844 AMERICAN JOURNAL OF RESPIRATORY AND CRITICAL CARE MEDICINE VOL 170 2004
+and ﬂuticasone propionate 250 mcg in the Diskus device for the treat-
+ment of asthma. Am J Respir Crit Care Med 2000;161:527–534.
+35. O’Byrne PM, Barnes PJ, Rodriguez-Roisin R, Runnerstrom E, Sand-
+strom T, Svensson K, Tattersﬁeld A. Low dose inhaled budesonideand formoterol in mild persistent asthma: the OPTIMA randomizedtrial. Am J Respir Crit Care Med 2001;164:1392–1397.
+36. Chapman KR, Ernst P, Grenville A, Dewland P, Zimmerman S. Control
+of asthma in Canada: failure to achieve guideline targets. Can Respir J
+2001;8:35A–40A.
+37. Aubier M, Pieters WR, Schlo ¨sser NJJ, Steinmetz K-O. Salmeterol/ﬂuti-
+casone propionate (50/500 /H9262g) in combination in a Diskus inhaler
+(Seretide/Advair) is effective and safe in the treatment of steroid-dependent asthma. Respir Med 1999;93:876–884.
+38. Li JTC, Ford LB, Chervinsky P, Weisberg SC, Kellerman DJ, FaulknerKG, Herje NE, Hamedani A, Harding SM, Shah T. Fluticasone propio-
+nate powder and lack of clinically signiﬁcant effects on hypothalamic-pituitary-adrenal axis and bone mineral density over 2 years in adultswith mild asthma. J Allergy Clin Immunol 1999;103:1062–1068.
+39. Allen DB, Bielory L, Derendorf H, Dluhy R, Colice GL, Szeﬂer SJ.
+Inhaled corticosteroids: past lessons and future issues. J Allergy Clin
+Immunol 2003;112:S1–S40.
+40. European Community for Coal and Steel. Standardisation of lung func-
+tion tests as contained in the report of the working party of the Euro-pean Community for Steel and Coal. Bull Eur Physiopathol Respir
+1983;19:1–95.
+41. Polgar G, Promadhat V. Pulmonary function testing in children: tech-
+niques and standards. Philadelphia: WB Saunders Company; 1971. p.254.
+ 
+

@@ -3,5 +3,5 @@
   "pattern": "K:?\\s*(\\d{1}\\.?\\d*)\\s*(?:mEq/L|mmol/L)?",
   "replacement": "potassium \\1 mEq/L",
   "description": "Normalize potassium level",
-  "enabled": true
+  "enabled": false
 }

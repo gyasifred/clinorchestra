@@ -1,6 +1,7 @@
 {
   "name": "calculate_cage_score",
-  "description": "Calculate CAGE questionnaire score for alcohol use disorder screening. Score range: 0-4. ≥2 suggests clinically significant alcohol problem.",
+  "code": "\ndef calculate_cage_score(cut_down, annoyed, guilty, eye_opener):\n    score = sum([cut_down, annoyed, guilty, eye_opener])\n    \n    if score == 0:\n        interpretation = 'Low likelihood of alcohol use disorder'\n        recommendation = 'No immediate concern'\n    elif score == 1:\n        interpretation = 'Possible alcohol misuse'\n        recommendation = 'Brief intervention, monitor'\n    elif score >= 2:\n        interpretation = 'Clinically significant alcohol problem likely'\n        recommendation = 'Further assessment, referral to addiction services'\n    \n    return {\n        'score': score,\n        'interpretation': interpretation,\n        'recommendation': recommendation\n    }\n",
+  "description": "Calculate CAGE questionnaire score for alcohol use disorder screening. Score range: 0-4. \u22652 suggests clinically significant alcohol problem.",
   "parameters": {
     "cut_down": {
       "type": "bool",
@@ -27,5 +28,5 @@
     "type": "dict",
     "description": "Dictionary with score (0-4), interpretation, and recommendation"
   },
-  "code": "\ndef calculate_cage_score(cut_down, annoyed, guilty, eye_opener):\n    score = sum([cut_down, annoyed, guilty, eye_opener])\n    \n    if score == 0:\n        interpretation = 'Low likelihood of alcohol use disorder'\n        recommendation = 'No immediate concern'\n    elif score == 1:\n        interpretation = 'Possible alcohol misuse'\n        recommendation = 'Brief intervention, monitor'\n    elif score >= 2:\n        interpretation = 'Clinically significant alcohol problem likely'\n        recommendation = 'Further assessment, referral to addiction services'\n    \n    return {\n        'score': score,\n        'interpretation': interpretation,\n        'recommendation': recommendation\n    }\n"
+  "signature": "(cut_down, annoyed, guilty, eye_opener)"
 }

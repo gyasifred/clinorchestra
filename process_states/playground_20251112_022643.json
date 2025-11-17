@@ -1,0 +1,21 @@
+{
+  "process_id": "playground_20251112_022643",
+  "status": "running",
+  "created_at": "2025-11-12T02:26:43.464465",
+  "updated_at": "2025-11-12T02:26:43.465081",
+  "metadata": {
+    "total_rows": 1
+  },
+  "progress": {
+    "processed": 0,
+    "failed": 0,
+    "total": 1,
+    "percentage": 0.0
+  },
+  "logs": [
+    {
+      "timestamp": "2025-11-12T02:26:43.465072",
+      "message": "Starting full pipeline test"
+    }
+  ]
+}

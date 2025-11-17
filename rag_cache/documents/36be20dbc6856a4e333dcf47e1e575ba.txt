@@ -1,0 +1,393 @@
+Comparison of the T-MACS score with the TIMI score in patients
+presenting to the emergency department with chest pain
+Mücahit Kesgüna, Burcu Genc Yavuzb,⁎, Dilay Satilmisc, Sahin Colakb
+aDiyarbak ır Dagkap ıHospital, Department of Emergency Medicine, Diyarbak ır, Turkey
+bUniversity of Health Sciences, Haydarpasa Numune Training and Research Hospital, Department of Emergency Medicine, Istanbul, Turkey
+cUniversity of Health Sciences, Sultan 2. Abdulhamit Han Training and Research Hospital, Department of Emergency Medicine, Istanbul, Turkey
+abstract article info
+Article history:
+Received 17 May 2022
+Received in revised form 27 June 2022
+Accepted 7 July 2022Objectives: Guidelines recommend the use of risk scoring in patients with chest pain. In this study, we aimed to
+compare the thrombolysis in myocardial infarction risk index (TIMI) score with the Troponin Only ManchesterAcute Coronary Syndrome Score (T-MACS) score and to investigate the usability of the T-MACS score in the
+emergency department.
+Methods: In our study; The TIMI and T-MACS scores of 310 patients with suspected NSTEMI who applied to the
+emergency department with chest pain and met the inclusion and exclusion criteria were prospectively
+evaluated. The primary outcome was MACE at 30 days including acute coronary syndromes, need for revascular-
+ization and deaths. Descriptive data and TIMI and T-MACS scores for predicting MACE and ACS was evaluated bycalculating sensitivity, speci ﬁcity, positive predictive value (PPV) and negative predictive value (NPV). ROC
+(Receiver Operating Characteristic) analysis was also performed to determine TIMI and T-MACS risk class.
+Results: In our study, the mean age of the patients was 49.7 ± 19.4 years, the 1-month mortality rate was 1.3%,
+majör adverse cardiac event (MACE) rate was 6.5%, and acute coronary syndrome (ACS) rate was 5.5%.T-MACS risk class for predicting MACE sensitivity 100%, selectivity 51.72, PPV 12.5% (for very low risk), NPV
+was calculated as 100%; sensitivity for TIMI risk class low risk 35%, selectivity 88.97%, PPV was calculated as
+17.9%, NPV was calculated as 95.2%. T-MACS high risk class for predicting MACE; sensitivity was 60%, selectivity99.66%, PPV 92.3% and NPV was 97.3%; TIMI high risk class for predicting MACE; sensitivity was 10%, selectivity
+was 97.93%, PPV was 25% and NPV was 94%.
+Conclusions: Theﬁndings obtained in this study suggest that the T-MACS score is more successful than the TIMI
+score in determining the low risk (very low risk for T-MACS score), high risk, and estimated 1-month MACE riskin cases who presented to the emergency department with chest pain.
+© 2022 Elsevier Inc. All rights reserved.Keywords:
+Chest painTIMI scoreT-MACS score
+1. Introduction
+Ischemic heart diseases are among the most signi ﬁcant causes of
+death, along with many known risk factors worldwide [ 1]. We are
+faced with two separate challenges in patients presenting with ischemic
+symptoms, such as quickly making the diagnosis of acute coronary
+syndrome (ACS) and detecting those without ACS and thus reducing
+the assemblage in the emergency department. Since 1980, deaths due
+to ischemic heart disease have gradually declined due to studies onrisk factors in developed countries and treatment for ischemic heart dis-
+ease [ 2,3]. Newly developed anticoagulants, early PCI and reperfusion
+strategy, ﬁbrinolysis, and 6-month mortality due to the appropriateuse of recommended drugs were strongly associated with reduced
+mortality [ 4]. Although short-term mortality in patients diagnosed
+with NSTEMI is lower than in patients diagnosed with STEMI, their
+long-term mortality is higher due to the burden of coronary artery dis-
+ease, comorbidities and increased risk factors [ 5].
+The diagnosis of STEMI can be easily made in patients presenting
+with chest pain by single or serial ECG assessments [ 6]. In the diagnosis
+of NSTEMI, challenges arise, such as the variety of the patient's
+symptoms at presentation and the inability to diagnose with ECG [ 7].
+Therefore, to improve NSTEMI recognition and management, it is rec-
+ommended to use scoring systems, such as thrombolysis in myocardial
+infarction risk index (TIMI) and HEART [ 8-10].
+The TIMI score was devised by Elliott M. Antman et al. in 2000 to es-
+timate the risk of death and developing a cardiac ischemic event, based
+on information obtained from the initial medical evaluation of patients
+with UA/NSTEMI [ 11]. Troponin Only Manchester Acute CoronaryAmerican Journal of Emergency Medicine 60 (2022) 24 –28
+⁎Corresponding author at: University of Health Sciences, Haydarpasa Numune Training
+and Research Hospital, Department of Emergency Medicine, 34660 Istanbul, Turkey.
+E-mail addresses: drbgenc@gmail.com ,burcugenc.yavuz@sbu.edu.tr (B.G. Yavuz).
+https://doi.org/10.1016/j.ajem.2022.07.017
+0735-6757/© 2022 Elsevier Inc. All rights reserved.
+Contents lists available at ScienceDirect
+American Journal of Emergency Medicine
+journal homepage: www.elsevier.com/locate/ajem
+Syndrome Score (T-MACS) is a scoring system designed to exclude
+acute coronary syndrome with a single high-sensitivity troponin value
+without serial troponin follow-ups in patients presenting in the
+emergency department with chest pain [ 12].
+In this study, we aimed to prospectively compare the use and
+effectiveness of TIMI and T-MACS scores, which are chest pain scores,
+in patients admitted to the emergency department with NSTEMI symp-toms, to identify high-risk patients and identify low-risk patients among
+them and discharge them safely.
+2. Methods2.1. Study design
+This prospective cross-sectional study was conducted in accordance
+with the Declaration of Helsinki and was approved by the Ethics Com-
+mittee of the Faculty of Medicine, University of Health Sciences,
+Haydarpasa Numune Training and Research Hospital (approval number
+170–1805). Our study was conducted in Haydarpa şaN u m u n eT r a i n i n g
+and Research Hospital emergency room between December 2019 and
+July 2020, and consent was obtained from the patients participating in
+this study, and the management of the patients was carried out by cer-
+tiﬁed ED physicians. Every year, approximately 250,000 patients visit
+the ED, where the study was conducted.
+To improve NSTEMI recognition and management, it is recom-
+mended to use scoring systems. Our primary outcome was MACE at
+30 days including acute coronary syndromes, need for revascularization
+and deaths. In our study, the ef ﬁcacy of TIMI and T-MACS scores in
+predicting NSTEMI was compared by following the patients' outcomes
+for MACE, acute coronary syndrome, revascularization and death within
+30 days. We aimed to ﬁnd a more effective scoring system to identify
+high-risk patients and low-risk patients to safely discharge patients.
+Weak points of our study is that it is single-centered. Multicenter pro-
+spective studies with more case numbers will help the clinician in the
+prediction of ACS and MACE and risk estimation.
+2.2. Study setting and population
+A study group was formed with patients aged 18 years and older
+admitted to our emergency department with symptoms of ischemic
+chest pain and were examined with a prediagnosis of NSTEMI and ac-
+cepted to participate in the study. Among these patients, those whose
+control ECG was compatible with STEMI in the emergency department,
+pregnant women and patients with cardiogenic shock and cardiac arrest
+were not included in this study.
+Vital parameters, medical histories, family histories, smoking and
+demographic data of the patients were recorded. Physical examination
+was administered, a high-sensitive cardiac troponin-T (hs-cTnT) test
+was requested and ECGs were taken. The blood samples taken werestudied in the Health Sciences University Haydarpa şa Numune Health
+Application and Research Center Biochemistry Laboratory within one
+and a half hours. All this information was noted on the previously pre-
+pared case form.
+To determine adequate sample size G*Power 3.1.9 used [ 13]. Based
+on the Ruangsomboon et al. study, the effect size was determined as
+d=0 . 6 9 0[ 14]. With the 95% power and 0.05 alpha, the minimum
+sample size to be included in the study was calculated as n=1 1 2 .
+2.3. Risk score calculation
+The TIMI and T-MACS scores of the patients were calculated using
+the information recorded on the case form. While calculating the scores,
+the standards set in previous studies were adhered to [ 12,15].
+TIMI score parameters used in calculations are: Age > 65, > 3 risk
+factors for coronary artery disease, two or more anginal attacks in the
+last 24 h, known coronary artery stenosis of 50% or more, use of aspirinin the last seven days, newly developed ST change, elevated cardiac
+troponins. In the presence of each parameter, the patient gets 1 point.
+It is classi ﬁed as 0 –2l o wr i s k ,2 –4 medium risk and 5 –7h i g hr i s k[ 15].
+T-MACS score parameters are: ECG ischemia, worsening (or increasing)
+angina, pain radiating to the right arm or shoulder, pain associated with
+vomiting, sweating detected by a physician, blood pressure which is
+lower than 100 mmHg on admission to the emergency department,
+Hc-TropoinT value measured at the patient's arrival. In clinical practice,
+the T-MACS score calculation is designed to be calculated based on a
+computer, tablet or smartphone [ 12
+].
+After the patients were discharged, Major Adverse Cardiac Event
+(MACE) and one-month mortality information were obtained by calling
+phone numbers and learning through the death noti ﬁcation system. In
+our study, MACE included acute coronary syndromes, deaths and the
+need for revascularization.
+3. Statistical analysis
+While evaluating the data obtained in this study, the analyses were
+made using the IBM SPSS 23.0 package program (IBM Corp., Armonk,
+NY). Descriptive statistics were presented with n (%), mean ± standard
+deviation and median (min-max) values. Pearson chi-square test and
+Fisher's exact test were used to analyze the relationships between
+categorical variables. The Shapiro-Wilks test was used in the analysis
+of the assumption of normality. In the analysis of the difference between
+the measurement values of the two groups, the Mann-Whitney Utest
+was used when it did not comply with the normal distribution, andTable 1
+The general characteristics of the 310 patients.
+n
+Age 49.7 ± 19.4(18 –92)
+Gender
+Female 168(54.2)Male 142(45.8)
+MACE
+Yes 290(93.5)No 20(6.5)
+ACS
+Yes 293(94.5)No 17(5.5)
+T-MACS risk class
+Very-low 150(48.4)
+Low 72(23.2)
+Medium 75(24.2)High 13(4.2)
+TIMI risk class
+Low 271(87.4)Medium 31(10)High 8(2.6)
+Results are shown as mean ± SD (min-max), median (min-max) or n (%)
+values. MACE: Major Adverse Cardiac Events, ACS: Acute Coronary Syn-drome, T-MACS: Troponin-only Manchester Acute Coronary Syndromes,TIMI: Thrombolysis in Myocardial Infarction.
+Table 2Comparison of the parameters of T-MACS and TIMI scores according to risk class.
+T-MACS TIMI
+Very low risk
+(n:150)High risk
+(n:13)Low risk
+(n:271)High risk
+(n:8)
+MACE
+Yes 150(100) 1(7.7) 258(95.2) 6(75)No 0(0) 12(92.3) 13(4.8) 2(25)
+ACS
+Yes 150(100) 1(7.7) 261(96.3) 6(75)No 0(0) 12(92.3) 10(3.7) 2(25)
+Results are presented with n (%) values. T-MACS: Troponin-only Manchester Acute Coro-
+nary Syndromes, TIMI: Thrombolysis in Myocardial Infarction, MACE: Major Adverse Car-diac Events, ACS: Acute Coronary Syndrome.M .K e s g ü n ,B . G .Y a v u z ,D .S a t i l m i se ta l . American Journal of Emergency Medicine 60 (2022) 24 –28
+25
+the Student's t-test was used when it did. ROC (Receiver Operating
+Characteristic) analysis was performed to distinguish patients according
+to TIMI and T-MACS risk class and to determine the cut-off point in
+determining 1-month mortality, ACS and MACE. Results are presented
+by Area Under the Curve (AUC), cut-off points, sensitivity, speci ﬁcity,
+positive predictive value (PPV) and negative predictive value (NPV).
+p-values <0.05 were considered statistically signi ﬁcant.
+4. Results
+In our study, 370 cases with suspected NSTEMI and meeting the in-
+clusion criteria were examined. STEMI was detected in 23 of these
+patients and they were excluded from this study. Sixteen patients left
+the study group because they were suspected of pregnancy, and 21 pa-
+tients stated that they wanted to withdraw from this study. A study
+group was formed with 310 patients. Of the patients participating in
+the present study, 54.2% were female and 45.8% were male, with amean age of 49.7 ± 19.4 years (min:18, max:92). The 1-month mortal-
+ity rate of the patients was 1.3%, the MACE rate was 6.5%, and the ACS
+rate was 5.5%. When the T-MACS risk class distribution of the patients
+was examined, it was seen that 150 (48.4%) patients were in the very
+low-risk class, 72 (23.2%) in the low-risk class, 75 (24.2%) in the me-
+dium and 13 (4.2%) in the high-risk class. When the TIMI risk class
+distribution was examined, 271 patients (87.4%) were in the low-risk
+class, 31 (10%) were in the medium-risk class, and 8 (2.6%) were in
+the high-risk class. The general characteristics of the 310 patients in-
+cluded in this study are shown in Table 1 .
+A comparison of T-MACS and TIMI according to the study risk class is
+given in Table 2 . According to the T-MACS rule-out criteria, 150 patients
+were included in the very low-risk class, and MACE and ACS were not
+detected among them. According to the TIMI rule-out criteria, 271
+patients were classi ﬁed as low risk and 10 ACS were seen among
+them. T-MACS correctly identi ﬁed low-risk patients in 100% and TIMI
+in 96.3%. While ACS was detected in 92.3% of the patients in the
+high-risk class in the T-MACS score, ACS was detected in 25% of the pa-
+tients in the TIMI. As seen in Table 3 , when the TIMI and T-MACS test
+characteristics were examined among patients who did not meet the
+rule-out criteria in predicting MACE, the selectivity detected higher in
+the TIMI score (88.97 vs. 51.72, respectively), but the sensitivity was
+low in TIMI (35 vs. 100, respectively). As can be seen in Table 4 ,w h e n
+the test characteristics were compared between patients who did not
+meet the TIMI and T-MACS rule-out criteria in predicting ACS, the
+selectivity was higher in TIMI (51.19 vs. 89.08, respectively), but the
+sensitivity was lower (41.18 vs. 100, respectively).
+While the area under the curve (AUC) was calculated as 0.622 (95%
+CI: 0.565 –0.676) for the TIMI risk class and 0.926 (95% CI: 0.891 –0.953)
+for the T-MACS risk class, the ﬁndings showed that the T-MACS risk
+class was statistically more signi ﬁcant in differentiating MACE ( p<0.001). The ROC curve for TIMI and T-MACS risk class to predict MACE
+is shown in Fig. 1 .
+While the area under the curve (AUC) was calculated as 0.653 (95%
+CI: 0.598 –0.706) for the TIMI risk class and 0.948 (95% CI: 0.917 –0.970)
+for the T-MACS risk class, the ﬁndings showed that the T-MACS risk
+class was statistically stronger in differentiating ACS (p < 0.001). The
+ROC curve created for TIMI and T-MACS risk class in predicting ACS is
+presented in Fig. 2 .
+5. Discussion
+In this prospective study, we have shown that the T-MACS score is
+superior to TIMI in risk assessment and 1-month MACE estimation of
+patients who were followed up in the emergency department with a
+pre-diagnosis of the acute coronary syndrome but who did not have
+STEMI at the time of their admission to the emergency department.
+When we look at the literature, in the study conducted by Stephen
+et al. in which the modi ﬁ
+ed TIMI score and TIMI score were compared,
+the incidence of 30-day MACE in patients with TIMI low risk (<3 points)
+was 7.3%, while we found this rate to be 4.8% in low-risk patients in our
+study [ 16]. In a study by Henry Wamala et al., in which they compared
+nine coronary risk scores, ischemic chest pain was present in 11% of pa-
+tients with TIMI low risk. In our study, we found chest pain of ischemic
+origin in 3.7% of low-risk patients [ 17]. In the study conducted by Body
+et al. in which they compared the four scoring systems used to decide on
+ACS in the emergency department, the incidence of ACS in high-risk pa-
+tients was 80.4% for T-MACS, 51.9% for TIMI, 92.3% for T-MACS and 25%Table 3
+Sensitivity, selectivity, PPV, NPV values for T-MACS and TIMI risk class in predicting MACE.
+Sensitivity 95% CI Selectivity 95% CI PPV 95% CI NPV 95% CI
+TIMI 35 15.4 –59.2 88.97 84.8 –92.3 17.9 10 –30.2 95.2 93.5 –96.5
+T-MACS 100 83.2 –100 51.72 45.8 –57.6 12.5 11.3 –13.9 100
+CI: Con ﬁdence Interval, PPV: Positive predictive value, NPV: Negative Predictive Value, T-MACS: Troponin-only Manchester Acute Coronary Syndromes, TIMI : Thrombolysis in Myocardial
+Infarction.
+Table 4Sensitivity, selectivity, PPV, NPV values for T-MACS and TIMI risk class in predicting ACS.
+Cut-off Point Sensitivity 95% CI Selectivity 95% CI PPV 95% CI NPV 95% CI
+TIMI 41.18 18.4 –67.1 89.08 84.9 –92.4 17.9 10.2 –29.6 96.3 94.6 –97.5
+T-MACS 100 80.5 –100 51.19 45.3 –57.1 10.6 9.6 –11.8 100
+CI: Con ﬁdence Interval, PPV: Positive predictive value, NPV: Negative Predictive Value.
+Fig. 1. ROC curve for TIMI and T-MACS risk class in predicting MACE.
+ROC: Receiver operating characteristic, TIMI: Thrombolysis in Myocardial Infarction, T-MACS: Troponin-only Manchester Acute Coronary Syndromes, MACE: Major Adverse Car-diac Events.M .K e s g ü n ,B . G .Y a v u z ,D .S a t i l m i se ta l . American Journal of Emergency Medicine 60 (2022) 24 –28
+26
+for TIMI [ 12]. While the high success of T-MACS in predicting ACS is
+consistent with the literature, we think that the low TIMI score is due
+to various reasons, such as having more anamnesis, patient incompati-
+bility and inability to give adequate anamnesis in emergency room
+conditions.
+In the study conducted by Richard Body et al., NPV for ACS in very
+low-risk patients was 99.3% (95% CI 98.3% to 99.8%), and ACS was
+seen in <1% of patients in the very low-risk group. Also, ACS was
+excluded in 40.4% of patients [ 12]. In a study conducted by Body et al.,
+in which four ACS risk scores were compared, ACS was excluded in
+46.5% of patients presenting with chest pain with a sensitivity of 99.2%
+(95% CI 95.7% to 100.0%). In our study, a sensitivity of 100% (95% CI
+80.5% –100%) was compatible with the literature, with 100% NPV
+excluding ACS in 48.3% of the patients [ 12].
+While MACE was detected in 76.1% of high-risk cases in the con ﬁr-
+mation study of T-MACS and MACS score by Jaimi H Greenslade et al.,
+MACE was found in 88.7% in high-risk patients in the study performed
+by Van Den Berg et al. [ 18,19]. In the validation study conducted by
+Body et al. 91.3% MACE was detected [ 12]. In our study, we found
+MACE in 92.3% of the cases in the high-risk class, which is consistent
+with the literature.
+In the study conducted by Stephen PJ Macdonald et al., while the
+area under the ROC curve (AUC) for TIMI 1-month MACE was calculated
+as 0.71 (0.67 to 0.74), it was 0.78 (95% CI 0.74 to 0.81) in the study of
+Peter DW Reaney et al. [ 16,20]. In our study, the AUC for TIMI in
+predicting MACE was calculated as 0.622 (95% CI: 0.565 –0.676). In the
+study of Body et al., in which they compared four ACS scores, the area
+under the ROC curve in ACS recognition for TIMI was 0.69 (95% CI 0.64
+to 0.74), while it was 0.96 (95% CI 0.94 to 0.98) for T-MACS. In our
+study, the area under the ROC curve for ACS was 0.653 (95% CI:
+0.598 –0.706) for TIMI and 0.948 (95% CI: 0.917 –0.970) for T-MACS. In
+our study, we found T-MACS to be statistically more signi ﬁcant than
+TIMI in differentiating MACE and ACS ( p< 0.001). The most important
+limitation of our study is that it is single-centered. Multicenter prospec-
+tive studies with more case numbers will help the clinician in the
+prediction of ACS and MACE and risk estimation.
+6. Conclusion
+In our study, we found that the T-MACS score was superior to TIMI in
+predicting ACS and predicting low risk (very low risk for T-MACS), highrisk and 1-month MACE in patients presenting to the emergency
+department with chest pain. Due to the advantages, for example,
+T-MACS can be easily calculated in emergency room conditions,
+T-MACS is statistically stronger in both ACS detection and MACE predic-
+tion than AUC values in ROC analysis ( p< 0.001), T-MACS is more
+sensitive than TIMI in detecting risky patients in low-risk patients and
+has a higher NPV value, the ﬁndings suggest that the use of T-MACS is
+more appropriate than TIMI in risk scoring of NSTEMI cases in
+emergency services. In addition, the use of T-MACS is more appropriate
+than TIMI in risk scoring of NSTEMI cases since it is important for pa-
+tients to provide an accurate anamnesis for a clear evaluation of TIMI,
+and this is not always possible in emergency services.
+Competing interests
+Authors declare no con ﬂict of interest.
+Author contributions
+Mücahit Kesgün performed methodology, formal analysis, data
+curation and writing original draft. Burcu Genc Yavuz performed
+methodology, formal analysis, data curation, conceptualization, writing
+original draft, review and editing. Dilay Satilmis performed methodol-
+ogy, formal analysis, conceptualization, data curation and resources.
+Şahin Çolak performed methodology, formal analysis, data curation,
+resources, supervision, writing review and editing.
+Acknowledgment funding
+The authors did not apply for a speci ﬁc grant for this research from
+any funding agency in the public, commercial or non-pro ﬁts e c t o r s .
+Credit authorship contribution statement
+Mücahit Kesgün: Methodology, Formal analysis, Data curation,
+Writing - original draft. Burcu Genc Yavuz: Methodology, Formal
+analysis, Data curation, Conceptualization, Writing - original draft,
+Writing - review & editing. Dilay Satilmis: Methodology, Formal
+analysis, Conceptualization, Data curation, Resources. Sahin Colak:
+Methodology, Formal analysis, Data curation, Resources, Supervision,Writing - review & editing.
+References
+[1] The top 10 causes of death. https://www.who.int/news-room/fact-sheets/detail/
+the-top-10-causes-of-death . (accessed 2 Oct 2021).
+[2] Di Cesare M, Bennett JE, Best N, et al. The contributions of risk factor trends to car-
+diometabolic mortality decline in 26 industrialized countries. Int J Epidemiol.
+2013;42:838 –48.https://doi.org/10.1093/ije/dyt063 .
+[3] Ford ES, Ajani UA, Croft JB, et al. Explaining the decrease in U.S. deaths from coronary
+disease, 1980 –2000. N Engl J Med. 2007;356:2388 –98.https://doi.org/10.1056/
+NEJMsa053935 .
+[4] Puymirat E, Simon T, Cayla G, et al. Acute myocardial infarction: changes in patient
+characteristics, management, and 6-month outcomes over a period of 20 years in
+the FAST-MI program (French registry of acute ST-elevation or non-ST-elevation
+myocardial infarction) 1995 to 2015. Circulation. 2017;136:1908 –19.https://doi.
+org/10.1161/CIRCULATIONAHA.117.030798 .
+[5] Chan MY, Sun JL, Newby LK, et al. Long-term mortality of patients undergoing car-
+diac catheterization for ST-elevation and nonst-elevation myocardial infarction. Cir-
+culation. 2009;119:3110 –7.https://doi.org/10.1161/CIRCULATIONAHA.108.799981 .
+[6] Lehmacher J, Neumann JT, Sörensen NA, et al. Predictive value of serial ECGs in pa-
+tients with suspected myocardial infarction. J Clin Med. 2020;9:1 –12.https://doi.
+org/10.3390/JCM9072303 .
+[7] Kumar A, Cannon CP. Acute coronary syndromes: diagnosis and management, part I.
+Mayo Clin Proc. 2009;84:917 –38.https://doi.org/10.1016/S0025-6196(11)60509-0 .
+[8] Six AJ, Backus BE, Kelder JC. Chest pain in the emergency room: value of the HEART
+score. Netherlands Heart J. 2008;16:191 –6.https://doi.org/10.1007/BF03086144 .
+[9] Morris AC, Caesar D, Gray S, et al. TIMI risk score accurately risk strati ﬁes patients
+with undifferentiated chest pain presenting to an emergency department [9].Heart. 2006;92:1333 –4.https://doi.org/10.1136/hrt.2005.080226 .
+[10] Hall M, Bebb OJ, Dondo TB, et al. Guideline-indicated treatments and diagnostics,
+GRACE risk score, and survival for non-ST elevation myocardial infarction. Eur
+Heart J. 2018;39:3798. https://doi.org/10.1093/EURHEARTJ/EHY517 .
+Fig. 2. ROC curve for TIMI and T-MACS risk class in predicting ACS.
+ROC: Receiver operating characteristic, TIMI: Thrombolysis in Myocardial Infarction, T-MACS: Troponin-only Manchester Acute Coronary Syndromes, ACS: Acute Coronary Syn-drome.M .K e s g ü n ,B . G .Y a v u z ,D .S a t i l m i se ta l . American Journal of Emergency Medicine 60 (2022) 24 –28
+27
+[11] Antman EM, Cohen M, Bernink PJLM, et al. The TIMI risk score for unstable angina/
+non-ST elevation MI: a method for prognostication and therapeutic decision making.
+JAMA. 2000;284:835 –42.https://doi.org/10.1001/jama.284.7.835 .
+[12] Body R, Carlton E, Sperrin M, et al. Troponin-only Manchester Acute Coronary Syn-
+dromes (T-MACS) decision aid: single biomarker re-derivation and external valida-
+tion in three cohorts. Emerg Med J. 2017;34:349 –56.https://doi.org/10.1136/
+emermed-2016-205983 .
+[13] Faul F, Erdfelder E, Lang AG, et al. G*Power 3: a ﬂexible statistical power analysis
+program for the social, behavioral, and biomedical sciences. Behav Res Methods.
+2007;39(2):175 –91.https://doi.org/10.3758/bf03193146 .
+[14] Ruangsomboon O, Thirawattanasoot N, Chakorn T, et al. The utility of the 1-hour
+high-sensitivity cardiac troponin T algorithm compared with and combined with
+ﬁve early rule-out scores in high-acuity chest pain emergency patients. Int J Cardiol.
+2021;322:23 –8.https://doi.org/10.1016/j.ijcard.2020.08.099 .
+[15] Rao SS, Agasthi P. Thrombolysis in myocardial infarction (TIMI) risk score. StatPearls
+Publishing; 2020. http://www.ncbi.nlm.nih.gov/pubmed/32310529 (accessed 8 Aug
+2020).
+[16] Macdonald SPJ, Nagree Y, Fatovich DM, et al. Modi ﬁed TIMI risk score cannot be used
+to identify low-risk chest pain in the emergency department: a multicentrevalidation study. Emerg Med J. 2014;31:281 –5.https://doi.org/10.1136/emermed-
+2012-201323 .
+[17] Wamala H, Aggarwal L, Bernard A, et al. Comparison of nine coronary risk scores in
+evaluating patients presenting to hospital with undifferentiated chest pain. Int J
+General Med. 2018;11:473 –81.https://doi.org/10.2147/IJGM.S183583 .
+[18] Greenslade JH, Nayer R, Parsonage W, et al. Validating the Manchester acute coro-
+nary syndromes (MACS) and troponin-only Manchester acute coronary syndromes
+(T-MACS) rules for the prediction of acute myocardial infarction in patients present-
+ing to the emergency department with chest pain. Emerg Med J. 2017;34:517 –23.
+https://doi.org/10.1136/emermed-2016-206366 .
+[19] Va Den Berg P, Burrows G, Lewis P, et al. Validation of the (troponin-only) Manches-
+ter ACS decision aid with a contemporary cardiac troponin I assay. Am J Emerg Med.
+2018;36:602 –7.https://doi.org/10.1016/j.ajem.2017.09.032 .
+[20] Reaney PDW, Elliott HI, Noman A, et al. Risk stratifying chest pain patients in the
+emergency department using HEART, GRACE and TIMI scores, with a single contem-
+porary troponin result, to predict major adverse cardiac events. Emerg Med J. 2018;35:420 –7.https://doi.org/10.1136/emermed-2017-207172 .M .K e s g ü n ,B . G .Y a v u z ,D .S a t i l m i se ta l . American Journal of Emergency Medicine 60 (2022) 24 –28
+28

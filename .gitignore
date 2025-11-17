@@ -137,3 +137,13 @@ checkpoints/
 *_secret.txt
 credentials.json
 config.local.json
+data/
+cache/
+configs/
+rag_cache/
+output/
+logs/
+process_states/
+unsloth_compiled_cache/
+config_persistence/
+.gradio/

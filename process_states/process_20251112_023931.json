@@ -1,0 +1,205 @@
+{
+  "process_id": "process_20251112_023931",
+  "status": "running",
+  "created_at": "2025-11-12T02:39:32.439356",
+  "updated_at": "2025-11-12T03:19:26.872868",
+  "metadata": {
+    "total_rows": 2552
+  },
+  "progress": {
+    "processed": 17,
+    "failed": 0,
+    "total": 2552,
+    "percentage": 0.6661442006269592
+  },
+  "logs": [
+    {
+      "timestamp": "2025-11-12T02:39:32.439750",
+      "message": "Processing started"
+    },
+    {
+      "timestamp": "2025-11-12T02:39:38.882316",
+      "message": "Using LLM Manager: local/unsloth/Qwen2.5-14B-Instruct"
+    },
+    {
+      "timestamp": "2025-11-12T02:39:38.882570",
+      "message": "Using Regex Preprocessor"
+    },
+    {
+      "timestamp": "2025-11-12T02:39:38.882697",
+      "message": "Extras Manager: 248 extras available"
+    },
+    {
+      "timestamp": "2025-11-12T02:39:38.882782",
+      "message": "Function Registry: 32 functions available"
+    },
+    {
+      "timestamp": "2025-11-12T02:39:38.882868",
+      "message": "RAG Engine: 10 documents loaded"
+    },
+    {
+      "timestamp": "2025-11-12T02:39:38.882958",
+      "message": "Initializing agent"
+    },
+    {
+      "timestamp": "2025-11-12T02:39:38.886463",
+      "message": "AdaptiveAgent initialized"
+    },
+    {
+      "timestamp": "2025-11-12T02:39:38.886722",
+      "message": "Output Handler initialized"
+    },
+    {
+      "timestamp": "2025-11-12T02:39:38.886856",
+      "message": "Starting row processing"
+    },
+    {
+      "timestamp": "2025-11-12T02:39:38.886959",
+      "message": "Batch preprocessing started"
+    },
+    {
+      "timestamp": "2025-11-12T02:39:38.943692",
+      "message": "Batch preprocessing complete: 0.00s"
+    },
+    {
+      "timestamp": "2025-11-12T02:39:38.944632",
+      "message": "Processing row 1/2552"
+    },
+    {
+      "timestamp": "2025-11-12T02:41:35.186292",
+      "message": "Row 1 processed: Extras=1, RAG=1, Functions=13"
+    },
+    {
+      "timestamp": "2025-11-12T02:41:35.187626",
+      "message": "Processing row 2/2552"
+    },
+    {
+      "timestamp": "2025-11-12T02:44:43.429068",
+      "message": "Row 2 processed: Extras=1, RAG=2, Functions=8"
+    },
+    {
+      "timestamp": "2025-11-12T02:44:43.430420",
+      "message": "Processing row 3/2552"
+    },
+    {
+      "timestamp": "2025-11-12T02:45:48.795323",
+      "message": "Row 3 processed: Extras=1, RAG=1, Functions=8"
+    },
+    {
+      "timestamp": "2025-11-12T02:45:48.796267",
+      "message": "Processing row 4/2552"
+    },
+    {
+      "timestamp": "2025-11-12T02:46:47.833009",
+      "message": "Row 4 processed: Extras=0, RAG=2, Functions=2"
+    },
+    {
+      "timestamp": "2025-11-12T02:46:47.834221",
+      "message": "Processing row 5/2552"
+    },
+    {
+      "timestamp": "2025-11-12T02:50:36.522745",
+      "message": "Row 5 processed: Extras=1, RAG=2, Functions=9"
+    },
+    {
+      "timestamp": "2025-11-12T02:50:36.524011",
+      "message": "Processing row 6/2552"
+    },
+    {
+      "timestamp": "2025-11-12T02:51:49.320633",
+      "message": "Row 6 processed: Extras=1, RAG=1, Functions=2"
+    },
+    {
+      "timestamp": "2025-11-12T02:51:49.321632",
+      "message": "Processing row 7/2552"
+    },
+    {
+      "timestamp": "2025-11-12T02:53:16.110011",
+      "message": "Row 7 processed: Extras=2, RAG=8, Functions=19"
+    },
+    {
+      "timestamp": "2025-11-12T02:53:16.110810",
+      "message": "Processing row 8/2552"
+    },
+    {
+      "timestamp": "2025-11-12T02:54:42.662927",
+      "message": "Row 8 processed: Extras=1, RAG=1, Functions=8"
+    },
+    {
+      "timestamp": "2025-11-12T02:54:42.664237",
+      "message": "Processing row 9/2552"
+    },
+    {
+      "timestamp": "2025-11-12T02:57:02.443853",
+      "message": "Row 9 processed: Extras=3, RAG=4, Functions=6"
+    },
+    {
+      "timestamp": "2025-11-12T02:57:02.445143",
+      "message": "Processing row 10/2552"
+    },
+    {
+      "timestamp": "2025-11-12T02:58:06.007136",
+      "message": "Row 10 processed: Extras=2, RAG=2, Functions=4"
+    },
+    {
+      "timestamp": "2025-11-12T02:58:06.039655",
+      "message": "Processing row 11/2552"
+    },
+    {
+      "timestamp": "2025-11-12T03:00:49.923449",
+      "message": "Row 11 processed: Extras=1, RAG=8, Functions=4"
+    },
+    {
+      "timestamp": "2025-11-12T03:00:49.924604",
+      "message": "Processing row 12/2552"
+    },
+    {
+      "timestamp": "2025-11-12T03:05:54.214806",
+      "message": "Row 12 processed: Extras=1, RAG=2, Functions=10"
+    },
+    {
+      "timestamp": "2025-11-12T03:05:54.216277",
+      "message": "Processing row 13/2552"
+    },
+    {
+      "timestamp": "2025-11-12T03:09:12.324477",
+      "message": "Row 13 processed: Extras=1, RAG=3, Functions=10"
+    },
+    {
+      "timestamp": "2025-11-12T03:09:12.326024",
+      "message": "Processing row 14/2552"
+    },
+    {
+      "timestamp": "2025-11-12T03:10:50.329970",
+      "message": "Row 14 processed: Extras=0, RAG=1, Functions=4"
+    },
+    {
+      "timestamp": "2025-11-12T03:10:50.331342",
+      "message": "Processing row 15/2552"
+    },
+    {
+      "timestamp": "2025-11-12T03:12:33.932860",
+      "message": "Row 15 processed: Extras=2, RAG=2, Functions=10"
+    },
+    {
+      "timestamp": "2025-11-12T03:12:33.933957",
+      "message": "Processing row 16/2552"
+    },
+    {
+      "timestamp": "2025-11-12T03:14:50.710270",
+      "message": "Row 16 processed: Extras=1, RAG=1, Functions=15"
+    },
+    {
+      "timestamp": "2025-11-12T03:14:50.711695",
+      "message": "Processing row 17/2552"
+    },
+    {
+      "timestamp": "2025-11-12T03:19:26.871351",
+      "message": "Row 17 processed: Extras=2, RAG=2, Functions=6"
+    },
+    {
+      "timestamp": "2025-11-12T03:19:26.872864",
+      "message": "Processing row 18/2552"
+    }
+  ]
+}

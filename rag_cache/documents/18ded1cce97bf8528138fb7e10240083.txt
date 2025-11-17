@@ -1,0 +1,876 @@
+DOI:10.1002/ncp.10793
+INVITED REVIEW
+Pediatricmalnutritionscreeningandassessmenttools:
+Analyzingthegaps
+PatriciaJ.BeckerMS,RDN1M.KimBrunet-WoodMSC,RD2
+1DaytonChildren’sHospitalMedical
+Center,Dayton,Ohio,USA
+2PediatricWorkingGroup,Canadian
+MalnutritionTaskForce,StAlbert,
+Alberta,Canada
+Correspondence
+PatriciaJ.Becker,MS,RDN,DaytonChil-
+dren’sHospitalMedicalCenter,OneChil-dren’sPlaza,Dayton,OH,USA.
+Email:
+patriciajbecker@me.comAbstract
+Pediatric healthcare professionals know that children who are malnourished
+have worse clinical outcomes than do their well-nourished peers. The body of
+evidenceintheliteratureonthetopicofpediatricmalnutrition(PMN)isgrow-
+ingandsupportsthisconclusion.ThegoalofthisarticleistopresentthecurrentstateofpracticerelatedtoPMNscreening,theuseofmalnutritionriskscreening
+(MNRS)tools,malnutritionassessment,andtheuseofmalnutritionassessment
+tools.ThepurposeisalsotodiscussbestpracticeforMNRSandassessmentand
+toconsiderthegapsinpracticewhereadditionalworkisneeded.
+KEYWORDS
+malnutrition,nutritionassessment,nutritionscreening,pediatrics
+INTRODUCTION
+Identifying pediatric malnutrition (PMN) early is key to
+implementingeffectivenutritioninterventionandimprov-ing outcomes. The first step is to screen children formalnutrition risk to determine whether a full nutritionassessmentisindicated.Reviewingtheuseofmalnutritionscreening, assessment, and diagnosis tools helps analyzethegapstogaugewherecurrentpracticeis,whatpracticesare,andwhatpracticegoalsshouldbe.
+The process includes a review of quality-improvement
+models, studies related to malnutrition risk screening(MNRS)toolsandthosetovalidatediagnosticcriteria,andexistingscreeningtoolstohelptounderstandthegapanddevelop tools to allow for standardization. The processalso includes consideration of what would be needed to
+close the gaps in practice. This review attempts to exam-
+ine the current state of pediatric MNRS and assessment
+©2021AmericanSocietyforParenteralandEnteralNutritionandthetoolsusedandtodiscussthedesiredstateorbestpractice.
+DEFININGMNRSTOOLS
+To begin, it is useful to define MNRS. A nutrition riskscreening tool is intended to be simple and performedupon admission to the hospital or, in some cases, uponadmissiontotheunit.Itisintendedtobecompletedbythepersonadmittingthechildandtoidentifychildreninneedofadditionalmalnutritionassessment.“Simplystated,thescreeningdeterminesrisk,theassessmentdeterminesthepresence or diagnosis of a nutrition related problem.”
+1
+Nutrition screening is generally completed by someoneother than the nutrition provider. MNRS tools should bequick,simple, andeasytouse.TheAmericanSocietyforParenteralandEnteralNutrition(ASPEN)referstoMNRS
+Nutr.Clin.Pract. 2021;1–17. wileyonlinelibrary.com/journal/ncp 1 1088 wileyonlinelibrary.com/journal/ncp   Nutr. Clin. Pract. 2022;37:1088–1104.
+
+2 BeckerandBrunet-Wood
+as“aprocesstoidentifyanindividualwhoismalnourished
+oratriskofbeingmalnourishedtodetermineifadetailednutritionassessmentisindicated.”
+2
+MALNUTRITIONPREVALENCE
+Diamanti and colleagues3looked at information on
+disease-relatedmalnutrition(DRM)andrelatedoutcomes
+in pediatric patients with chronic diseases in differenthealthcare settings and found that true prevalence infor-mationwasnotavailable.
+The study population was screened for the presence
+of malnutrition using body mass index (BMI) and/orheight/lengthforage z-scores<−2.Theauthorsfoundthe
+prevalenceofmalnutritionwastwofoldhigher( P<.001)
+forchildrenadmittedtoacutecare/inpatientpopulations(56.7%)thanforchildrenassessedatoutpatient(33.3%)andday-hospital(28.3%)clinics.
+3
+In the review by Carvalho-Salemi et al,4of the 2.1
+million pediatric patients hospitalized annually between2002 and 2011, >54,600 had a coded diagnosis of mal-
+nutrition (CDM), a national prevalence of 2.6%. Patientswith CDM experienced worse clinical outcomes, longerlengths of stay (LOSs), and increased costs of inpatientcare.TheoverallprevalenceofCDMincreasedfrom1.9%in 2002 to 3.7% in 2011, an 8% annual increase. Theauthors concluded that despite improvements, PMN will
+remain underdiagnosed in inpatient settings if we con-
+tinue to rely on codes based on the International Classi-
+ficationofDiseases .Theauthorsstatethatthisonlyserves
+to highlight the ongoing need for a national benchmark-ing system to determine the true prevalence of malnu-trition and its cost to children, families, and healthcareorganizations.
+4
+In a follow-up analysis by these authors, CDM preva-
+lence increased more from 2011 to 2014 (3.6% to 4.81%)than during the previous 4 years (from 2.6% to 3.6%).Children with CDM continued with longer LOSs (11.2vs 6.4 days), higher costs per stay ($31,000 vs $16,746),andincreasedpatientmortalityrates(8.7vs3.9per1000)compared with children without CDM. The follow-upstudy also found fewer children coded with failure tothrive.
+5
+CURRENTMNRSANDASSESSMENT
+TOOLS
+In the literature, there are more publications and stud-
+ies related to adult MNRS than there are related to pedi-atricMNRS.ThesystematicreviewdonebytheEvidenceAnalysis Library (EAL) for the Adult Malnutrition RiskScreening Project Group reviewed 3120 citations
+6vs 1880
+citations reviewed by the Pediatric Malnutrition RiskScreeningProjectGroup.
+7Theevidencefortheadultswas
+strong enough to enable the Academy of Nutrition andDietetics to publish a position paper recommending theuse of a specific MNRS tool, the Malnutrition ScreeningTool(MST).
+8
+ItwastheconclusionoftheEALsystematicreviewofthe
+PediatricMalnutritionRiskScreeningGroup7thatthereis
+nosinglepediatricnutritionscreeningtoolwithsuchsup-portandthatadditionalstudiestotestthemwereneeded.
+The group also concluded that although the validity
+and reliability results of the Screening Tool for Assess-mentofMalnutritioninPediatrics(STAMP)wassupportedby grade I evidence, it used tool-specific charts that maybe difficult to integrate into the electronic health record(EHR). Therefore, it might be necessary to update thesevalidatedtoolstoinsertthemintotheEHR.Morestudiesareneededtovalidatescreeningtoolsinlargerpopulationsandinallagegroups,infantstoadolescents,particularlyinthoseyoungerthan2years,asthispopulationwasunder-representedinallstudies.
+7
+PEDIATRICMNRSTOOLS
+A detailed description of nutrition screening tools andtheirvalidityandreliabilityisavailablefromtheAcademy
+EAL Pediatric Nutrition Screening Project, published in
+October2018.Thepediatricnutritionriskscreeningtoolsthat show moderate validity, as described in the EAL,includethefollowing:
+STAMP
+9
+ScreeningToolforRiskofNutritionStatusandGrowth
+(STRONGkids)10
+PaediatricYorkhillMalnutritionScore(PYMS)11
+PediatricNutritionScreeningTool(PNST)12
+A detailed description of their validity, reliability, evi-
+dencegrade,andissuesrelatedtotheiruseisavailableinthe systematic review article “Validity and Reliability ofPediatric Nutrition Screening Tools for Hospital, Outpa-tient,andCommunitySettings:A2018EvidenceAnalysisCenterSystematicReview”
+2andontheEAL.13
+TwoMNRStoolsthatdonotincludetablesthatrequire
+modification for inclusion of the EHR are STRONGkidsandPNST.
+STRONGkidsisafour-question,validatedscreeningtool
+aimed at identifying children who may be at risk formalnutrition upon admission to the hospital. It includes
+questionsabouttheappearanceofunderweight,presence
+of an illness associated with malnutrition, nutrition andimpaired intake, and presence of weight loss or lack ofweight gain for those children under 2 years of age. TheNutritioninClinicalPractice 31089
+ 19412452, 2022, 5, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10793 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+NutritioninClinicalPractice 3
+initial validation study was reported in 2010 by Hulst
+et al.10It was designed for children 1 month to 18 years
+ofageandwastestedinmedical/surgicalpatients.Whenvalidated with Subjective Global Nutrition Assessment(SGNA),however,STRONGkidsobtainedaveryhighsen-sitivity (100%), but the specificity was very low (7.7%).
+14
+Although it is true that it is better to include more falsepositivesthanfalsenegatives,toomanyfalsepositivescan
+resultinunnecessarynutritionassessments,animpacton
+registereddietitiannutritionist(RDN)resources,andaddi-tionalfinancialcosts.TheSTRONGkidsfour-questionfor-matiseasilyadaptabletotheEHR.
+The PNST is a validated malnutrition screening tool.
+White et al used SGNA and anthropometric measuresto develop and validate the PNST. PNST consists of foursimple questions. The four questions include recentweight loss/poor weight gain, inadequate eating/feeding,and the appearance of underweight or overweight.The study to test and validate PNST included 295children.
+12
+Inthestudy,publishedin NutritioninClinicalPractice
+in2016,PNSTidentified37.6%ofpatientsasbeingatriskfor malnutrition, whereas the pediatric SGNA (pSGNA)identified 34.2%. The sensitivity and specificity of thePNST compared with the pSGNA were 77.8% and 82.1%,respectively.
+TheauthorsconcludedthatPNSTprovidedasensitive,
+valid, and simple alternative to existing pediatric nutri-
+tion screening tools such as STAMP, STRONGkids, and
+PYMS, allowing for the detection of children at risk ofmalnutrition.
+12
+Inafollow-upstudy,Whiteetaldesignedandvalidated
+a simple, quick, and universal weekly rescreening toolto identifychangesto the malnutrition statusof childrenduring their hospital stay.
+15Of note, there is minimal
+information on such tools in the literature for pediatricpopulations, although the need for rescreening andthe establishment of timeframes has frequently beenacknowledged.
+16
+Children ages 0–16 years with an inpatient LOS ≥7
+days were included in the study. The Pediatric Nutri-tion Rescreening Tool (PNRT) included two questions:“Has the child had reduced nutritional intake over thepast 7 days?” (for identifying children with reduction inenergyintake)and“Hasthechildlostweightorhadpoorweight gain?” (for detecting poor growth). Indicators ofrisk included reduction in weight (in kilograms), BMI,energyintake(incaloriesperday),andproteinintake(ingramsperday)overa7-dayperiod.
+15
+Table1providesanoverviewofthetoolsusedinthestud-
+iescitedinthisreview.PATIENTPOPULATIONSANDSETTINGS
+Pretermandneonatalinfants
+Infantsbornpreterm(before37weeks’gestationalage)are
+generally excluded from studies and systematic reviewsof nutrition screening practices for several reasons. TheHealthcare Cost and Utilization Project (HCUP) reportNon-Maternal and Non-Neonatal Inpatient Stays in theUnitedStatesInvolvingMalnutrition doesnotincludethis
+patientpopulation.
+17TherearefewvalidatedMNRStools
+forthispopulation.Providersofcareforthesepopulationsare endeavoring to establish guidelines and tools to thisend.
+Silvino
+18hasdescribedtheconstructionandvalidation
+ofanMNRSforuseinthepretermandneonatalpopula-
+tion.ConductedattheUniversityHospitalofSãoPauloin
+Brazil,theNeonatalNutritionRiskScreeningTool(FARN-Neo) was developed to identify infants in the neonatali n t e n s i v ec a r eu n i t( N I C U )m o s ta tr i s ko fm a l n u t r i t i o n .Thetoolconsistedoffourquestions,towhichascorewasattributed. The sum of that score classified the nutritionrisk of the infant. The tool was then validated against anutritionassessmentandamongusersforreliability.TheFARNNeoappearstobeatrueMNRStool.
+18
+Other screening/assessment tools have been proposed
+for this population, but they do not meet the criteria forascreeningtoolvsanassessmenttool.
+19
+B e l i ne ta l20evaluated a nutrition screening tool in an
+NICU.Thetoolrequiresanin-depthcollectionofdataoninfantsadmittedtotheNICU.Thesedataincludedanthro-pometrics, weight for gestational age, length for gesta-tionalage,typeofdelivery,nutritionintakeandoutcomes,nutritiondiagnosis,conditions,anddiseaseseverity.
+It categorizes these infants by level of severity of ill-
+ness or care and assigns the level of follow-up monitor-ingrecommendedbythenutritioncareprovider.Thetool
+wascomparedtothepediatricMNRStoolSTRONGkids,
+10
+which is a four-question validated MNRS tool used to
+assign risk and determine whether a detailed nutritionassessmentisindicated.
+A so u t l i n e db yF i e l d se ta l
+1a n db yC o r r e i a2in their
+articles on malnutrition screening, an MNRS tool shouldbe quick, simple, and validated. As this is an in-depth,detailedtoolcompletedbythedietitian,thistooldoesnotmeetthedefinitionofanMNRStool.
+Thistoolprovidesameanstoclassifyinfantsatriskof
+pooroutcomesintheNICUthatcanbeusedbynutritioncareproviderstodirectnutritioncare.
+Nutrition assessment in the NICU needs to be evi-
+dence informed and needs to utilize all available tools.2 BeckerandBrunet-Wood 1090
+ 19412452, 2022, 5, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10793 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+4 BeckerandBrunet-Wood
+TABLE 1 Malnutritionriskscreeningtools
+Study Tool Population Setting Reportedoutcome
+Belinetal30NeonatalNST Preterminfantsand
+neonatesNICU(Brazil) Samplesize:110
+Aim:developmentofaninstrument
+fornutritionscreeningintheNICU
+Outcome:nutritionscreeningand
+assessmenttoolanalyzedassociationsbetweennutritionlevelsofcareandmorbidityandmortalityoutcomes;administeredbynutritionists;requiredweeklymonitoringandreassessmentofpatient
+Gerasimidisetal9PYMS 1monthto18yearsof
+ageInpatienthospital
+(UnitedKingdom)Samplesize:1571Aim:develop/validatea
+nurse-administeredtooltoidentifychildrenatnutritionrisk
+Outcome:PYMSwasfoundtobea
+simple,quick,validtoolthatidentifiedchildrenatriskofmalnutrition
+Gerasimidisetal
+23iNEWS Terminfants:1–12
+monthsofageInpatienthospital
+(UnitedKingdom,Greece,Iran)Samplesize:499
+Aim:identifysickinfantsinneedof
+dietaryinput
+Outcome:iNEWSwasfoundtobea
+simple,quick,validtooltoidentifyinfantsatnutritionriskwhoneedadditionaldietaryinput
+Hulstetal8STRONGkids 1monthto18yearsof
+ageAcademicandgeneral
+hospitals(Netherlands)Samplesize:424Aim:validatetoolinapediatric
+population
+Outcome:STRONGkidswasfound
+tohaveapositiveassociationbetweenhighriskandprolongedLOSandlowWHZ/BMZscores
+McCarthyetal
+7STAMP 1monthto18yearsof
+age;generalpopulationPediatricinpatient
+hospital(UnitedKingdom)Samplesize:360
+Aim:developandevaluateasimple,
+child-specificnutritionscreeningtoolforadministrationbynon–nutritionhealthcareprofessionals
+Outcome:STAMPwasfoundtohave
+moderatereliabilityandhighspecificityindetectingmalnutritionriskandwasshowntobesimple,quick,andvalidinthepopulation
+Silvinoetal26FARNNeo Preterminfantsand
+neonatesNICU(Brazil) Samplesize:notreportedAim:createandvalidatethecontent
+andreliabilityoftheFARNNeo
+Outcome:FARNNeowasfoundto
+bequick,simple,andvalidintheNICUpopulation
+(Continues)NutritioninClinicalPractice 31091
+ 19412452, 2022, 5, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10793 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+NutritioninClinicalPractice 5
+TABLE 1 (Continued)
+Study Tool Population Setting Reportedoutcome
+Venturaetal37PICU-ScREEN 1monthto18yearsof
+agePediatricintensivecare
+unit(Brazil)Samplesize:363
+Aim:identifyfactorsassociatedwith
+NSDandPPS
+Outcome:PICU-ScREEN
+determinedthatchildrenwithcomplexchronicconditionswereathighestriskforNSD.Children<2yearsoldwithfluidoverload
+andlowserumalbuminlevelhadPPS
+Whiteetal10PNST 1monthto18yearsof
+ageTwopediatrictertiary
+carehospitals
+Oneregionalhospital
+(Australia)Samplesize:295Aim:developaquick,simple
+nutritionscreenforpediatricpatients
+Outcome:PNSTisasimple,quick,
+validnutritionriskscreeningtool
+Whiteetal
+13PNRT 0–16yearsofage Pediatrictertiarycare
+hospital(Australia)Samplesize:61
+Aim:design/validateasimple
+nutritionriskrescreeningtool
+Outcome:PNRTdetected
+deteriorationinlong-staypatients
+Abbreviations:FARNNeo,NeonatalNutritionalRiskScreeningTool;iNEWS,InfantNutritionEmergencyWarningScore;LOS,lengthofstay;NICU,neo natal
+intensivecareunit;NSD,nutritionstatusdeterioration;PICU-ScREEN,xxxx;PNST,PediatricNutritionScreeningTool;PNRT,PediatricNutritio nRescreening
+Tool;PPS,prolongedpediatricintensivecareunitstay;PYMS,PaediatricYorkhillMalnutritionScore;STAMP,ScreeningToolforAssessmentofMal nutritionin
+Pediatrics;STRONGkids,ScreeningToolforRiskofNutritionStatusandGrowth;WHZ/BMZ,weightforage z-score/bodymassindexforage z-score.
+Pereira-da-Silvaetal,21intheirarticlepublishedin Nutri-
+entsin2019,recommendtheuseofmid-upperarmcircum-
+ference(MUAC),anunderutilizedtool,fortheassessmentofbodycompositioninthispopulation.Theyalsorecom-mendprealbuminandretinolbindingproteinasmarkersof current protein nutrition status (NS),
+21which, in the
+recent position paper from ASPEN,22have been demon-
+stratedtohaveanassociationwithinflammationandmal-
+nutrition but not with NS. These proteins correlate wellwithpatients’riskforadverseoutcomesratherthanwithprotein-energy malnutrition. Therefore, serum albuminandprealbuminlevelsshouldnotserveasproxymeasuresoftotalbodyproteinortotalmusclemassandshouldnotbeusedasnutritionmarkers.
+22
+In 2018, Goldberg et al23published a set of recom-
+mended indicators for the identification and documenta-tionofpretermandneonatalmalnutrition.Theseindica-tors could serve as a basis for a preterm/neonatal MNRStoolandassessmenttoolforthispatientpopulation.
+Infantsandyoungchildren
+Accordingto OverviewofHospitalStaysforChildreninthe
+UnitedStates,2012 (HCUPStatisticalBrief#187),newborns
+andinfants <1yearofageconstituted73.0%ofallhospital
+staysforchildrenand57.9%ofaggregatehospitalcosts.24IntheirreviewofHCUPdata,Carvalho-Salemireported
+that the percentages of children with unadjusted rates ofCDMarethehighestamongchildren <1yearofage,with
+aprevalenceof4.1%.Thelowestrateswereseenforthose5 years and older (1.6%). Even after adjusting for con-founders, an inverse association between CDM and agewasobserved.Comparedwithchildren <1yearofage,chil-
+drenaged1–4,5–9,and10–17yearsexperienced25%,58%,
+and62%decreasedoddsofCDM,respectively.
+4
+Assuggestedbyresultsofthesystematicreviewofpedi-
+atricMNRStools,children <2yearsofagewereunderrep-
+resentedinvalidationstudiesofmostmalnutritionscreen-ing tools. Thus, the need for validation of MNRS tools inthispopulationisevident.
+Gerasimidis et al
+25reported on the development of a
+nutritionscreeningtoolforinfants <12monthsofage.This
+toolutilizedthreesimplescreeningquestionsandastan-dardized male/female weight chart to determine a nutri-tionriskscore.TheInfantNutritionEmergencyWarningScore (iNEWS) tool was studied in 499 infants in threecountries. The tool was noted to have high levels of sen-sitivityandspecificity.
+25
+Carey et al26examined the use of STAMP in children
+<24monthsold.Thesmallstudy(n =59)reportedmoder-
+atevalidityinpredictingnutritionriskcomparedwiththatdeterminedbythefullnutritionassessment.
+26Theresults
+suggest that STAMP may be a valid nutrition screening2 BeckerandBrunet-Wood 1092
+ 19412452, 2022, 5, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10793 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+6 BeckerandBrunet-Wood
+tool for identifying malnutrition risk in a general inpa-
+tient population aged 2 weeks to 2 years; however, thesmall sample size and limited diversity of the patientpopulation make its application to the larger popula-tionlessrobust.Therefore,additionalsupportingdataareneeded.
+ICUSETTING
+Patients in the pediatric ICU (PICU) need early identifi-cation for risk of NS deterioration. Ventura et al
+27found
+anassociationwithcomplexchronicconditions,ageof <2
+years,fluidoverloadandhypoalbuminemiaatadmission,andprolongedPICUstays.
+27Toaddressthisconcern,they
+developedandtrialedanutritionriskscreenforthispop-ulation.Thisscreenis,inabroadersense,anutritionriskscreenvsamalnutritionriskscreen.Itisintendedtodetecttheriskofaproblemandalertthenutritionprovideroftheneed for additional assessment of the child to determinethe presence and diagnosis of the nutrition-related prob-lem.Unlikethescreendoneatadmissiontothehospital,it might not be completed within the first 24 h of admis-sion, as all of the data may not be available within thattimeframe.
+Acutecare/inpatientsetting
+The Evidence Analysis Center systematic review7pub-
+lished in 2020 found 13 pediatric nutrition screeningtoolsforidentifyingundernutritionthatmettheinclusioncriteria.
+7Oftheidentifiedtools,seventoolsweredesigned
+for use in the inpatient or hospital setting: STAMP,STRONGkids, PYMS, Pediatric Malnutrition ScreeningTool(PMST),PNST,PediatricNutritionRiskScore(PNRS),andIntegratedManagementofChildhoodIllness(IMCI)algorithm.
+At the time of the review, only three tools (PYMS,
+STAMP, and STRONGkids) were examined in more thantwo validation studies. The conclusion of the review wasthat revision of pediatric nutrition screening tools, andsupportingstudies,wasneeded.AlthoughthevalidityandreliabilityresultsofSTAMPweresupportedbygradeIevi-dence, like other nutrition screening tools STAMP con-tainscomponentsthatmaybedifficulttoincorporateintothe EHR. Many of the pediatric nutrition screening toolsexamined in this systematic review were created beforethewidespreadimplementationoftheEHR.Screeningtool
+components,suchastheSTAMPchildweightandheight
+centiletables
+9andthePYMSBMIscoringguide,11maybe
+challengingtoincorporateintoanEHR.Ambulatorycare/outpatientsetting
+Of the identified tools in the Evidence Analysis Cen-ter systematic review
+7, three tools were designed for
+use in the outpatient or specialty setting: ScreeningTool for the Assessment of Malnutrition in Pediatrics–Modified (Modified-STAMP), Nutrition Risk ScreeningTool for Children and Adolescents With Cystic Fibrosis(NRST-CF), and Nutrition Screening Tool for ChildhoodCancer (SCAN).
+7It was noted that there are limited
+MNRS tools for use in the outpatient/ambulatory caresetting.
+Primarycare/communitysetting
+The Evidence Analysis Center systematic review7found
+no pediatric MNRS tools in the community setting thatmet the criteria for moderate or high validity/reliability.The need for such tools and the availability of standard-izeddiagnosticcriteriawasrecentlyaddressedinanotherpublicationthathelpstoshedsomelightontheneedforfurtherstudyinthisarea.
+7
+InastudybyPriceetal,28theauthorsexaminedNational
+HealthandNutritionExaminationSurvey(NHANES)datato estimate the prevalence of PMN. Children were strat-ified into no malnutrition, mild PMN, and moderate orseverePMNriskgroupsbyusingtheAcademy/ASPENrec-ommendedindicators.Prevalenceofpediatricundernutri-tioninthissamplewas0.4%(severeundernutrition),2.0%(moderate undernutrition), and 10.9% (mild undernutri-tion) for all ages. The conclusion of the authors was thatpediatric undernutrition is a prevalent condition in the
+community setting and that this impacts children across
+differentdemographiccategories.
+28
+PMNASSESSMENTTOOLS
+Malnutrition screening allows children “at risk” formalnutrition to be identified; however, none are specificenough to diagnose the presence or absence of malnutri-tion. A full dietetic assessment consists of several steps,including a detailed medical and diet history, a physicalexaminationthatincludesanthropometricandbodycom-position measurement, and laboratory data. The processislengthyandtime-consuming,makingitdifficulttousetoevaluateeverychildwhoisidentifiedasbeing“atrisk”ofmalnutritiononadmissiontothehospital.SGNAisanassessmenttoolthathasbeenvalidatedtoidentifythepres-ence and degree of malnutrition in pediatric patients.
+29
+ValidationstudieshaveshowntheSGNAtoberelatedtoNutritioninClinicalPractice 31093
+ 19412452, 2022, 5, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10793 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+NutritioninClinicalPractice 7
+outcomemeasuressuchasinfectionrates,lengthofhospi-
+talstays,andreadmissionrates.30–33Comparisonsbetween
+theSGNAandWorldHealthOrganization(WHO)anthro-pometric measures have shown poor agreement betweenthetwomeasures.
+29,34Thisisnotsurprising,considering
+that the SGNA includes other factors beyond anthropo-metrics such as food intake, gastrointestinal symptoms,functional capacity, metabolic stress, and a nutrition-
+focused physical exam (NFPE). The SGNA is a more
+robustmeasurecomparedwithanthropometricsalonebutis not as detailed as a full assessment, making it a morepractical assessment tool for malnutrition identificationafter screening. Once the malnutrition presence is estab-lished, the RDN provides a detailed assessment, whereasthose without malnutrition would not require a fullassessment.
+In general use, there is only a single validated mal-
+nutrition assessment tool for pediatric patients: thepSGNA.In2019,asecondPMNassessmenttoolwascre-ated and validated for use in the inpatient/acute carepopulation.
+29
+In the publication by Wong-Vega et al,35the authors
+created, tested, and validated a malnutrition screen-ing/assessmenttoolforusebynutritioncareprovidersinthe acute care setting. The study goals were to identifymalnutrition and risk among hospitalized patients, char-acterizemalnutritionriskfactors,andassessthereliabilityofcriteriaagainstoutcomemeasures.Thestudyincluded
+children at 44 weeks’ postmenstrual age to 18 years who
+were admitted for 48 h or more during a 16-day period(n=528).
+This screening/assessmenttoolincludeddataonphys-
+ical assessments, growth, energy intake, increased nutri-entloss(IL),alteredabsorptionofnutrients(AA),hyper-metabolism and inflammation, laboratory information,micronutrient deficiency, and functional status. The tooluserswerepediatricRDNs.
+Theprevalenceofmalnutritionatadmissionwas19.7%.
+Low weight for length/height z-score (WHZ) or BMI
+for agez-score (BAZ) at admission was associated with
+increasedhospitalLOS,increasedICULOS,andincreasednumberofventilationdays.Degreeofmalnutritionuponadmission,definedbyWHZorBAZ,hadnoeffectonLOS.Thosewithmorethantworiskfactorsassociatedwithmal-nutritionhadincreasedoddsforlongerLOS,irrespectiveofanthropometrics.
+AA and IL upon admission were independently
+associated with malnutrition. Wasting and hyperme-tabolism were independently associated with longer
+LOS.
+This was a study primarily addressing a population of
+pediatricpatientsadmittedtoatertiarychildren’shospital,and thus, applicability to the outpatient/ambulatory care
+settingmaybelimited.
+35
+Table2providesanoverviewofthestudies,theirchar-
+acteristics, MNRS tools, and outcomes included in thisreview.
+CURRENTUSEOFMNRSTOOLSAND
+MALNUTRITIONASSESSMENT
+A number of recently published papers present informa-
+tiononthehealthoutcomesforchildrenwhoaredeemedtobeatmoderatetohighmalnutritionriskbyoneormorevalidatedacutecarepediatricscreeningtools.Freijeretal
+36
+reportthecostofDRMtothechildtobeoneofincreasedmorbidityandmortalityandtothehealthcarefacilityoneofincreaseddirectmedicalcosts.Intheirpaperpublishedin2018,theyreportestimatedincreasedcostsof€51millionforacutemalnutritionand€46millionforcostsassociatedwiththecareofchildrenwithchronicmalnutrition,foratotalof€80million,5.6%ofthetotalannualcostofDutchHealthcarecosts.
+36
+Intheirstudy,Gambra-Arzozetal37usedSTRONGkids
+toscreenformalnutrition.Childreninthestudywithhigh-risk malnutrition scores had significantly longer hospitalstaysandincreasedhospitalexpenses.
+ThestudyalsofoundcorrelationsamongSTRONGkids
+andanthropometry.Childrenwithhighmalnutritionrisk
+had significantly lower mean z-scores for weight for age,
+BMI for age, and height for age; moreover, STRONGkidscorrelatedwiththeneedfornutritioninterventionduringhospitalstay.
+The authors did not find a significant correlation
+betweenSTRONGkidsriskcategoriesandweightlossdur-ing hospitalization. It was suspected that this was due tothenutritioninterventionsprovided,asnutritioninterven-tion was associated with a greater improvement in dis-chargeweight.
+37
+Literature that provides information on screening for
+malnutrition in children undergoing surgery and health-care outcomes is scarce. Two publications that havereporteddataobtainedfromtheAmericanCollegeofSur-geons National Surgical Quality Improvement Program(ACSNSQIP)pediatricdatabasearepresentedhere.
+Roberson and colleagues
+38report outcomes associated
+with PMN. However, their criteria for defining malnutri-tionincludedstunting,needfornutritionsupport,andpre-operativehypoalbuminemia.
+38
+Itisdifficulttodeterminetheimpactofthesedata,given
+that the criteria do not conform to the consensus that
+serumalbuminandprealbuminlevelsarenotmarkersofNSormalnutritionstatus.
+222 BeckerandBrunet-Wood 1094
+ 19412452, 2022, 5, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10793 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+8 BeckerandBrunet-Wood
+TABLE 2 Studyoutcomesandcharacteristicsofstudiesincludedinthereview
+Study Tool/criteria Population Setting Outcome
+Ehwerhemuephaet
+al57Readmission >1monthto <18
+yearsofageInpatienturban
+hospitalSamplesize:19,702visits
+Aim:exploretheeffectof
+malnutritiononreadmissioninpediatricpopulations
+Finding:patientswhowere
+malnourishedhadhigheroddsofreadmission.Youngerpatientswhoweremalnourishedwereatincreasedoddsofreadmissioncomparedwiththeirolderpeers
+Gambra-Arzozetal40STRONGkids >1monthto <18
+yearsofageTertiarycare
+children’shospitalSamplesize:282Aim:analyzenutritionriskin
+hospitalizedchildrenanditsrelationshipwithclinicaloutcomesinatertiarylevelhospital
+Finding:higherSTRONGkidsscore
+correlatedwithworseoutcomes(longerLOS,higherhospitalcost,needfornutritionsupport).MorestudiesareneededtoassesswhetherapplyingSTRONGkidsandnutritioninterventionresultsinlowercostsandshorterLOS
+Jimenezetal
+46STRONGkids/AAIMpeds 1monthto18years
+ofageInpatient,multiple
+sitesSamplesize:60sites,600patients
+Aim:cohortstudytoassessthe
+predictivevalidityofAAIMpeds,assesstheinterraterreliability,andquantifythelevelofregistereddietitiannutritionistcareneededtoimprovepatientoutcomes
+Finding:validationresultswill
+allowUSclinicianstostandardizediagnosis;thestaffingdatawillsupportadvocacyforavailableregistereddietitiannutritionist–deliveredmalnutritiontreatmenttoimprovepatientoutcomes
+Laddetal42BMZ,AAIMpeds 5–18yearsofage Inpatient/surgical Samplesize:516
+Aim:determinetheeffectsof
+malnutritioninchildrenwithCDon30-dayoutcomesaftersurgery
+Finding:worseningdegreesof
+malnutritioncorrelatewithincreasingriskof30-daycomplicationsinchildrenwithCDundergoingmajorbowelsurgery
+(Continues)NutritioninClinicalPractice 31095
+ 19412452, 2022, 5, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10793 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+NutritioninClinicalPractice 9
+TABLE 2 (Continued)
+Study Tool/criteria Population Setting Outcome
+Ongetal45STAMP/pSGNA >1monthto <18
+yearsofagePediatrichospital Samplesize:82
+Aim:comparetheuseofthe
+pSGNAandSTAMPwithobjectivenutritionparameterstoidentifymalnutritioninhospitalizedchildren
+Finding:SGNAandSTAMP
+identified45%and79%ofthechildrentobeatriskofmalnutrition,respectively.SGNAisavalidnutritionassessmenttoolindiagnosingmalnutritionstatusamonghospitalizedchildreninMalaysia.TheuseofSTAMPshouldbefollowedupwithanassessmenttoolsuchasSGNAtoverifytheactualnutritionstatusofthepediatricpopulation
+Panetal44STRONGkids/pSGNA/
+AAIMpeds>1monthto <18
+yearsofagePediatricmedical
+centerSamplesize:62,408Aim:evaluatenutritionriskviathe
+EHRanditsassociationwithclinicaloutcomes
+Finding:childrenwithhigh
+malnutritionriskscoreshadlongerLOS,highercostofcare,higherinfectionrates
+Phillipsetal
+35Automatedelectronic
+rescreeningtool/AAIMpeds>1monthofage Pediatrictertiarycare
+hospital/oncologySamplesize:5447
+Aim:automatedmalnutrition
+screenusinganthropometricdataintheEHRwasdesignedandimplemented
+Finding:indicatorsforpediatric
+malnutritioncanbeincorporatedinautomatedscreenusingstructuredEHRdata.Theautomatedscreenefficientlyidentifiesoncologypatientsatriskofmalnutritionduringadmission
+Phongetal54BMZ/MUAC z-score 2monthsto18.5
+yearsofagePediatrichospi-
+tal/ambulatorycareSamplesize:70Aim:comparegrowthparameter
+z-scoreswithMUAC z-scoresin
+diagnosingandclassifyingmalnutritioninchildrenwithCF
+Finding:growthpercentileand
+MUACz-scoreswerepositively
+correlatedindiagnosingmalnutrition;MUAC z-scores
+identifiedmorepatientsasmalnourishedcomparedwithgrowthpercentile z-scores.
+MUACz-scoresincreased
+significantlyovertime,butBMIz-scoresdidnotshowthistrend
+(Continues)2 BeckerandBrunet-Wood 1096
+ 19412452, 2022, 5, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10793 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+10 BeckerandBrunet-Wood
+TABLE 2 (Continued)
+Study Tool/criteria Population Setting Outcome
+Priceetal38AAIMpeds 1–13yearsofage Community/primary
+careSamplesize:13,950
+Aim:estimatetheprevalenceof
+pediatricundernutritionintheUSgeneralpopulationusingAAIMpeds
+Finding:Theprevalenceof
+undernutritionwas0.4%(severe),2.0%(moderate),and10.9%(mild);z-scoresdiffered
+significantlyacrossalllevelsofundernutritionforallanthropometrics;pediatricundernutritionisaprevalentconditionthattranscendsthepriorfocusonlessthanthefifthpercentileofgrowthcurves
+Reedetal34STAMP/AAIMpeds 1monthto18years
+ofageInpatientpediatric
+hospitalSamplesize:3553Aim:validateanEHRversionof
+STAMPwithinclusionofAAIMpedscriteria
+Finding:modifiedEHR-STAMP
+wasvalid,withhighsensitivity,specificity,andnegativepredictivevalue(89%,97%,and94%,respectively)
+Robersonetal
+41Stunting,wasting,
+hypoalbuminemia,needfornutritionsupport2–18yearsofage Inpatient/surgical Samplesize:282,056
+Aim:estimatetheoddsof30-day
+postoperativeinfectionriskrelatedtomalnutritioninpediatricpatients
+Finding:19%ofpatientsmetone
+definitionofmalnutrition,6%mettwo,1%metthree,and <1%
+metallfour.Requirementfornutritionsupport,stunting,andhypoalbuminemiawereassociatedwithpostoperativeinfection
+Saengnipanthkulet
+al56DeclineinBMZ 1monthto18years
+ofageTertiarycarehospitals Samplesize:623Aim:determinetheprevalenceand
+possibleriskfactorsfornutritiondeteriorationinhospitalizedchildren
+Finding:prevalenceof
+malnutrition/reductioninBMI≥0.25z-scorewas24%andwas
+associatedwithahigherrateofnosocomialinfection(24%vs11%)comparedwiththoseofpatientswithouthospital-acquiredmalnutrition
+(Continues)NutritioninClinicalPractice 31097
+ 19412452, 2022, 5, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10793 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+NutritioninClinicalPractice 11
+TABLE 2 (Continued)
+Study Tool/criteria Population Setting Outcome
+Stephensetal52MUAC/AAIMpeds <18yearsofage Pediatrictertiarycare
+hospitalSamplesize:10,401
+Aim:examineMUAC z-score
+thresholdsandtheirabilitytocorrectlyclassifynutritionstatus
+Finding:sensitivityofproposed
+MUACz-scorethresholds
+decreaseswithincreasingseverityofmalnutritionandappearstorequireoptimizationtolimitthenumberofchildrenatriskofmisclassification
+Abbreviations:AAIMpeds,Academy/ASPENIndicatorsofMalnutritionpediatric;BMI,bodymassindex;BMZ,BMIforage z-score;CD,Crohn’sdisease;CF,cystic
+fibrosis;EHR,electronichealthrecord;LOS,lengthofstay;MUAC,mid-upperarmcircumference;pSGNA,pediatricSubjectiveGlobalNutritionAss essment;
+STAMP,ScreeningToolforAssessmentofMalnutritioninPediatrics;STRONGkids,ScreeningToolforRiskofNutritionStatusandGrowth.
+InthepaperbyLaddetal,39theauthorsdeterminedto
+assesstheeffectsofmalnutritiononchildrenundergoingsurgeryforCrohn’sdisease(CD).Theauthorsnotedthatthe2015consensusofPMNcriteriawasusedtocategorizeBAZforchildrenonthebasisofseverityofmalnutrition:mild,−1to−1.9;moderate, −2to−2.9;andsevere, −3or
+higher.
+In the study population, there was an increasing asso-
+ciation of preoperative parenteral nutrition, preoperativesepsis, and preoperative blood transfusions with worsen-ing malnutrition, with the highest rates in the severelymalnourishedgroups.MediantotalLOSandpostoperativeLOSwerelongerfortheseverelymalnourishedgroupcom-paredwiththosepatientswithotherdegreesofmalnutri-tion.Theoverallfindingswerethatworseningdegreesofmalnutritiondirectlycorrelatedwithincreasingriskof30-
+daycomplicationsinchildrenwithCDundergoingmajor
+bowelsurgery.
+39
+Europe
+ThereisascarcityofresearchanddataonMNRSandmal-
+nutritionprevalenceinpediatricpatientsinEuropeaswellasintheUS.TheDutchHealthCareInspectorate,aspartof the national quality benchmarking program, reports aprevalenceofPMNforhospitalizedchildrenwithLOS >4
+days of 21% at discharge. Hulst et al report that approxi-mately80,00–100,00childrenareadmittedtothehospitalannuallyintheNetherlandsandthat75%ofthesechildrenare being screened for risk of malnutrition. A decline inthepercentageoftheprevalenceofacutemalnutritionwasnoted.In2009,theprevalencewas10.7%,whereasin2015,theprevalencewas6.5%.Theauthorsstatedthatthismaybe due in part to the increase in the number of hospitalsreportingdata.Thesefacts,alongwiththosepresentedbyCarvalho-Salemietal
+5forUSpediatricpopulations,onlyserve to highlight the need for benchmarking programs.
+Studiestodeterminemalnutritionriskandprevalenceinthis population as well as the associations between mal-nutritionandoutcomessuchashospitalLOS,readmissionrates,andresponsestotreatmentareneeded.
+40
+Asia
+Inanarticlepublishedin Nutritionin2021,>62,000chil-
+dren ages 1 month to 17 years from Shanghai Children’sMedicalCenterinChinawereenrolledandscreenedusingtheSTAMP.Inthisstudy,theMNRStoolwasincorporatedinto the EHR and the scores were categorized into twogroups,low/moderatemalnutritionriskandhighmalnu-trition risk (called “HNR”). These risk groups were ana-lyzedfortheirassociationwithdiseasestatesandclinical
+outcomes.“HNR”asindicatedbySTAMPwasassociated
+with longer LOS, higher hospital costs, and more medi-cation and antibiotic use.
+41This study did include chil-
+dren under the age of 2 years, although specific/detailedinformation on this patient population is not provided.This study does provide additional support for the use ofSTAMPasapediatricscreeningtoolthatcanbeadaptedtotheEHRaswellasatoolthatisvalidinchildren <3years
+ofage.
+In an additional study by Ong and colleagues,
+42the
+authorsexaminedtheclassificationofmalnutrition.Usingthe SGNA and STAMP, the study criteria were comparedwith the reference standard, the criteria identified byASPENandtheAcademyofNutritionandDieteticsforthediagnosisofPMN(undernutrition).
+STAMP was shown to have high sensitivity as com-
+pared with ASPEN and the Academy objective measuresindetectingriskofmalnutritionamongchildren.
+SGNA demonstrated its ability in identifying mal-
+nourished children with good sensitivity (63.15%), and2 BeckerandBrunet-Wood 1098
+ 19412452, 2022, 5, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10793 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+12 BeckerandBrunet-Wood
+SGNA had higher specificity (70.45%) than STAMP
+(18.18%) when compared with malnutrition identifica-tion based on objective measurements as recommendedby the ASPEN/Academy Indicators of Malnutrition(AAIM).
+43
+The authors stated that the discrepancy in specificity
+values between the two methods explained their respec-tive roles: SGNA as a nutrition assessment tool requires
+moretimeandtechnicalskillstoevaluatetheNSofchil-
+dren,resultinginahigheraccuracy(67.07%)indetectingmalnourished children, whereas STAMP as a nutritionscreening tool aims to screen, in a quick and simpleprocess, children who are at high risk of malnutrition.ThisstudyconfirmedthatSGNAandSTAMPshouldnotbeusedinterchangeablyinclinicalpractice.
+This study used the STAMP tool to screen children
+for malnutrition, the SGNA to assess children for mal-nutrition, and the AAIM to diagnose children withmalnutrition.
+TheconclusionofthestudywasthatSGNAcanberec-
+ommendedforevaluatingthepresenceofmalnutritioninhospitalized children in Malaysian tertiary hospital set-tingsbutthatSTAMPcouldnotberecommendedforuseasaroutinenutritionscreeningtoolinlocalMalaysianchil-drenbecausethereisahighchanceofmisclassificationoftheirNS.
+The purpose of a screen is to cast a wide net and to
+avoid a false negative response in which a malnourished
+childwouldbemissed.Thefollow-upmalnutritionassess-
+ment, either with the malnutrition assessment tool orbytrainednutritionprofessionals,wouldaccuratelydiag-nosethepresenceandseverityofmalnutrition.Thisisthebasic premise of the nutrition care process. As the finalstatement of the author’s conclusion asserts, “the use ofSTAMP will have to be followed up with a more validtoolsuchasSGNAtoverifytheactualNSofthepediatricpopulation.”
+42
+Canada
+A2019studyinfiveCanadianpediatrictertiaryhospitalsreported that malnutrition and deterioration of NS werecommon in hospitalized children.
+30T h ep r e v a l e n c eo f
+malnutrition was 19.5% when assessed by anthropomet-ric indicators and 36.9% when assessed by SGNA. TheCanadianMalnutritionTaskForcehasrecentlyproposeda pathway to detect, monitor, and treat malnutritionin pediatric patients in acute care, titled Pediatric Inte-
+grated Nutrition Pathway for Acute Care (P-INPAC)
+(https://nutritioncareincanada.ca/resources-and-tools/
+pediatrics).BARRIERSTOSUCCESSAND
+STRATEGIESTOCLOSETHEGAP
+In the recent publication on applying the Malnutri-
+tion Quality Improvement Initiative (MQii) to pediatricpatients, the authors describe best practice for PMNscreening.
+The authors state that malnutrition screening tools
+should be “quick, simple, valid (sensitive and specific),reliable,anddoneregularlytocapturechangesinrisk.”
+1,2
+Usingmalnutritionscreeningtoolsthathaveproofofmod-eratetohighvalidity,reliability,andagreementisacom-ponentofbestpractice.Theuseoftoolsthathaveloworundemonstratedvalidityandreliabilitycanresultinfailuretoidentifychildrenatriskformalnutrition.
+44TheMQiiis
+onetoolthatcanbeappliedtopracticetobridgethegaps
+instandardizedpractice,datacollection,andreporting.
+Criticalcarepopulations
+For the critical care pediatric population, Tume et al,45
+intheirpublishedwork“PrioritiesforNutritionResearch
+in Pediatric Critical Care,” looked at the current state ofpractice and identified the gaps to allow for recommen-dations for future best practice. The authors stated thatthe objective of the paper was to develop a list of nutri-tion research topics. The list included the impact of mal-nutritionincriticalillness,nutritionriskassessment,andtheassessmentofNSinchildrenwithcriticalillness.Thedefinitionandtheeffectsofmalnutritioninchildrenwhoare critically ill need further clarification. This group ofresearchers placed among their top 10 topics for nutri-tionresearchaneed“todeterminetheoptimaldefinitionof malnutrition in critically ill children” and a need “todevelopavalidnutritionriskassessmentscorethatiden-tifieschildrenatriskofnutritiondeterioration,whomight
+benefit from targeted interventions.” They also included
+thisastheirfifthpriorityintheirtop10rankedPICUnutri-tionresearchpriorities.
+45
+As stated by Tume et al, one of the identified needs in
+thecriticalcarepediatricpopulationistheneedforamal-nutritionriskscreenthatcanidentifymalnutritioninthispopulation. This review identifies the gaps in practice inthispopulationandsetting.
+Acutecare/inpatient
+Malnutrition screening tools are recommended to beadministereduponadmissiontohospitalandassucharemost often completed by admitting or frontline staff. InNutritioninClinicalPractice 31099
+ 19412452, 2022, 5, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10793 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+NutritioninClinicalPractice 13
+order for them to be accepted, they should be quick and
+easytocomplete.Carteretal31reportedonacomparison
+oftwoscreeningtools,STRONGkidsandPNST,bothval-idated tools that consisted of four simple yes-or-no ques-tions.TheywerecomparedtoSGNA,whichservedasthegoldstandard.Usingthetools’recommendedcutoffs,nei-thertoolperformedaswellasexpected.Whenthecutoffswereadjustedusingreceiveroperatingcharacteristiccurve
+analysis, both tools’ overall agreement with the SGNA
+improved. The adjusted cutoffs resulted in PNST report-ingaspecificityof71%andsensitivityof87%,whereastheSTRONGkids reportedaspecificity of61%andasensitiv-ityof80%.TheauthorsconcludedthatthePNSTwasmostappropriateforclinicaluseinthispopulationof154medi-cal/surgicalpediatricpatients.Itshouldbenoted,however,thatthedifficultyoftenmentionedinsystematicreviewsofscreeningtoolsincludestheheterogeneityofthereferencestandards, the different cutoff points used, and the smallsample sizes. This study altered the cutoffs, which mightbespecifictothatpopulation.
+31
+MUAC
+The pediatric MNRS systematic review also found thatMUAC, which is used around the world as a malnutri-tion screening tool, was underutilized in the US for thispurpose.
+7In a survey of dietitians working in pediatrics,
+asimilarconclusionwasrevealedbythesurveyresults,46
+whichstatedthatinfrequentuseofMUACasdocumented
+bysurveyrespondentsrevealedaneedforfurthereduca-tion on interpreting MUAC. Specifically, the open-endedquestionresponsesindicatededucationalopportunitiesformeasuringandinterpretingMUACasanMNRSanddiag-nosistool.
+46
+IntheASPEN/AcademyPediatricconsensusstatement
+fortheidentificationofPMN,theauthorsrecommendthatMUACshouldbemeasuredwhenassessingtheNSofpedi-atricpatientsandthatMUACcanbeusedasanindepen-dentanthropometricassessmenttoolindeterminingmal-nutritioninchildren6–59monthsofagewhencomparedwith the standards developed by WHO.
+16It was noted
+at the time that reference ranges with standard devia-tionswerenotavailableforolderchildrenandadolescents,although percentile guidelines for ages 1–79 years wereavailable.
+47Classification ofundernutritionusingMUAC
+measureswassuggestedforchildrenbetweentheagesof6and60months.
+16
+In 2017, Abdel-Rahman et al published lambda-
+mu-sigma values to permit the calculation of MUAC
+z-scores in US children 2 months through 18 years of
+age. This allowed for the application of the proposedindicators for older children in the use of MUAC as atool for screening and assessing malnutrition in this
+population.
+48
+In the follow-up study, Stephens et al49examined the
+relationship between MUAC z-score and the z-scores for
+conventionalindicatorssuchasBAZtoexpandtheavail-ableevidencefornutritionclassification z-scorethreshold
+ranges.
+The results from 5004 children found that MUAC z-
+scoresspannedanarrowerrangeofvaluesandthatratesof
+misclassificationweresignificant.TheauthorsfoundthatMUAC vs BAZ misclassification of malnutrition severitywas54.6%withmild,55.3%withmoderate,and63.3%withseveremalnutritionbeingincorrectlyclassified.Thecon-clusionoftheauthorswasthattheproposedMUAC z-score
+thresholds misclassified more than one-half of childrenwhoweremoderatelyorseverelymalnourishedandmorethanone-thirdofchildrenwithmildmalnutrition.MUACz-score more often classified a less severe acuity of mal-
+nutritionthandidBAZ.Acrosstheentirecohort,thepro-posedthresholdsfavoredalesssevereclassificationmorethan twice as often,suggestingthat the thresholdsmightbelowerthanthosesuggestedforpatients0–60monthsofage.
+49Thesefindingssuggestthatadjustmenttotheindi-
+catorsmaybeappropriateforapplicationtoolderchildren(2–18yearsofage).
+Other challenges to the use of MUAC in the past have
+beentheavailabilityoftoolsandtapesforuseinolderchil-dren.Therecentlyavailableandtestedtape/toolreviewed
+by Miller et al
+50demonstrated a high degree of “ease
+of use” and identification of undernutrition in children.MUACz-scoresidentified87.10%(27of31)oftheseverely
+ormoderatelyundernourishedchildren,asdeterminedbytheBMIz-score.
+50
+InthestudybyPhongetal,51whichexaminedtheuseof
+MUACasamalnutritionscreeningandassessmenttoolforchildrenwithcysticfibrosis,theauthorsfoundthatMUACdetectedahigherpercentageofmalnutritionthandidBAZ(47%vs10%).ThestudydataalsodemonstratedthatserialMUAC measurement showed improvement more readilythandidBAZonthecorrespondinggrowthcurves,whichmayprovetobeabettermethodformonitoringandeval-uatingresponsetointerventionsovertime.
+51
+MNRSTOOLSINTHEEHR
+In the Evidence Analysis Center systematic review,7the
+authorsstatedthatpediatricMNRStoolsthatarecompat-iblewithanEHRareneededtosupportbestpractices.A
+recentNutritioninClinicalPractice publicationbyReedet
+al
+52provided a validated modification of STAMP for the
+EHR.Intheirarticle,3553childrenwerestudiedtoassessthe reliability of the EHR-STAMP tool. With a negative2 BeckerandBrunet-Wood 1100
+ 19412452, 2022, 5, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10793 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+14 BeckerandBrunet-Wood
+predictivevalueof94%,thishighlyreliabletoolwascom-
+patiblewiththeEHRandincorporatedthecurrentlyrec-ommendedindicatorsforassessingPMN.
+16
+Phillips et al53described the use of an updated pedi-
+atric EMR malnutrition screening tool. With the goal toefficientlyidentifyundernourishedpatients,anautomatedmalnutritionscreenusinganthropometricdataintheEHRwas implemented. The screen utilized the PMN (under-
+nutrition) indicators from ASPEN and the Academy. To
+identify inpatients who screened positive for malnutri-tion, a daily automated email was generated that listedallinpatientsmeetingoneofthemalnutritioncriteriaandincluded a computer-generated calculation of the degreeofmalnutrition.
+ThestudyconcludedthatPMN(undernutrition)criteria
+canbeappliedtopediatricpatientsviaanautomatedmal-nutritionscreenusingstructureddataelementscommonlyfound in the EHR. The study also found that childrenwith screen-identified severe malnutrition were noted tohave improvement in the degree of malnutrition after3months.
+53,54
+MALNUTRITIONRISKSURVEILLANCE
+The question of rescreening, repeat screening, and fre-quencyisagapinMNRS.Theimpactofmalnutritiononratesofreadmissioninpediatricpatientsisanunderexam-
+ined outcome. The validation of the ASPEN/Academy of
+NutritionandDieteticIndicatorsforMalnutritioninpedi-atricpatientsisapracticegapthatneedstobeaddressed.
+The framework of the ASPEN Nutrition Care Path-
+ways for the inpatient acute care setting recommendsa repeat nutrition screen every 3–7 days for adults andevery 4 days for pediatric patients if the hospital admis-sionnutritionscreendeterminesthepatientisnotatriskformalnutrition.
+55Thefrequencyofrescreeningisdepen-
+dentonthesetting,theservicesprovided,andthepatient’sneed.Onerecentpublicationprovidesinformationonthesubject.
+The authors of a study on pediatric patients with
+hospital-acquired malnutrition (HAM) showed thatrescreening through monitoring and evaluation withappropriateinterventionshadapositiveimpactonclinicaloutcomes.
+Inamulticenterprospectivestudyconductedamong623
+children aged 1 month to 18 years in tertiary care hospi-tals, the prevalence of HAM was 24%. HAM was associ-ated with a higher rate of nosocomial infection (24% vs
+11%) compared with patients without HAM. Risk factors
+includedmoderatetoseveremedicalconditions,pneumo-nia, seizure, and surgery. Nutrition management showeda significant reduction in the incidence of HAM and atrend toward a 60% decrease in infectious complications
+in patients with moderate to severe medical conditions.Approximatelyone-fourthofpediatricpatientsdevelopedmalnutritionduringhospitalization.
+This study demonstrated that malnourished patients
+with nutrition intervention experienced an improvementin their NS as well as a lower risk of developing hospitalmorbidity.Theauthorsconcludedthatnutritionscreening
+wasanimportantstepinidentifyingpatientsatrisk,aswas
+providing appropriate nutrition support to patients withmoderatetoseveremedicalconditions,thosewithknownpreexistingDRM,andchildren <24monthsofage.
+56
+In the consensus statement for the identification of
+PMN,recommendationsweremadefornutritionsurveil-lanceandcontinuityofcarethatareaddressedmonitoringandevaluation,reevaluation,andtheconceptofrescreen-ing. The authors state that specific timeframes for theserequirementshaveyettobedelineatedandthatprovidingnutrition surveillance would undoubtedly improve out-comesandreducehospitalreadmissionrates.Theauthorsalso stated that the ideal frequency for nutrition surveil-lanceremainselusive.
+16
+The application of the MQii Toolkit to PMN care
+describes best practices that include some guidance formonitoringandreevaluationbutdoesnotspecifytoolsorfrequency.
+TheauthorsstatedthatinapplyingtheMQiiToolkit,the
+purposeofmonitoringandevaluationofachildwithmal-
+nutrition is to identify the progress made since the diag-
+nosis, monitor the response to care provided, and mon-itor whether the child’s health outcomes are improving.The toolkit also includes information on discharge plan-ningandtransitiontoothersettingsofcare.Itstatesthat”transitions of care” planning should take place with thefamilyandthehealthcareteamtoensureongoingsupportis provided to resolve the malnutrition diagnosis regard-lessofthedischargedestination,thegoalbeingtoreducetheoccurrenceofunplannedreadmissions.
+44
+Two recent publications suggest that malnutrition and
+conditionsassociatedwithmalnutritiondohaveasignifi-cantimpactonunplannedreadmissioninchildren.
+ThearticlebyEhwerhemuephaetalreportedapositive
+correlationbetweenapatient’sageandmalnutritionstatuswithrespecttotheoddsofunplanned7-dayreadmission.Itreportedthatpatientswhoweremalnourishedhadhigheroddsofreadmissionthanpatientswhowerenotmalnour-ished.Furthermore,youngerpatientswhoweremalnour-ished had higherodds of readmission than those of theirolderpeers.
+57
+The 30-day unplanned readmission rate was 10.3% of
+totaladmissions.InthearticlebyAugeretal,theauthorsreported that for some pediatric conditions, unplannedr e a d m i s s i o nr a t e sw e r ea sh i g ha sr e a d m i s s i o nr a t e sNutritioninClinicalPractice 31101
+ 19412452, 2022, 5, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10793 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+NutritioninClinicalPractice 15
+reportedforadultconditions.Themostcommondischarge
+diagnosesforunplanned30-dayreadmissionswereonco-logicconditions(upto38%)andnon-hypertensiveconges-tiveheartfailure(about25%).
+58
+TheAcademyofNutritionandDieteticsResearchNet-
+workis,atpresent,conductingastudytoassessthevalid-ityandreliabilityoftheAAIMforbothpediatricandadultpopulations.Intherecentarticle,theauthorsoutlinethe
+rationale and protocol for the study, describe the gap in
+the pediatric literature, and describe the need to validatethe pediatric AAIM. The study goals include site recruit-mentfor60pediatricacutecarehospitalsitesandassess-mentoftheimpactofthediagnosisofAAIMtopredictout-comes,includingmortality,morbidity,increasedLOS,andincreasedhospitalcosts.AsubsetofthestudycohortbasedontheSTRONGkidsscreeningwillbeassignedtopartici-pateinNFPEdatacollection.Goalsalsoincludeestablish-ingthevalueoftheNFPEaspartofthediagnosisofmalnu-tritionandestablishingtheoptimallevelofdietitiancarerequiredtoimprovemedicaloutcomes.
+43
+Bridgingthegaps
+The goal of this review has been to identify the gapsin PMN screening, malnutrition screening tools, malnu-trition assessment, and malnutrition assessment tools.Knowing the gaps helps to guide future practice. In the
+systematic review by Klanjsek et al,
+59the authors sug-
+gest that one of the gaps is a need for a consistent ref-erence or a “gold” standard for the evaluation of screen-ingtools.Therecommendationforthestandardistheuseof weight, height/length, BMI/weight for length, MUAC,andpossiblymidarmmusclecircumference,assuggestedin the paper by Mehta et al on etiology-related malnutri-tiondefinitions.
+60
+Klanjsek et al also recommend that all studies to vali-
+date MNRS tools use full follow-up nutrition assessmentfor positively identified screens and that the screen andassessmentbecompletedbyseparateindividuals.
+59
+Thereviewoftheliteraturesuggeststhatmoreresearch
+isneededtovalidatescreeningtoolsintheyoungestchil-drenandtoassesstheuseofmalnutritionscreeningtoolsin the EHR. Research is needed to create, validate, andassess rescreening tools and to establish recommendedtimeframesformalnutritionsurveillance.
+Aneedforwell-plannedstudieswithestablishedrefer-
+encestandardsandrobustvalidationcontinuestoexistaswestrivetoachievethedesiredoutcomeofavalidated,reli-
+ablepediatricMNRStool.
+FUNDING INFORMATION
+Nonedeclared.CONFLICT OF INTEREST
+Nonedeclared.
+AUTHOR CONTRIBUTIONS
+Patricia J. Becker and M. Kim Brunet-Wood equally con-
+tributedtotheconceptionanddesignofthereview;Patri-cia J. Becker and M. Kim Brunet-Wood contributed tothe acquisition and analysis of the data; and Patricia J.BeckerandM.KimBrunet-Wooddraftedthemanuscript.All authors critically revised the manuscript, agree to befully accountable for ensuring the integrity and accuracyofthework,andreadandapprovedthefinalmanuscript.
+ORCID
+PatriciaJ.BeckerMS,RDN
+https://orcid.org/0000-0003-
+0538-419X
+REFERENCES
+1. FieldLB,HandRK.Differentiatingmalnutritionscreeningand
+assessment: a nutrition care process perspective. JA c a dN u t r
+Diet.2015;115(5):824-828.
+2. Correia MITD. Nutrition screening vs nutrition assessment:
+what’sthedifference?. NutrClinPract .2018;33(1):62-72.
+3. DiamantiA,CeredaE,CapriatiT,GiorgioD,BruscoC,Liguori
+A,RaponiM,etal.Prevalenceandoutcomeofmalnutritioninpediatricpatientswithchronicdiseases:focusonthesettingofcare.ClinNutr.2019;39(4):1877-1882.
+4. Carvalho-Salemi J, Salemi JL, Wong-Vega MR, Spooner KK,
+JuarezMD,BeerSS,CanadaNL.Malnutritionamonghospital-izedchildrenintheUnitedStates:changingprevalence,clinicalcorrelates,andpracticepatternsbetween2002and2011. JAcad
+NutrDiet.2018;118(1):40-51.e7.
+5. Carvalho-Salemi J, Salemi JL, Wong Vega MR, et al. Updated
+trends and outcomes in pediatric malnutrition in the UnitedStates,2012–2014. JAcadNutrDiet .2018;118(9):A22.
+6. Skipper A, Coltman A, Tomesko J, Charney P, Porcari J,
+PiemonteTA,etal.Adultmalnutrition(Undernutrition)screen-ing:anevidenceanalysiscentersystematicreview. JAcadNutr
+Diet.2020;120(4):669-708.
+7. BeckerPJ,GunnellBelliniS,WongVegaM,CorkinsMR,Spear
+BA, Spoede E, et al. Validity and reliability of pediatric nutri-tionscreeningtoolsforhospital,outpatient,andcommunityset-tings:a2018evidenceanalysiscentersystematicreview. JAcad
+NutrDiet.2020;120(2):288-318.
+8. Skipper A, Coltman A, Tomesko J, Charney P, Porcari J,
+Piemonte TA, et al. Position of the Academy of Nutrition andDietetics:malnutrition(Undernutrition)ScreeningToolsforAllAdults.JAcadNutrDiet .2020;120(4):709-713.
+9. McCarthy H, Dixon M, Crabtree I, Eaton-Evans MJ, McNulty
+H. The development and evaluation of the Screening Tool forthe Assessmentof Malnutrition in Pediatrics (STAMP) for usebyhealthcarestaff. JHumNutrDiet .2012;25(4):311-318.
+10. HulstJM,ZwartH,HopWC,JoostenKF.Dutchnationsurveyto
+testtheSTRONGkidsnutritionalriskscreentoolinhospitalizedchildren.ClinNutr.2010;29(1):106-111.
+11. GerasimidisK,KeaneO,MacleodI,FlynnDM,WrightCM,etal.
+Afour-stageevaluationofthePaediatricYorkhillMalnutrition2 BeckerandBrunet-Wood 1102
+ 19412452, 2022, 5, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10793 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+16 BeckerandBrunet-Wood
+Scoreinatertiarypaediatrichospitalandadistrictgeneralhos-
+pital.BrJNutr.2010;104(5):751-756.
+12. WhiteM,LawsonK,RamseyR,DennisN,HutchinsonZ,Soh
+XY, et al. Simple Nutrition Screening Tool for Pediatric Inpa-tients.JPENJParenterEnteralNutr .2016;40(3):392-398.
+13.Nutrition Screening Pediatric (NSP) Systematic Review (2017-
+2018). Academy of Nutrition and Dietetics Evidence Analysis
+Library. Accessed May 15, 2021. https://www.andeal.org/topic.
+cfm?menu=5767&cat=5971
+14. Wonoputri N, Djais JT, Rosalina I. Validity of nutritional
+screening tools for hospitalized children. J Nutr Metab .
+2014;2014:143649.
+15. WhiteMS,ZiemannM,DoolanA,SongSQ,BernardA.Asimple
+nutritionscreeningtooltoidentifynutritionaldeteriorationinlongstaypaediatricinpatients:thepaediatricnutritionrescreen-ingtool(PNRT). ClinNutrESPEN .2019;34:55-60.
+16. BeckerP,CarneyLN,CorkinsMR,MonczkaJ,SmithE,Smith
+SE, et al; Academy of Nutrition and Dietetics; American Soci-ety for Parenteral and Enteral Nutrition. Consensus statementof the Academy of Nutrition and Dietetic/American SocietyforParenteralandEnteralNutrition: indicatorsrecommendedfor the identification and documentation of pediatric malnu-trition (undernutrition). J Acad Nutr Diet . 2014;114(12):1988-
+2000.
+17. Barrett ML, Bailey MK, Owens PL. Non-Maternal and Non-
+Neonatal Inpatient Stays in the United States Involving Malnu-trition, 2016 . US Agency for Healthcare Research and Quality;
+AccessedMay29,2021. www.hcup-us.ahrq.gov/reports.jsp
+18. SilvinoRCAS,TridaVC,CastroADRV,NeriLCL.Construction
+andValidationofNeonatalNutritionRiskScreeningTool. Rev
+PaulPediatr .2020;39:e2020026.
+19. CharneyP.Nutritionscreeningvsnutritionassessment:howdo
+theydiffer?. NutrClinPract .2008;23(4):366-372.
+20. Belin CHS, Samento RA, Refosco LF, Bernardi JR. Descrip-
+tion of a Nutrition Screening and Assessment Tool and Asso-ciationwithClinicalOutcomesinPretermNewborns. NutrClin
+Pract. Acceptedmanuscript.Published onlineJanuary7, 2021.
+https://doi.org/10.1002/ncp.10618
+21. Pereira-da-SilaL,VirellaD,FuschC.NutritionalAssessmentin
+Preterm Infants: a Practical Approach in the NICU. Nutrients.
+2019;11(9):1999-2010.
+22. Evans DC, Corkins MR, Malone A, Miller S, Mogensen
+KM, Guenter P, Jensen GL, ASPEN Malnutrition Commit-tee. The Use of Visceral Proteins as Nutrition Markers:an ASPEN Position Paper. Nutr Clin Pract . 2021;36(1):22-
+28.
+23. Goldberg DL, Becker PJ, Brigham K, Carlson S, Fleck L,
+GollinsL,etal.IdentifyingMalnutritioninPretermandNeona-tal Populations: recommended Indicators. J Acad Nutr Diet .
+2018;118(9):1571-1582.
+24. Witt WP, Elixhauser A, Weiss AJ. Overview of Hospital Stays
+for Children in the United States, 2012 . Agency for Health-
+care Research and Quality; 2014. HCUP Statistical Brief#187.AccessedApril10,2021. https://hcup-us.ahrq.gov/reports/
+statbriefs/sb187-Hospital-Stays-Children-2012.jsp
+25. Gerasimidis K, Milani S, Tester A, Purcell O, Woodley C,
+TsiountsiouraM,etal.Amulticenterdevelopmentandevalua-tionofadieteticreferralscorefornutritionalriskinsickinfants.ClinNutr.2019;38(4):1636-1642.26. CareyA,McCarthyH,ThompsonA,McNultyH.Apilotstudy
+evaluatingtheuseoftheSTAMPnutritionscreeningtoolinhos-pitalisedinfants. ClinNutrESPEN .2015;10(5):e192.
+27. Ventura JC, Dias de Almeida Oliveira L, Thomsen Silveira T,
+HauschildDB,MehtaNM,MorenoYMF,PICU-ScREENStudyGroup. Admission factors associated with nutritional statusdeteriorationandprolongedPICUstayincriticallyillchildren:pICU-ScREENmulticenterstudy. JPENJParenterEnteralNutr .
+Accepted manuscript. Published online April 5, 2021. https://
+doi.org/10.1002/jpen.2116
+28. PriceAA,WilliamsJA,DoetschHE,SpeesCK,TaylorCA.Uti-
+lizationofcurrentdiagnosticindictorstocharacterizepediatricundernutritionamongUSchildren. Nutrients.2020;12(5):1409-
+1415.
+29. SeckerDJ,JeejeebhoyKN.SubjectiveGlobalNutritionAssess-
+mentforchildren. AmJClinNutr .2007;85(4):1083-1089.
+30. Bélanger V, McCarthy A, Marcil V, Marchand V, Boctor DL,
+Rashid M, et al. Assessment of Malnutrition risk in CanadianPediatric Hospitals: a Multi-center prospective cohort study. J
+Pediatr.2019;205:160-167.
+31. Carter LE, Shoyele G, Southon S, Farmer A, Persad R, Mazu-
+rakVC,BrunetWoodMK.Screeningforpediatricmalnutritionat hospital admission: which screening tool is best?. NutrClin
+Pract.2020;35(5):951-958.
+32. MP Carniel, D Santetti, JS Andrade, BP Favero, T Moschen,
+PACampos,etal.ValidationofaSubjectiveGlobalAssessmentquestionnaire. JPediatr(RioJ) .2015;91(6):596-602.
+33. Pimenta FS, Oliveira CM, Hattori WT, Teixeira KR. Agree-
+mentbetweenSubjectiveGlobalAssessmentandthenutritionassessmentoftheWorldHealthOrganization. JPediatr(RioJ) .
+2018;94:602-608.
+34. Secker DJ, Jeejeebhoy KN. How to perform Subjective Global
+Nutrition Assessment in children. J Acad Nutr Diet .2 0 1 2 ;
+112(3):424-431.
+35. Wong Vega M, Beer S, Juarez M, Srivaths PR. Malnutrition
+riskinhospitalizedchildren:adescriptivestudyofmalnutritionrelatedcharacteristicsanddevelopmentofapilotpediatricriskassessmenttool. NutrClinPrac .2019;34(3):406-413.
+36. FreijerK,vanPuffelenE,JoostenKF,HulstJM,Koopmanschap
+MA. The costs of disease related malnutrition in hospitalizedchildren.ClinNutrESPEN .2018;23:228-233.
+37. Gambra-ArzozM,Alonso-CadenasJA,Jimenez-LegidoM,etal.
+Nutritionriskinhospitalizedpediatricpatients:highercompli-cation rate and higher costs related to malnutrition. NutrClin
+Pract.2020;35(1):157-163.
+38. Roberson ML, Egberb MD, Strassle PD, Phillips MR. Measur-
+ingmalnutritionanditsimpactonpediatricsurgeryoutcomes:aNSQIP-Panalysis. JPediatrSurg .2021;56(3):439-445.
+39. LaddMR,GarciaAV,LeedIL,etal.Malnutritionincreasesthe
+riskof30-daycomplicationsaftersurgeryinpediatricpatientswithCrohndisease. JPediatrSurg .2018;53(11):2336-2345.
+40. Hulst JM, Joosten KF. Nutrition screening: coding after dis-
+chargeunderestimatedtheprevalenceofundernutrition. JAcad
+NutrDiet.2018;118(1):33-36.
+41. PanL,LiuY,FengYi,FeiJ,ZhaoZ,LiuS,HongLi.Nutritionrisk
+profileof62,408inpatientsbasedonelectronichealthrecordsinatertiarychildren’shospital. Nutrition.2021;85:111137.
+42. OngSH,SiewSweeCheeW,LapchmananLM,OngSNi,Chin
+LuaZ,YeoJX-N.ValidationoftheSubjectiveGlobalNutritionNutritioninClinicalPractice 31103
+ 19412452, 2022, 5, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10793 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+
+NutritioninClinicalPractice 17
+Assessment(SGNA)andScreeningToolfortheAssessmentof
+MalnutritioninPediatrics(STAMP)toidentifymalnutritioninhospitalizedMalaysianchildren. JTropPediatr .2019;65(1):39-45.
+43. Jimenez EY, Long JM, Lamers-Johnson E, Woodcock L, Bliss
+C, Lee J, et al. Academy of Nutrition and Dietetics NutritionResearch Network: Rational and Protocol for a Study to Vali-date the Academy of Nutrition and Dietetic/American Societyfor Parenteral and Enteral Nutrition Consensus-Derived Diag-nostic Indicators for Adult and Pediatric Malnutrition and toDetermineOptimalRegisteredDietitianNutritionistStaffinginAcuteCareHospitalSettings.Acceptedmanuscript.PublishedonlineMay4,2021. https://doi.org/10.1016/j.jand.2021.03.017
+44. Phillips W, Becker PJ, Vega MW, Smith E, Konek S, Bailer J,
+Carvalho-SalemiJ.ComprehensiveapplicationoftheMalnutri-tionQualityImprovementInitiative(MQii)Toolkittopediatricmalnutritioncare. JAcadNutrDiet .2021;121(6):1021-1034.
+45. TumeLN,VallaFV,FlohAA,GodayP,JotterandCC,LarsenB,
+et al. Priorities for nutrition research in pediatric critical care.JPENJParenterEnteralNutr .2019;43(7):853-862.
+46. BelliniSG,BeckerPJ,CarneyLN,GreenCorkinsK,MedicoT,
+AnneVanPootsH.Currentpracticesusingpediatricmalnutri-tionindicators:asurveyofdietitiansworkinginpediatrics. Nutr
+ClinPract.2020;35(6):1080-1086.
+47. Frisancho AR. New norms of upper limb fat and muscle
+areas for assessment of nutritional status. Am J Clin Nutr .
+1981;34(11):2540-2545.
+48. Abdel-Rahman SM, Bi C, Thaete K. Construction of Lambda,
+Mu, Sigma values for determining mid-upper arm circumfer-encezscoresinU.S.childrenaged2monthsthrough18years.NutrClinPract .2017;32(1):68-76.
+49. Stephens K, Escobar A, Jennison EN, Vaughn L, Sullivan R,
+Abdel-Rahman S, CMH Nutrition Services Z-Score ResearchTeam.CMHNutritionServicesz-ScoreResearchTeam.Evalu-atingmid-upperarmcircumferencez-scoreasadeterminantofnutritionstatus. NutrClinPract .2018;33(1):124-134.
+50. MillerMA,MalloryK,EscobedoM,TarotAC,Abdel-RahmanS.
+Assessingeffectivenessofanovelmid-upperarmcircumferenceZ-scoretapeinacommunitysettinginGuatemala. ArchPublic
+Health.2019;77:44.
+51. PhongRY,TaylorSL,RobinsonBA,JhawarS,NandalikeK.Util-
+ityofmid-upperarmcircumferenceindiagnosingmalnutritioninchildrenwithcysticfibrosis. NutrClinPract .2020;35(6):1094-
+1100.
+52. ReedM,MullaneyK,RuhmannC,MarchP,ConteVH,NoyesL,
+BleazardM.Screeningtoolfortheassessmentofmalnutritioninpediatrics(STAMP)intheelectronichealthrecord:avalidation
+study.NutrClinPract .2020;35(6):1087-1093.
+53. PhillipsCA,BailerJ,FosterE,LiY,DoganP,SmithE,ReillyA,
+FreedmanJ.Implementationofanautomatedpediatricmalnu-tritionscreenusinganthropometricmeasurementsintheelec-tronichealthrecord. JAcadNutrDiet .2019;119(8):1243-1249.
+54. Phillips CA, Bailer J, Foster E, Li Y, Dogan P, Smith E,
+etal.Evaluationofanautomatedpediatricmalnutritionscreenusing anthropometric measurements in the electronic healthrecord:aqualityimprovementinitiative. SupportCareCancer .
+2020;28(4):1659-1666.
+55. Kight CE, Bouche JM, Curry A, Frankenfield D, Good K,
+Guenter P, et al.; Academy of Nutrition and Dietetics; Amer-ican Society for Parenteral and Enteral Nutrition; AssociationofClinicalDocumentationImprovementSpecialists.Consensusrecommendations for optimizing electronic health records fornutritioncare. NutrClinPract .2020;35(1):12-23.
+56. Saengnipanthkul S, Chongviriyaphan N, Densupsoontorn N,
+Apiraksakorn A, Chaiyarit J, Kunnangja S, et al. Hospitalacquiredmalnutritioninpediatricpatients:amulti-centertrialfocusing on prevalence risk factors, and impact on outcomes.EurJPediatr .2021;180(6):1761-1767.
+57. EhwerhemuephaL,BendigD,SteeleC,RakovskiC,FeasterW.
+Theeffectofmalnutritionontheriskofunplanned7-dayread-missioninpediatrics. HospPediatr .2018;8(4):207-213.
+58. AugerKA,MuellerEL,WeinbergSH,ForsterCS,ShahA,Wol-
+skiC,etal.Avalidatedmethodforidentifyingunplannedpedi-atricreadmissions. JPediatr.2016;170:105-112.
+59. Klanjsek P, Pajnkihar M, Marcun Varda N, Povalej Brzan P.
+Screeningandassessmenttoolsforearlydetectionofmalnutri-tioninhospitalizedchildren:asystematicreviewofvalidationstudies.BMJOpen.2019;9(5):e025444.
+60. MehtaNM,CorkinsMR,LymanB,MaloneA,GodayPS,Carney
+LN,etal.;AmericanSocietyforParenteralandEnteralNutritionBoardofDirectors.Definingpediatricmalnutrition:aparadigmshifttowardetiology-relateddefinitions. JPENJParenterEnteral
+Nutr.2013;37(4):460-481.
+Howtocitethisarticle: BeckerPJ,Brunet-Wood
+MK.Pediatricmalnutritionscreeningandassessmenttools:Analyzingthegaps. NutrClin
+Pract.2021;1–17. https://doi.org/10.1002/ncp.107932 BeckerandBrunet-Wood 1104
+How to cite this article:  Becker PJ, Brunet-Wood 
+MK. Pediatric malnutrition screening and assess-ment tools: Analyzing the gaps. Nutr Clin Pract . 
+2022;37:1088–1104. 
+https://doi.org/10.1002/ncp.10793
+ 19412452, 2022, 5, Downloaded from https://aspenjournals.onlinelibrary.wiley.com/doi/10.1002/ncp.10793 by Medical University Of South Carolina, Wiley Online Library on [19/10/2025]. See the Terms and Conditions (https://onlinelibrary.wiley.com/terms-and-conditions) on Wiley Online Library for rules of use; OA articles are governed by the applicable Creative Commons License
+

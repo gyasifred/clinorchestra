@@ -1,0 +1,589 @@
+CHEST Original Research
+THROMBOEMBOLISM
+www.chestjournal.org CHEST / 137 / 2 / FEBRUARY , 2010  263     Atrial ﬁ  brillation (AF) is the most common sus-
+tained cardiac rhythm disorder, which is associ-
+ated with a substantial risk of mortality and morbidity from stroke and thromboembolism (TE). A substan-tial evidence base is in favor of anticoagulation with the vitamin K antagonists (VKAs, eg, warfarin), which reduce this risk by two-thirds, whereas antiplatelet therapy decreases stroke risk only by 22%.  
+1   VKAs are   Background:    Contemporary clinical risk stratiﬁ  cation schemata for predicting stroke and throm-
+boembolism (TE) in patients with atrial ﬁ  brillation (AF) are largely derived from risk factors 
+identiﬁ  ed from trial cohorts. Thus, many potential risk factors have not been included.   Methods:    We reﬁ  ned the 2006 Birmingham/National Institute for Health and Clinical Excellence 
+(NICE) stroke risk stratiﬁ  cation schema into a risk factor-based approach by reclassifying and/or 
+incorporating additional new risk factors where relevant. This schema was then compared with existing stroke risk stratiﬁ  cation schema in a real-world cohort of patients with AF (n  5  1,084) 
+from the Euro Heart Survey for AF.   Results:    Risk categorization differed widely between the different schemes compared. Patients 
+classified as high risk ranged from 10.2% with the Framingham schema to 75.7% with the 
+Birmingham 2009 schema. The classic CHADS 
+2  (Congestive heart failure, Hypertension, Age  .  75, 
+Diabetes, prior Stroke/transient ischemic attack) schema categorized the largest proportion 
+(61.9%) into the intermediate-risk strata, whereas the Birmingham 2009 schema classiﬁ  ed 15.1% 
+into this category. The Birmingham 2009 schema classiﬁ  ed only 9.2% as low risk, whereas the 
+Framingham scheme categorized 48.3% as low risk. Calculated C-statistics suggested modest predictive value of all schema for TE. The Birmingham 2009 schema fared marginally better (C-statistic, 0.606) than CHADS 
+2 . However, those classiﬁ  ed as low risk by the Birmingham 2009 
+and NICE schema were truly low risk with no TE events recorded, whereas TE events occurred 
+in 1.4% of low-risk CHADS 2  subjects. When expressed as a scoring system, the Birmingham 2009 
+schema (CHA 2 DS 2 -VASc acronym) showed an increase in TE rate with increasing scores ( P  value 
+for trend 5 .003). 
+  Conclusion:    Our novel, simple stroke risk stratiﬁ  cation schema, based on a risk factor approach, 
+provides some improvement in predictive value for TE over the CHADS 2  schema, with low event 
+rates in low-risk subjects and the classiﬁ  cation of only a small proportion of subjects into the 
+ intermediate-risk category. This schema could improve our approach to stroke risk stratiﬁ  cation 
+in patients with AF.   CHEST 2010; 137(2):263–272 
+  Abbreviations:  ACC/AHA/ESC  5  American College of Cardiology/American Heart Association/ European Society of 
+Cardiology; ACCP   5  American College of Chest Physicians; AF   5  atrial ﬁ  brillation; BAFTA  5  Birmingham Atrial Fibril-
+lation Treatment of the Aged; CHADS  5  Congestive heart failure, Hypertension, Age  .  75, Diabetes, prior Stroke/TIA; 
+NICE  5  National Institute for Health and Clinical Excellence; OR   5  odds ratio; ROC  5  receiver-operating characteristic; 
+SPAF  5  Stroke Prevention in Atrial Fibrillation; TE   5  thromboembolism; TIA  5  transient ischemic attack; VKA  5  vitamin 
+K antagonist  Reﬁ  ning Clinical Risk Stratiﬁ  cation for 
+Predicting Stroke and Thromboembolism 
+in Atrial Fibrillation Using a Novel Risk Factor-Based Approach 
+ The Euro Heart Survey on Atrial Fibrillation 
+  Gregory   Y. H.   Lip ,  MD ;  Robby   Nieuwlaat ,  PhD ;  Ron   Pisters ,  MD ;  Deirdre   A.   Lane ,  PhD ; 
+and  Harry   J. G. M.   Crijns ,  MD  
+ © 2010 American College of Chest Physicians by Kimberly Henricks on February 9, 2010 chestjournal.chestpubs.org Downloaded from 
+264 Original ResearchOther data on “real life” AF populations were provided 
+in the ATRIA study,  9   but this study did not compare 
+some contemporary risk stratiﬁ  cation schema as used 
+in current guidelines.  10-12   
+ Nonetheless, there are increasing data that other 
+risk factors should be considered in reﬁ  ning stroke 
+and TE risk stratiﬁ  cation for AF. For example, female 
+gender increased TE risk in the Euro Heart Survey and other cohorts.  
+13-15   Also, vascular diseases, includ-
+ing myocardial infarction, peripheral artery disease, 
+and complex aortic plaque, all increase TE risk in AF.  
+16-20   Furthermore, stroke risk in AF increases at 
+age  .  65 years onwards, and age as a risk factor is 
+not a yes/no phenomenon. Indeed, the BAFTA trial 
+showed that VKA was clearly superior thrombo-prophylaxis to aspirin in elderly (aged  /H11350  75 years) sub-
+jects with AF in a primary care setting, which shows 
+that the frequently reported fear of bleeding as an excuse for not prescribing warfarin to elderly patients is not justiﬁ  ed.  
+1,2   
+ In 2006, the Birmingham stroke risk stratiﬁ  cation 
+schema was compared against the CHADS 2  (Conges-
+tive heart failure, Hypertension, Age  .  75, Diabetes, 
+prior Stroke/transient ischemic attack) schema in a cohort of 994 patients with AF, and it was found that the accuracy of both clinical risk stratiﬁ  cation schemes 
+was similar for predicting ischemic strokes and vas-cular events.  
+8   The Birmingham schema was subse-
+quently reﬁ  ned for the evidence-based UK National Institute for Health and Clinical Excellence (NICE) guidelines on AF management, which formulated an algorithm-based approach to stroke risk stratiﬁ  ca-
+tion.  
+12   Since 2006, it is apparent that stroke risk strati-
+ﬁ cation needs to be simple, yet consider new data on 
+other risk factors (female gender, age, vascular disease, and so forth) that have emerged, and recognize that an artiﬁ  cial categorization into high-, intermedi ate-, 
+and low-risk categories  per se  may be less helpful. 
+Current treatment guidelines recommend VKA for high-risk subjects and (usually) aspirin for low-
+risk subjects, but for intermediate risk, many guide-lines state “either warfarin or aspirin” can be used.  
+10-12   
+The latter can sometimes cause uncertainty for clini-cians managing such patients, especially if a large proportion of a particular cohort of patients with AF are classiﬁ  ed into this intermediate-risk category. This “either warfarin or aspirin” recommendation is also sometimes used as an excuse not to prescribe warfarin in intermediate-risk patients. Also, clinicians need reassurance that those classiﬁ  ed as low risk are truly low risk, with no TE events in such patients. 
+ The objective of this analysis is to reﬁ  ne the 2006 
+Birmingham/NICE stroke risk stratiﬁ  cation schema 
+into a risk factor-based approach, by reclassifying 
+and/or incorporating additional new risk factors as relevant. This novel schema (Birmingham 2009) was clearly superior to aspirin for stroke prevention, even in patients with AF aged  /H11350  75 years. For example, in 
+the Birmingham Atrial Fibrillation Treatment of the Aged (BAFTA) Study, the use of VKA (INR 2-3) reduced the primary end point of TE by 52% compared with aspirin 75 mg daily  , with no difference in major 
+bleeding events between VKA or aspirin.  
+2   Even in low-
+risk subjects with AF, aspirin may be no better than control for reducing TE events, with a tendency to more adverse effects (especially bleeding) with aspirin.  
+3   
+ The risk of stroke and TE in AF is not homoge-
+neous, and various clinical and echocardiographic features have been identiﬁ  ed to help stratify risk into high-, intermediate-, or low-risk categories.  
+1   How-
+ever, contemporary clinical risk stratiﬁ  cation schema 
+for predicting stroke, transient ischemic attack (TIA), or TE for patients with AF are largely derived from risk factors identiﬁ  ed from non-VKA arms of trial cohorts, and one cohort study (Framingham). Thus, many potential risk factors have not been adequately assessed, as not all potential risk factors have been systematically documented in the clinical trial popu-lations. The Stroke in AF Working Group  
+4   performed 
+a systematic review of these stroke risk factors and concluded that only four clinical features (prior stroke/TIA, advancing age, hypertension, and diabetes) were consistent independent risk factors. Also, existing stroke risk stratiﬁ  cation schema have widely varying proportions categorized into high-, intermediate-, and low-risk strata, and are generally of modest pre-dictive value in predicting stroke and TE (C-statistics of approximately 0.6).  
+5   Again, some of the validation 
+studies comparing the performance of different schema are limited by having been performed in anticoagulated trial cohorts,  
+6   retrospective analyses 
+of anticoagulated AF registries,  7   and in some, non-VKA 
+arms of trial cohorts whereby antiplatelet therapy 
+and/or subtherapeutic VKA (eg, INR  ,  1.5) were used.  8   
+ Manuscript received July 4, 2009; revision accepted July 31, 
+2009.   Afﬁ liations:   From the University of Birmingham Centre for Cardio-
+vascular Sciences (Drs Lip and Lane), City Hospital, Birmingham, UK; and the Department of Cardiology (Drs Nieuwlaat, Pisters, and Crijns), Maastricht University Medical Centre, The Netherlands    .   Funding/Support:  The Euro Heart Survey is funded by industry 
+sponsors AstraZeneca, Sanoﬁ  -Aventis, and Eucomed, and by the Austrian Heart Foundation, Austrian Society of Cardiology, French Federation of Cardiology, Hellenic Cardiological Society, Netherlands Heart Foundation, Portuguese Society of Cardiology, Spanish Cardiac Society, Swedish Heart and Lung Foundation and individual centers.   Correspondence to:  Professor G.Y.H. Lip  , MD, University of Birmingham Centre for Cardiovascular Sciences, City Hospital, Birmingham B18 7QH, UK; e-mail: g.y.h.lip@bham.ac.uk     © 2010 American College of Chest Physicians.  Reproduction of this article is prohibited without written permission from the American College of Chest Physicians ( www.chestjournal.org/site/misc/reprints.xhtml ).  DOI: 10.1378/chest.09-1584 
+ © 2010 American College of Chest Physicians by Kimberly Henricks on February 9, 2010 chestjournal.chestpubs.org Downloaded from 
+www.chestjournal.org CHEST / 137 / 2 / FEBRUARY , 2010  265clinical practice), the Framingham and CHADS 2  scores were also 
+tested as continuous variables. 
+ We reﬁ  ned the 2006 Birmingham (or NICE) TE risk schema 
+into a risk factor-based approach, by deﬁ  ning deﬁ  nitive risk fac-
+tors (previous stroke/TIA/TE and age  /H11350  75 years) and combina-
+tion risk factors (heart failure/moderate-severe cardiac dysfunction, 
+hypertension, diabetes, vascular disease, female gender, and age 65-74 years). If we wished to artiﬁ  cially categorize these subjects, 
+high risk was deﬁ  ned as one deﬁ  nitive or two or more combina-tion risk factors, intermediate risk was essentially deﬁ  ned as one combination risk factor, and low risk was deﬁ  ned as no risk factors being present. This reﬁ  ned (2009) Birmingham schema was also tested with a point-based scoring system, the CHA 
+2 DS 2 -VASc 
+score (see  Table 2   for deﬁ  nition), whereby scores of 0  5  low, 
+1  5  intermediate, and  /H11350  2  5  high risk. 
+ Deﬁ nitions of End Points and Risk Factors 
+ Ischemic stroke was deﬁ  ned as a focal neurologic deﬁ  cit of sud-
+den onset as diagnosed by a neurologist, lasting  .  24 h and caused 
+by ischemia. TIA was deﬁ  ned as a focal neurologic deﬁ  cit of sud-den onset as diagnosed by a neurologist, lasting  ,  24 h. Peripheral 
+embolism was deﬁ  ned as TE outside the brain, heart, eyes, and lungs. Pulmonary embolism was deﬁ  ned by the responsible physi-cian. TE as outcome variable of the validation analysis was deﬁ  ned 
+as either an ischemic stroke, peripheral embolism, or pulmonary embolism. Deﬁ  nitions of risk factors, such as diabetes, hyperten-sion, heart failure, peripheral artery disease, and so forth, are pro-vided in the online supplement. 
+ Statistical Analysis 
+ We used descriptive analyses with proportions and means 
+( 6  SD) to describe the validation cohort, categorization of the 
+three risk groups per schema, and the event rates per risk group. 
+We calculated the 95% CI of event rates using the binomial approximation. We performed logistic regression with each schema, containing three risk groups, as independent variable and TE dur-ing 1 year as dependent variable. The probability that this model predicted the correct classiﬁ  cation of each patient (TE or not) was saved. Following this we plotted this probability in a receiver- operating characteristic (ROC) curve against TE as dependent variable. The area under the curve for this ROC curve represents the ability of a schema to correctly classify risk for TE, which is also referred to as the C-statistic (Harrell’s C). As a subsidiary analysis, we also ran the same analyses on 843 patients within this group who were not on anticoagulation at both baseline and 1-year follow-up. 
+ To assess the effect of individual risk factors on the occurrence 
+of TE in this cohort, we performed multivariable logistic regres-
+sion with the following independent variables: age, gender, dia-betes, coronary artery disease, heart failure, hypertension, prior stroke/TIA, prior other thromboembolism, and peripheral vascu-lar disease. To assess whether the effect of systolic blood pressure at baseline was different than that of hypertension, we performed the same analysis while replacing systolic blood pressure for hypertension and we report these results in the text only. Further, since recent echocardiography was not available for 400 (37%) patients, we repeated the initial analysis with the addition of left ventricular ejection fraction to assess its effect and whether other effects were changed by this addition. Variables were removed stepwise from the model when the  P  value exceeded .10. Vari-
+ables with  P  value  ,  0.05 in the ﬁ  nal model were considered to be 
+signiﬁ  cant contributors to TE prediction and we report the net 
+odds ratio (OR), 95% CI, and  P  value for these variables. Vari-
+ables in the ﬁ  nal model were tested for interaction(s), if any. then compared with existing schema in a real world 
+AF patient cohort in the Euro Heart Survey for AF, where longitudinal data on outcomes have previously been published.  
+21   
+ Methods 
+ Validation Cohort 
+ To test the predictive ability of the reﬁ  ned Birmingham schema, 
+and to compare this with the performance of other schema, we 
+used the Euro Heart Survey on AF population. Survey methods, center participation, patient characteristics, management and deﬁ nitions of the baseline and follow-up survey of the Euro Heart 
+Survey on AF have previously been described.  
+21,22   In summary, 
+5,333 ambulant and hospitalized patients with AF were enrolled from the cardiology practices of 182 hospitals among 35 countries in 2003 to 2004. Patients were enrolled if they were  /H11350  18 years old 
+and if they had an ECG or Holter recording showing AF during the qualifying admission/consultation or in the preceding 12 months. A follow-up was performed to assess mortality and incidence of major adverse events during 1 year. 
+ For the current analysis we selected 1,577 patients without 
+mitral stenosis or previous heart valve surgery and who did not use either VKA or heparin at discharge of the qualifying visit. We had survival status during 1 year for 1,150 (73%) of these patients and the TE status for 1,084 (69%). Compared with patients with known survival status at follow-up, patients with unknown survival status were at baseline of similar age (66  6  15 vs 66  6  14 years; 
+ P   5  .624), were as often female (45% vs 40%;  P   5  .103), and equally 
+as often had diabetes (15% vs 17%;  P   5  .244) or a prior stroke/TIA 
+(9% vs 8%;  P   5  .359), whereas they more often had heart failure 
+(41% vs 24%;  P   ,  .001) and less often vascular disease (35% vs 
+42%;  P   5  .015) and hypertension (62% vs 67%;  P   5  .032). Patients 
+with known survival status at follow-up but unknown TE status 
+were more often deceased compared with patients who had both survival and TE status known (24% vs 4%;  P   ,  .001). 
+ Description of Stroke Risk Stratiﬁ  cation Schema 
+ The various stroke risk schema compared and/or validated in 
+this real world European cohort are summarized in  Table 1  . In 
+case of multiple available schema, we chose to use the most recent one: for example, the Stroke Prevention in Atrial Fibrillation (SPAF) 1999 schema (rather than the SPAF 1995 schema),  
+23   the second 
+American College of Cardiology/American Heart Association/ European Society of Cardiology (ACC/AHA/ESC) guidelines (2006),  
+11   and the eighth American College of Chest Physicians 
+(ACCP) guidelines (2008).  10   We did use the AF Investigators 
+1994 schema,  24   since the 1998 analysis explored the additional 
+value of echocardiography parameters, but did not explicitly rec-ommend a new schema. The Framingham and CHADS 
+2  schema 
+are point-based scores, with the Framingham based on a mathe-matical equation  
+25   and the CHADS 2  based on one point for CHAD 
+and two points for stroke/TIA.  26   
+ In order to compare their predictive ability with other schema 
+for distinguishing low, intermediate, and high risk, we categorized 
+the scores into three groups. We deﬁ  ned the CHADS 2  score in 
+two ways: (1)  classic , whereby scores of 0  5  low, 1 to 2  5  interme-
+diate,  .  2  5  high risk; or (2)  revised , whereby scores of 0  5  low, 
+1  5  intermediate,  /H11350  2  5  high risk. We categorized the Framingham 
+score in a similar manner to that proposed by Fang et al,  9   as fol-
+lows: score 0 to 7  5  low, 8 to 15   5  intermediate, 16 to 31   5  high risk. 
+In addition to these categorized deﬁ  nitions (commonly used in 
+ © 2010 American College of Chest Physicians by Kimberly Henricks on February 9, 2010 chestjournal.chestpubs.org Downloaded from 
+266 Original Researchfemale gender, history of vascular disease, prior 
+stroke/TIA, and diabetes were associated with an increased incidence of TE (all  P   ,  .05;  Table 4  ). When 
+assessing the independent effect of all potential risk factors on TE occurrence in multivariate analysis, female gender (OR 5 2.53 [1.08-5.92];  P  5 .029) was 
+the only signiﬁ  cant associated factor, whereas the effect of vascular disease was near signiﬁ  cant (OR 5 2.27 
+[0.94-5.46];  P  5 .064) ( Table 4 ). Taking into account 
+systolic blood pressure at baseline, rather than the diagnosis of hypertension, showed that also systolic blood pressure was not signiﬁ  cantly associated with TE occurrence (OR 5 0.99 [0.97-1.01] per mm Hg 
+increase;  P  5 .319). 
+ The proportions of patients categorized as high, 
+intermediate or low risk are shown in  Table 5  . Risk categorization differed widely between the different schemes. Patients classiﬁ  ed as high risk ranged from 10.2% with the Framingham schema to 75.7% with the Birmingham 2009 schema. The classic CHADS 
+2  
+categorized the largest proportion (61.9%) of subjects 
+into the intermediate-risk strata, whereas the AF Investigators and Birmingham 2009 schema classi-ﬁ ed 12.2% and 15.1%, respectively, into this category.  Results 
+ The 1,084 patients with nonvalvular AF, who were 
+not on anticoagulation at baseline and for whom we knew TE status at 1 year, were on average 66 years old and 40.8% were women ( Table 3  ). Hypertension was the most prevalent stroke risk factor (67.3%), fol-lowed by coronary artery disease (38.4%). Antiplate-let drugs were taken by 74.0%. In univariate analyses,  Table 1— Risk Stratiﬁ  cation Schemes Used To Predict Thromboembolism in Atrial Fibrillation  
+Risk Scheme Low Risk Intermediate Risk High Risk  
+AFI Investigators (1994) 24 Age  ,  65 y and no risk 
+ factorsAge  .  65 y and no other risk 
+ factorsPrior stroke/TIA, hypertension, diabetes
+SPAF investigators 23 No risk factors Hypertension, diabetes Prior stroke/TIA, women  .  75 y, 
+ men  .  75 y with hypertension
+CHADS 2  (2001)—classic 26 Score 0 Score 1-2 Score 3-6
+CHADS 2 —revised Score 0 Score 1 Score 2-6
+Framingham (2003) 25 Score 0-7 Score 8-15 Score 16-31
+NICE guidelines (2006) 12 Age  ,  65 y with no 
+  moderate/high-risk 
+factorsAge  /H11350  65 y with no high-risk 
+ factorsPrevious stroke/TIA or thromboembolic 
+ event
+Age  ,  75 y with hypertension, 
+ diabetes, or vascular disease  a  Age  /H11350  75 y with hypertension, diabetes, or 
+ vascular disease
+Clinical evidence of valve disease or 
+  heart failure, or impaired left 
+ventricular function
+ACC/AHA/ESC  guidelines (2006) 
+11 No risk factors Age  /H11350  75 y, or hypertension, or heart 
+ failure, or LVEF  /H11349  35%, or diabetesPrevious stroke, TIA or embolism,   or  /H11350  2 moderate risk factors: age  /H11350  75 y, 
+hypertension, heart failure, LVEF  /H11349  35%, 
+diabetes
+Eighth ACCP  guidelines (2008) 
+10 No risk factors Age  .  75 y, or hypertension, or 
+  moderately or severely impaired 
+LVEF and/or heart failure, or diabetesPrevious stroke, TIA or embolism,   or  /H11350  2 moderate risk factors: age  /H11350  75 y, 
+hypertension, moderately or severely impaired LVEF and/or heart failure, diabetes
+Birmingham (2009) No risk factors One combination risk factor: heart 
+  failure/LVEF  /H11349  40, hypertension, 
+diabetes, vascular disease,  
+a   female 
+gender, age 65-74Previous stroke, TIA or embolism, or   age  /H11350  75 y, or  /H11350  2 combination risk 
+factors: heart failure/LVEF   /H11349  40, 
+hypertension, diabetes, vascular disease,  
+a   
+female gender, age 65-74
+ACC 5 American College of Cardiology; ACCP 5 American College of Chest Physicians; AFI 5 Atrial Fibrillation Investigators; AHA 5 American 
+Heart Association; CHADS 2  5 Congestive heart failure, Hypertension, Age  .  75, Diabetes, prior Stroke/TIA; ESC 5 European Society of Cardiology; 
+LVEF 5 left ventricular ejection fraction; NICE 5 National Institute for Health and Clinical Excellence; SPAF 5 Stroke Prevention in Atrial 
+Fibrillation; TIA 5 transient ischemic attack.
+ a Myocardial infarction, peripheral artery disease, or aortic plaque.
+ Table 2— The 2009 Birmingham Schema Expressed 
+as a Point-Based Scoring System, With the Acronym 
+CHA 2 DS 2 -VASc  
+Risk Factor Score
+  C  ongestive heart failure/LV dysfunction 1
+  H  ypertension 1
+  A  ge  /H11350  75 y 2
+  D  iabetes mellitus 1
+  S  troke/TIA/TE 2
+  V  ascular disease (prior myocardial infarction, peripheral artery 
+ disease, or aortic plaque)1
+  A  ge 65-74 y 1
+  S  ex   c  ategory (ie female gender) 1
+LV  5  left ventricular; TE  5  thromboembolism. See Table 1 for 
+expansion of other abbreviations.
+ © 2010 American College of Chest Physicians by Kimberly Henricks on February 9, 2010 chestjournal.chestpubs.org Downloaded from 
+www.chestjournal.org CHEST / 137 / 2 / FEBRUARY , 2010  267 Those classiﬁ  ed as low risk by Birmingham 2009 
+and the NICE schema were truly low risk, with no 
+TE events recorded, whereas TE events occurred in 1.4% of low-risk CHADS 
+2  subjects and 1.8% of SPAF 
+low-risk subjects. Also, where most intermediate-risk groups had an event rate around 3%, the intermediate-risk group using the Birmingham 2009 schema had only 1 event (0.6%). When expressed as a scoring  system 
+( Table 6  ), the Birmingham 2009 schema (with the 
+CHA 
+2 DS 2 -VASc acronym) showed an increase in TE 
+rate with increasing scores ( P  value for trend 5 .003); 
+those with a score of 0 (ie, low risk) had no TE events, whereas a score of 1 (ie, intermediate risk) had TE events in 0.6% 
+ A secondary analysis of a cohort of subjects who 
+were not treated with anticoagulation at baseline and 
+at follow-up are presented in the online supplement  , and accepting the caveat of lower study numbers, this does not substantially change our observations. 
+ Discussion 
+ In this article, we have provided a validation for 
+a novel risk factor-based approach to stroke risk 
+stratiﬁ  cation (Birmingham 2009), in comparison with 
+other published schema, in a real world European cohort. This Birmingham 2009 schema considers patients with a prior stroke/TIA or patients  /H11350  75 years 
+as high risk and as candidates for warfarin. Further-more, a combination of at least two risk factors from hypertension, heart failure, diabetes, age 65 to 75, female gender, and vascular disease are also considered to be high risk; we provide strong evidence from the Euro Heart Survey for the addition of the latter two risk factors. To aid risk scoring, we also provide a risk score for the Birmingham 2009 schema, using the CHA 
+2 DS 2 -VASc acronym, with a clear increase in 
+stroke risk with an increasing score, whereas those with a score of 0 to 1 (that is, low to moderate risk) had low event rates. We also conﬁ  rm the results of recent comparisons  
+5-9,14   showing a modest predictive The Birmingham 2009 schema classiﬁ  ed only 9.2% as low risk, whereas the Framingham scheme categorized 48.3% as low risk. 
+ The C-statistics all suggested modest predictive 
+value of all schema for TE, with C-statistics ranging from 0.549 (SPAF) to 0.638 (Framingham), whereby the Framingham schema was the only one to predict TE better than chance in this cohort. If Framingham and CHADS 
+2  scores were tested as continuous vari-
+ables a slightly improved C-statistic was obtained compared with their respective categorized scores. The Birmingham 2009 schema fared marginally bet-ter (C-statistic, 0.606) than CHADS 
+2 , whether classic 
+(0.561) or revised (0.586), or as a continuous variable (0.602) ( Table 5 ).  Table 3— Clinical Characteristics of 1,084 Nonvalvular 
+Atrial Fibrillation Patients Not Receiving Oral 
+Anticoagulation and Heparin at Discharge of the 
+Baseline Euro Heart Survey and With Known 
+Thromboembolic Follow-up Status During 1 Year  
+Clinical Characteristic No. (%) or Mean  6  SD
+Age, y 66  6  14
+Age  /H11350  75 y 309 (28.5)
+Women 442 (40.8)
+Past medical history Stroke 45 (4.2) TIA 46 (4.3) Other systemic embolism 6 (0.6) CAD 412 (38.4) Peripheral vascular disease 62 (5.8) Hypertension 729 (67.3) Diabetes 187 (17.3) Heart failure 253 (23.5)Systolic blood pressure, mm Hg 139  6  23
+LVEF, % 53  6  14
+Drugs ACEI 480 (44.3)
+ ARB 139 (12.8)
+ ACEI/ARB 607 (56.0)
+ Statins 252 (23.2)
+ Antiplatelet drugs 802 (74.0)
+ACEI 5 ACE inhibitor; ARB 5 angiotensin II receptor blocker; 
+CAD 5 coronary artery disease. See Table 1 for expansion of other 
+abbreviations.
+ Table 4— Univariate and Multivariate Predictive Power of Risk Factors for Thromboembolic Events  
+Event Rate With 
+Risk FactorEvent Rate Without 
+Risk Factor Univariate  P  Value OR  a  Multivariate  P  Value  a  
+Age  .  75 11 (3.6) 14 (1.8) .083 1.46 (0.63-3.35) .383
+Female 16 (3.6) 9 (1.4) .017 2.53 (1.08-5.92) .029
+Stroke/TIA/TE 5 (5.9) 20 (2.0) .023 2.22 (0.78-6.35) .163
+Hypertension 19 (2.6) 6 (1.7) .349 1.01 (0.38-2.66) .992
+Diabetes 8 (4.3) 17 (1.9) .048 1.79 (0.73-4.40) .220
+Heart failure 6 (2.4) 19 (2.3) .967 0.72 (0.27-1.88) .493
+LVEF  ,  40 1 (0.8) 12 (2.1) .335 0.34 (0.04-2.73) .243
+Vascular disease  b  16 (3.6) 9 (1.5) .022 2.27 (0.94-5.46) .063
+OR 5 odds ratio. See Tables 1 and 2 for expansion of other abbreviations.
+ a All results other than LVEF from model without LVEF.
+ b Coronary artery disease, peripheral vascular disease, or a previous thromboembolism other than stroke/TIA.
+ © 2010 American College of Chest Physicians by Kimberly Henricks on February 9, 2010 chestjournal.chestpubs.org Downloaded from 
+268 Original Research There is some justification for the addition of 
+female gender, vascular disease, and age 65 to 74 years 
+into the combination risk factor category. The impact of female gender on stroke and TE risk has recently been reviewed by us.  
+15   Compared with men, women value of older published stroke risk stratiﬁ  cation 
+schema for stroke and TE in patients with AF, but extend this work by showing the modest performance of the most recent ACC/AHA/ESC, ACCP, and NICE schemata.  Table 5— Risk Categorization, Incidence of TE,    a     and Predictive Ability for Contemporary Risk Stratiﬁ  cation Schema 
+Among Euro Heart Survey Patients Who Did not Receive Anticoagulation at Baseline   
+Categorization of TE Risk Predictive Ability
+Low Intermediate High C Statistic (95% CI)  P  Value
+AFI 1994  .209
+ % in risk category 16.7 12.2 71.1 0.573
+ TE events, No. (%) 1 (0.6) 4 (3.0) 20 (2.6) (0.470-0.676)
+SPAF 1999  .405
+ % in risk category 26.2 44.8 29.0 0.549
+ TE events, No. (%) 5 (1.8) 11 (2.3) 9 (2.9) (0.435-0.662)
+CHADS 2 —classic  .296
+ % in risk category 20.4 61.9 17.7 0.561  b  
+ TE events, No. (%) 3 (1.4) 16 (2.4) 6 (3.2) (0.450-0.672)
+CHADS 2 —revised  .140
+ % in risk category 20.4 34.9 44.7 0.586  b  
+ TE events, No. (%) 3 (1.4) 7 (1.9) 15 (3.1) (0.477-0.695)Framingham  .018
+ % in risk category 48.3 41.5 10.2 0.638  
+b  
+ TE events, No. (%) 6 (1.2) 14 (3.2) 5 (4.6) (0.532-0.744)NICE 2006  .094
+ % in risk category 13.1 39.2 47.7 0.598 TE events, No. (%) 0 (0.0) 13 (3.1) 12 (2.3) (0.498-0.698)ACC/AHA/ESC 2006  .228
+ % in risk category 19.6 32.6 47.8 0.571 TE events, No. (%) 3 (1.4) 7 (2.0) 15 (2.9) (0.461-0.680)ACCP 2008  .204
+ % in risk category 19.6 33.4 47.0 0.574 TE events, No. (%) 3 (1.4) 7 (1.9) 15 (3.0) (0.465-0.683)Birmingham 2009  .070
+ % in risk category 9.2 15.1 75.7 0.606
+ TE events, No. (%) 0 (0.0) 1 (0.6) 24 (3.0) (0.513-0.699)
+See Tables 1 and 2 for expansion of abbreviations.
+ 
+a Ischemic stroke, pulmonary embolism, or peripheral embolism.
+ b The C statistics for the Framingham and CHADS 2  scores, if tested as continuous variables, are as follows: Framingham: 0.693 (0.603-0.784); 
+ P  5 .001; and CHADS 2 : 0.602 (0.486-0.718);  P  5 .081.
+ Table 6— Stroke or Other TE at 1 Year Based on the 2009 Birmingham (CHA 2 DS 2 -VASc) Scoring System  
+CHA 2 DS 2 -VASc Score No. Number of TE Events TE Rate During 1 y (95% CI)TE Rate During 1 y, Adjusted for 
+Aspirin Prescription,  a   %
+0 103 0 0% (0-0) 0
+1 162 1 0.6% (0.0-3.4) 0.7
+2 184 3 1.6% (0.3-4.7) 1.93 203 8 3.9% (1.7-7.6) 4.74 208 4 1.9% (0.5-4.9) 2.35 95 3 3.2% (0.7-9.0) 3.96 57 2 3.6% (0.4-12.3) 4.57 25 2 8.0% (1.0-26.0) 10.18 9 1 11.1% (0.3-48.3) 14.29 1 1 100% (2.5-100) 100
+Total 1,084 25  P  Value for trend 0.003
+See Tables 1 and 2 for expansion of abbreviations.
+ 
+a Theoretical TE rates without therapy: corrected for the % of patients receiving aspirin within each group, assuming that aspirin provides a 22% 
+reduction in TE risk, based on Hart et al.  28  
+ © 2010 American College of Chest Physicians by Kimberly Henricks on February 9, 2010 chestjournal.chestpubs.org Downloaded from 
+www.chestjournal.org CHEST / 137 / 2 / FEBRUARY , 2010  269formal validation or comparison against other pub-
+lished schema with its revised (0, 1,  .  1) form.  9,26   As 
+our analysis (and that of others  5-9  ) has shown, the clas-
+sic CHADS 2  version generated a large intermediate 
+risk group (  .  60%) for whom it is unclear which 
+treatment (warfarin or aspirin) to apply. The revised 
+CHADS 2  provided some improvement, with a low 
+proportion classiﬁ  ed as intermediate risk, but with 
+the addition of vascular disease, female gender, or age 65 to 74 years to a risk factor-based schema (Birmingham 2009) there was further reﬁ  nement 
+of TE risk stratiﬁ  cation for AF with an improved C-statistic. 
+ Current guidelines divide subjects into high-, 
+intermediate-, and low-risk strata, but one advantage of 
+a risk factor-based approach as proposed in the cur-rent analysis is the possibility to state “consider anti-coagulation if AF present with one or more TE risk factors.” Indeed, the presence of one deﬁ  nitive factor 
+merits oral anticoagulation with (for example) an oral VKA (to a target INR 2-3). Patients with two or more combination risk factors should all be considered for oral anticoagulation. Thus, those with one deﬁ  nitive 
+factor or two or more combination risk factors repre-sent the old-style high-risk category. The small group of patients with one combination risk factor (15% of this cohort) would represent the old-style intermediate-risk category and should be managed with antithrom-botic therapy, either as oral anticoagulation therapy (eg, VKA, target INR 2-3) or as aspirin 75 to 325 mg daily  , although the recent ACCP guidelines suggest considering a VKA rather than aspirin if possible.  
+10   In 
+ Figure 1  , we propose a clinical ﬂ  owchart, based on the Birmingham 2009 schema. Our reﬁ  ned schema 
+can thus be presented in three ways: (1) in a narrative 
+manner (high risk is one deﬁ  nitive risk factor, or two 
+or more combination risk factors), (2) scoring system (CHA 
+2 DS 2 -VASc score  /H11350   2 is high risk), or (3) as a 
+algorithm-based ﬂ  ow diagram. 
+ Where possible, patients at intermediate risk should 
+be considered for oral anticoagulation rather than 
+ aspirin, since undertreatment is more harmful than 
+overtreatment.  28,29   Full discussion with the patient 
+with one combination risk factor would enable agree-ment to use oral anticoagulation instead of aspirin to allow greater protection against ischemic stroke, especially if these patients value stroke prevention much more than the (theoretical) lower risk of hem-orrhage with aspirin and the inconvenience of anti-coagulation monitoring.  
+10   As mentioned, the BAFTA 
+trial found no difference in major bleeding between 
+warfarin (INR 2-3) and aspirin 75 mg   in an elderly AF population in primary care,  
+2   and aspirin cannot 
+be regarded as a much safer alternative to VKA. 
+ Patients with no risk factors are at low risk (essen-
+tially patients aged  ,  65 years with lone AF, with are more likely to suffer a TE event or ischemic stroke when not taking warfarin, but when they are pre-scribed warfarin they have comparable INR control, are not more likely to suffer a major bleed, and dem-onstrate a greater TE risk reduction.  
+15   The impact of 
+vascular disease, particularly myocardial infarction, on increasing TE risk in AF has also been systemati-cally reviewed.  
+16-19   Furthermore, the presence of AF 
+in association with peripheral artery disease is associ-
+ated with a substantial mortality and morbidity, and the impact of atherothrombotic disease is also clearly illustrated by the presence of complex aortic plaque on the descending aorta being an independent pre-dictor for stroke and TE in AF.  
+17,20   Last, stroke inci-
+dence increases with advancing age, and in AF this is no exception. Given that age is not a yes/no effect on stroke, and that anticoagulation has marked beneﬁ  t 
+in elderly subjects  
+2   our proposal is that age  /H11350  75 years 
+is a deﬁ  nitive (high) risk factor, and age 65 to 74 plus one additional combination risk factor also merits anticoagulation, thus improving thromboprophylaxis for large absolute numbers of AF patients who would otherwise be at risk. Our proposal is supported by data that the relative ischemic stroke risk re duction of antiplatelet drugs decreases with aging, 
+whereas oral anticoagulation maintains its preventive power.  
+27   
+ The Framingham schema  25   had the highest 
+C-statistic (0.638) but is based on a complicated math-ematical formula and has not been incorporated into current treatment guidelines. In addition, it classiﬁ  ed 
+most patients of our cohort into low and moderate risk categories. Thus, many patients could have been denied VKA treatment on this basis, exposing them to the risk of stroke and TE. The AF Investigators schema  
+24   is based on the original (and now, historical) 
+placebo-controlled trials of warfarin vs control, and again, represents historical interest given that many schema (eg, Birmingham/NICE and CHADS 
+2 ) have 
+since evolved from this schema. Similarly, the SPAF risk stratiﬁ  cation schema is of historical interest and the CHADS 
+2  schema was an amalgamation of the 
+AF Investigators and SPAF schema, but the SPAF schema was the only one to have previously included female gender as a risk factor.  
+23   Since publication of 
+the Stroke in AF Working Group analysis,  5   the eighth 
+ACCP guidelines have been published,  10   and the cur-
+rent analysis provides a comparison of this against other schema. Because the eighth ACCP schema is broadly similar to the revised CHADS 
+2  schema (score 1 
+as intermediate risk group), it is unsurprising that the performance of this schema is comparable to CHADS 
+2 . 
+ The CHADS 2  schema is widely used due to its 
+simplicity and ease. The CHADS 2  schema has been 
+validated in its classic form, and we are unaware of a 
+ © 2010 American College of Chest Physicians by Kimberly Henricks on February 9, 2010 chestjournal.chestpubs.org Downloaded from 
+270 Original Researchcause a patient to spend a low proportion of time 
+within the therapeutic target INR range, which is associated with an increase TE risk.  
+34   Implementation 
+of methods shown to improve quality of VKA man-agement, such as an anticoagulation clinic, and the development of new oral anticoagulants that can be given as a ﬁ  xed dose with few food/drug interactions and no requirement for monitoring, provide an opportunity for guidelines to adopt this risk factor-based approach 
+to simply state “consider oral anticoagulation if AF is present with one or more TE risk factors” (ie, CHA 
+2  
+DS 2  -VASc score of 1 or more). The Birmingham 2009 
+schema also allows identification of a truly low-risk population, in whom no TE events were recorded in the low-risk subjects classified as no risk factors (ie, CHA 
+2  DS 2  -VASc score  5  0) and such patients 
+may not need any antithrombotic therapy. 
+ This analysis is limited by its dependence upon a 
+survey database, and although we have made efforts to ensure accurate coding and validation, all possible sources of bias and recording errors cannot be ex-cluded. An important limitation is the absence of information on TE occurrence during 1 year for 31% of patients from the baseline survey. Also, we have based our primary analysis on 1,084 subjects who none of the risk factors, whether high, moderate, or less validated), as conﬁ  rmed by the absence of TE events in this group in our analysis, and can be managed with aspirin 75 to 325 mg daily or   no anti-
+thrombotic therapy, given the limited data on the beneﬁ  ts of aspirin in this patient group (that is, lone 
+AF) and the potential for adverse effects.  
+3   Indeed, 
+the 22% reduction in stroke risk with antiplatelet therapy in the latest metaanalysis is largely driven by the SPAF-I clinical trial, in which internal incon-sistencies in TE events with the aspirin vs control arms are apparent.  
+30   Also, it is likely that the magnitude of 
+aspirin effect is related to the stroke prevention seen by giving antiplatelet therapy in patients with vascu-lar disease.  
+1,27,31   It is notable that if trials with aspirin 
+alone (and not other antiplatelet drugs) are considered in the recent metaanalysis by Hart et al,  
+28   the 95% 
+conﬁ dence intervals of the aspirin effect also include 
+zero. Interestingly, more recent trials in vascular dis-
+ease have not shown any signiﬁ  cant beneﬁ  t for aspi-
+rin in the primary prevention of vascular disease.  32,33   
+ Hesitance to prescribe VKA to patients at high or 
+intermediate risk is substantially related to the need 
+for monitoring VKA and the many interactions of food and drugs with VKAs. These limitations can   Figure  1. Proposed clinical ﬂ  owchart for the use of oral anticoagulation for stroke prevention in atrial 
+ﬁ brillation.   
+ © 2010 American College of Chest Physicians by Kimberly Henricks on February 9, 2010 chestjournal.chestpubs.org Downloaded from 
+www.chestjournal.org CHEST / 137 / 2 / FEBRUARY , 2010  271    3 .  Sato   H ,  Ishikawa   K ,  Kitabatake   A ,  et al ;  Japan Atrial Fibrillation 
+Stroke Trial Group .  Low-dose aspirin for prevention of 
+stroke in low-risk patients with atrial ﬁ  brillation: Japan Atrial Fibrillation Stroke Trial .   Stroke  .  2006 ; 37 ( 2 ): 447 - 451 .   
+    4 .  Stroke Risk in Atrial Fibrillation Working Group .  Independent 
+predictors of stroke in patients with atrial ﬁ  brillation: a sys-tematic review .   Neurology  .  2007 ; 69 ( 6 ): 546 - 554 .   
+    5 .  Stroke Risk in Atrial Fibrillation Working Group .  Comparison 
+of 12 risk stratiﬁ  cation schemes to predict stroke in patients with nonvalvular atrial ﬁ  brillation .   Stroke  .  2008 ; 39 ( 5 ): 1901 - 1910   .  
+    6 .  Baruch   L ,  Gage   BF ,  Horrow   J ,  et al .  Can patients at elevated 
+risk of stroke treated with anticoagulants be further risk strati-ﬁ ed?    Stroke  .  2007 ;38(9):2459-2463.  
+    7 .  Poli   D ,  Antonucci   E ,  Grifoni   E ,  Abbate   R ,  Gensini   GF , 
+ Prisco   D .  Stroke risk in atrial ﬁ  brillation patients on warfa-
+rin. Predictive ability of risk stratiﬁ  cation schemes for primary and secondary prevention .   Thromb Haemost  .  2009 ; 101 ( 2 ): 
+367 - 372 .  
+    8 .  Lip   GY ,  Lane   D ,  Van Walraven   C ,  Hart   RG .  Additive role 
+of plasma von Willebrand factor levels to clinical factors for risk stratiﬁ  cation of patients with atrial ﬁ  brillation .   Stroke  .  
+ 2006 ; 37 ( 9 ): 2294 - 2300 .   
+    9 .  Fang   MC ,  Go   AS ,  Chang   Y ,  Borowsky   L ,  Pomernacki   NK , 
+ Singer   DE ;  ATRIA Study Group .  Comparison of risk strati-fication schemes to predict thromboembolism in people with nonvalvular atrial ﬁ  brillation .   J Am Coll Cardiol  .  2008 ;
+ 51 ( 8 ): 810 - 815 .   
+    10 .  Singer   DE ,  Albers   GW ,  Dalen   JE ,  et al ;  American College 
+of Chest Physicians .  Antithrombotic therapy in atrial ﬁ  brilla-
+tion: American College of Chest Physicians evidence-based clinical practice guidelines (8th edition) .   Chest  .  2008 ; 133 
+( 6   suppl ): 546S - 592S .   
+    11 .  Fuster   V ,  Rydén   LE ,  Cannom   DS ,  et al ;  Task Force on Practice 
+Guidelines, American College of Cardiology/American Heart 
+Association ;  Committee for Practice Guidelines, European Society of Cardiology ;  European Heart Rhythm Association ; 
+ Heart Rhythm Society .  ACC/AHA/ESC 2006 guidelines for the management of patients with atrial ﬁ  brillation-executive 
+summary: a report of the American College of Cardiology/American Heart Association Task Force on Practice Guidelines and the European Society of Cardiology Committee for Practice Guidelines (Writing Committee to Revise the 2001 Guidelines for the Management of Patients with Atrial Fibrillation) .   Eur Heart J  .  2006 ; 27 ( 16 ): 1979 - 2030 .   
+    12 .  National Collaborating Centre for Chronic Conditions .   Atrial 
+Fibrillation: National Clinical Guideline for Management in Primary and Secondary Care  .  London :  Royal College of Physicians ;  2006 .  
+    13 .  Dagres   N ,  Nieuwlaat   R ,  Vardas   PE ,  et al .  Gender-related 
+differences in presentation, treatment, and outcome of patients with atrial ﬁ  brillation in Europe: a report from the Euro Heart Survey on Atrial Fibrillation .   J Am Coll Cardiol  .  
+ 2007 ; 49 ( 5 ): 572 - 577 .   
+    14 .  Fang   MC , 
+ Singer   DE ,  Chang   Y ,  et al .  Gender differences 
+in the risk of ischemic stroke and peripheral embolism in atrial ﬁ  brillation: the AnTicoagulation and Risk factors In Atrial ﬁ  brillation (ATRIA) study .   Circulation  .  2005 ; 112 ( 12 ): 
+1687 - 1691 .   
+    15 .  Lane   DA ,  Lip   GYH .  Female gender is a risk factor for stroke 
+and thromboembolism in atrial ﬁ  brillation patients .  Thromb 
+Haemost . 2009;101(5):802-805.  
+    16 .  Schmitt   J ,  Duray   G ,  Gersh   BJ ,  Hohnloser   SH . Atrial ﬁ  brilla-
+tion in acute myocardial infarction: a systematic review of the 
+incidence, clinical features and prognostic implications.  Eur 
+Heart J .  2009 ;30(9):1038-1045.  
+    17 .  Conway   DS ,  Lip   GY .  Comparison of outcomes of patients 
+with symptomatic peripheral artery disease with and without were not anticoagulated at baseline, but during the 
+1 year of follow-up, a small proportion (18%) were started on VKA, which could have inﬂ  uenced TE end points. However, conﬁ  ning our analysis to a secondary cohort of subjects who were not treated with anti-coagulation at baseline or during follow-up does not change our conclusions. Also, these analyses may have included some patients who were not started on VKA because of comorbidities, poor compliance (or inabil-ity to have adequate monitoring), and/or intolerance of anticoagulation, and furthermore, the numbers of end points in this subset are much lower. We recognize our modest follow-up period (1 year) in a contemporary real life clinical practice survey, but follow-up dura-tions in other analyses are only marginally better. For example, the (older) CHADS 
+2  validation exercise only 
+had an average of 1.25 years of follow-up.  26   
+ In conclusion, our novel, simple stroke risk stratiﬁ  -
+cation schema, based on a risk factor approach, pro-
+vides some improvement in predictive value for TE over the CHADS 
+2  schema, with low event rates in 
+low risk subjects and the classiﬁ  cation of only a small proportion of subjects into the intermediate risk cat-egory. This schema could improve our approach to stroke risk stratiﬁ  cation in patients with AF. Ongoing validations of the Birmingham 2009 risk schema in other AF populations from different race/ethnic groups will conﬁ  rm its true value. 
+ Acknowledgments 
+  Author contributions:   Dr Lip:  contributed to study design and 
+hypothesis, data interpretation, and drafting and revisions of the 
+manuscript.   Dr Nieuwlaat:  contributed to statistical analyses, data interpretation, 
+and drafting of the manuscript.   Dr Pisters:  contributed to drafting and revision of the manuscript.   Dr Lane:  contributed to drafting and revision of the manuscript.   Dr Crijns:  contributed to drafting and revision of the manuscript. 
+  Financial/nonﬁ  nancial disclosures:  The authors have reported 
+to  CHEST  the following conﬂ  icts of interest: Dr Lip has served as 
+a consultant for Bayer, Astellas, Merck, AstraZeneca, Sanoﬁ  , Aryx, 
+and Boehringher and has been on the speakers bureau for Bayer, Boehringher, and Sanoﬁ  . Dr Pisters has served on the Roche advisory board. Dr Lane has received assistance to travel to the European Society of Cardiology from AstraZeneca. Drs Nieuwlaat and Crijns have   reported no potential conﬂ  icts of interest exist 
+with any companies/organizations whose products or services may 
+be discussed in this article.   Other contributions:  We thank the Euro Heart Survey team, 
+national coordinators, investigators, and data collection ofﬁ  cers 
+for performing the survey. 
+ References 
+    1 .  Lip   GY ,  Lim   HS .  Atrial ﬁ  brillation and stroke prevention . 
+  Lancet Neurol  .  2007 ; 6 ( 11 ): 981 - 993 .   
+    2 .  Mant   J ,  Hobbs   FD ,  Fletcher   K ,  et al ;  BAFTA investigators ; 
+ Midland Research Practices Network (MidReC) .  Warfarin 
+versus aspirin for stroke prevention in an elderly commu-nity population with atrial ﬁ  brillation (the Birmingham Atrial 
+Fibrillation Treatment of the Aged Study, BAFTA): a ran-domised controlled trial .   Lancet  .  2007 ; 370 ( 9586 ): 493 - 503 .   
+ © 2010 American College of Chest Physicians by Kimberly Henricks on February 9, 2010 chestjournal.chestpubs.org Downloaded from 
+272 Original Researchatrial ﬁ  brillation (the West Birmingham Atrial Fibrillation 
+Project) .   Am J Cardiol  .  2004 ; 93 ( 11 ): 1422 - 1425 . , A10 .   
+    18 .  Siu   CW ,  Jim   MH ,  Ho   HH ,  et al .  Transient atrial ﬁ  brillation 
+complicating acute inferior myocardial infarction: implications 
+for future risk of ischemic stroke .   Chest  .  2007 ; 132 ( 1 ): 44 - 49 .   
+    19 .  Lip   GYH .  Coronary artery disease and ischemic stroke in 
+atrial ﬁ  brillation .   Chest  .  2007 ; 132 ( 1 ): 8 - 10 .   
+    20 .  The Stroke Prevention in Atrial Fibrillation Investigators 
+Committee on Echocardiography .  Transesophageal echocar-
+diographic correlates of thromboembolism in high-risk  patients with nonvalvular atrial ﬁ  brillation .   Ann Intern Med  .  
+ 1998 ; 128 ( 8 ): 639 - 647 .  
+    21 .  Nieuwlaat   R ,  Prins   MH ,  Le Heuzey   JY ,  et al .  Prognosis, dis-
+ease progression, and treatment of atrial ﬁ  brillation patients 
+during 1 year: follow-up of the Euro Heart Survey on atrial 
+ﬁ brillation .   Eur Heart J  .  2008 ; 29 ( 9 ): 1181 - 1189 .   
+    22 .  Nieuwlaat   R ,  Capucci   A ,  Lip   GY , et al;  Euro Heart Survey 
+Investigators.  Antithrombotic treatment in real-life atrial 
+ﬁ brillation patients: a report from the Euro Heart Survey on 
+Atrial Fibrillation.  Eur Heart J.  2006;27(24):3018-3026.  
+    23 .  Hart   R ,  Pearce   L ,  McBride   R ,  Rothbart   R ,  Asinger   R .  Factors 
+associated with ischemic stroke during aspirin therapy in atrial ﬁ  brillation: analysis of 2012 participants in the SPAF I-III clinical trials .   Stroke  .  1999 ; 30 ( 6 ): 1223 - 1229 .  
+    24 .  Atrial Fibrillation Investigators .  Risk factors for stroke and 
+efﬁ cacy of antithrombotic therapy in atrial ﬁ  brillation analysis 
+of pooled data from ﬁ  ve randomised clinical trials .   Arch Intern 
+Med  .  1994 ; 154 (13): 1449 - 1457 .  
+    25 .  Wang   TJ ,  Massaro   JM ,  Levy   D ,  et al .  A risk score for predict-
+ing stroke or death in individuals with new-onset atrial ﬁ  brilla-
+tion in the community: the Framingham Heart Study .   JAMA  .  
+ 2003 ; 290 ( 8 ): 1049 - 1056 .   
+    26 .  Gage   BF ,  van Walraven   C ,  Pearce   L ,  et al .  Selecting patients 
+with atrial ﬁ  brillation for anticoagulation: stroke risk stratiﬁ  -
+cation in patients taking aspirin .   Circulation  .  2004 ; 110 ( 16 ):
+ 2287 - 2292 .   
+    27 .  van Walraven   C ,  Hart   RG ,  Connolly   S , et al. Effect of age on 
+stroke prevention therapy in patients with atrial ﬁ  brillation. The Atrial Fibrillation Investigators.  Stroke .  2009 ; 40 ( 4 ):
+ 1410 - 1416 .  
+    28 .  Hart   RG ,  Pearce   LA ,  Aguilar   MI .  Meta-analysis: antithrom-
+botic therapy to prevent stroke in patients who have nonvalvu-
+lar atrial ﬁ  brillation .   Ann Intern Med  .  2007 ; 146 ( 12 ): 857 - 867 .  
+    29 .  Nieuwlaat   R ,  Olsson   SB ,  Lip   GY ,  et al ;  Euro Heart Survey 
+Investigators ;  The Euro Heart Survey on Atrial Fibrillation . 
+ Guideline-adherent antithrombotic treatment is associated with improved outcomes compared with undertreatment in high-risk patients with atrial ﬁ  brillation .   Am Heart J  .  2007 ;
+ 153 ( 6 ): 1006 - 1012 .   
+    30 .  Stroke Prevention in Atrial Fibrillation investigators .  A differ-
+ential effect of aspirin in prevention of stroke on atrial ﬁ  brilla-
+tion .   J Stroke Cerebrovasc Dis  .  1993 ; 3 ( X ): 181 - 188   .  
+    31 . 
+ Antithrombotic Trialists’ Collaboration .  Collaborative meta-
+analysis of randomised trials of antiplatelet therapy for pre-
+vention of death, myocardial infarction, and stroke in high risk patients .   BMJ  .  2002 ; 324 ( 7329 ): 71 - 86 .   
+    32 .  Belch   J ,  MacCuish   A ,  Campbell   I ,  et al ;  Prevention of 
+Progression of Arterial Disease and Diabetes Study Group ; 
+Diabetes Registry Group; Royal College of Physicians Edinburgh. The prevention of progression of arterial disease and diabetes (POPADAD) trial: factorial randomised placebo controlled trial of aspirin and antioxidants in patients with diabetes and asymptomatic peripheral arterial disease.  BMJ.  
+ 2008; 337:a1840.  
+    33 .  Ogawa   H ,  Nakayama   M ,  Morimoto   T ,  et al ;  Japanese Primary 
+Prevention of Atherosclerosis With Aspirin for Diabetes (JPAD) Trial Investigators .  Low-dose aspirin for primary 
+prevention of atherosclerotic events in patients with type 2 diabetes: a randomized controlled trial .   JAMA  .  2008 ; 300 ( 18 ):
+ 2134 - 2141 .   
+    34 .  Connolly   SJ ,  Pogue   J ,  Eikelboom   J ,  et al ;  ACTIVE W 
+Investigators .  Beneﬁ  t of oral anticoagulant over antiplatelet 
+therapy in atrial ﬁ  brillation depends on the quality of interna-tional normalized ratio control achieved by centers and coun-tries as measured by time in therapeutic range .   Circulation  .  
+ 2008 ; 118 ( 20 ): 2029 - 2037 .           
+ © 2010 American College of Chest Physicians by Kimberly Henricks on February 9, 2010 chestjournal.chestpubs.org Downloaded from 

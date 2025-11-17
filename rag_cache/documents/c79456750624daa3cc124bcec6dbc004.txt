@@ -1,0 +1,203 @@
+Table 1. Selected Validated Nutrition Screening Tools for Children and Infants2
+Nutrition Screening Parameters PMST3 PNST4PYMS5STAMP6STRONGKIDS7
+Appetite/intake X
+Body mass index X X X
+Weight change/loss X X X
+Wt/Age, Wt/Length, Ht Velocity X X X X
+Gl symptoms X
+Medical condition, diagnosis, 
+severity of disease or treatmentX X
+Reduced intake due to pain X
+Pre-existing intervention X
+Visibly under- or overweight X
+PMST , Pediatric Malnutrition Screening Tool; PNST , Pediatric Nutrition Screening Tool; PYMS , Pediatric Yorkhill Malnutrition score; STAMP , Screening Tool for the Assessment of 
+Malnutrition; STRONGKIDS , Screening Tool for Risk on Nutritional Status and Growth. Note: Some tools incorporate actual measurements as part of the tool while others do not. See 
+also: Pediatric Nutritional Screening Tools for Use in Hospitalized Children .The piece provides an overview of the nutrition screening, assessment, and diagnostic tools for children and 
+infants. It can be used in conjunction with the ASPEN Pediatric Nutrition Care Pathway and other resources in the 
+ASPEN Malnutrition Solution Center at nutritioncare.org/Malnutrition .  
+Nutrition Screening
+What is nutrition screening, and what tool should be used for screening?
+• Nutrition screening is a process for identifying individuals who may be malnourished or at risk for malnutrition and 
+determining whether they require a comprehensive nutrition assessment and appropriate intervention.1 
+• Nutrition screening should be conducted within 24 hours of hospital admission.
+• ASPEN suggests using a validated nutrition screening tool for pediatric patients. See Table 1.
+Continues on next pageNeonates and Children Nutritionally-at-Risk for Undernutrition
+Neonates should be considered at nutrition risk if they have any of the following:1,14
+High Risk8
+• Extremely Preterm: less than 28 weeks at birth.
+• Extremely low birth weight: less than 1000 g at birth.
+• Infant establishing feeds after episode of necrotizing 
+enterocolitis or gastrointestinal perforation.
+• Infants with severe congenital gastrointestinal  
+malformations (e.g., gastroschisis).  
+See Preterm and Neonatal Malnutrition Indicators on page 3. Moderate Risk8
+• Preterm: 28th–31st weeks at birth, otherwise well.
+• Intrauterine growth restriction. 
+• Very low birth weight 1000–1500 g at birth.
+• Illness or congenital anomaly that may compromise feeding.
+• Low birth weight (less than 2500 g) at birth.9 
+• Birth weight greater than 2 standard deviations below the mean 
+(approximately the 3rd percentile) for gestational age on fetal 
+weight curves.9 
+• Decline in weight-for-age z score. 
+• Weight gain velocity less than expected.
+Children should be considered at nutrition risk if they have any of the following:1
+• Weight for length, weight for height, by gender less than 
+10th percentile (–1.28 z-score).10 
+• BMI for age by gender less than 5th percentile  
+(< –1.64 z-score).9
+• Increased metabolic requirements (such as fever, 
+hypermetabolism, chronic seizures).• Impaired ability to ingest or tolerate oral feeding.
+• Documented inadequate provision of or tolerance to 
+nutrients.
+• Inadequate weight gain or a significant decrease in usual 
+growth percentile.
+PRACTICE TOOLKey Nutrition Screening, Assessment, and Malnutrition  
+Diagnostic Processes and Tools for Children and Infants 
+Malnutrition Diagnoses 
+Pediatric malnutrition (undernutrition) is defined as an imbalance between nutrient requirement and intake, resulting in 
+cumulative deficits of energy, protein, or micronutrients that may negatively affect growth, development, and other relevant 
+outcomes. Based on its etiology, malnutrition is either illness-related (1 or more diseases/injuries directly result in nutrient 
+imbalance) or caused by environmental/behavioral factors associated with decreased nutrient intake/delivery (or both). 
+Pediatric malnutrition pertains to children aged 1 month to 18 years.12 See Table 2.
+Table 2. Diagnostic Frameworks for Malnutrition in Children or Infants 
+Indicators of MalnutritionAcademy and ASPEN 
+(Pediatrics)13Preterm and 
+Neonates14
+Primary Indicators When a Single Data Point is Available
+Weight-for-height z score X
+BMI-for-age z score X
+Length/height-for-age z score X
+Mid–upper arm circumference X
+Primary Indicators When 2 or More Data Points are Available 
+Weight gain velocity (<2 years of age) X X
+Weight loss (2–20 years of age) X
+Deceleration in weight for length/height z score X
+Inadequate nutrient intake X X
+Decline in weight-for-age z score X
+Days to regain birthweight X
+Linear growth velocity X
+Decline in length-for-age z score X
+Continues on next pageNutrition Assessment
+What is nutrition assessment, and what method or measure should be used to identify malnutrition? 
+• Nutrition assessment is a comprehensive approach 
+to identifying nutrition-related problems. It uses a 
+combination of medical, nutrition, medication, and client 
+histories; nutrition-focused physical examination (NFPE); 
+anthropometric measurements; and biomedical data/
+medical diagnostic tests and procedures.11 NFPE includes 
+assessing:
+ ∘Muscle, fat, and fluid assessment
+ ∘Micronutrient deficiency review 
+ ∘Functional status assessment
+• Nutrition assessment is the next step after identifying 
+nutritional risk through screening. 
+• Nutrition assessment findings are then applied to a 
+diagnostic framework to derive the malnutrition diagnosis.
+PRACTICE TOOLKey Nutrition Screening, Assessment, and Malnutrition  
+Diagnostic Processes and Tools for Children and Infants
+This practice tool is supported by References
+1.  American Society for Parenteral and Enteral Nutrition Definition of Terms, Style, and Conventions Used in ASPEN 
+Board of Directors - Approved Documents, May 2018. 
+2.  Academy Evidence Analysis Library. Nutrition Screening Pediatrics Systematic Review (2018-2019).    https://www.
+andeal.org/topic.cfm?menu=5767&cat=5922  
+3.  Thomas PC, Marino LV, Williams S A, Beattie RM. Outcome of nutritional screening in the acute paediatric setting. Arch 
+Dis Child. 2016 Dec;101(12):1119-1124.
+4.  White M, Lawson K, Ramsey R, et al. Simple nutrition screening tool for pediatric inpatients. JPEN J Parenter Enter Nutr. 
+2016;40(3):392-398.
+5.  Gerasimidis K, Keane O, Macleod I, Flynn DM, Wright CM. A four-stage evaluation of the Paediatric Yorkhill Malnutrition 
+Score in a tertiary paediatric hospital and a district general hospital. Brit J Nutr. 2010;104(5):751-756.
+6.  McCarthy H, Dixon M, Crabtree I, et al. The development and evaluation of the Screening Tool for the Assessment of 
+Malnutrition in Paediatrics (STAMP©) for use by healthcare staff. J Hum Nutr Diet. 2012 Aug;25(4):311-8.
+7.  Hulst JM, Zwart H, Hop WC, Joosten KF.Dutch national survey to test the STRONGkids nutritional risk screening tool in 
+hospitalized children. Clin Nutr. 2010 Feb;29(1):106-11.
+8.  Johnson MJ, Pearson F, Emm A, Moyses HE, Leaf AA. Developing a new screening tool for nutritional risk in neonatal 
+intensive care. Acta Paediatricia 2015;104:e90-e93.
+9.  Institute of Medicine. Anthropometric risk criteria. In: WIC Nutrition Risk Criteria: A Scientific Assessment. National 
+Academies Press. 1996:67-148. http://books.nap.edu/openbook.php?record_id=5071&pg67.10. Centers for Disease Control. Use and interpretation of the CDC growth charts. http://www.cdc.gov/nccdphp/dnpa/
+growthcharts/resources/growthchart.pdf.
+11. Academy of Nutrition and Dietetics. Definition of terms list. 2017.
+12. Mehta NM, et al Defining pediatric malnutrition: a paradigm shift toward etiology-related definitions JPEN J Parenter 
+Enteral Nutr. July 2013; (37)4:460-481.
+13. Becker P , Carney LN, Corkins M, et al. Consensus statement of the Academy of Nutrition and Dietetics/American 
+Society for Parenteral and Enteral Nutrition: Indicators recommended for the identification and documentation of 
+pediatric malnutrition (undernutrition). Nutr Clin Pract. 2015;30(1):147-161.
+14. Goldberg DL, Becker PJ, Brigham K, et al. Identifying malnutrition in preterm and neonatal populations: 
+Recommended indicators. J Acad Nutr Diet. 2018 Sep;118(9):1571-1582.
+15. Goldberg DL, Becker PJ. Applying the recommended indicators for the diagnosis of preterm and neonatal malnutrition: 
+Answers to frequently asked questions. Nutr Clin Pract 2022;37(1):50-58.
+16. Guenter P , et al. Malnutrition diagnoses and associated outcomes in hospitalized patients: United States, 2018 Nutr. 
+Clin. Pract.2021;36:957–969.
+17. ASPEN. Improve Patient Outcomes: A.S.P .E.N.’s Step-by-Step Guide to Addressing Malnutrition, Improve Patient 
+Outcomes. 2015. ASPEN, Silver Spring, MD.
+18. Carvalho-Salemi J, Phillips W, Wong Vega M, Swanson J, Becker PJ, Salemi JL. Malnutrition among hospitalized 
+children in the United States: A 2012-2019 update of annual trends. J Acad Nutr Diet. 2023 Jan;123(1):109-116.
+Note: This content has been developed for use by healthcare professionals to inform other clinicians and/or patients/caregivers. ASPEN is making this content available for informational purposes only. This content 
+is not based on ASPEN Board Approved documents and should not be confused with ASPEN clinical guidelines as it was not developed according to ASPEN guideline processes. Recommendations provided here do 
+not constitute medical or other professional advice and should not be taken as such. To the extent that the information presented here may be used to assist in the care of patients, the primary component of quality 
+medical care is the result of the professional judgment of the healthcare professionals providing care. The information presented here is not a substitute for the exercise of professional judgment by healthcare 
+professionals. Circumstances and patient specifics in clinical settings may require actions different from those recommended in this document; in those cases, the judgment of the treating professional should 
+prevail. Use of this information does not in any way guarantee any specific benefit in outcome or survival. This tool is intended to supplement, but not replace, professional training and judgment.Diagnostic Codes
+ICD-10 CM Codes to Identify Medical Diagnosis of 
+Malnutrition in Infants and Children  
+This is the complete list of ICD-10 CM codes used for 
+coding purposes.16,17 The highlighted codes are those 
+used most often as of 2019.18  
+Code Description
+E40 Kwashiorkor
+E41 Nutritional marasmus
+E43 Unspecified severe protein-calorie 
+malnutrition
+E44.0 Moderate protein-calorie malnutrition
+E44.1 Mild protein-calorie malnutrition
+E46 Unspecified protein-calorie malnutrition
+R62.51 Failure to thrive (child)
+R63.3 Feeding difficulties
+R63.4 Abnormal weight loss
+R63.6 Underweight
+R64 Cachexia
+K91.2 Postsurgical malabsorption, not elsewhere 
+classified
+T74.02XA Child neglect or abandonment, confirmed, 
+initial encounter
+T74.02XD Child neglect or abandonment, confirmed, 
+subsequent encounter
+T74.02XS Child neglect or abandonment, confirmed, 
+sequela
+T76.02XA Child neglect or abandonment, suspected, 
+initial encounter
+T76.02XD Child neglect or abandonment, suspected, 
+subsequent encounter
+T76.02XS Child neglect or abandonment, suspected, 
+sequela
+Z68.51 Body mass index (BMI) pediatric, less than 
+5th percentile for ageAcademy and ASPEN Consensus Criteria
+The Academy of Nutrition and Dietetics (the Academy) and 
+the American Society for Parenteral and Enteral Nutrition 
+utilizing an evidence-informed, consensus-derived 
+process, recommend that a standardized set of diagnostic 
+indicators be used to identify and document pediatric 
+malnutrition in routine clinical practice.13 
+• When a single data point is available, the recommended 
+indicators include z scores for weight-for-height/length, 
+body mass index-for-age, or length/height-for-age or mid-
+upper arm circumference. 
+• When 2 or more data points are available, indicators 
+may also include weight gain velocity (<2 years of age), 
+weight loss (2–20 years of age), deceleration in weight 
+for length/height z score, and inadequate nutrient intake.
+Preterm and Neonates Malnutrition Indicators 
+In 2018, a committee of expert preterm/neonatal 
+registered dietitian nutritionists published recommended 
+indicators for the diagnosis of malnutrition in preterm 
+infants and neonates. This was in response to a need 
+for indicators appropriate to the preterm/neonatal 
+population, given the emphasis on diagnosing malnutrition 
+in the pediatric and adult populations.14 A follow-up paper 
+answers questions regarding the three categories of 
+indicators, billing, and reimbursement.15
+PRACTICE TOOL
+© Copyright 2024 American Society for 
+Parenteral and Enteral Nutrition | 07/30/24
+LEADING THE SCIENCE AND PRACTICE OF CLINICAL NUTRITIONKey Nutrition Screening, Assessment, and Malnutrition  
+Diagnostic Processes and Tools for Children and Infants
