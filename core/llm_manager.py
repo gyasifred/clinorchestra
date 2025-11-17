@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 from core.logging_config import get_logger
 from core.llm_cache import LLMResponseCache
 from core.model_profiles import MODEL_PROFILES
+from core.adaptive_retry import AdaptiveRetryManager, create_retry_context, RetryStrategy
 
 load_dotenv()
 logger = get_logger(__name__)
@@ -106,6 +107,26 @@ class LLMManager:
             enabled=cache_enabled
         )
 
+        # Initialize adaptive retry manager for generation failures
+        retry_config = config.get('adaptive_retry_config')
+        metrics_tracker = None
+
+        if retry_config and retry_config.track_retry_metrics:
+            from core.retry_metrics import get_retry_metrics_tracker
+            metrics_tracker = get_retry_metrics_tracker(
+                db_path=retry_config.track_retry_metrics if isinstance(retry_config.track_retry_metrics, str) else "cache/retry_metrics.db"
+            )
+
+        max_retries = retry_config.max_retry_attempts if retry_config else 5
+        self.retry_manager = AdaptiveRetryManager(
+            max_retries=max_retries,
+            config=retry_config,
+            metrics_tracker=metrics_tracker
+        )
+        self.enable_adaptive_retry = config.get('enable_adaptive_retry', True)
+        if retry_config:
+            self.enable_adaptive_retry = retry_config.enabled
+
         self._initialize_client()
 
         logger.info(f"LLMManager initialized: {self.provider}/{self.model_name}")
@@ -114,6 +135,8 @@ class LLMManager:
                 logger.info(f" LLM caching: ENABLED but BYPASSED (forcing fresh calls)")
             else:
                 logger.info(f" LLM caching: ENABLED (400x faster for cached queries)")
+        if self.enable_adaptive_retry:
+            logger.info(f" Adaptive retry: ENABLED (auto-recovery from LLM failures)")
         if self.provider == 'local':
             logger.info(f"Local model context window: {self.max_seq_length}")
     
@@ -286,8 +309,18 @@ class LLMManager:
         json_indicators = ['json', 'JSON', '{"', 'return only json', 'output format']
         return any(indicator in prompt or indicator in prompt_lower for indicator in json_indicators)
     
-    def generate(self, prompt: str, max_tokens: Optional[int] = None) -> str:
-        """Generate text from prompt with caching"""
+    def generate(self, prompt: str, max_tokens: Optional[int] = None, enable_retry: bool = None) -> str:
+        """
+        Generate text from prompt with caching and optional adaptive retry
+
+        Args:
+            prompt: Input prompt
+            max_tokens: Max tokens to generate
+            enable_retry: Override adaptive retry setting (None = use default)
+
+        Returns:
+            Generated text
+        """
         max_tok = max_tokens or self.max_tokens
 
         # Check cache first (unless bypassed)
@@ -305,18 +338,30 @@ class LLMManager:
         else:
             logger.debug(f" Cache BYPASSED - forcing fresh LLM call")
 
+        # Determine if adaptive retry should be used
+        use_retry = enable_retry if enable_retry is not None else self.enable_adaptive_retry
+
         # Cache miss or bypass - generate response
+        if use_retry:
+            # Use adaptive retry for robust generation
+            return self._generate_with_adaptive_retry(prompt, max_tok)
+        else:
+            # Direct generation without retry
+            return self._generate_direct(prompt, max_tok)
+
+    def _generate_direct(self, prompt: str, max_tokens: int) -> str:
+        """Generate without adaptive retry (original behavior)"""
         try:
             if self.provider == "openai":
-                response = self._generate_openai(prompt, max_tok)
+                response = self._generate_openai(prompt, max_tokens)
             elif self.provider == "anthropic":
-                response = self._generate_anthropic(prompt, max_tok)
+                response = self._generate_anthropic(prompt, max_tokens)
             elif self.provider == "google":
-                response = self._generate_google(prompt, max_tok)
+                response = self._generate_google(prompt, max_tokens)
             elif self.provider == "azure":
-                response = self._generate_azure(prompt, max_tok)
+                response = self._generate_azure(prompt, max_tokens)
             elif self.provider == "local":
-                response = self._generate_local(prompt, max_tok)
+                response = self._generate_local(prompt, max_tokens)
             else:
                 raise ValueError(f"Provider {self.provider} not supported")
 
@@ -326,14 +371,74 @@ class LLMManager:
                     prompt=prompt,
                     model_name=f"{self.provider}:{self.model_name}",
                     temperature=self.temperature,
-                    max_tokens=max_tok,
+                    max_tokens=max_tokens,
                     response=response,
-                    config_hash=self.prompt_config_hash  # Include config hash for cache invalidation
+                    config_hash=self.prompt_config_hash
                 )
 
             return response
         except Exception as e:
             logger.error(f"Generation failed: {e}")
+            raise
+
+    def _generate_with_adaptive_retry(self, prompt: str, max_tokens: int) -> str:
+        """
+        Generate with adaptive retry on failures
+
+        Implements progressive prompt reduction if generation fails
+        """
+        # Create retry context with configuration
+        retry_context = create_retry_context(
+            clinical_text=prompt,
+            max_attempts=self.retry_manager.max_retries,
+            config=self.retry_manager.config,
+            provider=self.provider,
+            model_name=self.model_name
+        )
+
+        # Define generation function that uses modified prompt
+        def generation_func():
+            # Use potentially truncated prompt from retry context
+            current_prompt = retry_context.clinical_text
+
+            # Call provider-specific generation
+            if self.provider == "openai":
+                response = self._generate_openai(current_prompt, max_tokens)
+            elif self.provider == "anthropic":
+                response = self._generate_anthropic(current_prompt, max_tokens)
+            elif self.provider == "google":
+                response = self._generate_google(current_prompt, max_tokens)
+            elif self.provider == "azure":
+                response = self._generate_azure(current_prompt, max_tokens)
+            elif self.provider == "local":
+                response = self._generate_local(current_prompt, max_tokens)
+            else:
+                raise ValueError(f"Provider {self.provider} not supported")
+
+            return response
+
+        # Execute with retry
+        try:
+            response = self.retry_manager.execute_with_retry(
+                generation_func,
+                retry_context
+            )
+
+            # Store in cache (use original prompt as key)
+            if not self.cache_bypass:
+                self.llm_cache.put(
+                    prompt=prompt,
+                    model_name=f"{self.provider}:{self.model_name}",
+                    temperature=self.temperature,
+                    max_tokens=max_tokens,
+                    response=response,
+                    config_hash=self.prompt_config_hash
+                )
+
+            return response
+
+        except Exception as e:
+            logger.error(f"Generation failed after {retry_context.attempt} attempts: {e}")
             raise
     
     def _generate_openai(self, prompt: str, max_tokens: int) -> str:
