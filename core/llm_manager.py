@@ -459,12 +459,16 @@ class LLMManager:
                 truncation=True,
                 max_length=self.max_seq_length - max_tokens
             )
-            
+
+            # Log input size for debugging
+            input_length = inputs['input_ids'].shape[1]
+            logger.info(f"[GENERATION] Input tokens: {input_length}, Max output: {max_tokens}, Total: {input_length + max_tokens}")
+
             # Move to device if CUDA
             if self.device.type == 'cuda':
-                inputs = {k: v.to(self.device) if isinstance(v, torch.Tensor) else v 
+                inputs = {k: v.to(self.device) if isinstance(v, torch.Tensor) else v
                          for k, v in inputs.items()}
-            
+
             # Generation parameters
             generation_params = {
                 "max_new_tokens": max_tokens,
@@ -474,10 +478,18 @@ class LLMManager:
                 "eos_token_id": self.tokenizer.eos_token_id,
                 "use_cache": True,
             }
-            
-            # Generate
+
+            # Generate with progress indication
+            logger.info(f"[GENERATION] Starting model inference (this may take 10-60s for complex tasks)...")
+            import time
+            start_gen_time = time.time()
+
             with torch.no_grad():
                 outputs = self.model.generate(**inputs, **generation_params)
+
+            gen_duration = time.time() - start_gen_time
+            output_length = outputs[0].shape[0] - input_length
+            logger.info(f"[GENERATION] Completed in {gen_duration:.2f}s. Generated {output_length} tokens ({output_length/gen_duration:.1f} tokens/s)")
             
             # Decode only the new tokens
             response = self.tokenizer.decode(
