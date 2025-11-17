@@ -344,17 +344,21 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
             is_local = provider == 'local'
             is_cloud = provider in ['openai', 'anthropic', 'google', 'azure']
 
+            # CRITICAL: Thread-based parallel processing only works for cloud APIs
+            # Local models with CUDA cannot be safely accessed from multiple threads
+            # For local models, use multi-GPU mode (process-based) or sequential processing
             use_parallel = (
                 app_state.optimization_config.use_parallel_processing and
                 total_rows > 1 and
-                (is_cloud or is_local)
+                is_cloud  # Only enable thread-based parallel for cloud APIs
             )
 
-            # Check if multi-GPU processing should be used
+            # Check if multi-GPU processing should be used for local models
+            # Multi-GPU uses process-based parallelism which is safe for CUDA
             use_multi_gpu = False
             num_gpus_to_use = 1
 
-            if is_local and use_parallel and app_state.optimization_config.use_multi_gpu:
+            if is_local and app_state.optimization_config.use_multi_gpu:
                 import torch
                 if torch.cuda.is_available():
                     num_gpus_available = torch.cuda.device_count()
@@ -368,6 +372,7 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                         if num_gpus_to_use > 1:
                             use_multi_gpu = True
                             log_lines.append(f"🚀 Multi-GPU Processing: Using {num_gpus_to_use}/{num_gpus_available} GPUs for {total_rows} rows")
+                            log_lines.append(f"   Process-based parallelism (safe for CUDA)")
                             process_state.add_log(process_id, f"Multi-GPU processing with {num_gpus_to_use} GPUs")
 
             # Create processors based on mode
@@ -381,13 +386,10 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                 )
 
             elif use_parallel:
-                # Use standard parallel processor
+                # Use standard parallel processor (cloud APIs only)
                 max_workers = min(app_state.optimization_config.max_parallel_workers, total_rows)
-
-                if is_local:
-                    log_lines.append(f"⚡ Parallel Processing (Single GPU): Using {max_workers} workers for {total_rows} rows")
-                else:
-                    log_lines.append(f"⚡ Parallel Processing (Cloud API): Using {max_workers} workers for {total_rows} rows")
+                log_lines.append(f"⚡ Parallel Processing (Cloud API): Using {max_workers} workers for {total_rows} rows")
+                log_lines.append(f"   Thread-based parallelism (safe for HTTP requests)")
 
                 process_state.add_log(process_id, f"Parallel processing with {max_workers} workers")
 
@@ -539,8 +541,12 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
 
             else:
                 # Sequential processing
-                if not use_parallel and total_rows > 1:
-                    log_lines.append("📝 Sequential Processing: Using single-threaded mode")
+                if not use_parallel and not use_multi_gpu and total_rows > 1:
+                    if is_local:
+                        log_lines.append("📝 Sequential Processing: Processing one row at a time")
+                        log_lines.append("   💡 TIP: For faster processing, enable multi-GPU mode in Settings")
+                    else:
+                        log_lines.append("📝 Sequential Processing: Using single-threaded mode")
                     log_lines.append("")
 
                 for idx, row in df.iterrows():
