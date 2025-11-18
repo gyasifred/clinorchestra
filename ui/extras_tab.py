@@ -99,39 +99,47 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
         
         with gr.Column(scale=1):
             gr.Markdown("#### Registered Extras")
-            
+
             extras_list = gr.Dataframe(
-                headers=["Name", "Type", "Enabled", "Content Preview"],
-                datatype=["str", "str", "str", "str"],
+                headers=["Name", "Type", "Content Preview"],
+                datatype=["str", "str", "str"],
                 label="Available Extras",
                 interactive=False
             )
             components['extras_list'] = extras_list
-            
+
             refresh_extras_btn = gr.Button("Refresh List")
             components['refresh_extras_btn'] = refresh_extras_btn
-            
+
+            gr.Markdown("#### Enable/Disable Extras")
+            gr.Markdown("*Check to enable, uncheck to disable*")
+
+            extras_checkboxes = gr.CheckboxGroup(
+                choices=[],
+                value=[],
+                label="Enabled Extras (Click to toggle)",
+                interactive=True
+            )
+            components['extras_checkboxes'] = extras_checkboxes
+
             gr.Markdown("#### Manage")
 
-            with gr.Row():
-                selected_extra_id = gr.Dropdown(
-                    choices=[],
-                    label="Select Extra to View/Edit/Remove",
-                    allow_custom_value=True,
-                    info="Choose from registered extras (name or ID)"
-                )
-                refresh_extra_selector_btn = gr.Button("🔄 Refresh", size="sm")
+            selected_extra_id = gr.Dropdown(
+                choices=[],
+                label="Select Extra to View/Edit/Remove",
+                allow_custom_value=True,
+                info="Choose from registered extras (name or ID)"
+            )
+            refresh_extra_selector_btn = gr.Button("🔄 Refresh Dropdown", size="sm")
 
             components['selected_extra_id'] = selected_extra_id
             components['refresh_extra_selector_btn'] = refresh_extra_selector_btn
 
             with gr.Row():
                 view_extra_btn = gr.Button("View/Edit")
-                toggle_extra_btn = gr.Button("Toggle")
                 remove_extra_btn = gr.Button("Remove", variant="stop")
 
             components['view_extra_btn'] = view_extra_btn
-            components['toggle_extra_btn'] = toggle_extra_btn
             components['remove_extra_btn'] = remove_extra_btn
     
     gr.Markdown("---")
@@ -246,13 +254,17 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
         success = extras_manager.add_extra(extra_type_val, content.strip(), metadata, name=extra_name_val)
 
         if success:
+            all_extras = extras_manager.list_extras()
             extras_list_data = [
-                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), "Yes" if e.get('enabled', True) else "No", (e.get('content', '')[:50] + '...') if e.get('content') else '']
-                for e in extras_manager.list_extras()
+                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), (e.get('content', '')[:50] + '...') if e.get('content') else '']
+                for e in all_extras
             ]
-            return "", "", "", "", "Extra added successfully", gr.update(value=extras_list_data)
+            # Update checkboxes - show all extras, select enabled ones
+            checkbox_choices = [e.get('name', e.get('id', 'unknown')) for e in all_extras]
+            checkbox_values = [e.get('name', e.get('id', 'unknown')) for e in all_extras if e.get('enabled', True)]
+            return "", "", "", "", "Extra added successfully", gr.update(value=extras_list_data), gr.update(choices=checkbox_choices, value=checkbox_values)
         else:
-            return "", "", "", "", "Failed to add extra", gr.update()
+            return "", "", "", "", "Failed to add extra", gr.update(), gr.update()
     
     def save_extra(extra_id_val, extra_name_val, extra_type_val, content, metadata_str):
         """Save edited extra"""
@@ -278,27 +290,33 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
         success = extras_manager.update_extra(extra_id_val, extra_type_val, content.strip(), metadata, name=extra_name_val)
 
         if success:
+            all_extras = extras_manager.list_extras()
             extras_list_data = [
-                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), "Yes" if e.get('enabled', True) else "No", (e.get('content', '')[:50] + '...') if e.get('content') else '']
-                for e in extras_manager.list_extras()
+                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), (e.get('content', '')[:50] + '...') if e.get('content') else '']
+                for e in all_extras
             ]
-            return "", "", "", "", "", f"Extra updated successfully", gr.update(value=extras_list_data)
+            checkbox_choices = [e.get('name', e.get('id', 'unknown')) for e in all_extras]
+            checkbox_values = [e.get('name', e.get('id', 'unknown')) for e in all_extras if e.get('enabled', True)]
+            return "", "", "", "", "", f"Extra updated successfully", gr.update(value=extras_list_data), gr.update(choices=checkbox_choices, value=checkbox_values)
         else:
-            return extra_id_val, extra_name_val, extra_type_val, content, metadata_str, "Failed to update extra", gr.update()
+            return extra_id_val, extra_name_val, extra_type_val, content, metadata_str, "Failed to update extra", gr.update(), gr.update()
     
     def refresh_extras_list():
-        """Refresh extras list"""
+        """Refresh extras list and checkboxes"""
         extras_manager = app_state.get_extras_manager()
         if not extras_manager:
             extras_manager = ExtrasManager()
             app_state.set_extras_manager(extras_manager)
             logger.warning("ExtrasManager was not set; initialized new instance")
 
+        all_extras = extras_manager.list_extras()
         extras_list_data = [
-            [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), "Yes" if e.get('enabled', True) else "No", (e.get('content', '')[:50] + '...') if e.get('content') else '']
-            for e in extras_manager.list_extras()
+            [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), (e.get('content', '')[:50] + '...') if e.get('content') else '']
+            for e in all_extras
         ]
-        return gr.update(value=extras_list_data)
+        checkbox_choices = [e.get('name', e.get('id', 'unknown')) for e in all_extras]
+        checkbox_values = [e.get('name', e.get('id', 'unknown')) for e in all_extras if e.get('enabled', True)]
+        return gr.update(value=extras_list_data), gr.update(choices=checkbox_choices, value=checkbox_values)
 
     def refresh_extra_selector():
         """Refresh extra selector dropdown"""
@@ -384,13 +402,16 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
         success = extras_manager.remove_extra(extra_id_to_remove)
 
         if success:
+            all_extras = extras_manager.list_extras()
             extras_list_data = [
-                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), "Yes" if e.get('enabled', True) else "No", (e.get('content', '')[:50] + '...') if e.get('content') else '']
-                for e in extras_manager.list_extras()
+                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), (e.get('content', '')[:50] + '...') if e.get('content') else '']
+                for e in all_extras
             ]
-            return "", "", "", "", "", f"Removed '{extra.get('name', extra_id_to_remove)}'", gr.update(value=extras_list_data)
+            checkbox_choices = [e.get('name', e.get('id', 'unknown')) for e in all_extras]
+            checkbox_values = [e.get('name', e.get('id', 'unknown')) for e in all_extras if e.get('enabled', True)]
+            return "", "", "", "", "", f"Removed '{extra.get('name', extra_id_to_remove)}'", gr.update(value=extras_list_data), gr.update(choices=checkbox_choices, value=checkbox_values)
         else:
-            return "", "", "", "", "", "Failed to remove extra", gr.update()
+            return "", "", "", "", "", "Failed to remove extra", gr.update(), gr.update()
     
     def clear_fields():
         """Clear input fields"""
@@ -446,22 +467,25 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
                 except Exception as e:
                     errors.append(f"Error processing extra: {str(e)}")
 
+            all_extras = extras_manager.list_extras()
             extras_list_data = [
-                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), "Yes" if e.get('enabled', True) else "No", (e.get('content', '')[:50] + '...') if e.get('content') else '']
-                for e in extras_manager.list_extras()
+                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), (e.get('content', '')[:50] + '...') if e.get('content') else '']
+                for e in all_extras
             ]
+            checkbox_choices = [e.get('name', e.get('id', 'unknown')) for e in all_extras]
+            checkbox_values = [e.get('name', e.get('id', 'unknown')) for e in all_extras if e.get('enabled', True)]
 
             status_msg = f"Loaded {added_count} extras from file"
             if errors:
                 status_msg += f"\n\nWarnings:\n" + "\n".join(errors[:5])
                 if len(errors) > 5:
                     status_msg += f"\n... and {len(errors) - 5} more"
-            
-            return status_msg, gr.update(value=extras_list_data)
+
+            return status_msg, gr.update(value=extras_list_data), gr.update(choices=checkbox_choices, value=checkbox_values)
             
         except Exception as e:
             logger.error(f"Failed to load extras file: {e}")
-            return f"Error loading file: {str(e)}", gr.update()
+            return f"Error loading file: {str(e)}", gr.update(), gr.update()
     
     def export_extras():
         """Export all extras"""
@@ -487,68 +511,58 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
         success = extras_manager.import_extras(json_str)
 
         if success:
+            all_extras = extras_manager.list_extras()
             extras_list_data = [
-                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), "Yes" if e.get('enabled', True) else "No", (e.get('content', '')[:50] + '...') if e.get('content') else '']
-                for e in extras_manager.list_extras()
+                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), (e.get('content', '')[:50] + '...') if e.get('content') else '']
+                for e in all_extras
             ]
-            return "Extras imported", gr.update(value=extras_list_data)
+            checkbox_choices = [e.get('name', e.get('id', 'unknown')) for e in all_extras]
+            checkbox_values = [e.get('name', e.get('id', 'unknown')) for e in all_extras if e.get('enabled', True)]
+            return "Extras imported", gr.update(value=extras_list_data), gr.update(choices=checkbox_choices, value=checkbox_values)
         else:
-            return "Import failed", gr.update()
+            return "Import failed", gr.update(), gr.update()
 
-    def toggle_extra(extra_name_or_id):
-        """Toggle extra enabled state by name or ID"""
-        if not extra_name_or_id or not extra_name_or_id.strip():
-            return "No name or ID provided", gr.update()
-
+    def update_extras_enabled_state(enabled_extras_names):
+        """Update enabled state based on checkbox selections"""
         extras_manager = app_state.get_extras_manager()
         if not extras_manager:
             extras_manager = ExtrasManager()
             app_state.set_extras_manager(extras_manager)
             logger.warning("ExtrasManager was not set; initialized new instance")
 
-        # Try to find by ID first
-        extra = extras_manager.get_extra(extra_name_or_id.strip())
+        enabled_names_set = set(enabled_extras_names) if enabled_extras_names else set()
+        updated_count = 0
 
-        # If not found by ID, try to find by name
-        if not extra:
-            for e in extras_manager.list_extras():
-                if e.get('name', '').lower() == extra_name_or_id.strip().lower():
-                    extra = e
-                    break
+        # Update all extras based on checkbox state
+        for extra in extras_manager.list_extras():
+            extra_name = extra.get('name', extra.get('id', 'unknown'))
+            should_be_enabled = extra_name in enabled_names_set
+            current_state = extra.get('enabled', True)
 
-        if not extra:
-            return f"Extra '{extra_name_or_id}' not found", gr.update()
+            # Only update if state changed
+            if current_state != should_be_enabled:
+                extras_manager.enable_extra(extra['id'], should_be_enabled)
+                updated_count += 1
 
-        # Toggle the enabled state
-        new_state = not extra.get('enabled', True)
-        success = extras_manager.enable_extra(extra['id'], new_state)
-
-        if success:
-            extras_list_data = [
-                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), "Yes" if e.get('enabled', True) else "No", (e.get('content', '')[:50] + '...') if e.get('content') else '']
-                for e in extras_manager.list_extras()
-            ]
-            state_text = "enabled" if new_state else "disabled"
-            return f"Extra '{extra.get('name', extra['id'])}' {state_text}", gr.update(value=extras_list_data)
-        else:
-            return "Failed to toggle extra", gr.update()
+        status_msg = f"Updated {updated_count} extras" if updated_count > 0 else "No changes"
+        return status_msg
 
     # Connect handlers
     add_extra_btn.click(
         fn=add_extra,
         inputs=[extra_name, extra_type, extra_content, extra_metadata],
-        outputs=[extra_id, extra_name, extra_type, extra_content, extra_metadata, extra_status, extras_list]
+        outputs=[extra_id, extra_name, extra_type, extra_content, extra_metadata, extra_status, extras_list, extras_checkboxes]
     )
 
     save_extra_btn.click(
         fn=save_extra,
         inputs=[extra_id, extra_name, extra_type, extra_content, extra_metadata],
-        outputs=[extra_id, extra_name, extra_type, extra_content, extra_metadata, extra_status, extras_list]
+        outputs=[extra_id, extra_name, extra_type, extra_content, extra_metadata, extra_status, extras_list, extras_checkboxes]
     )
-    
+
     refresh_extras_btn.click(
         fn=refresh_extras_list,
-        outputs=[extras_list]
+        outputs=[extras_list, extras_checkboxes]
     )
 
     refresh_extra_selector_btn.click(
@@ -562,38 +576,39 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
         outputs=[extra_id, extra_name, extra_type, extra_content, extra_metadata, extra_status, extras_list]
     )
 
-    toggle_extra_btn.click(
-        fn=toggle_extra,
-        inputs=[selected_extra_id],
-        outputs=[extra_status, extras_list]
-    )
-
     remove_extra_btn.click(
         fn=remove_extra,
         inputs=[selected_extra_id],
-        outputs=[extra_id, extra_name, extra_type, extra_content, extra_metadata, extra_status, extras_list]
+        outputs=[extra_id, extra_name, extra_type, extra_content, extra_metadata, extra_status, extras_list, extras_checkboxes]
     )
 
     clear_btn.click(
         fn=clear_fields,
         outputs=[extra_id, extra_name, extra_type, extra_content, extra_metadata, extra_status, extras_list]
     )
-    
+
     load_extras_file_btn.click(
         fn=load_extras_from_file,
         inputs=[extras_file_upload],
-        outputs=[load_extras_status, extras_list]
+        outputs=[load_extras_status, extras_list, extras_checkboxes]
     )
-    
+
     export_extras_btn.click(
         fn=export_extras,
         outputs=[extras_json]
     )
-    
+
     import_extras_btn.click(
         fn=import_extras,
         inputs=[extras_json],
-        outputs=[extra_status, extras_list]
+        outputs=[extra_status, extras_list, extras_checkboxes]
+    )
+
+    # Update enabled state when checkboxes change
+    extras_checkboxes.change(
+        fn=update_extras_enabled_state,
+        inputs=[extras_checkboxes],
+        outputs=[extra_status]
     )
     
     return components
