@@ -691,8 +691,11 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
         return func_info
     
     def get_all_functions_info(self) -> List[Dict[str, Any]]:
-        """Get metadata for all functions"""
-        return [self.get_function_info(name) for name in self.list_functions()]
+        """Get metadata for all enabled functions"""
+        # Filter to only return enabled functions for LLM tool selection
+        enabled_functions = [name for name in self.list_functions()
+                           if self.functions[name].get('enabled', True)]
+        return [self.get_function_info(name) for name in enabled_functions]
     
     def remove_function(self, name: str) -> Tuple[bool, str]:
         """Remove a registered function"""
