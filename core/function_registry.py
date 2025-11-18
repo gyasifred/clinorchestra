@@ -822,7 +822,7 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
             functions = json.loads(json_str)
             count = 0
             errors = []
-            
+
             for func in functions:
                 success, message = self.register_function(
                     func['name'],
@@ -832,18 +832,22 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
                     func['returns']
                 )
                 if success:
+                    # Preserve enabled state from import if it exists, otherwise default to True
+                    if 'enabled' in func:
+                        self.functions[func['name']]['enabled'] = func['enabled']
+                        self._save_function(func['name'])
                     count += 1
                 else:
                     errors.append(f"{func['name']}: {message}")
-            
+
             if errors:
                 error_summary = "\n".join(errors[:5])
                 if len(errors) > 5:
                     error_summary += f"\n... and {len(errors) - 5} more errors"
                 return True, count, f"Imported {count}/{len(functions)} functions. Errors:\n{error_summary}"
-            
+
             return True, count, f"Successfully imported {count} functions"
-            
+
         except json.JSONDecodeError as e:
             return False, 0, f"Invalid JSON: {str(e)}"
         except Exception as e:

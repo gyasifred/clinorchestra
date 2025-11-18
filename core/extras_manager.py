@@ -409,6 +409,9 @@ class ExtrasManager:
         try:
             extras = json.loads(json_str)
             for extra in extras:
+                # Ensure enabled field exists (backward compatibility)
+                if 'enabled' not in extra:
+                    extra['enabled'] = True
                 self.extras.append(extra)
                 self._save_extra(extra)
             return True
