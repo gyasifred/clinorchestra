@@ -1,23 +1,52 @@
-You are a pediatric dietitian performing malnutrition classification.
+Pediatric malnutrition classification using ASPEN consensus criteria with clinical judgment.
 
-**TASK:** Classify as Malnourished or Not Malnourished based on clinical evidence.
+**CLINICAL TEXT:**
+{clinical_text}
 
-**QUICK CRITERIA:**
+**ICD LABELS:**
+{icd_labels}
 
-**ASPEN** (need 2+ of 4 indicators):
-1. Anthropometric deficit (z-score < -1)
-2. Growth velocity decline (z-score drop ≥1)
-3. Inadequate intake (<50% needs ≥1 week)
-4. Physical findings (muscle wasting/fat loss)
+**TOOLS:**
+{tool_outputs}
 
-**WHO Classification:**
+**SCHEMA:**
+{json_schema}
+
+**TASK:** Classify as Malnourished or Not Malnourished based on ASPEN/WHO clinical evidence.
+
+**ASPEN CRITERIA** (need 2+ of 4 indicators):
+1. Anthropometric deficit (z-score < -1):
+   - Mild: -1.0 to -1.9 | Moderate: -2.0 to -2.9 | Severe: ≤-3.0
+2. Growth velocity decline (requires multiple measurements):
+   - Mild: 1 z-score drop | Moderate: 2 z-score drop | Severe: 3+ z-score drop
+3. Inadequate intake (<75% needs ≥1 week):
+   - Mild: 51-75% | Moderate: 26-50% | Severe: ≤25%
+4. Physical findings: muscle wasting, fat loss, nutritional edema
+
+**WHO CLASSIFICATION:**
 - z < -2: Malnutrition present
-- z ≥ -2: Normal or at-risk only
+- z ≥ -2 but < -1: At-risk, not malnutrition
+- z ≥ -1: Normal nutritional status
+
+**Z-SCORE CRITICAL RULES:**
+- Percentile <50th MUST have NEGATIVE z-score
+- 3rd percentile = z-score -1.88
+- 5th percentile = z-score -1.64
+- 10th percentile = z-score -1.28
+- Negative z-scores indicate below average (malnutrition indicator)
+
+**CLINICAL JUDGMENT:** Exercise throughout assessment. If documented malnutrition contradicts objective evidence (normal z-scores, "well appearing", adequate intake), critically evaluate using ASPEN criteria.
+
+**ASSESSMENT TYPE:**
+- Single-point: One measurement - assess current status only, no trends
+- Serial/Longitudinal: Multiple measurements - assess trends and velocity
 
 **CLASSIFICATION:**
-- **Malnourished**: 2+ ASPEN indicators OR WHO z < -2
-- **Not Malnourished**: <2 ASPEN indicators AND z ≥ -2
+- **Malnourished**: 2+ ASPEN indicators OR WHO z < -2 OR clinical evidence with ASPEN criteria
+- **Not Malnourished**: <2 ASPEN indicators AND WHO z ≥ -2 AND no clinical evidence meeting criteria
 
-**REASONING:** State assessment type, specific criteria met with values, ASPEN count, severity, and confidence.
+**REASONING:** State assessment type, specific criteria met with exact values, ASPEN indicator count (e.g., "2/4 indicators met"), severity if malnourished, and confidence level.
 
-**ANONYMIZATION:** Use "the patient", "the child"
+**ANONYMIZATION:** Use "the patient", "the child", "the [age]-year-old"
+
+**OUTPUT:** JSON with "reasoning" (comprehensive clinical analysis) and "status" ("Malnourished" or "Not Malnourished").

@@ -225,6 +225,7 @@ class FunctionRegistry:
                 'description': description,
                 'parameters': parameters,
                 'returns': returns,
+                'enabled': True,  # New: functions are enabled by default
                 'compiled': compiled_func,
                 'signature': str(inspect.signature(compiled_func)) if hasattr(compiled_func, '__call__') else None
             }
@@ -271,6 +272,10 @@ class FunctionRegistry:
         """
         if name not in self.functions:
             return False, None, f"Function '{name}' not found"
+
+        # Check if function is enabled
+        if not self.functions[name].get('enabled', True):
+            return False, None, f"Function '{name}' is disabled"
 
         # Get thread-local state
         call_depth = self._get_call_depth()
@@ -686,36 +691,57 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
         return func_info
     
     def get_all_functions_info(self) -> List[Dict[str, Any]]:
-        """Get metadata for all functions"""
-        return [self.get_function_info(name) for name in self.list_functions()]
+        """Get metadata for all enabled functions"""
+        # Filter to only return enabled functions for LLM tool selection
+        enabled_functions = [name for name in self.list_functions()
+                           if self.functions[name].get('enabled', True)]
+        return [self.get_function_info(name) for name in enabled_functions]
     
     def remove_function(self, name: str) -> Tuple[bool, str]:
         """Remove a registered function"""
         if name not in self.functions:
             return False, f"Function '{name}' not found"
-        
+
         try:
             # Don't allow removal of builtin functions
             builtin_names = ['calculate_age_months', 'calculate_bmi']
             if name in builtin_names:
                 return False, f"Cannot remove builtin function '{name}'"
-            
+
             # Remove from memory
             del self.functions[name]
-            
+
             # Remove from disk
             func_file = self.storage_path / f"{name}.json"
             if func_file.exists():
                 func_file.unlink()
-            
+
             logger.info(f"Removed function: {name}")
             return True, f"Function '{name}' removed successfully"
-            
+
         except Exception as e:
             error_msg = f"Failed to remove function '{name}': {str(e)}"
             logger.error(error_msg, exc_info=True)
             return False, error_msg
-    
+
+    def enable_function(self, name: str, enabled: bool = True) -> Tuple[bool, str]:
+        """Enable or disable a function"""
+        if name not in self.functions:
+            return False, f"Function '{name}' not found"
+
+        try:
+            self.functions[name]['enabled'] = enabled
+            self._save_function(name)
+
+            status = "enabled" if enabled else "disabled"
+            logger.info(f"Function '{name}' {status}")
+            return True, f"Function '{name}' {status} successfully"
+
+        except Exception as e:
+            error_msg = f"Failed to enable/disable function '{name}': {str(e)}"
+            logger.error(error_msg, exc_info=True)
+            return False, error_msg
+
     def _extract_function_name(self, code: str) -> Optional[str]:
         """Extract function name from code"""
         import re
@@ -770,6 +796,11 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
                     func_data.get('returns', {})
                 )
 
+                # Backward compatibility: restore enabled field if it was in stored data
+                if success and 'enabled' in func_data:
+                    self.functions[func_data['name']]['enabled'] = func_data['enabled']
+                # If not present in stored data, it will default to True (set in register_function)
+
                 if not success:
                     logger.warning(f"Failed to load function from {func_file}: {message}")
 
@@ -791,7 +822,7 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
             functions = json.loads(json_str)
             count = 0
             errors = []
-            
+
             for func in functions:
                 success, message = self.register_function(
                     func['name'],
@@ -801,18 +832,22 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
                     func['returns']
                 )
                 if success:
+                    # Preserve enabled state from import if it exists, otherwise default to True
+                    if 'enabled' in func:
+                        self.functions[func['name']]['enabled'] = func['enabled']
+                        self._save_function(func['name'])
                     count += 1
                 else:
                     errors.append(f"{func['name']}: {message}")
-            
+
             if errors:
                 error_summary = "\n".join(errors[:5])
                 if len(errors) > 5:
                     error_summary += f"\n... and {len(errors) - 5} more errors"
                 return True, count, f"Imported {count}/{len(functions)} functions. Errors:\n{error_summary}"
-            
+
             return True, count, f"Successfully imported {count} functions"
-            
+
         except json.JSONDecodeError as e:
             return False, 0, f"Invalid JSON: {str(e)}"
         except Exception as e:

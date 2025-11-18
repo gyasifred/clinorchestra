@@ -53,6 +53,7 @@ class ExtrasManager:
                 'type': extra_type,
                 'content': content,
                 'metadata': metadata or {},
+                'enabled': True,  # New: extras are enabled by default
                 'created_at': datetime.now().isoformat()
             }
 
@@ -106,11 +107,15 @@ class ExtrasManager:
             return []
         
         logger.info(f"Matching extras against keywords: {keywords}")
-        
+
         matched = []
         keywords_lower = [k.lower() for k in keywords if k]
-        
-        for extra in self.extras:
+
+        # Filter to only use enabled extras for matching
+        enabled_extras = [e for e in self.extras if e.get('enabled', True)]
+        logger.info(f"Using {len(enabled_extras)} enabled extras out of {len(self.extras)} total")
+
+        for extra in enabled_extras:
             score = self._calculate_keyword_relevance_score(extra, keywords_lower)
             
             if score > 0.2:  # Threshold for relevance
@@ -154,15 +159,18 @@ class ExtrasManager:
         
         if not text:
             return []
-        
+
+        # Filter to only use enabled extras for matching
+        enabled_extras = [e for e in self.extras if e.get('enabled', True)]
+
         matched = []
         text_lower = text.lower()
-        
+
         output_str = ""
         if current_output:
             output_str = json.dumps(current_output).lower()
-        
-        for extra in self.extras:
+
+        for extra in enabled_extras:
             score = self._calculate_text_relevance_score(
                 extra,
                 text_lower,
@@ -328,6 +336,25 @@ class ExtrasManager:
         except Exception as e:
             logger.error(f"Failed to remove extra: {e}")
             return False
+
+    def enable_extra(self, extra_id: str, enabled: bool = True) -> bool:
+        """Enable or disable an extra"""
+        try:
+            extra = self.get_extra(extra_id)
+            if not extra:
+                logger.error(f"Extra {extra_id} not found")
+                return False
+
+            extra['enabled'] = enabled
+            self._save_extra(extra)
+
+            status = "enabled" if enabled else "disabled"
+            logger.info(f"Extra {extra_id} {status}")
+            return True
+
+        except Exception as e:
+            logger.error(f"Failed to enable/disable extra: {e}")
+            return False
     
     def _save_extra(self, extra: Dict[str, Any]):
         """Save extra to file"""
@@ -364,6 +391,11 @@ class ExtrasManager:
                         # Save with new name field
                         self._save_extra(extra)
 
+                    # Backward compatibility: add enabled field if missing (default to True)
+                    if 'enabled' not in extra:
+                        extra['enabled'] = True
+                        self._save_extra(extra)
+
                     self.extras.append(extra)
             except Exception as e:
                 logger.error(f"Failed to load {extra_file}: {e}")
@@ -377,6 +409,9 @@ class ExtrasManager:
         try:
             extras = json.loads(json_str)
             for extra in extras:
+                # Ensure enabled field exists (backward compatibility)
+                if 'enabled' not in extra:
+                    extra['enabled'] = True
                 self.extras.append(extra)
                 self._save_extra(extra)
             return True
