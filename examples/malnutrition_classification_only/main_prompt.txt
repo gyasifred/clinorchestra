@@ -1,9 +1,23 @@
-You are a board-certified pediatric dietitian performing expert-level clinical malnutrition classification.
+PEDIATRIC MALNUTRITION CLINICAL ASSESSMENT - Comprehensive evaluation with evidence-based recommendations following ASPEN consensus criteria.
 
-**TASK: Binary Classification**
-Determine if the patient meets criteria for malnutrition (Yes/No) based on clinical evidence.
+*** ASPEN CLINICAL ASSESSMENT FRAMEWORK ***
+Perform systematic malnutrition assessment following Academy of Nutrition and Dietetics/American Society for Parenteral and Enteral Nutrition consensus criteria. CRITICAL: Clinical expertise and sound clinical judgment must be exercised throughout the diagnostic process.
 
-**CRITICAL: ASSESSMENT TYPE DETERMINATION**
+**CLINICAL TEXT:**
+{clinical_text}
+
+**ICD LABELS (if available):**
+{icd_labels}
+
+**AVAILABLE TOOLS:**
+{tool_outputs}
+
+**TASK:** Binary Classification - Determine if the patient meets criteria for malnutrition (Yes/No) based on clinical evidence.
+
+**EXTRACTION SCHEMA:**
+{json_schema}
+
+*** ASSESSMENT TYPES ***
 
 FIRST, determine the assessment type based on available data:
 - **SINGLE-POINT**: Only one encounter or one set of measurements documented
@@ -13,6 +27,160 @@ FIRST, determine the assessment type based on available data:
 Your interpretation MUST match the assessment type:
 - Single-point: Can only assess current status, cannot determine trends
 - Serial/Longitudinal: Can assess trends, velocity, percentile trajectory
+
+*** ASPEN RECOMMENDED DIAGNOSTIC INDICATORS ***
+
+**PRIMARY SINGLE-POINT INDICATORS** (require only one measurement):
+
+1. Weight-for-height/length z-score:
+   - Mild: -1.0 to -1.9
+   - Moderate: -2.0 to -2.9
+   - Severe: ≤-3.0
+
+2. BMI-for-age z-score:
+   - Mild: -1.0 to -1.9
+   - Moderate: -2.0 to -2.9
+   - Severe: ≤-3.0
+
+3. Length/height-for-age z-score:
+   - Severe only (≤-3.0) - indicates chronic malnutrition/stunting
+
+4. Mid-upper arm circumference (MUAC):
+   - Mild: ≥-1 to -1.9
+   - Moderate: ≥-2 to -2.9
+   - Severe: ≥-3.0
+
+**TWO-POINT INDICATORS** (require multiple data points):
+
+1. Weight gain velocity (<2 years):
+   - Mild: <75% of norm
+   - Moderate: <50% of norm
+   - Severe: <25% of norm
+
+2. Weight loss (2-20 years):
+   - Mild: 5% usual body weight
+   - Moderate: 7.5%
+   - Severe: 10%
+
+3. Deceleration in weight-for-length/height z-score:
+   - Mild: 1 z-score decline
+   - Moderate: 2 z-score decline
+   - Severe: 3 z-score decline
+
+4. Inadequate nutrient intake:
+   - Mild: 51-75% estimated need
+   - Moderate: 26-50% estimated need
+   - Severe: ≤25% estimated need
+
+*** Z-SCORE IDENTIFICATION WITH CLINICAL CONTEXT ***
+
+**Z-Score Formats and Interpretation:**
+- Standard formats: "z -2.5", "z-score: -1.9", "Z: -3.0", "2 SD below mean" → -2.0
+- Percentile indicators: "ile"/"ille" suffix (e.g., "2 ile" = 2nd percentile ≈ z-score -2.0)
+- Shorthand notation: "<low #> z <positive mag>" (convert positive magnitude to negative z-score)
+- Range validation: -6.0 to +6.0 (negative indicates below average)
+
+**CRITICAL:** Negative signs (-) in z-scores indicate measurements below average and are primary indicators of malnutrition. Exercise clinical judgment in interpreting borderline values within clinical context.
+
+**Common Percentile to Z-Score Conversions:**
+- 3rd percentile = z-score -1.88
+- 5th percentile = z-score -1.64
+- 10th percentile = z-score -1.28
+- 25th percentile = z-score -0.67
+- 50th percentile = z-score 0
+- Percentile <50th MUST have NEGATIVE z-score
+
+*** ASPEN PRETERM/NEONATAL CRITERIA ***
+
+For preterm infants <37 weeks PMA and term infants <30 days old:
+
+**PRIMARY INDICATORS:**
+
+1. Weight-for-age z-score decline:
+   - Mild: 0.8-1.2 SD
+   - Moderate: >1.2-2.0 SD
+   - Severe: >2.0 SD
+
+2. Days to regain birthweight:
+   - Mild: 15-18 days
+   - Moderate: 19-21 days
+   - Severe: >21 days
+
+3. Weight gain velocity as percentage of expected for gestational age
+
+4. Linear growth velocity assessment with clinical judgment for measurement accuracy
+
+5. Nutrient intake adequacy assessment over consecutive days
+
+*** CLINICAL JUDGMENT - ESSENTIAL ASPEN REQUIREMENT ***
+
+Clinical judgment must be exercised throughout assessment, particularly when:
+
+**COMPREHENSIVE CLINICAL EVALUATION includes:**
+- History taking: feeding patterns, medical history, social circumstances
+- Physical examination: growth parameters, clinical signs, developmental assessment
+- Laboratory evaluation: when indicated by clinical presentation
+- Differential diagnosis: considering underlying conditions affecting nutrition
+
+**CLINICAL JUDGMENT SITUATIONS requiring expert assessment:**
+- Borderline anthropometric measurements requiring clinical context
+- Conflicting indicators needing clinical interpretation
+- Complex medical conditions affecting growth and nutrition
+- Assessment of feeding adequacy in context of developmental level
+- Evaluation of underlying causes contributing to nutritional status
+
+*** DOCUMENTED DIAGNOSIS CRITICAL EVALUATION WITH CLINICAL JUDGMENT ***
+
+When malnutrition is documented in notes, apply clinical judgment to critically evaluate:
+
+**SUPPORTING EVIDENCE:**
+- Low z-scores/percentiles meeting ASPEN thresholds (<-1.0 z-score)
+- Physical signs: visible wasting, muscle loss, growth faltering, nutritional edema
+- Functional indicators: poor feeding, inadequate intake, feeding difficulties
+- Growth patterns: poor weight gain velocity, crossing percentiles downward
+- Laboratory indicators: nutritional biomarkers when clinically indicated
+
+**CONTRADICTORY EVIDENCE:**
+- Normal/high anthropometric measurements (BMI ≥25 suggests overweight)
+- Good clinical appearance: "well appearing", "NAD", alert and active
+- Adequate nutritional intake: "eating well", "good appetite", meeting estimated needs
+- Medical context: high-risk conditions where malnutrition coding may be prophylactic
+
+**CLINICAL JUDGMENT SYNTHESIS:**
+If documented diagnosis contradicts objective ASPEN evidence, prioritize comprehensive clinical assessment. Documented malnutrition may represent prophylactic coding, historical diagnoses, or risk-based documentation rather than current nutritional status.
+
+*** FOOD/NUTRIENT INTAKE ASSESSMENT - ASPEN PRIMARY DETERMINANT ***
+
+ASPEN: "Food and nutrient intake are the primary determinants of nutritional status." Apply clinical judgment to assess:
+- Current intake adequacy for clinical situation and developmental needs
+- Feeding behaviors and patterns in clinical context
+- Barriers to adequate nutrition requiring intervention
+- Estimated needs based on growth pattern and medical condition
+
+*** GROWTH PARAMETERS - CLINICAL JUDGMENT APPLICATION ***
+
+ASPEN: "Growth is the primary outcome measure of nutritional status in children." Clinical judgment required for:
+- Interpreting growth velocity in clinical context
+- Assessing growth patterns over time
+- Evaluating appropriateness of growth for individual child
+- Identifying growth faltering requiring intervention
+
+*** COMPREHENSIVE DIAGNOSTIC ALGORITHM WITH CLINICAL JUDGMENT ***
+
+1. **ANTHROPOMETRIC PRIORITY:** If z-scores <-1.0 present meeting ASPEN thresholds → diagnose based on lowest z-score with clinical context
+
+2. **DOCUMENTED DIAGNOSIS EVALUATION:** Critically assess documented malnutrition against objective ASPEN evidence using clinical judgment
+
+3. **CLINICAL SYNTHESIS:** When z-scores ≥-1.0 or absent → comprehensive clinical judgment assessment incorporating:
+   - Growth patterns and velocity over time
+   - Clinical signs and symptoms of malnutrition
+   - Feeding adequacy and intake assessment
+   - Physical examination findings
+   - Laboratory indicators when available
+
+4. **AUTOMATIC SEVERE INDICATORS:** Nutritional edema, visible severe wasting, MUAC ≤115mm regardless of other measurements
+
+*** STEP-BY-STEP EXTRACTION PROCESS ***
 
 **STEP 1: EXTRACT AND DOCUMENT TEMPORAL DATA**
 
@@ -95,3 +263,6 @@ Document:
 - Quote exact measurements with dates
 - Recommend serial measurements if single-point limits assessment
 - Make a clear binary decision: Malnourished or Not Malnourished
+- All z-scores below 50th percentile must be negative
+
+**OUTPUT:** Return your analysis as structured JSON following the provided schema, with comprehensive reasoning in the "reasoning" field and binary classification ("Malnourished" or "Not Malnourished") in the "status" field.

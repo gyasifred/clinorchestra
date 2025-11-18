@@ -101,8 +101,8 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
             gr.Markdown("#### Registered Extras")
             
             extras_list = gr.Dataframe(
-                headers=["Name", "Type", "Content Preview"],
-                datatype=["str", "str", "str"],
+                headers=["Name", "Type", "Enabled", "Content Preview"],
+                datatype=["str", "str", "str", "str"],
                 label="Available Extras",
                 interactive=False
             )
@@ -127,9 +127,11 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
 
             with gr.Row():
                 view_extra_btn = gr.Button("View/Edit")
+                toggle_extra_btn = gr.Button("Toggle")
                 remove_extra_btn = gr.Button("Remove", variant="stop")
-            
+
             components['view_extra_btn'] = view_extra_btn
+            components['toggle_extra_btn'] = toggle_extra_btn
             components['remove_extra_btn'] = remove_extra_btn
     
     gr.Markdown("---")
@@ -245,7 +247,7 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
 
         if success:
             extras_list_data = [
-                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), (e.get('content', '')[:50] + '...') if e.get('content') else '']
+                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), "Yes" if e.get('enabled', True) else "No", (e.get('content', '')[:50] + '...') if e.get('content') else '']
                 for e in extras_manager.list_extras()
             ]
             return "", "", "", "", "Extra added successfully", gr.update(value=extras_list_data)
@@ -277,7 +279,7 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
 
         if success:
             extras_list_data = [
-                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), (e.get('content', '')[:50] + '...') if e.get('content') else '']
+                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), "Yes" if e.get('enabled', True) else "No", (e.get('content', '')[:50] + '...') if e.get('content') else '']
                 for e in extras_manager.list_extras()
             ]
             return "", "", "", "", "", f"Extra updated successfully", gr.update(value=extras_list_data)
@@ -293,7 +295,7 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
             logger.warning("ExtrasManager was not set; initialized new instance")
 
         extras_list_data = [
-            [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), (e.get('content', '')[:50] + '...') if e.get('content') else '']
+            [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), "Yes" if e.get('enabled', True) else "No", (e.get('content', '')[:50] + '...') if e.get('content') else '']
             for e in extras_manager.list_extras()
         ]
         return gr.update(value=extras_list_data)
@@ -383,7 +385,7 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
 
         if success:
             extras_list_data = [
-                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), (e.get('content', '')[:50] + '...') if e.get('content') else '']
+                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), "Yes" if e.get('enabled', True) else "No", (e.get('content', '')[:50] + '...') if e.get('content') else '']
                 for e in extras_manager.list_extras()
             ]
             return "", "", "", "", "", f"Removed '{extra.get('name', extra_id_to_remove)}'", gr.update(value=extras_list_data)
@@ -445,7 +447,7 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
                     errors.append(f"Error processing extra: {str(e)}")
 
             extras_list_data = [
-                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), (e.get('content', '')[:50] + '...') if e.get('content') else '']
+                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), "Yes" if e.get('enabled', True) else "No", (e.get('content', '')[:50] + '...') if e.get('content') else '']
                 for e in extras_manager.list_extras()
             ]
 
@@ -475,24 +477,62 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
         """Import extras"""
         if not json_str or not json_str.strip():
             return "No JSON provided", gr.update()
-        
+
         extras_manager = app_state.get_extras_manager()
         if not extras_manager:
             extras_manager = ExtrasManager()
             app_state.set_extras_manager(extras_manager)
             logger.warning("ExtrasManager was not set; initialized new instance")
-        
+
         success = extras_manager.import_extras(json_str)
-        
+
         if success:
             extras_list_data = [
-                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), (e.get('content', '')[:50] + '...') if e.get('content') else '']
+                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), "Yes" if e.get('enabled', True) else "No", (e.get('content', '')[:50] + '...') if e.get('content') else '']
                 for e in extras_manager.list_extras()
             ]
             return "Extras imported", gr.update(value=extras_list_data)
         else:
             return "Import failed", gr.update()
-    
+
+    def toggle_extra(extra_name_or_id):
+        """Toggle extra enabled state by name or ID"""
+        if not extra_name_or_id or not extra_name_or_id.strip():
+            return "No name or ID provided", gr.update()
+
+        extras_manager = app_state.get_extras_manager()
+        if not extras_manager:
+            extras_manager = ExtrasManager()
+            app_state.set_extras_manager(extras_manager)
+            logger.warning("ExtrasManager was not set; initialized new instance")
+
+        # Try to find by ID first
+        extra = extras_manager.get_extra(extra_name_or_id.strip())
+
+        # If not found by ID, try to find by name
+        if not extra:
+            for e in extras_manager.list_extras():
+                if e.get('name', '').lower() == extra_name_or_id.strip().lower():
+                    extra = e
+                    break
+
+        if not extra:
+            return f"Extra '{extra_name_or_id}' not found", gr.update()
+
+        # Toggle the enabled state
+        new_state = not extra.get('enabled', True)
+        success = extras_manager.enable_extra(extra['id'], new_state)
+
+        if success:
+            extras_list_data = [
+                [e.get('name', e.get('id', 'unknown')), e.get('type', 'unknown'), "Yes" if e.get('enabled', True) else "No", (e.get('content', '')[:50] + '...') if e.get('content') else '']
+                for e in extras_manager.list_extras()
+            ]
+            state_text = "enabled" if new_state else "disabled"
+            return f"Extra '{extra.get('name', extra['id'])}' {state_text}", gr.update(value=extras_list_data)
+        else:
+            return "Failed to toggle extra", gr.update()
+
     # Connect handlers
     add_extra_btn.click(
         fn=add_extra,
@@ -520,6 +560,12 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
         fn=view_extra,
         inputs=[selected_extra_id],
         outputs=[extra_id, extra_name, extra_type, extra_content, extra_metadata, extra_status, extras_list]
+    )
+
+    toggle_extra_btn.click(
+        fn=toggle_extra,
+        inputs=[selected_extra_id],
+        outputs=[extra_status, extras_list]
     )
 
     remove_extra_btn.click(

@@ -225,6 +225,7 @@ class FunctionRegistry:
                 'description': description,
                 'parameters': parameters,
                 'returns': returns,
+                'enabled': True,  # New: functions are enabled by default
                 'compiled': compiled_func,
                 'signature': str(inspect.signature(compiled_func)) if hasattr(compiled_func, '__call__') else None
             }
@@ -271,6 +272,10 @@ class FunctionRegistry:
         """
         if name not in self.functions:
             return False, None, f"Function '{name}' not found"
+
+        # Check if function is enabled
+        if not self.functions[name].get('enabled', True):
+            return False, None, f"Function '{name}' is disabled"
 
         # Get thread-local state
         call_depth = self._get_call_depth()
@@ -693,29 +698,47 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
         """Remove a registered function"""
         if name not in self.functions:
             return False, f"Function '{name}' not found"
-        
+
         try:
             # Don't allow removal of builtin functions
             builtin_names = ['calculate_age_months', 'calculate_bmi']
             if name in builtin_names:
                 return False, f"Cannot remove builtin function '{name}'"
-            
+
             # Remove from memory
             del self.functions[name]
-            
+
             # Remove from disk
             func_file = self.storage_path / f"{name}.json"
             if func_file.exists():
                 func_file.unlink()
-            
+
             logger.info(f"Removed function: {name}")
             return True, f"Function '{name}' removed successfully"
-            
+
         except Exception as e:
             error_msg = f"Failed to remove function '{name}': {str(e)}"
             logger.error(error_msg, exc_info=True)
             return False, error_msg
-    
+
+    def enable_function(self, name: str, enabled: bool = True) -> Tuple[bool, str]:
+        """Enable or disable a function"""
+        if name not in self.functions:
+            return False, f"Function '{name}' not found"
+
+        try:
+            self.functions[name]['enabled'] = enabled
+            self._save_function(name)
+
+            status = "enabled" if enabled else "disabled"
+            logger.info(f"Function '{name}' {status}")
+            return True, f"Function '{name}' {status} successfully"
+
+        except Exception as e:
+            error_msg = f"Failed to enable/disable function '{name}': {str(e)}"
+            logger.error(error_msg, exc_info=True)
+            return False, error_msg
+
     def _extract_function_name(self, code: str) -> Optional[str]:
         """Extract function name from code"""
         import re
@@ -769,6 +792,11 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
                     func_data.get('parameters', {}),
                     func_data.get('returns', {})
                 )
+
+                # Backward compatibility: restore enabled field if it was in stored data
+                if success and 'enabled' in func_data:
+                    self.functions[func_data['name']]['enabled'] = func_data['enabled']
+                # If not present in stored data, it will default to True (set in register_function)
 
                 if not success:
                     logger.warning(f"Failed to load function from {func_file}: {message}")

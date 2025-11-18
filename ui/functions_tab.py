@@ -170,8 +170,8 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
     gr.Markdown("### Registered Functions")
     
     functions_list = gr.Dataframe(
-        headers=["Name", "Description", "Parameters"],
-        datatype=["str", "str", "str"],
+        headers=["Name", "Description", "Enabled", "Parameters"],
+        datatype=["str", "str", "str", "str"],
         label="Available Functions",
         interactive=False
     )
@@ -196,9 +196,11 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
 
     with gr.Row():
         view_func_btn = gr.Button("View/Edit")
+        toggle_func_btn = gr.Button("Toggle")
         remove_func_btn = gr.Button("Remove", variant="stop")
-    
+
     components['view_func_btn'] = view_func_btn
+    components['toggle_func_btn'] = toggle_func_btn
     components['remove_func_btn'] = remove_func_btn
     
     gr.Markdown("---")
@@ -312,7 +314,7 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
                 func_info = function_registry.get_function_info(f_name)
                 if func_info:
                     params_str = ', '.join(func_info.get('parameters', {}).keys())
-                    data.append([f_name, func_info.get('description', ''), params_str])
+                    data.append([f_name, func_info.get('description', ''), "Yes" if func_info.get('enabled', True) else "No", params_str])
             return "", "", "", "", {}, f"Success: {message}", gr.update(value=data)
         else:
             return func_name, func_desc, func_code, func_returns, func_params, f"Error: {message}", gr.update()
@@ -345,7 +347,7 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
                 func_info = function_registry.get_function_info(f_name)
                 if func_info:
                     params_str = ', '.join(func_info.get('parameters', {}).keys())
-                    data.append([f_name, func_info.get('description', ''), params_str])
+                    data.append([f_name, func_info.get('description', ''), "Yes" if func_info.get('enabled', True) else "No", params_str])
             return "", "", "", "", {}, f"Success: {message}", gr.update(value=data)
         else:
             return func_id, func_name, func_desc, func_code, func_returns, func_params, f"Error: {message}", gr.update()
@@ -371,9 +373,10 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
                 data.append([
                     func_name,
                     func_info.get('description', ''),
+                    "Yes" if func_info.get('enabled', True) else "No",
                     params_str
                 ])
-        
+
         return gr.update(value=data)
     
     def refresh_test_dropdown():
@@ -447,7 +450,7 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
                 func_info = function_registry.get_function_info(f_name)
                 if func_info:
                     params_str = ', '.join(func_info.get('parameters', {}).keys())
-                    data.append([f_name, func_info.get('description', ''), params_str])
+                    data.append([f_name, func_info.get('description', ''), "Yes" if func_info.get('enabled', True) else "No", params_str])
             return "", "", "", "", "", {}, message, gr.update(value=data)
         else:
             return "", "", "", "", "", {}, message, gr.update()
@@ -539,9 +542,10 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
                     func_list_data.append([
                         func_name,
                         func_info.get('description', ''),
+                        "Yes" if func_info.get('enabled', True) else "No",
                         params_str
                     ])
-            
+
             status_msg = f"Loaded {added_count} functions from file"
             if errors:
                 status_msg += f"\n\nWarnings:\n" + "\n".join(errors[:5])
@@ -583,11 +587,38 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
                 func_info = function_registry.get_function_info(f_name)
                 if func_info:
                     params_str = ', '.join(func_info.get('parameters', {}).keys())
-                    data.append([f_name, func_info.get('description', ''), params_str])
+                    data.append([f_name, func_info.get('description', ''), "Yes" if func_info.get('enabled', True) else "No", params_str])
             return f"Success: {message}", gr.update(value=data)
         else:
             return f"Error: {message}", gr.update()
     
+    def toggle_function(func_name):
+        """Toggle function enabled state"""
+        if not func_name or not func_name.strip():
+            return "No function name provided", gr.update()
+
+        function_registry = app_state.get_function_registry()
+        if not function_registry:
+            function_registry = FunctionRegistry()
+            app_state.set_function_registry(function_registry)
+            logger.warning("FunctionRegistry was not set; initialized new instance")
+
+        success, message = function_registry.enable_function(
+            func_name.strip(),
+            not function_registry.get_function_info(func_name.strip()).get('enabled', True)
+        )
+
+        if success:
+            data = []
+            for f_name in function_registry.list_functions():
+                func_info = function_registry.get_function_info(f_name)
+                if func_info:
+                    params_str = ', '.join(func_info.get('parameters', {}).keys())
+                    data.append([f_name, func_info.get('description', ''), "Yes" if func_info.get('enabled', True) else "No", params_str])
+            return message, gr.update(value=data)
+        else:
+            return message, gr.update()
+
     # Connect handlers
     add_param_btn.click(
         fn=add_parameter,
@@ -633,7 +664,13 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
         inputs=[selected_func_name],
         outputs=[function_id, function_name, function_description, function_code, function_returns, function_params, function_status, functions_list]
     )
-    
+
+    toggle_func_btn.click(
+        fn=toggle_function,
+        inputs=[selected_func_name],
+        outputs=[function_status, functions_list]
+    )
+
     remove_func_btn.click(
         fn=remove_function,
         inputs=[selected_func_name],
