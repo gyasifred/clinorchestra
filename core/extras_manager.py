@@ -125,8 +125,8 @@ class ExtrasManager:
         
         logger.info(f"Matched {len(matched)} extras with keyword relevance > 0.2")
 
-        # Return top 7 most relevant (increased from 5 for better context)
-        return matched[:7]
+        # Return top 10 most relevant (increased from 5 for better context)
+        return matched[:10]
     
     def match_extras(self, text: str, current_output: Optional[Dict[str, Any]] = None, 
                      keywords: Optional[List[str]] = None) -> List[Dict[str, Any]]:
@@ -169,7 +169,7 @@ class ExtrasManager:
                 output_str
             )
             
-            if score > 0.3:
+            if score > 0.5:
                 matched.append({
                     **extra,
                     'relevance_score': score

@@ -212,7 +212,7 @@ Progressive Reduction Ratios:
 History Reduction Levels: {config.history_reduction_levels}
 Tool Context Reduction Levels: {config.tool_context_reduction_levels}
 
-Switch to Minimal Prompt: Attempt {config.switch_to_minimal_at}
+Switch to Minimal Prompt: Attempt {config.switch_to_minimal_at_attempt}
 
 Context Preservation:
   Beginning: {config.preserve_context_beginning_ratio*100:.0f}%

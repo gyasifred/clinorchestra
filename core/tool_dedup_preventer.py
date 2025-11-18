@@ -137,37 +137,73 @@ class ToolDedupPreventer:
     def filter_duplicates(self, tool_calls: List[Dict[str, Any]]) -> Tuple[List[Dict[str, Any]], int]:
         """
         Filter duplicate tool calls from a list
-
+        
+        CRITICAL: Only blocks calls with IDENTICAL name AND parameters.
+        Allows same tool to be called multiple times with DIFFERENT parameters.
+        
+        Example - These are NOT duplicates:
+          - calculate_bmi(weight=70, height=1.75) 
+          - calculate_bmi(weight=80, height=1.80)  ← Different params, allowed!
+        
+        Example - These ARE duplicates:
+          - calculate_bmi(weight=70, height=1.75)
+          - calculate_bmi(weight=70, height=1.75)  ← Same params, blocked!
+    
         Args:
             tool_calls: List of tool calls to filter
-
+    
         Returns:
             Tuple of (unique_calls, num_duplicates_removed)
         """
         unique_calls = []
         duplicates_removed = 0
-
+    
         for tool_call in tool_calls:
-            if not self.is_duplicate(tool_call):
-                unique_calls.append(tool_call)
-                self.record_tool_call(tool_call)
-            else:
+            signature = self.create_call_signature(tool_call)
+            
+            # Check if this EXACT call (same tool + same params) was already executed
+            if signature in self.call_history:
+                # This is a TRUE duplicate - same tool with same parameters
                 duplicates_removed += 1
+                tool_type = tool_call.get('type', 'unknown')
+                tool_name = tool_call.get('name', 'unknown')
+                params = tool_call.get('parameters', {})
+                
                 logger.warning(
-                    f"Blocked duplicate: {tool_call.get('type')}.{tool_call.get('name')} "
-                    f"with params {tool_call.get('parameters')}"
+                    f"Blocked duplicate: {tool_type}.{tool_name} "
+                    f"with params {json.dumps(params, sort_keys=True)}"
                 )
-
+            else:
+                # This is either:
+                # 1. A new tool we haven't called before, OR
+                # 2. The same tool but with DIFFERENT parameters (allowed!)
+                unique_calls.append(tool_call)
+                
+                # Record this call signature to prevent future duplicates
+                self.call_history.add(signature)
+                self.call_details.append(tool_call)
+                
+                tool_name = tool_call.get('name', 'unknown')
+                params = tool_call.get('parameters', {})
+                logger.debug(
+                    f"Allowing tool call: {tool_name} "
+                    f"with params {json.dumps(params, sort_keys=True)}"
+                )
+    
         # Update budget
         self.budget.update(len(tool_calls), len(unique_calls))
-
+    
         if duplicates_removed > 0:
             logger.warning(
-                f"Removed {duplicates_removed} duplicate tool calls "
-                f"({len(unique_calls)} unique from {len(tool_calls)} total)"
+                f"⚠️ PREVENTED {duplicates_removed} DUPLICATE TOOL CALLS "
+                f"(same tool + same parameters called multiple times)"
             )
-
+            logger.info(
+                f"   Original: {len(tool_calls)} calls → Unique: {len(unique_calls)} calls"
+            )
+    
         return unique_calls, duplicates_removed
+        
 
     def generate_prevention_prompt(self) -> str:
         """

@@ -656,7 +656,7 @@ def create_retry_context(
         context.reduction_ratios = config.clinical_text_reduction_ratios
         context.history_levels = config.history_reduction_levels
         context.tool_levels = config.tool_context_reduction_levels
-        context.switch_to_minimal_at = config.switch_to_minimal_at
+        context.switch_to_minimal_at = config.switch_to_minimal_at_attempt  # FIXED
         context.preserve_beginning_ratio = config.preserve_context_beginning_ratio
         context.preserve_ending_ratio = config.preserve_context_ending_ratio
 
