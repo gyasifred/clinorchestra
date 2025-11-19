@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1400" width="1200" height="1400">
+  <defs>
+    <style>
+      .title { font: bold 32px sans-serif; fill: #1a1a1a; }
+      .subtitle { font: bold 18px sans-serif; fill: #333; }
+      .stage-title { font: bold 20px sans-serif; fill: #fff; }
+      .step-title { font: bold 14px sans-serif; fill: #1a1a1a; }
+      .step-text { font: 12px sans-serif; fill: #333; }
+      .label { font: 11px sans-serif; fill: #666; }
+      .arrow { stroke: #555; stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+      .dashed-arrow { stroke: #888; stroke-width: 2; fill: none; stroke-dasharray: 5,5; marker-end: url(#arrowhead); }
+
+      .stage1 { fill: #3498db; }
+      .stage2 { fill: #2ecc71; }
+      .stage3 { fill: #e74c3c; }
+      .stage4 { fill: #f39c12; }
+      .input-box { fill: #ecf0f1; stroke: #34495e; stroke-width: 2; rx: 8; }
+      .output-box { fill: #2c3e50; stroke: #1a252f; stroke-width: 3; rx: 8; }
+      .process-box { fill: #fff; stroke: #333; stroke-width: 2; rx: 8; }
+      .sub-process { fill: #f8f9fa; stroke: #666; stroke-width: 1.5; rx: 6; }
+      .decision-box { fill: #ffe4b5; stroke: #ff8c00; stroke-width: 2; rx: 8; }
+    </style>
+
+    <marker id="arrowhead" markerWidth="12" markerHeight="12" refX="11" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#555" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" class="title">STRUCTURED Mode Workflow</text>
+  <text x="600" y="70" text-anchor="middle" class="subtitle">4-Stage Predictable Pipeline for Production Workloads</text>
+
+  <!-- Input -->
+  <rect x="350" y="100" width="500" height="80" class="input-box"/>
+  <text x="600" y="125" text-anchor="middle" class="step-title">Input: Clinical Text</text>
+  <text x="600" y="145" text-anchor="middle" class="label">• Clinical text from CSV row</text>
+  <text x="600" y="160" text-anchor="middle" class="label">• Optional: Label value for context</text>
+  <text x="600" y="175" text-anchor="middle" class="label">• Optional: Prompt variables (age, gender, etc.)</text>
+
+  <path d="M 600 180 L 600 210" class="arrow"/>
+
+  <!-- Preprocessing -->
+  <rect x="350" y="210" width="500" height="90" class="process-box"/>
+  <text x="600" y="235" text-anchor="middle" class="step-title">Preprocessing</text>
+
+  <rect x="370" y="250" width="210" height="35" class="sub-process"/>
+  <text x="475" y="270" text-anchor="middle" class="label">PHI Redaction (optional)</text>
+  <text x="475" y="280" text-anchor="middle" class="label" font-size="10">Dates, names, IDs, locations</text>
+
+  <rect x="600" y="250" width="230" height="35" class="sub-process"/>
+  <text x="715" y="270" text-anchor="middle" class="label">Pattern Normalization (optional)</text>
+  <text x="715" y="280" text-anchor="middle" class="label" font-size="10">33+ regex rules for vital signs, labs</text>
+
+  <path d="M 600 300 L 600 330" class="arrow"/>
+
+  <!-- STAGE 1 -->
+  <rect x="50" y="330" width="1100" height="200" class="stage1" rx="10"/>
+  <text x="600" y="360" text-anchor="middle" class="stage-title">STAGE 1: Task Analysis (LLM Planning)</text>
+
+  <rect x="80" y="380" width="1040" height="130" class="process-box"/>
+  <text x="600" y="405" text-anchor="middle" class="step-title">LLM Autonomously Analyzes Extraction Task</text>
+
+  <rect x="100" y="420" width="230" height="75" class="sub-process"/>
+  <text x="215" y="440" text-anchor="middle" class="label" font-weight="bold">Determine Tool Needs</text>
+  <text x="215" y="457" text-anchor="middle" class="label" font-size="10">• Which functions required?</text>
+  <text x="215" y="470" text-anchor="middle" class="label" font-size="10">• Need RAG retrieval?</text>
+  <text x="215" y="483" text-anchor="middle" class="label" font-size="10">• Relevant extras hints?</text>
+
+  <rect x="350" y="420" width="230" height="75" class="sub-process"/>
+  <text x="465" y="440" text-anchor="middle" class="label" font-weight="bold">Plan Tool Parameters</text>
+  <text x="465" y="457" text-anchor="middle" class="label" font-size="10">• Extract values from text</text>
+  <text x="465" y="470" text-anchor="middle" class="label" font-size="10">• Determine function args</text>
+  <text x="465" y="483" text-anchor="middle" class="label" font-size="10">• Prepare tool calls</text>
+
+  <rect x="600" y="420" width="230" height="75" class="sub-process"/>
+  <text x="715" y="440" text-anchor="middle" class="label" font-weight="bold">Generate RAG Queries</text>
+  <text x="715" y="457" text-anchor="middle" class="label" font-size="10">• Intelligent query creation</text>
+  <text x="715" y="470" text-anchor="middle" class="label" font-size="10">• Based on task context</text>
+  <text x="715" y="483" text-anchor="middle" class="label" font-size="10">• Target specific fields</text>
+
+  <rect x="850" y="420" width="230" height="75" class="sub-process"/>
+  <text x="965" y="440" text-anchor="middle" class="label" font-weight="bold">Output Tool Plan</text>
+  <text x="965" y="457" text-anchor="middle" class="label" font-size="10">• JSON list of tools to call</text>
+  <text x="965" y="470" text-anchor="middle" class="label" font-size="10">• Soft limit: 50 tools</text>
+  <text x="965" y="483" text-anchor="middle" class="label" font-size="10">• Warns if exceeded</text>
+
+  <path d="M 600 530 L 600 560" class="arrow"/>
+
+  <!-- STAGE 2 -->
+  <rect x="50" y="560" width="1100" height="220" class="stage2" rx="10"/>
+  <text x="600" y="590" text-anchor="middle" class="stage-title">STAGE 2: Tool Execution (Async Parallel - 60-75% Faster)</text>
+
+  <rect x="80" y="610" width="330" height="150" class="process-box"/>
+  <text x="245" y="635" text-anchor="middle" class="step-title">Execute Functions</text>
+
+  <rect x="100" y="650" width="280" height="30" class="sub-process"/>
+  <text x="240" y="668" text-anchor="middle" class="label">Parallel async execution</text>
+
+  <rect x="100" y="685" width="135" height="25" class="sub-process"/>
+  <text x="167" y="700" text-anchor="middle" class="label" font-size="10">BMI, z-scores</text>
+
+  <rect x="245" y="685" width="135" height="25" class="sub-process"/>
+  <text x="312" y="700" text-anchor="middle" class="label" font-size="10">Clinical scores</text>
+
+  <rect x="100" y="715" width="135" height="25" class="sub-process"/>
+  <text x="167" y="730" text-anchor="middle" class="label" font-size="10">Lab calculations</text>
+
+  <rect x="245" y="715" width="135" height="25" class="sub-process"/>
+  <text x="312" y="730" text-anchor="middle" class="label" font-size="10">Conversions</text>
+
+  <text x="245" y="755" text-anchor="middle" class="label" font-size="9" font-style="italic">All run simultaneously ⚡</text>
+
+  <rect x="435" y="610" width="330" height="150" class="process-box"/>
+  <text x="600" y="635" text-anchor="middle" class="step-title">Retrieve RAG Documents</text>
+
+  <rect x="455" y="650" width="280" height="30" class="sub-process"/>
+  <text x="595" y="668" text-anchor="middle" class="label">Parallel async retrieval</text>
+
+  <rect x="455" y="685" width="280" height="25" class="sub-process"/>
+  <text x="595" y="700" text-anchor="middle" class="label" font-size="10">Embed RAG queries</text>
+
+  <rect x="455" y="715" width="280" height="25" class="sub-process"/>
+  <text x="595" y="730" text-anchor="middle" class="label" font-size="10">Vector search (FAISS, top-k)</text>
+
+  <text x="595" y="755" text-anchor="middle" class="label" font-size="9" font-style="italic">Returns relevant guideline chunks</text>
+
+  <rect x="790" y="610" width="330" height="150" class="process-box"/>
+  <text x="955" y="635" text-anchor="middle" class="step-title">Match Extras Hints</text>
+
+  <rect x="810" y="650" width="280" height="30" class="sub-process"/>
+  <text x="950" y="668" text-anchor="middle" class="label">Keyword-based matching</text>
+
+  <rect x="810" y="685" width="280" height="25" class="sub-process"/>
+  <text x="950" y="700" text-anchor="middle" class="label" font-size="10">Schema field keywords</text>
+
+  <rect x="810" y="715" width="280" height="25" class="sub-process"/>
+  <text x="950" y="730" text-anchor="middle" class="label" font-size="10">Return top 10 relevant hints</text>
+
+  <text x="950" y="755" text-anchor="middle" class="label" font-size="9" font-style="italic">Clinical knowledge injection</text>
+
+  <path d="M 600 780 L 600 810" class="arrow"/>
+
+  <!-- Tool Deduplication Check -->
+  <rect x="350" y="810" width="500" height="50" class="decision-box"/>
+  <text x="600" y="830" text-anchor="middle" class="step-title">Tool Deduplication</text>
+  <text x="600" y="845" text-anchor="middle" class="label" font-size="10">Prevent redundant tool calls • Track call history signatures</text>
+
+  <path d="M 600 860 L 600 890" class="arrow"/>
+
+  <!-- STAGE 3 -->
+  <rect x="50" y="890" width="1100" height="200" class="stage3" rx="10"/>
+  <text x="600" y="920" text-anchor="middle" class="stage-title">STAGE 3: Extraction (Generate Structured JSON)</text>
+
+  <rect x="80" y="940" width="1040" height="130" class="process-box"/>
+  <text x="600" y="965" text-anchor="middle" class="step-title">LLM Generates JSON with Tool Results</text>
+
+  <rect x="100" y="980" width="220" height="75" class="sub-process"/>
+  <text x="210" y="1000" text-anchor="middle" class="label" font-weight="bold">Combine Context</text>
+  <text x="210" y="1017" text-anchor="middle" class="label" font-size="10">• Preprocessed text</text>
+  <text x="210" y="1030" text-anchor="middle" class="label" font-size="10">• Function outputs</text>
+  <text x="210" y="1043" text-anchor="middle" class="label" font-size="10">• RAG documents</text>
+
+  <rect x="340" y="980" width="220" height="75" class="sub-process"/>
+  <text x="450" y="1000" text-anchor="middle" class="label" font-weight="bold">LLM Extraction</text>
+  <text x="450" y="1017" text-anchor="middle" class="label" font-size="10">• Generate JSON output</text>
+  <text x="450" y="1030" text-anchor="middle" class="label" font-size="10">• Follow schema</text>
+  <text x="450" y="1043" text-anchor="middle" class="label" font-size="10">• Use all tool results</text>
+
+  <rect x="580" y="980" width="220" height="75" class="sub-process"/>
+  <text x="690" y="1000" text-anchor="middle" class="label" font-weight="bold">Validate JSON</text>
+  <text x="690" y="1017" text-anchor="middle" class="label" font-size="10">• Parse JSON structure</text>
+  <text x="690" y="1030" text-anchor="middle" class="label" font-size="10">• Check required fields</text>
+  <text x="690" y="1043" text-anchor="middle" class="label" font-size="10">• Type validation</text>
+
+  <rect x="820" y="980" width="240" height="75" class="sub-process"/>
+  <text x="940" y="1000" text-anchor="middle" class="label" font-weight="bold">Error Handling</text>
+  <text x="940" y="1017" text-anchor="middle" class="label" font-size="10">• Adaptive retry on failure</text>
+  <text x="940" y="1030" text-anchor="middle" class="label" font-size="10">• Context reduction</text>
+  <text x="940" y="1043" text-anchor="middle" class="label" font-size="10">• Minimal prompt fallback</text>
+
+  <path d="M 600 1090 L 600 1120" class="arrow"/>
+
+  <!-- STAGE 4 -->
+  <rect x="50" y="1120" width="1100" height="180" class="stage4" rx="10"/>
+  <text x="600" y="1150" text-anchor="middle" class="stage-title">STAGE 4: RAG Refinement (Optional - Enhance Specific Fields)</text>
+
+  <rect x="80" y="1170" width="500" height="110" class="process-box"/>
+  <text x="330" y="1195" text-anchor="middle" class="step-title">Enhanced RAG Refinement</text>
+
+  <rect x="100" y="1210" width="220" height="30" class="sub-process"/>
+  <text x="210" y="1228" text-anchor="middle" class="label">Target specific schema fields</text>
+
+  <rect x="340" y="1210" width="220" height="30" class="sub-process"/>
+  <text x="450" y="1228" text-anchor="middle" class="label">Retrieve additional evidence</text>
+
+  <rect x="100" y="1250" width="460" height="20" class="sub-process"/>
+  <text x="330" y="1263" text-anchor="middle" class="label" font-size="10">Add source citations and supporting guidelines</text>
+
+  <rect x="610" y="1170" width="510" height="110" class="decision-box"/>
+  <text x="865" y="1195" text-anchor="middle" class="step-title">Enabled Only If:</text>
+  <text x="865" y="1217" text-anchor="middle" class="label">• rag_prompt is configured</text>
+  <text x="865" y="1235" text-anchor="middle" class="label">• rag_query_fields specified (which fields to refine)</text>
+  <text x="865" y="1253" text-anchor="middle" class="label">• RAG documents available</text>
+  <text x="865" y="1271" text-anchor="middle" class="label" font-size="10" font-style="italic">Otherwise skipped → goes direct to output</text>
+
+  <path d="M 600 1300 L 600 1330" class="arrow"/>
+
+  <!-- Output -->
+  <rect x="350" y="1330" width="500" height="60" class="output-box"/>
+  <text x="600" y="1355" text-anchor="middle" class="stage-title">Final Structured JSON Output</text>
+  <text x="600" y="1375" text-anchor="middle" class="label" style="fill: #ecf0f1;">Validated, complete extraction matching schema</text>
+
+</svg>

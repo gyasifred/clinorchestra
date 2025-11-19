@@ -67,11 +67,33 @@ Web interface opens at `http://localhost:7860`
 
 ---
 
+## System Architecture
+
+ClinOrchestra features a **6-layer modular architecture** designed for scalability, flexibility, and production-ready performance.
+
+### Architecture Overview
+
+![System Architecture](assets/diagrams/overall_architecture.svg)
+
+**The 6 Layers:**
+1. **Web Interface** - Gradio-based UI with configuration tabs
+2. **Application State** - Central configuration manager (Observer pattern)
+3. **Extraction Engines** - Dual execution modes (STRUCTURED & ADAPTIVE)
+4. **Core Services** - LLM integration, RAG engine, preprocessing
+5. **Tool Systems** - Functions, patterns, extras for domain knowledge
+6. **Optimization** - Caching (400x faster), parallel processing, adaptive retry
+
+**For detailed architecture documentation, see [ARCHITECTURE.md](ARCHITECTURE.md)**
+
+---
+
 ## Execution Modes
 
 ### STRUCTURED Mode (Default)
 
 Systematic 4-stage pipeline for reliable, production-ready extraction:
+
+![STRUCTURED Workflow](assets/diagrams/structured_mode_workflow.svg)
 
 ```
 Stage 1: Task Analysis → Determine required tools
@@ -86,6 +108,8 @@ Stage 4: RAG Refinement → Enhance selected fields (optional)
 
 Autonomous iterative loop for complex extractions:
 
+![ADAPTIVE Workflow](assets/diagrams/adaptive_mode_workflow.svg)
+
 ```
 Continuous Loop:
 1. LLM analyzes clinical text
@@ -99,6 +123,12 @@ Continuous Loop:
 **Best for**: Evolving requirements, complex cases, maximum flexibility
 
 Enable ADAPTIVE mode in the Config tab with max iterations and tool call limits.
+
+### Component Interactions
+
+![Component Interactions](assets/diagrams/component_interactions.svg)
+
+See how all components work together seamlessly through the Observer pattern, with AppState managing configuration and agents orchestrating LLM + Tools + RAG.
 
 ---
 

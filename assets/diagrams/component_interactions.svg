@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" width="1400" height="1000">
+  <defs>
+    <style>
+      .title { font: bold 32px sans-serif; fill: #1a1a1a; }
+      .subtitle { font: bold 18px sans-serif; fill: #333; }
+      .component-title { font: bold 16px sans-serif; fill: #1a1a1a; }
+      .text { font: 12px sans-serif; fill: #333; }
+      .label { font: 11px sans-serif; fill: #666; }
+      .flow-label { font: bold 12px sans-serif; fill: #e74c3c; }
+
+      .arrow { stroke: #555; stroke-width: 2.5; fill: none; marker-end: url(#arrowhead); }
+      .data-arrow { stroke: #3498db; stroke-width: 2.5; fill: none; marker-end: url(#arrowhead-blue); }
+      .config-arrow { stroke: #2ecc71; stroke-width: 2; fill: none; stroke-dasharray: 5,3; marker-end: url(#arrowhead-green); }
+      .bidirectional { stroke: #9b59b6; stroke-width: 2.5; fill: none; marker-end: url(#arrowhead-purple); marker-start: url(#arrowhead-purple-start); }
+
+      .state-box { fill: #3498db; stroke: #2980b9; stroke-width: 3; rx: 10; }
+      .agent-box { fill: #e74c3c; stroke: #c0392b; stroke-width: 3; rx: 10; }
+      .llm-box { fill: #f39c12; stroke: #d68910; stroke-width: 3; rx: 10; }
+      .tool-box { fill: #9b59b6; stroke: #7d3c98; stroke-width: 3; rx: 10; }
+      .cache-box { fill: #16a085; stroke: #138d75; stroke-width: 3; rx: 10; }
+      .data-box { fill: #ecf0f1; stroke: #34495e; stroke-width: 2; rx: 8; }
+    </style>
+
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#555" />
+    </marker>
+    <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#3498db" />
+    </marker>
+    <marker id="arrowhead-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#2ecc71" />
+    </marker>
+    <marker id="arrowhead-purple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#9b59b6" />
+    </marker>
+    <marker id="arrowhead-purple-start" markerWidth="10" markerHeight="10" refX="1" refY="3" orient="auto">
+      <polygon points="10 0, 0 3, 10 6" fill="#9b59b6" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="700" y="40" text-anchor="middle" class="title">Component Interactions & Data Flow</text>
+  <text x="700" y="70" text-anchor="middle" class="subtitle">How ClinOrchestra Components Work Together</text>
+
+  <!-- Central: Application State -->
+  <rect x="550" y="120" width="300" height="140" class="state-box"/>
+  <text x="700" y="155" text-anchor="middle" class="component-title" style="fill: white;">Application State</text>
+  <text x="700" y="180" text-anchor="middle" class="label" style="fill: white;">Central Configuration Manager</text>
+  <text x="700" y="200" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">• ModelConfig</text>
+  <text x="700" y="215" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">• PromptConfig</text>
+  <text x="700" y="230" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">• DataConfig</text>
+  <text x="700" y="245" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">• RAGConfig, OptimizationConfig</text>
+
+  <!-- Top Left: Agent Factory -->
+  <rect x="50" y="320" width="280" height="100" class="agent-box"/>
+  <text x="190" y="355" text-anchor="middle" class="component-title" style="fill: white;">Agent Factory</text>
+  <text x="190" y="380" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">Creates agents based on config</text>
+  <text x="190" y="398" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">STRUCTURED or ADAPTIVE</text>
+
+  <!-- Middle Left: Extraction Agents -->
+  <rect x="50" y="450" width="280" height="120" class="agent-box"/>
+  <text x="190" y="485" text-anchor="middle" class="component-title" style="fill: white;">Extraction Agents</text>
+  <text x="190" y="510" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">ExtractionAgent (STRUCTURED)</text>
+  <text x="190" y="528" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">4-stage pipeline</text>
+  <text x="190" y="550" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">AgenticAgent (ADAPTIVE)</text>
+  <text x="190" y="568" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">Iterative loop</text>
+
+  <!-- Top Right: LLM Manager -->
+  <rect x="1070" y="120" width="280" height="140" class="llm-box"/>
+  <text x="1210" y="155" text-anchor="middle" class="component-title" style="fill: white;">LLM Manager</text>
+  <text x="1210" y="180" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">Multi-Provider Interface</text>
+  <text x="1210" y="200" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">OpenAI • Anthropic • Google</text>
+  <text x="1210" y="218" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">Azure • Local (Unsloth)</text>
+  <text x="1210" y="240" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">Response generation & caching</text>
+
+  <!-- Top Center: RAG Engine -->
+  <rect x="550" y="320" width="300" height="120" class="tool-box"/>
+  <text x="700" y="355" text-anchor="middle" class="component-title" style="fill: white;">RAG Engine</text>
+  <text x="700" y="380" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">Document Ingestion (PDF, URL)</text>
+  <text x="700" y="398" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">Embeddings & Vector Search</text>
+  <text x="700" y="416" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">FAISS • Top-K Retrieval</text>
+
+  <!-- Middle: Tool Systems -->
+  <rect x="380" y="600" width="200" height="120" class="tool-box"/>
+  <text x="480" y="635" text-anchor="middle" class="component-title" style="fill: white;">Function Registry</text>
+  <text x="480" y="660" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">40+ Medical Functions</text>
+  <text x="480" y="678" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">BMI, Z-scores</text>
+  <text x="480" y="696" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">Clinical Scores</text>
+
+  <rect x="600" y="600" width="200" height="120" class="tool-box"/>
+  <text x="700" y="635" text-anchor="middle" class="component-title" style="fill: white;">Regex Preprocessor</text>
+  <text x="700" y="660" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">33+ Patterns</text>
+  <text x="700" y="678" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">Vital Signs</text>
+  <text x="700" y="696" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">Lab Normalization</text>
+
+  <rect x="820" y="600" width="200" height="120" class="tool-box"/>
+  <text x="920" y="635" text-anchor="middle" class="component-title" style="fill: white;">Extras Manager</text>
+  <text x="920" y="660" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">49+ Clinical Hints</text>
+  <text x="920" y="678" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">WHO/CDC Standards</text>
+  <text x="920" y="696" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">ASPEN Criteria</text>
+
+  <!-- Bottom: Optimization Layer -->
+  <rect x="380" y="770" width="200" height="100" class="cache-box"/>
+  <text x="480" y="805" text-anchor="middle" class="component-title" style="fill: white;">LLM Cache</text>
+  <text x="480" y="830" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">SQLite Database</text>
+  <text x="480" y="848" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">400x Speedup</text>
+
+  <rect x="600" y="770" width="200" height="100" class="cache-box"/>
+  <text x="700" y="805" text-anchor="middle" class="component-title" style="fill: white;">Parallel Processor</text>
+  <text x="700" y="830" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">Multi-threading/Process</text>
+  <text x="700" y="848" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">5-10x Speedup</text>
+
+  <rect x="820" y="770" width="200" height="100" class="cache-box"/>
+  <text x="920" y="805" text-anchor="middle" class="component-title" style="fill: white;">Adaptive Retry</text>
+  <text x="920" y="830" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">Context Reduction</text>
+  <text x="920" y="848" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">Fallback Strategy</text>
+
+  <!-- Data Input/Output -->
+  <rect x="50" y="750" width="200" height="80" class="data-box"/>
+  <text x="150" y="780" text-anchor="middle" class="component-title">Input Data</text>
+  <text x="150" y="800" text-anchor="middle" class="label">CSV with clinical text</text>
+  <text x="150" y="815" text-anchor="middle" class="label">Labels, Prompt variables</text>
+
+  <rect x="1150" y="750" width="200" height="80" class="data-box"/>
+  <text x="1250" y="780" text-anchor="middle" class="component-title">Output Data</text>
+  <text x="1250" y="800" text-anchor="middle" class="label">Structured JSON</text>
+  <text x="1250" y="815" text-anchor="middle" class="label">Validated extractions</text>
+
+  <!-- Arrows: Configuration Flow -->
+  <path d="M 700 260 L 700 290 L 850 290 L 850 120 L 1070 120" class="config-arrow"/>
+  <text x="960" y="108" class="label" style="fill: #2ecc71;">Config →</text>
+
+  <path d="M 700 260 L 700 320" class="config-arrow"/>
+  <text x="715" y="295" class="label" style="fill: #2ecc71;">Config →</text>
+
+  <path d="M 700 260 L 550 260 L 550 380 L 480 600" class="config-arrow"/>
+
+  <path d="M 700 260 L 700 600" class="config-arrow"/>
+
+  <path d="M 700 260 L 850 260 L 850 380 L 920 600" class="config-arrow"/>
+
+  <path d="M 550 190 L 330 190" class="config-arrow"/>
+  <text x="420" y="205" class="label" style="fill: #2ecc71;">Config →</text>
+
+  <!-- Arrows: Agent Creation -->
+  <path d="M 190 260 L 190 320" class="arrow"/>
+  <text x="210" y="295" class="label">Creates</text>
+
+  <!-- Arrows: Agent to LLM Manager -->
+  <path d="M 330 510 L 1070 190" class="data-arrow"/>
+  <text x="700" y="340" class="flow-label">LLM Requests →</text>
+
+  <path d="M 1070 220 L 330 540" class="data-arrow"/>
+  <text x="700" y="395" class="flow-label">← LLM Responses</text>
+
+  <!-- Arrows: Agent to RAG -->
+  <path d="M 330 480 L 550 380" class="bidirectional"/>
+  <text x="430" y="425" class="label" style="fill: #9b59b6;">RAG Queries ↔ Results</text>
+
+  <!-- Arrows: Agent to Tools -->
+  <path d="M 190 570 L 190 610 L 380 660" class="data-arrow"/>
+  <text x="270" y="630" class="flow-label">Function Calls →</text>
+
+  <path d="M 190 570 L 190 640 L 600 640" class="data-arrow"/>
+  <text x="380" y="655" class="flow-label">Text →</text>
+
+  <path d="M 190 570 L 190 670 L 820 670" class="data-arrow"/>
+  <text x="480" y="685" class="flow-label">Schema Keywords →</text>
+
+  <!-- Arrows: Tools Return -->
+  <path d="M 480 600 L 270 570" class="data-arrow"/>
+  <text x="360" y="595" class="flow-label">← Results</text>
+
+  <path d="M 700 600 L 290 570" class="data-arrow"/>
+  <text x="480" y="595" class="flow-label">← Normalized Text</text>
+
+  <path d="M 920 600 L 310 570" class="data-arrow"/>
+  <text x="600" y="595" class="flow-label">← Hints</text>
+
+  <!-- Arrows: LLM Cache -->
+  <path d="M 1070 230 L 580 770" class="bidirectional"/>
+  <text x="810" y="510" class="label" style="fill: #9b59b6;">Cache Check ↔</text>
+
+  <!-- Arrows: Data Flow -->
+  <path d="M 250 790 L 330 510" class="arrow"/>
+  <text x="290" y="640" class="label">Input →</text>
+
+  <path d="M 330 530 L 1150 790" class="arrow"/>
+  <text x="740" y="670" class="label">→ Output</text>
+
+  <!-- Arrows: Optimization Integration -->
+  <path d="M 330 540 L 700 770" class="dashed-arrow" stroke="#16a085"/>
+  <text x="520" y="670" class="label" style="fill: #16a085;">Uses parallel processing</text>
+
+  <path d="M 330 550 L 920 770" class="dashed-arrow" stroke="#16a085"/>
+  <text x="640" y="680" class="label" style="fill: #16a085;">Adaptive retry on failures</text>
+
+  <!-- Legend -->
+  <rect x="50" y="900" width="1300" height="90" fill="#f8f9fa" stroke="#ddd" stroke-width="2" rx="8"/>
+  <text x="700" y="925" text-anchor="middle" class="component-title">Data Flow Legend</text>
+
+  <path d="M 150 945 L 250 945" class="data-arrow"/>
+  <text x="260" y="950" class="label">Primary Data Flow (Clinical text, prompts, results)</text>
+
+  <path d="M 500 945 L 600 945" class="config-arrow"/>
+  <text x="610" y="950" class="label">Configuration Flow (Settings from AppState)</text>
+
+  <path d="M 850 945 L 950 945" class="bidirectional"/>
+  <text x="960" y="950" class="label">Bidirectional Communication (Queries ↔ Results)</text>
+
+  <text x="150" y="975" class="label" font-weight="bold">Key Interaction Patterns:</text>
+  <text x="170" y="990" class="label">1. AppState provides all configurations via Observer pattern</text>
+  <text x="550" y="990" class="label">2. Agents orchestrate LLM + Tools + RAG</text>
+  <text x="950" y="990" class="label">3. Cache & optimization layers improve performance</text>
+
+</svg>
