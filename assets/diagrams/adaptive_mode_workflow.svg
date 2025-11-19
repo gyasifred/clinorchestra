@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" width="1200" height="1500">
+  <defs>
+    <style>
+      .title { font: bold 32px sans-serif; fill: #1a1a1a; }
+      .subtitle { font: bold 18px sans-serif; fill: #333; }
+      .phase-title { font: bold 20px sans-serif; fill: #fff; }
+      .step-title { font: bold 14px sans-serif; fill: #1a1a1a; }
+      .step-text { font: 12px sans-serif; fill: #333; }
+      .label { font: 11px sans-serif; fill: #666; }
+      .arrow { stroke: #555; stroke-width: 3; fill: none; marker-end: url(#arrowhead); }
+      .loop-arrow { stroke: #e74c3c; stroke-width: 4; fill: none; marker-end: url(#arrowhead-red); }
+      .dashed-arrow { stroke: #888; stroke-width: 2; fill: none; stroke-dasharray: 5,5; marker-end: url(#arrowhead); }
+
+      .init-phase { fill: #3498db; }
+      .loop-phase { fill: #e74c3c; }
+      .complete-phase { fill: #2ecc71; }
+      .input-box { fill: #ecf0f1; stroke: #34495e; stroke-width: 2; rx: 8; }
+      .output-box { fill: #2c3e50; stroke: #1a252f; stroke-width: 3; rx: 8; }
+      .process-box { fill: #fff; stroke: #333; stroke-width: 2; rx: 8; }
+      .decision-box { fill: #ffe4b5; stroke: #ff8c00; stroke-width: 3; rx: 8; }
+      .sub-process { fill: #f8f9fa; stroke: #666; stroke-width: 1.5; rx: 6; }
+      .loop-box { fill: none; stroke: #e74c3c; stroke-width: 4; stroke-dasharray: 10,5; rx: 15; }
+    </style>
+
+    <marker id="arrowhead" markerWidth="12" markerHeight="12" refX="11" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#555" />
+    </marker>
+    <marker id="arrowhead-red" markerWidth="12" markerHeight="12" refX="11" refY="4" orient="auto">
+      <polygon points="0 0, 12 4, 0 8" fill="#e74c3c" />
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" class="title">ADAPTIVE Mode Workflow</text>
+  <text x="600" y="70" text-anchor="middle" class="subtitle">Iterative Autonomous Loop for Complex, Evolving Tasks</text>
+
+  <!-- Input -->
+  <rect x="350" y="100" width="500" height="80" class="input-box"/>
+  <text x="600" y="125" text-anchor="middle" class="step-title">Input: Clinical Text</text>
+  <text x="600" y="145" text-anchor="middle" class="label">• Clinical text from CSV row</text>
+  <text x="600" y="160" text-anchor="middle" class="label">• Optional: Label value for context</text>
+  <text x="600" y="175" text-anchor="middle" class="label">• Optional: Prompt variables (multi-column support)</text>
+
+  <path d="M 600 180 L 600 210" class="arrow"/>
+
+  <!-- Preprocessing -->
+  <rect x="350" y="210" width="500" height="70" class="process-box"/>
+  <text x="600" y="235" text-anchor="middle" class="step-title">Preprocessing</text>
+  <text x="600" y="255" text-anchor="middle" class="label">PHI Redaction • Pattern Normalization</text>
+  <text x="600" y="270" text-anchor="middle" class="label" font-size="10">(Same as STRUCTURED mode)</text>
+
+  <path d="M 600 280 L 600 310" class="arrow"/>
+
+  <!-- Initialization Phase -->
+  <rect x="50" y="310" width="1100" height="140" class="init-phase" rx="10"/>
+  <text x="600" y="340" text-anchor="middle" class="phase-title">Initialization Phase</text>
+
+  <rect x="80" y="360" width="510" height="70" class="process-box"/>
+  <text x="335" y="385" text-anchor="middle" class="step-title">Initialize Conversation</text>
+  <text x="335" y="405" text-anchor="middle" class="label">• Create initial messages with task prompt</text>
+  <text x="335" y="420" text-anchor="middle" class="label">• Include preprocessed clinical text + context</text>
+
+  <rect x="610" y="360" width="510" height="70" class="process-box"/>
+  <text x="865" y="385" text-anchor="middle" class="step-title">Configure Limits</text>
+  <text x="865" y="405" text-anchor="middle" class="label">• Max iterations (default: 10)</text>
+  <text x="865" y="420" text-anchor="middle" class="label">• Max tool calls (default: 100, prevents runaway costs)</text>
+
+  <path d="M 600 450 L 600 480" class="arrow"/>
+
+  <!-- The Main Loop Container -->
+  <rect x="70" y="500" width="1060" height="720" class="loop-box"/>
+  <text x="600" y="530" text-anchor="middle" class="phase-title" style="fill: #e74c3c;">ITERATIVE LOOP (Continues until JSON valid or limits reached)</text>
+
+  <!-- Loop Iteration Counter -->
+  <rect x="90" y="550" width="300" height="50" class="decision-box"/>
+  <text x="240" y="570" text-anchor="middle" class="step-title">Check Iteration Count</text>
+  <text x="240" y="590" text-anchor="middle" class="label" font-size="10">Iteration &lt; max_iterations?</text>
+
+  <rect x="810" y="550" width="300" height="50" class="decision-box"/>
+  <text x="960" y="570" text-anchor="middle" class="step-title">Check Tool Budget</text>
+  <text x="960" y="590" text-anchor="middle" class="label" font-size="10">Total calls &lt; max_tool_calls?</text>
+
+  <path d="M 240 600 L 240 630" class="arrow"/>
+  <path d="M 960 600 L 960 630 L 600 630" class="arrow"/>
+
+  <!-- Step 1: LLM Analysis -->
+  <rect x="90" y="640" width="1020" height="100" class="loop-phase" rx="10"/>
+  <text x="600" y="670" text-anchor="middle" class="phase-title">Step 1: LLM Analyzes Current State</text>
+
+  <rect x="120" y="690" width="960" height="35" class="process-box"/>
+  <text x="600" y="710" text-anchor="middle" class="label">LLM reviews: Clinical text + conversation history + tool results from previous iterations</text>
+
+  <path d="M 600 740 L 600 770" class="arrow"/>
+
+  <!-- Step 2: Decision Point -->
+  <rect x="90" y="770" width="1020" height="130" class="decision-box"/>
+  <text x="600" y="800" text-anchor="middle" class="step-title" font-size="18">Step 2: LLM Decision</text>
+
+  <rect x="120" y="820" width="450" height="65" class="process-box"/>
+  <text x="345" y="840" text-anchor="middle" class="label" font-weight="bold">Option A: Request Tools</text>
+  <text x="345" y="857" text-anchor="middle" class="label" font-size="10">• Needs more information</text>
+  <text x="345" y="870" text-anchor="middle" class="label" font-size="10">• Calls functions, RAG, or extras</text>
+
+  <rect x="600" y="820" width="480" height="65" class="process-box"/>
+  <text x="840" y="840" text-anchor="middle" class="label" font-weight="bold">Option B: Output JSON</text>
+  <text x="840" y="857" text-anchor="middle" class="label" font-size="10">• Has sufficient information</text>
+  <text x="840" y="870" text-anchor="middle" class="label" font-size="10">• Generates final structured output</text>
+
+  <!-- Option A Path - Tool Execution -->
+  <path d="M 345 900 L 345 930" class="arrow"/>
+  <text x="270" y="920" class="label" font-weight="bold" style="fill: #e74c3c;">Option A →</text>
+
+  <rect x="90" y="930" width="510" height="150" class="loop-phase" rx="10"/>
+  <text x="345" y="960" text-anchor="middle" class="phase-title">Step 3A: Execute Tools (PAUSE)</text>
+
+  <rect x="120" y="980" width="450" height="80" class="process-box"/>
+  <text x="345" y="1000" text-anchor="middle" class="step-title">Async Parallel Tool Execution ⚡</text>
+
+  <rect x="140" y="1020" width="130" height="30" class="sub-process"/>
+  <text x="205" y="1038" text-anchor="middle" class="label" font-size="10">Functions</text>
+
+  <rect x="280" y="1020" width="130" height="30" class="sub-process"/>
+  <text x="345" y="1038" text-anchor="middle" class="label" font-size="10">RAG Retrieval</text>
+
+  <rect x="420" y="1020" width="130" height="30" class="sub-process"/>
+  <text x="485" y="1038" text-anchor="middle" class="label" font-size="10">Extras Hints</text>
+
+  <text x="345" y="1072" text-anchor="middle" class="label" font-size="10" font-style="italic">60-75% faster than sequential</text>
+
+  <path d="M 345 1080 L 345 1110" class="arrow"/>
+
+  <rect x="90" y="1110" width="510" height="80" class="loop-phase" rx="10"/>
+  <text x="345" y="1140" text-anchor="middle" class="phase-title">Step 4A: Resume with Results</text>
+
+  <rect x="120" y="1155" width="450" height="20" class="process-box"/>
+  <text x="345" y="1168" text-anchor="middle" class="label" font-size="10">Add tool outputs to conversation history</text>
+
+  <!-- Loop back arrow for Option A -->
+  <path d="M 120 1175 L 50 1175 L 50 640 L 90 640" class="loop-arrow"/>
+  <text x="30" y="900" class="label" font-weight="bold" style="fill: #e74c3c;">↑ Loop Back</text>
+  <text x="30" y="920" class="label" font-size="10" style="fill: #e74c3c;">Next Iteration</text>
+
+  <!-- Option B Path - JSON Output -->
+  <path d="M 840 900 L 840 930" class="arrow"/>
+  <text x="970" y="920" class="label" font-weight="bold" style="fill: #2ecc71;">Option B →</text>
+
+  <rect x="630" y="930" width="480" height="110" class="complete-phase" rx="10"/>
+  <text x="870" y="960" text-anchor="middle" class="phase-title">Step 3B: Validate JSON</text>
+
+  <rect x="660" y="980" width="420" height="50" class="process-box"/>
+  <text x="870" y="1000" text-anchor="middle" class="step-title">JSON Parsing & Validation</text>
+  <text x="870" y="1020" text-anchor="middle" class="label" font-size="10">• Parse structure • Check schema • Verify required fields</text>
+
+  <!-- Decision: Valid or Invalid JSON -->
+  <path d="M 870 1040 L 870 1070" class="arrow"/>
+
+  <rect x="630" y="1070" width="230" height="80" class="decision-box"/>
+  <text x="745" y="1095" text-anchor="middle" class="step-title">JSON Valid?</text>
+  <text x="745" y="1120" text-anchor="middle" class="label" font-size="10">✓ Yes: Complete</text>
+  <text x="745" y="1135" text-anchor="middle" class="label" font-size="10">✗ No: Retry or fallback</text>
+
+  <rect x="880" y="1070" width="230" height="80" class="decision-box"/>
+  <text x="995" y="1095" text-anchor="middle" class="step-title">On Failure</text>
+  <text x="995" y="1115" text-anchor="middle" class="label" font-size="10">• Adaptive retry</text>
+  <text x="995" y="1130" text-anchor="middle" class="label" font-size="10">• Context reduction</text>
+  <text x="995" y="1145" text-anchor="middle" class="label" font-size="10">• Minimal prompt fallback</text>
+
+  <!-- Success path -->
+  <path d="M 745 1150 L 745 1250" class="arrow"/>
+  <text x="770" y="1200" class="label" font-weight="bold" style="fill: #2ecc71;">Valid ✓</text>
+
+  <!-- Retry path -->
+  <path d="M 1110 1110 L 1150 1110 L 1150 640 L 1110 640" class="dashed-arrow"/>
+  <text x="1160" y="900" class="label" font-size="10">Retry →</text>
+
+  <!-- Stall Detection -->
+  <rect x="90" y="1155" width="510" height="35" class="decision-box"/>
+  <text x="345" y="1175" text-anchor="middle" class="label" font-weight="bold">Stall Detection</text>
+  <text x="345" y="1188" text-anchor="middle" class="label" font-size="9">Detects repeated tool calls • Forces completion after 2+ stalls</text>
+
+  <!-- End of Loop Box -->
+
+  <!-- Completion -->
+  <rect x="350" y="1250" width="500" height="120" class="complete-phase" rx="10"/>
+  <text x="600" y="1280" text-anchor="middle" class="phase-title">Completion Conditions</text>
+
+  <rect x="370" y="1300" width="220" height="55" class="process-box"/>
+  <text x="480" y="1320" text-anchor="middle" class="label" font-weight="bold">Success</text>
+  <text x="480" y="1337" text-anchor="middle" class="label" font-size="10">• Valid JSON generated</text>
+  <text x="480" y="1350" text-anchor="middle" class="label" font-size="10">• Meets schema requirements</text>
+
+  <rect x="610" y="1300" width="220" height="55" class="process-box"/>
+  <text x="720" y="1320" text-anchor="middle" class="label" font-weight="bold">Forced Exit</text>
+  <text x="720" y="1337" text-anchor="middle" class="label" font-size="10">• Max iterations reached</text>
+  <text x="720" y="1350" text-anchor="middle" class="label" font-size="10">• Stall detected</text>
+
+  <path d="M 600 1370 L 600 1400" class="arrow"/>
+
+  <!-- Output -->
+  <rect x="300" y="1400" width="600" height="80" class="output-box"/>
+  <text x="600" y="1430" text-anchor="middle" class="phase-title">Final Structured JSON Output</text>
+  <text x="600" y="1455" text-anchor="middle" class="label" style="fill: #ecf0f1;">Complete extraction with autonomous tool orchestration</text>
+  <text x="600" y="1473" text-anchor="middle" class="label" style="fill: #95a5a6;" font-size="10">Iterative refinement for complex cases</text>
+
+</svg>
