@@ -76,11 +76,17 @@
   <text x="1005" y="200" text-anchor="middle" class="label">• Live Results</text>
   <text x="1005" y="215" text-anchor="middle" class="label">• Debugging</text>
 
-  <rect x="1100" y="140" width="150" height="90" class="component-box"/>
-  <text x="1175" y="165" text-anchor="middle" class="component-title">Processing</text>
-  <text x="1175" y="185" text-anchor="middle" class="label">• Batch Run</text>
-  <text x="1175" y="200" text-anchor="middle" class="label">• Progress</text>
-  <text x="1175" y="215" text-anchor="middle" class="label">• Export</text>
+  <rect x="1020" y="140" width="130" height="90" class="component-box"/>
+  <text x="1085" y="165" text-anchor="middle" class="component-title">Processing</text>
+  <text x="1085" y="185" text-anchor="middle" class="label">• Batch Run</text>
+  <text x="1085" y="200" text-anchor="middle" class="label">• Progress</text>
+  <text x="1085" y="215" text-anchor="middle" class="label">• Export</text>
+
+  <rect x="1165" y="140" width="135" height="90" class="component-box"/>
+  <text x="1232" y="165" text-anchor="middle" class="component-title">Retry Metrics</text>
+  <text x="1232" y="185" text-anchor="middle" class="label">• Performance</text>
+  <text x="1232" y="200" text-anchor="middle" class="label">• Analytics</text>
+  <text x="1232" y="215" text-anchor="middle" class="label">• Monitoring</text>
 
   <!-- Layer 2: Application State -->
   <rect x="50" y="280" width="1300" height="120" class="state-layer" rx="10"/>
@@ -116,7 +122,8 @@
   <path d="M 325 230 L 325 260 L 420 320" class="arrow"/>
   <path d="M 495 230 L 495 260 L 640 320" class="arrow"/>
   <path d="M 665 230 L 665 260 L 860 320" class="arrow"/>
-  <path d="M 1175 230 L 1175 260 L 1105 320" class="arrow"/>
+  <path d="M 1085 230 L 1085 260 L 1105 320" class="arrow"/>
+  <path d="M 1232 230 L 1232 260 L 1105 320" class="arrow"/>
 
   <!-- Layer 3: Extraction Engines -->
   <rect x="50" y="430" width="1300" height="180" class="agent-layer" rx="10"/>
