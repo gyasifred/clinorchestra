@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1600" width="1400" height="1600">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1700" width="1400" height="1700">
   <defs>
     <style>
       .title { font: bold 32px sans-serif; fill: #1a1a1a; }
@@ -58,215 +58,224 @@
   <text x="495" y="200" text-anchor="middle" class="label">• Column Map</text>
   <text x="495" y="215" text-anchor="middle" class="label">• Labels</text>
 
-  <rect x="590" y="140" width="150" height="90" class="component-box"/>
-  <text x="665" y="165" text-anchor="middle" class="component-title">Tools Config</text>
-  <text x="665" y="185" text-anchor="middle" class="label">• Functions</text>
-  <text x="665" y="200" text-anchor="middle" class="label">• Patterns</text>
-  <text x="665" y="215" text-anchor="middle" class="label">• Extras</text>
+  <rect x="590" y="140" width="140" height="90" class="component-box"/>
+  <text x="660" y="165" text-anchor="middle" class="component-title">Functions Tab</text>
+  <text x="660" y="185" text-anchor="middle" class="label">• 40+ Functions</text>
+  <text x="660" y="200" text-anchor="middle" class="label">• Add/Edit</text>
+  <text x="660" y="215" text-anchor="middle" class="label">• Enable/Disable</text>
 
-  <rect x="760" y="140" width="150" height="90" class="component-box"/>
-  <text x="835" y="165" text-anchor="middle" class="component-title">RAG Tab</text>
-  <text x="835" y="185" text-anchor="middle" class="label">• Documents</text>
-  <text x="835" y="200" text-anchor="middle" class="label">• Embeddings</text>
-  <text x="835" y="215" text-anchor="middle" class="label">• K-value</text>
+  <rect x="740" y="140" width="140" height="90" class="component-box"/>
+  <text x="810" y="165" text-anchor="middle" class="component-title">Patterns Tab</text>
+  <text x="810" y="185" text-anchor="middle" class="label">• 33+ Patterns</text>
+  <text x="810" y="200" text-anchor="middle" class="label">• Add/Edit</text>
+  <text x="810" y="215" text-anchor="middle" class="label">• Enable/Disable</text>
 
-  <rect x="930" y="140" width="150" height="90" class="component-box"/>
-  <text x="1005" y="165" text-anchor="middle" class="component-title">Playground</text>
-  <text x="1005" y="185" text-anchor="middle" class="label">• Single Test</text>
-  <text x="1005" y="200" text-anchor="middle" class="label">• Live Results</text>
-  <text x="1005" y="215" text-anchor="middle" class="label">• Debugging</text>
+  <rect x="890" y="140" width="140" height="90" class="component-box"/>
+  <text x="960" y="165" text-anchor="middle" class="component-title">Extras Tab</text>
+  <text x="960" y="185" text-anchor="middle" class="label">• 49+ Hints</text>
+  <text x="960" y="200" text-anchor="middle" class="label">• Add/Edit</text>
+  <text x="960" y="215" text-anchor="middle" class="label">• Enable/Disable</text>
 
-  <rect x="1020" y="140" width="130" height="90" class="component-box"/>
-  <text x="1085" y="165" text-anchor="middle" class="component-title">Processing</text>
-  <text x="1085" y="185" text-anchor="middle" class="label">• Batch Run</text>
-  <text x="1085" y="200" text-anchor="middle" class="label">• Progress</text>
-  <text x="1085" y="215" text-anchor="middle" class="label">• Export</text>
+  <rect x="1040" y="140" width="120" height="90" class="component-box"/>
+  <text x="1100" y="165" text-anchor="middle" class="component-title">RAG Tab</text>
+  <text x="1100" y="185" text-anchor="middle" class="label">• Documents</text>
+  <text x="1100" y="200" text-anchor="middle" class="label">• Embeddings</text>
+  <text x="1100" y="215" text-anchor="middle" class="label">• K-value</text>
 
-  <rect x="1165" y="140" width="135" height="90" class="component-box"/>
-  <text x="1232" y="165" text-anchor="middle" class="component-title">Retry Metrics</text>
-  <text x="1232" y="185" text-anchor="middle" class="label">• Performance</text>
-  <text x="1232" y="200" text-anchor="middle" class="label">• Analytics</text>
-  <text x="1232" y="215" text-anchor="middle" class="label">• Monitoring</text>
+  <rect x="80" y="250" width="130" height="90" class="component-box"/>
+  <text x="145" y="275" text-anchor="middle" class="component-title">Playground</text>
+  <text x="145" y="295" text-anchor="middle" class="label">• Single Test</text>
+  <text x="145" y="310" text-anchor="middle" class="label">• Live Results</text>
+  <text x="145" y="325" text-anchor="middle" class="label">• Debugging</text>
+
+  <rect x="220" y="250" width="130" height="90" class="component-box"/>
+  <text x="285" y="275" text-anchor="middle" class="component-title">Processing</text>
+  <text x="285" y="295" text-anchor="middle" class="label">• Batch Run</text>
+  <text x="285" y="310" text-anchor="middle" class="label">• Progress</text>
+  <text x="285" y="325" text-anchor="middle" class="label">• Export</text>
 
   <!-- Layer 2: Application State -->
-  <rect x="50" y="280" width="1300" height="120" class="state-layer" rx="10"/>
-  <text x="700" y="305" text-anchor="middle" class="layer-title">Layer 2: Application State (Central Configuration Manager)</text>
+  <rect x="50" y="370" width="1300" height="120" class="state-layer" rx="10"/>
+  <text x="700" y="395" text-anchor="middle" class="layer-title">Layer 2: Application State (Central Configuration Manager)</text>
 
-  <rect x="100" y="320" width="200" height="65" class="component-box"/>
-  <text x="200" y="340" text-anchor="middle" class="component-title">ModelConfig</text>
-  <text x="200" y="360" text-anchor="middle" class="label">Provider, Model, API Key</text>
-  <text x="200" y="375" text-anchor="middle" class="label">Temperature, Max Tokens</text>
+  <rect x="100" y="410" width="200" height="65" class="component-box"/>
+  <text x="200" y="430" text-anchor="middle" class="component-title">ModelConfig</text>
+  <text x="200" y="450" text-anchor="middle" class="label">Provider, Model, API Key</text>
+  <text x="200" y="465" text-anchor="middle" class="label">Temperature, Max Tokens</text>
 
-  <rect x="320" y="320" width="200" height="65" class="component-box"/>
-  <text x="420" y="340" text-anchor="middle" class="component-title">PromptConfig</text>
-  <text x="420" y="360" text-anchor="middle" class="label">Main/Minimal Prompts</text>
-  <text x="420" y="375" text-anchor="middle" class="label">JSON Schema, RAG Prompt</text>
+  <rect x="320" y="410" width="200" height="65" class="component-box"/>
+  <text x="420" y="430" text-anchor="middle" class="component-title">PromptConfig</text>
+  <text x="420" y="450" text-anchor="middle" class="label">Main/Minimal Prompts</text>
+  <text x="420" y="465" text-anchor="middle" class="label">JSON Schema, RAG Prompt</text>
 
-  <rect x="540" y="320" width="200" height="65" class="component-box"/>
-  <text x="640" y="340" text-anchor="middle" class="component-title">DataConfig</text>
-  <text x="640" y="360" text-anchor="middle" class="label">Text Column, Labels</text>
-  <text x="640" y="375" text-anchor="middle" class="label">Prompt Variables, PHI</text>
+  <rect x="540" y="410" width="200" height="65" class="component-box"/>
+  <text x="640" y="430" text-anchor="middle" class="component-title">DataConfig</text>
+  <text x="640" y="450" text-anchor="middle" class="label">Text Column, Labels</text>
+  <text x="640" y="465" text-anchor="middle" class="label">Prompt Variables, PHI</text>
 
-  <rect x="760" y="320" width="200" height="65" class="component-box"/>
-  <text x="860" y="340" text-anchor="middle" class="component-title">RAGConfig</text>
-  <text x="860" y="360" text-anchor="middle" class="label">Documents, Embeddings</text>
-  <text x="860" y="375" text-anchor="middle" class="label">Chunk Size, K-value</text>
+  <rect x="760" y="410" width="200" height="65" class="component-box"/>
+  <text x="860" y="430" text-anchor="middle" class="component-title">RAGConfig</text>
+  <text x="860" y="450" text-anchor="middle" class="label">Documents, Embeddings</text>
+  <text x="860" y="465" text-anchor="middle" class="label">Chunk Size, K-value</text>
 
-  <rect x="980" y="320" width="250" height="65" class="component-box"/>
-  <text x="1105" y="340" text-anchor="middle" class="component-title">OptimizationConfig</text>
-  <text x="1105" y="360" text-anchor="middle" class="label">Cache, Parallel, Multi-GPU</text>
-  <text x="1105" y="375" text-anchor="middle" class="label">Batch Preprocessing</text>
+  <rect x="980" y="410" width="250" height="65" class="component-box"/>
+  <text x="1105" y="430" text-anchor="middle" class="component-title">OptimizationConfig</text>
+  <text x="1105" y="450" text-anchor="middle" class="label">Cache, Parallel, Multi-GPU</text>
+  <text x="1105" y="465" text-anchor="middle" class="label">Batch Preprocessing</text>
 
   <!-- Arrows from UI to State -->
-  <path d="M 155 230 L 155 260 L 200 320" class="arrow"/>
-  <path d="M 325 230 L 325 260 L 420 320" class="arrow"/>
-  <path d="M 495 230 L 495 260 L 640 320" class="arrow"/>
-  <path d="M 665 230 L 665 260 L 860 320" class="arrow"/>
-  <path d="M 1085 230 L 1085 260 L 1105 320" class="arrow"/>
-  <path d="M 1232 230 L 1232 260 L 1105 320" class="arrow"/>
+  <path d="M 155 230 L 155 350 L 200 410" class="arrow"/>
+  <path d="M 325 230 L 325 350 L 420 410" class="arrow"/>
+  <path d="M 495 230 L 495 350 L 640 410" class="arrow"/>
+  <path d="M 660 230 L 660 350 L 640 410" class="arrow"/>
+  <path d="M 810 230 L 810 350 L 860 410" class="arrow"/>
+  <path d="M 960 230 L 960 350 L 860 410" class="arrow"/>
+  <path d="M 1100 230 L 1100 350 L 860 410" class="arrow"/>
+  <path d="M 145 340 L 145 410 L 200 410" class="arrow"/>
+  <path d="M 285 340 L 285 450 L 420 450" class="arrow"/>
 
   <!-- Layer 3: Extraction Engines -->
-  <rect x="50" y="430" width="1300" height="180" class="agent-layer" rx="10"/>
-  <text x="700" y="455" text-anchor="middle" class="layer-title">Layer 3: Extraction Engines (Dual Execution Modes)</text>
+  <rect x="50" y="520" width="1300" height="180" class="agent-layer" rx="10"/>
+  <text x="700" y="545" text-anchor="middle" class="layer-title">Layer 3: Extraction Engines (Dual Execution Modes)</text>
 
   <!-- Agent Factory -->
-  <rect x="580" y="470" width="240" height="50" class="component-box"/>
-  <text x="700" y="490" text-anchor="middle" class="component-title">Agent Factory</text>
-  <text x="700" y="505" text-anchor="middle" class="label">Creates agents based on configuration</text>
+  <rect x="580" y="560" width="240" height="50" class="component-box"/>
+  <text x="700" y="580" text-anchor="middle" class="component-title">Agent Factory</text>
+  <text x="700" y="595" text-anchor="middle" class="label">Creates agents based on configuration</text>
 
   <!-- STRUCTURED Mode -->
-  <rect x="100" y="540" width="520" height="55" class="component-box"/>
-  <text x="360" y="560" text-anchor="middle" class="component-title">STRUCTURED Mode (ExtractionAgent)</text>
-  <text x="180" y="580" text-anchor="middle" class="label">Stage 1: Analyze</text>
-  <text x="300" y="580" text-anchor="middle" class="label">Stage 2: Tools</text>
-  <text x="420" y="580" text-anchor="middle" class="label">Stage 3: Extract</text>
-  <text x="540" y="580" text-anchor="middle" class="label">Stage 4: Refine</text>
+  <rect x="100" y="630" width="520" height="55" class="component-box"/>
+  <text x="360" y="650" text-anchor="middle" class="component-title">STRUCTURED Mode (ExtractionAgent)</text>
+  <text x="180" y="670" text-anchor="middle" class="label">Stage 1: Analyze</text>
+  <text x="300" y="670" text-anchor="middle" class="label">Stage 2: Tools</text>
+  <text x="420" y="670" text-anchor="middle" class="label">Stage 3: Extract</text>
+  <text x="540" y="670" text-anchor="middle" class="label">Stage 4: Refine</text>
 
   <!-- ADAPTIVE Mode -->
-  <rect x="660" y="540" width="590" height="55" class="component-box"/>
-  <text x="955" y="560" text-anchor="middle" class="component-title">ADAPTIVE Mode (AgenticAgent)</text>
-  <text x="755" y="580" text-anchor="middle" class="label">1. Analyze</text>
-  <text x="855" y="580" text-anchor="middle" class="label">2. Decide</text>
-  <text x="955" y="580" text-anchor="middle" class="label">3. Execute Tools</text>
-  <text x="1070" y="580" text-anchor="middle" class="label">4. Iterate</text>
-  <text x="1180" y="580" text-anchor="middle" class="label">5. Complete</text>
+  <rect x="660" y="630" width="590" height="55" class="component-box"/>
+  <text x="955" y="650" text-anchor="middle" class="component-title">ADAPTIVE Mode (AgenticAgent)</text>
+  <text x="755" y="670" text-anchor="middle" class="label">1. Analyze</text>
+  <text x="855" y="670" text-anchor="middle" class="label">2. Decide</text>
+  <text x="955" y="670" text-anchor="middle" class="label">3. Execute Tools</text>
+  <text x="1070" y="670" text-anchor="middle" class="label">4. Iterate</text>
+  <text x="1180" y="670" text-anchor="middle" class="label">5. Complete</text>
 
   <!-- Arrow from State to Agents -->
-  <path d="M 700 385 L 700 470" class="arrow"/>
+  <path d="M 700 490 L 700 560" class="arrow"/>
 
   <!-- Layer 4: Core Services -->
-  <rect x="50" y="640" width="1300" height="200" class="core-layer" rx="10"/>
-  <text x="700" y="665" text-anchor="middle" class="layer-title">Layer 4: Core Services (LLM Integration & Knowledge Retrieval)</text>
+  <rect x="50" y="730" width="1300" height="200" class="core-layer" rx="10"/>
+  <text x="700" y="845" text-anchor="middle" class="layer-title">Layer 4: Core Services (LLM Integration & Knowledge Retrieval)</text>
 
   <!-- LLM Manager -->
-  <rect x="100" y="690" width="360" height="130" class="component-box"/>
-  <text x="280" y="710" text-anchor="middle" class="component-title">LLM Manager</text>
+  <rect x="100" y="780" width="360" height="130" class="component-box"/>
+  <text x="280" y="800" text-anchor="middle" class="component-title">LLM Manager</text>
 
-  <rect x="120" y="725" width="100" height="40" class="sub-component"/>
-  <text x="170" y="745" text-anchor="middle" class="label">OpenAI</text>
-  <text x="170" y="758" text-anchor="middle" class="label" font-size="9">GPT-4, GPT-4o</text>
+  <rect x="120" y="815" width="100" height="40" class="sub-component"/>
+  <text x="170" y="835" text-anchor="middle" class="label">OpenAI</text>
+  <text x="170" y="848" text-anchor="middle" class="label" font-size="9">GPT-4, GPT-4o</text>
 
-  <rect x="230" y="725" width="100" height="40" class="sub-component"/>
-  <text x="280" y="745" text-anchor="middle" class="label">Anthropic</text>
-  <text x="280" y="758" text-anchor="middle" class="label" font-size="9">Claude 3.5</text>
+  <rect x="230" y="815" width="100" height="40" class="sub-component"/>
+  <text x="280" y="835" text-anchor="middle" class="label">Anthropic</text>
+  <text x="280" y="848" text-anchor="middle" class="label" font-size="9">Claude 3.5</text>
 
-  <rect x="340" y="725" width="100" height="40" class="sub-component"/>
-  <text x="390" y="745" text-anchor="middle" class="label">Google</text>
-  <text x="390" y="758" text-anchor="middle" class="label" font-size="9">Gemini 1.5</text>
+  <rect x="340" y="815" width="100" height="40" class="sub-component"/>
+  <text x="390" y="835" text-anchor="middle" class="label">Google</text>
+  <text x="390" y="848" text-anchor="middle" class="label" font-size="9">Gemini 1.5</text>
 
-  <rect x="120" y="775" width="100" height="35" class="sub-component"/>
-  <text x="170" y="795" text-anchor="middle" class="label">Azure</text>
+  <rect x="120" y="865" width="100" height="35" class="sub-component"/>
+  <text x="170" y="885" text-anchor="middle" class="label">Azure</text>
 
-  <rect x="230" y="775" width="210" height="35" class="sub-component"/>
-  <text x="335" y="795" text-anchor="middle" class="label">Local (Unsloth)</text>
-  <text x="335" y="805" text-anchor="middle" class="label" font-size="9">Llama, Phi, Qwen, Mistral</text>
+  <rect x="230" y="865" width="210" height="35" class="sub-component"/>
+  <text x="335" y="885" text-anchor="middle" class="label">Local (Unsloth)</text>
+  <text x="335" y="985" text-anchor="middle" class="label" font-size="9">Llama, Phi, Qwen, Mistral</text>
 
   <!-- RAG Engine -->
-  <rect x="490" y="690" width="420" height="130" class="component-box"/>
-  <text x="700" y="710" text-anchor="middle" class="component-title">RAG Engine (Knowledge Retrieval)</text>
+  <rect x="490" y="780" width="420" height="130" class="component-box"/>
+  <text x="700" y="800" text-anchor="middle" class="component-title">RAG Engine (Knowledge Retrieval)</text>
 
-  <rect x="510" y="725" width="180" height="40" class="sub-component"/>
-  <text x="600" y="740" text-anchor="middle" class="label">Document Ingestion</text>
-  <text x="600" y="755" text-anchor="middle" class="label" font-size="9">PDF, URL, Text</text>
+  <rect x="510" y="815" width="180" height="40" class="sub-component"/>
+  <text x="600" y="830" text-anchor="middle" class="label">Document Ingestion</text>
+  <text x="600" y="845" text-anchor="middle" class="label" font-size="9">PDF, URL, Text</text>
 
-  <rect x="510" y="775" width="180" height="35" class="sub-component"/>
-  <text x="600" y="795" text-anchor="middle" class="label">Chunking & Embedding</text>
+  <rect x="510" y="865" width="180" height="35" class="sub-component"/>
+  <text x="600" y="885" text-anchor="middle" class="label">Chunking & Embedding</text>
 
-  <rect x="710" y="725" width="180" height="40" class="sub-component"/>
-  <text x="800" y="740" text-anchor="middle" class="label">Vector Search (FAISS)</text>
-  <text x="800" y="755" text-anchor="middle" class="label" font-size="9">Cosine Similarity</text>
+  <rect x="710" y="815" width="180" height="40" class="sub-component"/>
+  <text x="800" y="830" text-anchor="middle" class="label">Vector Search (FAISS)</text>
+  <text x="800" y="845" text-anchor="middle" class="label" font-size="9">Cosine Similarity</text>
 
-  <rect x="710" y="775" width="180" height="35" class="sub-component"/>
-  <text x="800" y="795" text-anchor="middle" class="label">Top-K Retrieval</text>
+  <rect x="710" y="865" width="180" height="35" class="sub-component"/>
+  <text x="800" y="885" text-anchor="middle" class="label">Top-K Retrieval</text>
 
   <!-- Preprocessing -->
-  <rect x="940" y="690" width="310" height="130" class="component-box"/>
-  <text x="1095" y="710" text-anchor="middle" class="component-title">Text Preprocessing</text>
+  <rect x="940" y="780" width="310" height="130" class="component-box"/>
+  <text x="1095" y="800" text-anchor="middle" class="component-title">Text Preprocessing</text>
 
-  <rect x="960" y="725" width="135" height="40" class="sub-component"/>
-  <text x="1027" y="740" text-anchor="middle" class="label">PHI Redaction</text>
-  <text x="1027" y="755" text-anchor="middle" class="label" font-size="9">Dates, Names, IDs</text>
+  <rect x="960" y="815" width="135" height="40" class="sub-component"/>
+  <text x="1027" y="830" text-anchor="middle" class="label">PHI Redaction</text>
+  <text x="1027" y="845" text-anchor="middle" class="label" font-size="9">Dates, Names, IDs</text>
 
-  <rect x="1105" y="725" width="125" height="40" class="sub-component"/>
-  <text x="1167" y="740" text-anchor="middle" class="label">Pattern Norm.</text>
-  <text x="1167" y="755" text-anchor="middle" class="label" font-size="9">Regex Rules</text>
+  <rect x="1105" y="815" width="125" height="40" class="sub-component"/>
+  <text x="1167" y="830" text-anchor="middle" class="label">Pattern Norm.</text>
+  <text x="1167" y="845" text-anchor="middle" class="label" font-size="9">Regex Rules</text>
 
-  <rect x="960" y="775" width="270" height="35" class="sub-component"/>
-  <text x="1095" y="795" text-anchor="middle" class="label">Batch Preprocessing (15-25% faster)</text>
+  <rect x="960" y="865" width="270" height="35" class="sub-component"/>
+  <text x="1095" y="885" text-anchor="middle" class="label">Batch Preprocessing (15-25% faster)</text>
 
   <!-- Arrows from Agents to Core -->
-  <path d="M 280 595 L 280 690" class="arrow"/>
-  <path d="M 700 595 L 700 690" class="arrow"/>
-  <path d="M 1095 595 L 1095 690" class="arrow"/>
+  <path d="M 280 685 L 280 780" class="arrow"/>
+  <path d="M 700 700 L 700 780" class="arrow"/>
+  <path d="M 1095 685 L 1095 780" class="arrow"/>
 
   <!-- Layer 5: Tool Systems -->
-  <rect x="50" y="870" width="1300" height="240" class="tools-layer" rx="10"/>
-  <text x="700" y="895" text-anchor="middle" class="layer-title">Layer 5: Tool Systems (Domain Knowledge & Medical Functions)</text>
+  <rect x="50" y="960" width="1300" height="240" class="tools-layer" rx="10"/>
+  <text x="700" y="985" text-anchor="middle" class="layer-title">Layer 5: Tool Systems (Domain Knowledge & Medical Functions)</text>
 
   <!-- Function Registry -->
-  <rect x="100" y="920" width="360" height="170" class="component-box"/>
-  <text x="280" y="940" text-anchor="middle" class="component-title">Function Registry (40+ Functions)</text>
+  <rect x="100" y="1100" width="360" height="170" class="component-box"/>
+  <text x="280" y="1030" text-anchor="middle" class="component-title">Function Registry (40+ Functions)</text>
 
-  <rect x="120" y="960" width="155" height="40" class="sub-component"/>
-  <text x="197" y="975" text-anchor="middle" class="label">Anthropometry</text>
-  <text x="197" y="990" text-anchor="middle" class="label" font-size="9">BMI, BSA, IBW, Z-scores</text>
+  <rect x="120" y="1050" width="155" height="40" class="sub-component"/>
+  <text x="197" y="1065" text-anchor="middle" class="label">Anthropometry</text>
+  <text x="197" y="1080" text-anchor="middle" class="label" font-size="9">BMI, BSA, IBW, Z-scores</text>
 
-  <rect x="285" y="960" width="155" height="40" class="sub-component"/>
-  <text x="362" y="975" text-anchor="middle" class="label">Clinical Scores</text>
-  <text x="362" y="990" text-anchor="middle" class="label" font-size="9">HEART, TIMI, PHQ-9</text>
+  <rect x="285" y="1050" width="155" height="40" class="sub-component"/>
+  <text x="362" y="1065" text-anchor="middle" class="label">Clinical Scores</text>
+  <text x="362" y="1080" text-anchor="middle" class="label" font-size="9">HEART, TIMI, PHQ-9</text>
 
-  <rect x="120" y="1010" width="155" height="40" class="sub-component"/>
-  <text x="197" y="1025" text-anchor="middle" class="label">Lab Calculations</text>
-  <text x="197" y="1040" text-anchor="middle" class="label" font-size="9">Corrected Ca, CrCl</text>
+  <rect x="120" y="1100" width="155" height="40" class="sub-component"/>
+  <text x="197" y="1115" text-anchor="middle" class="label">Lab Calculations</text>
+  <text x="197" y="1130" text-anchor="middle" class="label" font-size="9">Corrected Ca, CrCl</text>
 
-  <rect x="285" y="1010" width="155" height="40" class="sub-component"/>
-  <text x="362" y="1025" text-anchor="middle" class="label">Unit Conversions</text>
-  <text x="362" y="1040" text-anchor="middle" class="label" font-size="9">kg/lbs, cm/inches</text>
+  <rect x="285" y="1100" width="155" height="40" class="sub-component"/>
+  <text x="362" y="1115" text-anchor="middle" class="label">Unit Conversions</text>
+  <text x="362" y="1130" text-anchor="middle" class="label" font-size="9">kg/lbs, cm/inches</text>
 
-  <rect x="120" y="1060" width="320" height="20" class="sub-component"/>
-  <text x="280" y="1073" text-anchor="middle" class="label" font-size="9">Thread-safe, Composable, Recursive-safe</text>
+  <rect x="120" y="1150" width="320" height="20" class="sub-component"/>
+  <text x="280" y="1163" text-anchor="middle" class="label" font-size="9">Thread-safe, Composable, Recursive-safe</text>
 
   <!-- Regex Preprocessor -->
-  <rect x="490" y="920" width="260" height="170" class="component-box"/>
-  <text x="620" y="940" text-anchor="middle" class="component-title">Patterns (33+ Rules)</text>
+  <rect x="490" y="1100" width="260" height="170" class="component-box"/>
+  <text x="620" y="1030" text-anchor="middle" class="component-title">Patterns (33+ Rules)</text>
 
-  <rect x="510" y="960" width="220" height="30" class="sub-component"/>
+  <rect x="510" y="1050" width="220" height="30" class="sub-component"/>
   <text x="620" y="978" text-anchor="middle" class="label">Vital Signs: BP, HR, RR, SpO2</text>
 
   <rect x="510" y="1000" width="220" height="30" class="sub-component"/>
   <text x="620" y="1018" text-anchor="middle" class="label">Lab Values: Glucose, HbA1c</text>
 
-  <rect x="510" y="1040" width="220" height="30" class="sub-component"/>
+  <rect x="510" y="1130" width="220" height="30" class="sub-component"/>
   <text x="620" y="1058" text-anchor="middle" class="label">Medications: Dosing, Routes</text>
 
   <!-- Extras Manager -->
-  <rect x="780" y="920" width="470" height="170" class="component-box"/>
-  <text x="1015" y="940" text-anchor="middle" class="component-title">Extras Manager (49+ Clinical Hints)</text>
+  <rect x="780" y="1100" width="470" height="170" class="component-box"/>
+  <text x="1015" y="1030" text-anchor="middle" class="component-title">Extras Manager (49+ Clinical Hints)</text>
 
-  <rect x="800" y="960" width="200" height="30" class="sub-component"/>
+  <rect x="800" y="1050" width="200" height="30" class="sub-component"/>
   <text x="900" y="978" text-anchor="middle" class="label">Growth Standards (WHO, CDC)</text>
 
-  <rect x="1010" y="960" width="220" height="30" class="sub-component"/>
+  <rect x="1010" y="1050" width="220" height="30" class="sub-component"/>
   <text x="1120" y="978" text-anchor="middle" class="label">Malnutrition Criteria (ASPEN)</text>
 
   <rect x="800" y="1000" width="200" height="30" class="sub-component"/>
@@ -275,105 +284,105 @@
   <rect x="1010" y="1000" width="220" height="30" class="sub-component"/>
   <text x="1120" y="1018" text-anchor="middle" class="label">Assessment Scales</text>
 
-  <rect x="800" y="1040" width="430" height="40" class="sub-component"/>
+  <rect x="800" y="1130" width="430" height="40" class="sub-component"/>
   <text x="1015" y="1055" text-anchor="middle" class="label">Keyword-Based Matching</text>
   <text x="1015" y="1070" text-anchor="middle" class="label" font-size="9">Matches schema fields & task requirements (NOT input text)</text>
 
   <!-- Arrows from Core to Tools -->
-  <path d="M 280 840 L 280 920" class="dashed-arrow"/>
-  <path d="M 620 840 L 620 920" class="dashed-arrow"/>
-  <path d="M 1015 840 L 1015 920" class="dashed-arrow"/>
+  <path d="M 280 910 L 280 1010" class="dashed-arrow"/>
+  <path d="M 620 910 L 620 1010" class="dashed-arrow"/>
+  <path d="M 1015 910 L 1015 1010" class="dashed-arrow"/>
 
   <!-- Layer 6: Optimization & Performance -->
-  <rect x="50" y="1140" width="1300" height="160" class="optimization-layer" rx="10"/>
-  <text x="700" y="1165" text-anchor="middle" class="layer-title">Layer 6: Optimization & Performance (Production-Ready Features)</text>
+  <rect x="50" y="1320" width="1300" height="160" class="optimization-layer" rx="10"/>
+  <text x="700" y="1345" text-anchor="middle" class="layer-title">Layer 6: Optimization & Performance (Production-Ready Features)</text>
 
   <!-- LLM Cache -->
-  <rect x="100" y="1190" width="250" height="90" class="component-box"/>
-  <text x="225" y="1210" text-anchor="middle" class="component-title">LLM Response Cache</text>
-  <text x="225" y="1230" text-anchor="middle" class="label">SQLite Database</text>
-  <text x="225" y="1245" text-anchor="middle" class="label">400x Faster on Hits</text>
-  <text x="225" y="1260" text-anchor="middle" class="label">Auto-Invalidation</text>
-  <text x="225" y="1275" text-anchor="middle" class="label" font-size="10">Hash: prompt + model + config</text>
+  <rect x="100" y="1280" width="250" height="90" class="component-box"/>
+  <text x="225" y="1300" text-anchor="middle" class="component-title">LLM Response Cache</text>
+  <text x="225" y="1320" text-anchor="middle" class="label">SQLite Database</text>
+  <text x="225" y="1425" text-anchor="middle" class="label">400x Faster on Hits</text>
+  <text x="225" y="1350" text-anchor="middle" class="label">Auto-Invalidation</text>
+  <text x="225" y="1365" text-anchor="middle" class="label" font-size="10">Hash: prompt + model + config</text>
 
   <!-- Parallel Processor -->
-  <rect x="370" y="1190" width="300" height="90" class="component-box"/>
-  <text x="520" y="1210" text-anchor="middle" class="component-title">Parallel Processing</text>
-  <text x="470" y="1235" text-anchor="middle" class="label">ThreadPoolExecutor</text>
-  <text x="470" y="1255" text-anchor="middle" class="label" font-size="10">(Cloud APIs)</text>
-  <text x="470" y="1270" text-anchor="middle" class="label" font-size="10">5-10x speedup</text>
+  <rect x="370" y="1280" width="300" height="90" class="component-box"/>
+  <text x="520" y="1300" text-anchor="middle" class="component-title">Parallel Processing</text>
+  <text x="470" y="1325" text-anchor="middle" class="label">ThreadPoolExecutor</text>
+  <text x="470" y="1345" text-anchor="middle" class="label" font-size="10">(Cloud APIs)</text>
+  <text x="470" y="1450" text-anchor="middle" class="label" font-size="10">5-10x speedup</text>
 
-  <text x="590" y="1235" text-anchor="middle" class="label">ProcessPoolExecutor</text>
-  <text x="590" y="1255" text-anchor="middle" class="label" font-size="10">(Local Multi-GPU)</text>
-  <text x="590" y="1270" text-anchor="middle" class="label" font-size="10">2-4x speedup</text>
+  <text x="590" y="1325" text-anchor="middle" class="label">ProcessPoolExecutor</text>
+  <text x="590" y="1345" text-anchor="middle" class="label" font-size="10">(Local Multi-GPU)</text>
+  <text x="590" y="1450" text-anchor="middle" class="label" font-size="10">2-4x speedup</text>
 
   <!-- Adaptive Retry -->
-  <rect x="690" y="1190" width="280" height="90" class="component-box"/>
-  <text x="830" y="1210" text-anchor="middle" class="component-title">Adaptive Retry System</text>
-  <text x="830" y="1230" text-anchor="middle" class="label">Progressive Context Reduction</text>
-  <text x="830" y="1245" text-anchor="middle" class="label">100% → 80% → 60% → 40% → 20%</text>
-  <text x="830" y="1260" text-anchor="middle" class="label">Minimal Prompt Fallback</text>
-  <text x="830" y="1275" text-anchor="middle" class="label" font-size="10">Exponential Backoff</text>
+  <rect x="690" y="1280" width="280" height="90" class="component-box"/>
+  <text x="830" y="1300" text-anchor="middle" class="component-title">Adaptive Retry System</text>
+  <text x="830" y="1320" text-anchor="middle" class="label">Progressive Context Reduction</text>
+  <text x="830" y="1425" text-anchor="middle" class="label">100% → 80% → 60% → 40% → 20%</text>
+  <text x="830" y="1350" text-anchor="middle" class="label">Minimal Prompt Fallback</text>
+  <text x="830" y="1365" text-anchor="middle" class="label" font-size="10">Exponential Backoff</text>
 
   <!-- Performance Monitor -->
-  <rect x="990" y="1190" width="260" height="90" class="component-box"/>
-  <text x="1120" y="1210" text-anchor="middle" class="component-title">Performance Monitoring</text>
-  <text x="1120" y="1230" text-anchor="middle" class="label">Operation Timing</text>
-  <text x="1120" y="1245" text-anchor="middle" class="label">Metrics Collection</text>
-  <text x="1120" y="1260" text-anchor="middle" class="label">Retry Analytics</text>
-  <text x="1120" y="1275" text-anchor="middle" class="label" font-size="10">Tool Call Tracking</text>
+  <rect x="990" y="1280" width="260" height="90" class="component-box"/>
+  <text x="1120" y="1300" text-anchor="middle" class="component-title">Performance Monitoring</text>
+  <text x="1120" y="1320" text-anchor="middle" class="label">Operation Timing</text>
+  <text x="1120" y="1425" text-anchor="middle" class="label">Metrics Collection</text>
+  <text x="1120" y="1350" text-anchor="middle" class="label">Retry Analytics</text>
+  <text x="1120" y="1365" text-anchor="middle" class="label" font-size="10">Tool Call Tracking</text>
 
   <!-- Data Flow Indicators -->
-  <text x="50" y="1340" class="component-title">Data Flow:</text>
+  <text x="50" y="1520" class="component-title">Data Flow:</text>
   <path d="M 150 1335 L 220 1335" class="arrow"/>
-  <text x="230" y="1340" class="label">Primary Flow</text>
+  <text x="230" y="1520" class="label">Primary Flow</text>
 
   <path d="M 350 1335 L 420 1335" class="dashed-arrow"/>
-  <text x="430" y="1340" class="label">Tool Access</text>
+  <text x="430" y="1520" class="label">Tool Access</text>
 
   <path d="M 550 1335 L 620 1335" class="arrow-bidirectional"/>
-  <text x="630" y="1340" class="label">Bidirectional</text>
+  <text x="630" y="1520" class="label">Bidirectional</text>
 
   <!-- Design Choices Box -->
-  <rect x="50" y="1360" width="650" height="210" class="component-box" stroke="#2c3e50" stroke-width="3"/>
-  <text x="375" y="1385" text-anchor="middle" class="component-title" font-size="16">Key Design Choices</text>
+  <rect x="50" y="1450" width="650" height="210" class="component-box" stroke="#2c3e50" stroke-width="3"/>
+  <text x="375" y="1475" text-anchor="middle" class="component-title" font-size="16">Key Design Choices</text>
 
-  <text x="70" y="1410" class="label" font-weight="bold">1. Universal Platform:</text>
-  <text x="90" y="1430" class="label">• No task-specific hardcoding - adapts via prompts & schemas</text>
-  <text x="90" y="1445" class="label">• Examples (malnutrition, MIMIC-IV) show capability, not limits</text>
+  <text x="70" y="1500" class="label" font-weight="bold">1. Universal Platform:</text>
+  <text x="90" y="1520" class="label">• No task-specific hardcoding - adapts via prompts & schemas</text>
+  <text x="90" y="1535" class="label">• Examples (malnutrition, MIMIC-IV) show capability, not limits</text>
 
-  <text x="70" y="1470" class="label" font-weight="bold">2. Dual Execution Modes:</text>
-  <text x="90" y="1490" class="label">• STRUCTURED: Predictable 4-stage pipeline (production-ready)</text>
-  <text x="90" y="1505" class="label">• ADAPTIVE: Iterative autonomous loop (complex cases)</text>
+  <text x="70" y="1560" class="label" font-weight="bold">2. Dual Execution Modes:</text>
+  <text x="90" y="1580" class="label">• STRUCTURED: Predictable 4-stage pipeline (production-ready)</text>
+  <text x="90" y="1595" class="label">• ADAPTIVE: Iterative autonomous loop (complex cases)</text>
 
-  <text x="70" y="1530" class="label" font-weight="bold">3. Performance First:</text>
-  <text x="90" y="1550" class="label">• 400x cache speedup, 60-75% async tool execution gains</text>
+  <text x="70" y="1620" class="label" font-weight="bold">3. Performance First:</text>
+  <text x="90" y="1640" class="label">• 400x cache speedup, 60-75% async tool execution gains</text>
 
   <!-- Architecture Patterns Box -->
-  <rect x="720" y="1360" width="630" height="210" class="component-box" stroke="#2c3e50" stroke-width="3"/>
-  <text x="1035" y="1385" text-anchor="middle" class="component-title" font-size="16">Architecture Patterns</text>
+  <rect x="720" y="1450" width="630" height="210" class="component-box" stroke="#2c3e50" stroke-width="3"/>
+  <text x="1035" y="1475" text-anchor="middle" class="component-title" font-size="16">Architecture Patterns</text>
 
-  <text x="740" y="1410" class="label" font-weight="bold">• Observer Pattern:</text>
+  <text x="740" y="1500" class="label" font-weight="bold">• Observer Pattern:</text>
   <text x="760" y="1425" class="label">AppState → UI reactive updates</text>
 
   <text x="740" y="1450" class="label" font-weight="bold">• Factory Pattern:</text>
   <text x="760" y="1465" class="label">Agent creation (STRUCTURED vs ADAPTIVE)</text>
 
-  <text x="740" y="1490" class="label" font-weight="bold">• Strategy Pattern:</text>
-  <text x="760" y="1505" class="label">Execution mode selection at runtime</text>
+  <text x="740" y="1580" class="label" font-weight="bold">• Strategy Pattern:</text>
+  <text x="760" y="1595" class="label">Execution mode selection at runtime</text>
 
-  <text x="740" y="1530" class="label" font-weight="bold">• Plugin Pattern:</text>
-  <text x="760" y="1545" class="label">Functions, Patterns, Extras (hot-reload)</text>
+  <text x="740" y="1620" class="label" font-weight="bold">• Plugin Pattern:</text>
+  <text x="760" y="1635" class="label">Functions, Patterns, Extras (hot-reload)</text>
 
-  <text x="1010" y="1410" class="label" font-weight="bold">• Adapter Pattern:</text>
+  <text x="1010" y="1500" class="label" font-weight="bold">• Adapter Pattern:</text>
   <text x="1030" y="1425" class="label">Unified LLM interface</text>
 
   <text x="1010" y="1450" class="label" font-weight="bold">• Singleton Pattern:</text>
   <text x="1030" y="1465" class="label">Cache, Monitor instances</text>
 
-  <text x="1010" y="1490" class="label" font-weight="bold">• Repository Pattern:</text>
-  <text x="1030" y="1505" class="label">Tool data access abstraction</text>
+  <text x="1010" y="1580" class="label" font-weight="bold">• Repository Pattern:</text>
+  <text x="1030" y="1595" class="label">Tool data access abstraction</text>
 
-  <text x="1010" y="1530" class="label" font-weight="bold">• Lazy Initialization:</text>
-  <text x="1030" y="1545" class="label">Components load on demand</text>
+  <text x="1010" y="1620" class="label" font-weight="bold">• Lazy Initialization:</text>
+  <text x="1030" y="1635" class="label">Components load on demand</text>
 </svg>
