@@ -1322,66 +1322,92 @@ This section defines HOW to use tools ITERATIVELY to gather the information you 
    - Helps understand domain concepts and best practices
    - Example: query_extras({{"keywords": ["malnutrition", "pediatric", "assessment"]}})
 
-**TASK-DRIVEN EXECUTION WORKFLOW:**
+**AUTONOMOUS TASK-DRIVEN EXECUTION WORKFLOW:**
 
-**PHASE 1 - IDENTIFY TASK REQUIREMENTS:**
-1. Read the task description above → Identify exactly which schema fields are required
-2. Read the clinical text → Extract values that can be directly copied (no tools needed)
-3. Identify which schema fields require tool calls:
-   - Fields needing calculations (e.g., schema field "bmi_zscore" → call calculate_bmi_zscore function)
-   - Fields referencing guidelines (e.g., schema field description "classify per ASPEN criteria" → call query_rag for ASPEN)
-   - DO NOT call tools for fields that can be extracted directly from text
+**PHASE 1 - UNDERSTAND REQUIREMENTS & ANALYZE DATA:**
+1. Read the task description above → Understand WHAT needs to be extracted and HOW
+2. Read the clinical text → Identify WHAT data is currently available
+3. Perform gap analysis between available data and required output:
+   - Available format vs. required format (e.g., percentile available, z-score required)
+   - Guidelines mentioned in task vs. knowledge needed (e.g., "ASPEN criteria" mentioned)
+   - Calculations needed to complete schema fields
 
-**PHASE 2 - EXECUTE REQUIRED TOOLS:**
-4. Call ONLY the tools identified as required by the task schema in Phase 1
-5. DO NOT call tools speculatively or for exploration purposes
-6. Each tool call must fulfill a specific schema field requirement
+**PHASE 2 - AUTONOMOUSLY DETERMINE & EXECUTE REQUIRED TOOLS:**
+4. Based on gap analysis, autonomously determine which tools are REQUIRED to fulfill the task:
+   - Call functions to convert/calculate (percentile → z-score, weight+height → BMI, etc.)
+   - Call RAG to retrieve guidelines/criteria mentioned in task (ASPEN, WHO, CDC, etc.)
+   - Call extras for task-related supplementary hints
+   - Call same function multiple times for serial/temporal measurements
+5. Execute all required tool calls (tools run in parallel for performance)
 
-**PHASE 3 - COMPLETE EXTRACTION:**
-7. Use tool results to fill schema fields that required calculations/retrieval
-8. Extract remaining schema fields directly from clinical text
-9. Output final JSON matching the exact schema structure
+**PHASE 3 - ASSESS & REFINE (ITERATIVE):**
+6. Review tool results and assess current extraction state
+7. Determine if additional tools would improve extraction:
+   - Would clarify ambiguous findings?
+   - Would fix inconsistencies or errors?
+   - Would ascertain missing but important details?
+   - Would improve completeness or quality?
+8. If yes: Call additional tools and return to Phase 3
+9. If no: Proceed to Phase 4
 
-🔴 CRITICAL: Follow the task description and schema requirements exactly.
-DO NOT make autonomous decisions about which tools to call.
+**PHASE 4 - COMPLETE EXTRACTION:**
+10. Use all tool results to fill schema fields
+11. Extract remaining fields directly from clinical text
+12. Output final JSON matching the exact schema structure
+
+🔴 CRITICAL: You autonomously determine which tools are REQUIRED to fulfill the task.
+Tools must serve the TASK requirements, not unrelated exploration.
 
 **CRITICAL PRINCIPLES:**
 
-- **Follow Task Definition Above**: The task description above specifies your requirements - follow them exactly
-- **Task-Required Tools Only**: Call tools ONLY when the task explicitly requires them
-- **No Exploration**: DO NOT call tools to "gather context" or "explore" - only to fulfill task requirements
-- **Multiple Tool Calls**: Call the same tool multiple times if the task requires multiple calculations
+- **Understand the Task**: Read task description to understand WHAT to extract, not just schema structure
+- **Autonomous Gap Analysis**: Analyze available data vs. required output, determine tools needed to close gaps
+- **Tools Serve the Task**: Call tools that are REQUIRED to fulfill task, not for unrelated exploration
+- **Iterative Refinement**: After initial tools, assess if additional tools would clarify/fix/improve extraction
+- **Multiple Tool Calls**: Call same function multiple times for serial measurements or different parameters
 - **Parallel Execution**: Tools execute in parallel (async) for performance - request multiple at once when possible
-- **Support Ground Truth**: Ensure your extraction supports the ground truth diagnosis
+- **Support Ground Truth**: Ensure extraction supports the ground truth diagnosis with evidence
 - **Complete Extraction**: Output JSON with all required schema fields filled
 
-**EXAMPLE TASK-DRIVEN EXECUTION:**
+**EXAMPLE AUTONOMOUS TASK-DRIVEN EXECUTION:**
 
 ```
-[PHASE 1 - Identify Task Requirements]
-"Reading task description: Task requires 'growth_and_anthropometrics' field"
-"Task says: 'Validate z-score signs. WHO/ASPEN criteria with specific values.'"
-"Task says: 'Call tools ONLY to: (1) calculate missing z-scores'"
+[PHASE 1 - Understand Requirements & Analyze Data]
+"Reading task: Extract malnutrition assessment with growth anthropometrics per ASPEN criteria"
+"Schema requires: growth_and_anthropometrics field with z-scores and ASPEN classification"
 "Clinical text shows: 3-year-old, weight 12.5kg (10th percentile), height 92cm (25th percentile)"
 
-"Required tools based on task:"
-"- Task requires z-scores → need to convert percentiles"
-"- Task mentions 'WHO/ASPEN criteria' → need to retrieve ASPEN guidelines"
+"Gap analysis:"
+"- Available: percentiles (10th, 25th)"
+"- Required: z-scores"
+"- Gap: Need to convert percentile → z-score"
+"- Task mentions 'ASPEN criteria' but I need the actual criteria to apply"
+"- Gap: Need to retrieve ASPEN classification guidelines"
 
-→ Call: call_percentile_to_zscore({{"percentile": 10}})
-→ Call: call_percentile_to_zscore({{"percentile": 25}})
-→ Call: query_rag("ASPEN pediatric malnutrition classification criteria", "Task requires ASPEN criteria")
+[PHASE 2 - Autonomously Determine & Execute Tools]
+"Based on gap analysis, I need these tools:"
+→ Call: call_percentile_to_zscore({{"percentile": 10}})  # Convert weight percentile
+→ Call: call_percentile_to_zscore({{"percentile": 25}})  # Convert height percentile
+→ Call: query_rag("ASPEN pediatric malnutrition classification criteria z-scores", "Need ASPEN criteria to classify")
 
-[Tools return: 10th percentile = -1.28 z-score, 25th percentile = -0.67 z-score, ASPEN criteria]
+[Tools return: 10th %ile = -1.28 z-score, 25th %ile = -0.67 z-score, ASPEN criteria retrieved]
 
-[PHASE 2 - Execute Required Tools]
-"Tool results received. All task-required tools have been called."
+[PHASE 3 - Assess & Refine]
+"Reviewing results:"
+"- Have z-scores: weight -1.28, height -0.67"
+"- Have ASPEN criteria from RAG"
+"- Can now classify per ASPEN (mild risk based on z-scores)"
 
-[PHASE 3 - Complete Extraction]
-"Mapping results to schema fields:"
-"- growth_and_anthropometrics: Using z-scores (-1.28, -0.67) and ASPEN criteria from RAG"
-"- Extracting other fields directly from clinical text"
-"- All schema fields filled per task requirements"
+"Do I need additional tools to improve extraction?"
+"- Text mentions 'poor intake' but no quantification → Could query RAG for intake assessment criteria"
+"- Text has exam findings that support malnutrition → Sufficient for classification"
+"Decision: Have sufficient information to complete task"
+
+[PHASE 4 - Complete Extraction]
+"Mapping results to schema:"
+"- growth_and_anthropometrics: Weight z-score -1.28 (mild risk per ASPEN), Height z-score -0.67 (normal)"
+"- diagnosis: Mild malnutrition risk per ASPEN anthropometric criteria"
+"- All required fields complete"
 
 → Output JSON
 ```

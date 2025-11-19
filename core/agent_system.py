@@ -1375,11 +1375,12 @@ Return ONLY JSON for the selected fields."""
         prompt = f"""You are a tool planning assistant. Your job is to read the TASK DESCRIPTION below and identify which tools are needed to fulfill it.
 
 🔴 CRITICAL INSTRUCTIONS:
-- You MUST follow the TASK DESCRIPTION exactly
-- Call tools ONLY to fulfill what the task explicitly requires
-- DO NOT make independent decisions about what tools to call
-- DO NOT call tools for exploration or "just in case"
-- The task description defines WHAT to extract and WHEN to use tools
+- Read the TASK DESCRIPTION to understand WHAT needs to be extracted
+- Analyze the CLINICAL TEXT to identify available data
+- Autonomously DETERMINE which tools are REQUIRED to fulfill the task
+- Call tools to transform available data into required format (e.g., percentile → z-score)
+- Call tools to retrieve guidelines/criteria mentioned in task (e.g., ASPEN, WHO)
+- DO NOT call tools unrelated to the task requirements (no exploration beyond task scope)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 TASK DESCRIPTION (Follow this exactly)
