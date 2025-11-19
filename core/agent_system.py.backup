@@ -1372,15 +1372,10 @@ Return ONLY JSON for the selected fields."""
         # Get schema as JSON string for analysis
         schema_json = json.dumps(self.app_state.prompt_config.json_schema, indent=2)
 
-        prompt = f"""You are a tool planning assistant. Your job is to read the TASK DESCRIPTION below and identify which tools are needed to fulfill it.
+        prompt = f"""You are an intelligent agent analyzing a clinical data extraction task to determine which tools to use.
 
-🔴 CRITICAL INSTRUCTIONS:
-- Read the TASK DESCRIPTION to understand WHAT needs to be extracted
-- Analyze the CLINICAL TEXT to identify available data
-- Autonomously DETERMINE which tools are REQUIRED to fulfill the task
-- Call tools to transform available data into required format (e.g., percentile → z-score)
-- Call tools to retrieve guidelines/criteria mentioned in task (e.g., ASPEN, WHO)
-- DO NOT call tools unrelated to the task requirements (no exploration beyond task scope)
+ UNIVERSAL SYSTEM: This works for ANY clinical task (not just the examples shown below).
+The examples are illustrative - adapt your strategy to the specific task defined in the schema.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 TASK DESCRIPTION (Follow this exactly)
