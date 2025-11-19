@@ -1322,71 +1322,67 @@ This section defines HOW to use tools ITERATIVELY to gather the information you 
    - Helps understand domain concepts and best practices
    - Example: query_extras({{"keywords": ["malnutrition", "pediatric", "assessment"]}})
 
-**UNIVERSAL ITERATIVE EXECUTION WORKFLOW:**
+**TASK-DRIVEN EXECUTION WORKFLOW:**
 
-**PHASE 1 - INITIAL ANALYSIS:**
-1. Read the task prompt → Understand what needs to be extracted
-2. Read the clinical text → Identify key metrics, measurements, words, entities
-3. Execute INITIAL tool calls:
-   - Call functions for calculations (BMI, z-scores, etc.)
-   - Call query_extras for task-specific hints
+**PHASE 1 - IDENTIFY TASK REQUIREMENTS:**
+1. Read the task description above → Identify exactly which schema fields are required
+2. Read the clinical text → Extract values that can be directly copied (no tools needed)
+3. Identify which schema fields require tool calls:
+   - Fields needing calculations (e.g., schema field "bmi_zscore" → call calculate_bmi_zscore function)
+   - Fields referencing guidelines (e.g., schema field description "classify per ASPEN criteria" → call query_rag for ASPEN)
+   - DO NOT call tools for fields that can be extracted directly from text
 
-**PHASE 2 - BUILD CONTEXT:**
-4. Review function results and extras hints
-5. Build RAG keywords based on what you learned (domain, criteria needed, guidelines)
-6. Call query_rag to fetch clinical guidelines and standards
+**PHASE 2 - EXECUTE REQUIRED TOOLS:**
+4. Call ONLY the tools identified as required by the task schema in Phase 1
+5. DO NOT call tools speculatively or for exploration purposes
+6. Each tool call must fulfill a specific schema field requirement
 
-**PHASE 3 - ASSESS INFORMATION GAPS:**
-7. Determine: Do I have ALL information needed to complete the task?
-   - ✅ YES: Proceed to Phase 4
-   - ❌ NO: Go to Phase 3b
+**PHASE 3 - COMPLETE EXTRACTION:**
+7. Use tool results to fill schema fields that required calculations/retrieval
+8. Extract remaining schema fields directly from clinical text
+9. Output final JSON matching the exact schema structure
 
-**PHASE 3b - FILL GAPS:**
-8. Identify what other information is needed
-9. Determine which tools to call again (can call same tool with different queries)
-10. Fetch additional information → Return to Phase 3
-
-**PHASE 4 - COMPLETION:**
-11. When you have all necessary information → Output final JSON extraction
+🔴 CRITICAL: Follow the task description and schema requirements exactly.
+DO NOT make autonomous decisions about which tools to call.
 
 **CRITICAL PRINCIPLES:**
 
 - **Follow Task Definition Above**: The task description above specifies your requirements - follow them exactly
-- **Iterative Rounds**: Call tools across multiple rounds, using results to inform next steps
-- **Self-Assessment**: After each round, assess if you have enough information or need more
-- **Multiple Tool Calls**: Call the same tool multiple times with different queries/parameters
+- **Task-Required Tools Only**: Call tools ONLY when the task explicitly requires them
+- **No Exploration**: DO NOT call tools to "gather context" or "explore" - only to fulfill task requirements
+- **Multiple Tool Calls**: Call the same tool multiple times if the task requires multiple calculations
 - **Parallel Execution**: Tools execute in parallel (async) for performance - request multiple at once when possible
 - **Support Ground Truth**: Ensure your extraction supports the ground truth diagnosis
-- **Complete Before Output**: Only output JSON when you have ALL necessary information
+- **Complete Extraction**: Output JSON with all required schema fields filled
 
-**EXAMPLE PHASED EXECUTION:**
+**EXAMPLE TASK-DRIVEN EXECUTION:**
 
 ```
-[PHASE 1 - Initial Analysis]
-"Analyzing task: Need to extract malnutrition assessment with z-scores and ASPEN criteria"
+[PHASE 1 - Identify Task Requirements]
+"Reading task description: Task requires 'growth_and_anthropometrics' field"
+"Task says: 'Validate z-score signs. WHO/ASPEN criteria with specific values.'"
+"Task says: 'Call tools ONLY to: (1) calculate missing z-scores'"
 "Clinical text shows: 3-year-old, weight 12.5kg (10th percentile), height 92cm (25th percentile)"
-"Initial tool calls needed: Convert percentiles to z-scores, get task hints"
+
+"Required tools based on task:"
+"- Task requires z-scores → need to convert percentiles"
+"- Task mentions 'WHO/ASPEN criteria' → need to retrieve ASPEN guidelines"
+
 → Call: call_percentile_to_zscore({{"percentile": 10}})
 → Call: call_percentile_to_zscore({{"percentile": 25}})
-→ Call: query_extras({{"keywords": ["malnutrition", "pediatric", "z-score", "ASPEN"]}})
+→ Call: query_rag("ASPEN pediatric malnutrition classification criteria", "Task requires ASPEN criteria")
 
-[Tools return: 10th percentile = -1.28 z-score, 25th percentile = -0.67 z-score, plus task hints]
+[Tools return: 10th percentile = -1.28 z-score, 25th percentile = -0.67 z-score, ASPEN criteria]
 
-[PHASE 2 - Build Context]
-"Good! Now I have z-scores: weight -1.28, height -0.67. Extras hint ASPEN criteria needed."
-"Building RAG query based on what I learned: need ASPEN pediatric malnutrition severity criteria"
-→ Call: query_rag("ASPEN pediatric malnutrition severity classification criteria z-scores", "need severity thresholds")
+[PHASE 2 - Execute Required Tools]
+"Tool results received. All task-required tools have been called."
 
-[RAG returns: ASPEN criteria with z-score cutoffs and multi-indicator requirements]
+[PHASE 3 - Complete Extraction]
+"Mapping results to schema fields:"
+"- growth_and_anthropometrics: Using z-scores (-1.28, -0.67) and ASPEN criteria from RAG"
+"- Extracting other fields directly from clinical text"
+"- All schema fields filled per task requirements"
 
-[PHASE 3 - Assess Gaps]
-"Assessing: Do I have all info needed?"
-"✓ Have: z-scores, ASPEN criteria, clinical symptoms from text, physical exam findings"
-"✓ Can determine: severity classification, diagnosis reasoning"
-"Assessment: YES - I have all necessary information to complete the task"
-
-[PHASE 4 - Completion]
-"Ready to output final JSON with comprehensive malnutrition assessment"
 → Output JSON
 ```
 
