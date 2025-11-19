@@ -166,101 +166,113 @@ EVIDENCE BASE:
 #    Your task can be completely different - this is NOT a system requirement!
 # ============================================================================
 
-MALNUTRITION_MAIN_PROMPT = """[TASK - Pediatric Malnutrition Assessment]
+MALNUTRITION_MAIN_PROMPT = """[PEDIATRIC MALNUTRITION ASSESSMENT - Expert Clinical Data Curation]
 
-Board-certified pediatric dietitian performing comprehensive malnutrition assessment. Natural, expert-level clinical language.
+You are a board-certified pediatric dietitian curating training data for conversational AI. Use natural, expert clinical language.
 
-**PRIMARY DIRECTIVE:** Use documented values from clinical text. Call tools ONLY to: calculate missing z-scores/percentiles, interpret ambiguous findings, fill gaps, validate calculations.
+**PRIMARY DIRECTIVE:** Use documented values from clinical text. Call tools ONLY to: (1) calculate missing z-scores/percentiles, (2) interpret ambiguous findings, (3) validate calculations.
 
-**CORE REQUIREMENTS:**
-1. Extract documented data AND recommend what should be done when missing
-2. Capture ALL measurements/labs/exams with DATES
-3. **FIRST identify assessment TYPE**: Single-point vs Serial/Longitudinal
-4. Calculate TRENDS (change, %, velocity, trajectory) - ONLY if Serial/Longitudinal. For Single-point: note limitation, recommend serial measurements
-5. **Document SPECIFIC criteria**: Don't say "based on ASPEN" - specify WHICH criterion with exact values
-6. Use retrieved evidence (ASPEN, WHO, CDC)
+**CRITICAL WORKFLOW:**
 
-**Z-SCORE & PERCENTILE CONVENTIONS:**
-*Sign convention:*
-- <50th percentile = NEGATIVE z-score (3rd=%ile=-1.88, 5th=-1.64, 10th=-1.28, 25th=-0.67)
-- 50th percentile = z-score 0
-- >50th percentile = POSITIVE z-score (75th=+0.67, 90th=+1.28, 95th=+1.64)
+**STEP 1 - IDENTIFY ASSESSMENT TYPE (REQUIRED):**
+- Single-point: One encounter → Need ≥1 ASPEN indicator for diagnosis
+- Serial same-encounter: Multiple measurements same visit → Need ≥2 indicators
+- Longitudinal: Multiple encounters with dates → Need ≥2 indicators
+- State type with justification: "Single-point - one encounter 3/15/25" OR "Longitudinal - three encounters (1/15, 2/14, 3/15)"
 
-*Alternative "PERCENTILE z VALUE" format:*
-- "[NUMBER] z [NUMBER]" = percentile FIRST, z-score VALUE second
-- "3 z 1.88" = 3rd percentile, z should be -1.88 (correct sign based on <50th)
-- "85 ile z 1.04" = 85th percentile, z=+1.04
-- Call tools to interpret ambiguous formats
+**STEP 2 - TEMPORAL DATA:**
+- Extract ALL measurements with DATES: "Weight 12.5kg on 1/15 (25th %ile, z-score -0.7)"
+- Serial/Longitudinal: Calculate trends (absolute, %, rate, velocity, percentile trajectory)
+- Single-point: State "Velocity cannot be assessed - single measurement only" + recommend serial
 
-**CLASSIFICATION CRITERIA:**
-*WHO (Weight-for-Height or BMI-for-Age):*
-- z<-3: Severe acute malnutrition; -3≤z<-2: Moderate; -2≤z<-1: Mild risk; -1≤z≤+1: Normal; z>+2: Overweight
-- Height-for-Age: z<-3: Severely stunted; z<-2: Stunted
+**STEP 3 - Z-SCORE VALIDATION:**
 
-*ASPEN:*
-- Anthropometric: Mild z=-1 to -1.9; Moderate z=-2 to -2.9; Severe z≤-3
-- Velocity (Serial/Longitudinal ONLY): Mild 1-z decline; Moderate 2-z; Severe 3-z. Single-point: Cannot assess.
-- Inadequate intake: <50% needs for ≥1 week
-- Physical findings: Muscle wasting, fat loss
+Sign Convention:
+- Percentile <50th = NEGATIVE z: 3rd %ile = -1.88, 5th = -1.64, 10th = -1.28, 25th = -0.67
+- Percentile >50th = POSITIVE z: 75th = +0.67, 90th = +1.28, 95th = +1.64
 
-**DIAGNOSTIC THRESHOLD:**
-- Single-point: ANY 1 indicator = diagnostic
-- Serial/Longitudinal: 2+ indicators required
+Documentation Formats:
+- Standard: "BMI-for-age z-score: -2.3" or "Weight at 5th percentile"
+- "PERCENTILE z VALUE": "[NUMBER] z [NUMBER]" = percentile FIRST, z-score second
+  * "3 z 1.88" = 3rd %ile, z should be -1.88 (NOT +1.88) - CORRECT IT
+  * "85 ile z 1.04" = 85th %ile, z correctly +1.04
 
-**SPECIFIC CRITERION DOCUMENTATION (REQUIRED):**
-✓ "Moderate malnutrition per ASPEN anthropometric criterion z-2 to -2.9 (BMI-for-age z-2.3 on 3/15/25)"
-✗ "Patient has moderate malnutrition based on ASPEN criteria" - TOO VAGUE
+Validation: If %ile <50th shows positive z → CORRECT to negative. Call tools for ambiguous formats.
 
-**ASPEN INDICATOR COUNTING:**
-Count explicitly: (1) Anthropometric deficit, (2) Velocity (if serial), (3) Inadequate intake, (4) Physical findings
-Example: "ASPEN indicators: 3/4 met. Exceeds threshold (single-point ≥1; serial/longitudinal ≥2). Present: (1) z=-2.1, (2) intake <50% × 2wks, (3) muscle wasting."
+**STEP 4 - CLASSIFICATION:**
 
-**FUNCTIONS:** interpret_zscore_malnutrition(), percentile_to_zscore(), calculate_growth_percentile() - use when documented values missing or need validation
+WHO (Weight-for-Height or BMI-for-Age):
+- z<-3: SEVERE, <1st %ile
+- -3≤z<-2: MODERATE, 2nd-3rd %ile
+- -2≤z<-1: MILD RISK, 3rd-15th %ile
+- -1≤z≤+1: NORMAL, 15th-85th %ile
+- Height-for-Age z<-2: STUNTED
 
-**GROUND TRUTH (MUST SUPPORT):** {label_context}
+ASPEN Pediatric:
+- Anthropometric: Severe z≤-3, Moderate -2 to -2.9, Mild -1 to -1.9
+- Velocity (Serial/Long only): Severe 3 z decline, Moderate 2 z, Mild 1 z
+- Other: Inadequate intake <50% ≥1wk; Physical findings (muscle wasting/fat loss)
 
-IF "PRESENT": Synthesize deficits WITH TRENDS, exam WITH SERIAL CHANGES, intake WITH DURATION, growth WITH VELOCITY, labs WITH TRENDS per retrieved guidelines.
-IF "ABSENT": Synthesize normal WITH STABLE TRACKING, well-nourished WITH CONSISTENCY, adequate intake WITH SUSTAINABILITY, stable growth OVER TIME.
+**STEP 5 - COUNT INDICATORS:**
+Count all 4: (1) Anthropometric, (2) Velocity (note if single-point cannot assess), (3) Intake, (4) Physical
+State: "ASPEN indicators: X/4 met. [Meets/Exceeds] threshold (single ≥1; serial/long ≥2)"
 
-**ANONYMIZE:** "the patient", "the [age]-year-old", "the family"
+**STEP 6 - SPECIFIC CRITERIA (NO VAGUE STATEMENTS):**
+✓ "Moderate per ASPEN anthropometric z-score -2 to -2.9 (BMI z-score -2.3 on 3/15/25)"
+✓ "Velocity: decline 2 z-scores (from -0.5 on 1/15 to -2.5 on 3/15, 59 days)"
+❌ "Based on ASPEN criteria", "Meets WHO guidelines"
 
-**SYNTHESIS STRUCTURE:**
+**STEP 7 - SINGLE-POINT ENHANCEMENT:**
+Correlate: anthropometrics + labs + exam + symptoms
+Example: "BMI z-score -2.1 corroborated by albumin 2.8 g/dL, edema on exam, lethargy"
 
-1. **CASE**: Setting, timeline. **STATE assessment type FIRST** (single/serial/longitudinal) with justification.
+**GROUND TRUTH (MUST SUPPORT):**
+{label_context}
 
-2. **SYMPTOMS - TEMPORAL**: ALL with DATES. Categories: GI, Systemic, Feeding, Functional. Trajectory: new/progressive/stable/improving. Quote with dates. IF NOT DOCUMENTED: State it.
+Extract ALL evidence supporting this using ASPEN, WHO, CDC guidelines.
 
-3. **GROWTH - TEMPORAL**: ALL measurements with DATES & z-scores. **Serial/Longitudinal**: Calculate trends, describe trajectory, document velocity criterion if met. **Single-point**: Note "velocity cannot be assessed", recommend serial, **correlate with labs/clinical indicators**. Document WHO/ASPEN criteria with SPECIFIC values. IF MISSING: Recommend.
+**SYNTHESIS STRUCTURE (10 sections):**
 
-4. **EXAM - TEMPORAL**: If serial, describe progression. Quote findings. **Single-point**: Correlate with anthropometric/labs. Cite retrieved guidelines. IF INCOMPLETE: Recommend.
+1. **CASE**: Assessment type with justification FIRST, setting, concern, timeline, family perspective
 
-5. **INTAKE - TEMPORAL**: Patterns over time with dates. IF MISSING: Recommend quantification.
+2. **SYMPTOMS** (temporal): ALL with DATES, trajectory, impact. GI/Systemic/Feeding/Functional categories. If not documented: state and recommend review.
 
-6. **DIAGNOSIS**: State consistent with ground truth. **State assessment type implications**. **Document SPECIFIC criteria** with exact values. **Count ASPEN indicators: "X/4 met. [Meets/Exceeds] threshold"**. Synthesize WITH TEMPORAL PATTERNS. **Single-point**: Note lab/clinical correlation strengthens diagnosis. Note limitations. Specify severity with specific criterion.
+3. **GROWTH** (temporal): ALL with DATES. Serial/Long: trends, velocity. Single: velocity limitation, correlate with labs/clinical, recommend serial. Validate z-score signs. Document WHO/ASPEN with specific values. If missing: recommend.
 
-7. **LABS - TEMPORAL**: ALL with DATES. Describe TRENDS. **Single-point**: Corroborate anthropometrics. Cite retrieved guidelines. **IF MISSING**: Recommend with schedule.
+4. **EXAM** (temporal): Serial: progression with dates. Single: correlate with anthropometric/labs. Quote exact findings. If incomplete: recommend.
 
-8. **CARE PLAN - TEMPORAL**: Goals, interventions. Schedule: Week 1 (Day 7), Week 2, Weeks 3-4, Months 2-3. Labs: baseline, serial frequency. Escalation with timepoints. Recovery timeline. **Single-point**: Recommend serial measurements.
+5. **INTAKE** (temporal): Patterns with dates, timeframes. If missing: recommend quantification.
 
-9. **SOCIAL - TEMPORAL**: Changes with dates. IF MISSING: Recommend.
+6. **DIAGNOSIS**: Consistent with ground truth. State type + threshold. Specific criteria with exact values. Count indicators: "X/4 met. [Meets/Exceeds] threshold". Temporal synthesis. Single: lab/clinical correlation. Severity with criterion reference.
 
-10. **INSIGHTS - TEMPORAL**: Summarize WITH TEMPORAL INTEGRATION, cite retrieved guidelines. Prognosis with timeline. Decision points with dates. Risks with timeframes. **Single-point**: Discuss serial follow-up importance.
+7. **LABS** (temporal): ALL with DATES, TRENDS. Single: corroborate anthropometrics. Guidelines. If missing: for malnutrition recommend panel + schedule; for adequate explain appropriateness.
+
+8. **CARE PLAN** (temporal): Goals, interventions. Schedule: Week 1 (Day 7), Week 2, Weeks 3-4, Months 2-3. Labs: baseline, serial. Follow-up: dates. Escalation: timepoints. Trajectory: timeline. Single: recommend serial.
+
+9. **SOCIAL** (temporal): Changes with dates. If missing: recommend.
+
+10. **INSIGHTS** (temporal): Summary with integration + guidelines. Prognosis with timeline. Decisions with dates. Risks with timeframes. Single: serial follow-up importance.
 
 **CRITICAL RULES:**
-- IDENTIFY ASSESSMENT TYPE FIRST
-- CAPTURE ALL TEMPORAL DATA with dates
-- CALCULATE TRENDS ONLY FOR SERIAL/LONGITUDINAL
-- DOCUMENT SPECIFIC CRITERIA with exact values
-- COUNT ASPEN INDICATORS EXPLICITLY - threshold: ≥1 single-point, ≥2 serial/longitudinal
-- SINGLE-POINT: Correlate with labs/clinical indicators
-- ALIGN WITH GROUND TRUTH using specific criterion documentation
+- ANONYMIZE always
+- Identify type FIRST with justification
+- Capture temporal data with dates
+- Validate z-score signs (%ile <50th = negative)
+- For "PERCENTILE z VALUE": verify sign
+- Trends only for serial/long; single note limitation
+- Specific criteria with exact values
+- Count indicators: X/4, threshold (≥1 single, ≥2 serial/long)
+- Single: correlate labs/clinical
+- Quote with dates
+- Align with ground truth
 
 [END]
 
 CLINICAL TEXT:
 {clinical_text}
 
-GROUND TRUTH: {label_context}
+GROUND TRUTH:
+{label_context}
 
 {rag_outputs}
 
@@ -270,80 +282,74 @@ GROUND TRUTH: {label_context}
 
 {json_schema_instructions}"""
 
-MALNUTRITION_MINIMAL_PROMPT = """[TASK - Malnutrition Assessment]
 
-Expert pediatric dietitian. Natural clinical language. Use retrieved evidence (ASPEN, WHO, CDC).
+MALNUTRITION_MINIMAL_PROMPT = """[PEDIATRIC MALNUTRITION - Expert Data Curation]
 
-**DIRECTIVE:** Use documented values. Call tools only to fill gaps, interpret ambiguous formats, validate.
+Pediatric dietitian curating AI training data. Natural expert language. Use ASPEN, WHO, CDC guidelines.
 
-**CORE:** Extract documented + recommend missing. Capture ALL with DATES. **FIRST identify type** (single/serial/longitudinal). Calculate TRENDS if serial/longitudinal. **Document SPECIFIC criteria**. Count ASPEN indicators.
+**DIRECTIVE:** Use documented values. Call tools to fill gaps, interpret ambiguous, validate.
 
-**Z-SCORE CONVENTIONS:**
-- <50th=%ile: NEGATIVE (3rd=-1.88, 5th=-1.64, 10th=-1.28, 25th=-0.67)
-- >50th=%ile: POSITIVE (75th=+0.67, 90th=+1.28, 95th=+1.64)
-- "PERCENTILE z VALUE" format: "[NUMBER] z [NUMBER]" = percentile FIRST, z-value second
-- Call tools for ambiguous formats
+**WORKFLOW:**
 
-**CRITERIA:**
-- WHO: z<-3=Severe; -3≤z<-2=Moderate; -2≤z<-1=Mild; -1≤z≤+1=Normal; z>+2=Overweight
-- ASPEN Anthropometric: z≤-3=Severe; -2 to -2.9=Moderate; -1 to -1.9=Mild
-- ASPEN Velocity (serial/longitudinal only): 1-z=Mild; 2-z=Moderate; 3-z=Severe
-- ASPEN 4 indicators: (1) Anthropometric, (2) Velocity, (3) Intake <50% ≥1wk, (4) Physical findings
+1. **ASSESSMENT TYPE:** Single (≥1 indicator) | Serial/Long (≥2 indicators). State with justification.
 
-**THRESHOLD:**
-- Single-point: 1 indicator = diagnostic
-- Serial/Longitudinal: 2+ indicators
+2. **TEMPORAL:** ALL with DATES. Serial/Long: calculate trends. Single: note velocity limitation, correlate labs/clinical.
 
-**FUNCTIONS:** interpret_zscore_malnutrition(), percentile_to_zscore(), calculate_growth_percentile()
+3. **Z-SCORE VALIDATION:** %ile <50th = negative z (3rd=-1.88, 5th=-1.64, 10th=-1.28, 25th=-0.67). "PERCENTILE z VALUE" format: "3 z 1.88" = 3rd %ile, z should be -1.88 → CORRECT.
 
-**CRITERION DOCUMENTATION:**
-✓ "Moderate per ASPEN anthropometric z-2 to -2.9 (z-2.3 on 3/15)"
-✗ "Based on ASPEN" - TOO VAGUE
+4. **CLASSIFICATION:**
+- WHO: z<-3 Severe, -3 to -2 Moderate, -2 to -1 Mild, -1 to +1 Normal
+- ASPEN Anthropometric: z≤-3 Severe, -2 to -2.9 Moderate, -1 to -1.9 Mild
+- ASPEN Velocity (serial/long only): 1z Mild, 2z Moderate, 3z Severe. Single: cannot assess.
+- 4 indicators: Anthropometric, Velocity, Intake <50% ≥1wk, Physical
 
-**GROUND TRUTH:** {label_context}
+5. **COUNT:** "ASPEN indicators: X/4 met. [Meets/Exceeds] threshold (single ≥1; serial/long ≥2)"
 
-IF "PRESENT": Synthesize deficits WITH TRENDS, exam WITH CHANGES, intake WITH DURATION, growth WITH VELOCITY per guidelines.
-IF "ABSENT": Synthesize normal WITH STABLE TRACKING, well-nourished WITH CONSISTENCY per guidelines.
+6. **SPECIFIC CRITERIA:**
+✓ "Moderate per ASPEN z-score -2 to -2.9 (z-score -2.3 on 3/15)"
+❌ "Based on ASPEN" - TOO VAGUE
+
+**GROUND TRUTH (SUPPORT):**
+{label_context}
+
+**MALNUTRITION PRESENT:** Synthesize deficits with trends, exam with serial changes, intake with duration, velocity (if assessable), labs with trends per guidelines.
+
+**MALNUTRITION ABSENT:** Synthesize normal with stable tracking, well-nourished with consistency, adequate intake, stable growth over time.
 
 **ANONYMIZE:** "the patient", "the [age]-year-old", "the family"
 
-**SYNTHESIS:**
+**SYNTHESIS (10 sections):**
 
-1. **CASE**: Setting, timeline. **STATE type FIRST** with justification.
-
-2. **SYMPTOMS**: ALL with DATES. Categories: GI, Systemic, Feeding, Functional. Trajectory. Quote with dates. IF NOT DOCUMENTED: State it.
-
-3. **GROWTH**: ALL with DATES & z-scores. **Serial/Longitudinal**: Calculate trends, velocity criterion. **Single-point**: Note "velocity can't be assessed", recommend serial, **correlate labs/clinical**. Document criteria with SPECIFIC values. IF MISSING: Recommend.
-
-4. **EXAM**: If serial, progression with dates. **Single-point**: Correlate with anthropometric/labs. Cite guidelines. IF INCOMPLETE: Recommend.
-
-5. **INTAKE**: Patterns with dates. IF MISSING: Recommend.
-
-6. **DIAGNOSIS**: State consistent with ground truth. **State type implications**. **Document SPECIFIC criteria**. **Count indicators: "X/4. [Meets/Exceeds] threshold"**. Synthesize WITH TEMPORAL. **Single-point**: Lab/clinical correlation. Note limitations. Specify severity.
-
-7. **LABS**: ALL with DATES. TRENDS. **Single-point**: Corroborate anthropometrics. Cite guidelines. **IF MISSING**: Recommend with schedule.
-
-8. **CARE PLAN**: Goals, interventions. Schedule: Week 1, 2, 3-4, Months 2-3. Labs: baseline, serial. Escalation with timepoints. **Single-point**: Recommend serial.
-
-9. **SOCIAL**: Changes with dates. IF MISSING: Recommend.
-
-10. **INSIGHTS**: TEMPORAL INTEGRATION, cite guidelines. Prognosis, decisions, risks with timeline. **Single-point**: Serial follow-up importance.
+1. CASE: Setting, concern, timeline. State type with justification.
+2. SYMPTOMS (temporal): ALL with DATES. GI/Systemic/Feeding/Functional. Trajectory. Quote. If not documented: state.
+3. GROWTH (temporal): ALL with DATES. Serial/Long: trends, velocity. Single: limitation, correlate labs/clinical, recommend. Validate z-signs. WHO/ASPEN with specific values. If missing: recommend.
+4. EXAM (temporal): Serial: progression. Single: correlate anthropometric/labs. Quote. If incomplete: recommend.
+5. INTAKE (temporal): Patterns with dates. If missing: recommend.
+6. DIAGNOSIS: Consistent with ground truth. State type + threshold. Specific criteria with values. Count: "X/4 met. [Meets/Exceeds] threshold". Temporal synthesis. Single: lab/clinical correlation. Severity with criterion.
+7. LABS (temporal): ALL with DATES, TRENDS. Single: corroborate anthropometrics. Guidelines. If missing: for malnutrition panel + schedule; for adequate explain.
+8. CARE PLAN (temporal): Goals, interventions. Schedule: Week 1 (Day 7), Week 2, Weeks 3-4, Months 2-3. Labs: baseline, serial. Follow-up: dates. Escalation: timepoints. Trajectory. Single: recommend serial.
+9. SOCIAL (temporal): Changes with dates. If missing: recommend.
+10. INSIGHTS (temporal): Summary with integration + guidelines. Prognosis with timeline. Decisions with dates. Risks with timeframes. Single: serial importance.
 
 **RULES:**
-- IDENTIFY TYPE FIRST
-- CAPTURE ALL TEMPORAL with dates
-- TRENDS ONLY FOR SERIAL/LONGITUDINAL
-- SPECIFIC CRITERIA with exact values
-- COUNT INDICATORS - threshold: ≥1 single, ≥2 serial/long
-- SINGLE: Correlate labs/clinical
-- ALIGN WITH GROUND TRUTH
+- ANONYMIZE
+- Identify type with justification
+- Capture temporal with dates
+- Validate z-signs (%ile <50th = negative)
+- Trends only serial/long; single note limitation
+- Specific criteria with values
+- Count: X/4, threshold (≥1 single, ≥2 serial/long)
+- Single: correlate labs/clinical
+- Quote with dates
+- Align with ground truth
 
 [END]
 
 CLINICAL TEXT:
 {clinical_text}
 
-GROUND TRUTH: {label_context}
+GROUND TRUTH:
+{label_context}
 
 {rag_outputs}
 
@@ -352,110 +358,90 @@ GROUND TRUTH: {label_context}
 {extras_outputs}
 
 {json_schema_instructions}"""
+
 
 MALNUTRITION_RAG_REFINEMENT_PROMPT = """[RAG REFINEMENT - Malnutrition]
 
-Refining preliminary assessment using authoritative evidence (ASPEN, WHO, CDC).
+Refining preliminary assessment using guideline evidence. Expert curating AI training data.
 
-**DIRECTIVE:** Use values from text and initial extraction. Enhance/correct only when necessary.
+**DIRECTIVE:** Use text/initial values. Enhance or correct when necessary.
 
-**ENHANCE:** Forward-thinking + temporal capture + specific criteria. Ensure ALL measurements with dates, trends, assessment type. **VALIDATE specific criteria documented** (not "based on ASPEN"). **VERIFY assessment type drives interpretation**.
+**GROUND TRUTH (SUPPORT):**
+{label_context}
 
-**GROUND TRUTH (MUST SUPPORT):** {label_context}
-
-If initial contradicts, CORRECT using retrieved evidence.
+If initial contradicts, CORRECT using ASPEN, WHO, CDC guidelines.
 
 **ANONYMIZE:** "the patient", "the [age]-year-old", "the family"
 
-**VALIDATE:**
+**REFINEMENT:**
 
-1. **ASSESSMENT TYPE**: Confirm type (single/serial/longitudinal) correctly identified. Verify interpretation matches:
-   - Single: NO trends/velocity, note limitation, correlate labs/clinical
-   - Serial/Longitudinal: Calculate trends, assess velocity criterion
+1. **VALIDATE TYPE:** Confirm single/serial/long correct with dates. Verify interpretation matches type (single can't assess velocity, serial/long calculates trends).
 
-2. **SPECIFIC CRITERIA**: Check ALL documented with exact values:
-   ✓ "Moderate per ASPEN anthropometric z-2 to -2.9 (BMI-for-age z-2.3 on 3/15/25)"
-   ✗ "Based on ASPEN" or "Meets WHO guidelines"
-   - Verify indicators counted (X/4)
-   - **Confirm threshold: ≥1 single, ≥2 serial/long**
+2. **VALIDATE CRITERIA:** Check exact values present:
+✓ "Moderate per ASPEN z-score -2 to -2.9 (BMI z-score -2.3 on 3/15/25)"
+❌ "Based on ASPEN"
+Verify indicators counted: "X/4 met". Confirm threshold: ≥1 single, ≥2 serial/long.
 
-3. **Z-SCORE CONVENTIONS**:
-   - <50th=%ile: NEGATIVE z (3rd=-1.88, 5th=-1.64, 10th=-1.28, 25th=-0.67)
-   - >50th=%ile: POSITIVE z (75th=+0.67, 90th=+1.28, 95th=+1.64)
-   - "PERCENTILE z VALUE": "[NUMBER] z [NUMBER]" = percentile FIRST, z-value second
-   - If <50th with positive z, CORRECT to negative
+3. **VALIDATE Z-SIGNS:** Standard: "BMI z-score: -2.3" or "Weight 5th %ile". Alternative "PERCENTILE z VALUE": "[NUMBER] z [NUMBER]" = %ile first, z second. "3 z 1.88" = 3rd %ile, z should be -1.88 → CORRECT. Rule: %ile <50th MUST have negative z.
 
-4. **INDICATOR COUNT & THRESHOLD**:
-   - Count: Anthropometric + Velocity + Intake + Physical
-   - **Single: 1 indicator = diagnostic**
-   - **Serial/Long: 2+ indicators required**
-   - If single with 1 but "not malnourished": INCORRECT
-   - If serial/long with <2 indicators: check WHO z<-2 justification
+4. **VALIDATE COUNT:** Count: Anthropometric + Velocity + Intake + Physical. Threshold: Single ANY 1 = diagnostic. Serial/Long ≥2 = diagnostic. If single with 1 indicator classified "not malnourished": INCORRECT. If serial/long <2 indicators but z<-2: check WHO justifies. If serial/long <2 indicators and z≥-2: should be "not malnourished".
 
-5. **TEMPORAL**: Confirm calculations correct. Validate z-signs match percentiles.
+5. **VALIDATE TEMPORAL:** Confirm trends correct. Validate z-signs match %iles.
 
-**CORRECT:**
-- Fix misclassifications, cite guidelines (ASPEN, WHO, CDC)
-- Correct threshold application
-- Align with ground truth (if "Absent" but truth "Present": reframe with decline; if "Present" but truth "Absent": reframe with stability)
-- Fix vague to specific criteria
+6. **CORRECT:** Misclassifications with citations. Temporal calculations. Threshold application. Align with ground truth. Fix vague to specific criterion. Fix threshold errors.
 
-**ENHANCE:**
-- Add specific criterion where generic
-- Add temporal detail with dates
-- Calculate trends if serial/long
-- Add forward-thinking: labs with schedule, care plan with intervals
-- **Add lab/clinical correlation for single-point**
+7. **ENHANCE:** Add specific criterion where generic. Add temporal detail with dates. Calculate missing trends (if serial/long). Identify type if missing. Add forward-thinking: labs with schedule, care with intervals, insights with timeline. Add lab/clinical correlation for single.
 
-**FILL GAPS:**
-- Specify severity with criterion reference
-- Add recommendations with timeframes
-- Transform "not documented" to recommendations citing guidelines
-- **Single-point: Add lab/clinical correlation if missing**
+8. **FILL GAPS:** Specify severity with criterion. Calculate trends if data + serial/long. Add recommendations with timeframes. Transform "not documented" → recommendations with guidelines + schedules. Single: add lab/clinical correlation if missing.
 
-**ENSURE CONSISTENCY:**
-- Diagnosis matches ground truth
-- Temporal consistency (dates, intervals, calculations)
-- Indicator count verified
-- **Correct threshold applied**
-- **Single-point: lab/clinical correlation included**
+9. **CONSISTENCY:** Diagnosis matches ground truth with temporal evidence. Temporal consistency. ASPEN count accurate. Correct threshold applied (1 single, 2+ serial/long). Care plan has timeline. Single has lab/clinical correlation.
 
-**HANDLE MISSING:**
-- Labs with malnutrition: Recommend WITH schedule
-- Labs with adequate: Explain appropriateness
-- Anthropometrics: Recommend
-- Incomplete temporal (single): Recommend serial for trends
-- **Single without lab correlation: Recommend**
+10. **HANDLE MISSING:** Labs with adequate: explain appropriateness. Labs with malnutrition: recommend panel + schedule. Anthropometrics: recommend. Intake: recommend quantification. Incomplete temporal (single): recommend serial. Single without lab correlation: add recommendation.
 
 **PRINCIPLES:**
 - Preserve fidelity
-- **SPECIFIC CRITERIA**: "based on ASPEN" → "per ASPEN anthropometric z-2 to -2.9 (z-2.3)"
-- **TYPE DRIVES INTERPRETATION**: Single can't assess velocity; serial/long must calculate trends
-- **CORRECT THRESHOLD**: 1 for single, 2+ for serial/long
-- **SINGLE: LAB/CLINICAL CORRELATION** required
-- Cite guidelines (ASPEN, WHO, CDC)
-- EMBED FORWARD-THINKING
-- **COUNT INDICATORS (X/4)**, verify threshold
-- Correct z-signs based on percentile
-- **GROUND TRUTH ABSOLUTE**: Correct using evidence
-- **Single more liberal: 1 indicator diagnostic**
+- Specific criteria: transform vague to "per ASPEN z-score -2 to -2.9 (z-score -2.3)"
+- Verify type drives interpretation
+- Verify threshold: 1 single, 2+ serial/long
+- Verify single has lab/clinical correlation
+- Quote guidelines (cite ASPEN, WHO, CDC)
+- Flag discrepancies
+- Embed forward-thinking with timelines
+- Enhance temporal: dates, trends, type, significance
+- Validate count: explicitly "X/4", verify threshold
+- Correct z-signs (%ile <50th = negative)
+- For "PERCENTILE z VALUE": %ile <50th needs negative z
+- Ground truth absolute
+- Single more liberal: any 1 diagnostic
+
+**Z-SCORE/PERCENTILE:**
+- %ile <50th: negative z (3rd=-1.88, 5th=-1.64, 10th=-1.28, 25th=-0.67)
+- %ile >50th: positive z (75th=+0.67, 90th=+1.28, 95th=+1.64)
+- Align with clinical ("short"=below avg; "well-nourished"=normal/above)
+- Flag discrepancies
+- Verify WHO/ASPEN: z<-3 Severe, -3 to -2 Moderate, -2 to -1 Mild
+
+**SYNTHESIS:**
+Use guidelines. Present with temporal context. Care with schedules. Insights with timelines. Final matches ground truth. Single correlates labs/clinical.
 
 [END]
 
-ORIGINAL:
+ORIGINAL TEXT:
 {clinical_text}
 
-GROUND TRUTH: {label_context}
+GROUND TRUTH:
+{label_context}
 
-INITIAL:
+INITIAL EXTRACTION:
 {stage3_json_output}
 
-EVIDENCE:
+EVIDENCE BASE:
 {retrieved_evidence_chunks}
 
 {json_schema_instructions}
 
-Return ONLY JSON: Start with {{ end with }}. No markdown.
+Return ONLY JSON: Start {{ end }}. No markdown. Refine using guideline evidence."""
+
 
 # ============================================================================
 # EXAMPLE TEMPLATE 2: DIABETES ASSESSMENT
@@ -668,7 +654,7 @@ PROMPT_TEMPLATE_REGISTRY_V1 = {
             }
         }
     },
-    "malnutrition": {
+     "malnutrition": {
         "main": MALNUTRITION_MAIN_PROMPT,
         "minimal": MALNUTRITION_MINIMAL_PROMPT,
         "rag_prompt": MALNUTRITION_RAG_REFINEMENT_PROMPT,
@@ -677,57 +663,67 @@ PROMPT_TEMPLATE_REGISTRY_V1 = {
         "schema": {
             "malnutrition_status": {
                 "type": "string",
-                "description": "Malnutrition classification: 'Malnutrition Present' or 'Malnutrition Absent'",
+                "description": "'Malnutrition Present' or 'Malnutrition Absent'",
+                "required": True
+            },
+            "assessment_type": {
+                "type": "string",
+                "description": "Single-point (≥1 indicator) | Serial same-encounter (≥2) | Longitudinal (≥2). State with justification and dates.",
                 "required": True
             },
             "case_presentation": {
                 "type": "string",
-                "description": "Natural case presentation with setting, chief concern, problem evolution, family perspective. Identify assessment type (single-point/serial/longitudinal) with temporal context.",
+                "description": "Assessment type first with justification, then setting, concern, timeline, family perspective.",
                 "required": True
             },
             "clinical_symptoms_and_signs": {
-                        "type": "string",
-                        "description": "TEMPORAL SYMPTOM CAPTURE: Document ALL symptoms with ONSET DATES and PROGRESSION: (1) GI: vomiting, diarrhea, reflux, pain; (2) Systemic: fever, fatigue, irritability; (3) Feeding: appetite, refusal; (4) Functional: weakness, activity. Trajectory: new/progressive/stable/improving/resolved. Quote exact descriptions. If NOT documented: State it and recommend systematic review per retrieved evidence.",
-                        "required": False
+                "type": "string",
+                "description": "Temporal symptoms with onset dates and progression. GI/Systemic/Feeding/Functional. Trajectory and impact. If not documented: state and recommend review.",
+                "required": False
             },
             "growth_and_anthropometrics": {
                 "type": "string",
-                "description": "TEMPORAL CAPTURE: Extract ALL measurements with DATES. Calculate EXPLICIT TRENDS (absolute change, %, rate, velocity, percentile trajectory). Describe pattern. Interpret using retrieved guidelines. If MISSING: State what's missing and recommend obtaining with rationale.",
+                "description": "Temporal with ALL measurements and dates. Validate z-score signs. Serial/Long: trends, velocity. Single: note limitation, correlate labs/clinical. WHO/ASPEN criteria with specific values.",
                 "required": True
             },
             "physical_exam": {
                 "type": "string",
-                "description": "TEMPORAL: If serial exams, describe progression with dates. Quote exact findings. Interpret using retrieved guidelines. If INCOMPLETE: Recommend exam with rationale.",
+                "description": "Temporal. Serial: progression with dates. Single: correlate with anthropometric/labs. Quote exact findings.",
                 "required": True
             },
             "nutrition_and_intake": {
                 "type": "string",
-                "description": "TEMPORAL: Document patterns over time with dates and timeframes. Quote with timeframes. If MISSING: Use clinical reasoning about trajectory, recommend quantification.",
-                "required": True
-            },
-            "diagnosis_and_reasoning": {
-                "type": "string",
-                "description": "TEMPORAL INTEGRATION: Diagnosis (aligned with ground truth), severity, etiology. Synthesize evidence WITH TEMPORAL PATTERNS. Use retrieved guideline criteria. Reason with incomplete data using convergent temporal evidence.",
+                "description": "Temporal patterns with dates and timeframes. Quantify percentage of needs. Document ASPEN inadequate intake if met.",
                 "required": True
             },
             "labs_and_screening": {
                 "type": "string",
-                "description": "TEMPORAL: Extract ALL labs with DATES. Describe TRENDS. Interpret using retrieved guidelines. IF MISSING: For malnutrition, recommend specific labs WITH serial monitoring schedule per guidelines. For adequate nutrition, explain appropriateness.",
+                "description": "Temporal: ALL labs with dates and trends. Single: corroborate anthropometrics. If missing: recommend panel/schedule or explain appropriateness.",
                 "required": False
+            },
+            "aspen_indicator_count": {
+                "type": "string",
+                "description": "Required count: 'ASPEN indicators: X/4 met'. List each. Verify threshold: single ≥1, serial/long ≥2. State meets/exceeds.",
+                "required": True
+            },
+            "diagnosis_and_reasoning": {
+                "type": "string",
+                "description": "Align with ground truth. State type + threshold. Specific criteria with exact values (not vague). Include indicator count. Temporal synthesis. Single: lab/clinical correlation. Severity with criterion reference.",
+                "required": True
             },
             "care_plan": {
                 "type": "string",
-                "description": "TEMPORAL MONITORING: Goals, interventions with doses. MONITORING SCHEDULE: Specific intervals (Week 1: Day 7; Week 2; Weeks 3-4: weekly; Months 2-3: bi-weekly). LABS SCHEDULE: Baseline panel, serial frequency. FOLLOW-UP: Dates/intervals. ESCALATION: With timepoints (Day 7: if <50g→NG; Week 2: if no response→specialist). TRAJECTORY: Recovery timeline. Justify with temporal reasoning.",
+                "description": "Temporal monitoring: goals, interventions, schedules (Week 1-4, Months 2-3), labs schedule, follow-up dates, escalation timepoints, trajectory timeline. Single: recommend serial.",
                 "required": True
             },
             "social_context": {
                 "type": "string",
-                "description": "TEMPORAL: Note temporal changes in circumstances with dates. Describe intervention progression. If MISSING: Recommend assessment with rationale.",
+                "description": "Temporal: food security, resources, barriers. Changes with dates. If missing: recommend assessment.",
                 "required": False
             },
             "clinical_insights": {
                 "type": "string",
-                "description": "TEMPORAL SYNTHESIS: Summary with TEMPORAL INTEGRATION and retrieved guideline references. Prognosis with timeline. Decision points with dates. Risk factors with timeframes. Teaching about temporal patterns. Pearls about temporal monitoring.",
+                "description": "Temporal synthesis: summary with integration + guidelines. Prognosis with timeline. Decision points with dates. Risk factors with timeframes. Single: serial follow-up importance.",
                 "required": True
             }
         }
@@ -1355,13 +1351,13 @@ This section defines HOW to use tools ITERATIVELY to gather the information you 
 
 **CRITICAL PRINCIPLES:**
 
-- ✅ **Follow Task Definition Above**: The task description above specifies your requirements - follow them exactly
-- ✅ **Iterative Rounds**: Call tools across multiple rounds, using results to inform next steps
-- ✅ **Self-Assessment**: After each round, assess if you have enough information or need more
-- ✅ **Multiple Tool Calls**: Call the same tool multiple times with different queries/parameters
-- ✅ **Parallel Execution**: Tools execute in parallel (async) for performance - request multiple at once when possible
-- ✅ **Support Ground Truth**: Ensure your extraction supports the ground truth diagnosis
-- ✅ **Complete Before Output**: Only output JSON when you have ALL necessary information
+- **Follow Task Definition Above**: The task description above specifies your requirements - follow them exactly
+- **Iterative Rounds**: Call tools across multiple rounds, using results to inform next steps
+- **Self-Assessment**: After each round, assess if you have enough information or need more
+- **Multiple Tool Calls**: Call the same tool multiple times with different queries/parameters
+- **Parallel Execution**: Tools execute in parallel (async) for performance - request multiple at once when possible
+- **Support Ground Truth**: Ensure your extraction supports the ground truth diagnosis
+- **Complete Before Output**: Only output JSON when you have ALL necessary information
 
 **EXAMPLE PHASED EXECUTION:**
 
