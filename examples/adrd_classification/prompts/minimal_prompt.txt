@@ -1,45 +1,50 @@
-TASK: ADRD CLASSIFICATION (Simplified Assessment)
+[TASK DESCRIPTION]
+Classify this patient as ADRD (Alzheimer's Disease and Related Dementias) or Non-ADRD based on clinical evidence.
+[END TASK DESCRIPTION]
 
-Classify patient as **ADRD** (Alzheimer's/Related Dementias) or **Non-ADRD** based on clinical record.
+PATIENT: {age} years old, {gender}, {race}, {education_years} years education
 
-PATIENT: Age {age}, {gender}, {race}
-
-CLINICAL RECORD:
+CLINICAL NOTES:
 {clinical_text}
 
 {rag_outputs}
 {function_outputs}
 {extras_outputs}
 
-═══════════════════════════════════════════════════════════════════════════
-ASSESSMENT PRIORITIES
-═══════════════════════════════════════════════════════════════════════════
+---
 
-1. **COGNITIVE TESTING**: MMSE, MoCA, CDR scores → Low scores suggest dementia
-2. **MEMORY LOSS**: Progressive, episodic memory affected first → AD pattern
-3. **FUNCTIONAL DECLINE**: Loss of ADLs/IADLs → Dementia present
-4. **PROGRESSION**: Gradual decline over months/years → Neurodegenerative
-5. **IMAGING**: Hippocampal atrophy, white matter changes → ADRD
-6. **RULE OUT**: Depression, delirium, B12 deficiency, medications → Non-ADRD causes
+**TOOL CALLING CAPABILITY:** You have access to tools for score interpretation, guideline retrieval, and filling information gaps. Use as needed.
 
-═══════════════════════════════════════════════════════════════════════════
-CLASSIFICATION
-═══════════════════════════════════════════════════════════════════════════
+---
 
-**ADRD Indicators**:
-- MMSE <24, MoCA <26, CDR ≥0.5
-- Progressive memory loss + functional decline
-- Gradual onset over 6+ months
-- Atrophy on imaging
-- No reversible cause identified
+## CLASSIFICATION CHECKLIST
 
-**Non-ADRD Indicators**:
-- Normal/near-normal cognitive testing
-- Acute onset (delirium)
-- Depressive symptoms > cognitive
-- Reversible cause (metabolic, medication)
-- Preserved ADLs despite complaints
+**1. COGNITIVE STATUS**
+- Test scores and interpretation
+- Domains affected
+- Progression pattern (gradual=AD, stepwise=VaD, fluctuating=LBD)
+
+**2. FUNCTIONAL STATUS**
+- ADL/IADL status
+- Independence impaired? (required for dementia diagnosis)
+
+**3. KEY FEATURES**
+- Behavioral symptoms
+- Neurological signs
+- Imaging findings
+- Vascular risk burden
+
+**4. CLASSIFICATION**
+- **ADRD**: Cognitive decline + functional impairment + ADRD pattern
+- **Non-ADRD**: MCI (preserved function), depression, delirium, metabolic, medication
+
+**5. OUTPUT**
+- Classification: ADRD or Non-ADRD
+- Specific diagnosis
+- Severity (if ADRD)
+- Confidence: High/Moderate/Low
+- Key supporting evidence
 
 {json_schema_instructions}
 
-Output classification with key supporting evidence.
+Classify this patient with supporting evidence.

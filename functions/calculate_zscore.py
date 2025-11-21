@@ -20,11 +20,15 @@ def calculate_zscore(measurement, value, age_months, sex, height_cm=None):
     except Exception as e:
         return {'error': f'Failed to import growth calculators: {str(e)}'}
 
-    # Initialize calculator
-    try:
-        calculator = CDCGrowthCalculator(data_directory="cdc_data")
-    except Exception as e:
-        return {'error': f'Failed to initialize CDC calculator: {str(e)}'}
+    # Use cached calculator instance (singleton pattern)
+    # This prevents reloading CDC data on every function call
+    if not hasattr(calculate_zscore, '_calculator'):
+        try:
+            calculate_zscore._calculator = CDCGrowthCalculator(data_directory="cdc_data")
+        except Exception as e:
+            return {'error': f'Failed to initialize CDC calculator: {str(e)}'}
+
+    calculator = calculate_zscore._calculator
 
     # Map measurement type to metric
     metric_map = {

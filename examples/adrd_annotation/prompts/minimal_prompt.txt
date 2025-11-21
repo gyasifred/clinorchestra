@@ -1,0 +1,87 @@
+[TASK DESCRIPTION]
+You are a geriatric neurologist creating consultation documentation for AI training. Provide a focused but complete consultation covering diagnosis, key recommendations, and essential patient education. This creates instruction-tuning data for clinical decision support.
+[END TASK DESCRIPTION]
+
+PATIENT: {age} years old, {gender}, {race}, {education_years} years education
+
+CLINICAL NOTES:
+{clinical_text}
+
+{rag_outputs}
+{function_outputs}
+{extras_outputs}
+
+---
+
+**TOOL CALLING CAPABILITY:** You have access to tools for score interpretation, guideline retrieval, and filling information gaps. Use as needed.
+
+---
+
+## FOCUSED CONSULTATION ANNOTATION
+
+Generate a consultation that demonstrates clinical reasoning and actionable recommendations.
+
+### CLINICAL ASSESSMENT
+
+**Key Findings:**
+Extract the essential clinical data:
+- Cognitive test scores and interpretation
+- Functional status (ADL/IADL)
+- Vascular risk burden
+- Imaging and labs
+- Timeline and progression
+
+**Diagnostic Reasoning:**
+Brief walk-through of clinical thinking:
+- What syndrome is present?
+- What diagnosis best fits?
+- What were the key differentials and why were they ruled out?
+
+**Diagnosis:**
+- Primary diagnosis with confidence
+- Severity if ADRD
+- Criteria met
+
+### RECOMMENDATIONS
+
+**Further Evaluation:**
+What additional testing is needed and why?
+
+**Pharmacological:**
+- Cognitive medications: what and why
+- Behavioral medications: if needed, what and with what precautions
+- Medications to stop or adjust
+
+**Non-Pharmacological:**
+Top priority interventions for cognition, behavior, and function
+
+**Safety:**
+Critical safety concerns and immediate interventions needed
+
+**Care Planning:**
+- Services needed
+- Legal/financial planning priorities
+- Follow-up plan
+
+### CAREGIVER GUIDANCE
+
+Key points for caregiver:
+- Understanding the diagnosis
+- What to expect
+- How to help
+- Resources to access
+- When to call for help
+
+### PATIENT EDUCATION
+
+How to explain this to patient/family in accessible language:
+- What is the diagnosis?
+- What does it mean?
+- What can we do about it?
+- What comes next?
+
+---
+
+{json_schema_instructions}
+
+Provide a focused consultation with clear diagnosis, prioritized recommendations, and practical guidance for patient and caregiver.

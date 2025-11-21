@@ -1,6 +1,6 @@
-TASK: REFINE ADRD CLASSIFICATION WITH CLINICAL GUIDELINES
-
-You previously extracted clinical data for ADRD classification. Now refine your assessment using authoritative clinical guidelines and diagnostic criteria.
+[TASK DESCRIPTION]
+Refine your ADRD classification using retrieved clinical guidelines and diagnostic criteria. Validate criteria application and adjust confidence as appropriate.
+[END TASK DESCRIPTION]
 
 ORIGINAL CLINICAL TEXT:
 {clinical_text}
@@ -8,86 +8,68 @@ ORIGINAL CLINICAL TEXT:
 INITIAL CLASSIFICATION:
 {stage3_json_output}
 
-CLINICAL GUIDELINES AND EVIDENCE:
+CLINICAL GUIDELINES:
 {retrieved_evidence_chunks}
 
-═══════════════════════════════════════════════════════════════════════════
-REFINEMENT OBJECTIVES
-═══════════════════════════════════════════════════════════════════════════
+---
 
-1. **VALIDATE CRITERIA APPLICATION**
-   - Review NIA-AA 2011/2018 criteria against your classification
-   - Ensure DSM-5 major/mild neurocognitive disorder criteria met
-   - Check specific criteria for VaD, LBD, FTD if applicable
+## REFINEMENT CHECKLIST
 
-2. **ENHANCE DIAGNOSTIC PRECISION**
-   - Use retrieved MMSE/MoCA interpretation guidelines for severity staging
-   - Apply CDR scoring guidelines for functional assessment
-   - Reference imaging interpretation standards for atrophy patterns
+### 1. VALIDATE DIAGNOSTIC CRITERIA
 
-3. **STRENGTHEN DIFFERENTIAL DIAGNOSIS**
-   - Use guidelines to better distinguish ADRD subtypes (AD vs VaD vs LBD vs FTD)
-   - Reference criteria for ruling out depression, delirium, MCI
-   - Validate metabolic/reversible cause exclusion
+**Check against retrieved guidelines:**
 
-4. **IMPROVE BIOMARKER INTERPRETATION** (if available)
-   - Apply A/T/N framework (Amyloid/Tau/Neurodegeneration) for AD
-   - Reference CSF biomarker cutoffs from guidelines
-   - Integrate PET imaging interpretation standards
+**If classified as Alzheimer's Disease:**
+- Does it meet NIA-AA criteria for probable vs possible AD?
+- Insidious onset, gradual progression confirmed?
+- Amnestic or non-amnestic presentation properly identified?
 
-5. **REFINE CONFIDENCE ASSESSMENT**
-   - High confidence: Meets all core criteria, supported by biomarkers/imaging
-   - Moderate confidence: Meets clinical criteria, limited biomarker data
-   - Low confidence: Atypical presentation, conflicting findings, missing data
+**If classified as Vascular Dementia:**
+- Temporal relationship with stroke documented?
+- NINDS-AIREN criteria met?
+- Imaging shows significant cerebrovascular disease?
 
-═══════════════════════════════════════════════════════════════════════════
-GUIDELINE-INFORMED REFINEMENTS
-═══════════════════════════════════════════════════════════════════════════
+**If classified as Lewy Body Dementia:**
+- ≥2 core features present for probable DLB?
+- 2017 consensus criteria properly applied?
 
-Compare your initial assessment against guideline standards:
+**If classified as Non-ADRD:**
+- If MCI: Functional independence truly preserved?
+- If Depression: Cognitive symptoms proportional to mood symptoms?
+- If Delirium: Acute onset with fluctuating consciousness?
 
-**COGNITIVE THRESHOLDS** (from retrieved guidelines):
-- Review if cognitive test scores align with guideline-defined cutoffs
-- Check if severity staging matches CDR/MMSE guideline ranges
-- Validate domain-specific impairments against neuropsych norms
+### 2. VERIFY SEVERITY STAGING
 
-**FUNCTIONAL CRITERIA** (from retrieved guidelines):
-- Ensure functional decline meets threshold for dementia vs MCI
-- Validate ADL/IADL impairment against guideline definitions
-- Check if decline interferes with independence per criteria
+**Per guideline cutoffs:**
+- CDR 0.5 = Very mild / CDR 1 = Mild / CDR 2 = Moderate / CDR 3 = Severe
+- MMSE 24-30 = Normal-mild / 18-23 = Mild / 10-17 = Moderate / <10 = Severe
 
-**TEMPORAL PATTERNS** (from retrieved guidelines):
-- Verify onset/progression pattern matches guideline descriptions
-- Insidious onset (AD) vs stepwise (VaD) vs fluctuating (LBD)
-- Duration criteria met (symptoms >6 months typically)
+Does your severity rating align with test scores per guidelines?
 
-**SUPPORTING FEATURES** (from retrieved guidelines):
-- Biomarker interpretation against guideline cutoffs
-- Imaging findings against guideline-defined patterns
-- Behavioral symptoms against guideline BPSD descriptions
+### 3. STRENGTHEN DIFFERENTIAL
 
-═══════════════════════════════════════════════════════════════════════════
-REFINEMENT INSTRUCTIONS
-═══════════════════════════════════════════════════════════════════════════
+Using guidelines, verify proper distinction between:
+- AD vs VaD (gradual vs stepwise, memory vs executive)
+- AD vs LBD (1-year rule for parkinsonism)
+- Dementia vs MCI (functional independence threshold)
 
-1. **DO NOT change classification unless guidelines reveal error**
-   - Most refinements should enhance detail, not flip diagnosis
-   - Only change ADRD ↔ Non-ADRD if clear guideline misapplication
+### 4. ADJUST CONFIDENCE
 
-2. **DO enhance specificity within ADRD**
-   - Better distinguish AD vs VaD vs LBD vs FTD using guideline criteria
-   - Improve severity staging precision using guideline cutoffs
+**Per guidelines:**
+- **High**: All core criteria clearly met, biomarkers supportive, typical presentation
+- **Moderate**: Clinical criteria met, limited biomarkers, minor atypical features
+- **Low**: Atypical presentation, conflicting evidence, criteria partially met
 
-3. **DO improve confidence justification**
-   - Reference specific guideline criteria met/not met
-   - Quantify certainty using guideline-based evidence strength
+### 5. REFINE OUTPUT
 
-4. **DO add guideline-based recommendations** (if appropriate):
-   - Suggest additional testing if guidelines indicate it would clarify diagnosis
-   - Note if presentation warrants specialist referral per guidelines
+- Confirm or adjust classification
+- Refine subtype specificity
+- Calibrate severity to guidelines
+- Cite specific criteria met/not met
+- Note what additional information would strengthen diagnosis
 
-═══════════════════════════════════════════════════════════════════════════
+---
 
 {json_schema_instructions}
 
-Output refined classification with guideline-supported reasoning.
+Output refined classification with guideline-validated criteria application and appropriate confidence.
