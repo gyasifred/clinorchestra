@@ -1,0 +1,334 @@
+[TASK DESCRIPTION]
+You are a geriatric neurologist creating comprehensive consultation documentation that will train an AI clinical decision support system. Your task is to analyze this patient's clinical record and generate a complete consultation that demonstrates expert clinical reasoning, evidence-based recommendations, and patient-centered communication.
+
+This annotation serves to create instruction-tuning data for a medical LLM. Generate responses as if you are dictating a consultation note to a colleague while also preparing materials for the patient and family. The output must demonstrate the full scope of expert clinical consultation including assessment, recommendations, care planning, and education.
+[END TASK DESCRIPTION]
+
+PATIENT DEMOGRAPHICS:
+- Age: {age} years old
+- Sex: {gender}
+- Race/Ethnicity: {race}
+- Education: {education_years} years of formal education
+
+CLINICAL DOCUMENTATION:
+{clinical_text}
+
+{rag_outputs}
+
+{function_outputs}
+
+{extras_outputs}
+
+---
+
+## AVAILABLE CLINICAL DECISION SUPPORT RESOURCES
+
+**You MUST use these tools to generate evidence-based outputs:**
+
+### Functions (Call these to calculate scores and interpretations):
+- **calculate_mmse_severity(mmse_score)** - Interpret MMSE score, get severity category
+- **calculate_moca_severity(moca_score)** - Interpret MoCA score, get impairment level
+- **calculate_cdr_severity(cdr_score)** - Interpret CDR score, get dementia stage
+- **calculate_vascular_risk_score(risk_factors)** - Calculate cumulative vascular burden
+- **assess_functional_independence(adl_status, iadl_status)** - Evaluate functional status
+
+### Extras (Reference these for clinical terminology and criteria):
+- adrd_diagnostic_criteria - NIA-AA, DSM-5, consensus criteria keywords
+- adrd_cognitive_assessment_terms - Cognitive testing terminology
+- adrd_functional_assessment_terms - ADL/IADL terminology
+- adrd_behavioral_symptoms - BPSD terminology
+- adrd_neurological_findings - Exam findings
+- adrd_neuroimaging - Imaging findings and patterns
+- adrd_biomarkers - CSF and PET biomarkers
+- adrd_reversible_causes - Treatable causes to rule out
+- adrd_vascular_risk_factors - Vascular risk factor list
+- adrd_medications - Dementia medications
+- adrd_dementia_types - ADRD subtypes
+- adrd_differential_diagnoses - Alternative diagnoses
+- adrd_cognitive_symptoms - Symptom terminology
+
+### RAG Resources (Retrieved guidelines for evidence-based practice):
+- **diagnostic_guidelines.md** - NIA-AA criteria, DSM-5, consensus criteria, cognitive test interpretation
+- **treatment_and_care_guidelines.md** - Pharmacological treatment, non-pharmacological interventions, safety, care planning, caregiver support
+
+**IMPORTANT:** Your consultation must demonstrate use of these resources by:
+1. Calling functions for any numeric scores (MMSE, MoCA, CDR, vascular risk)
+2. Using terminology from extras for accurate clinical language
+3. Citing guideline-based recommendations from RAG resources
+
+---
+
+## COMPREHENSIVE CONSULTATION ANNOTATION FRAMEWORK
+
+As a clinical consultant, I need to generate documentation that covers the complete scope of expert consultation. This includes not just diagnosis, but actionable recommendations across multiple domains that demonstrate how an expert clinician thinks and communicates.
+
+### PART 1: CLINICAL DATA EXTRACTION AND ORGANIZATION
+
+First, I systematically extract and organize all clinically relevant information from the record. This structured extraction demonstrates how to identify and prioritize clinical data.
+
+**Cognitive Profile Extraction:**
+- Standardized test scores: MMSE, MoCA, CDR scores with interpretation using calculate_mmse_severity, calculate_moca_severity, and calculate_cdr_severity functions
+- Domain-specific impairments: memory, language, executive function, visuospatial, attention
+- Temporal characteristics: onset, duration, progression pattern
+- Symptom examples from the clinical record
+
+**Functional Status Extraction:**
+- Basic ADL capabilities using assess_functional_independence
+- Instrumental ADL capabilities
+- Degree of independence/dependence
+- Impact on daily life and safety
+
+**Behavioral and Neuropsychiatric Features:**
+- Mood symptoms: depression, anxiety, apathy
+- Psychotic symptoms: hallucinations, delusions
+- Behavioral changes: agitation, disinhibition, sleep disturbances
+- Safety concerns: wandering, aggression
+
+**Medical Comorbidities:**
+- Vascular risk factors using calculate_vascular_risk_score
+- Other relevant medical conditions
+- Current medications with cognitive implications
+- Substance use history
+
+**Objective Findings:**
+- Neurological examination findings
+- Neuroimaging results and interpretation
+- Laboratory values including dementia workup
+- Biomarkers if available
+
+**Contextual Factors:**
+- Family history of dementia or neurological disease
+- Social support system
+- Living situation and safety
+- Caregiver status and burden
+- Cultural and linguistic considerations
+
+### PART 2: CLINICAL REASONING NARRATIVE
+
+Here I demonstrate expert clinical thinking - the step-by-step reasoning process that leads to diagnostic conclusions. This is critical for training an AI to reason through complex cases.
+
+**Diagnostic Synthesis:**
+Walk through the clinical reasoning:
+- What is the primary clinical syndrome (dementia, MCI, delirium, other)?
+- Which cognitive domains are affected and what pattern does this suggest?
+- How does the temporal course inform the differential?
+- What do the functional impacts tell us about severity?
+- How do ancillary findings (imaging, labs, biomarkers) fit?
+
+**Differential Diagnosis Analysis:**
+For each diagnosis considered:
+- Why was it considered?
+- What evidence supports it?
+- What evidence argues against it?
+- How confident am I in ruling it in or out?
+
+**Diagnostic Formulation:**
+- Primary diagnosis with confidence level
+- If ADRD: specific subtype and severity stage
+- If Non-ADRD: alternative explanation
+- Diagnostic certainty (definite, probable, possible) based on established criteria
+
+**Evidence Integration:**
+- Which NIA-AA, DSM-5, or consensus criteria are met?
+- How do biomarkers support or modify the diagnosis?
+- What atypical features complicate the picture?
+
+### PART 3: RECOMMENDATIONS - FURTHER DIAGNOSTIC EVALUATION
+
+Based on the current evaluation, what additional testing would clarify the diagnosis or guide management?
+
+**Recommended Additional Cognitive Testing:**
+- Would formal neuropsychological testing help characterize deficits?
+- Are there specific domains that need more detailed evaluation?
+- Should testing be repeated to assess progression?
+
+**Recommended Laboratory Studies:**
+- Any gaps in the reversible cause workup (B12, thyroid, metabolic)?
+- Would genetic testing be appropriate (early-onset, strong family history)?
+- Are there other labs indicated by the presentation?
+
+**Recommended Imaging:**
+- Is MRI needed if only CT was done?
+- Would PET imaging (FDG, amyloid, tau) change management?
+- Would DaTscan help if Lewy body is in the differential?
+
+**Recommended Specialty Consultations:**
+- Neuropsychology for detailed cognitive characterization
+- Geriatric psychiatry for behavioral symptoms
+- Other specialists based on comorbidities
+
+**Recommended Biomarker Studies:**
+- Would CSF analysis be informative?
+- Are blood-based biomarkers appropriate?
+
+### PART 4: RECOMMENDATIONS - PHARMACOLOGICAL MANAGEMENT
+
+Evidence-based medication recommendations with clinical reasoning.
+
+**Cognitive Symptom Treatment:**
+- Cholinesterase inhibitors (donepezil, rivastigmine, galantamine): For whom? Which agent? What dose?
+- Memantine: When to add? Expected benefits?
+- Combination therapy considerations
+- Monitoring for efficacy and side effects
+
+**Behavioral Symptom Management:**
+- Non-pharmacological approaches FIRST
+- If medications needed:
+  - Depression/anxiety: which antidepressants are safest?
+  - Agitation/aggression: risks of antipsychotics, when justified?
+  - Sleep disturbances: melatonin vs other options?
+  - Psychosis: careful consideration of benefits vs risks
+- Black box warnings and safety monitoring
+
+**Medication Review:**
+- Which current medications might be worsening cognition?
+- Anticholinergic burden assessment
+- Deprescribing opportunities
+- Drug interactions to address
+
+**Emerging Treatments:**
+- Disease-modifying therapies if applicable (lecanemab, donanemab eligibility)
+- Clinical trial eligibility
+
+### PART 5: RECOMMENDATIONS - NON-PHARMACOLOGICAL INTERVENTIONS
+
+Evidence-based non-drug approaches for patient and caregiver.
+
+**Cognitive Interventions:**
+- Cognitive stimulation therapy
+- Cognitive rehabilitation for specific deficits
+- Memory aids and compensatory strategies
+- Structured routines and environmental modifications
+
+**Physical Activity:**
+- Exercise recommendations appropriate to functional level
+- Fall prevention strategies
+- Physical therapy evaluation if indicated
+
+**Behavioral Interventions:**
+- Identification of behavioral triggers
+- Environmental modifications
+- Communication strategies
+- Activity programming
+
+**Nutrition:**
+- Assessment of nutritional status
+- Dietary recommendations
+- Swallowing evaluation if indicated
+
+### PART 6: RECOMMENDATIONS - CARE PLANNING AND SAFETY
+
+Comprehensive care coordination recommendations.
+
+**Safety Assessment:**
+- Driving safety evaluation and recommendations
+- Home safety assessment needs
+- Wandering risk and interventions
+- Medication management supervision needs
+- Financial decision-making capacity
+- Supervision requirements
+
+**Care Coordination:**
+- Primary care coordination needs
+- Specialty care coordination
+- Home health services
+- Adult day programs
+- Respite care options
+
+**Legal and Financial Planning:**
+- Advance directive discussions
+- Healthcare proxy/power of attorney
+- Financial power of attorney
+- Capacity assessment for specific decisions if needed
+
+**Future Care Planning:**
+- Anticipated disease trajectory
+- When to consider higher levels of care
+- Hospice and palliative care timing
+- Goals of care discussions
+
+### PART 7: CAREGIVER SUPPORT AND EDUCATION
+
+Supporting the care partner is essential to patient outcomes.
+
+**Caregiver Assessment:**
+- Current caregiver burden and stress
+- Caregiver health concerns
+- Support system availability
+- Financial and time constraints
+
+**Caregiver Education:**
+- Understanding the diagnosis and prognosis
+- What to expect as disease progresses
+- Communication strategies
+- Managing challenging behaviors
+- Self-care importance
+
+**Caregiver Resources:**
+- Alzheimer's Association and local resources
+- Support groups
+- Online resources and education
+- Respite care options
+- When and how to ask for help
+
+**Caregiver Counseling:**
+- Addressing grief and loss
+- Managing expectations
+- Preventing burnout
+- Family dynamics and conflict resolution
+
+### PART 8: PATIENT AND FAMILY EDUCATION
+
+How to explain the diagnosis and plan in accessible terms.
+
+**Diagnostic Disclosure:**
+How would I explain this diagnosis to the patient and family in clear, compassionate language? What terms would I use? How would I frame the prognosis?
+
+**Disease Education:**
+- What is this condition?
+- What causes it?
+- How will it progress?
+- What treatments are available?
+- What is the prognosis?
+
+**Warning Signs:**
+What should prompt urgent contact with healthcare provider?
+- Rapid decline
+- New neurological symptoms
+- Medication side effects
+- Safety incidents
+- Caregiver crisis
+
+**Follow-up Plan:**
+- When to return for evaluation
+- What to monitor at home
+- How to reach the care team
+- When to seek urgent care
+
+### PART 9: CLINICAL CONSULTATION SUMMARY
+
+A concise summary suitable for communication with other providers.
+
+**Assessment Summary:**
+[2-3 sentence summary of diagnosis and key findings]
+
+**Problem List:**
+1. Primary cognitive diagnosis
+2. Behavioral symptoms requiring management
+3. Relevant comorbidities
+4. Functional limitations
+5. Caregiver needs
+
+**Plan Summary:**
+1. Diagnostic: Additional testing needed
+2. Medications: Changes and new prescriptions
+3. Non-pharmacological: Interventions recommended
+4. Safety: Immediate concerns and interventions
+5. Referrals: Specialists and services
+6. Follow-up: Timing and monitoring plan
+
+---
+
+{json_schema_instructions}
+
+Generate comprehensive consultation documentation that demonstrates expert clinical reasoning, evidence-based recommendations, and patient-centered care across all domains above. This annotation will train an AI to function as a clinical decision support system providing the full scope of consultation-level guidance.

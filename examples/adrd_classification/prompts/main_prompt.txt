@@ -1,7 +1,5 @@
 [TASK DESCRIPTION]
-You're a geriatric neurologist reviewing a case and dictating your clinical assessment to a colleague. Your job is to determine whether this patient has Alzheimer's Disease and Related Dementias (ADRD) or a non-ADRD condition, and to explain your reasoning as you would in a clinical consultation.
-
-This assessment serves two purposes: clinical classification and creating training data for a conversational AI system. So speak naturally - explain your thinking, note what's significant, discuss what concerns you, and walk through your differential as if you're teaching a trainee or consulting with a colleague.
+Perform binary classification of whether this patient has Alzheimer's Disease and Related Dementias (ADRD) or Non-ADRD. Extract clinical evidence systematically and apply diagnostic criteria to reach a classification with appropriate confidence.
 [END TASK DESCRIPTION]
 
 PATIENT DEMOGRAPHICS:
@@ -21,203 +19,121 @@ CLINICAL DOCUMENTATION:
 
 ---
 
-Let me walk you through how I approach these cases. I'll structure my assessment, but I want to explain the clinical reasoning behind each step - this is how we actually think through these complex presentations.
+## CLINICAL DECISION SUPPORT RESOURCES
 
-FIRST, I'M GATHERING THE COGNITIVE PICTURE
+**Use these tools for evidence-based classification:**
 
-The foundation of any dementia evaluation is understanding the cognitive profile. When I see cognitive test scores, I don't just look at numbers - I want to understand what they mean clinically.
+### Functions:
+- **calculate_mmse_severity(mmse_score)** - Interpret MMSE score
+- **calculate_moca_severity(moca_score)** - Interpret MoCA score
+- **calculate_cdr_severity(cdr_score)** - Interpret CDR score and dementia stage
+- **calculate_vascular_risk_score(risk_factors)** - Calculate vascular burden
+- **assess_functional_independence(adl_status, iadl_status)** - Evaluate functional status
 
-If I see an MMSE score, I'm thinking: Is this below 24, which typically raises concern? But I also consider education - a college professor scoring 24 might actually be significantly impaired from their baseline, while someone with limited education might score 22 and that's their normal. The calculate_mmse_severity function helps interpret the score, but the clinical context matters enormously.
+### Extras: Diagnostic criteria, cognitive terms, dementia types, differential diagnoses
 
-For MoCA scores, I look for scores below 26 as potentially abnormal, and the calculate_moca_severity function categorizes the impairment level. MoCA is more sensitive than MMSE for detecting mild impairment, particularly executive dysfunction and attention problems - so if the MMSE looks okay but MoCA is low, I'm thinking this might be an earlier or executive-predominant presentation.
-
-The Clinical Dementia Rating (CDR) is particularly valuable because it captures both cognitive and functional status. Using calculate_cdr_severity, I can determine if we're looking at questionable impairment (CDR 0.5), mild dementia (CDR 1), moderate (CDR 2), or severe (CDR 3). The CDR also helps me understand which domains are most affected - memory, orientation, judgment, community affairs, home and hobbies, personal care.
-
-Beyond standardized scores, I'm extracting information about:
-- Which cognitive domains are affected? Memory alone? Or memory plus language, plus executive function? The pattern matters for differential diagnosis.
-- When did this start? Was it six months ago, two years ago, five years ago?
-- How has it progressed? Gradual decline suggests neurodegeneration. Stepwise decline with plateaus suggests vascular disease. Fluctuations suggest Lewy body pathology.
-- Does the patient have insight into their deficits? Preserved insight sometimes suggests depression or MCI rather than established dementia.
-
-SECOND, I'M ASSESSING FUNCTIONAL STATUS
-
-This is crucial and often underappreciated. The distinction between MCI and dementia hinges on functional independence. I use the assess_functional_independence function to systematically evaluate this.
-
-I need to know about:
-- Basic ADLs: Can they bathe, dress, toilet, eat, and transfer independently? Impairment here suggests at least moderate dementia.
-- Instrumental ADLs: Can they manage medications, finances, shopping, cooking, driving, using the phone? These are lost earlier in dementia.
-
-The pattern of functional decline tells me a lot:
-- If someone has memory complaints but still manages all their IADLs independently, I'm thinking MCI or maybe depression, not dementia.
-- If they need help with medications and finances but still dress themselves, that's the typical early-to-mild dementia pattern.
-- If they need help with bathing and dressing, we're looking at moderate-to-severe dementia.
-
-I also want to know: Who's reporting this? Patient alone? Family corroboration? Often patients minimize deficits while families see the reality at home. A spouse saying "I've taken over all the bills because he made several costly mistakes" is more telling than a patient saying "I have a little trouble remembering things sometimes."
-
-THIRD, I'M EXAMINING THE BEHAVIORAL AND NEUROPSYCHIATRIC FEATURES
-
-Behavioral and psychological symptoms of dementia (BPSD) are extremely common and diagnostically informative.
-
-I look for:
-- Apathy: The most common BPSD, often mistaken for depression. But apathetic patients don't feel sad - they just don't initiate.
-- Depression and anxiety: Could be comorbid, could be prodromal, could be "pseudodementia" that's actually the primary problem.
-- Agitation and aggression: Common in moderate-to-severe dementia.
-- Psychosis: Visual hallucinations early in the course are a red flag for Lewy body dementia. Delusions of theft or infidelity are common in AD.
-- Sleep disturbances: REM sleep behavior disorder (acting out dreams, hitting bed partner) is strongly associated with Lewy body disease and often precedes cognitive symptoms by years.
-- Disinhibition: Early disinhibition and personality change makes me think frontotemporal dementia.
-
-FOURTH, I'M REVIEWING THE NEUROLOGICAL EXAMINATION
-
-Motor and neurological findings can clinch a diagnosis:
-- Parkinsonism (rigidity, bradykinesia, tremor, shuffling gait): If this appears BEFORE or concurrently with dementia, I'm thinking Lewy body dementia. If it appears late, could be late-stage AD.
-- Focal neurological deficits (weakness, sensory loss, asymmetric findings): Points to vascular disease.
-- Gait abnormality: Frontal gait (magnetic, wide-based) can be vascular or NPH. Parkinsonian gait suggests Lewy body.
-- Primitive reflexes (grasp, snout, palmomental): Suggest frontal lobe dysfunction.
-- Falls: Common in LBD due to postural instability and orthostatic hypotension.
-
-FIFTH, I'M ANALYZING THE NEUROIMAGING
-
-Brain imaging is essential to rule out structural lesions and assess atrophy patterns.
-
-On MRI or CT, I'm looking for:
-- Medial temporal lobe/hippocampal atrophy: Hallmark of Alzheimer's disease. I look for widening of temporal horns and atrophy of hippocampal formation.
-- Generalized cortical atrophy: Common in AD but nonspecific.
-- White matter hyperintensities/leukoaraiosis: Small vessel disease. Mild changes are common with age, but confluent periventricular changes suggest significant vascular burden.
-- Lacunar infarcts: Small deep infarcts in basal ganglia, thalamus, pons, internal capsule - suggest vascular dementia.
-- Strategic infarcts: Even a single infarct in the right location (thalamus, angular gyrus, hippocampus) can cause dementia.
-- Frontal and/or anterior temporal atrophy: Suggests frontotemporal dementia.
-- Enlarged ventricles out of proportion to sulcal widening: Makes me consider normal pressure hydrocephalus (along with gait, incontinence).
-
-If PET imaging is available:
-- FDG-PET showing temporoparietal hypometabolism strongly supports AD.
-- Amyloid PET positivity indicates amyloid pathology (though not necessarily AD dementia).
-- Tau PET shows the distribution of neurofibrillary tangles.
-
-SIXTH, I'M INTERPRETING BIOMARKERS
-
-If CSF biomarkers are available, they're very helpful:
-- Low CSF Aβ42 indicates amyloid deposition in the brain.
-- High total tau indicates neurodegeneration.
-- High phospho-tau (p-tau) is more specific for AD pathology.
-- The pattern of low Aβ42 with high t-tau and p-tau is the classic AD CSF profile.
-
-The A/T/N framework helps me think about this:
-- A (Amyloid): Is there amyloid pathology?
-- T (Tau): Is there tau pathology?
-- N (Neurodegeneration): Is there evidence of neuronal injury?
-
-Blood-based biomarkers (plasma p-tau217, Aβ42/40 ratio) are emerging and increasingly useful.
-
-SEVENTH, I'M CHECKING FOR REVERSIBLE CAUSES
-
-This is critical - we don't want to miss something treatable:
-- Vitamin B12 deficiency: Can cause cognitive impairment that may be reversible if caught early.
-- Thyroid dysfunction: Hypothyroidism can cause "dementia" that improves with treatment.
-- Metabolic derangements: Hyponatremia, hypercalcemia, uremia, hepatic encephalopathy.
-- Infectious: Syphilis (get RPR), HIV dementia, Lyme in endemic areas.
-- Medication effects: Anticholinergics are notorious. Also benzodiazepines, opioids, anticonvulsants.
-
-If the workup hasn't ruled these out, I note it as a gap in the evaluation.
-
-EIGHTH, I'M CALCULATING VASCULAR RISK
-
-Vascular risk factors are relevant for both vascular dementia and for AD (vascular risk accelerates AD progression). Using calculate_vascular_risk_score, I assess:
-- Hypertension (especially mid-life)
-- Diabetes mellitus
-- Hyperlipidemia
-- Atrial fibrillation
-- Coronary artery disease
-- Prior stroke or TIA
-- Smoking history
-- Obesity
-
-A high vascular burden with stepwise decline and imaging showing white matter disease and/or infarcts points toward vascular dementia. But remember, mixed pathology (AD + vascular) is actually the most common finding at autopsy.
-
-NINTH, I'M CONSIDERING FAMILY HISTORY
-
-Family history of dementia, especially early-onset (<65), raises my concern for genetic factors:
-- APOE ε4 allele is a risk factor for sporadic AD.
-- Autosomal dominant AD (APP, PSEN1, PSEN2 mutations) causes early-onset familial AD.
-- FTD can be familial (C9orf72, MAPT, GRN mutations).
-- Family history of Parkinson's is relevant for Lewy body disease.
-
-NOW, THE DIFFERENTIAL DIAGNOSIS
-
-Based on all this information, I think through the differential:
-
-**Alzheimer's Disease** - I'm thinking this when I see:
-- Insidious onset with gradual progression over months to years
-- Prominent episodic memory impairment (forgetting recent events, repeating questions)
-- Later involvement of language (word-finding), visuospatial function, and executive skills
-- Functional decline following cognitive decline
-- Hippocampal atrophy on imaging
-- Supportive biomarkers if available
-- No features suggesting alternative diagnosis
-
-**Vascular Dementia** - I'm thinking this when I see:
-- Stepwise decline with plateaus, or decline temporally related to stroke
-- Prominent executive dysfunction (planning, organizing, mental flexibility)
-- Focal neurological signs
-- Significant white matter disease, lacunes, or strategic infarcts on imaging
-- Multiple vascular risk factors
-
-**Lewy Body Dementia** - I'm thinking this when I see:
-- Fluctuating cognition with pronounced variations in attention and alertness
-- Recurrent visual hallucinations, typically well-formed and detailed (people, animals)
-- Parkinsonism (may appear before, with, or within a year after cognitive symptoms)
-- REM sleep behavior disorder
-- Severe neuroleptic sensitivity
-- Autonomic dysfunction (orthostatic hypotension, constipation, urinary symptoms)
-- Memory may be relatively preserved early; attention and visuospatial worse
-
-**Frontotemporal Dementia** - I'm thinking this when I see:
-- Behavioral variant: Early personality change, disinhibition, apathy, loss of empathy, compulsive behaviors, hyperorality
-- Language variants: Progressive nonfluent aphasia or semantic dementia
-- Relatively preserved memory initially
-- Younger age at onset (often 50s-60s, sometimes even 40s)
-- Frontal and/or anterior temporal atrophy
-- Family history of FTD, ALS, or parkinsonism
-
-**Non-ADRD Conditions** - I consider these when:
-
-*Mild Cognitive Impairment*: Cognitive concern with objective impairment but PRESERVED functional independence. This might progress to dementia or remain stable.
-
-*Depression ("Pseudodementia")*: Depressive symptoms prominent, patient complains bitterly about memory ("I can't remember anything"), "don't know" responses rather than confabulation, may have vegetative symptoms, often responds to antidepressant treatment.
-
-*Delirium*: Acute onset, fluctuating course with altered consciousness, inattention is the core feature, usually has an identifiable medical cause. Can be superimposed on dementia.
-
-*Normal Aging*: Age-related cognitive changes are real but mild - slower processing, mild retrieval difficulty, but no significant functional impact and no progressive decline.
-
-*Medication-Induced*: Temporal relationship between medication and cognitive changes, improves with discontinuation.
-
-FINALLY, MY CLASSIFICATION
-
-After weighing all this evidence, I classify the patient as:
-
-**ADRD** - if they meet criteria for dementia (cognitive decline + functional impairment) AND have features of a neurodegenerative or vascular dementia. I specify:
-- The specific type (AD, VaD, LBD, FTD, Mixed, or Other ADRD)
-- The severity (Mild: CDR 1, MMSE 21-26; Moderate: CDR 2, MMSE 10-20; Severe: CDR 3, MMSE <10)
-- My confidence level and why
-
-**Non-ADRD** - if the cognitive impairment is better explained by:
-- MCI (impairment without functional loss)
-- Psychiatric condition (depression, anxiety)
-- Delirium
-- Reversible metabolic/toxic cause
-- Medication effect
-- Normal aging
-
-IN MY CLINICAL NARRATIVE, I DISCUSS:
-
-1. The key positive findings that support my classification
-2. Important negative findings that argue against alternatives
-3. Which diagnostic criteria are met (NIA-AA, DSM-5, or subtype-specific criteria)
-4. Any atypical features or diagnostic uncertainties
-5. What additional information would increase my confidence
-6. Clinical implications and recommendations
+### RAG Resources: NIA-AA criteria, DSM-5 criteria, consensus criteria for LBD/FTD/VaD
 
 ---
 
+## CLASSIFICATION TASK
+
+### STEP 1: EXTRACT CLINICAL DATA
+
+**Cognitive Assessment:**
+- Test scores: MMSE, MoCA, CDR (use severity functions for interpretation)
+- Cognitive domains affected: memory, language, executive, visuospatial, attention
+- Onset type and progression pattern
+- Duration of symptoms
+
+**Functional Status:**
+- Basic ADL status (bathing, dressing, toileting, feeding, transferring)
+- Instrumental ADL status (finances, medications, shopping, cooking, driving)
+- Does impairment interfere with independence? (required for dementia diagnosis)
+
+**Clinical Features:**
+- Behavioral/psychiatric symptoms present
+- Neurological examination findings
+- Neuroimaging results and patterns
+- Laboratory workup results
+- Biomarkers if available
+
+**Medical Context:**
+- Vascular risk factors (use vascular risk score function)
+- Reversible causes ruled out
+- Family history
+
+### STEP 2: APPLY DIAGNOSTIC CRITERIA
+
+**For Dementia Diagnosis (DSM-5 Major NCD):**
+- Significant cognitive decline from previous level
+- Interferes with independence in everyday activities
+- Not occurring during delirium
+- Not explained by another mental disorder
+
+**For ADRD Subtypes:**
+
+**Alzheimer's Disease (NIA-AA):**
+- Insidious onset, gradual progression
+- Amnestic or non-amnestic presentation
+- No evidence of alternative cause
+
+**Vascular Dementia (NINDS-AIREN):**
+- Temporal relationship with stroke
+- Stepwise progression
+- Focal neurological signs
+- Significant cerebrovascular disease on imaging
+
+**Lewy Body Dementia (2017 Consensus):**
+- ≥2 core features: fluctuations, visual hallucinations, REM sleep behavior disorder, parkinsonism
+- Supportive: neuroleptic sensitivity, autonomic dysfunction
+
+**Frontotemporal Dementia (Rascovsky):**
+- ≥3 of: disinhibition, apathy, loss of empathy, perseverative behavior, hyperorality, executive deficits with relative memory sparing
+
+### STEP 3: CONSIDER DIFFERENTIAL DIAGNOSIS
+
+**Non-ADRD conditions to consider:**
+- Mild Cognitive Impairment (preserved independence)
+- Depression/Pseudodementia
+- Delirium
+- Medication-induced cognitive impairment
+- Metabolic causes (B12, thyroid)
+- Normal aging
+
+### STEP 4: DETERMINE CLASSIFICATION
+
+**ADRD** if:
+- Meets criteria for dementia (cognitive decline + functional impairment)
+- Pattern consistent with neurodegenerative or vascular etiology
+- Reversible causes excluded
+
+**Non-ADRD** if:
+- Does not meet dementia criteria (e.g., preserved independence = MCI)
+- Better explained by psychiatric, metabolic, or medication cause
+- Acute/reversible condition
+
+### STEP 5: ASSIGN CONFIDENCE
+
+**High:** Core criteria clearly met, supporting biomarkers/imaging, typical presentation
+**Moderate:** Clinical criteria met, limited biomarker data, some atypical features
+**Low:** Atypical presentation, conflicting data, key information missing
+
+---
+
+## OUTPUT REQUIREMENTS
+
+Provide structured classification with:
+
+1. **Systematic data extraction** from clinical record
+2. **Classification decision**: ADRD or Non-ADRD
+3. **Specific diagnosis**: Subtype (AD, VaD, LBD, FTD, Mixed) or alternative (MCI, Depression, etc.)
+4. **Severity** if ADRD: Mild, Moderate, Severe
+5. **Confidence level**: High, Moderate, Low
+6. **Supporting evidence**: Key findings that support classification
+7. **Differential diagnosis**: Alternatives considered and why ruled out
+8. **Criteria application**: Which diagnostic criteria are met
+
 {json_schema_instructions}
 
-Now, please assess this patient's case. Walk through your clinical reasoning naturally, as if you're dictating to a colleague. Extract all relevant clinical information, apply the diagnostic framework above, and provide your classification with clear supporting evidence. The goal is both an accurate classification and a clinically instructive narrative that could train an AI to think like a geriatric neurologist.
+Perform the ADRD classification now, extracting all relevant clinical evidence and applying diagnostic criteria systematically.

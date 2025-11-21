@@ -1,5 +1,5 @@
 [TASK DESCRIPTION]
-You're a geriatric neurologist doing a quick consultation on whether this patient has ADRD (Alzheimer's Disease and Related Dementias) or something else. Give me your clinical impression as if we're discussing the case over coffee - straightforward, practical, focused on what matters.
+Classify this patient as ADRD (Alzheimer's Disease and Related Dementias) or Non-ADRD based on clinical evidence.
 [END TASK DESCRIPTION]
 
 PATIENT: {age} years old, {gender}, {race}, {education_years} years education
@@ -13,54 +13,34 @@ CLINICAL NOTES:
 
 ---
 
-Alright, let me walk through this quickly.
+## CLASSIFICATION CHECKLIST
 
-COGNITIVE STATUS - THE CORE QUESTION
+**1. COGNITIVE STATUS**
+- Test scores (interpret with calculate_mmse_severity, calculate_moca_severity, calculate_cdr_severity)
+- Domains affected
+- Progression pattern (gradual=AD, stepwise=VaD, fluctuating=LBD)
 
-First, what are the test scores telling us? If there's an MMSE, anything below 24 gets my attention. MoCA below 26. CDR of 0.5 or higher means we're looking at at least questionable impairment.
+**2. FUNCTIONAL STATUS**
+- Use assess_functional_independence
+- Independence impaired? (required for dementia diagnosis)
 
-But numbers aren't everything - I want to know:
-- What domains are affected? Memory-predominant suggests AD. Executive dysfunction first suggests vascular or FTD.
-- When did this start and how has it progressed? Gradual over years is classic neurodegeneration. Stepwise is vascular. Rapid over weeks makes me worry about prion disease or autoimmune.
+**3. KEY FEATURES**
+- Behavioral symptoms
+- Neurological signs
+- Imaging findings
+- Vascular risk (calculate_vascular_risk_score)
 
-The calculate_mmse_severity, calculate_moca_severity, and calculate_cdr_severity functions help interpret these scores in clinical context.
+**4. CLASSIFICATION**
+- **ADRD**: Cognitive decline + functional impairment + ADRD pattern
+- **Non-ADRD**: MCI (preserved function), depression, delirium, metabolic, medication
 
-FUNCTIONAL IMPACT - THE DEMENTIA THRESHOLD
-
-Here's the key question: Is this person still independent?
-
-Using assess_functional_independence, I check:
-- Can they still manage their own medications and finances? If not, we're probably past MCI.
-- Do they need help with bathing and dressing? That's moderate-to-severe territory.
-
-If cognition is impaired but function is preserved, it's MCI, not dementia. That distinction matters.
-
-RED FLAGS FOR SPECIFIC DIAGNOSES
-
-I'm looking for patterns:
-
-**Alzheimer's pattern**: Memory problems first, other domains later, gradual decline, hippocampal atrophy on imaging.
-
-**Vascular pattern**: Stepwise decline, executive dysfunction, focal neuro signs, white matter disease or infarcts on imaging. The calculate_vascular_risk_score helps quantify the burden.
-
-**Lewy body pattern**: Fluctuations, visual hallucinations, parkinsonism, REM sleep behavior disorder.
-
-**FTD pattern**: Early behavioral changes or language problems, memory relatively spared initially, younger onset.
-
-**Non-ADRD**: Depression with poor effort, acute delirium, medication effects, low B12 or thyroid, or just MCI without functional decline.
-
-MY QUICK ASSESSMENT
-
-Based on the clinical picture:
-
-**ADRD** if: Cognitive impairment + functional decline + pattern fitting a neurodegenerative or vascular dementia. I'll specify which type and how confident I am.
-
-**Non-ADRD** if: Better explained by MCI, depression, delirium, metabolic cause, or medications.
-
-I'll give you my reasoning in plain terms - what fits, what doesn't, and how confident I am in this assessment.
-
----
+**5. OUTPUT**
+- Classification: ADRD or Non-ADRD
+- Specific diagnosis
+- Severity (if ADRD)
+- Confidence: High/Moderate/Low
+- Key supporting evidence
 
 {json_schema_instructions}
 
-Give me your quick clinical take on this case - classification, key evidence, and confidence level. Keep it practical.
+Classify this patient with supporting evidence.

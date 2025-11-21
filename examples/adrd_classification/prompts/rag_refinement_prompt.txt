@@ -1,128 +1,75 @@
 [TASK DESCRIPTION]
-You've already given me your initial assessment of this patient. Now I've pulled up the relevant clinical guidelines and diagnostic criteria. Let's refine your thinking - check your work against the established standards, see if anything needs adjustment, and strengthen your reasoning with evidence-based support.
-
-This is like the second look you'd take before finalizing a consultation note - making sure everything holds up against the published criteria.
+Refine your ADRD classification using retrieved clinical guidelines and diagnostic criteria. Validate criteria application and adjust confidence as appropriate.
 [END TASK DESCRIPTION]
 
-ORIGINAL CLINICAL DOCUMENTATION:
+ORIGINAL CLINICAL TEXT:
 {clinical_text}
 
-YOUR INITIAL ASSESSMENT:
+INITIAL CLASSIFICATION:
 {stage3_json_output}
 
-RETRIEVED CLINICAL GUIDELINES:
+CLINICAL GUIDELINES:
 {retrieved_evidence_chunks}
 
 ---
 
-Alright, let's review this case against the guidelines.
+## REFINEMENT CHECKLIST
 
-CHECKING THE DIAGNOSTIC CRITERIA
+### 1. VALIDATE DIAGNOSTIC CRITERIA
 
-First, I want to make sure we're applying the right diagnostic standards properly.
+**Check against retrieved guidelines:**
 
-**For an ADRD diagnosis, let's verify:**
+**If classified as Alzheimer's Disease:**
+- Does it meet NIA-AA criteria for probable vs possible AD?
+- Insidious onset, gradual progression confirmed?
+- Amnestic or non-amnestic presentation properly identified?
 
-If I called this Alzheimer's disease, do we meet NIA-AA criteria?
-- Dementia present: Cognitive symptoms that interfere with daily activities? Check.
-- Insidious onset over months to years?
-- Clear history of worsening cognition by report or observation?
-- Amnestic or non-amnestic presentation fitting the pattern?
+**If classified as Vascular Dementia:**
+- Temporal relationship with stroke documented?
+- NINDS-AIREN criteria met?
+- Imaging shows significant cerebrovascular disease?
 
-The guidelines specify what "probable AD" versus "possible AD" means - probable requires no features suggesting alternative diagnosis, while possible allows for some atypical features.
+**If classified as Lewy Body Dementia:**
+- ≥2 core features present for probable DLB?
+- 2017 consensus criteria properly applied?
 
-If I called this vascular dementia, do we meet the criteria for "probable" versus "possible" VaD? Is there a clear temporal relationship between stroke and cognitive decline, or imaging evidence of significant cerebrovascular disease?
+**If classified as Non-ADRD:**
+- If MCI: Functional independence truly preserved?
+- If Depression: Cognitive symptoms proportional to mood symptoms?
+- If Delirium: Acute onset with fluctuating consciousness?
 
-If Lewy body dementia, are we meeting the 2017 consensus criteria? Two or more core features for "probable" - fluctuating cognition, visual hallucinations, RBD, parkinsonism. The guidelines also specify supportive features like neuroleptic sensitivity, autonomic dysfunction, and characteristic biomarkers.
+### 2. VERIFY SEVERITY STAGING
 
-If frontotemporal dementia, do we meet the Rascovsky or other FTD criteria? Early behavioral disinhibition, apathy, loss of empathy, perseverative behaviors, hyperorality - or the language variant features?
+**Per guideline cutoffs:**
+- CDR 0.5 = Very mild / CDR 1 = Mild / CDR 2 = Moderate / CDR 3 = Severe
+- MMSE 24-30 = Normal-mild / 18-23 = Mild / 10-17 = Moderate / <10 = Severe
 
-**For a Non-ADRD classification, let's verify:**
+Does your severity rating align with test scores per guidelines?
 
-If I called this MCI, are we meeting the criteria properly? Objective cognitive impairment (typically 1-1.5 SD below norms), concern by patient or informant, but - critically - preserved independence in functional abilities. The guidelines are clear that dementia requires functional impairment while MCI does not.
+### 3. STRENGTHEN DIFFERENTIAL
 
-If I'm attributing this to depression, do the features match DSM-5 major depressive disorder criteria? Are the cognitive symptoms proportion to the affective symptoms? Would treatment of depression be expected to improve cognition?
+Using guidelines, verify proper distinction between:
+- AD vs VaD (gradual vs stepwise, memory vs executive)
+- AD vs LBD (1-year rule for parkinsonism)
+- Dementia vs MCI (functional independence threshold)
 
-If delirium, is this truly acute onset with fluctuating consciousness and inattention? Guidelines specify delirium as an exclusion - you can't diagnose dementia during an acute confusional state.
+### 4. ADJUST CONFIDENCE
 
-REFINING THE SEVERITY STAGING
+**Per guidelines:**
+- **High**: All core criteria clearly met, biomarkers supportive, typical presentation
+- **Moderate**: Clinical criteria met, limited biomarkers, minor atypical features
+- **Low**: Atypical presentation, conflicting evidence, criteria partially met
 
-The guidelines provide specific cutoffs. Let me make sure my severity assessment is calibrated correctly:
+### 5. REFINE OUTPUT
 
-For CDR staging:
-- CDR 0.5: Questionable impairment/very mild
-- CDR 1: Mild dementia
-- CDR 2: Moderate dementia
-- CDR 3: Severe dementia
-
-For MMSE-based staging (with caveats about education):
-- 24-30: Normal to mild impairment
-- 18-23: Mild dementia
-- 10-17: Moderate dementia
-- 0-9: Severe dementia
-
-Do my severity ratings match what the guidelines say these scores represent?
-
-STRENGTHENING THE DIFFERENTIAL DIAGNOSIS
-
-Looking at the guidelines, am I properly distinguishing between the ADRD subtypes?
-
-**AD vs VaD**: The guidelines emphasize that pure vascular dementia should show stepwise progression, temporal relationship with cerebrovascular events, and prominent executive dysfunction with relative memory sparing early. Mixed pathology (AD + vascular) is actually most common - am I accounting for that possibility?
-
-**AD vs LBD**: The "1-year rule" in guidelines - if parkinsonism precedes dementia by more than a year, it's PD dementia, not LBD. Core features of LBD should be present early and prominently. Am I weighting these features correctly?
-
-**AD vs FTD**: Guidelines emphasize that memory is relatively preserved early in FTD while behavior and/or language are prominently affected. Age of onset matters too - FTD typically presents younger than AD.
-
-CONSIDERING THE BIOMARKER EVIDENCE
-
-If biomarkers are available, let me check my interpretation against guideline cutoffs:
-
-**CSF biomarkers**: The A/T/N framework from guidelines:
-- A+ (amyloid positive): Low Aβ42 or positive amyloid PET
-- T+ (tau positive): High phospho-tau
-- N+ (neurodegeneration positive): High total tau, hypometabolism on FDG-PET, or atrophy on MRI
-
-An A+/T+/N+ profile strongly supports AD pathology. But remember - pathology doesn't equal clinical syndrome, especially in older adults with mixed pathology.
-
-**Imaging interpretation**: Am I using guideline standards for interpreting atrophy patterns and white matter changes? The guidelines have specific criteria for what constitutes "significant" vascular burden versus age-related changes.
-
-ADJUSTING MY CONFIDENCE
-
-The guidelines help me calibrate confidence:
-
-**High confidence** when:
-- All core diagnostic criteria clearly met
-- Biomarkers (if available) support the diagnosis
-- No features suggesting alternative diagnosis
-- Typical presentation and course
-
-**Moderate confidence** when:
-- Core clinical criteria met but limited biomarker support
-- Some atypical features but overall picture still fits
-- Can't fully exclude one alternative
-
-**Low confidence** when:
-- Atypical presentation
-- Conflicting evidence
-- Multiple diagnoses plausible
-- Critical information missing
-
-MAKING REFINEMENTS
-
-Based on this guideline review, I'll refine my assessment:
-
-1. **Classification**: Keep or adjust? Most refinements should be about precision, not flipping the diagnosis entirely. But if the guidelines reveal I misapplied criteria, I'll correct it.
-
-2. **Subtype specificity**: Can I be more precise about which ADRD subtype based on guideline criteria? Should I consider mixed pathology?
-
-3. **Severity staging**: Does my staging align with guideline cutoffs?
-
-4. **Confidence justification**: Can I cite specific guideline criteria that are met or unmet?
-
-5. **Gaps identified**: What additional testing do guidelines suggest would strengthen or change the diagnosis?
+- Confirm or adjust classification
+- Refine subtype specificity
+- Calibrate severity to guidelines
+- Cite specific criteria met/not met
+- Note what additional information would strengthen diagnosis
 
 ---
 
 {json_schema_instructions}
 
-Please review your initial assessment against these guidelines. Refine your classification where needed, strengthen your reasoning with guideline-based evidence, and adjust your confidence level appropriately. The goal is a classification that would hold up to peer review - grounded in established diagnostic criteria and clearly reasoned.
+Output refined classification with guideline-validated criteria application and appropriate confidence.
