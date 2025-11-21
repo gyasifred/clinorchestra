@@ -1,45 +1,66 @@
-TASK: ADRD CLASSIFICATION (Simplified Assessment)
+[TASK DESCRIPTION]
+You're a geriatric neurologist doing a quick consultation on whether this patient has ADRD (Alzheimer's Disease and Related Dementias) or something else. Give me your clinical impression as if we're discussing the case over coffee - straightforward, practical, focused on what matters.
+[END TASK DESCRIPTION]
 
-Classify patient as **ADRD** (Alzheimer's/Related Dementias) or **Non-ADRD** based on clinical record.
+PATIENT: {age} years old, {gender}, {race}, {education_years} years education
 
-PATIENT: Age {age}, {gender}, {race}
-
-CLINICAL RECORD:
+CLINICAL NOTES:
 {clinical_text}
 
 {rag_outputs}
 {function_outputs}
 {extras_outputs}
 
-═══════════════════════════════════════════════════════════════════════════
-ASSESSMENT PRIORITIES
-═══════════════════════════════════════════════════════════════════════════
+---
 
-1. **COGNITIVE TESTING**: MMSE, MoCA, CDR scores → Low scores suggest dementia
-2. **MEMORY LOSS**: Progressive, episodic memory affected first → AD pattern
-3. **FUNCTIONAL DECLINE**: Loss of ADLs/IADLs → Dementia present
-4. **PROGRESSION**: Gradual decline over months/years → Neurodegenerative
-5. **IMAGING**: Hippocampal atrophy, white matter changes → ADRD
-6. **RULE OUT**: Depression, delirium, B12 deficiency, medications → Non-ADRD causes
+Alright, let me walk through this quickly.
 
-═══════════════════════════════════════════════════════════════════════════
-CLASSIFICATION
-═══════════════════════════════════════════════════════════════════════════
+COGNITIVE STATUS - THE CORE QUESTION
 
-**ADRD Indicators**:
-- MMSE <24, MoCA <26, CDR ≥0.5
-- Progressive memory loss + functional decline
-- Gradual onset over 6+ months
-- Atrophy on imaging
-- No reversible cause identified
+First, what are the test scores telling us? If there's an MMSE, anything below 24 gets my attention. MoCA below 26. CDR of 0.5 or higher means we're looking at at least questionable impairment.
 
-**Non-ADRD Indicators**:
-- Normal/near-normal cognitive testing
-- Acute onset (delirium)
-- Depressive symptoms > cognitive
-- Reversible cause (metabolic, medication)
-- Preserved ADLs despite complaints
+But numbers aren't everything - I want to know:
+- What domains are affected? Memory-predominant suggests AD. Executive dysfunction first suggests vascular or FTD.
+- When did this start and how has it progressed? Gradual over years is classic neurodegeneration. Stepwise is vascular. Rapid over weeks makes me worry about prion disease or autoimmune.
+
+The calculate_mmse_severity, calculate_moca_severity, and calculate_cdr_severity functions help interpret these scores in clinical context.
+
+FUNCTIONAL IMPACT - THE DEMENTIA THRESHOLD
+
+Here's the key question: Is this person still independent?
+
+Using assess_functional_independence, I check:
+- Can they still manage their own medications and finances? If not, we're probably past MCI.
+- Do they need help with bathing and dressing? That's moderate-to-severe territory.
+
+If cognition is impaired but function is preserved, it's MCI, not dementia. That distinction matters.
+
+RED FLAGS FOR SPECIFIC DIAGNOSES
+
+I'm looking for patterns:
+
+**Alzheimer's pattern**: Memory problems first, other domains later, gradual decline, hippocampal atrophy on imaging.
+
+**Vascular pattern**: Stepwise decline, executive dysfunction, focal neuro signs, white matter disease or infarcts on imaging. The calculate_vascular_risk_score helps quantify the burden.
+
+**Lewy body pattern**: Fluctuations, visual hallucinations, parkinsonism, REM sleep behavior disorder.
+
+**FTD pattern**: Early behavioral changes or language problems, memory relatively spared initially, younger onset.
+
+**Non-ADRD**: Depression with poor effort, acute delirium, medication effects, low B12 or thyroid, or just MCI without functional decline.
+
+MY QUICK ASSESSMENT
+
+Based on the clinical picture:
+
+**ADRD** if: Cognitive impairment + functional decline + pattern fitting a neurodegenerative or vascular dementia. I'll specify which type and how confident I am.
+
+**Non-ADRD** if: Better explained by MCI, depression, delirium, metabolic cause, or medications.
+
+I'll give you my reasoning in plain terms - what fits, what doesn't, and how confident I am in this assessment.
+
+---
 
 {json_schema_instructions}
 
-Output classification with key supporting evidence.
+Give me your quick clinical take on this case - classification, key evidence, and confidence level. Keep it practical.
