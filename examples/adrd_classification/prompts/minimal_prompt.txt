@@ -13,22 +13,26 @@ CLINICAL NOTES:
 
 ---
 
+**TOOL CALLING CAPABILITY:** You have access to tools for score interpretation, guideline retrieval, and filling information gaps. Use as needed.
+
+---
+
 ## CLASSIFICATION CHECKLIST
 
 **1. COGNITIVE STATUS**
-- Test scores (interpret with calculate_mmse_severity, calculate_moca_severity, calculate_cdr_severity)
+- Test scores and interpretation
 - Domains affected
 - Progression pattern (gradual=AD, stepwise=VaD, fluctuating=LBD)
 
 **2. FUNCTIONAL STATUS**
-- Use assess_functional_independence
+- ADL/IADL status
 - Independence impaired? (required for dementia diagnosis)
 
 **3. KEY FEATURES**
 - Behavioral symptoms
 - Neurological signs
 - Imaging findings
-- Vascular risk (calculate_vascular_risk_score)
+- Vascular risk burden
 
 **4. CLASSIFICATION**
 - **ADRD**: Cognitive decline + functional impairment + ADRD pattern

@@ -19,20 +19,7 @@ CLINICAL DOCUMENTATION:
 
 ---
 
-## CLINICAL DECISION SUPPORT RESOURCES
-
-**Use these tools for evidence-based classification:**
-
-### Functions:
-- **calculate_mmse_severity(mmse_score)** - Interpret MMSE score
-- **calculate_moca_severity(moca_score)** - Interpret MoCA score
-- **calculate_cdr_severity(cdr_score)** - Interpret CDR score and dementia stage
-- **calculate_vascular_risk_score(risk_factors)** - Calculate vascular burden
-- **assess_functional_independence(adl_status, iadl_status)** - Evaluate functional status
-
-### Extras: Diagnostic criteria, cognitive terms, dementia types, differential diagnoses
-
-### RAG Resources: NIA-AA criteria, DSM-5 criteria, consensus criteria for LBD/FTD/VaD
+**TOOL CALLING CAPABILITY:** You have access to clinical decision support tools that can calculate score interpretations, retrieve diagnostic criteria and clinical guidelines, and fill information gaps. Use these tools as needed to support evidence-based classification.
 
 ---
 

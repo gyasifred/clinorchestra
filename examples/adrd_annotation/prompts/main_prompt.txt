@@ -21,40 +21,7 @@ CLINICAL DOCUMENTATION:
 
 ---
 
-## AVAILABLE CLINICAL DECISION SUPPORT RESOURCES
-
-**You MUST use these tools to generate evidence-based outputs:**
-
-### Functions (Call these to calculate scores and interpretations):
-- **calculate_mmse_severity(mmse_score)** - Interpret MMSE score, get severity category
-- **calculate_moca_severity(moca_score)** - Interpret MoCA score, get impairment level
-- **calculate_cdr_severity(cdr_score)** - Interpret CDR score, get dementia stage
-- **calculate_vascular_risk_score(risk_factors)** - Calculate cumulative vascular burden
-- **assess_functional_independence(adl_status, iadl_status)** - Evaluate functional status
-
-### Extras (Reference these for clinical terminology and criteria):
-- adrd_diagnostic_criteria - NIA-AA, DSM-5, consensus criteria keywords
-- adrd_cognitive_assessment_terms - Cognitive testing terminology
-- adrd_functional_assessment_terms - ADL/IADL terminology
-- adrd_behavioral_symptoms - BPSD terminology
-- adrd_neurological_findings - Exam findings
-- adrd_neuroimaging - Imaging findings and patterns
-- adrd_biomarkers - CSF and PET biomarkers
-- adrd_reversible_causes - Treatable causes to rule out
-- adrd_vascular_risk_factors - Vascular risk factor list
-- adrd_medications - Dementia medications
-- adrd_dementia_types - ADRD subtypes
-- adrd_differential_diagnoses - Alternative diagnoses
-- adrd_cognitive_symptoms - Symptom terminology
-
-### RAG Resources (Retrieved guidelines for evidence-based practice):
-- **diagnostic_guidelines.md** - NIA-AA criteria, DSM-5, consensus criteria, cognitive test interpretation
-- **treatment_and_care_guidelines.md** - Pharmacological treatment, non-pharmacological interventions, safety, care planning, caregiver support
-
-**IMPORTANT:** Your consultation must demonstrate use of these resources by:
-1. Calling functions for any numeric scores (MMSE, MoCA, CDR, vascular risk)
-2. Using terminology from extras for accurate clinical language
-3. Citing guideline-based recommendations from RAG resources
+**TOOL CALLING CAPABILITY:** You have access to clinical decision support tools that can calculate score interpretations, retrieve clinical guidelines, and fill information gaps. Use these tools as needed to provide evidence-based assessments and recommendations.
 
 ---
 

@@ -13,6 +13,10 @@ CLINICAL NOTES:
 
 ---
 
+**TOOL CALLING CAPABILITY:** You have access to tools for score interpretation, guideline retrieval, and filling information gaps. Use as needed.
+
+---
+
 ## FOCUSED CONSULTATION ANNOTATION
 
 Generate a consultation that demonstrates clinical reasoning and actionable recommendations.
@@ -21,9 +25,9 @@ Generate a consultation that demonstrates clinical reasoning and actionable reco
 
 **Key Findings:**
 Extract the essential clinical data:
-- Cognitive test scores and interpretation (use calculate_mmse_severity, calculate_moca_severity, calculate_cdr_severity)
-- Functional status (use assess_functional_independence)
-- Vascular risk (use calculate_vascular_risk_score)
+- Cognitive test scores and interpretation
+- Functional status (ADL/IADL)
+- Vascular risk burden
 - Imaging and labs
 - Timeline and progression
 
