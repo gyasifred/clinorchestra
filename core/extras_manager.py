@@ -18,10 +18,10 @@ logger = get_logger(__name__)
 class ExtrasManager:
     """
     Manage extras (supplementary hints/tips/patterns) to help LLM understand tasks
-    
+
     Extras are NOT for matching against input text - they're supplementary knowledge
     that helps the LLM better understand how to approach the extraction task.
-    
+
     Examples:
     - Diagnostic criteria explanations
     - Assessment methodology tips
@@ -29,15 +29,21 @@ class ExtrasManager:
     - Task breakdown guidance
     - Field interpretation hints
     """
-    
+
     def __init__(self, storage_path: str = "./extras"):
         self.storage_path = Path(storage_path)
         self.storage_path.mkdir(parents=True, exist_ok=True)
-        
+
         self.extras: List[Dict[str, Any]] = []
-        
+
+        # PERFORMANCE: Result caching for repeated keyword queries
+        self.result_cache: Dict[str, List[Dict[str, Any]]] = {}
+        self.cache_hits = 0
+        self.cache_misses = 0
+        self.cache_bypass = False  # Can be set to True to force recompute
+
         self._load_all_extras()
-        
+
         logger.info(f"ExtrasManager initialized with {len(self.extras)} extras")
     
     def add_extra(self, extra_type: str, content: str, metadata: Optional[Dict] = None, name: Optional[str] = None) -> bool:
@@ -59,6 +65,9 @@ class ExtrasManager:
 
             self.extras.append(extra)
             self._save_extra(extra)
+
+            # Clear cache since extras have changed
+            self.result_cache.clear()
 
             logger.info(f"Added extra: {name} ({extra['id']})")
             return True
@@ -88,28 +97,41 @@ class ExtrasManager:
     def match_extras_by_keywords(self, keywords: List[str]) -> List[Dict[str, Any]]:
         """
         ENHANCED: Match extras based on keywords from the extraction task
-        
+
         This is the correct usage: keywords come from schema fields, task labels,
         and task description - NOT from input text.
-        
+
+        PERFORMANCE: Results are cached based on keywords to avoid redundant computation.
+
         Args:
             keywords: List of keywords from extraction task (schema fields, labels, etc.)
-            
+
         Returns:
             List of matched extras (hints/tips/patterns) sorted by relevance
         """
         if not keywords:
             logger.warning("No keywords provided for extras matching")
             return []
-        
+
         if not self.extras:
             logger.info("No extras available in storage")
             return []
-        
+
+        # PERFORMANCE: Create cache key from sorted keywords
+        keywords_lower = [k.lower() for k in keywords if k]
+        cache_key = "|".join(sorted(keywords_lower))
+
+        # Check cache first (unless bypass is enabled)
+        if not self.cache_bypass and cache_key in self.result_cache:
+            self.cache_hits += 1
+            cached_result = self.result_cache[cache_key]
+            logger.debug(f"Cache HIT for extras keywords {keywords} - returning {len(cached_result)} cached results")
+            return cached_result
+
+        self.cache_misses += 1
         logger.info(f"Matching extras against keywords: {keywords}")
 
         matched = []
-        keywords_lower = [k.lower() for k in keywords if k]
 
         # Filter to only use enabled extras for matching
         enabled_extras = [e for e in self.extras if e.get('enabled', True)]
@@ -117,21 +139,51 @@ class ExtrasManager:
 
         for extra in enabled_extras:
             score = self._calculate_keyword_relevance_score(extra, keywords_lower)
-            
+
             if score > 0.2:  # Threshold for relevance
                 matched.append({
                     **extra,
                     'relevance_score': score,
                     'matched_keywords': self._get_matched_keywords(extra, keywords_lower)
                 })
-        
+
         # Sort by relevance score
         matched.sort(key=lambda x: x['relevance_score'], reverse=True)
-        
+
         logger.info(f"Matched {len(matched)} extras with keyword relevance > 0.2")
 
         # Return top 10 most relevant (increased from 5 for better context)
-        return matched[:10]
+        result = matched[:10]
+
+        # Cache the result
+        self.result_cache[cache_key] = result
+        logger.debug(f"Cached extras result for keywords {keywords}")
+
+        return result
+
+    def clear_cache(self):
+        """Clear the result cache"""
+        self.result_cache.clear()
+        self.cache_hits = 0
+        self.cache_misses = 0
+        logger.info("ExtrasManager result cache cleared")
+
+    def set_cache_bypass(self, bypass: bool):
+        """Set cache bypass mode"""
+        self.cache_bypass = bypass
+        logger.info(f"ExtrasManager cache bypass set to: {bypass}")
+
+    def get_cache_stats(self) -> Dict[str, Any]:
+        """Get cache statistics"""
+        total = self.cache_hits + self.cache_misses
+        hit_rate = (self.cache_hits / total * 100) if total > 0 else 0
+        return {
+            'cache_hits': self.cache_hits,
+            'cache_misses': self.cache_misses,
+            'hit_rate': hit_rate,
+            'cache_size': len(self.result_cache),
+            'bypass_enabled': self.cache_bypass
+        }
     
     def match_extras(self, text: str, current_output: Optional[Dict[str, Any]] = None, 
                      keywords: Optional[List[str]] = None) -> List[Dict[str, Any]]:
@@ -314,6 +366,9 @@ class ExtrasManager:
             # Save updated extra
             self._save_extra(extra)
 
+            # Clear cache since extras have changed
+            self.result_cache.clear()
+
             logger.info(f"Updated extra: {name} ({extra_id})")
             return True
 
@@ -329,6 +384,9 @@ class ExtrasManager:
             extra_file = self.storage_path / f"{extra_id}.json"
             if extra_file.exists():
                 extra_file.unlink()
+
+            # Clear cache since extras have changed
+            self.result_cache.clear()
 
             logger.info(f"Removed extra: {extra_id}")
             return True
@@ -347,6 +405,9 @@ class ExtrasManager:
 
             extra['enabled'] = enabled
             self._save_extra(extra)
+
+            # Clear cache since extras have changed
+            self.result_cache.clear()
 
             status = "enabled" if enabled else "disabled"
             logger.info(f"Extra {extra_id} {status}")

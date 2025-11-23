@@ -215,15 +215,37 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
     components['load_extras_status'] = load_extras_status
     
     gr.Markdown("---")
+    gr.Markdown("### Cache Management")
+    gr.Markdown("""
+    Extras matching results are cached based on keywords. Use these controls to manage the cache:
+    - **Bypass Cache**: Force recompute on every query (useful after modifying extras content)
+    - **Clear Cache**: Remove all cached results
+    """)
+
+    with gr.Row():
+        extras_cache_bypass = gr.Checkbox(
+            label="Bypass Cache (Force Recompute)",
+            value=False,
+            info="When enabled, all queries will bypass the cache and recompute results"
+        )
+        components['extras_cache_bypass'] = extras_cache_bypass
+
+        clear_extras_cache_btn = gr.Button("Clear Cache", variant="secondary")
+        components['clear_extras_cache_btn'] = clear_extras_cache_btn
+
+    extras_cache_status = gr.Textbox(label="Cache Status", interactive=False)
+    components['extras_cache_status'] = extras_cache_status
+
+    gr.Markdown("---")
     gr.Markdown("### Import/Export")
-    
+
     with gr.Row():
         export_extras_btn = gr.Button("Export All Extras")
         import_extras_btn = gr.Button("Import Extras")
-    
+
     components['export_extras_btn'] = export_extras_btn
     components['import_extras_btn'] = import_extras_btn
-    
+
     extras_json = gr.TextArea(
         label="Extras JSON",
         lines=10
@@ -547,6 +569,28 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
         status_msg = f"Updated {updated_count} extras" if updated_count > 0 else "No changes"
         return status_msg
 
+    def set_extras_cache_bypass(bypass):
+        """Set extras cache bypass mode"""
+        extras_manager = app_state.get_extras_manager()
+        if not extras_manager:
+            extras_manager = ExtrasManager()
+            app_state.set_extras_manager(extras_manager)
+
+        extras_manager.set_cache_bypass(bypass)
+        stats = extras_manager.get_cache_stats()
+        status = f"Cache bypass: {'Enabled' if bypass else 'Disabled'} | Hits: {stats['cache_hits']} | Misses: {stats['cache_misses']} | Size: {stats['cache_size']}"
+        return status
+
+    def clear_extras_cache():
+        """Clear extras result cache"""
+        extras_manager = app_state.get_extras_manager()
+        if not extras_manager:
+            extras_manager = ExtrasManager()
+            app_state.set_extras_manager(extras_manager)
+
+        extras_manager.clear_cache()
+        return "Cache cleared successfully"
+
     # Connect handlers
     add_extra_btn.click(
         fn=add_extra,
@@ -610,5 +654,17 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
         inputs=[extras_checkboxes],
         outputs=[extra_status]
     )
-    
+
+    # Cache control handlers
+    extras_cache_bypass.change(
+        fn=set_extras_cache_bypass,
+        inputs=[extras_cache_bypass],
+        outputs=[extras_cache_status]
+    )
+
+    clear_extras_cache_btn.click(
+        fn=clear_extras_cache,
+        outputs=[extras_cache_status]
+    )
+
     return components

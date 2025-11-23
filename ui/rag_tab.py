@@ -121,19 +121,37 @@ def create_rag_tab(app_state) -> Dict[str, Any]:
         gr.Markdown("---")
         gr.Markdown("#### Cache Management")
         gr.Markdown("""
-        The RAG system caches embeddings to avoid reprocessing the same documents.
-        Embeddings are only recreated when the embedding model or chunk configuration changes.
+        The RAG system has two levels of caching:
+        - **Embedding Cache**: Stores document embeddings to avoid reprocessing (cleared when config changes)
+        - **Query Cache**: Stores query results to avoid redundant searches (can be bypassed for fresh results)
         """)
-        
+
         with gr.Row():
             cache_info = gr.HTML(
                 value="<div>Cache information will be displayed here after initialization</div>"
             )
             components['cache_info'] = cache_info
-        
+
         with gr.Row():
-            clear_cache_btn = gr.Button("Clear Cache", variant="secondary")
+            clear_cache_btn = gr.Button("Clear Embedding Cache", variant="secondary")
             components['clear_cache_btn'] = clear_cache_btn
+
+        gr.Markdown("##### Query Cache Controls")
+        gr.Markdown("Query results are cached based on the search query. Use these controls to manage the query cache:")
+
+        with gr.Row():
+            rag_cache_bypass = gr.Checkbox(
+                label="Bypass Query Cache (Force Recompute)",
+                value=False,
+                info="When enabled, all queries will bypass the cache and retrieve fresh results"
+            )
+            components['rag_cache_bypass'] = rag_cache_bypass
+
+            clear_query_cache_btn = gr.Button("Clear Query Cache", variant="secondary")
+            components['clear_query_cache_btn'] = clear_query_cache_btn
+
+        rag_cache_status = gr.Textbox(label="Query Cache Status", interactive=False)
+        components['rag_cache_status'] = rag_cache_status
         
         gr.Markdown("---")
         gr.Markdown("#### Initialize RAG")
@@ -184,22 +202,42 @@ def create_rag_tab(app_state) -> Dict[str, Any]:
             return f"<div>Error getting cache info: {str(e)}</div>"
     
     def clear_cache():
-        """Clear RAG cache"""
+        """Clear RAG embedding cache"""
         try:
             cache_dir = Path(app_state.rag_config.cache_dir)
             if cache_dir.exists():
                 for file in cache_dir.rglob("*"):
                     if file.is_file():
                         file.unlink()
-                
+
                 cache_dir.mkdir(parents=True, exist_ok=True)
-                
-                return "Cache cleared successfully", get_cache_info()
+
+                return "Embedding cache cleared successfully", get_cache_info()
             else:
                 return "No cache directory found", get_cache_info()
-                
+
         except Exception as e:
             return f"Error clearing cache: {str(e)}", get_cache_info()
+
+    def set_rag_cache_bypass(bypass):
+        """Set RAG query cache bypass mode"""
+        rag_engine = app_state.get_rag_engine()
+        if not rag_engine:
+            return "RAG engine not initialized"
+
+        rag_engine.set_cache_bypass(bypass)
+        stats = rag_engine.get_cache_stats()
+        status = f"Cache bypass: {'Enabled' if bypass else 'Disabled'} | Hits: {stats['cache_hits']} | Misses: {stats['cache_misses']} | Size: {stats['cache_size']}"
+        return status
+
+    def clear_query_cache():
+        """Clear RAG query result cache"""
+        rag_engine = app_state.get_rag_engine()
+        if not rag_engine:
+            return "RAG engine not initialized"
+
+        rag_engine.clear_query_cache()
+        return "Query cache cleared successfully"
                                       
     def initialize_rag(enabled, urls, paths, files, embedding_model,
                       chunk_size, chunk_overlap, k_value):
@@ -338,7 +376,7 @@ def create_rag_tab(app_state) -> Dict[str, Any]:
         fn=clear_cache,
         outputs=[rag_status, cache_info]
     )
-    
+
     init_rag_btn.click(
         fn=initialize_rag,
         inputs=[
@@ -348,10 +386,22 @@ def create_rag_tab(app_state) -> Dict[str, Any]:
         ],
         outputs=[rag_status, cache_info]
     )
-    
+
+    # Query cache control handlers
+    rag_cache_bypass.change(
+        fn=set_rag_cache_bypass,
+        inputs=[rag_cache_bypass],
+        outputs=[rag_cache_status]
+    )
+
+    clear_query_cache_btn.click(
+        fn=clear_query_cache,
+        outputs=[rag_cache_status]
+    )
+
     app_state.observer.subscribe(
         "tab_loaded",
         lambda: cache_info.update(value=get_cache_info())
     )
-    
+
     return components
