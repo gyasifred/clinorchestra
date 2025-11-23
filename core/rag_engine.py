@@ -594,17 +594,23 @@ class RAGEngine:
         self.chunk_size = config.get('chunk_size', 512)
         self.chunk_overlap = config.get('chunk_overlap', 50)
         self.cache_dir = config.get('cache_dir', './rag_cache')
-        
+
         # Ensure cache directory exists
         Path(self.cache_dir).mkdir(parents=True, exist_ok=True)
-        
+
         self.embedding_generator = None
         self.chunker = None
         self.vector_store = None
-        
+
         self.initialized = False
         self.documents_loaded = []
-        
+
+        # PERFORMANCE: Result caching for repeated queries
+        self.query_cache: Dict[str, List[Dict[str, Any]]] = {}
+        self.cache_hits = 0
+        self.cache_misses = 0
+        self.cache_bypass = False  # Can be set to True to force recompute
+
         logger.info("RAGEngine created (not initialized yet)")
 
     def initialize(self, sources: List[str], app_state) -> bool:
@@ -615,6 +621,12 @@ class RAGEngine:
             if not sources:
                 logger.warning("No sources provided to RAG engine")
                 return False
+
+            # Clear query cache when re-initializing with new documents
+            self.query_cache.clear()
+            self.cache_hits = 0
+            self.cache_misses = 0
+            logger.info("Cleared RAG query cache for re-initialization")
             
             logger.info("=" * 60)
             logger.info("INITIALIZING RAG ENGINE")
@@ -709,9 +721,23 @@ class RAGEngine:
         """
         Query RAG engine (alias for retrieve with dict output)
         Maintains backward compatibility
+
+        PERFORMANCE: Results are cached based on query text and k value.
         """
+        # PERFORMANCE: Create cache key from query and k
+        cache_key = f"{query_text.strip().lower()}|k={k}"
+
+        # Check cache first (unless bypass is enabled)
+        if not self.cache_bypass and cache_key in self.query_cache:
+            self.cache_hits += 1
+            cached_result = self.query_cache[cache_key]
+            logger.debug(f"Cache HIT for RAG query '{query_text[:50]}...' - returning {len(cached_result)} cached results")
+            return cached_result
+
+        self.cache_misses += 1
+
         results = self.retrieve(query_text, k)
-        
+
         # Convert SearchResult objects to dictionaries
         dict_results = []
         for result in results:
@@ -721,5 +747,33 @@ class RAGEngine:
                 'source': result.document.metadata.get('source', 'Unknown'),
                 'metadata': result.document.metadata
             })
-        
+
+        # Cache the result
+        self.query_cache[cache_key] = dict_results
+        logger.debug(f"Cached RAG result for query '{query_text[:50]}...'")
+
         return dict_results
+
+    def clear_query_cache(self):
+        """Clear the query result cache"""
+        self.query_cache.clear()
+        self.cache_hits = 0
+        self.cache_misses = 0
+        logger.info("RAGEngine query cache cleared")
+
+    def set_cache_bypass(self, bypass: bool):
+        """Set cache bypass mode"""
+        self.cache_bypass = bypass
+        logger.info(f"RAGEngine cache bypass set to: {bypass}")
+
+    def get_cache_stats(self) -> Dict[str, Any]:
+        """Get cache statistics"""
+        total = self.cache_hits + self.cache_misses
+        hit_rate = (self.cache_hits / total * 100) if total > 0 else 0
+        return {
+            'cache_hits': self.cache_hits,
+            'cache_misses': self.cache_misses,
+            'hit_rate': hit_rate,
+            'cache_size': len(self.query_cache),
+            'bypass_enabled': self.cache_bypass
+        }
