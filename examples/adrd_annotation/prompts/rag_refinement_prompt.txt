@@ -1,101 +1,56 @@
-[TASK DESCRIPTION]
-Refine your consultation using clinical guidelines and evidence-based recommendations. Enhance your diagnostic reasoning with criteria-based validation and strengthen your recommendations with guideline-concordant care standards. This creates high-quality instruction-tuning data grounded in authoritative sources.
+[ADRD CONSULTATION REFINEMENT - Guideline Validation]
+
+Refine your consultation using retrieved clinical guidelines. Validate diagnostic criteria application and strengthen recommendations with evidence-based standards.
+
 [END TASK DESCRIPTION]
 
-ORIGINAL CLINICAL DOCUMENTATION:
+ORIGINAL CLINICAL TEXT:
 {clinical_text}
 
 INITIAL CONSULTATION:
 {stage3_json_output}
 
-CLINICAL GUIDELINES AND EVIDENCE:
+CLINICAL GUIDELINES:
 {retrieved_evidence_chunks}
 
 ---
 
-## GUIDELINE-BASED REFINEMENT
+**REFINEMENT OBJECTIVES:**
 
-Review your initial consultation against authoritative clinical guidelines and enhance accordingly.
+**1. VALIDATE DIAGNOSIS AGAINST CRITERIA:**
+- Check NIA-AA criteria for AD (insidious onset, clear progression, amnestic/non-amnestic presentation)
+- Verify DSM-5 major vs mild NCD criteria (functional independence threshold)
+- If VaD: NINDS-AIREN criteria (temporal relationship, imaging evidence)
+- If LBD: 2017 consensus criteria (≥2 core features for probable)
+- If FTD: Rascovsky criteria (behavioral) or language variant criteria
 
-### DIAGNOSTIC VALIDATION
+**2. CALIBRATE SEVERITY:**
+- CDR: 0.5=very mild, 1=mild, 2=moderate, 3=severe
+- MMSE: 24-30=normal-mild, 18-23=mild dementia, 10-17=moderate, <10=severe
+- Ensure staging matches guideline cutoffs
 
-**Criteria Verification:**
-Check your diagnosis against the retrieved guidelines:
-- Do we meet NIA-AA criteria for AD?
-- Do we meet DSM-5 criteria for major/mild NCD?
-- For VaD: NINDS-AIREN criteria?
-- For LBD: 2017 Consensus criteria?
-- For FTD: Rascovsky criteria?
+**3. STRENGTHEN DIFFERENTIAL:**
+- AD vs VaD: gradual vs stepwise, memory vs executive predominance
+- AD vs LBD: 1-year rule for parkinsonism, core features
+- Dementia vs MCI: functional independence preserved?
 
-Document specifically which criteria are met or not met.
+**4. ENHANCE TREATMENT RECOMMENDATIONS:**
+- Cholinesterase inhibitor dosing per guidelines
+- Memantine indication (moderate-severe)
+- Behavioral medication cautions (antipsychotic black box)
+- Non-pharmacological evidence (cognitive stimulation therapy)
 
-**Severity Calibration:**
-Verify your severity staging against guideline cutoffs:
-- CDR staging alignment
-- MMSE severity ranges
-- Functional impact thresholds
+**5. VALIDATE SAFETY RECOMMENDATIONS:**
+- Driving assessment per AAN guidelines
+- Advance care planning timing per AAD guidelines
 
-**Differential Refinement:**
-Use guidelines to strengthen your differential:
-- Are you properly distinguishing AD from VaD (stepwise vs gradual)?
-- Are you correctly applying the 1-year rule for LBD vs PDD?
-- Are you considering mixed pathology appropriately?
-
-### RECOMMENDATIONS ENHANCEMENT
-
-**Pharmacological Refinement:**
-Compare your medication recommendations to guideline standards:
-- Are cholinesterase inhibitor recommendations appropriate per AAD guidelines?
-- Is memantine use aligned with evidence?
-- Are behavioral medication recommendations following appropriate cautions per Beers criteria?
-- Are you recommending deprescribing where indicated?
-
-**Safety Recommendations:**
-Ensure comprehensive safety planning per guidelines:
-- Driving assessment: Are you following AAN/AAD guidelines?
-- Home safety: Comprehensive per OT standards?
-- Capacity assessment: Appropriate triggers identified?
-
-**Care Planning Standards:**
-Verify comprehensive care planning:
-- Advance care planning discussions per AAD recommendations
-- Caregiver support per SIGN 168 guidelines
-- Palliative care considerations timing
-
-### EDUCATION ENHANCEMENT
-
-**Guideline-Based Education:**
-Refine patient/family education using retrieved evidence:
-- Prognosis information accuracy
-- Treatment expectation calibration
-- Warning sign specificity
-- Resource recommendations
-
-**Communication Standards:**
-Ensure person-centered communication per SIGN 168:
-- Respectful terminology
-- Appropriate information pacing
-- Cultural sensitivity
-- Shared decision-making approach
-
-### QUALITY ASSURANCE
-
-**Completeness Check:**
-Does your consultation address all AAD Dementia Care Practice Recommendation domains?
-- Person-centered care approach
-- Assessment and care planning
-- Medical management
-- Safety concerns
-- Caregiver needs
-
-**Evidence Grading:**
-For each major recommendation, note the strength of evidence from guidelines (strong recommendation vs suggestion vs expert opinion).
-
-**Gap Identification:**
-What recommendations would be stronger with additional patient information? What follow-up is needed to provide complete guideline-concordant care?
+**6. REFINE COMMUNICATION:**
+- Ensure empathetic, person-centered language per SIGN 168
+- Realistic expectation setting
+- Appropriate caregiver support recommendations
 
 ---
 
-{json_schema_instructions}
+**OUTPUT:** Refined consultation with guideline-validated diagnosis, evidence-based recommendations, and appropriate confidence level. Maintain natural clinical narrative style.
 
-Output a refined consultation with guideline-validated diagnosis, evidence-graded recommendations, and standards-aligned care planning. This creates training data that teaches guideline-concordant clinical practice.
+{json_schema_instructions}
