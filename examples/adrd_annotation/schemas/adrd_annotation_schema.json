@@ -1,837 +1,125 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ADRD Clinical Consultation Annotation Schema",
-  "description": "Comprehensive schema for annotating ADRD consultations to train clinical decision support LLMs. Captures clinical reasoning, recommendations, and patient education.",
+  "description": "Schema for generating natural language clinical consultation data to train LLMs as clinical consultants. Output should be conversational expert narratives demonstrating assessment, diagnosis, and recommendations.",
   "type": "object",
   "required": [
-    "clinical_data_extraction",
-    "diagnostic_assessment",
-    "recommendations",
-    "caregiver_support",
-    "patient_education",
-    "consultation_summary"
+    "clinical_findings",
+    "diagnostic_reasoning",
+    "management_plan",
+    "patient_communication",
+    "consultation_note"
   ],
   "properties": {
-    "clinical_data_extraction": {
+    "clinical_findings": {
       "type": "object",
-      "description": "Structured extraction of all clinically relevant information",
-      "required": ["cognitive_profile", "functional_status", "behavioral_features", "medical_context", "objective_findings"],
+      "description": "Extracted clinical data presented in natural clinical language",
+      "required": ["cognitive_assessment", "functional_status", "clinical_features", "medical_history"],
       "properties": {
-        "cognitive_profile": {
-          "type": "object",
-          "properties": {
-            "test_scores": {
-              "type": "object",
-              "properties": {
-                "mmse": {
-                  "type": "object",
-                  "properties": {
-                    "score": {"type": ["number", "null"]},
-                    "interpretation": {"type": "string"},
-                    "severity_category": {"type": "string"}
-                  }
-                },
-                "moca": {
-                  "type": "object",
-                  "properties": {
-                    "score": {"type": ["number", "null"]},
-                    "interpretation": {"type": "string"},
-                    "severity_category": {"type": "string"}
-                  }
-                },
-                "cdr": {
-                  "type": "object",
-                  "properties": {
-                    "global_score": {"type": ["number", "null"]},
-                    "sum_of_boxes": {"type": ["number", "null"]},
-                    "interpretation": {"type": "string"}
-                  }
-                },
-                "other_tests": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "test_name": {"type": "string"},
-                      "result": {"type": "string"},
-                      "interpretation": {"type": "string"}
-                    }
-                  }
-                }
-              }
-            },
-            "domain_impairments": {
-              "type": "object",
-              "properties": {
-                "memory": {
-                  "type": "object",
-                  "properties": {
-                    "affected": {"type": "boolean"},
-                    "severity": {"type": "string", "enum": ["none", "mild", "moderate", "severe"]},
-                    "type": {"type": "string"},
-                    "clinical_examples": {"type": "string"}
-                  }
-                },
-                "language": {
-                  "type": "object",
-                  "properties": {
-                    "affected": {"type": "boolean"},
-                    "severity": {"type": "string", "enum": ["none", "mild", "moderate", "severe"]},
-                    "deficits": {"type": "string"},
-                    "clinical_examples": {"type": "string"}
-                  }
-                },
-                "executive_function": {
-                  "type": "object",
-                  "properties": {
-                    "affected": {"type": "boolean"},
-                    "severity": {"type": "string", "enum": ["none", "mild", "moderate", "severe"]},
-                    "deficits": {"type": "string"},
-                    "clinical_examples": {"type": "string"}
-                  }
-                },
-                "visuospatial": {
-                  "type": "object",
-                  "properties": {
-                    "affected": {"type": "boolean"},
-                    "severity": {"type": "string", "enum": ["none", "mild", "moderate", "severe"]},
-                    "clinical_examples": {"type": "string"}
-                  }
-                },
-                "attention": {
-                  "type": "object",
-                  "properties": {
-                    "affected": {"type": "boolean"},
-                    "severity": {"type": "string", "enum": ["none", "mild", "moderate", "severe"]},
-                    "clinical_examples": {"type": "string"}
-                  }
-                }
-              }
-            },
-            "temporal_course": {
-              "type": "object",
-              "properties": {
-                "onset": {"type": "string", "enum": ["insidious", "acute", "subacute", "unclear"]},
-                "duration": {"type": "string"},
-                "progression": {"type": "string", "enum": ["gradual", "stepwise", "fluctuating", "rapid", "stable"]},
-                "description": {"type": "string"}
-              }
-            }
-          }
+        "cognitive_assessment": {
+          "type": "string",
+          "description": "Natural language description of cognitive test scores, domains affected, onset, and progression. Include interpretation and clinical significance. Example: 'MMSE 18/30 indicating mild-moderate impairment with prominent memory deficits. MoCA 14/30 with particular difficulty in executive tasks and delayed recall. CDR 1 consistent with mild dementia. Wife reports insidious onset approximately 2 years ago with gradual progression, starting with repetitive questions and difficulty managing finances.'"
         },
         "functional_status": {
-          "type": "object",
-          "properties": {
-            "basic_adl": {
-              "type": "object",
-              "properties": {
-                "overall_status": {"type": "string", "enum": ["independent", "needs_assistance", "dependent"]},
-                "specific_deficits": {"type": "string"},
-                "clinical_examples": {"type": "string"}
-              }
-            },
-            "instrumental_adl": {
-              "type": "object",
-              "properties": {
-                "overall_status": {"type": "string", "enum": ["independent", "needs_assistance", "unable"]},
-                "specific_deficits": {"type": "string"},
-                "clinical_examples": {"type": "string"}
-              }
-            },
-            "independence_impact": {
-              "type": "object",
-              "properties": {
-                "interferes_with_independence": {"type": "boolean"},
-                "supervision_needed": {"type": "string"},
-                "safety_concerns": {"type": "string"}
-              }
-            }
-          }
+          "type": "string",
+          "description": "Natural language description of ADL/IADL status, independence level, and functional impact. Example: 'Patient requires supervision for medication management and has stopped driving after getting lost twice. Wife manages all finances. Basic ADLs preserved - bathes and dresses independently. This pattern of IADL impairment with preserved basic ADLs is consistent with mild dementia.'"
         },
-        "behavioral_features": {
-          "type": "object",
-          "properties": {
-            "mood_symptoms": {
-              "type": "object",
-              "properties": {
-                "depression": {"type": "boolean"},
-                "anxiety": {"type": "boolean"},
-                "apathy": {"type": "boolean"},
-                "description": {"type": "string"}
-              }
-            },
-            "psychotic_symptoms": {
-              "type": "object",
-              "properties": {
-                "hallucinations": {"type": "boolean"},
-                "hallucination_type": {"type": "string"},
-                "delusions": {"type": "boolean"},
-                "delusion_content": {"type": "string"}
-              }
-            },
-            "behavioral_disturbances": {
-              "type": "object",
-              "properties": {
-                "agitation": {"type": "boolean"},
-                "aggression": {"type": "boolean"},
-                "wandering": {"type": "boolean"},
-                "disinhibition": {"type": "boolean"},
-                "sleep_disturbances": {"type": "boolean"},
-                "description": {"type": "string"}
-              }
-            },
-            "safety_behaviors": {
-              "type": "string",
-              "description": "Behaviors posing safety risks"
-            }
-          }
+        "clinical_features": {
+          "type": "string",
+          "description": "Behavioral symptoms, neurological exam findings, neuroimaging results, labs, and biomarkers in narrative form. Example: 'Behavioral symptoms include apathy and mild anxiety. No hallucinations or delusions. Neurological exam shows no parkinsonism or focal deficits. MRI brain demonstrates moderate hippocampal atrophy bilaterally with mild periventricular white matter changes. TSH, B12, metabolic panel all normal.'"
         },
-        "medical_context": {
-          "type": "object",
-          "properties": {
-            "vascular_risk_factors": {
-              "type": "object",
-              "properties": {
-                "factors_present": {"type": "array", "items": {"type": "string"}},
-                "risk_score": {"type": "string"},
-                "interpretation": {"type": "string"}
-              }
-            },
-            "comorbidities": {
-              "type": "array",
-              "items": {"type": "string"}
-            },
-            "medications": {
-              "type": "object",
-              "properties": {
-                "current_medications": {"type": "array", "items": {"type": "string"}},
-                "cognitive_risk_medications": {"type": "array", "items": {"type": "string"}},
-                "anticholinergic_burden": {"type": "string"}
-              }
-            },
-            "family_history": {
-              "type": "object",
-              "properties": {
-                "dementia_present": {"type": "boolean"},
-                "early_onset": {"type": "boolean"},
-                "details": {"type": "string"}
-              }
-            },
-            "social_context": {
-              "type": "object",
-              "properties": {
-                "living_situation": {"type": "string"},
-                "primary_caregiver": {"type": "string"},
-                "support_system": {"type": "string"},
-                "cultural_considerations": {"type": "string"}
-              }
-            }
-          }
-        },
-        "objective_findings": {
-          "type": "object",
-          "properties": {
-            "neurological_exam": {
-              "type": "object",
-              "properties": {
-                "parkinsonism": {"type": "boolean"},
-                "focal_deficits": {"type": "boolean"},
-                "gait_abnormality": {"type": "boolean"},
-                "other_findings": {"type": "string"}
-              }
-            },
-            "neuroimaging": {
-              "type": "object",
-              "properties": {
-                "modalities": {"type": "array", "items": {"type": "string"}},
-                "atrophy_pattern": {"type": "string"},
-                "vascular_changes": {"type": "string"},
-                "other_findings": {"type": "string"},
-                "interpretation": {"type": "string"}
-              }
-            },
-            "laboratory": {
-              "type": "object",
-              "properties": {
-                "dementia_workup_complete": {"type": "boolean"},
-                "abnormalities": {"type": "string"},
-                "gaps": {"type": "string"}
-              }
-            },
-            "biomarkers": {
-              "type": "object",
-              "properties": {
-                "csf_results": {"type": "string"},
-                "pet_results": {"type": "string"},
-                "interpretation": {"type": "string"}
-              }
-            }
-          }
+        "medical_history": {
+          "type": "string",
+          "description": "Relevant comorbidities, vascular risk factors, family history, medications. Example: 'Significant vascular risk: hypertension x15 years, type 2 diabetes x10 years, hyperlipidemia. Mother had dementia in her 80s. Current medications include donepezil 5mg, metformin, lisinopril, atorvastatin. No anticholinergics identified.'"
         }
       }
     },
-    "diagnostic_assessment": {
+    "diagnostic_reasoning": {
       "type": "object",
-      "description": "Clinical reasoning and diagnostic formulation",
-      "required": ["clinical_reasoning", "diagnosis", "differential_diagnosis"],
+      "description": "Clinical reasoning demonstrating how a consultant thinks through the case",
+      "required": ["assessment_narrative", "diagnosis", "differential_considered", "confidence_rationale"],
       "properties": {
-        "clinical_reasoning": {
-          "type": "object",
-          "properties": {
-            "syndrome_identification": {
-              "type": "string",
-              "description": "What clinical syndrome is present (dementia, MCI, delirium, etc.) and why"
-            },
-            "pattern_analysis": {
-              "type": "string",
-              "description": "How the pattern of findings points to a specific diagnosis"
-            },
-            "supporting_evidence": {
-              "type": "array",
-              "items": {"type": "string"},
-              "description": "Key findings that support the diagnosis"
-            },
-            "contradicting_evidence": {
-              "type": "array",
-              "items": {"type": "string"},
-              "description": "Findings that argue against the diagnosis or create uncertainty"
-            }
-          }
+        "assessment_narrative": {
+          "type": "string",
+          "description": "Natural language walk-through of clinical reasoning. How findings lead to diagnosis. Example: 'This 76-year-old presents with a 2-year history of progressive cognitive decline with prominent memory impairment. The insidious onset and gradual progression is classic for a neurodegenerative process. Memory is disproportionately affected with relative preservation of other domains early on, fitting an amnestic presentation. Functional decline affecting IADLs but not basic ADLs indicates mild dementia. The hippocampal atrophy on imaging supports the clinical impression. Normal metabolic workup rules out reversible causes.'"
         },
         "diagnosis": {
           "type": "object",
-          "required": ["primary_diagnosis", "confidence"],
           "properties": {
-            "primary_diagnosis": {
+            "primary": {
               "type": "string",
-              "description": "Primary cognitive diagnosis"
-            },
-            "diagnosis_category": {
-              "type": "string",
-              "enum": ["ADRD", "Non-ADRD"],
-              "description": "Binary classification"
-            },
-            "specific_subtype": {
-              "type": "string",
-              "description": "Specific ADRD subtype or non-ADRD diagnosis"
-            },
-            "severity": {
-              "type": "string",
-              "enum": ["mild", "moderate", "severe", "not_applicable"]
-            },
-            "certainty": {
-              "type": "string",
-              "enum": ["definite", "probable", "possible"],
-              "description": "Diagnostic certainty per established criteria"
-            },
-            "confidence": {
-              "type": "string",
-              "enum": ["high", "moderate", "low"]
+              "description": "Primary diagnosis with subtype and severity. Example: 'Probable Alzheimer's disease, mild stage'"
             },
             "criteria_met": {
-              "type": "object",
-              "properties": {
-                "criteria_system": {"type": "string"},
-                "criteria_details": {"type": "string"}
-              }
+              "type": "string",
+              "description": "Which diagnostic criteria are satisfied. Example: 'Meets NIA-AA criteria for probable AD dementia: insidious onset, clear progression by history, amnestic presentation with memory plus executive involvement, no evidence of vascular, LBD, or FTD features.'"
             }
           }
         },
-        "differential_diagnosis": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "diagnosis": {"type": "string"},
-              "likelihood": {"type": "string", "enum": ["unlikely", "possible", "probable"]},
-              "supporting_features": {"type": "string"},
-              "against_features": {"type": "string"}
-            }
-          }
+        "differential_considered": {
+          "type": "string",
+          "description": "Narrative discussion of alternatives considered and why ruled out. Example: 'Vascular dementia considered given risk factors and white matter changes, but the gradual rather than stepwise progression and prominent memory impairment favor AD. Mixed pathology possible but AD appears predominant. Depression ruled out - patient denies mood symptoms and wife confirms no depression. MCI excluded because functional impairment is present.'"
         },
-        "diagnostic_uncertainty": {
-          "type": "object",
-          "properties": {
-            "atypical_features": {"type": "array", "items": {"type": "string"}},
-            "missing_information": {"type": "array", "items": {"type": "string"}},
-            "complicating_factors": {"type": "array", "items": {"type": "string"}}
-          }
+        "confidence_rationale": {
+          "type": "string",
+          "description": "Why confident or uncertain in diagnosis. Example: 'High confidence in AD diagnosis: classic presentation, supportive imaging, negative reversible workup. Would have higher certainty with CSF biomarkers or amyloid PET, but clinical picture is sufficiently clear that these are not essential for diagnosis.'"
         }
       }
     },
-    "recommendations": {
+    "management_plan": {
       "type": "object",
-      "description": "Comprehensive clinical recommendations",
-      "required": ["diagnostic_workup", "pharmacological", "non_pharmacological", "safety", "care_planning"],
+      "description": "Comprehensive management recommendations in natural clinical language",
+      "required": ["treatment_recommendations", "safety_interventions", "care_planning", "follow_up"],
       "properties": {
-        "diagnostic_workup": {
-          "type": "object",
-          "description": "Recommended additional evaluation",
-          "properties": {
-            "cognitive_testing": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "test": {"type": "string"},
-                  "rationale": {"type": "string"},
-                  "priority": {"type": "string", "enum": ["high", "medium", "low"]}
-                }
-              }
-            },
-            "laboratory": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "test": {"type": "string"},
-                  "rationale": {"type": "string"},
-                  "priority": {"type": "string", "enum": ["high", "medium", "low"]}
-                }
-              }
-            },
-            "imaging": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "study": {"type": "string"},
-                  "rationale": {"type": "string"},
-                  "priority": {"type": "string", "enum": ["high", "medium", "low"]}
-                }
-              }
-            },
-            "consultations": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "specialty": {"type": "string"},
-                  "reason": {"type": "string"},
-                  "priority": {"type": "string", "enum": ["high", "medium", "low"]}
-                }
-              }
-            }
-          }
+        "treatment_recommendations": {
+          "type": "string",
+          "description": "Pharmacological and non-pharmacological recommendations with rationale. Example: 'Continue donepezil and increase to 10mg daily for cognitive benefit - he has tolerated 5mg well. No indication for memantine yet at mild stage. Recommend cognitive stimulation therapy through adult day program 2-3 days/week. Encourage regular physical activity - daily walks with wife. Review at next visit whether to add memantine if progression noted. No behavioral medications needed currently.'"
         },
-        "pharmacological": {
-          "type": "object",
-          "description": "Medication recommendations",
-          "properties": {
-            "cognitive_medications": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "medication": {"type": "string"},
-                  "dose": {"type": "string"},
-                  "rationale": {"type": "string"},
-                  "monitoring": {"type": "string"},
-                  "expected_benefit": {"type": "string"},
-                  "cautions": {"type": "string"}
-                }
-              }
-            },
-            "behavioral_medications": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "medication": {"type": "string"},
-                  "indication": {"type": "string"},
-                  "dose": {"type": "string"},
-                  "rationale": {"type": "string"},
-                  "risks": {"type": "string"},
-                  "monitoring": {"type": "string"}
-                }
-              }
-            },
-            "medications_to_discontinue": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "medication": {"type": "string"},
-                  "reason": {"type": "string"},
-                  "taper_plan": {"type": "string"}
-                }
-              }
-            },
-            "medications_to_adjust": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "medication": {"type": "string"},
-                  "current_dose": {"type": "string"},
-                  "new_dose": {"type": "string"},
-                  "reason": {"type": "string"}
-                }
-              }
-            }
-          }
-        },
-        "non_pharmacological": {
-          "type": "object",
-          "description": "Non-medication interventions",
-          "properties": {
-            "cognitive_interventions": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "intervention": {"type": "string"},
-                  "description": {"type": "string"},
-                  "expected_benefit": {"type": "string"}
-                }
-              }
-            },
-            "behavioral_interventions": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "target_behavior": {"type": "string"},
-                  "intervention": {"type": "string"},
-                  "implementation": {"type": "string"}
-                }
-              }
-            },
-            "physical_activity": {
-              "type": "object",
-              "properties": {
-                "recommendations": {"type": "string"},
-                "precautions": {"type": "string"}
-              }
-            },
-            "nutrition": {
-              "type": "object",
-              "properties": {
-                "assessment_needed": {"type": "boolean"},
-                "recommendations": {"type": "string"}
-              }
-            },
-            "therapy_referrals": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "therapy_type": {"type": "string"},
-                  "goals": {"type": "string"}
-                }
-              }
-            }
-          }
-        },
-        "safety": {
-          "type": "object",
-          "description": "Safety assessment and interventions",
-          "properties": {
-            "driving": {
-              "type": "object",
-              "properties": {
-                "current_status": {"type": "string"},
-                "recommendation": {"type": "string"},
-                "rationale": {"type": "string"},
-                "next_steps": {"type": "string"}
-              }
-            },
-            "home_safety": {
-              "type": "object",
-              "properties": {
-                "concerns": {"type": "array", "items": {"type": "string"}},
-                "recommendations": {"type": "array", "items": {"type": "string"}},
-                "ot_evaluation_needed": {"type": "boolean"}
-              }
-            },
-            "supervision": {
-              "type": "object",
-              "properties": {
-                "level_needed": {"type": "string"},
-                "rationale": {"type": "string"}
-              }
-            },
-            "wandering_risk": {
-              "type": "object",
-              "properties": {
-                "risk_level": {"type": "string", "enum": ["low", "moderate", "high"]},
-                "interventions": {"type": "array", "items": {"type": "string"}}
-              }
-            },
-            "medication_management": {
-              "type": "object",
-              "properties": {
-                "can_self_manage": {"type": "boolean"},
-                "supervision_plan": {"type": "string"}
-              }
-            },
-            "financial_management": {
-              "type": "object",
-              "properties": {
-                "concerns": {"type": "string"},
-                "recommendations": {"type": "string"}
-              }
-            }
-          }
+        "safety_interventions": {
+          "type": "string",
+          "description": "Safety concerns and interventions. Example: 'Driving: Recommend formal driving evaluation given two episodes of getting lost. Until evaluation complete, wife should accompany or he should not drive unfamiliar routes. Home safety: OT evaluation for home safety assessment recommended. Medication management: Wife should supervise all medications - set up weekly pill organizer. Wandering risk currently low but discuss Safe Return registration.'"
         },
         "care_planning": {
-          "type": "object",
-          "description": "Care coordination and planning",
-          "properties": {
-            "care_coordination": {
-              "type": "object",
-              "properties": {
-                "primary_care_communication": {"type": "string"},
-                "specialty_coordination": {"type": "string"},
-                "care_team_needs": {"type": "string"}
-              }
-            },
-            "services": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "service": {"type": "string"},
-                  "purpose": {"type": "string"},
-                  "priority": {"type": "string", "enum": ["immediate", "soon", "future"]}
-                }
-              }
-            },
-            "legal_financial_planning": {
-              "type": "object",
-              "properties": {
-                "advance_directives": {
-                  "type": "object",
-                  "properties": {
-                    "status": {"type": "string"},
-                    "recommendation": {"type": "string"}
-                  }
-                },
-                "healthcare_proxy": {
-                  "type": "object",
-                  "properties": {
-                    "status": {"type": "string"},
-                    "recommendation": {"type": "string"}
-                  }
-                },
-                "financial_poa": {
-                  "type": "object",
-                  "properties": {
-                    "status": {"type": "string"},
-                    "recommendation": {"type": "string"}
-                  }
-                },
-                "capacity_assessment_needed": {"type": "boolean"}
-              }
-            },
-            "future_planning": {
-              "type": "object",
-              "properties": {
-                "anticipated_trajectory": {"type": "string"},
-                "care_transitions_to_discuss": {"type": "array", "items": {"type": "string"}},
-                "goals_of_care_discussion": {"type": "string"}
-              }
-            },
-            "follow_up": {
-              "type": "object",
-              "properties": {
-                "timing": {"type": "string"},
-                "focus": {"type": "string"},
-                "monitoring_parameters": {"type": "array", "items": {"type": "string"}}
-              }
-            }
-          }
-        }
-      }
-    },
-    "caregiver_support": {
-      "type": "object",
-      "description": "Caregiver assessment and support recommendations",
-      "required": ["caregiver_assessment", "education", "resources", "support_plan"],
-      "properties": {
-        "caregiver_assessment": {
-          "type": "object",
-          "properties": {
-            "primary_caregiver": {"type": "string"},
-            "relationship": {"type": "string"},
-            "burden_level": {"type": "string", "enum": ["low", "moderate", "high", "severe"]},
-            "health_concerns": {"type": "string"},
-            "support_system": {"type": "string"},
-            "specific_challenges": {"type": "array", "items": {"type": "string"}}
-          }
-        },
-        "education": {
-          "type": "object",
-          "properties": {
-            "disease_education": {
-              "type": "string",
-              "description": "Key points about the condition to explain to caregiver"
-            },
-            "progression_expectations": {
-              "type": "string",
-              "description": "What to expect as disease progresses"
-            },
-            "communication_strategies": {
-              "type": "array",
-              "items": {"type": "string"}
-            },
-            "behavior_management": {
-              "type": "array",
-              "items": {"type": "string"}
-            },
-            "self_care_importance": {
-              "type": "string"
-            }
-          }
-        },
-        "resources": {
-          "type": "object",
-          "properties": {
-            "local_resources": {"type": "array", "items": {"type": "string"}},
-            "support_groups": {"type": "string"},
-            "online_resources": {"type": "array", "items": {"type": "string"}},
-            "respite_options": {"type": "string"},
-            "financial_assistance": {"type": "string"}
-          }
-        },
-        "support_plan": {
-          "type": "object",
-          "properties": {
-            "immediate_needs": {"type": "array", "items": {"type": "string"}},
-            "short_term_goals": {"type": "array", "items": {"type": "string"}},
-            "long_term_considerations": {"type": "array", "items": {"type": "string"}}
-          }
-        }
-      }
-    },
-    "patient_education": {
-      "type": "object",
-      "description": "Patient and family education content",
-      "required": ["diagnostic_explanation", "treatment_explanation", "prognosis", "action_items", "warning_signs"],
-      "properties": {
-        "diagnostic_explanation": {
-          "type": "object",
-          "properties": {
-            "lay_language_diagnosis": {
-              "type": "string",
-              "description": "How to explain the diagnosis in accessible terms"
-            },
-            "what_it_means": {
-              "type": "string",
-              "description": "Practical implications of the diagnosis"
-            },
-            "what_causes_it": {
-              "type": "string",
-              "description": "Simple explanation of etiology"
-            },
-            "common_misconceptions": {
-              "type": "array",
-              "items": {"type": "string"}
-            }
-          }
-        },
-        "treatment_explanation": {
-          "type": "object",
-          "properties": {
-            "treatment_goals": {
-              "type": "string",
-              "description": "Realistic expectations for treatment"
-            },
-            "medication_explanation": {
-              "type": "string",
-              "description": "How to explain medications in lay terms"
-            },
-            "lifestyle_recommendations": {
-              "type": "string",
-              "description": "What patient/family can do to help"
-            }
-          }
-        },
-        "prognosis": {
-          "type": "object",
-          "properties": {
-            "general_course": {
-              "type": "string",
-              "description": "What to expect over time"
-            },
-            "timeframe": {
-              "type": "string",
-              "description": "General timeline expectations"
-            },
-            "variability": {
-              "type": "string",
-              "description": "Uncertainty and individual variation"
-            }
-          }
-        },
-        "action_items": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "action": {"type": "string"},
-              "timeline": {"type": "string"},
-              "who_responsible": {"type": "string"}
-            }
-          }
-        },
-        "warning_signs": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "sign": {"type": "string"},
-              "action": {"type": "string"},
-              "urgency": {"type": "string", "enum": ["call_office", "urgent_visit", "emergency"]}
-            }
-          }
-        },
-        "questions_to_anticipate": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "question": {"type": "string"},
-              "answer": {"type": "string"}
-            }
-          }
-        }
-      }
-    },
-    "consultation_summary": {
-      "type": "object",
-      "description": "Concise summary for documentation and communication",
-      "required": ["assessment_summary", "problem_list", "plan_summary"],
-      "properties": {
-        "assessment_summary": {
           "type": "string",
-          "description": "2-3 sentence summary of diagnosis and key findings"
+          "description": "Advance planning, legal/financial, services. Example: 'Advance care planning: Critical to complete while patient has capacity. Discuss healthcare proxy and durable POA for finances. Refer to elder law attorney. Long-term care planning: Discuss anticipated trajectory and eventual need for higher level of care. Adult day program for cognitive stimulation and caregiver respite. Consider support group for wife.'"
         },
-        "problem_list": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "problem": {"type": "string"},
-              "status": {"type": "string", "enum": ["active", "stable", "improving", "worsening"]}
-            }
-          }
+        "follow_up": {
+          "type": "string",
+          "description": "Follow-up plan with monitoring. Example: 'Return in 3 months to assess response to donepezil increase and disease progression. Repeat cognitive testing annually. Earlier if behavioral symptoms emerge, rapid decline, or safety concerns. Labs: None needed currently. Consider repeat MRI in 1-2 years if progression or diagnostic uncertainty.'"
+        }
+      }
+    },
+    "patient_communication": {
+      "type": "object",
+      "description": "How to communicate with patient and family - models empathetic clinical communication",
+      "required": ["diagnosis_disclosure", "education_provided", "caregiver_guidance"],
+      "properties": {
+        "diagnosis_disclosure": {
+          "type": "string",
+          "description": "How to explain diagnosis in lay terms. Example: 'I explained to Mr. and Mrs. Jones that based on my evaluation, I believe he has Alzheimer's disease at an early stage. I described this as a condition where the brain gradually changes over time, affecting memory first and then other thinking abilities. I emphasized that while we cannot cure it, we have treatments that can help with symptoms, and there is much we can do to maintain quality of life and plan for the future.'"
         },
-        "plan_summary": {
-          "type": "object",
-          "properties": {
-            "diagnostic": {"type": "string"},
-            "medications": {"type": "string"},
-            "interventions": {"type": "string"},
-            "safety": {"type": "string"},
-            "referrals": {"type": "string"},
-            "follow_up": {"type": "string"}
-          }
+        "education_provided": {
+          "type": "string",
+          "description": "What patient/family were taught. Example: 'Discussed what to expect: gradual decline over years, not months. Memory will worsen, may develop word-finding difficulty, and eventually need more help with daily activities. Explained that medications may slow decline but don't stop it. Reviewed warning signs requiring contact: rapid change, new symptoms like hallucinations or falls, behavioral issues. Provided Alzheimer's Association materials and website.'"
         },
-        "key_recommendations_for_pcp": {
-          "type": "array",
-          "items": {"type": "string"},
-          "description": "Priority recommendations to communicate to primary care"
+        "caregiver_guidance": {
+          "type": "string",
+          "description": "Specific guidance for caregiver. Example: 'Counseled Mrs. Jones on communication strategies: simple sentences, one question at a time, visual cues. Discussed managing repetitive questions with patience and redirection. Emphasized importance of her own self-care and encouraged her to attend caregiver support group. Discussed respite options including adult day program. Validated that caregiving is challenging and she should ask for help.'"
+        }
+      }
+    },
+    "consultation_note": {
+      "type": "object",
+      "description": "Summary for medical documentation and communication",
+      "required": ["impression", "recommendations_summary"],
+      "properties": {
+        "impression": {
+          "type": "string",
+          "description": "Brief assessment summary. Example: '76-year-old man with 2-year progressive cognitive decline, prominent memory impairment, and IADL dependence. Meets criteria for probable Alzheimer's disease dementia, mild stage. Supported by hippocampal atrophy on MRI and negative reversible workup.'"
+        },
+        "recommendations_summary": {
+          "type": "string",
+          "description": "Key recommendations for referring provider. Example: '1) Increase donepezil to 10mg daily. 2) Driving evaluation before resuming independent driving. 3) OT home safety evaluation. 4) Adult day program referral. 5) Advance care planning and legal consultation. 6) Follow up in 3 months or sooner if concerns. Please call with questions.'"
         }
       }
     }
