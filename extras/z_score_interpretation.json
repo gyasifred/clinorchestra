@@ -1,0 +1,12 @@
+{
+  "id": "z_score_interpretation",
+  "name": "Z-Score Interpretation",
+  "type": "tip",
+  "content": "Z-scores represent standard deviations from population mean. Negative z-scores are below average (e.g., -2.0 = 2 SD below mean, ~2nd percentile). Positive z-scores are above average (e.g., +1.5 = 1.5 SD above mean, ~93rd percentile). For percentiles <50th, expect negative z-scores; for >50th, expect positive z-scores.",
+  "metadata": {
+    "category": "statistics",
+    "subcategory": "interpretation",
+    "priority": "high"
+  },
+  "created_at": "2025-11-05T02:53:21.375971"
+}

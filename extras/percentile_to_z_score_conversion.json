@@ -1,0 +1,12 @@
+{
+  "id": "percentile_to_z_score_conversion",
+  "name": "Percentile to Z-Score Conversion",
+  "type": "reference",
+  "content": "Common conversions: 2nd%ile \u2248 -2.0 SD, 5th%ile \u2248 -1.64 SD, 10th%ile \u2248 -1.28 SD, 25th%ile \u2248 -0.67 SD, 50th%ile = 0 SD, 75th%ile \u2248 +0.67 SD, 90th%ile \u2248 +1.28 SD, 95th%ile \u2248 +1.64 SD, 98th%ile \u2248 +2.0 SD.",
+  "metadata": {
+    "category": "statistics",
+    "subcategory": "conversion",
+    "priority": "high"
+  },
+  "created_at": "2025-11-05T02:53:21.376309"
+}

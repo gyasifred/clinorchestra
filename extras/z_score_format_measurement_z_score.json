@@ -1,0 +1,12 @@
+{
+  "id": "z_score_format_measurement_z_score",
+  "type": "pattern",
+  "content": "Z-score format: [measurement] z-score: [value]. Example: BMI-for-age z-score: -2.3, Weight-for-length z-score: -1.8, MUAC z-score: -2.1",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "high",
+    "subcategory": "anthropometrics"
+  },
+  "created_at": "2025-10-25T13:54:48.584288",
+  "name": "Pattern: Z-score format: [measurement] z-score: [..."
+}

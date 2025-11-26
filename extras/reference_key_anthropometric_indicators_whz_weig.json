@@ -1,0 +1,12 @@
+{
+  "id": "reference_key_anthropometric_indicators_whz_weig",
+  "type": "reference",
+  "content": "Key anthropometric indicators: WHZ (weight-for-height z-score), BAZ (BMI-for-age z-score), HAZ (height-for-age z-score), MUAC (mid-upper arm circumference) z-score",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "high",
+    "subcategory": "anthropometrics"
+  },
+  "created_at": "2025-10-25T13:54:48.585411",
+  "name": "Reference: Key anthropometric indicators: WHZ (weig..."
+}

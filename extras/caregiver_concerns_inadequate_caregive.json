@@ -1,0 +1,12 @@
+{
+  "id": "caregiver_concerns_inadequate_caregive",
+  "type": "pattern",
+  "content": "Caregiver concerns: 'inadequate caregiver knowledge', 'concern for neglect', 'overwhelmed single parent', 'mental health barriers', 'competing priorities'",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "medium",
+    "subcategory": "social_determinants"
+  },
+  "created_at": "2025-10-25T13:54:48.590487",
+  "name": "Pattern: Caregiver concerns: 'inadequate caregive..."
+}

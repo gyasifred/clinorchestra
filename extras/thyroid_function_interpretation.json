@@ -1,0 +1,12 @@
+{
+  "id": "thyroid_function_interpretation",
+  "name": "Thyroid Function Interpretation",
+  "type": "pattern",
+  "content": "Primary hypothyroidism: High TSH, low T4. Primary hyperthyroidism: Low TSH, high T4/T3. Central hypothyroidism: Low/normal TSH, low T4. Subclinical hypothyroid: High TSH, normal T4. Subclinical hyperthyroid: Low TSH, normal T4/T3. Treat based on symptoms and severity.",
+  "metadata": {
+    "category": "endocrinology",
+    "subcategory": "thyroid",
+    "priority": "medium"
+  },
+  "created_at": "2025-11-05T02:53:21.386060"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "reference_inflammatory_markers_crp_c_reactive_pr",
+  "type": "reference",
+  "content": "Inflammatory markers: CRP (C-reactive protein) >10 mg/L = inflammation present. ESR (erythrocyte sedimentation rate) elevated = inflammation. Always interpret albumin/prealbumin in context of inflammation",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "high",
+    "subcategory": "laboratory"
+  },
+  "created_at": "2025-10-25T13:54:48.587754",
+  "name": "Reference: Inflammatory markers: CRP (C-reactive pr..."
+}

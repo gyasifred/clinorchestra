@@ -1,0 +1,20 @@
+{
+  "id": "who_malnutrition_z_score_criteria",
+  "name": "WHO Malnutrition Z-Score Criteria",
+  "type": "guideline",
+  "content": "WHO MALNUTRITION CLASSIFICATION BY Z-SCORE:\n\nWeight-for-Height or BMI-for-Age:\n- z < -3 SD: SEVERE ACUTE MALNUTRITION (SAM)\n  * Requires immediate intervention\n  * High mortality risk\n  * <1st percentile\n\n- -3 \u2264 z < -2 SD: MODERATE ACUTE MALNUTRITION (MAM)\n  * Nutritional rehabilitation needed\n  * 2nd-3rd percentile\n  * Risk of progression to SAM\n\n- -2 \u2264 z < -1 SD: MILD MALNUTRITION RISK\n  * Close monitoring required\n  * 3rd-15th percentile\n  * Early intervention may prevent progression\n\n- -1 \u2264 z \u2264 +1 SD: NORMAL RANGE\n  * 15th-85th percentile\n  * No malnutrition\n\n- z > +2 SD: OVERWEIGHT/OBESITY\n  * >97th percentile\n\nHeight-for-Age (Stunting - Chronic Malnutrition):\n- z < -3 SD: SEVERELY STUNTED\n- z < -2 SD: STUNTED (chronic undernutrition)\n- z \u2265 -2 SD: Normal height\n\nWeight-for-Age (Combined Indicator):\n- z < -3 SD: SEVERELY UNDERWEIGHT\n- z < -2 SD: UNDERWEIGHT\n- z \u2265 -2 SD: Normal weight",
+  "metadata": {
+    "category": "malnutrition",
+    "keywords": [
+      "z-score",
+      "percentile",
+      "malnutrition",
+      "growth",
+      "WHO",
+      "ASPEN",
+      "nutrition"
+    ],
+    "clinical_area": "pediatric nutrition"
+  },
+  "created_at": "2025-11-05T03:41:13.711399"
+}

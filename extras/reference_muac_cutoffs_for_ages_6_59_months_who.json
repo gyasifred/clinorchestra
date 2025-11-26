@@ -1,0 +1,12 @@
+{
+  "id": "reference_muac_cutoffs_for_ages_6_59_months_who",
+  "type": "reference",
+  "content": "MUAC cutoffs for ages 6-59 months (WHO): Severe malnutrition <11.5cm, Moderate malnutrition 11.5-12.5cm, At risk 12.5-13.5cm, Normal >13.5cm",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "medium",
+    "subcategory": "anthropometrics"
+  },
+  "created_at": "2025-10-25T13:54:48.585620",
+  "name": "Reference: MUAC cutoffs for ages 6-59 months (WHO):..."
+}

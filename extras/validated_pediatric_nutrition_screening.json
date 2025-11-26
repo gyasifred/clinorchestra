@@ -1,0 +1,12 @@
+{
+  "id": "validated_pediatric_nutrition_screening",
+  "type": "definition",
+  "content": "Validated pediatric nutrition screening tools: STRONGkids (Screening Tool for Risk on Nutritional Status and Growth), STAMP (Screening Tool for Assessment of Malnutrition in Pediatrics), PYMS (Pediatric Yorkhill Malnutrition Score), PNST (Pediatric Nutrition Screening Tool)",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "medium",
+    "subcategory": "screening_tools"
+  },
+  "created_at": "2025-10-25T13:54:48.586025",
+  "name": "Definition: Validated pediatric nutrition screening..."
+}

@@ -1,0 +1,12 @@
+{
+  "id": "anticoagulation_management_warfarin",
+  "name": "Anticoagulation Management - Warfarin",
+  "type": "guideline",
+  "content": "Target INR: 2-3 for most indications (DVT, PE, AFib), 2.5-3.5 for mechanical valves. Monitor INR regularly. Bleeding risk increases with INR >4. Reversal: Vitamin K (oral/IV), PCC, FFP for severe bleeding. Drug-drug and drug-food interactions common - educate patients.",
+  "metadata": {
+    "category": "pharmacotherapy",
+    "subcategory": "anticoagulation",
+    "priority": "medium"
+  },
+  "created_at": "2025-11-05T02:53:21.381818"
+}

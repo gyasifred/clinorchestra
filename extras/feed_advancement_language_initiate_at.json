@@ -1,0 +1,12 @@
+{
+  "id": "feed_advancement_language_initiate_at",
+  "type": "pattern",
+  "content": "Feed advancement language: 'initiate at [rate], advance by [increment] q[timeframe] to goal [rate]'. Example: 'start at 20mL/hr, advance by 10mL q4h to goal 60mL/hr'",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "high",
+    "subcategory": "nutrition_support"
+  },
+  "created_at": "2025-10-25T13:54:48.588764",
+  "name": "Pattern: Feed advancement language: 'initiate at..."
+}

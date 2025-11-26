@@ -1,0 +1,12 @@
+{
+  "id": "reference_micronutrient_deficiency_signs_vitamin",
+  "type": "reference",
+  "content": "Micronutrient deficiency signs - Vitamin A: Bitot's spots, night blindness; Vitamin C: petechiae, bleeding gums; Vitamin D: rickets; Iron: pallor, koilonychia; Zinc: dermatitis, hair changes; B vitamins: glossitis, cheilosis",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "medium",
+    "subcategory": "nfpe"
+  },
+  "created_at": "2025-10-25T13:54:48.586887",
+  "name": "Reference: Micronutrient deficiency signs - Vitamin..."
+}

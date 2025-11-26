@@ -1,0 +1,12 @@
+{
+  "id": "medication_dosing_by_weight_pediatric",
+  "name": "Medication Dosing by Weight - Pediatric",
+  "type": "pattern",
+  "content": "Many pediatric medications dosed by mg/kg. Always verify: 1) Weight in kg, 2) Dose calculation, 3) Maximum dose limit, 4) Frequency. Example: Amoxicillin 40-50 mg/kg/day divided BID-TID, max 1500 mg/day. Acetaminophen 10-15 mg/kg q4-6h, max 75 mg/kg/day. Double-check all calculations.",
+  "metadata": {
+    "category": "pediatrics",
+    "subcategory": "dosing",
+    "priority": "high"
+  },
+  "created_at": "2025-11-05T02:53:21.388278"
+}

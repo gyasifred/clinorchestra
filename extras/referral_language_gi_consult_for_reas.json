@@ -1,0 +1,12 @@
+{
+  "id": "referral_language_gi_consult_for_reas",
+  "type": "pattern",
+  "content": "Referral language: 'GI consult for [reason]', 'feeding therapy referral', 'social work for [issue]', 'PT/OT eval', 'speech eval for dysphagia'",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "medium",
+    "subcategory": "recommendations"
+  },
+  "created_at": "2025-10-25T13:54:48.589932",
+  "name": "Pattern: Referral language: 'GI consult for [reas..."
+}

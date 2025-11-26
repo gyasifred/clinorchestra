@@ -1,0 +1,12 @@
+{
+  "id": "cdc_growth_charts",
+  "name": "CDC Growth Charts",
+  "type": "guideline",
+  "content": "CDC Growth Charts (2-20 years): Weight-for-age, stature-for-age, BMI-for-age. Percentiles classify: <5th underweight, 5-84th healthy weight, 85-94th overweight, \u226595th obese. Z-scores: -2 SD corresponds to ~2nd percentile, +2 SD to ~98th percentile.",
+  "metadata": {
+    "category": "pediatrics",
+    "subcategory": "growth",
+    "priority": "high"
+  },
+  "created_at": "2025-11-05T02:53:21.375207"
+}

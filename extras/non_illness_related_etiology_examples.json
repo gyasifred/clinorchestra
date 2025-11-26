@@ -1,0 +1,12 @@
+{
+  "id": "non_illness_related_etiology_examples",
+  "type": "example",
+  "content": "Non-illness-related etiology examples: 'food insecurity documented', 'behavioral feeding disorder', 'extreme dietary restriction', 'inadequate caregiver knowledge'",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "medium",
+    "subcategory": "etiology"
+  },
+  "created_at": "2025-10-25T13:54:48.586403",
+  "name": "Example: Non-illness-related etiology examples: '..."
+}
