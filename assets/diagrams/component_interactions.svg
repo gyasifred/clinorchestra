@@ -40,7 +40,7 @@
   </defs>
 
   <!-- Title -->
-  <text x="700" y="40" text-anchor="middle" class="title">Component Interactions & Data Flow</text>
+  <text x="700" y="40" text-anchor="middle" class="title">Component Interactions &amp; Data Flow</text>
   <text x="700" y="70" text-anchor="middle" class="subtitle">How ClinOrchestra Components Work Together</text>
 
   <!-- Central: Application State -->
@@ -72,13 +72,13 @@
   <text x="1210" y="180" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">Multi-Provider Interface</text>
   <text x="1210" y="200" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">OpenAI • Anthropic • Google</text>
   <text x="1210" y="218" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">Azure • Local (Unsloth)</text>
-  <text x="1210" y="240" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">Response generation & caching</text>
+  <text x="1210" y="240" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">Response generation &amp; caching</text>
 
   <!-- Top Center: RAG Engine -->
   <rect x="550" y="320" width="300" height="120" class="tool-box"/>
   <text x="700" y="355" text-anchor="middle" class="component-title" style="fill: white;">RAG Engine</text>
   <text x="700" y="380" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">Document Ingestion (PDF, URL)</text>
-  <text x="700" y="398" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">Embeddings & Vector Search</text>
+  <text x="700" y="398" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">Embeddings &amp; Vector Search</text>
   <text x="700" y="416" text-anchor="middle" class="text" style="fill: white; font-size: 11px;">FAISS • Top-K Retrieval</text>
 
   <!-- Middle: Tool Systems -->
@@ -212,6 +212,6 @@
   <text x="150" y="975" class="label" font-weight="bold">Key Interaction Patterns:</text>
   <text x="170" y="990" class="label">1. AppState provides all configurations via Observer pattern</text>
   <text x="550" y="990" class="label">2. Agents orchestrate LLM + Tools + RAG</text>
-  <text x="950" y="990" class="label">3. Cache & optimization layers improve performance</text>
+  <text x="950" y="990" class="label">3. Cache &amp; optimization layers improve performance</text>
 
 </svg>

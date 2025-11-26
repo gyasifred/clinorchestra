@@ -165,7 +165,7 @@
 
   <!-- Layer 4: Core Services -->
   <rect x="50" y="730" width="1300" height="200" class="core-layer" rx="10"/>
-  <text x="700" y="845" text-anchor="middle" class="layer-title">Layer 4: Core Services (LLM Integration & Knowledge Retrieval)</text>
+  <text x="700" y="845" text-anchor="middle" class="layer-title">Layer 4: Core Services (LLM Integration &amp; Knowledge Retrieval)</text>
 
   <!-- LLM Manager -->
   <rect x="100" y="780" width="360" height="130" class="component-box"/>
@@ -199,7 +199,7 @@
   <text x="600" y="845" text-anchor="middle" class="label" font-size="9">PDF, URL, Text</text>
 
   <rect x="510" y="865" width="180" height="35" class="sub-component"/>
-  <text x="600" y="885" text-anchor="middle" class="label">Chunking & Embedding</text>
+  <text x="600" y="885" text-anchor="middle" class="label">Chunking &amp; Embedding</text>
 
   <rect x="710" y="815" width="180" height="40" class="sub-component"/>
   <text x="800" y="830" text-anchor="middle" class="label">Vector Search (FAISS)</text>
@@ -230,7 +230,7 @@
 
   <!-- Layer 5: Tool Systems -->
   <rect x="50" y="960" width="1300" height="240" class="tools-layer" rx="10"/>
-  <text x="700" y="985" text-anchor="middle" class="layer-title">Layer 5: Tool Systems (Domain Knowledge & Medical Functions)</text>
+  <text x="700" y="985" text-anchor="middle" class="layer-title">Layer 5: Tool Systems (Domain Knowledge &amp; Medical Functions)</text>
 
   <!-- Function Registry -->
   <rect x="100" y="1100" width="360" height="170" class="component-box"/>
@@ -286,16 +286,16 @@
 
   <rect x="800" y="1130" width="430" height="40" class="sub-component"/>
   <text x="1015" y="1055" text-anchor="middle" class="label">Keyword-Based Matching</text>
-  <text x="1015" y="1070" text-anchor="middle" class="label" font-size="9">Matches schema fields & task requirements (NOT input text)</text>
+  <text x="1015" y="1070" text-anchor="middle" class="label" font-size="9">Matches schema fields &amp; task requirements (NOT input text)</text>
 
   <!-- Arrows from Core to Tools -->
   <path d="M 280 910 L 280 1010" class="dashed-arrow"/>
   <path d="M 620 910 L 620 1010" class="dashed-arrow"/>
   <path d="M 1015 910 L 1015 1010" class="dashed-arrow"/>
 
-  <!-- Layer 6: Optimization & Performance -->
+  <!-- Layer 6: Optimization &amp; Performance -->
   <rect x="50" y="1320" width="1300" height="160" class="optimization-layer" rx="10"/>
-  <text x="700" y="1345" text-anchor="middle" class="layer-title">Layer 6: Optimization & Performance (Production-Ready Features)</text>
+  <text x="700" y="1345" text-anchor="middle" class="layer-title">Layer 6: Optimization &amp; Performance (Production-Ready Features)</text>
 
   <!-- LLM Cache -->
   <rect x="100" y="1280" width="250" height="90" class="component-box"/>
@@ -348,7 +348,7 @@
   <text x="375" y="1475" text-anchor="middle" class="component-title" font-size="16">Key Design Choices</text>
 
   <text x="70" y="1500" class="label" font-weight="bold">1. Universal Platform:</text>
-  <text x="90" y="1520" class="label">• No task-specific hardcoding - adapts via prompts & schemas</text>
+  <text x="90" y="1520" class="label">• No task-specific hardcoding - adapts via prompts &amp; schemas</text>
   <text x="90" y="1535" class="label">• Examples (malnutrition, MIMIC-IV) show capability, not limits</text>
 
   <text x="70" y="1560" class="label" font-weight="bold">2. Dual Execution Modes:</text>

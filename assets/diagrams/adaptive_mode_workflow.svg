@@ -149,7 +149,7 @@
   <text x="870" y="960" text-anchor="middle" class="phase-title">Step 3B: Validate JSON</text>
 
   <rect x="660" y="980" width="420" height="50" class="process-box"/>
-  <text x="870" y="1000" text-anchor="middle" class="step-title">JSON Parsing & Validation</text>
+  <text x="870" y="1000" text-anchor="middle" class="step-title">JSON Parsing &amp; Validation</text>
   <text x="870" y="1020" text-anchor="middle" class="label" font-size="10">• Parse structure • Check schema • Verify required fields</text>
 
   <!-- Decision: Valid or Invalid JSON -->
