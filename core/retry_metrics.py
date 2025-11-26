@@ -88,58 +88,78 @@ class RetryMetricsTracker:
     Tracks and persists retry metrics for analysis and visualization
     """
 
-    def __init__(self, db_path: str = "cache/retry_metrics.db"):
+    def __init__(self, db_path: str = "cache/retry_metrics.db", enabled: bool = True):
         """
         Initialize retry metrics tracker
 
         Args:
             db_path: Path to SQLite database for persistence
+            enabled: Enable metrics tracking (if False, all operations become no-ops)
         """
         self.db_path = db_path
-        self._ensure_db_exists()
-        logger.info(f"RetryMetricsTracker initialized: {db_path}")
+        self.enabled = enabled
+        self.db_initialized = False
 
-    def _ensure_db_exists(self):
-        """Ensure database and tables exist"""
-        Path(self.db_path).parent.mkdir(parents=True, exist_ok=True)
+        if self.enabled:
+            self.db_initialized = self._ensure_db_exists()
+            if self.db_initialized:
+                logger.info(f"RetryMetricsTracker initialized: {db_path}")
+            else:
+                logger.warning(f"RetryMetricsTracker disabled due to database initialization failure")
+                self.enabled = False
 
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
+    def _ensure_db_exists(self) -> bool:
+        """
+        Ensure database and tables exist
 
-        # Create tables
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS extraction_metrics (
-                extraction_id TEXT PRIMARY KEY,
-                provider TEXT,
-                model_name TEXT,
-                total_attempts INTEGER,
-                successful BOOLEAN,
-                final_attempt_number INTEGER,
-                original_text_length INTEGER,
-                final_text_length INTEGER,
-                total_retry_time_seconds REAL,
-                timestamp TEXT
-            )
-        """)
+        Returns:
+            bool: True if database was successfully initialized, False otherwise
+        """
+        try:
+            Path(self.db_path).parent.mkdir(parents=True, exist_ok=True)
 
-        cursor.execute("""
-            CREATE TABLE IF NOT EXISTS attempt_metrics (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                extraction_id TEXT,
-                attempt_number INTEGER,
-                success BOOLEAN,
-                error_type TEXT,
-                clinical_text_length INTEGER,
-                conversation_history_length INTEGER,
-                tool_context_length INTEGER,
-                switched_to_minimal BOOLEAN,
-                timestamp TEXT,
-                FOREIGN KEY (extraction_id) REFERENCES extraction_metrics(extraction_id)
-            )
-        """)
+            conn = sqlite3.connect(self.db_path)
+            cursor = conn.cursor()
 
-        conn.commit()
-        conn.close()
+            # Create tables
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS extraction_metrics (
+                    extraction_id TEXT PRIMARY KEY,
+                    provider TEXT,
+                    model_name TEXT,
+                    total_attempts INTEGER,
+                    successful BOOLEAN,
+                    final_attempt_number INTEGER,
+                    original_text_length INTEGER,
+                    final_text_length INTEGER,
+                    total_retry_time_seconds REAL,
+                    timestamp TEXT
+                )
+            """)
+
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS attempt_metrics (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    extraction_id TEXT,
+                    attempt_number INTEGER,
+                    success BOOLEAN,
+                    error_type TEXT,
+                    clinical_text_length INTEGER,
+                    conversation_history_length INTEGER,
+                    tool_context_length INTEGER,
+                    switched_to_minimal BOOLEAN,
+                    timestamp TEXT,
+                    FOREIGN KEY (extraction_id) REFERENCES extraction_metrics(extraction_id)
+                )
+            """)
+
+            conn.commit()
+            conn.close()
+            return True
+
+        except Exception as e:
+            logger.debug(f"Failed to initialize retry metrics database: {e}")
+            return False
 
     def record_extraction(self, metrics: ExtractionRetryMetrics):
         """
@@ -148,58 +168,66 @@ class RetryMetricsTracker:
         Args:
             metrics: ExtractionRetryMetrics to record
         """
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
+        # Skip if metrics tracking is disabled
+        if not self.enabled or not self.db_initialized:
+            return
 
         try:
-            # Insert extraction metrics
-            cursor.execute("""
-                INSERT OR REPLACE INTO extraction_metrics
-                (extraction_id, provider, model_name, total_attempts, successful,
-                 final_attempt_number, original_text_length, final_text_length,
-                 total_retry_time_seconds, timestamp)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, (
-                metrics.extraction_id,
-                metrics.provider,
-                metrics.model_name,
-                metrics.total_attempts,
-                metrics.successful,
-                metrics.final_attempt_number,
-                metrics.original_text_length,
-                metrics.final_text_length,
-                metrics.total_retry_time_seconds,
-                metrics.timestamp
-            ))
+            conn = sqlite3.connect(self.db_path)
+            cursor = conn.cursor()
 
-            # Insert attempt metrics
-            for attempt in metrics.attempts:
+            try:
+                # Insert extraction metrics
                 cursor.execute("""
-                    INSERT INTO attempt_metrics
-                    (extraction_id, attempt_number, success, error_type,
-                     clinical_text_length, conversation_history_length,
-                     tool_context_length, switched_to_minimal, timestamp)
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    INSERT OR REPLACE INTO extraction_metrics
+                    (extraction_id, provider, model_name, total_attempts, successful,
+                     final_attempt_number, original_text_length, final_text_length,
+                     total_retry_time_seconds, timestamp)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """, (
                     metrics.extraction_id,
-                    attempt.attempt_number,
-                    attempt.success,
-                    attempt.error_type,
-                    attempt.clinical_text_length,
-                    attempt.conversation_history_length,
-                    attempt.tool_context_length,
-                    attempt.switched_to_minimal,
-                    attempt.timestamp
+                    metrics.provider,
+                    metrics.model_name,
+                    metrics.total_attempts,
+                    metrics.successful,
+                    metrics.final_attempt_number,
+                    metrics.original_text_length,
+                    metrics.final_text_length,
+                    metrics.total_retry_time_seconds,
+                    metrics.timestamp
                 ))
 
-            conn.commit()
-            logger.debug(f"Recorded metrics for extraction {metrics.extraction_id}")
+                # Insert attempt metrics
+                for attempt in metrics.attempts:
+                    cursor.execute("""
+                        INSERT INTO attempt_metrics
+                        (extraction_id, attempt_number, success, error_type,
+                         clinical_text_length, conversation_history_length,
+                         tool_context_length, switched_to_minimal, timestamp)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """, (
+                        metrics.extraction_id,
+                        attempt.attempt_number,
+                        attempt.success,
+                        attempt.error_type,
+                        attempt.clinical_text_length,
+                        attempt.conversation_history_length,
+                        attempt.tool_context_length,
+                        attempt.switched_to_minimal,
+                        attempt.timestamp
+                    ))
+
+                conn.commit()
+                logger.debug(f"Recorded metrics for extraction {metrics.extraction_id}")
+
+            except Exception as e:
+                logger.debug(f"Failed to record metrics: {e}")
+                conn.rollback()
+            finally:
+                conn.close()
 
         except Exception as e:
-            logger.error(f"Failed to record metrics: {e}")
-            conn.rollback()
-        finally:
-            conn.close()
+            logger.debug(f"Failed to connect to metrics database: {e}")
 
     def get_summary(self, provider: Optional[str] = None, limit_days: int = 30) -> RetryMetricsSummary:
         """
@@ -212,10 +240,18 @@ class RetryMetricsTracker:
         Returns:
             RetryMetricsSummary with aggregated statistics
         """
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
-
         summary = RetryMetricsSummary()
+
+        # Return empty summary if metrics tracking is disabled
+        if not self.enabled or not self.db_initialized:
+            return summary
+
+        try:
+            conn = sqlite3.connect(self.db_path)
+            cursor = conn.cursor()
+        except Exception as e:
+            logger.debug(f"Failed to connect to metrics database: {e}")
+            return summary
 
         try:
             # Filter by provider if specified
@@ -322,7 +358,7 @@ class RetryMetricsTracker:
                 }
 
         except Exception as e:
-            logger.error(f"Failed to generate summary: {e}")
+            logger.debug(f"Failed to generate summary: {e}")
         finally:
             conn.close()
 
@@ -338,10 +374,18 @@ class RetryMetricsTracker:
         Returns:
             List of failure details
         """
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
-
         failures = []
+
+        # Return empty list if metrics tracking is disabled
+        if not self.enabled or not self.db_initialized:
+            return failures
+
+        try:
+            conn = sqlite3.connect(self.db_path)
+            cursor = conn.cursor()
+        except Exception as e:
+            logger.debug(f"Failed to connect to metrics database: {e}")
+            return failures
 
         try:
             cursor.execute("""
@@ -375,7 +419,7 @@ class RetryMetricsTracker:
                 })
 
         except Exception as e:
-            logger.error(f"Failed to get recent failures: {e}")
+            logger.debug(f"Failed to get recent failures: {e}")
         finally:
             conn.close()
 
@@ -388,8 +432,16 @@ class RetryMetricsTracker:
         Args:
             days: Delete metrics older than this many days
         """
-        conn = sqlite3.connect(self.db_path)
-        cursor = conn.cursor()
+        # Skip if metrics tracking is disabled
+        if not self.enabled or not self.db_initialized:
+            return
+
+        try:
+            conn = sqlite3.connect(self.db_path)
+            cursor = conn.cursor()
+        except Exception as e:
+            logger.debug(f"Failed to connect to metrics database: {e}")
+            return
 
         try:
             cursor.execute(f"""
@@ -420,17 +472,18 @@ class RetryMetricsTracker:
 _global_tracker: Optional[RetryMetricsTracker] = None
 
 
-def get_retry_metrics_tracker(db_path: str = "cache/retry_metrics.db") -> RetryMetricsTracker:
+def get_retry_metrics_tracker(db_path: str = "cache/retry_metrics.db", enabled: bool = True) -> RetryMetricsTracker:
     """
     Get global retry metrics tracker instance
 
     Args:
         db_path: Path to metrics database
+        enabled: Enable metrics tracking (if False, tracker operates in no-op mode)
 
     Returns:
         RetryMetricsTracker instance
     """
     global _global_tracker
     if _global_tracker is None:
-        _global_tracker = RetryMetricsTracker(db_path=db_path)
+        _global_tracker = RetryMetricsTracker(db_path=db_path, enabled=enabled)
     return _global_tracker
