@@ -1,0 +1,20 @@
+{
+  "id": "aspen_pediatric_malnutrition_criteria_with_z_scores",
+  "name": "ASPEN Pediatric Malnutrition Criteria with Z-Scores",
+  "type": "guideline",
+  "content": "ASPEN PEDIATRIC MALNUTRITION CRITERIA (Requires 2+ indicators):\n\nZ-Score Based Indicators:\n\n1. WEIGHT-FOR-HEIGHT or BMI-FOR-AGE:\n   Mild: z-score -1 to -1.9 (approximately 3rd-15th percentile)\n   Moderate: z-score -2 to -2.9 (approximately 0.5th-3rd percentile)\n   Severe: z-score \u2264 -3 (<0.5th percentile)\n\n2. LENGTH/HEIGHT-FOR-AGE (if chronically malnourished):\n   Mild: z-score -1 to -1.9\n   Moderate: z-score -2 to -2.9\n   Severe: z-score \u2264 -3\n\n3. WEIGHT LOSS (compared to baseline):\n   Mild: 5% weight loss\n   Moderate: 7.5% weight loss\n   Severe: 10% weight loss\n\n4. DECELERATION IN WEIGHT GAIN VELOCITY:\n   Mild: Decline of 1 z-score\n   Moderate: Decline of 2 z-scores\n   Severe: Decline of 3 z-scores\n\n5. INADEQUATE NUTRIENT INTAKE:\n   Mild: <75% estimated needs for >7 days\n   Moderate: <50% estimated needs for >7 days\n   Severe: <25% estimated needs for >7 days\n\nAdditional Indicators (support diagnosis):\n- Physical exam: muscle wasting, subcutaneous fat loss\n- Laboratory: low albumin, prealbumin\n- Functional: reduced activity, developmental delay\n\nIMPORTANT: Z-score below -2 is a PRIMARY indicator. Document trends over time.",
+  "metadata": {
+    "category": "malnutrition",
+    "keywords": [
+      "z-score",
+      "percentile",
+      "malnutrition",
+      "growth",
+      "WHO",
+      "ASPEN",
+      "nutrition"
+    ],
+    "clinical_area": "pediatric nutrition"
+  },
+  "created_at": "2025-11-05T03:41:13.711719"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "nfpe_language_patterns_visible_ribs",
+  "type": "pattern",
+  "content": "NFPE language patterns: 'visible ribs', 'prominent clavicles', 'temporal wasting noted', 'loss of buccal fat pad', 'minimal subcutaneous fat', 'sunken eyes'",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "medium",
+    "subcategory": "nfpe"
+  },
+  "created_at": "2025-10-25T13:54:48.586787",
+  "name": "Pattern: NFPE language patterns: 'visible ribs',..."
+}

@@ -1,0 +1,20 @@
+{
+  "id": "quick_reference_z_score_cutoffs",
+  "name": "Quick Reference - Z-Score Cutoffs",
+  "type": "reference",
+  "content": "QUICK REFERENCE: CRITICAL Z-SCORE CUTOFFS FOR MALNUTRITION\n\nImmediate Red Flags (Require Urgent Action):\n- z < -3 SD: SEVERE malnutrition (<1st percentile)\n- z < -2 SD: MODERATE malnutrition (2nd-3rd percentile)\n\nMonitoring Needed:\n- z < -1.64 SD: Below 5th percentile (at-risk)\n- z < -1 SD: Below 15th percentile (monitor)\n\nNormal Range:\n- -1 to +1 SD: 15th-85th percentile (normal)\n\nOverweight Thresholds:\n- z > +1.64 SD: Above 95th percentile (overweight)\n- z > +2 SD: Above 97th percentile (obesity)\n\nVelocity/Decline Thresholds (ASPEN):\n- Decline of 1 z-score: Mild concern\n- Decline of 2 z-scores: Moderate concern\n- Decline of 3 z-scores: Severe concern\n\nMemory Aid: \"2-2-2 Rule\"\n- Below -2: Moderate problem\n- Below -2 in 2 indicators: Malnutrition diagnosis (ASPEN)\n- Decline of 2: Moderate severity",
+  "metadata": {
+    "category": "malnutrition",
+    "keywords": [
+      "z-score",
+      "percentile",
+      "malnutrition",
+      "growth",
+      "WHO",
+      "ASPEN",
+      "nutrition"
+    ],
+    "clinical_area": "pediatric nutrition"
+  },
+  "created_at": "2025-11-05T03:41:13.712557"
+}

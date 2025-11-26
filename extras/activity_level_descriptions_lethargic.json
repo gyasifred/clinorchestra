@@ -1,0 +1,12 @@
+{
+  "id": "activity_level_descriptions_lethargic",
+  "type": "pattern",
+  "content": "Activity level descriptions: 'lethargic', 'active and playful', 'decreased activity', 'fatigues easily', 'limited mobility', 'bedbound'",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "low",
+    "subcategory": "functional_status"
+  },
+  "created_at": "2025-10-25T13:54:48.590765",
+  "name": "Pattern: Activity level descriptions: 'lethargic'..."
+}

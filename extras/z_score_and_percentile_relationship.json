@@ -1,0 +1,20 @@
+{
+  "id": "z_score_and_percentile_relationship",
+  "name": "Z-Score and Percentile Relationship",
+  "type": "reference",
+  "content": "Z-SCORE AND PERCENTILE RELATIONSHIP FOR GROWTH ASSESSMENT:\n\nCRITICAL: Lower percentiles correspond to NEGATIVE z-scores\n\nStandard Conversions:\n- 50th percentile = z-score 0 (mean/average)\n- 25th percentile = z-score -0.67\n- 10th percentile = z-score -1.28\n- 5th percentile = z-score -1.64 (malnutrition risk threshold)\n- 3rd percentile = z-score -1.88 (moderate malnutrition)\n- 2nd percentile = z-score -2.0 (severe malnutrition threshold)\n- 1st percentile = z-score -2.33\n- <1st percentile = z-score < -2.5 (very severe)\n\nAbove Mean:\n- 75th percentile = z-score +0.67\n- 90th percentile = z-score +1.28\n- 95th percentile = z-score +1.64 (overweight threshold)\n- 97th percentile = z-score +1.88\n- 99th percentile = z-score +2.33\n\nINTERPRETATION RULE: If a patient is at a low percentile (e.g., 3rd), the z-score MUST be negative (e.g., -1.88). Never report positive z-scores for low percentiles.",
+  "metadata": {
+    "category": "malnutrition",
+    "keywords": [
+      "z-score",
+      "percentile",
+      "malnutrition",
+      "growth",
+      "WHO",
+      "ASPEN",
+      "nutrition"
+    ],
+    "clinical_area": "pediatric nutrition"
+  },
+  "created_at": "2025-11-05T03:41:13.710822"
+}

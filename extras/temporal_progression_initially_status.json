@@ -1,0 +1,12 @@
+{
+  "id": "temporal_progression_initially_status",
+  "type": "pattern",
+  "content": "Temporal progression: 'initially [status], then [change], currently [status]'. Example: 'initially refusing all PO, then tolerating small volumes, currently taking 60% needs'",
+  "metadata": {
+    "category": "clinical_reasoning",
+    "priority": "medium",
+    "subcategory": "progression"
+  },
+  "created_at": "2025-10-25T13:54:48.591486",
+  "name": "Pattern: Temporal progression: 'initially [status..."
+}

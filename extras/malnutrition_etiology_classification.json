@@ -1,0 +1,12 @@
+{
+  "id": "malnutrition_etiology_classification",
+  "name": "Malnutrition Etiology Classification",
+  "type": "criteria",
+  "content": "Illness-related malnutrition: Associated with acute/chronic disease, inflammation. Non-illness-related: Caused by environmental factors, food insecurity, neglect. Socio-environmental: Social determinants of health. Mixed etiology: Combination of factors. Document primary driver.",
+  "metadata": {
+    "category": "malnutrition",
+    "subcategory": "etiology",
+    "priority": "medium"
+  },
+  "created_at": "2025-11-05T02:53:21.377070"
+}

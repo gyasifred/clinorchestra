@@ -1,0 +1,12 @@
+{
+  "id": "hypertension_diagnosis_and_classification",
+  "name": "Hypertension Diagnosis and Classification",
+  "type": "criteria",
+  "content": "ACC/AHA: Normal <120/<80, Elevated 120-129/<80, Stage 1 HTN 130-139/80-89, Stage 2 HTN \u2265140/\u226590. Confirm with multiple readings. Pediatric HTN: >95th percentile for age/sex/height. Target BP: <130/<80 for most adults, individualize for elderly and comorbidities.",
+  "metadata": {
+    "category": "cardiology",
+    "subcategory": "hypertension",
+    "priority": "medium"
+  },
+  "created_at": "2025-11-05T02:53:21.380068"
+}

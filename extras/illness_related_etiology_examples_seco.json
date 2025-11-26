@@ -1,0 +1,12 @@
+{
+  "id": "illness_related_etiology_examples_seco",
+  "type": "example",
+  "content": "Illness-related etiology examples: 'secondary to Crohn's disease', 'due to cystic fibrosis with pancreatic insufficiency', 'following prolonged hospitalization for sepsis'",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "medium",
+    "subcategory": "etiology"
+  },
+  "created_at": "2025-10-25T13:54:48.586311",
+  "name": "Example: Illness-related etiology examples: 'seco..."
+}

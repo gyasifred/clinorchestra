@@ -1,0 +1,12 @@
+{
+  "id": "food_insecurity_language_food_insecuri",
+  "type": "pattern",
+  "content": "Food insecurity language: 'food insecurity identified', 'family unable to afford formula', 'WIC referral made', 'food pantry information provided', 'SNAP enrollment assisted'",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "medium",
+    "subcategory": "social_determinants"
+  },
+  "created_at": "2025-10-25T13:54:48.590298",
+  "name": "Pattern: Food insecurity language: 'food insecuri..."
+}

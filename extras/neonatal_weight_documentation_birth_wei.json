@@ -1,0 +1,12 @@
+{
+  "id": "neonatal_weight_documentation_birth_wei",
+  "type": "pattern",
+  "content": "Neonatal weight documentation: birth weight [value]g, gestational age [X] weeks, SGA/AGA/LGA classification. Example: 'birth weight 850g at 26 weeks GA, SGA'",
+  "metadata": {
+    "category": "pediatric_malnutrition",
+    "priority": "high",
+    "subcategory": "age_specific_neonatal"
+  },
+  "created_at": "2025-10-25T13:54:48.588126",
+  "name": "Pattern: Neonatal weight documentation: birth wei..."
+}
