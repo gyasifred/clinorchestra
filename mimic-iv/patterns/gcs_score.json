@@ -1,7 +1,0 @@
-{
-  "name": "extract_gcs",
-  "pattern": "(?i)(?:gcs|glasgow\\s+coma\\s+scale)[:\\s]*([0-9]{1,2})",
-  "replacement": "GCS: \\1",
-  "description": "Extract Glasgow Coma Scale score (mental status)",
-  "enabled": true
-}

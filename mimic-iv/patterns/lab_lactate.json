@@ -1,7 +1,0 @@
-{
-  "name": "extract_lactate",
-  "pattern": "(?i)lactate[:\\s]*([0-9]+\\.?[0-9]*)\\s*(?:mmol/l)?",
-  "replacement": "Lactate: \\1 mmol/L",
-  "description": "Extract lactate levels (important for sepsis)",
-  "enabled": true
-}
