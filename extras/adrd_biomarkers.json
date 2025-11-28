@@ -1,0 +1,13 @@
+{
+  "id": "extra_adrd_biomarkers_008",
+  "name": "ADRD Biomarkers",
+  "type": "keyword_list",
+  "content": "Biomarker terminology for ADRD: CSF biomarkers, Cerebrospinal fluid, Amyloid beta, Abeta, Aβ42, Total tau, t-tau, Phospho-tau, p-tau, Tau/Abeta ratio, ATN framework, Amyloid PET, Pittsburgh compound B, PIB, Florbetapir, Flutemetamol, Plasma biomarkers, Blood biomarkers, p-tau181, p-tau217",
+  "metadata": {
+    "category": "biomarkers",
+    "diagnosis": "adrd",
+    "priority": "HIGH",
+    "domain": "laboratory"
+  },
+  "created_at": "2025-11-15T00:00:00"
+}

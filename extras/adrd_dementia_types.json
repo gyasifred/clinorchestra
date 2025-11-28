@@ -1,0 +1,13 @@
+{
+  "id": "extra_adrd_dementia_003",
+  "name": "ADRD Dementia Types and Diagnoses",
+  "type": "keyword_list",
+  "content": "Dementia diagnosis terminology: Alzheimer disease, Alzheimers, Alzheimer's, AD, Dementia, Vascular dementia, VaD, Multi-infarct dementia, Lewy body dementia, LBD, Dementia with Lewy bodies, DLB, Frontotemporal dementia, FTD, Pick disease, Primary progressive aphasia, Semantic dementia, Behavioral variant FTD, bvFTD, Mixed dementia, Mild cognitive impairment, MCI, Amnestic MCI, Non-amnestic MCI, Neurocognitive disorder, Major neurocognitive disorder, Mild neurocognitive disorder, Senile dementia, Dementia NOS",
+  "metadata": {
+    "category": "diagnosis",
+    "diagnosis": "adrd",
+    "priority": "CRITICAL",
+    "domain": "neurology"
+  },
+  "created_at": "2025-11-15T00:00:00"
+}

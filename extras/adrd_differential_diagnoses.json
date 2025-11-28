@@ -1,0 +1,13 @@
+{
+  "id": "extra_adrd_differential_013",
+  "name": "ADRD Differential Diagnoses",
+  "type": "keyword_list",
+  "content": "Differential diagnoses for cognitive impairment: Delirium, Acute confusional state, Depression, Pseudodementia, Normal aging, Age-related cognitive decline, Benign senescent forgetfulness, Medication-induced cognitive impairment, Normal pressure hydrocephalus, NPH, Brain tumor, Subdural hematoma, Chronic subdural hematoma, Alcohol-related dementia, Wernicke-Korsakoff, Autoimmune encephalitis, Limbic encephalitis, Creutzfeldt-Jakob disease, CJD, Huntington disease, Progressive supranuclear palsy, PSP, Corticobasal degeneration, CBD, Multiple sclerosis, Parkinson disease dementia, PDD",
+  "metadata": {
+    "category": "differential_diagnosis",
+    "diagnosis": "adrd",
+    "priority": "CRITICAL",
+    "domain": "neurology"
+  },
+  "created_at": "2025-11-15T00:00:00"
+}

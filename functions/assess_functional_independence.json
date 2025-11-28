@@ -1,0 +1,17 @@
+{
+  "name": "assess_functional_independence",
+  "code": "\ndef assess_functional_independence(adl_independent=True, iadl_independent=True):\n    \"\"\"\n    Assess functional independence based on ADL and IADL status\n\n    Key for distinguishing:\n    - Normal aging: ADLs and IADLs intact\n    - MCI: IADLs may have subtle difficulties, ADLs intact\n    - Mild dementia: IADL impairment, ADLs mostly intact\n    - Moderate/Severe dementia: ADL impairment\n\n    Args:\n        adl_independent (bool): Independent in basic ADLs\n        iadl_independent (bool): Independent in IADLs\n\n    Returns:\n        dict: Functional assessment\n    \"\"\"\n    if adl_independent and iadl_independent:\n        category = \"Fully Independent\"\n        dementia_diagnosis = \"Does not meet functional criteria for dementia. May be normal cognition or MCI.\"\n        supports_dementia = False\n    elif not iadl_independent and adl_independent:\n        category = \"IADL Impairment, ADLs Intact\"\n        dementia_diagnosis = \"Functional impairment pattern consistent with mild dementia or advanced MCI. Loss of IADLs with preserved ADLs typical in early dementia.\"\n        supports_dementia = True\n    elif not adl_independent:\n        category = \"ADL and IADL Impairment\"\n        dementia_diagnosis = \"Functional impairment pattern consistent with moderate to severe dementia. ADL loss indicates advanced disease.\"\n        supports_dementia = True\n    else:\n        category = \"Unable to determine\"\n        dementia_diagnosis = \"Insufficient functional data\"\n        supports_dementia = None\n\n    return {\n        \"functional_category\": category,\n        \"adl_status\": \"Independent\" if adl_independent else \"Dependent\",\n        \"iadl_status\": \"Independent\" if iadl_independent else \"Dependent\",\n        \"dementia_diagnosis_implications\": dementia_diagnosis,\n        \"supports_dementia_diagnosis\": supports_dementia,\n        \"note\": \"Functional decline from previous level is required for dementia diagnosis per DSM-5 and NIA-AA criteria.\"\n    }\n",
+  "description": "Assess functional independence and implications for dementia diagnosis",
+  "parameters": {
+    "adl_independent": {
+      "type": "boolean",
+      "description": "Independent in basic ADLs (bool)"
+    },
+    "iadl_independent": {
+      "type": "boolean",
+      "description": "Independent in IADLs (bool)"
+    }
+  },
+  "returns": "dict with functional category and whether it supports dementia diagnosis",
+  "signature": "(adl_independent=True, iadl_independent=True)"
+}

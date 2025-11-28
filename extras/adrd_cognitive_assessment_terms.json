@@ -1,0 +1,13 @@
+{
+  "id": "extra_adrd_cognitive_001",
+  "name": "ADRD Cognitive Assessment Terms",
+  "type": "keyword_list",
+  "content": "Cognitive assessment terminology for ADRD classification: MMSE (Mini-Mental State Examination), MoCA (Montreal Cognitive Assessment), CDR (Clinical Dementia Rating), Clock Drawing Test, Neuropsychological testing, Cognitive screening, Memory testing, Executive function testing, Trail Making Test, Boston Naming Test, HVLT (Hopkins Verbal Learning Test), Rey Auditory Verbal Learning, Digit Span, Verbal fluency, Category fluency, Semantic memory, Episodic memory, Working memory, Attention span, Processing speed",
+  "metadata": {
+    "category": "cognitive_assessment",
+    "diagnosis": "adrd",
+    "priority": "HIGH",
+    "domain": "neuropsychology"
+  },
+  "created_at": "2025-11-15T00:00:00"
+}

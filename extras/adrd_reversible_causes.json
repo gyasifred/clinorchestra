@@ -1,0 +1,13 @@
+{
+  "id": "extra_adrd_reversible_009",
+  "name": "ADRD Reversible Causes and Laboratory Tests",
+  "type": "keyword_list",
+  "content": "Reversible causes and laboratory workup for cognitive impairment: Vitamin B12, B12 deficiency, Folate deficiency, Thyroid disorder, Hypothyroidism, TSH, Free T4, Metabolic panel, Electrolyte imbalance, Hyponatremia, Hypercalcemia, Renal function, Creatinine, Liver function, Hepatic encephalopathy, RPR, VDRL, Syphilis, HIV, Lyme disease, CBC, Anemia, Inflammatory markers, ESR, CRP",
+  "metadata": {
+    "category": "laboratory",
+    "diagnosis": "adrd",
+    "priority": "CRITICAL",
+    "domain": "differential_diagnosis"
+  },
+  "created_at": "2025-11-15T00:00:00"
+}

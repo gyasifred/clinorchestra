@@ -1,0 +1,13 @@
+{
+  "id": "extra_adrd_imaging_007",
+  "name": "ADRD Neuroimaging Findings",
+  "type": "keyword_list",
+  "content": "Neuroimaging findings in ADRD: Brain MRI, Brain CT, Head CT, Head MRI, PET scan, FDG-PET, Amyloid PET, Tau PET, SPECT, Cerebral atrophy, Brain atrophy, Cortical atrophy, Medial temporal atrophy, Hippocampal atrophy, Entorhinal atrophy, Frontal atrophy, Temporal atrophy, Parietal atrophy, Ventricular enlargement, White matter hyperintensities, WMH, Leukoaraiosis, Lacunar infarct, Lacunes, Stroke, Infarct, Territorial infarct, Microbleeds, Cerebral microbleeds, Cerebrovascular disease, Small vessel disease, Hypometabolism, Temporo-parietal hypometabolism, Amyloid positive, Amyloid negative, Tau deposition",
+  "metadata": {
+    "category": "imaging",
+    "diagnosis": "adrd",
+    "priority": "HIGH",
+    "domain": "radiology"
+  },
+  "created_at": "2025-11-15T00:00:00"
+}

@@ -1,0 +1,7 @@
+{
+  "name": "extract_category_fluency",
+  "pattern": "(?:category|semantic) fluency.*?(\\d{1,2})(?:\\s+(?:words?|items?))?",
+  "replacement": "Category Fluency: \\1",
+  "description": "Extract category/semantic fluency score (semantic memory)",
+  "enabled": true
+}

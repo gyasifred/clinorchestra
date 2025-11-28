@@ -1,0 +1,7 @@
+{
+  "name": "detect_thyroid_disorder",
+  "pattern": "(?:hypothyroid|thyroid (?:disorder|disease|dysfunction))|TSH (?:elevated|high)",
+  "replacement": "[THYROID_DISORDER]",
+  "description": "Detect thyroid disorder (reversible cause of cognitive impairment)",
+  "enabled": true
+}

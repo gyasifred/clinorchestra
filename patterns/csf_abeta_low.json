@@ -1,0 +1,7 @@
+{
+  "name": "detect_csf_abeta_low",
+  "pattern": "(?:CSF|cerebrospinal fluid).*?(?:A[βb]|amyloid[- ]?beta).*?(?:low|decreased|reduced)",
+  "replacement": "[CSF_ABETA_LOW]",
+  "description": "Detect low CSF amyloid-beta (biomarker for Alzheimer's disease)",
+  "enabled": true
+}
