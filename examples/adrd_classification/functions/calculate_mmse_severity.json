@@ -5,7 +5,8 @@
   "parameters": {
     "mmse_score": {
       "type": "number",
-      "description": "MMSE total score (0-30)"
+      "description": "MMSE total score (0-30)",
+      "required": true
     }
   },
   "returns": "dict with severity category, interpretation, and whether dementia is suggested",

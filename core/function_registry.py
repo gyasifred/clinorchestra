@@ -408,51 +408,70 @@ class FunctionRegistry:
             if call_stack and call_stack[-1] == name:
                 call_stack.pop()
     
-    def _validate_and_convert_parameters(self, 
-                                       kwargs: Dict[str, Any], 
+    def _validate_and_convert_parameters(self,
+                                       kwargs: Dict[str, Any],
                                        param_specs: Dict[str, Any],
                                        sig_params: Dict[str, Any],
                                        func_name: str) -> Dict[str, Any]:
         """
         Validate and convert function parameters to proper types
+
+        Returns:
+            Dict of validated parameters, or raises ValueError if required params missing
         """
         validated = {}
-        
+        missing_required = []
+
         # Get actual parameter names from signature if available
         if sig_params:
             expected_param_names = list(sig_params.keys())
         else:
             expected_param_names = list(param_specs.keys())
-        
+
         # Convert and validate each parameter
         for param_name in expected_param_names:
+            param_spec = param_specs.get(param_name, {})
+            is_required = param_spec.get('required', False)
+
             if param_name in kwargs:
                 raw_value = kwargs[param_name]
-                
+
                 # Skip if value indicates missing data
                 if self._is_missing_value(raw_value):
+                    if is_required:
+                        missing_required.append(param_name)
                     logger.info(f"Skipping {func_name} - parameter {param_name} is missing/unknown")
                     continue
-                
+
                 # Get expected type from parameter spec
-                param_spec = param_specs.get(param_name, {})
                 expected_type = param_spec.get('type', 'string')
-                
+
                 # Convert value
                 converted_value = self._convert_parameter_value(raw_value, expected_type, param_name)
                 if converted_value is not None:
                     validated[param_name] = converted_value
-                
-            elif sig_params and param_name in sig_params:
-                # Check if parameter has default value
-                param = sig_params[param_name]
-                if param.default is not inspect.Parameter.empty:
-                    # Parameter has default, skip
-                    continue
-                else:
-                    # Required parameter missing
-                    logger.warning(f"Required parameter {param_name} missing for {func_name}")
-        
+                elif is_required:
+                    # Conversion failed for required parameter
+                    missing_required.append(param_name)
+
+            else:
+                # Parameter not provided in kwargs
+                if sig_params and param_name in sig_params:
+                    # Check if parameter has default value in signature
+                    param = sig_params[param_name]
+                    if param.default is not inspect.Parameter.empty:
+                        # Parameter has default, skip
+                        continue
+
+                # Check if marked as required in spec
+                if is_required:
+                    missing_required.append(param_name)
+                    logger.warning(f"Required parameter '{param_name}' missing for {func_name}")
+
+        # If any required parameters are missing, raise an error
+        if missing_required:
+            raise ValueError(f"Missing required parameter(s): {', '.join(missing_required)}")
+
         logger.debug(f"Validated parameters for {func_name}: {validated}")
         return validated
     

@@ -5,7 +5,8 @@
   "parameters": {
     "moca_score": {
       "type": "number",
-      "description": "MoCA total score (0-30)"
+      "description": "MoCA total score (0-30)",
+      "required": true
     },
     "education_years": {
       "type": "number",
