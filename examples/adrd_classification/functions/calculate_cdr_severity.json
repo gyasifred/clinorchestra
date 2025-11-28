@@ -5,7 +5,8 @@
   "parameters": {
     "cdr_global_score": {
       "type": "number",
-      "description": "CDR global score (0, 0.5, 1, 2, or 3)"
+      "description": "CDR global score (0, 0.5, 1, 2, or 3)",
+      "required": true
     }
   },
   "returns": "dict with dementia stage and functional implications",
