@@ -1,8 +1,8 @@
 # ClinOrchestra v1.0.0
 
-**Universal LLM-Powered Clinical Data Extraction Platform**
+**Universal, Autonomous Clinical AI Platform for Task-Driven LLM Orchestration**
 
-ClinOrchestra is a **universal** intelligent system for extracting structured information from ANY clinical data using large language models (LLMs), retrieval-augmented generation (RAG), custom functions, and domain knowledge. While examples include malnutrition classification and MIMIC-IV diagnosis annotation, the platform adapts to **any clinical extraction task** through customizable prompts and schemas.
+ClinOrchestra is a **universal, autonomous clinical AI platform** that enables task-driven language model orchestration to accomplish **any clinical task**. The platform integrates multiple tool types—functions (Python computations), RAG (clinical guidelines and publications), extras (task-specific hints), and patterns (text transformations)—that LLMs leverage autonomously based on task requirements. From malnutrition classification to ADRD diagnosis, from medication extraction to guideline adherence assessment, ClinOrchestra adapts to **any clinical task** through user-defined prompts, schemas, and configurations.
 
 ![ClinOrchestra Logo](assets/clinorchestra_logo.svg)
 
@@ -10,19 +10,28 @@ ClinOrchestra is a **universal** intelligent system for extracting structured in
 
 ## Key Features
 
-- **🌐 Universal Platform**: Adapts to ANY clinical extraction task via prompts and JSON schemas
-  - No hardcoded task logic - completely configurable
-  - Examples provided (malnutrition, MIMIC-IV) demonstrate capability, not limits
-- **⚙️ Dual Execution Modes**:
-  - **STRUCTURED**: Reliable 4-stage pipeline for production workloads
-  - **ADAPTIVE**: Autonomous iterative loop with parallel tool execution for complex cases
+- **🌐 Universal Platform**: Accomplishes ANY clinical task through autonomous LLM orchestration
+  - No hardcoded task logic - driven by user-defined prompts and schemas
+  - Examples (malnutrition, ADRD) demonstrate capability, not limits
+  - Platform is fully user-configurable: custom functions, patterns, extras, and RAG resources
+- **⚙️ Dual Workflow Types**:
+  - **STRUCTURED Workflows**: Predefined 4-stage pipeline for predictable, production-ready tasks
+  - **ADAPTIVE Workflows**: Dynamic, autonomous workflows that adjust based on task requirements
 - **🔧 Multi-Column Prompt Variables**: Pass multiple dataset columns as prompt placeholders
   - Configure which columns feed into prompts (e.g., patient_id, age, gender, diagnosis)
   - Full backward compatibility with simple text-only workflows
-- **📚 RAG Integration**: Retrieve clinical guidelines from PDFs and URLs during extraction
-- **🧮 Custom Functions**: Create and use medical calculations (BMI, scores, conversions)
-- **💡 Clinical Knowledge**: Pre-load domain expertise (WHO standards, diagnostic criteria)
-- **🔤 Pattern Normalization**: Standardize clinical abbreviations and formats automatically
+- **🤖 Autonomous Task Execution**: LLM analyzes tasks, determines required tools, and orchestrates execution
+  - Adaptive workflow adjusts strategy based on intermediate results
+  - Intelligent tool selection and composition for complex clinical reasoning
+- **🧮 Tool Integration**: Multiple tool types for comprehensive task support
+  - **Functions**: Python functions for medical calculations (20+ built-in, fully customizable)
+  - **RAG**: Clinical guidelines and publications from PDFs/URLs
+  - **Extras**: Task-specific hints and domain knowledge (49+ clinical extras)
+  - **Patterns**: Text preprocessing and postprocessing transformations (33+ patterns)
+- **🎯 User-Driven Customization**: Complete control over platform behavior
+  - Write custom functions, define patterns, provide extras via JSON/YAML
+  - Selective tool enablement for each task
+  - Configure workflow type based on task complexity
 - **🤖 Multi-LLM Support**: OpenAI, Anthropic, Google, Azure, Unsloth (local models)
 - **⚡ High Performance**: Parallel processing, caching, async tool execution (60-75% faster)
 - **🚀 Multi-GPU Processing**: Automatic multi-GPU support for local models (2-4x faster on H100 clusters)
@@ -69,7 +78,7 @@ Web interface opens at `http://localhost:7860`
 
 ## System Architecture
 
-ClinOrchestra features a **6-layer modular architecture** designed for scalability, flexibility, and production-ready performance.
+ClinOrchestra features a **6-layer modular architecture** designed for autonomous clinical task orchestration, scalability, and production-ready performance.
 
 ### Architecture Overview
 
@@ -78,51 +87,55 @@ ClinOrchestra features a **6-layer modular architecture** designed for scalabili
 **The 6 Layers:**
 1. **Web Interface** - Gradio-based UI with configuration tabs
 2. **Application State** - Central configuration manager (Observer pattern)
-3. **Extraction Engines** - Dual execution modes (STRUCTURED & ADAPTIVE)
+3. **Orchestration Engines** - Dual workflow types (STRUCTURED & ADAPTIVE)
 4. **Core Services** - LLM integration, RAG engine, preprocessing
-5. **Tool Systems** - Functions, patterns, extras for domain knowledge
+5. **Tool Systems** - Functions, patterns, extras, RAG for autonomous task execution
 6. **Optimization** - Caching (400x faster), parallel processing, adaptive retry
 
 **For detailed architecture documentation, see [ARCHITECTURE.md](ARCHITECTURE.md)**
 
 ---
 
-## Execution Modes
+## Workflow Types
 
-### STRUCTURED Mode (Default)
+### STRUCTURED Workflows (Default)
 
-Systematic 4-stage pipeline for reliable, production-ready extraction:
+Predefined 4-stage pipeline for predictable, production-ready task execution:
 
 ![STRUCTURED Workflow](assets/diagrams/structured_mode_workflow.svg)
 
 ```
-Stage 1: Task Analysis → Determine required tools
-Stage 2: Tool Execution → Run functions, RAG, extras (async/parallel)
-Stage 3: Extraction → Generate structured JSON output
-Stage 4: RAG Refinement → Enhance selected fields (optional)
+Stage 1: Task Analysis → LLM determines required tools autonomously
+Stage 2: Tool Execution → Execute functions, RAG, extras (async/parallel)
+Stage 3: Task Completion → Generate structured output based on task requirements
+Stage 4: RAG Refinement → Enhance specific fields with evidence (optional)
 ```
 
 **Best for**: Predictable workflows, production deployments, maximum reliability
 
-### ADAPTIVE Mode
+**Key Features**: Fixed sequence, deterministic execution, optimized for scale
 
-Autonomous iterative loop for complex extractions:
+### ADAPTIVE Workflows
+
+Dynamic, autonomous workflows that adjust based on task requirements and intermediate results:
 
 ![ADAPTIVE Workflow](assets/diagrams/adaptive_mode_workflow.svg)
 
 ```
-Continuous Loop:
-1. LLM analyzes clinical text
-2. Decides which tools to call
+Continuous Autonomous Loop:
+1. LLM analyzes task and current state
+2. Decides which tools to call based on needs
 3. Executes tools in parallel (async)
-4. Analyzes results
-5. Iterates until extraction complete
-6. Outputs final JSON
+4. Analyzes results and adjusts strategy
+5. Iterates until task objective achieved
+6. Outputs final structured result
 ```
 
-**Best for**: Evolving requirements, complex cases, maximum flexibility
+**Best for**: Complex clinical reasoning, evolving requirements, maximum flexibility
 
-Enable ADAPTIVE mode in the Config tab with max iterations and tool call limits.
+**Key Features**: Dynamic tool selection, adaptive strategy, self-correcting execution
+
+Enable ADAPTIVE workflows in the Config tab with max iterations and tool call limits.
 
 ### Component Interactions
 
@@ -205,20 +218,22 @@ BP 145/92. Current meds: Metformin 1000mg BID.
 
 ## Use Cases (Platform is Universal - Not Limited to These)
 
-The platform is **universal** and adapts to any clinical extraction task. Examples include:
+The platform is **universal** and autonomously accomplishes any clinical task you define. Examples include:
 
-- **Clinical Data Curation**: Create annotated datasets for AI/ML training
-- **Chart Review**: Extract structured information from large medical record sets
+- **Clinical Classification**: ADRD diagnosis, malnutrition assessment, disease staging
+- **Data Extraction & Curation**: Create annotated datasets for AI/ML training
+- **Chart Review Automation**: Process large medical record sets with structured outputs
 - **Quality Improvement**: Measure guideline adherence across patient populations
-- **Research Data Extraction**: Extract research variables from clinical narratives
-- **Decision Support**: Extract parameters for clinical decision support systems
-- **Diagnosis Annotation**: Comprehensive evidence extraction for medical AI training
-- **Multiclass Classification**: Probabilistic diagnostic predictions with reasoning
-- **Nutritional Assessment**: Extract malnutrition indicators and growth metrics
-- **Clinical Trial Screening**: Extract eligibility criteria from patient charts
-- **Adverse Event Detection**: Identify and categorize adverse events from notes
+- **Research Data Collection**: Extract research variables from clinical narratives
+- **Clinical Decision Support**: Generate parameters and recommendations for CDS systems
+- **Comprehensive Annotation**: Multi-evidence diagnostic reasoning for medical AI
+- **Risk Stratification**: Calculate clinical scores and assess patient risk levels
+- **Medication Reconciliation**: Extract, normalize, and reconcile medication lists
+- **Clinical Trial Screening**: Assess eligibility criteria from patient charts
+- **Adverse Event Detection**: Identify, classify, and report adverse events
+- **Guideline Compliance**: Assess adherence to clinical practice guidelines
 
-**The only limit is your prompt and schema design** - ClinOrchestra provides the universal infrastructure.
+**The only limit is your task description** - ClinOrchestra provides the universal, autonomous infrastructure.
 
 ---
 
@@ -285,5 +300,5 @@ MIT License
 ---
 
 **Version**: 1.0.0 (Production Release)
-**Platform Type**: Universal Clinical Data Extraction System
+**Platform Type**: Universal, Autonomous Clinical AI Platform for Task-Driven LLM Orchestration
 **Author**: Frederick Gyasi

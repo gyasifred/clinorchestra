@@ -1,6 +1,6 @@
 # ClinOrchestra Architecture
 
-**Universal LLM-Powered Clinical Data Extraction Platform**
+**Universal, Autonomous Clinical AI Platform for Task-Driven LLM Orchestration**
 
 Version 1.0.0 | Production Release
 
@@ -21,19 +21,20 @@ Version 1.0.0 | Production Release
 
 ## System Overview
 
-ClinOrchestra is a **universal, intelligent clinical data extraction platform** that uses Large Language Models (LLMs) to extract structured information from ANY clinical text. It's not hardcoded for specific tasks - it adapts to whatever extraction task you define through prompts and JSON schemas.
+ClinOrchestra is a **universal, autonomous clinical AI platform** that enables task-driven language model orchestration to accomplish ANY clinical task. The platform integrates multiple tool types—functions (Python computations), RAG (clinical guidelines), extras (task-specific hints), and patterns (text transformations)—that LLMs leverage autonomously based on task descriptions provided in prompts. It's not hardcoded for specific tasks - it adapts to whatever clinical task you define through user-configurable prompts, schemas, and tools.
 
 ### Core Capabilities
 
-- **Universal Platform**: Adapts to any clinical extraction task (malnutrition, diagnosis annotation, medication extraction, etc.)
-- **LLM-Powered Intelligence**: Uses GPT-4, Claude, Gemini, or local models for autonomous reasoning
-- **Tool Orchestration**: Automatically calls medical functions, retrieves guidelines (RAG), and applies domain knowledge
-- **Dual Execution Modes**: STRUCTURED (predictable 4-stage pipeline) and ADAPTIVE (iterative autonomous loop)
+- **Universal Platform**: Accomplishes any clinical task through autonomous LLM orchestration
+- **Task-Driven Execution**: Analyzes task descriptions to understand requirements and determine tool needs
+- **Autonomous Tool Orchestration**: Intelligently calls medical functions, retrieves guidelines (RAG), applies domain knowledge, and uses text patterns
+- **Dual Workflow Types**: STRUCTURED (predictable 4-stage pipeline) and ADAPTIVE (dynamic autonomous workflows)
+- **User-Driven Customization**: Fully configurable - write custom functions, define patterns, provide extras, supply RAG resources
 - **Production-Ready**: Built-in caching, retry mechanisms, PHI redaction, and performance optimizations
 
 ### System Type
 
-- **Type**: Universal Clinical Data Extraction & Orchestration Platform
+- **Type**: Universal, Autonomous Clinical AI Platform for Task-Driven LLM Orchestration
 - **Version**: 1.0.0 (Production Release)
 - **Architecture Pattern**: Event-driven, modular, plugin-based system with centralized state management
 - **Deployment**: Web-based UI (Gradio) with Python SDK for programmatic access
@@ -50,9 +51,9 @@ ClinOrchestra is a **universal, intelligent clinical data extraction platform** 
 
 1. **Web Interface Layer**: Gradio-based UI with configuration tabs
 2. **Application State Layer**: Central configuration manager using Observer pattern
-3. **Extraction Engines Layer**: Dual execution modes (STRUCTURED & ADAPTIVE)
+3. **Orchestration Engines Layer**: Dual workflow types (STRUCTURED & ADAPTIVE)
 4. **Core Services Layer**: LLM integration, RAG engine, text preprocessing
-5. **Tool Systems Layer**: Functions, patterns, extras for domain knowledge
+5. **Tool Systems Layer**: Functions, patterns, extras, RAG for autonomous task execution
 6. **Optimization Layer**: Caching, parallel processing, adaptive retry
 
 ### STRUCTURED Mode Workflow
@@ -490,82 +491,87 @@ def preprocess(self, text):
 
 ---
 
-## Execution Modes
+## Workflow Types
 
-### STRUCTURED Mode (Default)
+### STRUCTURED Workflows (Default)
 
-**4-Stage Predictable Pipeline** - Best for production workloads.
+**Predefined 4-Stage Pipeline** - Best for predictable, production-ready tasks.
 
 **Workflow:**
 ```
-Clinical Text Input
+Task Input (Clinical Text + Task Description)
     ↓
 [Preprocessing] (PHI redaction + Pattern normalization)
     ↓
 STAGE 1: Task Analysis
-    → LLM analyzes task
-    → Determines tool requirements
-    → Generates RAG queries
+    → LLM analyzes task description autonomously
+    → Determines required tool types
+    → Plans execution strategy
     ↓
 STAGE 2: Tool Execution (ASYNC/PARALLEL)
-    → Execute functions
-    → Retrieve RAG documents
-    → Match extras hints
+    → Execute functions as needed
+    → Retrieve RAG documents for guidelines
+    → Match extras for task-specific hints
+    → Apply patterns for text transformations
     ↓
-STAGE 3: Extraction
-    → LLM generates JSON with tool results
-    → Validate against schema
+STAGE 3: Task Completion
+    → LLM generates output based on task requirements
+    → Validate against schema (if applicable)
     ↓
 STAGE 4: RAG Refinement (Optional)
     → Enhance specific fields with evidence
-    → Add citations
+    → Add source citations
     ↓
-Structured JSON Output
+Structured Output (task-driven format)
 ```
 
 **Advantages:**
 - Predictable, reliable execution
 - Clear stages for debugging
-- Optimal for consistent extraction tasks
+- Optimal for consistent task patterns
 - Production-ready with error handling
+- Fixed sequence optimized for scale
 
-### ADAPTIVE Mode
+### ADAPTIVE Workflows
 
-**Iterative Autonomous Loop** - Best for complex, evolving cases.
+**Dynamic Autonomous Workflows** - Best for complex clinical reasoning and evolving requirements.
 
 **Workflow:**
 ```
-Clinical Text Input
+Task Input (Clinical Text + Task Description)
     ↓
 [Preprocessing] (PHI redaction + Pattern normalization)
     ↓
-Initialize Conversation
+Initialize Autonomous Conversation
     ↓
 ┌─────────────────────────────────────────┐
-│        ITERATIVE LOOP                   │
+│     AUTONOMOUS ITERATIVE LOOP           │
 │  (Max iterations: configurable)         │
 │                                         │
-│  1. LLM analyzes current state          │
-│  2. Decision:                           │
+│  1. LLM analyzes task and current state │
+│  2. Decides on action based on needs:   │
 │     a) Request tools → PAUSE            │
+│        ├─ Select relevant tools         │
 │        ├─ Execute tools (async/parallel)│
 │        └─ RESUME with results           │
-│     b) Output JSON → Validate           │
-│        ├─ Valid → Complete              │
-│        └─ Invalid → Retry/Fallback      │
-│  3. Check stall detection               │
-│  4. Update conversation history         │
-│  5. Loop until complete                 │
+│     b) Generate output → Validate       │
+│        ├─ Valid → Task complete         │
+│        └─ Invalid → Adjust strategy     │
+│  3. Analyze results, adjust approach    │
+│  4. Check completion criteria           │
+│  5. Update conversation state           │
+│  6. Loop until task objective achieved  │
 └─────────────────────────────────────────┘
     ↓
-Structured JSON Output
+Structured Output (task-driven format)
 ```
 
 **Advantages:**
 - Flexible, autonomous decision-making
-- Handles evolving requirements
-- Can adapt strategy mid-extraction
-- Better for complex, ambiguous cases
+- Handles evolving task requirements
+- Can adapt strategy based on intermediate results
+- Better for complex, ambiguous clinical reasoning
+- Self-correcting execution
 
 ---
 
@@ -903,35 +909,37 @@ def _reduce_text(self, text, ratio):
 
 ### 1. Universal Platform (Not Task-Specific)
 
-**Choice**: No hardcoded extraction logic
+**Choice**: No hardcoded task logic - fully task-driven and user-configurable
 
 **Rationale**:
-- Clinical tasks vary widely (diagnosis, malnutrition, medications, etc.)
+- Clinical tasks vary widely (diagnosis classification, medication reconciliation, quality assessment, etc.)
 - Hardcoding limits flexibility and reusability
-- LLMs can understand any task given proper instructions
+- LLMs can autonomously accomplish any task given proper instructions and tools
 
 **Implementation**:
-- All extraction logic in prompts (configurable)
-- JSON schema defines output structure (configurable)
-- Functions/Extras/RAG adapt to any domain (pluggable)
+- All task logic in prompts (user-defined)
+- Output structure defined by schemas (user-configurable)
+- Functions/Extras/Patterns/RAG adapt to any domain (fully pluggable and customizable)
+- Built-in tools serve as examples - users write custom tools for their specific needs
 
 **Examples**:
-- Malnutrition classification: Define malnutrition schema & ASPEN criteria extras
-- MIMIC-IV diagnosis annotation: Define evidence schema & guideline RAG documents
-- Medication extraction: Define medication schema & dosing patterns
+- Malnutrition classification: User defines classification schema & provides ASPEN criteria as extras
+- ADRD diagnosis: User defines diagnostic schema & uploads guideline PDFs as RAG resources
+- Medication reconciliation: User defines medication schema & creates dosing normalization patterns
+- Guideline adherence: User creates scoring functions & provides clinical practice guidelines
 
-### 2. Dual Execution Modes
+### 2. Dual Workflow Types
 
-**Choice**: Both STRUCTURED and ADAPTIVE modes
+**Choice**: Both STRUCTURED and ADAPTIVE workflows
 
 **Rationale**:
-- STRUCTURED: Production workloads need predictability and reliability
-- ADAPTIVE: Complex cases need flexibility and autonomous reasoning
-- Different tasks have different needs
+- STRUCTURED: Predictable tasks need reliable, repeatable execution
+- ADAPTIVE: Complex clinical reasoning needs flexible, autonomous workflows
+- Different task complexities have different needs
 
 **When to use each**:
-- **STRUCTURED**: Known requirements, production scale, consistent tasks
-- **ADAPTIVE**: Evolving requirements, complex reasoning, research tasks
+- **STRUCTURED Workflows**: Known task patterns, production scale, consistent requirements
+- **ADAPTIVE Workflows**: Evolving requirements, complex reasoning, exploratory tasks
 
 ### 3. Tool Orchestration (Not Manual)
 
@@ -1130,6 +1138,6 @@ cache_key = hash(prompt + model + prompt_config_hash)
 
 ---
 
-**ClinOrchestra v1.0.0** - Universal Clinical Data Extraction Platform
+**ClinOrchestra v1.0.0** - Universal, Autonomous Clinical AI Platform for Task-Driven LLM Orchestration
 
 **Author**: Frederick Gyasi
