@@ -1,0 +1,7 @@
+{
+  "name": "extract_cdr_score",
+  "pattern": "CDR\\s*(?:global|score|=|:)?\\s*(0|0\\.5|1|2|3)",
+  "replacement": "CDR: \\1",
+  "description": "Extract CDR (Clinical Dementia Rating) global score",
+  "enabled": true
+}

@@ -1,0 +1,7 @@
+{
+  "name": "detect_amyloid_positive",
+  "pattern": "amyloid (?:positive|PET positive)",
+  "replacement": "[AMYLOID_POSITIVE]",
+  "description": "Detect positive amyloid PET scan (indicative of Alzheimer's pathology)",
+  "enabled": true
+}

@@ -1,0 +1,7 @@
+{
+  "name": "detect_vascular_dementia",
+  "pattern": "vascular dementia|VaD|multi[- ]?infarct dementia",
+  "replacement": "[VASCULAR_DEMENTIA]",
+  "description": "Detect vascular dementia diagnosis mention",
+  "enabled": true
+}

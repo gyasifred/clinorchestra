@@ -1,0 +1,37 @@
+{
+  "name": "calculate_vascular_risk_score",
+  "code": "\ndef calculate_vascular_risk_score(hypertension=False, diabetes=False, hyperlipidemia=False,\n                                  smoking=False, atrial_fib=False, stroke_history=False,\n                                  cad=False):\n    \"\"\"\n    Calculate vascular dementia risk score based on vascular risk factors\n\n    Presence of multiple vascular risk factors increases likelihood of\n    vascular contribution to cognitive impairment (VCID)\n\n    Args:\n        hypertension (bool): History of hypertension\n        diabetes (bool): History of diabetes mellitus\n        hyperlipidemia (bool): History of high cholesterol\n        smoking (bool): Current or former smoker\n        atrial_fib (bool): Atrial fibrillation\n        stroke_history (bool): Previous stroke or TIA\n        cad (bool): Coronary artery disease\n\n    Returns:\n        dict: Risk assessment\n    \"\"\"\n    risk_factors = {\n        \"Hypertension\": hypertension,\n        \"Diabetes\": diabetes,\n        \"Hyperlipidemia\": hyperlipidemia,\n        \"Smoking\": smoking,\n        \"Atrial Fibrillation\": atrial_fib,\n        \"Stroke/TIA History\": stroke_history,\n        \"Coronary Artery Disease\": cad\n    }\n\n    present_factors = [factor for factor, present in risk_factors.items() if present]\n    risk_count = len(present_factors)\n\n    if risk_count == 0:\n        risk_level = \"Low\"\n        interpretation = \"No major vascular risk factors identified. Vascular dementia less likely.\"\n    elif risk_count <= 2:\n        risk_level = \"Moderate\"\n        interpretation = f\"{risk_count} vascular risk factor(s) present. Some vascular contribution possible, especially if white matter disease or infarcts on imaging.\"\n    else:\n        risk_level = \"High\"\n        interpretation = f\"{risk_count} vascular risk factors present. High likelihood of vascular contribution to cognitive impairment. Consider vascular dementia or mixed dementia.\"\n\n    return {\n        \"vascular_risk_count\": risk_count,\n        \"risk_level\": risk_level,\n        \"present_risk_factors\": present_factors,\n        \"interpretation\": interpretation,\n        \"note\": \"Vascular risk factors increase probability of vascular dementia and also increase risk of Alzheimer's disease. Many patients have mixed pathology.\"\n    }\n",
+  "description": "Calculate vascular dementia risk based on cardiovascular risk factors",
+  "parameters": {
+    "hypertension": {
+      "type": "boolean",
+      "description": "History of hypertension (bool)"
+    },
+    "diabetes": {
+      "type": "boolean",
+      "description": "History of diabetes (bool)"
+    },
+    "hyperlipidemia": {
+      "type": "boolean",
+      "description": "History of high cholesterol (bool)"
+    },
+    "smoking": {
+      "type": "boolean",
+      "description": "Current/former smoker (bool)"
+    },
+    "atrial_fib": {
+      "type": "boolean",
+      "description": "Atrial fibrillation (bool)"
+    },
+    "stroke_history": {
+      "type": "boolean",
+      "description": "Previous stroke/TIA (bool)"
+    },
+    "cad": {
+      "type": "boolean",
+      "description": "Coronary artery disease (bool)"
+    }
+  },
+  "returns": "dict with vascular risk level and likelihood of vascular dementia contribution",
+  "signature": "(hypertension=False, diabetes=False, hyperlipidemia=False, smoking=False, atrial_fib=False, stroke_history=False, cad=False)"
+}
