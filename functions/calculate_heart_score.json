@@ -1,30 +1,30 @@
 {
   "name": "calculate_heart_score",
-  "code": "\ndef calculate_heart_score(history_score, ecg_score, age, risk_factors_count, troponin_level):\n    score = 0\n    \n    # History (0-2)\n    score += min(2, max(0, history_score))\n    \n    # ECG (0-2)\n    score += min(2, max(0, ecg_score))\n    \n    # Age (0-2)\n    if age < 45:\n        score += 0\n    elif age <= 64:\n        score += 1\n    else:\n        score += 2\n    \n    # Risk factors (0-2)\n    if risk_factors_count == 0:\n        score += 0\n    elif risk_factors_count <= 2:\n        score += 1\n    else:\n        score += 2\n    \n    # Troponin (0-2)\n    if troponin_level.lower() == 'normal':\n        score += 0\n    elif troponin_level.lower() == 'borderline':\n        score += 1\n    else:\n        score += 2\n    \n    # Risk categorization\n    if score <= 3:\n        risk_category = 'Low Risk'\n        mace_risk = '0.9-1.7%'\n        recommendation = 'Early discharge, outpatient follow-up'\n    elif score <= 6:\n        risk_category = 'Moderate Risk'\n        mace_risk = '12-17%'\n        recommendation = 'Observation, further testing'\n    else:\n        risk_category = 'High Risk'\n        mace_risk = '50-65%'\n        recommendation = 'Admission, early invasive strategy'\n    \n    return {\n        'score': score,\n        'risk_category': risk_category,\n        'mace_risk_percent': mace_risk,\n        'recommendation': recommendation\n    }\n",
+  "code": "\ndef calculate_heart_score(history_score, ecg_score, age, risk_factors_count, troponin_level):\n    # Convert inputs to proper types (handles string inputs from LLM)\n    history_score = int(history_score) if not isinstance(history_score, int) else history_score\n    ecg_score = int(ecg_score) if not isinstance(ecg_score, int) else ecg_score\n    age = int(age) if not isinstance(age, int) else age\n    risk_factors_count = int(risk_factors_count) if not isinstance(risk_factors_count, int) else risk_factors_count\n    troponin_level = str(troponin_level)\n    \n    score = 0\n    \n    # History (0-2)\n    score += min(2, max(0, history_score))\n    \n    # ECG (0-2)\n    score += min(2, max(0, ecg_score))\n    \n    # Age (0-2)\n    if age < 45:\n        score += 0\n    elif age <= 64:\n        score += 1\n    else:\n        score += 2\n    \n    # Risk factors (0-2)\n    if risk_factors_count == 0:\n        score += 0\n    elif risk_factors_count <= 2:\n        score += 1\n    else:\n        score += 2\n    \n    # Troponin (0-2)\n    if troponin_level.lower() == 'normal':\n        score += 0\n    elif troponin_level.lower() == 'borderline':\n        score += 1\n    else:\n        score += 2\n    \n    # Risk categorization\n    if score <= 3:\n        risk_category = 'Low Risk'\n        mace_risk = '0.9-1.7%'\n        recommendation = 'Early discharge, outpatient follow-up'\n    elif score <= 6:\n        risk_category = 'Moderate Risk'\n        mace_risk = '12-17%'\n        recommendation = 'Observation, further testing'\n    else:\n        risk_category = 'High Risk'\n        mace_risk = '50-65%'\n        recommendation = 'Admission, early invasive strategy'\n    \n    return {\n        'score': score,\n        'risk_category': risk_category,\n        'mace_risk_percent': mace_risk,\n        'recommendation': recommendation\n    }\n",
   "description": "Calculate HEART score for chest pain risk stratification. Score range: 0-10. Used to assess risk of major adverse cardiac events (MACE) within 6 weeks in ED patients with chest pain.",
   "parameters": {
     "history_score": {
-      "type": "int",
+      "type": "number",
       "description": "History: 0=slightly suspicious, 1=moderately suspicious, 2=highly suspicious",
       "required": true
     },
     "ecg_score": {
-      "type": "int",
+      "type": "number",
       "description": "ECG: 0=normal, 1=non-specific repolarization, 2=significant ST deviation",
       "required": true
     },
     "age": {
-      "type": "int",
+      "type": "number",
       "description": "Patient age in years",
       "required": true
     },
     "risk_factors_count": {
-      "type": "int",
+      "type": "number",
       "description": "Number of risk factors (HTN, DM, smoking, obesity, hyperlipidemia, family history): 0=none, 1-2, \u22653",
       "required": true
     },
     "troponin_level": {
-      "type": "str",
+      "type": "string",
       "description": "Troponin level: 'normal', 'borderline' (1-3x normal), 'elevated' (>3x normal)",
       "required": true
     }
