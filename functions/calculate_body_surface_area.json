@@ -5,11 +5,13 @@
   "parameters": {
     "weight_kg": {
       "type": "number",
-      "description": "Weight in kilograms"
+      "description": "Weight in kilograms",
+      "required": true
     },
     "height_cm": {
       "type": "number",
-      "description": "Height in centimeters"
+      "description": "Height in centimeters",
+      "required": true
     }
   },
   "returns": {},

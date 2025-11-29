@@ -1,23 +1,27 @@
 {
   "name": "calculate_creatinine_clearance",
-  "code": "def calculate_creatinine_clearance(age, weight_kg, creatinine, sex):\n    '''Calculate CrCl using Cockcroft-Gault'''\n    if sex.lower() in ['male', 'm']:\n        crcl = ((140 - age) * weight_kg) / (72 * creatinine)\n    elif sex.lower() in ['female', 'f']:\n        crcl = ((140 - age) * weight_kg) / (72 * creatinine) * 0.85\n    else:\n        return None\n    return round(crcl, 1)",
+  "code": "\ndef calculate_creatinine_clearance(age, weight_kg, creatinine, sex):\n    '''Calculate CrCl using Cockcroft-Gault'''\n    # Convert inputs to proper types (handles string inputs from LLM)\n    age = int(age) if not isinstance(age, int) else age\n    weight_kg = float(weight_kg) if not isinstance(weight_kg, (int, float)) else weight_kg\n    creatinine = float(creatinine) if not isinstance(creatinine, (int, float)) else creatinine\n    sex = str(sex)\n    \n    if sex.lower() in ['male', 'm']:\n        crcl = ((140 - age) * weight_kg) / (72 * creatinine)\n    elif sex.lower() in ['female', 'f']:\n        crcl = ((140 - age) * weight_kg) / (72 * creatinine) * 0.85\n    else:\n        return None\n    return round(crcl, 1)\n",
   "description": "Calculate creatinine clearance using Cockcroft-Gault equation",
   "parameters": {
     "age": {
       "type": "number",
-      "description": "Age in years"
+      "description": "Age in years",
+      "required": true
     },
     "weight_kg": {
       "type": "number",
-      "description": "Weight in kilograms"
+      "description": "Weight in kilograms",
+      "required": true
     },
     "creatinine": {
       "type": "number",
-      "description": "Serum creatinine (mg/dL)"
+      "description": "Serum creatinine (mg/dL)",
+      "required": true
     },
     "sex": {
       "type": "string",
-      "description": "Sex: 'male' or 'female'"
+      "description": "Sex: 'male' or 'female'",
+      "required": true
     }
   },
   "returns": {},

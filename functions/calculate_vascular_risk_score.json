@@ -5,31 +5,38 @@
   "parameters": {
     "hypertension": {
       "type": "boolean",
-      "description": "History of hypertension (bool)"
+      "description": "History of hypertension (bool)",
+      "required": false
     },
     "diabetes": {
       "type": "boolean",
-      "description": "History of diabetes (bool)"
+      "description": "History of diabetes (bool)",
+      "required": false
     },
     "hyperlipidemia": {
       "type": "boolean",
-      "description": "History of high cholesterol (bool)"
+      "description": "History of high cholesterol (bool)",
+      "required": false
     },
     "smoking": {
       "type": "boolean",
-      "description": "Current/former smoker (bool)"
+      "description": "Current/former smoker (bool)",
+      "required": false
     },
     "atrial_fib": {
       "type": "boolean",
-      "description": "Atrial fibrillation (bool)"
+      "description": "Atrial fibrillation (bool)",
+      "required": false
     },
     "stroke_history": {
       "type": "boolean",
-      "description": "Previous stroke/TIA (bool)"
+      "description": "Previous stroke/TIA (bool)",
+      "required": false
     },
     "cad": {
       "type": "boolean",
-      "description": "Coronary artery disease (bool)"
+      "description": "Coronary artery disease (bool)",
+      "required": false
     }
   },
   "returns": "dict with vascular risk level and likelihood of vascular dementia contribution",

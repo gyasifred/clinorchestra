@@ -5,39 +5,48 @@
   "parameters": {
     "little_interest": {
       "type": "number",
-      "description": "Little interest or pleasure in doing things (0-3)"
+      "description": "Little interest or pleasure in doing things (0-3)",
+      "required": true
     },
     "feeling_down": {
       "type": "number",
-      "description": "Feeling down, depressed, or hopeless (0-3)"
+      "description": "Feeling down, depressed, or hopeless (0-3)",
+      "required": true
     },
     "sleep_problems": {
       "type": "number",
-      "description": "Trouble falling/staying asleep, sleeping too much (0-3)"
+      "description": "Trouble falling/staying asleep, sleeping too much (0-3)",
+      "required": true
     },
     "tired": {
       "type": "number",
-      "description": "Feeling tired or having little energy (0-3)"
+      "description": "Feeling tired or having little energy (0-3)",
+      "required": true
     },
     "appetite": {
       "type": "number",
-      "description": "Poor appetite or overeating (0-3)"
+      "description": "Poor appetite or overeating (0-3)",
+      "required": true
     },
     "feeling_bad": {
       "type": "number",
-      "description": "Feeling bad about yourself or failure (0-3)"
+      "description": "Feeling bad about yourself or failure (0-3)",
+      "required": true
     },
     "concentration": {
       "type": "number",
-      "description": "Trouble concentrating (0-3)"
+      "description": "Trouble concentrating (0-3)",
+      "required": true
     },
     "moving_slow": {
       "type": "number",
-      "description": "Moving/speaking slowly or fidgety/restless (0-3)"
+      "description": "Moving/speaking slowly or fidgety/restless (0-3)",
+      "required": true
     },
     "thoughts_harm": {
       "type": "number",
-      "description": "Thoughts of self-harm (0-3)"
+      "description": "Thoughts of self-harm (0-3)",
+      "required": true
     }
   },
   "returns": "PHQ-9 score (0-27)",

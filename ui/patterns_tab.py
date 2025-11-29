@@ -121,7 +121,18 @@ def create_patterns_tab(app_state) -> Dict[str, Any]:
             
             refresh_patterns_btn = gr.Button("Refresh List")
             components['refresh_patterns_btn'] = refresh_patterns_btn
-            
+
+            gr.Markdown("#### Enable/Disable Patterns")
+            gr.Markdown("*Check to enable, uncheck to disable*")
+
+            patterns_checkboxes = gr.CheckboxGroup(
+                choices=[],
+                value=[],
+                label="Enabled Patterns (Click to toggle)",
+                interactive=True
+            )
+            components['patterns_checkboxes'] = patterns_checkboxes
+
             gr.Markdown("#### Manage Patterns")
 
             with gr.Row():
@@ -338,18 +349,24 @@ def create_patterns_tab(app_state) -> Dict[str, Any]:
             return id, name, regex, replacement, description, enabled, message, gr.update()
     
     def refresh_patterns():
-        """Refresh patterns list"""
+        """Refresh patterns list and checkboxes"""
         regex_preprocessor = app_state.get_regex_preprocessor()
         if not regex_preprocessor:
             regex_preprocessor = RegexPreprocessor()
             app_state.set_regex_preprocessor(regex_preprocessor)
             logger.warning("RegexPreprocessor was not set; initialized new instance")
 
-        patterns_data = [
-            [p['name'], "Yes" if p['enabled'] else "No", p['description'][:50]]
-            for p in regex_preprocessor.list_patterns()
-        ]
-        return gr.update(value=patterns_data)
+        patterns_data = []
+        checkbox_choices = []
+        checkbox_values = []
+
+        for p in regex_preprocessor.list_patterns():
+            patterns_data.append([p['name'], "Yes" if p['enabled'] else "No", p['description'][:50]])
+            checkbox_choices.append(p['name'])
+            if p['enabled']:
+                checkbox_values.append(p['name'])
+
+        return gr.update(value=patterns_data), gr.update(choices=checkbox_choices, value=checkbox_values)
 
     def refresh_pattern_selector():
         """Refresh pattern selector dropdown"""
@@ -391,28 +408,33 @@ def create_patterns_tab(app_state) -> Dict[str, Any]:
     def toggle_pattern(name):
         """Toggle pattern enabled state"""
         if not name or not name.strip():
-            return "No pattern name provided", gr.update()
-        
+            return "No pattern name provided", gr.update(), gr.update()
+
         regex_preprocessor = app_state.get_regex_preprocessor()
         if not regex_preprocessor:
             regex_preprocessor = RegexPreprocessor()
             app_state.set_regex_preprocessor(regex_preprocessor)
             logger.warning("RegexPreprocessor was not set; initialized new instance")
-        
+
         pattern = regex_preprocessor.get_pattern(name.strip())
         if not pattern:
-            return f"Pattern '{name}' not found", gr.update()
-        
+            return f"Pattern '{name}' not found", gr.update(), gr.update()
+
         new_state = not pattern['enabled']
         regex_preprocessor.enable_pattern(name.strip(), new_state)
-        
-        patterns_data = [
-            [p['name'], "Yes" if p['enabled'] else "No", p['description'][:50]]
-            for p in regex_preprocessor.list_patterns()
-        ]
-        
+
+        patterns_data = []
+        checkbox_choices = []
+        checkbox_values = []
+
+        for p in regex_preprocessor.list_patterns():
+            patterns_data.append([p['name'], "Yes" if p['enabled'] else "No", p['description'][:50]])
+            checkbox_choices.append(p['name'])
+            if p['enabled']:
+                checkbox_values.append(p['name'])
+
         state_text = "enabled" if new_state else "disabled"
-        return f"Pattern '{name}' {state_text}", gr.update(value=patterns_data)
+        return f"Pattern '{name}' {state_text}", gr.update(value=patterns_data), gr.update(choices=checkbox_choices, value=checkbox_values)
     
     def remove_pattern(name):
         """Remove pattern"""
@@ -581,6 +603,38 @@ def create_patterns_tab(app_state) -> Dict[str, Any]:
         else:
             return message, gr.update()
     
+    def update_patterns_enabled_state(enabled_pattern_names):
+        """Update enabled state based on checkbox selections"""
+        regex_preprocessor = app_state.get_regex_preprocessor()
+        if not regex_preprocessor:
+            regex_preprocessor = RegexPreprocessor()
+            app_state.set_regex_preprocessor(regex_preprocessor)
+            logger.warning("RegexPreprocessor was not set; initialized new instance")
+
+        enabled_names_set = set(enabled_pattern_names) if enabled_pattern_names else set()
+        updated_count = 0
+
+        # Update all patterns based on checkbox state
+        for p in regex_preprocessor.list_patterns():
+            pattern_name = p['name']
+            should_be_enabled = pattern_name in enabled_names_set
+            current_state = p.get('enabled', True)
+
+            # Only update if state changed
+            if current_state != should_be_enabled:
+                regex_preprocessor.enable_pattern(pattern_name, should_be_enabled)
+                updated_count += 1
+
+        status_msg = f"Updated {updated_count} patterns" if updated_count > 0 else "No changes"
+
+        # Refresh the dataframe
+        patterns_data = [
+            [p['name'], "Yes" if p['enabled'] else "No", p['description'][:50]]
+            for p in regex_preprocessor.list_patterns()
+        ]
+
+        return status_msg, gr.update(value=patterns_data)
+
     # Connect handlers
     add_pattern_btn.click(
         fn=add_pattern,
@@ -596,7 +650,7 @@ def create_patterns_tab(app_state) -> Dict[str, Any]:
     
     refresh_patterns_btn.click(
         fn=refresh_patterns,
-        outputs=[patterns_list]
+        outputs=[patterns_list, patterns_checkboxes]
     )
 
     refresh_pattern_selector_btn.click(
@@ -613,9 +667,16 @@ def create_patterns_tab(app_state) -> Dict[str, Any]:
     toggle_pattern_btn.click(
         fn=toggle_pattern,
         inputs=[selected_pattern_name],
+        outputs=[pattern_status, patterns_list, patterns_checkboxes]
+    )
+
+    # Update enabled state when checkboxes change
+    patterns_checkboxes.change(
+        fn=update_patterns_enabled_state,
+        inputs=[patterns_checkboxes],
         outputs=[pattern_status, patterns_list]
     )
-    
+
     remove_pattern_btn.click(
         fn=remove_pattern,
         inputs=[selected_pattern_name],

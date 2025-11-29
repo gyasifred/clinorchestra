@@ -5,11 +5,13 @@
   "parameters": {
     "initial_weight": {
       "type": "number",
-      "description": "Initial weight in any unit"
+      "description": "Initial weight in any unit",
+      "required": true
     },
     "final_weight": {
       "type": "number",
-      "description": "Final weight in same unit"
+      "description": "Final weight in same unit",
+      "required": true
     }
   },
   "returns": {},

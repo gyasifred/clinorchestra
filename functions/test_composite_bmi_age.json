@@ -5,15 +5,18 @@
   "parameters": {
     "weight_kg": {
       "type": "number",
-      "description": "Weight in kilograms"
+      "description": "Weight in kilograms",
+      "required": true
     },
     "height_m": {
       "type": "number",
-      "description": "Height in meters"
+      "description": "Height in meters",
+      "required": true
     },
     "birth_date": {
       "type": "string",
-      "description": "Birth date in YYYY-MM-DD format"
+      "description": "Birth date in YYYY-MM-DD format",
+      "required": true
     }
   },
   "returns": "Dictionary with age_months, bmi, and categorization",

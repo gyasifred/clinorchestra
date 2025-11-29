@@ -5,23 +5,28 @@
   "parameters": {
     "measurement_type": {
       "type": "string",
-      "description": "Type of measurement: 'weight', 'height', 'stature', or 'bmi'"
+      "description": "Type of measurement: 'weight', 'height', 'stature', or 'bmi'",
+      "required": true
     },
     "value": {
       "type": "number",
-      "description": "Measurement value (kg for weight, cm for height, kg/m\u00b2 for BMI)"
+      "description": "Measurement value (kg for weight, cm for height, kg/m\u00b2 for BMI)",
+      "required": true
     },
     "age_months": {
       "type": "number",
-      "description": "Age in months"
+      "description": "Age in months",
+      "required": true
     },
     "sex": {
       "type": "number",
-      "description": "Sex: 1 for male, 2 for female. Can also pass string 'male' or 'female' which will be automatically converted."
+      "description": "Sex: 1 for male, 2 for female. Can also pass string 'male' or 'female' which will be automatically converted.",
+      "required": true
     },
     "height_cm": {
       "type": "number",
-      "description": "Height in cm (only for weight-for-stature calculations)"
+      "description": "Height in cm (only for weight-for-stature calculations)",
+      "required": false
     }
   },
   "returns": "Dictionary with percentile, z_score, reference_value, and metric",

@@ -5,7 +5,8 @@
   "parameters": {
     "kg": {
       "type": "number",
-      "description": "Weight in kilograms"
+      "description": "Weight in kilograms",
+      "required": true
     }
   },
   "returns": {},

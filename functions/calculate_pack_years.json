@@ -5,11 +5,13 @@
   "parameters": {
     "packs_per_day": {
       "type": "number",
-      "description": "Average packs smoked per day"
+      "description": "Average packs smoked per day",
+      "required": true
     },
     "years_smoked": {
       "type": "number",
-      "description": "Number of years smoking"
+      "description": "Number of years smoking",
+      "required": true
     }
   },
   "returns": {},

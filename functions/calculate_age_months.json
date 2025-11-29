@@ -5,11 +5,13 @@
   "parameters": {
     "birth_date": {
       "type": "string",
-      "description": "Birth date in YYYY-MM-DD or MM/DD/YYYY format"
+      "description": "Birth date in YYYY-MM-DD or MM/DD/YYYY format",
+      "required": true
     },
     "reference_date": {
       "type": "string",
-      "description": "Reference date (optional, defaults to today)"
+      "description": "Reference date (optional, defaults to today)",
+      "required": false
     }
   },
   "returns": "Age in months (number)",

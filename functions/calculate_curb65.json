@@ -5,27 +5,33 @@
   "parameters": {
     "confusion": {
       "type": "boolean",
-      "description": "New onset confusion or altered mental status"
+      "description": "New onset confusion or altered mental status",
+      "required": true
     },
     "bun": {
       "type": "number",
-      "description": "Blood Urea Nitrogen in mg/dL"
+      "description": "Blood Urea Nitrogen in mg/dL",
+      "required": true
     },
     "respiratory_rate": {
       "type": "number",
-      "description": "Respiratory rate in breaths per minute"
+      "description": "Respiratory rate in breaths per minute",
+      "required": true
     },
     "systolic_bp": {
       "type": "number",
-      "description": "Systolic blood pressure in mmHg"
+      "description": "Systolic blood pressure in mmHg",
+      "required": true
     },
     "diastolic_bp": {
       "type": "number",
-      "description": "Diastolic blood pressure in mmHg"
+      "description": "Diastolic blood pressure in mmHg",
+      "required": true
     },
     "age": {
       "type": "number",
-      "description": "Patient age in years"
+      "description": "Patient age in years",
+      "required": true
     }
   },
   "returns": "CURB-65 score (0-5)",

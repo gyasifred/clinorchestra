@@ -179,7 +179,18 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
     
     refresh_functions_btn = gr.Button("Refresh List")
     components['refresh_functions_btn'] = refresh_functions_btn
-    
+
+    gr.Markdown("#### Enable/Disable Functions")
+    gr.Markdown("*Check to enable, uncheck to disable*")
+
+    functions_checkboxes = gr.CheckboxGroup(
+        choices=[],
+        value=[],
+        label="Enabled Functions (Click to toggle)",
+        interactive=True
+    )
+    components['functions_checkboxes'] = functions_checkboxes
+
     gr.Markdown("#### Manage")
 
     with gr.Row():
@@ -358,14 +369,17 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
     pass""", "", {}, "Cleared", gr.update()
     
     def refresh_functions_list():
-        """Refresh functions list"""
+        """Refresh functions list and checkboxes"""
         function_registry = app_state.get_function_registry()
         if not function_registry:
             function_registry = FunctionRegistry()
             app_state.set_function_registry(function_registry)
             logger.warning("FunctionRegistry was not set; initialized new instance")
-        
+
         data = []
+        checkbox_choices = []
+        checkbox_values = []
+
         for func_name in function_registry.list_functions():
             func_info = function_registry.get_function_info(func_name)
             if func_info:
@@ -376,8 +390,11 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
                     "Yes" if func_info.get('enabled', True) else "No",
                     params_str
                 ])
+                checkbox_choices.append(func_name)
+                if func_info.get('enabled', True):
+                    checkbox_values.append(func_name)
 
-        return gr.update(value=data)
+        return gr.update(value=data), gr.update(choices=checkbox_choices, value=checkbox_values)
     
     def refresh_test_dropdown():
         """Refresh test function dropdown with registered functions"""
@@ -595,7 +612,7 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
     def toggle_function(func_name):
         """Toggle function enabled state"""
         if not func_name or not func_name.strip():
-            return "No function name provided", gr.update()
+            return "No function name provided", gr.update(), gr.update()
 
         function_registry = app_state.get_function_registry()
         if not function_registry:
@@ -610,14 +627,59 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
 
         if success:
             data = []
+            checkbox_choices = []
+            checkbox_values = []
+
             for f_name in function_registry.list_functions():
                 func_info = function_registry.get_function_info(f_name)
                 if func_info:
                     params_str = ', '.join(func_info.get('parameters', {}).keys())
                     data.append([f_name, func_info.get('description', ''), "Yes" if func_info.get('enabled', True) else "No", params_str])
-            return message, gr.update(value=data)
+                    checkbox_choices.append(f_name)
+                    if func_info.get('enabled', True):
+                        checkbox_values.append(f_name)
+
+            return message, gr.update(value=data), gr.update(choices=checkbox_choices, value=checkbox_values)
         else:
-            return message, gr.update()
+            return message, gr.update(), gr.update()
+
+    def update_functions_enabled_state(enabled_function_names):
+        """Update enabled state based on checkbox selections"""
+        function_registry = app_state.get_function_registry()
+        if not function_registry:
+            function_registry = FunctionRegistry()
+            app_state.set_function_registry(function_registry)
+            logger.warning("FunctionRegistry was not set; initialized new instance")
+
+        enabled_names_set = set(enabled_function_names) if enabled_function_names else set()
+        updated_count = 0
+
+        # Update all functions based on checkbox state
+        for func_name in function_registry.list_functions():
+            should_be_enabled = func_name in enabled_names_set
+            current_state = function_registry.get_function_info(func_name).get('enabled', True)
+
+            # Only update if state changed
+            if current_state != should_be_enabled:
+                function_registry.enable_function(func_name, should_be_enabled)
+                updated_count += 1
+
+        status_msg = f"Updated {updated_count} functions" if updated_count > 0 else "No changes"
+
+        # Refresh the dataframe
+        data = []
+        for func_name in function_registry.list_functions():
+            func_info = function_registry.get_function_info(func_name)
+            if func_info:
+                params_str = ', '.join(func_info.get('parameters', {}).keys())
+                data.append([
+                    func_name,
+                    func_info.get('description', ''),
+                    "Yes" if func_info.get('enabled', True) else "No",
+                    params_str
+                ])
+
+        return status_msg, gr.update(value=data)
 
     # Connect handlers
     add_param_btn.click(
@@ -646,7 +708,7 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
     
     refresh_functions_btn.click(
         fn=refresh_functions_list,
-        outputs=[functions_list]
+        outputs=[functions_list, functions_checkboxes]
     )
 
     refresh_function_selector_btn.click(
@@ -668,6 +730,13 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
     toggle_func_btn.click(
         fn=toggle_function,
         inputs=[selected_func_name],
+        outputs=[function_status, functions_list, functions_checkboxes]
+    )
+
+    # Update enabled state when checkboxes change
+    functions_checkboxes.change(
+        fn=update_functions_enabled_state,
+        inputs=[functions_checkboxes],
         outputs=[function_status, functions_list]
     )
 

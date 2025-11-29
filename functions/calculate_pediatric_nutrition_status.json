@@ -5,19 +5,23 @@
   "parameters": {
     "weight_kg": {
       "type": "number",
-      "description": "Weight in kilograms"
+      "description": "Weight in kilograms",
+      "required": true
     },
     "height_cm": {
       "type": "number",
-      "description": "Height in centimeters"
+      "description": "Height in centimeters",
+      "required": true
     },
     "age_months": {
       "type": "number",
-      "description": "Age in months"
+      "description": "Age in months",
+      "required": true
     },
     "sex": {
       "type": "string",
-      "description": "Sex: 'male' or 'female'"
+      "description": "Sex: 'male' or 'female'",
+      "required": true
     }
   },
   "returns": "Dictionary with weight z-score, height z-score, BMI z-score, and WHO malnutrition classification",
