@@ -5,7 +5,8 @@
   "parameters": {
     "lbs": {
       "type": "number",
-      "description": "Weight in pounds"
+      "description": "Weight in pounds",
+      "required": true
     }
   },
   "returns": {},

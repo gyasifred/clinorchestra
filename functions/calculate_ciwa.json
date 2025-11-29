@@ -5,43 +5,53 @@
   "parameters": {
     "nausea": {
       "type": "number",
-      "description": "Nausea/vomiting severity (0-7)"
+      "description": "Nausea/vomiting severity (0-7)",
+      "required": true
     },
     "tremor": {
       "type": "number",
-      "description": "Tremor severity (0-7)"
+      "description": "Tremor severity (0-7)",
+      "required": true
     },
     "sweating": {
       "type": "number",
-      "description": "Paroxysmal sweats (0-7)"
+      "description": "Paroxysmal sweats (0-7)",
+      "required": true
     },
     "anxiety": {
       "type": "number",
-      "description": "Anxiety severity (0-7)"
+      "description": "Anxiety severity (0-7)",
+      "required": true
     },
     "agitation": {
       "type": "number",
-      "description": "Agitation severity (0-7)"
+      "description": "Agitation severity (0-7)",
+      "required": true
     },
     "tactile_disturbances": {
       "type": "number",
-      "description": "Tactile disturbances (0-7)"
+      "description": "Tactile disturbances (0-7)",
+      "required": true
     },
     "auditory_disturbances": {
       "type": "number",
-      "description": "Auditory disturbances (0-7)"
+      "description": "Auditory disturbances (0-7)",
+      "required": true
     },
     "visual_disturbances": {
       "type": "number",
-      "description": "Visual disturbances (0-7)"
+      "description": "Visual disturbances (0-7)",
+      "required": true
     },
     "headache": {
       "type": "number",
-      "description": "Headache severity (0-7)"
+      "description": "Headache severity (0-7)",
+      "required": true
     },
     "orientation": {
       "type": "number",
-      "description": "Orientation and clouding of sensorium (0-4)"
+      "description": "Orientation and clouding of sensorium (0-4)",
+      "required": true
     }
   },
   "returns": "CIWA-Ar score (0-67)",

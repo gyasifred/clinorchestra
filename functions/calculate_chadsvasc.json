@@ -5,31 +5,38 @@
   "parameters": {
     "age": {
       "type": "number",
-      "description": "Patient age in years"
+      "description": "Patient age in years",
+      "required": true
     },
     "gender": {
       "type": "string",
-      "description": "Patient gender (M or F)"
+      "description": "Patient gender (M or F)",
+      "required": true
     },
     "chf": {
       "type": "boolean",
-      "description": "Congestive heart failure history"
+      "description": "Congestive heart failure history",
+      "required": true
     },
     "hypertension": {
       "type": "boolean",
-      "description": "Hypertension history"
+      "description": "Hypertension history",
+      "required": true
     },
     "stroke_tia": {
       "type": "boolean",
-      "description": "Prior stroke or TIA"
+      "description": "Prior stroke or TIA",
+      "required": true
     },
     "vascular_disease": {
       "type": "boolean",
-      "description": "Vascular disease (MI, PAD, aortic plaque)"
+      "description": "Vascular disease (MI, PAD, aortic plaque)",
+      "required": true
     },
     "diabetes": {
       "type": "boolean",
-      "description": "Diabetes mellitus"
+      "description": "Diabetes mellitus",
+      "required": true
     }
   },
   "returns": "CHA2DS2-VASc score (0-9)",

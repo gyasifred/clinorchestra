@@ -5,35 +5,43 @@
   "parameters": {
     "pao2_fio2_ratio": {
       "type": "number",
-      "description": "PaO2/FiO2 ratio in mmHg (optional)"
+      "description": "PaO2/FiO2 ratio in mmHg (optional)",
+      "required": false
     },
     "platelets": {
       "type": "number",
-      "description": "Platelet count in 10^3/\u03bcL (optional)"
+      "description": "Platelet count in 10^3/\u03bcL (optional)",
+      "required": false
     },
     "bilirubin": {
       "type": "number",
-      "description": "Total bilirubin in mg/dL (optional)"
+      "description": "Total bilirubin in mg/dL (optional)",
+      "required": false
     },
     "map_value": {
       "type": "number",
-      "description": "Mean arterial pressure in mmHg (optional)"
+      "description": "Mean arterial pressure in mmHg (optional)",
+      "required": false
     },
     "on_vasopressor": {
       "type": "boolean",
-      "description": "Whether patient is on vasopressors (optional)"
+      "description": "Whether patient is on vasopressors (optional)",
+      "required": false
     },
     "gcs": {
       "type": "number",
-      "description": "Glasgow Coma Scale score 3-15 (optional)"
+      "description": "Glasgow Coma Scale score 3-15 (optional)",
+      "required": false
     },
     "creatinine": {
       "type": "number",
-      "description": "Serum creatinine in mg/dL (optional)"
+      "description": "Serum creatinine in mg/dL (optional)",
+      "required": false
     },
     "urine_output": {
       "type": "number",
-      "description": "Urine output in mL/day (optional)"
+      "description": "Urine output in mL/day (optional)",
+      "required": false
     }
   },
   "returns": "SOFA score (0-24)",

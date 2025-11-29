@@ -5,11 +5,13 @@
   "parameters": {
     "adl_independent": {
       "type": "boolean",
-      "description": "Independent in basic ADLs (bool)"
+      "description": "Independent in basic ADLs (bool)",
+      "required": false
     },
     "iadl_independent": {
       "type": "boolean",
-      "description": "Independent in IADLs (bool)"
+      "description": "Independent in IADLs (bool)",
+      "required": false
     }
   },
   "returns": "dict with functional category and whether it supports dementia diagnosis",

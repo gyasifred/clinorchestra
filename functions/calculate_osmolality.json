@@ -5,15 +5,18 @@
   "parameters": {
     "sodium": {
       "type": "number",
-      "description": "Serum sodium (mEq/L)"
+      "description": "Serum sodium (mEq/L)",
+      "required": true
     },
     "glucose": {
       "type": "number",
-      "description": "Serum glucose (mg/dL)"
+      "description": "Serum glucose (mg/dL)",
+      "required": true
     },
     "bun": {
       "type": "number",
-      "description": "Blood urea nitrogen (mg/dL)"
+      "description": "Blood urea nitrogen (mg/dL)",
+      "required": true
     }
   },
   "returns": {},

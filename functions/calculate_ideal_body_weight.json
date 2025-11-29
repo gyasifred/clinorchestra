@@ -5,11 +5,13 @@
   "parameters": {
     "height_cm": {
       "type": "number",
-      "description": "Height in centimeters"
+      "description": "Height in centimeters",
+      "required": true
     },
     "sex": {
       "type": "string",
-      "description": "Sex: 'male' or 'female'"
+      "description": "Sex: 'male' or 'female'",
+      "required": true
     }
   },
   "returns": {},

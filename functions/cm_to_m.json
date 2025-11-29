@@ -5,7 +5,8 @@
   "parameters": {
     "cm": {
       "type": "number",
-      "description": "Height in centimeters"
+      "description": "Height in centimeters",
+      "required": true
     }
   },
   "returns": {},

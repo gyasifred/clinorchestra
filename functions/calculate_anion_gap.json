@@ -5,15 +5,18 @@
   "parameters": {
     "sodium": {
       "type": "number",
-      "description": "Serum sodium (mEq/L)"
+      "description": "Serum sodium (mEq/L)",
+      "required": true
     },
     "chloride": {
       "type": "number",
-      "description": "Serum chloride (mEq/L)"
+      "description": "Serum chloride (mEq/L)",
+      "required": true
     },
     "bicarbonate": {
       "type": "number",
-      "description": "Serum bicarbonate (mEq/L)"
+      "description": "Serum bicarbonate (mEq/L)",
+      "required": true
     }
   },
   "returns": {},

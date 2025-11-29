@@ -5,23 +5,28 @@
   "parameters": {
     "measurement": {
       "type": "string",
-      "description": "Type of measurement: 'weight', 'height', 'stature', or 'bmi'"
+      "description": "Type of measurement: 'weight', 'height', 'stature', or 'bmi'",
+      "required": true
     },
     "value": {
       "type": "number",
-      "description": "Measurement value (kg for weight, cm for height, kg/m\u00b2 for BMI)"
+      "description": "Measurement value (kg for weight, cm for height, kg/m\u00b2 for BMI)",
+      "required": true
     },
     "age_months": {
       "type": "number",
-      "description": "Age in months"
+      "description": "Age in months",
+      "required": true
     },
     "sex": {
       "type": "string",
-      "description": "Sex: 'male' or 'female' (can also use 'm', 'f', 1 for male, 2 for female)"
+      "description": "Sex: 'male' or 'female' (can also use 'm', 'f', 1 for male, 2 for female)",
+      "required": true
     },
     "height_cm": {
       "type": "number",
-      "description": "Height in cm (only for weight-for-stature calculations)"
+      "description": "Height in cm (only for weight-for-stature calculations)",
+      "required": false
     }
   },
   "returns": "Z-score value (number) or error message",

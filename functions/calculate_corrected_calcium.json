@@ -5,11 +5,13 @@
   "parameters": {
     "calcium": {
       "type": "number",
-      "description": "Serum calcium (mg/dL)"
+      "description": "Serum calcium (mg/dL)",
+      "required": true
     },
     "albumin": {
       "type": "number",
-      "description": "Serum albumin (g/dL)"
+      "description": "Serum albumin (g/dL)",
+      "required": true
     }
   },
   "returns": {},

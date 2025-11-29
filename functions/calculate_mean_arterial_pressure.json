@@ -5,11 +5,13 @@
   "parameters": {
     "systolic_bp": {
       "type": "number",
-      "description": "Systolic blood pressure in mmHg"
+      "description": "Systolic blood pressure in mmHg",
+      "required": true
     },
     "diastolic_bp": {
       "type": "number",
-      "description": "Diastolic blood pressure in mmHg"
+      "description": "Diastolic blood pressure in mmHg",
+      "required": true
     }
   },
   "returns": "MAP in mmHg",
