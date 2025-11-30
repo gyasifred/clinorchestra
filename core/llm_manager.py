@@ -309,7 +309,8 @@ class LLMManager:
         json_indicators = ['json', 'JSON', '{"', 'return only json', 'output format']
         return any(indicator in prompt or indicator in prompt_lower for indicator in json_indicators)
     
-    def generate(self, prompt: str, max_tokens: Optional[int] = None, enable_retry: bool = None) -> str:
+    def generate(self, prompt: str, max_tokens: Optional[int] = None, enable_retry: bool = None,
+                 system_prompt: Optional[str] = None, enable_prompt_caching: bool = False) -> str:
         """
         Generate text from prompt with caching and optional adaptive retry
 
@@ -317,6 +318,8 @@ class LLMManager:
             prompt: Input prompt
             max_tokens: Max tokens to generate
             enable_retry: Override adaptive retry setting (None = use default)
+            system_prompt: Optional system prompt (Anthropic only, will be cached if caching enabled)
+            enable_prompt_caching: Enable Anthropic prompt caching (reduces cost by 90% for cached content)
 
         Returns:
             Generated text
@@ -324,9 +327,11 @@ class LLMManager:
         max_tok = max_tokens or self.max_tokens
 
         # Check cache first (unless bypassed)
+        # Note: System prompt is included in cache key for Anthropic
+        cache_key_suffix = f"_sys:{hash(system_prompt)}" if system_prompt else ""
         if not self.cache_bypass:
             cached_response = self.llm_cache.get(
-                prompt=prompt,
+                prompt=prompt + cache_key_suffix,
                 model_name=f"{self.provider}:{self.model_name}",
                 temperature=self.temperature,
                 max_tokens=max_tok,
@@ -344,18 +349,19 @@ class LLMManager:
         # Cache miss or bypass - generate response
         if use_retry:
             # Use adaptive retry for robust generation
-            return self._generate_with_adaptive_retry(prompt, max_tok)
+            return self._generate_with_adaptive_retry(prompt, max_tok, system_prompt, enable_prompt_caching)
         else:
             # Direct generation without retry
-            return self._generate_direct(prompt, max_tok)
+            return self._generate_direct(prompt, max_tok, system_prompt, enable_prompt_caching)
 
-    def _generate_direct(self, prompt: str, max_tokens: int) -> str:
+    def _generate_direct(self, prompt: str, max_tokens: int, system_prompt: Optional[str] = None,
+                        enable_prompt_caching: bool = False) -> str:
         """Generate without adaptive retry (original behavior)"""
         try:
             if self.provider == "openai":
                 response = self._generate_openai(prompt, max_tokens)
             elif self.provider == "anthropic":
-                response = self._generate_anthropic(prompt, max_tokens)
+                response = self._generate_anthropic(prompt, max_tokens, system_prompt, enable_prompt_caching)
             elif self.provider == "google":
                 response = self._generate_google(prompt, max_tokens)
             elif self.provider == "azure":
@@ -366,9 +372,10 @@ class LLMManager:
                 raise ValueError(f"Provider {self.provider} not supported")
 
             # Store in cache (unless bypassed)
+            cache_key_suffix = f"_sys:{hash(system_prompt)}" if system_prompt else ""
             if not self.cache_bypass:
                 self.llm_cache.put(
-                    prompt=prompt,
+                    prompt=prompt + cache_key_suffix,
                     model_name=f"{self.provider}:{self.model_name}",
                     temperature=self.temperature,
                     max_tokens=max_tokens,
@@ -381,7 +388,8 @@ class LLMManager:
             logger.error(f"Generation failed: {e}")
             raise
 
-    def _generate_with_adaptive_retry(self, prompt: str, max_tokens: int) -> str:
+    def _generate_with_adaptive_retry(self, prompt: str, max_tokens: int, system_prompt: Optional[str] = None,
+                                      enable_prompt_caching: bool = False) -> str:
         """
         Generate with adaptive retry on failures
 
@@ -405,7 +413,7 @@ class LLMManager:
             if self.provider == "openai":
                 response = self._generate_openai(current_prompt, max_tokens)
             elif self.provider == "anthropic":
-                response = self._generate_anthropic(current_prompt, max_tokens)
+                response = self._generate_anthropic(current_prompt, max_tokens, system_prompt, enable_prompt_caching)
             elif self.provider == "google":
                 response = self._generate_google(current_prompt, max_tokens)
             elif self.provider == "azure":
@@ -425,9 +433,10 @@ class LLMManager:
             )
 
             # Store in cache (use original prompt as key)
+            cache_key_suffix = f"_sys:{hash(system_prompt)}" if system_prompt else ""
             if not self.cache_bypass:
                 self.llm_cache.put(
-                    prompt=prompt,
+                    prompt=prompt + cache_key_suffix,
                     model_name=f"{self.provider}:{self.model_name}",
                     temperature=self.temperature,
                     max_tokens=max_tokens,
@@ -472,8 +481,17 @@ class LLMManager:
             logger.error(f"OpenAI generation failed: {e}")
             raise
     
-    def _generate_anthropic(self, prompt: str, max_tokens: int) -> str:
-        """Generate with Anthropic"""
+    def _generate_anthropic(self, prompt: str, max_tokens: int, system_prompt: Optional[str] = None,
+                            enable_prompt_caching: bool = False) -> str:
+        """
+        Generate with Anthropic
+
+        Args:
+            prompt: User prompt
+            max_tokens: Max tokens to generate
+            system_prompt: Optional system prompt (will be cached if caching enabled)
+            enable_prompt_caching: Enable prompt caching (reduces cost by 90% for cached content)
+        """
         try:
             params = {
                 "model": self.model_name,
@@ -481,8 +499,33 @@ class LLMManager:
                 "temperature": self.temperature,
                 "messages": [{"role": "user", "content": prompt}]
             }
-            
+
+            # Add system prompt with cache control if provided
+            if system_prompt:
+                if enable_prompt_caching and "claude-3" in self.model_name.lower():
+                    # Use prompt caching for system prompts (reduces cost by 90%)
+                    params["system"] = [
+                        {
+                            "type": "text",
+                            "text": system_prompt,
+                            "cache_control": {"type": "ephemeral"}
+                        }
+                    ]
+                    logger.debug("Prompt caching ENABLED for system prompt")
+                else:
+                    params["system"] = system_prompt
+
             response = self.client.messages.create(**params)
+
+            # Log cache usage if available
+            if hasattr(response, 'usage'):
+                usage = response.usage
+                if hasattr(usage, 'cache_read_input_tokens') and usage.cache_read_input_tokens > 0:
+                    logger.info(f" Cache HIT: {usage.cache_read_input_tokens} tokens read from cache "
+                              f"(saved 90% on {usage.cache_read_input_tokens} tokens)")
+                if hasattr(usage, 'cache_creation_input_tokens') and usage.cache_creation_input_tokens > 0:
+                    logger.debug(f"Cache WRITE: {usage.cache_creation_input_tokens} tokens cached for future use")
+
             return response.content[0].text
         except Exception as e:
             logger.error(f"Anthropic generation failed: {e}")

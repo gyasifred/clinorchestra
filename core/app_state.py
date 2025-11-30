@@ -209,6 +209,10 @@ class OptimizationConfig:
     llm_cache_db_path: str = "cache/llm_responses.db"  # Cache database path
     llm_cache_bypass: bool = False  # Bypass cache for this session (force fresh LLM calls)
 
+    # Prompt caching (Anthropic only) - Reduces cost by 90% for cached tokens
+    enable_prompt_caching: bool = True  # Enable Anthropic prompt caching API
+    # When enabled, system prompts and tool definitions are cached for reuse across requests
+
     # Performance monitoring
     performance_monitoring_enabled: bool = True  # Track timing metrics
 
