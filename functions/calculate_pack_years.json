@@ -15,5 +15,6 @@
     }
   },
   "returns": {},
+  "enabled": true,
   "signature": "(packs_per_day, years_smoked)"
 }

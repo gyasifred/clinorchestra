@@ -15,5 +15,6 @@
     }
   },
   "returns": {},
+  "enabled": true,
   "signature": "(initial_weight, final_weight)"
 }

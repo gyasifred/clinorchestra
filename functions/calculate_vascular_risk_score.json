@@ -40,5 +40,6 @@
     }
   },
   "returns": "dict with vascular risk level and likelihood of vascular dementia contribution",
+  "enabled": true,
   "signature": "(hypertension=False, diabetes=False, hyperlipidemia=False, smoking=False, atrial_fib=False, stroke_history=False, cad=False)"
 }

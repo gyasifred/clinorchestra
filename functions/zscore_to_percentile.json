@@ -12,5 +12,6 @@
     "type": "number",
     "description": "Growth percentile (0-100). Lower percentiles indicate below average growth."
   },
+  "enabled": true,
   "signature": "(zscore: float) -> float"
 }

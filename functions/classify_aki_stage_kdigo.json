@@ -30,5 +30,6 @@
     "cr_ratio": "float (current/baseline ratio)",
     "absolute_change": "float (current - baseline in mg/dL)"
   },
+  "enabled": true,
   "signature": "(baseline_cr: float, current_cr: float, cr_change_48h: float = None, on_rrt: bool = False) -> dict"
 }

@@ -25,5 +25,6 @@
     }
   },
   "returns": "Dictionary with weight z-score, height z-score, BMI z-score, and WHO malnutrition classification",
+  "enabled": true,
   "signature": "(weight_kg, height_cm, age_months, sex)"
 }

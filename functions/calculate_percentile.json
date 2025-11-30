@@ -30,5 +30,6 @@
     }
   },
   "returns": "Percentile value (0-100) or error message",
+  "enabled": true,
   "signature": "(measurement, value, age_months, sex, height_cm=None)"
 }

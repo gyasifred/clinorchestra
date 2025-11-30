@@ -12,5 +12,6 @@
     "type": "number",
     "description": "Z-score (standard deviations from mean). Negative z-scores indicate below average."
   },
+  "enabled": true,
   "signature": "(percentile: float) -> float"
 }

@@ -30,5 +30,6 @@
     }
   },
   "returns": "Dictionary with percentile, z_score, reference_value, and metric",
+  "enabled": true,
   "signature": "(measurement_type, value, age_months, sex, height_cm=None)"
 }

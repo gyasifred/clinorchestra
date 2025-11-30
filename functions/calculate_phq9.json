@@ -50,5 +50,6 @@
     }
   },
   "returns": "PHQ-9 score (0-27)",
+  "enabled": true,
   "signature": "(little_interest, feeling_down, sleep_problems, tired, appetite, feeling_bad, concentration, moving_slow, thoughts_harm)"
 }

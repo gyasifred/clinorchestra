@@ -33,5 +33,6 @@
     "type": "dict",
     "description": "Dictionary with score (0-10), risk_category, and mace_risk_percent"
   },
+  "enabled": true,
   "signature": "(history_score, ecg_score, age, risk_factors_count, troponin_level)"
 }

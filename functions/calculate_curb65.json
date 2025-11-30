@@ -35,5 +35,6 @@
     }
   },
   "returns": "CURB-65 score (0-5)",
+  "enabled": true,
   "signature": "(confusion, bun, respiratory_rate, systolic_bp, diastolic_bp, age)"
 }

@@ -20,5 +20,6 @@
     }
   },
   "returns": "Dictionary with age_months, bmi, and categorization",
+  "enabled": true,
   "signature": "(weight_kg, height_m, birth_date)"
 }

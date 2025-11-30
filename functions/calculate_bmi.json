@@ -5,20 +5,18 @@
   "parameters": {
     "weight_kg": {
       "type": "number",
-      "description": "Weight in kilograms",
-      "required": true
+      "description": "Weight in kilograms"
     },
     "height_m": {
       "type": "number",
-      "description": "Height in meters (optional if height_cm provided)",
-      "required": false
+      "description": "Height in meters (optional if height_cm provided)"
     },
     "height_cm": {
       "type": "number",
-      "description": "Height in centimeters (optional if height_m provided)",
-      "required": false
+      "description": "Height in centimeters (optional if height_m provided)"
     }
   },
   "returns": "BMI value (number)",
+  "enabled": true,
   "signature": "(weight_kg, height_m=None, height_cm=None)"
 }

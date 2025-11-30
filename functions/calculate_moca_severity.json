@@ -15,5 +15,6 @@
     }
   },
   "returns": "dict with corrected score, severity category, and interpretation",
+  "enabled": true,
   "signature": "(moca_score, education_years=None)"
 }

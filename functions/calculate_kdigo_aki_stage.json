@@ -38,5 +38,6 @@
     "type": "dict",
     "description": "Dictionary with stage (0-3), severity, and criteria_met"
   },
+  "enabled": true,
   "signature": "(baseline_creatinine=None, current_creatinine=None, urine_output_6h=None, urine_output_12h=None, urine_output_24h=None, weight_kg=None)"
 }

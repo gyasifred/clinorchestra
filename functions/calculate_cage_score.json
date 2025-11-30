@@ -28,5 +28,6 @@
     "type": "dict",
     "description": "Dictionary with score (0-4), interpretation, and recommendation"
   },
+  "enabled": true,
   "signature": "(cut_down, annoyed, guilty, eye_opener)"
 }

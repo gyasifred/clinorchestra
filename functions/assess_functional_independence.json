@@ -15,5 +15,6 @@
     }
   },
   "returns": "dict with functional category and whether it supports dementia diagnosis",
+  "enabled": true,
   "signature": "(adl_independent=True, iadl_independent=True)"
 }

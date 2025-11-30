@@ -19,5 +19,6 @@
     "weeks_between": "float number of weeks",
     "interpretation": "string describing the time interval"
   },
+  "enabled": true,
   "signature": "(first_date: str, second_date: str) -> dict"
 }
