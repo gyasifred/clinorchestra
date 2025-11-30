@@ -568,6 +568,85 @@ class ExtractionAgent:
 
         return unique_requests
 
+    def _validate_tool_parameters(self, tool_requests: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """
+        UNIVERSAL parameter validation - works for ANY function, not task-specific.
+
+        Validates that function calls have all required parameters with valid values.
+        Filters out invalid requests to prevent execution errors.
+
+        Returns:
+            List of valid tool requests (invalid ones are skipped with warnings)
+        """
+        valid_requests = []
+        invalid_count = 0
+
+        for req in tool_requests:
+            tool_type = req.get('type', '')
+
+            # Only validate function calls (RAG and extras don't have strict requirements)
+            if tool_type != 'function':
+                valid_requests.append(req)
+                continue
+
+            func_name = req.get('name', '')
+            provided_params = req.get('parameters', {})
+
+            # Get function definition from registry
+            try:
+                func_def = self.function_registry.get_function_definition(func_name)
+            except:
+                logger.warning(f"⚠️ Function '{func_name}' not found in registry, skipping")
+                invalid_count += 1
+                continue
+
+            if not func_def or 'parameters' not in func_def:
+                # No parameter spec available - allow it through (might be simple function)
+                valid_requests.append(req)
+                continue
+
+            # Check required parameters
+            required_params = []
+            for param_name, param_spec in func_def['parameters'].items():
+                if isinstance(param_spec, dict) and param_spec.get('required', False):
+                    required_params.append(param_name)
+
+            # Find missing or invalid parameters
+            missing_or_invalid = []
+            for param in required_params:
+                value = provided_params.get(param)
+
+                # Check if parameter is missing or has invalid value
+                if value is None:
+                    missing_or_invalid.append(f"{param}=None")
+                elif value == '':
+                    missing_or_invalid.append(f"{param}=''")
+                elif isinstance(value, (int, float)) and value == 0:
+                    # Zero might be invalid for some functions (e.g., creatinine_clearance)
+                    # But valid for others - we log it but allow through
+                    logger.debug(f"Function '{func_name}': parameter '{param}' = 0 (may cause issues)")
+
+            if missing_or_invalid:
+                logger.warning(
+                    f"⚠️ Skipping function '{func_name}': "
+                    f"missing/invalid required parameters: {', '.join(missing_or_invalid)}"
+                )
+                logger.debug(f"   Required: {required_params}")
+                logger.debug(f"   Provided: {list(provided_params.keys())}")
+                invalid_count += 1
+                continue  # Skip this function call
+
+            # If we get here, request is valid
+            valid_requests.append(req)
+
+        if invalid_count > 0:
+            logger.info(
+                f"📊 Parameter validation: {len(tool_requests)} → {len(valid_requests)} "
+                f"({invalid_count} invalid requests filtered)"
+            )
+
+        return valid_requests
+
     @log_extraction_stage("Stage 2: Tool Execution")
     def _execute_stage2_tools(self):
         """
@@ -600,8 +679,12 @@ class ExtractionAgent:
             # Fallback to old deduplication
             self.context.tool_requests = self._deduplicate_tool_requests(self.context.tool_requests)
 
+        # UNIVERSAL PARAMETER VALIDATION: Filter out invalid function calls
+        # Works for ANY function - prevents execution errors from missing parameters
+        self.context.tool_requests = self._validate_tool_parameters(self.context.tool_requests)
+
         if len(self.context.tool_requests) == 0:
-            logger.warning(" No tool requests to execute after deduplication")
+            logger.warning("⚠️ No valid tool requests to execute after validation")
             return
 
         logger.info(f"Executing {len(self.context.tool_requests)} tools in PARALLEL (async)")
