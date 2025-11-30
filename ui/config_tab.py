@@ -265,6 +265,22 @@ def create_config_tab(app_state) -> Dict[str, Any]:
                 )
                 components['llm_cache_db_path'] = llm_cache_db_path
 
+                gr.Markdown("#### Advanced LLM Optimizations")
+
+                enable_prompt_caching = gr.Checkbox(
+                    label="Enable Prompt Caching (Anthropic Only)",
+                    value=app_state.optimization_config.enable_prompt_caching,
+                    info="Cache system prompts for 90% cost reduction (Anthropic API)"
+                )
+                components['enable_prompt_caching'] = enable_prompt_caching
+
+                enable_tiered_models = gr.Checkbox(
+                    label="Enable Tiered Models (STRUCTURED Mode Only)",
+                    value=app_state.optimization_config.enable_tiered_models,
+                    info="Use fast/accurate models per stage (-30% time, -40% cost)"
+                )
+                components['enable_tiered_models'] = enable_tiered_models
+
             with gr.Column():
                 gr.Markdown("#### Batch Processing")
 
@@ -542,9 +558,10 @@ Status: Model is ready for processing."""
         (prov, model, api_k, temp, max_tok, m_type,
          az_endpoint, az_deploy, g_proj_id, l_path, max_seq, quant, gpu,
          agen_enabled, agen_max_iter, agen_max_tools,
-         llm_cache_en, llm_cache_bypass_val, llm_cache_path, perf_mon,
-         use_parallel, max_workers, use_batch_preproc, use_profiles, use_gpu_f,
-         use_multi_gpu_val, num_gpus_val) = args  # NEW: Multi-GPU params
+         llm_cache_en, llm_cache_bypass_val, llm_cache_path,
+         enable_prompt_caching_val, enable_tiered_models_val,
+         perf_mon, use_parallel, max_workers, use_batch_preproc, use_profiles, use_gpu_f,
+         use_multi_gpu_val, num_gpus_val) = args  # NEW: Multi-GPU + optimization params
 
         try:
             config = ModelConfig(
@@ -585,14 +602,16 @@ Status: Model is ready for processing."""
                     llm_cache_enabled=llm_cache_en,
                     llm_cache_bypass=llm_cache_bypass_val,
                     llm_cache_db_path=llm_cache_path,
+                    enable_prompt_caching=enable_prompt_caching_val,  # NEW: Prompt caching
+                    enable_tiered_models=enable_tiered_models_val,  # NEW: Tiered models
                     performance_monitoring_enabled=perf_mon,
                     use_parallel_processing=use_parallel,
                     max_parallel_workers=int(max_workers),
                     use_batch_preprocessing=use_batch_preproc,
                     use_model_profiles=use_profiles,
                     use_gpu_faiss=use_gpu_f,
-                    use_multi_gpu=use_multi_gpu_val,  # NEW: Multi-GPU support
-                    num_gpus=int(num_gpus_val)  # NEW: Number of GPUs
+                    use_multi_gpu=use_multi_gpu_val,  # Multi-GPU support
+                    num_gpus=int(num_gpus_val)  # Number of GPUs
                 )
 
                 # Save optimization configuration to disk
@@ -666,10 +685,12 @@ Status: Model is ready for processing."""
             azure_endpoint, azure_deployment, google_project_id,
             local_model_path, max_seq_length, quantization, gpu_layers,
             adaptive_mode_enabled, agentic_max_iterations, agentic_max_tool_calls,
-            llm_cache_enabled, llm_cache_bypass, llm_cache_db_path, performance_monitoring_enabled,
+            llm_cache_enabled, llm_cache_bypass, llm_cache_db_path,
+            enable_prompt_caching, enable_tiered_models,  # NEW: Optimization parameters
+            performance_monitoring_enabled,
             use_parallel_processing, max_parallel_workers, use_batch_preprocessing,
             use_model_profiles, use_gpu_faiss,
-            use_multi_gpu, num_gpus  # NEW: Multi-GPU parameters
+            use_multi_gpu, num_gpus  # Multi-GPU parameters
         ],
         outputs=[validation_result]
     )
