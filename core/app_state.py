@@ -827,6 +827,8 @@ class AppState:
     def set_optimization_config(self, llm_cache_enabled: bool = None,
                                llm_cache_db_path: str = None,
                                llm_cache_bypass: bool = None,
+                               enable_prompt_caching: bool = None,  # v1.0.0: Anthropic prompt caching
+                               enable_tiered_models: bool = None,  # v1.0.0: Tiered model usage
                                performance_monitoring_enabled: bool = None,
                                use_parallel_processing: bool = None,
                                use_batch_preprocessing: bool = None,
@@ -835,7 +837,7 @@ class AppState:
                                use_gpu_faiss: bool = None,
                                use_multi_gpu: bool = None,  # v1.0.0: Multi-GPU support
                                num_gpus: int = None):  # v1.0.0: Number of GPUs to use
-        """Set optimization configuration (v1.0.0: Added multi-GPU support)"""
+        """Set optimization configuration (v1.0.0: Added prompt caching and tiered models)"""
         try:
             if llm_cache_enabled is not None:
                 self.optimization_config.llm_cache_enabled = llm_cache_enabled
@@ -843,6 +845,10 @@ class AppState:
                 self.optimization_config.llm_cache_db_path = llm_cache_db_path
             if llm_cache_bypass is not None:
                 self.optimization_config.llm_cache_bypass = llm_cache_bypass
+            if enable_prompt_caching is not None:
+                self.optimization_config.enable_prompt_caching = enable_prompt_caching
+            if enable_tiered_models is not None:
+                self.optimization_config.enable_tiered_models = enable_tiered_models
             if performance_monitoring_enabled is not None:
                 self.optimization_config.performance_monitoring_enabled = performance_monitoring_enabled
             if use_parallel_processing is not None:
@@ -859,7 +865,7 @@ class AppState:
                 self.optimization_config.use_multi_gpu = use_multi_gpu
             if num_gpus is not None:
                 self.optimization_config.num_gpus = num_gpus
-            logger.info(f"Optimization config set: cache={self.optimization_config.llm_cache_enabled}, parallel={self.optimization_config.use_parallel_processing}, batch_preprocess={self.optimization_config.use_batch_preprocessing}, multi_gpu={self.optimization_config.use_multi_gpu}, num_gpus={self.optimization_config.num_gpus}")
+            logger.info(f"Optimization config set: cache={self.optimization_config.llm_cache_enabled}, prompt_caching={self.optimization_config.enable_prompt_caching}, tiered_models={self.optimization_config.enable_tiered_models}, parallel={self.optimization_config.use_parallel_processing}, batch_preprocess={self.optimization_config.use_batch_preprocessing}, multi_gpu={self.optimization_config.use_multi_gpu}, num_gpus={self.optimization_config.num_gpus}")
             return True
         except Exception as e:
             logger.error(f"Error setting optimization config: {e}")
