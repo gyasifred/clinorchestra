@@ -33,6 +33,8 @@ from ui.footer import create_footer
 from core.app_state import AppState, StateEvent
 from core.config_persistence import get_persistence_manager
 from core.logging_config import setup_logging, get_logger
+from core.session_manager import get_session_manager
+from core.app_state_proxy import AppStateProxy
 
 # Initialize enhanced logging system
 setup_logging(
@@ -46,19 +48,34 @@ setup_logging(
 logger = get_logger(__name__)
 
 def create_main_interface() -> gr.Blocks:
-    """Create main Gradio interface with persistence integration"""
-    
-    app_state = AppState()
+    """Create main Gradio interface with multi-instance session management (v1.0.0)"""
+
+    # v1.0.0: Multi-instance architecture - each session isolated
+    session_manager = get_session_manager()
+    session_id = session_manager.create_session()
     persistence_manager = get_persistence_manager()
-    logger.info("AppState initialized")
-    
-    # Load saved configurations on startup
+
+    logger.info(f"Session created: {session_id}")
+    logger.info("Multi-instance SessionManager initialized - tasks will be isolated")
+
+    # Default task for new sessions
+    default_task = "ADRD Classification"
+
+    # Get or create AppState for default task
+    initial_app_state = session_manager.get_task_context(session_id, default_task)
+
+    # v1.0.0: Create AppState proxy for dynamic task switching
+    # This allows tabs to reference the "current" AppState which changes when tasks switch
+    # All tabs will work with this proxy, which forwards calls to the active task's AppState
+    app_state_proxy = AppStateProxy(initial_app_state)
+
+    # Load saved configurations on startup (task-specific)
     try:
-        restore_success = persistence_manager.load_all_configs(app_state)
+        restore_success = persistence_manager.load_all_configs(initial_app_state)
         if restore_success:
-            logger.info("Configuration restored from previous session")
+            logger.info(f"Configuration restored for task: {default_task}")
         else:
-            logger.info("Starting with fresh configuration")
+            logger.info(f"Starting with fresh configuration for task: {default_task}")
     except Exception as e:
         logger.warning(f"Failed to restore configuration: {e}")
     
@@ -133,26 +150,53 @@ def create_main_interface() -> gr.Blocks:
             <div class="header-section">
                 <h1>ClinOrchestra</h1>
                 <h2>Intelligent Clinical Data Extraction & Orchestration</h2>
-                <p>Version 1.0.0</p>
+                <p>Version 1.0.0 - Multi-Instance Task Isolation</p>
             </div>
         """)
-        
+
+        # v1.0.0: Session and task management state
+        session_state = gr.State(value=session_id)
+        current_task_state = gr.State(value=default_task)
+
+        # v1.0.0: Task selector for multi-instance isolation
+        with gr.Row():
+            with gr.Column(scale=1):
+                gr.Markdown("### Task Selection")
+                gr.Markdown("Each task maintains isolated configuration and resources")
+                task_selector = gr.Dropdown(
+                    choices=["ADRD Classification", "Malnutrition Classification", "Custom"],
+                    value=default_task,
+                    label="Current Task",
+                    info="Switch between isolated task contexts",
+                    interactive=True
+                )
+                task_status = gr.Textbox(
+                    value=f"Active Task: {default_task} | Session: {session_id[:8]}...",
+                    label="Session Info",
+                    interactive=False
+                )
+
         # Configuration status panel
         with gr.Row():
             with gr.Column(scale=1):
-                def get_initial_status():
-                    """Get initial status display"""
-                    model_status = "Configured" if app_state.config_valid else "Not Configured"
-                    prompt_status = "Configured" if app_state.prompt_valid else "Not Configured"
-                    data_status = "Configured" if app_state.data_valid else "Not Configured"
-                    processing_status = "Configured" if app_state.processing_config.output_path else "Not Configured"
-                    
+                def get_status_for_task(task_name: str, sess_id: str):
+                    """Get status display for specific task"""
+                    # Get task-specific AppState
+                    task_app_state = session_manager.get_task_context(sess_id, task_name)
+                    if task_app_state is None:
+                        return "<div class='config-status'><strong>Error: Task context not found</strong></div>"
+
+                    model_status = "Configured" if task_app_state.config_valid else "Not Configured"
+                    prompt_status = "Configured" if task_app_state.prompt_valid else "Not Configured"
+                    data_status = "Configured" if task_app_state.data_valid else "Not Configured"
+                    processing_status = "Configured" if task_app_state.processing_config.output_path else "Not Configured"
+
                     # Get last saved information
                     last_saved = persistence_manager.get_last_saved_info()
-                    
+
                     html = f"""
                     <div class="config-status">
-                        <strong>Configuration Status:</strong><br/>
+                        <strong>Configuration Status ({task_name}):</strong><br/>
                         Model: {model_status}<br/>
                         Prompt: {prompt_status}<br/>
                         Data: {data_status}<br/>
@@ -164,44 +208,96 @@ def create_main_interface() -> gr.Blocks:
                         <small>Data: {last_saved.get('data', 'Never')}</small>
                     </div>
                     """
-                    logger.info(f"Initial global status: Model={model_status}, Prompt={prompt_status}, Data={data_status}, Processing={processing_status}")
+                    logger.info(f"Status for task '{task_name}': Model={model_status}, Prompt={prompt_status}, Data={data_status}, Processing={processing_status}")
                     return html
-                
+
+                def get_initial_status():
+                    """Get initial status display"""
+                    return get_status_for_task(default_task, session_id)
+
                 global_status = gr.HTML(value=get_initial_status())
         
         with gr.Tabs():
             with gr.Tab("Model Configuration"):
-                config_components = create_config_tab(app_state)
-            
+                config_components = create_config_tab(app_state_proxy)
+
             with gr.Tab("Prompt Configuration"):
-                prompt_components = create_prompt_tab(app_state)
-            
+                prompt_components = create_prompt_tab(app_state_proxy)
+
             with gr.Tab("Data Configuration"):
-                data_components = create_data_tab(app_state)
-            
+                data_components = create_data_tab(app_state_proxy)
+
             with gr.Tab("Regex Patterns"):
-                patterns_components = create_patterns_tab(app_state)
-            
+                patterns_components = create_patterns_tab(app_state_proxy)
+
             with gr.Tab("Extras (Hints)"):
-                extras_components = create_extras_tab(app_state)
-            
+                extras_components = create_extras_tab(app_state_proxy)
+
             with gr.Tab("Custom Functions"):
-                functions_components = create_functions_tab(app_state)
-            
+                functions_components = create_functions_tab(app_state_proxy)
+
             with gr.Tab("RAG"):
-                rag_components = create_rag_tab(app_state)
-            
+                rag_components = create_rag_tab(app_state_proxy)
+
             with gr.Tab("Playground"):
-                playground_components = create_playground_tab(app_state)
-            
+                playground_components = create_playground_tab(app_state_proxy)
+
             with gr.Tab("Processing"):
-                processing_components = create_processing_tab(app_state)
+                processing_components = create_processing_tab(app_state_proxy)
 
             # v1.0.0: Retry metrics tab for adaptive retry system monitoring
-            retry_metrics_components = create_retry_metrics_tab(app_state)
+            retry_metrics_components = create_retry_metrics_tab(app_state_proxy)
+
+        # v1.0.0: Task switching callback for multi-instance isolation
+        def switch_task(task_name: str, sess_id: str, prev_task: str):
+            """Switch to a different task context"""
+            logger.info(f"Task switching requested: {prev_task} -> {task_name}")
+
+            # Get or create AppState for new task
+            new_app_state = session_manager.switch_task(sess_id, task_name)
+
+            if new_app_state is None:
+                logger.error(f"Failed to switch to task: {task_name}")
+                return (
+                    prev_task,  # Keep previous task
+                    f"Error switching to task: {task_name}",
+                    get_status_for_task(prev_task, sess_id)
+                )
+
+            # v1.0.0: Update the proxy to point to new AppState
+            # All tabs will now automatically use the new task's AppState
+            app_state_proxy._set_current_app_state(new_app_state)
+            logger.info(f"AppState proxy updated to task: {task_name}")
+
+            # Load configuration for new task
+            try:
+                persistence_manager.load_all_configs(new_app_state)
+                logger.info(f"Configuration loaded for task: {task_name}")
+            except Exception as e:
+                logger.warning(f"Failed to load configuration for task {task_name}: {e}")
+
+            # Update status displays
+            new_status = f"Active Task: {task_name} | Session: {sess_id[:8]}..."
+            config_status = get_status_for_task(task_name, sess_id)
+
+            logger.info(f"Successfully switched to task: {task_name}")
+            logger.info("All tabs now reference the new task's isolated configuration")
+
+            return (
+                task_name,  # Update current_task_state
+                new_status,  # Update task_status
+                config_status  # Update global_status
+            )
+
+        # Wire up task selector
+        task_selector.change(
+            fn=switch_task,
+            inputs=[task_selector, session_state, current_task_state],
+            outputs=[current_task_state, task_status, global_status]
+        )
 
         create_footer()
-        
+
         all_components = {
             'config': config_components,
             'prompt': prompt_components,
@@ -213,35 +309,39 @@ def create_main_interface() -> gr.Blocks:
             'playground': playground_components,
             'processing': processing_components,
             'global_status': global_status,
-            'persistence_manager': persistence_manager
+            'persistence_manager': persistence_manager,
+            'session_id': session_id,
+            'session_manager': session_manager
         }
-        
-        setup_event_handlers(app_state, all_components)
+
+        # v1.0.0: Pass proxy to event handlers so they work with current active task
+        setup_event_handlers(app_state_proxy, all_components)
         
         # Auto-save configurations periodically
         def auto_save_configs():
-            """Automatically save configurations (silent mode)"""
+            """Automatically save configurations (silent mode) for current active task"""
             try:
-                # Save with silent=True to use DEBUG logging instead of INFO
-                persistence_manager.save_all_configs(app_state, silent=True)
-                logger.debug("Auto-saved configurations")
+                # v1.0.0: Save current task's config via proxy
+                # Proxy forwards all calls to currently active AppState
+                persistence_manager.save_all_configs(app_state_proxy, silent=True)
+                logger.debug("Auto-saved configurations for current task")
             except Exception as e:
                 logger.error(f"Auto-save failed: {e}")
 
         # Refresh global status and restore UI state on interface load
         def load_ui_state():
-            """Load UI state from persisted config"""
+            """Load UI state from persisted config (default task on startup)"""
             status = get_initial_status()
 
-            # Restore model config
-            model_config = app_state.model_config
+            # Restore model config from current task (via proxy)
+            model_config = app_state_proxy.model_config
             model_provider = model_config.provider if model_config else "openai"
             model_name = model_config.model_name if model_config else "gpt-4"
             temperature = model_config.temperature if model_config else 0.0
             max_tokens = model_config.max_tokens if model_config else 4000
 
-            # Restore prompt config
-            prompt_config = app_state.prompt_config
+            # Restore prompt config from current task (via proxy)
+            prompt_config = app_state_proxy.prompt_config
             main_prompt = prompt_config.base_prompt if prompt_config else ""
             minimal_prompt = prompt_config.minimal_prompt if prompt_config else ""
 

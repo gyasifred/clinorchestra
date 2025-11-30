@@ -30,24 +30,24 @@ CLINICAL DOCUMENTATION:
 **BEFORE PROCEEDING, VERIFY:**
 
 1. **PRIMARY COMPLAINT VERIFICATION:**
-   - Is the primary complaint cognitive in nature (memory loss, confusion, dementia, cognitive decline)?
-   - If primary complaint is urological, physical, psychiatric, or behavioral WITHOUT cognitive component → STOP → Classify as Non-ADRD
-   - Examples of NON-COGNITIVE primary complaints: urinary incontinence, UTI, syncope, falls, agitation alone, depression alone
-   - Only proceed if cognitive complaint is present or cognitive symptoms are clearly documented
+ - Is the primary complaint cognitive in nature (memory loss, confusion, dementia, cognitive decline)?
+ - If primary complaint is urological, physical, psychiatric, or behavioral WITHOUT cognitive component → STOP → Classify as Non-ADRD
+ - Examples of NON-COGNITIVE primary complaints: urinary incontinence, UTI, syncope, falls, agitation alone, depression alone
+ - Only proceed if cognitive complaint is present or cognitive symptoms are clearly documented
 
 2. **CHRONICITY REQUIREMENT:**
-   - Cognitive symptoms must be present for ≥6 months for ADRD diagnosis
-   - Acute onset (<2 weeks) → Consider delirium → Classify as Non-ADRD
-   - Subacute (weeks to months) → Rule out reversible causes first
-   - Document symptom duration if available
+ - Cognitive symptoms must be present for ≥6 months for ADRD diagnosis
+ - Acute onset (<2 weeks) → Consider delirium → Classify as Non-ADRD
+ - Subacute (weeks to months) → Rule out reversible causes first
+ - Document symptom duration if available
 
 ### STEP 1: EXTRACT CLINICAL DATA
 
 **Cognitive Assessment:**
 - Test scores: MMSE, MoCA, CDR (use severity functions for interpretation)
 - **MANDATORY:** Cognitive domains affected: memory, language, executive, visuospatial, attention
-  - **CANNOT diagnose ADRD without ≥1 specific cognitive domain documented**
-  - If no domains identified → Classify as Non-ADRD with note "No specific cognitive domains documented"
+ - **CANNOT diagnose ADRD without ≥1 specific cognitive domain documented**
+ - If no domains identified → Classify as Non-ADRD with note "No specific cognitive domains documented"
 - Onset type and progression pattern
 - Duration of symptoms (required for chronicity check)
 
@@ -82,10 +82,10 @@ CLINICAL DOCUMENTATION:
 
 **For Dementia Diagnosis (DSM-5 Major NCD):**
 - **Significant cognitive decline from previous level:**
-  - Defined as: ≥3 point MMSE decline from baseline, OR
-  - ≥2 point MoCA decline from baseline, OR
-  - Clear functional decline from previous level, OR
-  - Progressive worsening over ≥6 months
+ - Defined as: ≥3 point MMSE decline from baseline, OR
+ - ≥2 point MoCA decline from baseline, OR
+ - Clear functional decline from previous level, OR
+ - Progressive worsening over ≥6 months
 - **Interferes with independence in everyday activities** (REQUIRED - see definitions above)
 - Not occurring during delirium
 - Not explained by another mental disorder
@@ -96,16 +96,16 @@ CLINICAL DOCUMENTATION:
 - Insidious onset, gradual progression
 - Amnestic or non-amnestic presentation
 - **No evidence of alternative cause**
-  - **MUST rule out:** Depression, B12 deficiency, hypothyroidism, medication effects, normal aging
-  - **Do NOT diagnose AD based solely on "insidious onset + gradual progression"**
-  - Requires comprehensive differential diagnosis
+ - **MUST rule out:** Depression, B12 deficiency, hypothyroidism, medication effects, normal aging
+ - **Do NOT diagnose AD based solely on "insidious onset + gradual progression"**
+ - Requires comprehensive differential diagnosis
 
 **Vascular Dementia (NINDS-AIREN):**
 - **ALL of the following REQUIRED:**
-  - (1) Temporal relationship with stroke or TIA
-  - (2) Stepwise progression or fluctuating decline
-  - (3) Focal neurological signs
-  - (4) **Significant cerebrovascular disease on imaging** (infarcts, white matter disease)
+ - (1) Temporal relationship with stroke or TIA
+ - (2) Stepwise progression or fluctuating decline
+ - (3) Focal neurological signs
+ - (4) **Significant cerebrovascular disease on imaging** (infarcts, white matter disease)
 - **Vascular risk factors alone do NOT diagnose vascular dementia**
 - If imaging not available or no stroke history → Cannot diagnose vascular dementia
 
@@ -122,8 +122,8 @@ CLINICAL DOCUMENTATION:
 
 **Non-ADRD conditions that MUST be considered:**
 - **Mild Cognitive Impairment (MCI):** Cognitive impairment WITHOUT functional dependence (preserved independence)
-  - **CDR 0.5 + fully independent IADLs = MCI (Non-ADRD)**
-  - **CDR 0.5 + IADL dependence = Very mild dementia (ADRD)**
+ - **CDR 0.5 + fully independent IADLs = MCI (Non-ADRD)**
+ - **CDR 0.5 + IADL dependence = Very mild dementia (ADRD)**
 - **Depression/Pseudodementia:** Check for depressive symptoms, response to treatment
 - **Delirium:** Acute onset (<2 weeks), fluctuating course, inattention
 - **Medication-induced:** Anticholinergics, benzodiazepines, opioids
@@ -194,15 +194,15 @@ Provide structured classification with:
 
 ## CRITICAL REMINDERS (v1.0.0)
 
-1. ❌ **DO NOT** diagnose ADRD without ≥1 specific cognitive domain documented
-2. ❌ **DO NOT** diagnose dementia without functional DEPENDENCE (difficulty ≠ dependence)
-3. ❌ **DO NOT** confuse MCI (preserved independence) with dementia
-4. ❌ **DO NOT** classify CDR 0.5 as dementia if IADLs are independent
-5. ❌ **DO NOT** diagnose vascular dementia based on risk factors alone (requires imaging + stroke + stepwise decline)
-6. ❌ **DO NOT** classify urological/physical/behavioral complaints without cognitive component as ADRD
-7. ❌ **DO NOT** diagnose ADRD if symptoms <6 months without clear progressive dementia course
-8. ❌ **DO NOT** ignore reversible causes (B12, thyroid, depression, medications)
-9. ❌ **DO NOT** diagnose AD based solely on "insidious onset, gradual progression" without ruling out alternatives
-10. ✅ **DO** distinguish "difficulty" (MCI) from "dependence" (dementia) in functional assessment
+1. **DO NOT** diagnose ADRD without ≥1 specific cognitive domain documented
+2. **DO NOT** diagnose dementia without functional DEPENDENCE (difficulty ≠ dependence)
+3. **DO NOT** confuse MCI (preserved independence) with dementia
+4. **DO NOT** classify CDR 0.5 as dementia if IADLs are independent
+5. **DO NOT** diagnose vascular dementia based on risk factors alone (requires imaging + stroke + stepwise decline)
+6. **DO NOT** classify urological/physical/behavioral complaints without cognitive component as ADRD
+7. **DO NOT** diagnose ADRD if symptoms <6 months without clear progressive dementia course
+8. **DO NOT** ignore reversible causes (B12, thyroid, depression, medications)
+9. **DO NOT** diagnose AD based solely on "insidious onset, gradual progression" without ruling out alternatives
+10. **DO** distinguish "difficulty" (MCI) from "dependence" (dementia) in functional assessment
 
 Perform the ADRD classification now, extracting all relevant clinical evidence and applying diagnostic criteria systematically with v1.0.0 safeguards.
