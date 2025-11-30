@@ -213,6 +213,17 @@ class OptimizationConfig:
     enable_prompt_caching: bool = True  # Enable Anthropic prompt caching API
     # When enabled, system prompts and tool definitions are cached for reuse across requests
 
+    # Tiered model usage (STRUCTURED workflow only) - Use different models per stage
+    enable_tiered_models: bool = False  # Enable stage-specific model selection
+    # When enabled:
+    #   - Stage 1 (Task Analysis): Use fast model for quick planning
+    #   - Stage 3 (Extraction): Use accurate model for quality output
+    #   - Stage 4 (Refinement): Use fast model for simple refinement
+    # Models auto-selected based on provider:
+    #   - Anthropic: haiku (fast) / sonnet (accurate)
+    #   - OpenAI: gpt-4o-mini (fast) / gpt-4o (accurate)
+    #   - Google: gemini-1.5-flash (fast) / gemini-1.5-pro (accurate)
+
     # Performance monitoring
     performance_monitoring_enabled: bool = True  # Track timing metrics
 
