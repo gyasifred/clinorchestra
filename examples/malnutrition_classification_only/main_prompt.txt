@@ -1,4 +1,4 @@
-PEDIATRIC MALNUTRITION CLINICAL ASSESSMENT - Comprehensive evaluation with evidence-based recommendations following ASPEN consensus criteria.
+PEDIATRIC MALNUTRITION CLINICAL ASSESSMENT - Comprehensive evaluation with evidence-based recommendations following ASPEN consensus criteria (v1.0.0)
 
 *** ASPEN CLINICAL ASSESSMENT FRAMEWORK ***
 Perform systematic malnutrition assessment following Academy of Nutrition and Dietetics/American Society for Parenteral and Enteral Nutrition consensus criteria. CRITICAL: Clinical expertise and sound clinical judgment must be exercised throughout the diagnostic process.
@@ -17,70 +17,166 @@ Perform systematic malnutrition assessment following Academy of Nutrition and Di
 **EXTRACTION SCHEMA:**
 {json_schema}
 
-*** ASSESSMENT TYPES ***
+### STEP 0: MANDATORY PRE-CHECKS (v1.0.0)
+
+**BEFORE PROCEEDING WITH ASSESSMENT, VERIFY:**
+
+1. **BMI/WEIGHT EXCLUSION RULE (HIGHEST PRIORITY):**
+   - If BMI-for-age ≥85th percentile (z-score ≥+1.04) → STOP → Classify as Not Malnourished
+   - If BMI ≥25 kg/m² → STOP → Classify as Not Malnourished (overweight/obese)
+   - If weight-for-height ≥85th percentile → STOP → Classify as Not Malnourished
+   - **Overweight/obese children CANNOT have acute malnutrition by definition**
+   - Note: Stunting (height-for-age) can coexist with overweight, but does NOT equal malnutrition diagnosis
+
+2. **POSITIVE Z-SCORE STOP RULE:**
+   - If ALL measured z-scores are POSITIVE (≥0) → STOP → Classify as Not Malnourished
+   - Positive z-scores indicate above-average growth, incompatible with malnutrition
+   - Exception: Historical documented malnutrition with recent recovery (document trajectory)
+
+3. **DESCRIPTIVE TERM WARNING:**
+   - Terms like "failure to thrive", "poor weight gain", "feeding difficulty" WITHOUT objective z-scores <-1.0 are INSUFFICIENT for diagnosis
+   - Require actual anthropometric measurements meeting ASPEN thresholds
+   - Document these terms but do NOT use as primary diagnostic criteria
+
+4. **DOCUMENTED DIAGNOSIS SKEPTICISM:**
+   - ICD codes for malnutrition (E43, E44, E45, E46) may represent:
+     - Prophylactic coding for high-risk patients
+     - Historical diagnosis no longer active
+     - Risk-based documentation, not current status
+   - MUST verify with objective anthropometric data
+   - If documented malnutrition contradicts normal/high BMI → Prioritize objective measurements
+
+5. **"WELL-APPEARING" CLINICAL GESTALT:**
+   - If patient described as "well appearing", "well nourished", "NAD" (no acute distress) AND z-scores are borderline (-1.0 to -1.5) → Err toward Not Malnourished unless 2+ clear indicators present
+   - Clinical appearance should align with severity of anthropometric deficits
+   - Severe malnutrition (z-score ≤-3.0) should have clinical signs (visible wasting, muscle loss)
+
+*** ASSESSMENT TYPES (v1.0.0 CLARIFIED) ***
 
 FIRST, determine the assessment type based on available data:
-- **SINGLE-POINT**: Only one encounter or one set of measurements documented
-- **SERIAL**: Multiple measurements from the same encounter/visit
-- **LONGITUDINAL**: Multiple measurements across different encounters with dates
 
-Your interpretation MUST match the assessment type:
-- Single-point: Can only assess current status, cannot determine trends
-- Serial/Longitudinal: Can assess trends, velocity, percentile trajectory
+**SINGLE-POINT:** Only one encounter OR one set of measurements documented
+- Can assess: Current anthropometric status, single z-scores
+- CANNOT assess: Trends, velocity, deceleration, weight loss percentage
+- Limitations: No trajectory information, cannot determine if acute vs chronic
 
-*** ASPEN RECOMMENDED DIAGNOSTIC INDICATORS ***
+**SERIAL:** Multiple measurements from the same encounter/visit (e.g., admission weight + daily weights during hospitalization)
+- Can assess: Short-term trends within hospitalization
+- May assess: Acute changes over days, recovery patterns
+- Limitations: Limited time frame, may not represent baseline
+
+**LONGITUDINAL:** Multiple measurements across DIFFERENT encounters with DIFFERENT dates (clinic visits over weeks/months)
+- Can assess: Growth velocity, percentile trajectory, z-score deceleration
+- Gold standard: Allows comparison to baseline, assessment of chronicity
+- Required for: ASPEN two-point indicators (velocity, deceleration)
+
+**CRITICAL:** Match your interpretation to assessment type. DO NOT claim "declining growth velocity" or "percentile crossing" if you only have single-point data.
+
+*** CONFLICT RESOLUTION HIERARCHY (v1.0.0) ***
+
+When anthropometric measurements conflict, use this hierarchy:
+
+1. **BMI-for-age (HIGHEST PRIORITY for acute nutritional status)**
+   - Most sensitive for acute malnutrition (wasting)
+   - If BMI z-score is normal/high, overrides other indicators suggesting malnutrition
+
+2. **Weight-for-height z-score (SECONDARY for acute status)**
+   - Alternative to BMI for acute malnutrition assessment
+   - If weight-for-height is normal, likely not acutely malnourished
+
+3. **Weight-for-age z-score (COMPOSITE - less specific)**
+   - Influenced by both height and weight
+   - Can be low due to short stature alone (not malnutrition)
+   - Use with caution, verify with BMI or weight-for-height
+
+4. **Height-for-age z-score (CHRONIC indicator only)**
+   - Indicates stunting (chronic malnutrition or other causes)
+   - Does NOT diagnose acute malnutrition
+   - Stunting alone (isolated height deficit with normal BMI) = Not Malnourished by ASPEN
+
+5. **Clinical appearance (CONTEXT, not primary criterion)**
+   - Provides corroborating evidence
+   - Should align with severity of anthropometric deficits
+   - If conflicts with objective measurements, prioritize measurements
+
+**EXAMPLE CONFLICTS:**
+- BMI z-score +0.5, weight-for-age z-score -2.0 → Not Malnourished (normal BMI, short stature)
+- BMI z-score -1.2, described as "well appearing" → Mild malnutrition if 2+ indicators (prioritize objective data)
+- Height-for-age z-score -2.5, BMI z-score +0.2 → Not Malnourished (stunted but not wasted)
+
+*** ASPEN RECOMMENDED DIAGNOSTIC INDICATORS (v1.0.0 CLARIFIED) ***
 
 **PRIMARY SINGLE-POINT INDICATORS** (require only one measurement):
 
-1. Weight-for-height/length z-score:
+1. **Weight-for-height/length z-score (ACUTE MALNUTRITION INDICATOR):**
    - Mild: -1.0 to -1.9
    - Moderate: -2.0 to -2.9
    - Severe: ≤-3.0
+   - **Used for:** Children under 2 years or when BMI unavailable
+   - **Reflects:** Current nutritional status (wasting)
 
-2. BMI-for-age z-score:
+2. **BMI-for-age z-score (PRIMARY ACUTE INDICATOR):**
    - Mild: -1.0 to -1.9
    - Moderate: -2.0 to -2.9
    - Severe: ≤-3.0
+   - **Used for:** Children ≥2 years (preferred over weight-for-height)
+   - **Reflects:** Current nutritional status (wasting)
+   - **CRITICAL:** BMI ≥85th percentile (z ≥+1.04) EXCLUDES malnutrition
 
-3. Length/height-for-age z-score:
-   - Severe only (≤-3.0) - indicates chronic malnutrition/stunting
+3. **Length/height-for-age z-score (CHRONIC INDICATOR ONLY):**
+   - Severe only: ≤-3.0 (indicates chronic malnutrition/stunting)
+   - **CANNOT diagnose acute malnutrition**
+   - **Stunting alone without wasting = Not Malnourished per ASPEN**
+   - Requires correlation with acute indicators (BMI or weight-for-height)
 
-4. Mid-upper arm circumference (MUAC):
-   - Mild: ≥-1 to -1.9
-   - Moderate: ≥-2 to -2.9
-   - Severe: ≥-3.0
+4. **Mid-upper arm circumference (MUAC):**
+   - Mild: z-score -1.0 to -1.9
+   - Moderate: z-score -2.0 to -2.9
+   - Severe: z-score ≤-3.0
+   - **CRITICAL:** MUAC <115mm (severe acute malnutrition) regardless of other measurements
+   - **Reflects:** Muscle and fat stores
 
-**TWO-POINT INDICATORS** (require multiple data points):
+**TWO-POINT INDICATORS** (require LONGITUDINAL data with multiple dates):
 
-1. Weight gain velocity (<2 years):
-   - Mild: <75% of norm
+1. **Weight gain velocity (<2 years) - REQUIRES LONGITUDINAL DATA:**
+   - Mild: <75% of norm for age/sex
    - Moderate: <50% of norm
    - Severe: <25% of norm
+   - **CANNOT assess with single-point data**
 
-2. Weight loss (2-20 years):
-   - Mild: 5% usual body weight
+2. **Weight loss (2-20 years) - REQUIRES LONGITUDINAL DATA:**
+   - Mild: 5% of usual body weight
    - Moderate: 7.5%
    - Severe: 10%
+   - **Requires baseline weight from previous encounter**
 
-3. Deceleration in weight-for-length/height z-score:
-   - Mild: 1 z-score decline
+3. **Deceleration in weight-for-length/height or BMI z-score - REQUIRES LONGITUDINAL DATA:**
+   - Mild: 1 z-score decline from baseline
    - Moderate: 2 z-score decline
-   - Severe: 3 z-score decline
+   - Severe: 3+ z-score decline
+   - **Requires z-scores from ≥2 encounters with dates**
 
-4. Inadequate nutrient intake:
-   - Mild: 51-75% estimated need
-   - Moderate: 26-50% estimated need
-   - Severe: ≤25% estimated need
+4. **Inadequate nutrient intake - REQUIRES DOCUMENTATION:**
+   - Mild: 51-75% of estimated need for ≥1 week
+   - Moderate: 26-50% of estimated need
+   - Severe: ≤25% of estimated need
+   - **Requires specific intake documentation or dietary assessment**
 
-*** Z-SCORE IDENTIFICATION WITH CLINICAL CONTEXT ***
+*** Z-SCORE IDENTIFICATION WITH CLINICAL CONTEXT (v1.0.0) ***
 
 **Z-Score Formats and Interpretation:**
-- Standard formats: "z -2.5", "z-score: -1.9", "Z: -3.0", "2 SD below mean" → -2.0
+- Standard formats: "z -2.5", "z-score: -1.9", "Z: -3.0"
+- SD notation: "2 SD below mean" → z-score -2.0, "3 SD below" → z-score -3.0
 - Percentile indicators: "ile"/"ille" suffix (e.g., "2 ile" = 2nd percentile ≈ z-score -2.0)
 - Shorthand notation: "<low #> z <positive mag>" (convert positive magnitude to negative z-score)
-- Range validation: -6.0 to +6.0 (negative indicates below average)
+- Range validation: -6.0 to +6.0 (negative = below average, positive = above average)
 
-**CRITICAL:** Negative signs (-) in z-scores indicate measurements below average and are primary indicators of malnutrition. Exercise clinical judgment in interpreting borderline values within clinical context.
+**CRITICAL SIGN RULES:**
+- **Negative z-scores** (<0) indicate measurements BELOW average → May indicate malnutrition
+- **Positive z-scores** (>0) indicate measurements ABOVE average → Excludes malnutrition
+- **Z-score 0** = exactly 50th percentile (average)
+- **All percentiles <50th MUST have NEGATIVE z-scores**
+- **All percentiles >50th MUST have POSITIVE z-scores**
 
 **Common Percentile to Z-Score Conversions:**
 - 3rd percentile = z-score -1.88
@@ -88,7 +184,15 @@ Your interpretation MUST match the assessment type:
 - 10th percentile = z-score -1.28
 - 25th percentile = z-score -0.67
 - 50th percentile = z-score 0
-- Percentile <50th MUST have NEGATIVE z-score
+- 75th percentile = z-score +0.67
+- 85th percentile = z-score +1.04 (OVERWEIGHT THRESHOLD)
+- 95th percentile = z-score +1.64
+
+**Z-SCORE INTERPRETATION ERRORS TO AVOID:**
+- ❌ DO NOT interpret positive z-scores as malnutrition indicators
+- ❌ DO NOT confuse weight-for-age with BMI/weight-for-height
+- ❌ DO NOT diagnose malnutrition based on height-for-age alone
+- ❌ DO NOT use "2 SD" ambiguously (specify: below = -2, above = +2)
 
 *** ASPEN PRETERM/NEONATAL CRITERIA ***
 
@@ -96,58 +200,91 @@ For preterm infants <37 weeks PMA and term infants <30 days old:
 
 **PRIMARY INDICATORS:**
 
-1. Weight-for-age z-score decline:
-   - Mild: 0.8-1.2 SD
-   - Moderate: >1.2-2.0 SD
-   - Severe: >2.0 SD
+1. **Weight-for-age z-score decline (LONGITUDINAL):**
+   - Mild: 0.8-1.2 SD decline
+   - Moderate: >1.2-2.0 SD decline
+   - Severe: >2.0 SD decline
 
-2. Days to regain birthweight:
+2. **Days to regain birthweight:**
    - Mild: 15-18 days
    - Moderate: 19-21 days
    - Severe: >21 days
 
-3. Weight gain velocity as percentage of expected for gestational age
+3. **Weight gain velocity as percentage of expected for gestational age**
 
-4. Linear growth velocity assessment with clinical judgment for measurement accuracy
+4. **Linear growth velocity assessment** (clinical judgment for measurement accuracy)
 
-5. Nutrient intake adequacy assessment over consecutive days
+5. **Nutrient intake adequacy assessment** over consecutive days
+
+*** ASPEN DIAGNOSIS REQUIRES ≥2 INDICATORS (v1.0.0 EMPHASIS) ***
+
+**CRITICAL ASPEN RULE:** Malnutrition diagnosis requires AT LEAST 2 of the following:
+
+1. Anthropometric indicator (z-score <-1.0)
+2. Growth indicator (velocity, deceleration - LONGITUDINAL only)
+3. Inadequate nutrient intake (documented <75% needs)
+4. Physical exam findings (muscle wasting, fat loss, edema)
+
+**EXAMPLES:**
+- ✓ BMI z-score -2.1 + inadequate intake documented = MALNUTRITION (2 indicators)
+- ✓ Weight-for-height z-score -1.8 + muscle wasting on exam = MALNUTRITION (2 indicators)
+- ✗ BMI z-score -1.5 only (no other indicators) = NOT MALNOURISHED (1 indicator)
+- ✗ Height-for-age z-score -2.2 only (stunting without wasting) = NOT MALNOURISHED (chronic indicator alone)
+- ✓ BMI z-score -2.5 (single indicator if severe <-2.0, OR if moderate need 2nd indicator)
+
+**SINGLE INDICATOR EXCEPTION:**
+- Severe indicators (z-score ≤-3.0, MUAC <115mm, nutritional edema) may be sufficient for diagnosis if clinically evident severe malnutrition
+- Moderate/mild malnutrition ALWAYS requires ≥2 indicators
 
 *** CLINICAL JUDGMENT - ESSENTIAL ASPEN REQUIREMENT ***
 
 Clinical judgment must be exercised throughout assessment, particularly when:
 
 **COMPREHENSIVE CLINICAL EVALUATION includes:**
-- History taking: feeding patterns, medical history, social circumstances
-- Physical examination: growth parameters, clinical signs, developmental assessment
-- Laboratory evaluation: when indicated by clinical presentation
+- History taking: feeding patterns, medical history, social circumstances, symptom duration
+- Physical examination: growth parameters, clinical signs, developmental assessment, muscle/fat stores
+- Laboratory evaluation: when indicated by clinical presentation (albumin, prealbumin, micronutrients)
 - Differential diagnosis: considering underlying conditions affecting nutrition
 
 **CLINICAL JUDGMENT SITUATIONS requiring expert assessment:**
-- Borderline anthropometric measurements requiring clinical context
-- Conflicting indicators needing clinical interpretation
-- Complex medical conditions affecting growth and nutrition
+- Borderline anthropometric measurements (-0.8 to -1.2) requiring clinical context
+- Conflicting indicators needing hierarchy application (use BMI > weight-for-height > clinical appearance)
+- Complex medical conditions affecting growth (congenital heart disease, genetic syndromes)
 - Assessment of feeding adequacy in context of developmental level
 - Evaluation of underlying causes contributing to nutritional status
 
-*** DOCUMENTED DIAGNOSIS CRITICAL EVALUATION WITH CLINICAL JUDGMENT ***
+*** DOCUMENTED DIAGNOSIS CRITICAL EVALUATION (v1.0.0) ***
 
-When malnutrition is documented in notes, apply clinical judgment to critically evaluate:
+When malnutrition is documented in notes or ICD codes, apply clinical judgment to critically evaluate:
 
 **SUPPORTING EVIDENCE:**
-- Low z-scores/percentiles meeting ASPEN thresholds (<-1.0 z-score)
-- Physical signs: visible wasting, muscle loss, growth faltering, nutritional edema
-- Functional indicators: poor feeding, inadequate intake, feeding difficulties
-- Growth patterns: poor weight gain velocity, crossing percentiles downward
-- Laboratory indicators: nutritional biomarkers when clinically indicated
+- Low z-scores/percentiles meeting ASPEN thresholds (≥1 indicator with z-score <-1.0)
+- Physical signs: visible wasting, muscle loss, growth faltering, nutritional edema, temporal wasting, prominent ribs
+- Functional indicators: poor feeding, inadequate intake <75% needs, feeding difficulties
+- Growth patterns: poor weight gain velocity, crossing percentiles downward (LONGITUDINAL data)
+- Laboratory indicators: low albumin, prealbumin (with caveats about non-nutritional causes)
 
-**CONTRADICTORY EVIDENCE:**
-- Normal/high anthropometric measurements (BMI ≥25 suggests overweight)
-- Good clinical appearance: "well appearing", "NAD", alert and active
-- Adequate nutritional intake: "eating well", "good appetite", meeting estimated needs
-- Medical context: high-risk conditions where malnutrition coding may be prophylactic
+**CONTRADICTORY EVIDENCE (PRIORITIZE THESE - v1.0.0):**
+- **Normal/high anthropometric measurements:** BMI ≥25 kg/m² or ≥85th percentile EXCLUDES malnutrition
+- **Positive z-scores:** Any z-score >0 indicates above-average, incompatible with malnutrition
+- **Good clinical appearance:** "well appearing", "well nourished", "NAD", alert and active, no visible wasting
+- **Adequate nutritional intake:** "eating well", "good appetite", meeting ≥75% estimated needs
+- **Medical context:** High-risk conditions where malnutrition coding may be prophylactic (e.g., "at risk for malnutrition" coded as malnutrition)
+- **Isolated height deficit:** Height-for-age z-score <-2 with normal BMI = stunting, NOT acute malnutrition
 
-**CLINICAL JUDGMENT SYNTHESIS:**
-If documented diagnosis contradicts objective ASPEN evidence, prioritize comprehensive clinical assessment. Documented malnutrition may represent prophylactic coding, historical diagnoses, or risk-based documentation rather than current nutritional status.
+**CLINICAL JUDGMENT SYNTHESIS (v1.0.0):**
+If documented diagnosis contradicts objective ASPEN evidence, prioritize:
+1. Objective anthropometric measurements (BMI, weight-for-height)
+2. Physical examination findings
+3. Clinical appearance and functional status
+4. Documented intake adequacy
+
+**Documented malnutrition may represent:**
+- Prophylactic coding for at-risk patients
+- Historical diagnoses no longer active
+- Risk-based documentation rather than current nutritional status
+- Coding for reimbursement purposes
+- Confusion between stunting (chronic) and wasting (acute malnutrition)
 
 *** FOOD/NUTRIENT INTAKE ASSESSMENT - ASPEN PRIMARY DETERMINANT ***
 
@@ -156,29 +293,55 @@ ASPEN: "Food and nutrient intake are the primary determinants of nutritional sta
 - Feeding behaviors and patterns in clinical context
 - Barriers to adequate nutrition requiring intervention
 - Estimated needs based on growth pattern and medical condition
+- Documentation of intake percentage (e.g., "taking 50% of feeds", "NPO x3 days")
+
+**INTAKE AS INDICATOR:**
+- <75% of estimated needs for ≥1 week = Mild inadequate intake (1 indicator)
+- 26-50% of estimated needs = Moderate inadequate intake (1 indicator)
+- ≤25% of estimated needs = Severe inadequate intake (1 indicator)
+- Must document duration and percentage to count as ASPEN indicator
 
 *** GROWTH PARAMETERS - CLINICAL JUDGMENT APPLICATION ***
 
 ASPEN: "Growth is the primary outcome measure of nutritional status in children." Clinical judgment required for:
-- Interpreting growth velocity in clinical context
-- Assessing growth patterns over time
-- Evaluating appropriateness of growth for individual child
-- Identifying growth faltering requiring intervention
+- Interpreting growth velocity in clinical context (requires LONGITUDINAL data)
+- Assessing growth patterns over time (compare to previous visits)
+- Evaluating appropriateness of growth for individual child (genetic potential, underlying conditions)
+- Identifying growth faltering requiring intervention (percentile crossing, deceleration)
 
-*** COMPREHENSIVE DIAGNOSTIC ALGORITHM WITH CLINICAL JUDGMENT ***
+*** COMPREHENSIVE DIAGNOSTIC ALGORITHM (v1.0.0) ***
 
-1. **ANTHROPOMETRIC PRIORITY:** If z-scores <-1.0 present meeting ASPEN thresholds → diagnose based on lowest z-score with clinical context
+**STEP 0: APPLY MANDATORY EXCLUSIONS FIRST**
+1. BMI ≥85th percentile or ≥25 kg/m² → STOP → Not Malnourished
+2. All z-scores positive (≥0) → STOP → Not Malnourished
+3. Well-appearing + borderline z-scores (-1.0 to -1.5) + <2 indicators → STOP → Not Malnourished
 
-2. **DOCUMENTED DIAGNOSIS EVALUATION:** Critically assess documented malnutrition against objective ASPEN evidence using clinical judgment
+**STEP 1: ANTHROPOMETRIC PRIORITY**
+- If z-scores <-1.0 present meeting ASPEN thresholds → Potential indicator
+- Use hierarchy: BMI > weight-for-height > weight-for-age
+- Height-for-age alone does NOT diagnose acute malnutrition
 
-3. **CLINICAL SYNTHESIS:** When z-scores ≥-1.0 or absent → comprehensive clinical judgment assessment incorporating:
-   - Growth patterns and velocity over time
-   - Clinical signs and symptoms of malnutrition
-   - Feeding adequacy and intake assessment
-   - Physical examination findings
-   - Laboratory indicators when available
+**STEP 2: COUNT ASPEN INDICATORS**
+- Anthropometric deficit (z-score <-1.0): ☐
+- Growth velocity/deceleration (LONGITUDINAL only): ☐
+- Inadequate intake (documented <75% needs): ☐
+- Physical exam findings (muscle wasting, fat loss, edema): ☐
+- **Need ≥2 checked for malnutrition diagnosis** (or 1 if severe z-score ≤-3.0)
 
-4. **AUTOMATIC SEVERE INDICATORS:** Nutritional edema, visible severe wasting, MUAC ≤115mm regardless of other measurements
+**STEP 3: RESOLVE CONFLICTS**
+- Apply conflict resolution hierarchy (BMI > weight-for-height > clinical appearance)
+- Prioritize objective measurements over descriptive terms
+- If documented diagnosis contradicts measurements → Prioritize measurements
+
+**STEP 4: AUTOMATIC SEVERE INDICATORS**
+- Nutritional edema (kwashiorkor) → Severe malnutrition regardless of z-scores
+- Visible severe wasting with z-score ≤-3.0 → Severe malnutrition
+- MUAC ≤115mm → Severe malnutrition regardless of other measurements
+
+**STEP 5: VERIFY CLINICAL ALIGNMENT**
+- Does severity of z-score deficits match clinical description?
+- Severe malnutrition (z ≤-3.0) should have visible wasting, muscle loss
+- If mismatch (severe z-score but "well appearing") → Review data quality, consider measurement error
 
 *** STEP-BY-STEP EXTRACTION PROCESS ***
 
@@ -187,82 +350,153 @@ ASPEN: "Growth is the primary outcome measure of nutritional status in children.
 For each measurement, document:
 - Exact value with date (e.g., "Weight 12.5 kg on 1/15/25")
 - Percentile and z-score (e.g., "5th percentile, z-score -1.64")
+- Measurement type (weight-for-age, BMI-for-age, height-for-age)
 - For serial/longitudinal ONLY: Calculate trends (absolute change, %, velocity, percentile crossing)
 
-Examples:
-✓ Single-point: "Weight 11.2 kg (3rd percentile, z-score -1.88) on 3/15/25. Single measurement available - trend assessment not possible."
-✓ Longitudinal: "Weight 12.5 kg (25th %ile, z-score -0.67) on 1/15, 11.8 kg (10th %ile, z-score -1.28) on 2/14, 11.2 kg (3rd %ile, z-score -1.88) on 3/15. Declined 1.3 kg (10.4%) over 59 days with percentile crossing from 25th→3rd, representing acute malnutrition."
+**Examples:**
+✓ Single-point: "BMI-for-age 14.2 kg/m² (8th percentile, z-score -1.41) on 3/15/25. Single measurement available - trend assessment not possible. Recommend serial measurements at 1-month intervals to establish trajectory per ASPEN monitoring guidelines."
+
+✓ Longitudinal: "BMI-for-age z-scores: +0.2 (58th percentile) on 1/15, -0.5 (31st percentile) on 2/14, -1.2 (11th percentile) on 3/15. Declined 1.4 z-scores over 59 days with percentile crossing from 58th→11th, meeting ASPEN criterion for moderate malnutrition (≥1 z-score decline)."
 
 **STEP 2: APPLY CRITERIA WITH SPECIFIC DOCUMENTATION**
 
 For EACH criterion assessed, document the SPECIFIC part satisfied:
 
 **WHO Malnutrition Classification (Weight-for-Height or BMI-for-Age z-scores):**
-- z < -3: Document as "Severe acute malnutrition per WHO criterion z-score < -3 (measured z-score: [value])"
-- -3 ≤ z < -2: Document as "Moderate acute malnutrition per WHO criterion z-score -3 to -2 (measured z-score: [value])"
-- -2 ≤ z < -1: Document as "Mild malnutrition risk per WHO criterion z-score -2 to -1 (measured z-score: [value])"
-- -1 ≤ z ≤ +1: Document as "Normal nutritional status per WHO criterion z-score -1 to +1 (measured z-score: [value])"
+- z < -3: "Severe acute malnutrition per WHO criterion z-score < -3 (measured BMI z-score: [value])"
+- -3 ≤ z < -2: "Moderate acute malnutrition per WHO criterion z-score -3 to -2 (measured z-score: [value])"
+- -2 ≤ z < -1: "At risk for malnutrition per WHO criterion z-score -2 to -1 (measured z-score: [value])"
+- -1 ≤ z ≤ +1: "Normal nutritional status per WHO criterion z-score -1 to +1 (measured z-score: [value])"
+- z > +1: "Above normal per WHO criterion z-score > +1 (measured z-score: [value]) - excludes malnutrition"
 
-**ASPEN Pediatric Malnutrition Criteria (requires 2+ indicators):**
+**ASPEN Pediatric Malnutrition Criteria (requires ≥2 indicators, or 1 if severe):**
 
-Anthropometric Deficit:
-- Mild: Document as "Mild malnutrition per ASPEN anthropometric criterion z-score -1 to -1.9 (BMI-for-age z-score: [value])"
-- Moderate: Document as "Moderate malnutrition per ASPEN anthropometric criterion z-score -2 to -2.9 (weight-for-height z-score: [value])"
-- Severe: Document as "Severe malnutrition per ASPEN anthropometric criterion z-score ≤ -3 (BMI-for-age z-score: [value])"
+**Indicator 1: Anthropometric Deficit**
+- Mild: "Meets ASPEN anthropometric criterion: mild deficit with z-score -1.0 to -1.9 (BMI-for-age z-score: [value]) ✓"
+- Moderate: "Meets ASPEN anthropometric criterion: moderate deficit with z-score -2.0 to -2.9 (weight-for-height z-score: [value]) ✓"
+- Severe: "Meets ASPEN anthropometric criterion: severe deficit with z-score ≤-3.0 (BMI-for-age z-score: [value]) ✓"
+- Not met: "Does not meet ASPEN anthropometric criterion: z-score ≥-1.0 (BMI z-score: [value]) ✗"
 
-Growth Velocity Deceleration (for serial/longitudinal ONLY):
-- Mild: Document as "Mild malnutrition per ASPEN velocity criterion decline of 1 z-score (z-score declined from [initial] to [final], decline of [difference])"
-- Moderate: Document as "Moderate malnutrition per ASPEN velocity criterion decline of 2 z-scores (z-score declined from [initial] to [final] over [timeframe])"
-- Severe: Document as "Severe malnutrition per ASPEN velocity criterion decline of 3+ z-scores (z-score declined from [initial] to [final] over [timeframe])"
+**Indicator 2: Growth Velocity Deceleration (LONGITUDINAL data required)**
+- Mild: "Meets ASPEN velocity criterion: mild deceleration with decline of ≥1 z-score (BMI z-score declined from [initial] to [final] over [timeframe], decline of [difference]) ✓"
+- Moderate: "Meets ASPEN velocity criterion: moderate deceleration with decline of ≥2 z-scores (z-score declined [amount] over [timeframe]) ✓"
+- Severe: "Meets ASPEN velocity criterion: severe deceleration with decline of ≥3 z-scores (z-score declined [amount] over [timeframe]) ✓"
+- Not applicable: "Cannot assess ASPEN velocity criterion - only single measurement available. Recommend serial measurements at [interval]. ✗"
 
-**For single-point assessments:** State "Growth velocity cannot be assessed - only single measurement available. Recommend serial measurements at [interval] to establish trend per ASPEN monitoring guidelines."
+**Indicator 3: Inadequate Nutrient Intake**
+- Mild: "Meets ASPEN intake criterion: mild inadequate intake at 51-75% of estimated needs for ≥1 week (documented intake: [%] over [duration]) ✓"
+- Moderate: "Meets ASPEN intake criterion: moderate inadequate intake at 26-50% of estimated needs (documented intake: [%] over [duration]) ✓"
+- Severe: "Meets ASPEN intake criterion: severe inadequate intake at ≤25% of estimated needs (documented intake: [%] over [duration]) ✓"
+- Not met: "Does not meet ASPEN intake criterion - intake appears adequate at ≥75% of estimated needs ✗" OR "Cannot assess - no intake documentation available ✗"
 
-Inadequate Nutrient Intake:
-- Document as "Inadequate intake per ASPEN criterion <50% estimated needs for ≥1 week (documented intake: [%] over [duration])" OR
-- Document as "Intake appears adequate, does not meet ASPEN inadequate intake criterion"
+**Indicator 4: Physical Examination Findings**
+- Muscle wasting: "Meets ASPEN physical exam criterion: muscle wasting present (temporal wasting, prominent ribs, decreased muscle bulk noted on exam [date]) ✓"
+- Fat loss: "Meets ASPEN physical exam criterion: fat loss present (orbital fat loss, loose skin, decreased subcutaneous fat noted on exam [date]) ✓"
+- Edema: "Meets ASPEN physical exam criterion: nutritional edema present (pitting edema, kwashiorkor noted on exam [date]) ✓"
+- Not met: "Does not meet ASPEN physical exam criterion - no muscle wasting, fat loss, or edema documented. Patient described as 'well appearing' ✗"
 
-Physical Examination:
-- Muscle wasting: Document as "Muscle wasting present per ASPEN criterion (temporal wasting, prominent ribs noted on exam [date])"
-- Fat loss: Document as "Fat loss present per ASPEN criterion (orbital fat loss, loose skin noted on exam [date])"
-- If absent: Document as "No muscle wasting or fat loss on examination, does not meet ASPEN physical exam criteria"
+**COUNT INDICATORS:**
+"ASPEN indicator count: [X]/4 indicators met. Malnutrition diagnosis requires ≥2 indicators (or ≥1 if severe z-score ≤-3.0)."
 
-**STEP 3: MAKE BINARY CLASSIFICATION DECISION**
+**STEP 3: MAKE BINARY CLASSIFICATION DECISION (v1.0.0)**
 
 Based on documented criteria:
 
 **MALNOURISHED** if:
-- 2+ ASPEN indicators present, OR
-- WHO z-score indicates malnutrition (z < -2), OR
-- Clinical evidence of malnutrition with documented criteria
+- ≥2 ASPEN indicators present (anthropometric + intake, OR anthropometric + physical exam, etc.), OR
+- Single severe indicator (z-score ≤-3.0, MUAC <115mm, nutritional edema) with clinical signs, OR
+- WHO z-score <-2 (moderate/severe acute malnutrition) with corroborating evidence
 
 **NOT MALNOURISHED** if:
 - <2 ASPEN indicators present, AND
-- WHO z-score normal or at-risk only (z ≥ -2), AND
-- No clinical evidence meeting diagnostic criteria
+- No severe single indicators (z-score >-3.0, no edema), AND
+- BMI/weight-for-height ≥-1.0 (normal range), OR
+- BMI ≥85th percentile (overweight/obese), OR
+- All z-scores positive (above average), OR
+- Well-appearing with borderline measurements and <2 indicators
 
 **STEP 4: PROVIDE CLASSIFICATION REASONING**
 
 Document:
-1. **Assessment Type**: [Single-point / Serial / Longitudinal] - [brief justification]
-2. **Criteria Satisfied**: List each ASPEN/WHO criterion met with specific values
-3. **Criteria Not Met**: Note which standard criteria were assessed but not satisfied
-4. **Missing Data**: Identify gaps and recommend specific assessments needed
-5. **Final Classification**: Malnourished or Not Malnourished
-6. **Severity** (if malnourished): Mild, Moderate, or Severe
-7. **Confidence**: Note limitations based on assessment type and data availability
+1. **Mandatory Exclusions Applied**:
+   - BMI percentile check: [result] (If ≥85th → Not Malnourished)
+   - Z-score sign check: [positive/negative/mixed] (All positive → Not Malnourished)
+   - Clinical appearance: [well appearing / signs of wasting / etc.]
 
-**ANONYMIZATION:** Use "the patient", "the child", "the [age]-year-old"
+2. **Assessment Type**: [Single-point / Serial / Longitudinal] - [brief justification]
+   - Single-point: Only one encounter or one set of measurements
+   - Serial: Multiple measurements same encounter
+   - Longitudinal: Multiple encounters with different dates
 
-**CRITICAL RULES:**
-- State assessment type FIRST before interpreting data
-- DO NOT calculate trends for single-point assessments
-- DO NOT say "based on ASPEN criteria" - specify WHICH criterion
-- Document exact z-score/percentile values with the criterion
-- For serial/longitudinal: Always calculate and document trends
-- For ASPEN diagnosis: Count indicators explicitly (need 2+)
-- Quote exact measurements with dates
-- Recommend serial measurements if single-point limits assessment
-- Make a clear binary decision: Malnourished or Not Malnourished
-- All z-scores below 50th percentile must be negative
+3. **ASPEN Indicators Met (need ≥2 for diagnosis):**
+   - ☐ Anthropometric deficit (z-score <-1.0): [Yes/No] - [specific values]
+   - ☐ Growth velocity/deceleration (longitudinal only): [Yes/No/Cannot assess] - [specific values]
+   - ☐ Inadequate intake (<75% needs): [Yes/No/Not documented] - [specific evidence]
+   - ☐ Physical exam findings (wasting/edema): [Yes/No] - [specific findings]
+   - **Total indicators: [X]/4** (≥2 required for malnutrition)
 
-**OUTPUT:** Return your analysis as structured JSON following the provided schema, with comprehensive reasoning in the "reasoning" field and binary classification ("Malnourished" or "Not Malnourished") in the "status" field.
+4. **Conflict Resolution Applied**:
+   - If BMI and weight-for-age conflict: [describe and resolution]
+   - If documented diagnosis conflicts with measurements: [describe and resolution]
+   - Hierarchy applied: BMI > weight-for-height > weight-for-age > clinical appearance
+
+5. **Criteria Satisfied**: List each ASPEN/WHO criterion met with specific values
+   - Example: "Moderate malnutrition per ASPEN: BMI z-score -2.3 (anthropometric indicator) + inadequate intake 40% of needs x 2 weeks (intake indicator) = 2/4 indicators met"
+
+6. **Criteria Not Met**: Note which standard criteria were assessed but not satisfied
+   - Example: "Growth velocity cannot be assessed (single-point data). No physical exam findings of wasting documented."
+
+7. **Missing Data**: Identify gaps and recommend specific assessments needed
+   - Example: "Recommend: Serial BMI measurements monthly to assess velocity, dietary recall to quantify intake, physical exam focused on muscle/fat stores"
+
+8. **Final Classification**: Malnourished or Not Malnourished (binary decision required)
+
+9. **Severity** (if Malnourished): Mild, Moderate, or Severe
+   - Based on lowest z-score OR most severe indicator met
+   - Mild: z-score -1.0 to -1.9
+   - Moderate: z-score -2.0 to -2.9
+   - Severe: z-score ≤-3.0 OR MUAC <115mm OR nutritional edema
+
+10. **Confidence**: High/Moderate/Low
+    - High: ≥2 clear indicators, longitudinal data, severe deficits, clinical signs align
+    - Moderate: 2 indicators but borderline values, single-point data limiting assessment
+    - Low: Conflicting data, missing key information, documented diagnosis without supporting evidence
+
+**ANONYMIZATION:** Use "the patient", "the child", "the [age]-year-old", "the infant"
+
+**CRITICAL RULES (v1.0.0):**
+1. ✅ **APPLY mandatory exclusions FIRST** (BMI ≥85th, all positive z-scores → Not Malnourished)
+2. ✅ **STATE assessment type** before interpreting data (single-point/serial/longitudinal)
+3. ❌ **DO NOT calculate trends** for single-point assessments (velocity, deceleration, percentile crossing)
+4. ✅ **COUNT ASPEN indicators explicitly** - need ≥2 for diagnosis (or 1 if severe)
+5. ❌ **DO NOT say "based on ASPEN criteria"** without specifying WHICH criterion
+6. ✅ **DOCUMENT exact z-score/percentile values** with the criterion met
+7. ✅ **USE conflict resolution hierarchy**: BMI > weight-for-height > weight-for-age > appearance
+8. ❌ **DO NOT diagnose based on height-for-age alone** (stunting ≠ acute malnutrition)
+9. ❌ **DO NOT diagnose based on descriptive terms** without objective measurements (z-scores)
+10. ❌ **DO NOT accept documented malnutrition** without verifying with anthropometric data
+11. ✅ **VERIFY clinical appearance aligns** with severity of deficits
+12. ✅ **MAKE clear binary decision**: Malnourished or Not Malnourished (no "possible" or "uncertain")
+13. ✅ **RECOMMEND serial measurements** if single-point limits assessment
+14. ❌ **DO NOT interpret positive z-scores** as malnutrition indicators
+15. ❌ **ALL z-scores below 50th percentile MUST be negative**
+
+## CRITICAL REMINDERS (v1.0.0)
+
+1. ❌ **DO NOT** diagnose malnutrition if BMI ≥85th percentile (overweight/obese)
+2. ❌ **DO NOT** diagnose malnutrition if all z-scores are positive (above average)
+3. ❌ **DO NOT** diagnose with <2 ASPEN indicators unless severe single indicator (z ≤-3.0, edema)
+4. ❌ **DO NOT** diagnose based on height-for-age alone (stunting without wasting)
+5. ❌ **DO NOT** accept documented malnutrition codes without objective anthropometric verification
+6. ❌ **DO NOT** calculate velocity/deceleration/trends for single-point assessments
+7. ❌ **DO NOT** use descriptive terms ("failure to thrive") as primary diagnostic criteria
+8. ❌ **DO NOT** confuse weight-for-age (composite) with BMI/weight-for-height (acute indicators)
+9. ❌ **DO NOT** ignore "well appearing" clinical gestalt when borderline measurements present
+10. ✅ **DO** apply conflict resolution hierarchy (BMI > weight-for-height > appearance)
+11. ✅ **DO** distinguish single-point vs longitudinal data capabilities
+12. ✅ **DO** count ASPEN indicators explicitly (need ≥2)
+13. ✅ **DO** verify clinical signs align with severity of anthropometric deficits
+14. ✅ **DO** prioritize objective measurements over ICD codes/documentation
+15. ✅ **DO** make clear binary decision with confidence level
+
+**OUTPUT:** Return your analysis as structured JSON following the provided schema, with comprehensive reasoning documenting mandatory exclusions, assessment type, indicator count (X/4), conflict resolution, and binary classification ("Malnourished" or "Not Malnourished") with confidence level.
