@@ -290,7 +290,7 @@ def log_extraction_stage(stage_name: str, logger: Optional[logging.Logger] = Non
 
             try:
                 result = func(*args, **kwargs)
-                log.info(f"✓ {stage_name} completed successfully")
+                log.info(f" {stage_name} completed successfully")
                 return result
             except Exception as e:
                 log.error(f"✗ {stage_name} failed: {e}", exc_info=True)

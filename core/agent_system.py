@@ -255,7 +255,7 @@ class ExtractionAgent:
                         STAGE1_TOOL_BUDGET = 50  # Recommended limit for Stage 1 planning
                         if len(self.context.tool_requests) > STAGE1_TOOL_BUDGET:
                             logger.warning(
-                                f"⚠️ STAGE 1 COMPLEXITY WARNING: Planned {len(self.context.tool_requests)} tools "
+                                f"️ STAGE 1 COMPLEXITY WARNING: Planned {len(self.context.tool_requests)} tools "
                                 f"(recommended: ≤{STAGE1_TOOL_BUDGET}). Consider reviewing task complexity or "
                                 f"optimizing tool selection to reduce processing time and costs."
                             )
@@ -568,6 +568,108 @@ class ExtractionAgent:
 
         return unique_requests
 
+    def _validate_tool_parameters(self, tool_requests: List[Dict[str, Any]]) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
+        """
+        UNIVERSAL parameter validation - works for ANY function, not task-specific.
+
+        Validates that function calls have all required parameters with valid values.
+        Filters out invalid requests to prevent execution errors.
+
+        Returns:
+            Tuple of (valid_requests, filtered_results)
+            - valid_requests: List of tool requests that passed validation
+            - filtered_results: List of failure results for LLM to understand what was skipped
+        """
+        valid_requests = []
+        filtered_results = []
+        invalid_count = 0
+
+        for req in tool_requests:
+            tool_type = req.get('type', '')
+
+            # Only validate function calls (RAG and extras don't have strict requirements)
+            if tool_type != 'function':
+                valid_requests.append(req)
+                continue
+
+            func_name = req.get('name', '')
+            provided_params = req.get('parameters', {})
+
+            # Get function definition from registry
+            try:
+                func_def = self.function_registry.get_function_definition(func_name)
+            except:
+                logger.warning(f"Function '{func_name}' not found in registry, skipping")
+                invalid_count += 1
+                # Add to filtered results for LLM
+                filtered_results.append({
+                    'type': 'function',
+                    'name': func_name,
+                    'success': False,
+                    'message': f"Function '{func_name}' not found in registry",
+                    'parameters': provided_params,
+                    'filtered_at_validation': True
+                })
+                continue
+
+            if not func_def or 'parameters' not in func_def:
+                # No parameter spec available - allow it through (might be simple function)
+                valid_requests.append(req)
+                continue
+
+            # Check required parameters
+            required_params = []
+            for param_name, param_spec in func_def['parameters'].items():
+                if isinstance(param_spec, dict) and param_spec.get('required', False):
+                    required_params.append(param_name)
+
+            # Find missing or invalid parameters
+            missing_or_invalid = []
+            for param in required_params:
+                value = provided_params.get(param)
+
+                # Check if parameter is missing or has invalid value
+                if value is None:
+                    missing_or_invalid.append(f"{param}=None")
+                elif value == '':
+                    missing_or_invalid.append(f"{param}=''")
+                elif isinstance(value, (int, float)) and value == 0:
+                    # Zero might be invalid for some functions (e.g., creatinine_clearance)
+                    # But valid for others - we log it but allow through
+                    logger.debug(f"Function '{func_name}': parameter '{param}' = 0 (may cause issues)")
+
+            if missing_or_invalid:
+                logger.warning(
+                    f"Skipping function '{func_name}': "
+                    f"missing/invalid required parameters: {', '.join(missing_or_invalid)}"
+                )
+                logger.debug(f"   Required: {required_params}")
+                logger.debug(f"   Provided: {list(provided_params.keys())}")
+                invalid_count += 1
+
+                # CRITICAL: Add to filtered results so LLM sees what was skipped and why
+                filtered_results.append({
+                    'type': 'function',
+                    'name': func_name,
+                    'success': False,
+                    'message': f"Missing required parameter(s): {', '.join([p.split('=')[0] for p in missing_or_invalid])}",
+                    'parameters': provided_params,
+                    'filtered_at_validation': True,
+                    'required_parameters': required_params
+                })
+                continue  # Skip this function call
+
+            # If we get here, request is valid
+            valid_requests.append(req)
+
+        if invalid_count > 0:
+            logger.info(
+                f"Parameter validation: {len(tool_requests)} → {len(valid_requests)} "
+                f"({invalid_count} invalid requests filtered)"
+            )
+
+        return valid_requests, filtered_results
+
     @log_extraction_stage("Stage 2: Tool Execution")
     def _execute_stage2_tools(self):
         """
@@ -591,17 +693,27 @@ class ExtractionAgent:
             self.context.tool_requests = unique_requests
 
             if num_duplicates > 0:
-                logger.warning(f"⚠️ PREVENTED {num_duplicates} DUPLICATE TOOL REQUESTS IN STAGE 2")
+                logger.warning(f"️ PREVENTED {num_duplicates} DUPLICATE TOOL REQUESTS IN STAGE 2")
                 logger.info(f"   Original: {original_count} requests → Unique: {len(unique_requests)} requests")
 
             # Log budget status
-            logger.info(f"📊 {self.tool_dedup_preventer.get_budget_status()}")
+            logger.info(f" {self.tool_dedup_preventer.get_budget_status()}")
         else:
             # Fallback to old deduplication
             self.context.tool_requests = self._deduplicate_tool_requests(self.context.tool_requests)
 
+        # UNIVERSAL PARAMETER VALIDATION: Filter out invalid function calls
+        # Works for ANY function - prevents execution errors from missing parameters
+        # Also returns filtered results to inform LLM about skipped tools
+        self.context.tool_requests, filtered_results = self._validate_tool_parameters(self.context.tool_requests)
+
+        # Add filtered results to tool_results so LLM knows what was skipped
+        if filtered_results:
+            self.context.tool_results.extend(filtered_results)
+            logger.info(f"Added {len(filtered_results)} filtered tool failure(s) to results for LLM feedback")
+
         if len(self.context.tool_requests) == 0:
-            logger.warning(" No tool requests to execute after deduplication")
+            logger.warning("No valid tool requests to execute after validation")
             return
 
         logger.info(f"Executing {len(self.context.tool_requests)} tools in PARALLEL (async)")
@@ -1065,7 +1177,7 @@ class ExtractionAgent:
                 STAGE4_TOOL_BUDGET = 20  # Recommended limit for Stage 4 gap-filling
                 if len(tool_requests) > STAGE4_TOOL_BUDGET:
                     logger.warning(
-                        f"⚠️ STAGE 4 COMPLEXITY WARNING: Requesting {len(tool_requests)} additional tools "
+                        f"️ STAGE 4 COMPLEXITY WARNING: Requesting {len(tool_requests)} additional tools "
                         f"(recommended: ≤{STAGE4_TOOL_BUDGET}). Consider if all gap-filling tools are necessary "
                         f"to avoid excessive refinement complexity."
                     )
@@ -1100,7 +1212,7 @@ class ExtractionAgent:
             tool_requests = unique_requests
 
             if num_duplicates > 0:
-                logger.warning(f"⚠️ PREVENTED {num_duplicates} DUPLICATE TOOL REQUESTS IN STAGE 4")
+                logger.warning(f"️ PREVENTED {num_duplicates} DUPLICATE TOOL REQUESTS IN STAGE 4")
                 logger.info(f"   Original: {original_count} requests → Unique: {len(unique_requests)} requests")
         else:
             # Fallback to old deduplication
@@ -1374,7 +1486,7 @@ Return ONLY JSON for the selected fields."""
 
         prompt = f"""You are a tool planning assistant. Your job is to read the TASK DESCRIPTION below and identify which tools are needed to fulfill it.
 
-🔴 CRITICAL INSTRUCTIONS:
+ CRITICAL INSTRUCTIONS:
 - Read the TASK DESCRIPTION to understand WHAT needs to be extracted
 - Analyze the CLINICAL TEXT to identify available data
 - Autonomously DETERMINE which tools are REQUIRED to fulfill the task
@@ -1540,7 +1652,7 @@ RESPONSE FORMAT (JSON only):
 }}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-📚 ILLUSTRATIVE EXAMPLES (Adapt to YOUR specific task!)
+ ILLUSTRATIVE EXAMPLES (Adapt to YOUR specific task!)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 EXAMPLE 1: Renal Function Assessment (Serial Measurements)
@@ -1649,7 +1761,7 @@ Response should include:
 }}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-⚡ CRITICAL REQUIREMENTS (Universal Principles)
+ CRITICAL REQUIREMENTS (Universal Principles)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
  ADAPT TO YOUR TASK:
@@ -1678,49 +1790,49 @@ The examples above show renal, growth, and cardiac tasks. YOUR task may be compl
 - Extract from YOUR schema field names and clinical context
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 ONE-SHOT PLANNING: THIS IS YOUR ONLY CHANCE TO PLAN TOOLS!
+ ONE-SHOT PLANNING: THIS IS YOUR ONLY CHANCE TO PLAN TOOLS!
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-⚠️  CRITICAL: Unlike iterative modes, you CANNOT call tools again after this stage.
+️  CRITICAL: Unlike iterative modes, you CANNOT call tools again after this stage.
 This is your ONLY opportunity to request ALL necessary tools.
 
 PLAN COMPREHENSIVELY:
 
-✓ IDENTIFY ALL MEASUREMENTS: Scan the entire text for EVERY numeric value, lab result,
+ IDENTIFY ALL MEASUREMENTS: Scan the entire text for EVERY numeric value, lab result,
   vital sign, and measurement. Don't miss any data points.
 
-✓ CALL FUNCTIONS MULTIPLE TIMES: If you see serial/temporal data (measurements at
+ CALL FUNCTIONS MULTIPLE TIMES: If you see serial/temporal data (measurements at
   different time points), call the SAME function MULTIPLE times. Examples:
   - "Weight 65kg (today), 68kg (3mo ago), 70kg (6mo ago)" → call calculate_bmi 3 times
   - "Cr 1.2, 1.5, 1.8 over past 6 months" → call eGFR function 3 times
   - Do NOT skip any time points!
 
-✓ EXTRACT ALL PARAMETERS: For each function call, extract PRECISE parameter values
+ EXTRACT ALL PARAMETERS: For each function call, extract PRECISE parameter values
   from the text. Don't leave parameters empty if values are available.
 
-✓ PLAN RAG QUERIES STRATEGICALLY: Request 3-5 focused queries covering:
+ PLAN RAG QUERIES STRATEGICALLY: Request 3-5 focused queries covering:
   - Clinical guidelines (WHO, CDC, ADA, ACC/AHA, ASPEN, etc.)
   - Diagnostic criteria
   - Assessment methods
   - Domain-specific standards
   Make queries specific with 4-8 keywords each.
 
-✓ CHOOSE RELEVANT EXTRAS KEYWORDS: Select 5-8 specific medical terms from:
+ CHOOSE RELEVANT EXTRAS KEYWORDS: Select 5-8 specific medical terms from:
   - Schema field names
   - Clinical conditions in the text
   - Assessment types
   - Medical specialty terms
 
-✓ THINK AHEAD: What calculations will Stage 3 need? What reference data will help
+ THINK AHEAD: What calculations will Stage 3 need? What reference data will help
   interpretation? Request ALL tools that might be useful NOW.
 
-❌ AVOID:
+ AVOID:
 - Vague or incomplete tool requests
 - Missing serial measurements
 - Generic RAG queries ("help", "information")
 - Skipping available functions that could help
 
-💡 REMEMBER: You're setting up the extraction for success. Be thorough, be specific,
+ REMEMBER: You're setting up the extraction for success. Be thorough, be specific,
    and plan for everything you'll need in one shot!
 
  RESPONSE FORMAT:
@@ -1786,7 +1898,7 @@ Respond with ONLY the JSON object in the format shown above."""
             return task_prompt
 
         # Fallback to schema-based description if no task prompt is defined
-        logger.warning("⚠️  No user task prompt found - using schema field descriptions as fallback")
+        logger.warning("️  No user task prompt found - using schema field descriptions as fallback")
         return self._extract_task_description()
 
     def _build_available_tools_description(self, functions: List[Dict[str, Any]] = None) -> str:

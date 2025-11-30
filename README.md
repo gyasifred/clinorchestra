@@ -10,32 +10,32 @@ ClinOrchestra is a **universal, autonomous clinical AI platform** that enables t
 
 ## Key Features
 
-- **🌐 Universal Platform**: Accomplishes ANY clinical task through autonomous LLM orchestration
+- ** Universal Platform**: Accomplishes ANY clinical task through autonomous LLM orchestration
   - No hardcoded task logic - driven by user-defined prompts and schemas
   - Examples (malnutrition, ADRD) demonstrate capability, not limits
   - Platform is fully user-configurable: custom functions, patterns, extras, and RAG resources
-- **⚙️ Dual Workflow Types**:
+- **️ Dual Workflow Types**:
   - **STRUCTURED Workflows**: Predefined 4-stage pipeline for predictable, production-ready tasks
   - **ADAPTIVE Workflows**: Dynamic, autonomous workflows that adjust based on task requirements
-- **🔧 Multi-Column Prompt Variables**: Pass multiple dataset columns as prompt placeholders
+- ** Multi-Column Prompt Variables**: Pass multiple dataset columns as prompt placeholders
   - Configure which columns feed into prompts (e.g., patient_id, age, gender, diagnosis)
   - Full backward compatibility with simple text-only workflows
-- **🤖 Autonomous Task Execution**: LLM analyzes tasks, determines required tools, and orchestrates execution
+- ** Autonomous Task Execution**: LLM analyzes tasks, determines required tools, and orchestrates execution
   - Adaptive workflow adjusts strategy based on intermediate results
   - Intelligent tool selection and composition for complex clinical reasoning
-- **🧮 Tool Integration**: Multiple tool types for comprehensive task support
+- ** Tool Integration**: Multiple tool types for comprehensive task support
   - **Functions**: Python functions for medical calculations (20+ built-in, fully customizable)
   - **RAG**: Clinical guidelines and publications from PDFs/URLs
   - **Extras**: Task-specific hints and domain knowledge (49+ clinical extras)
   - **Patterns**: Text preprocessing and postprocessing transformations (33+ patterns)
-- **🎯 User-Driven Customization**: Complete control over platform behavior
+- ** User-Driven Customization**: Complete control over platform behavior
   - Write custom functions, define patterns, provide extras via JSON/YAML
   - Selective tool enablement for each task
   - Configure workflow type based on task complexity
-- **🤖 Multi-LLM Support**: OpenAI, Anthropic, Google, Azure, Unsloth (local models)
-- **⚡ High Performance**: Parallel processing, caching, async tool execution (60-75% faster)
-- **🚀 Multi-GPU Processing**: Automatic multi-GPU support for local models (2-4x faster on H100 clusters)
-- **🖥️ Web Interface**: User-friendly Gradio UI with real-time progress tracking
+- ** Multi-LLM Support**: OpenAI, Anthropic, Google, Azure, Unsloth (local models)
+- ** High Performance**: Parallel processing, caching, async tool execution (60-75% faster)
+- ** Multi-GPU Processing**: Automatic multi-GPU support for local models (2-4x faster on H100 clusters)
+- **️ Web Interface**: User-friendly Gradio UI with real-time progress tracking
 
 ---
 
@@ -247,9 +247,9 @@ The platform is **universal** and autonomously accomplishes any clinical task yo
 
 ### SDK vs UI Usage
 
-**🖥️ Web UI** (Default): Launch with `clinorchestra` command - best for interactive exploration and testing
+**️ Web UI** (Default): Launch with `clinorchestra` command - best for interactive exploration and testing
 
-**🐍 Python SDK**: Import and use programmatically - best for:
+** Python SDK**: Import and use programmatically - best for:
 - Integration into data pipelines
 - Batch processing automation
 - Custom applications
