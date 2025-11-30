@@ -178,7 +178,7 @@ class AdaptiveRetryManager:
                 result = generation_func()
 
                 # Success!
-                logger.info(f"✓ Generation successful on attempt {attempt}")
+                logger.info(f" Generation successful on attempt {attempt}")
 
                 # Record successful attempt
                 if extraction_metrics:

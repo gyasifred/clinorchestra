@@ -9,7 +9,7 @@ Lab: ClinicalNLP Lab, Biomedical Informatics Center
 Version: 1.0.0 - Natural conversation with guideline-based evidence synthesis
 
 ═══════════════════════════════════════════════════════════════════════════
-🎯 TRULY UNIVERSAL SYSTEM - Works for ANY Clinical Task
+ TRULY UNIVERSAL SYSTEM - Works for ANY Clinical Task
 ═══════════════════════════════════════════════════════════════════════════
 
 This module contains:
@@ -161,7 +161,7 @@ EVIDENCE BASE:
 # ============================================================================
 # EXAMPLE TEMPLATE 1: MALNUTRITION ASSESSMENT
 # ============================================================================
-# 🎯 NOTE: This is an EXAMPLE template for malnutrition tasks.
+#  NOTE: This is an EXAMPLE template for malnutrition tasks.
 #    It demonstrates complex temporal reasoning and growth assessment.
 #    Your task can be completely different - this is NOT a system requirement!
 # ============================================================================
@@ -218,9 +218,9 @@ Count all 4: (1) Anthropometric, (2) Velocity (note if single-point cannot asses
 State: "ASPEN indicators: X/4 met. [Meets/Exceeds] threshold (single ≥1; serial/long ≥2)"
 
 **STEP 6 - SPECIFIC CRITERIA (NO VAGUE STATEMENTS):**
-✓ "Moderate per ASPEN anthropometric z-score -2 to -2.9 (BMI z-score -2.3 on 3/15/25)"
-✓ "Velocity: decline 2 z-scores (from -0.5 on 1/15 to -2.5 on 3/15, 59 days)"
-❌ "Based on ASPEN criteria", "Meets WHO guidelines"
+ "Moderate per ASPEN anthropometric z-score -2 to -2.9 (BMI z-score -2.3 on 3/15/25)"
+ "Velocity: decline 2 z-scores (from -0.5 on 1/15 to -2.5 on 3/15, 59 days)"
+ "Based on ASPEN criteria", "Meets WHO guidelines"
 
 **STEP 7 - SINGLE-POINT ENHANCEMENT:**
 Correlate: anthropometrics + labs + exam + symptoms
@@ -306,8 +306,8 @@ Pediatric dietitian curating AI training data. Natural expert language. Use ASPE
 5. **COUNT:** "ASPEN indicators: X/4 met. [Meets/Exceeds] threshold (single ≥1; serial/long ≥2)"
 
 6. **SPECIFIC CRITERIA:**
-✓ "Moderate per ASPEN z-score -2 to -2.9 (z-score -2.3 on 3/15)"
-❌ "Based on ASPEN" - TOO VAGUE
+ "Moderate per ASPEN z-score -2 to -2.9 (z-score -2.3 on 3/15)"
+ "Based on ASPEN" - TOO VAGUE
 
 **GROUND TRUTH (SUPPORT):**
 {label_context}
@@ -378,8 +378,8 @@ If initial contradicts, CORRECT using ASPEN, WHO, CDC guidelines.
 1. **VALIDATE TYPE:** Confirm single/serial/long correct with dates. Verify interpretation matches type (single can't assess velocity, serial/long calculates trends).
 
 2. **VALIDATE CRITERIA:** Check exact values present:
-✓ "Moderate per ASPEN z-score -2 to -2.9 (BMI z-score -2.3 on 3/15/25)"
-❌ "Based on ASPEN"
+ "Moderate per ASPEN z-score -2 to -2.9 (BMI z-score -2.3 on 3/15/25)"
+ "Based on ASPEN"
 Verify indicators counted: "X/4 met". Confirm threshold: ≥1 single, ≥2 serial/long.
 
 3. **VALIDATE Z-SIGNS:** Standard: "BMI z-score: -2.3" or "Weight 5th %ile". Alternative "PERCENTILE z VALUE": "[NUMBER] z [NUMBER]" = %ile first, z second. "3 z 1.88" = 3rd %ile, z should be -1.88 → CORRECT. Rule: %ile <50th MUST have negative z.
@@ -446,7 +446,7 @@ Return ONLY JSON: Start {{ end }}. No markdown. Refine using guideline evidence.
 # ============================================================================
 # EXAMPLE TEMPLATE 2: DIABETES ASSESSMENT
 # ============================================================================
-# 🎯 NOTE: This is an EXAMPLE template for diabetes tasks.
+#  NOTE: This is an EXAMPLE template for diabetes tasks.
 #    It demonstrates lab value extraction and medication tracking.
 #    Your task can be completely different - this is NOT a system requirement!
 # ============================================================================
@@ -625,7 +625,7 @@ REMEMBER:
 # ============================================================================
 # TEMPLATE REGISTRY - Your Starting Points
 # ============================================================================
-# 🎯 UNIVERSAL SYSTEM: Pick a template below or create your own!
+#  UNIVERSAL SYSTEM: Pick a template below or create your own!
 #
 # - "blank": Generic template - customize for any task
 # - "malnutrition": Example for nutritional assessment (adapt as needed)
@@ -658,7 +658,7 @@ PROMPT_TEMPLATE_REGISTRY_V1 = {
         "main": MALNUTRITION_MAIN_PROMPT,
         "minimal": MALNUTRITION_MINIMAL_PROMPT,
         "rag_prompt": MALNUTRITION_RAG_REFINEMENT_PROMPT,
-        "description": "📚 EXAMPLE: Pediatric malnutrition with temporal reasoning (adapt for your task!)",
+        "description": " EXAMPLE: Pediatric malnutrition with temporal reasoning (adapt for your task!)",
         "version": "1.0.0",
         "schema": {
             "malnutrition_status": {
@@ -732,7 +732,7 @@ PROMPT_TEMPLATE_REGISTRY_V1 = {
         "main": DIABETES_MAIN_PROMPT,
         "minimal": DIABETES_MINIMAL_PROMPT,
         "rag_prompt": DEFAULT_RAG_REFINEMENT_PROMPT,
-        "description": "📚 EXAMPLE: Diabetes assessment with labs and meds (adapt for your task!)",
+        "description": " EXAMPLE: Diabetes assessment with labs and meds (adapt for your task!)",
         "version": "1.0.0",
         "schema": {
             "diabetes_diagnosis": {
@@ -1008,7 +1008,7 @@ def format_tool_outputs_for_prompt(
             if results_list:
                 if not rag_output:
                     rag_output = "\n[RETRIEVED EVIDENCE FROM AUTHORITATIVE SOURCES]\n"
-                    rag_output += "🔴 CRITICAL: Use the following evidence to support your interpretation.\n"
+                    rag_output += " CRITICAL: Use the following evidence to support your interpretation.\n"
                     rag_output += "REQUIREMENTS:\n"
                     rag_output += "  • CITE specific sources in your output\n"
                     rag_output += "  • APPLY criteria and guidelines from these documents\n"
@@ -1048,7 +1048,7 @@ def format_tool_outputs_for_prompt(
 
             if not function_output:
                 function_output = "\n[CALCULATED VALUES FROM FUNCTIONS]\n"
-                function_output += "🔴 CRITICAL: Include ALL calculated values in your JSON output.\n"
+                function_output += " CRITICAL: Include ALL calculated values in your JSON output.\n"
                 function_output += "REQUIREMENTS:\n"
                 function_output += "  • USE exact calculated values (do not recalculate)\n"
                 function_output += "  • INCLUDE all function results in your extraction\n"
@@ -1074,7 +1074,7 @@ def format_tool_outputs_for_prompt(
             if items:
                 if not extras_output:
                     extras_output = "\n[SUPPLEMENTARY HINTS & TIPS]\n"
-                    extras_output += "🔴 CRITICAL: Apply these hints and patterns to your extraction.\n"
+                    extras_output += " CRITICAL: Apply these hints and patterns to your extraction.\n"
                     extras_output += f"Retrieved based on keywords: {', '.join(keywords)}\n"
                     extras_output += "REQUIREMENTS:\n"
                     extras_output += "  • APPLY guidance from these hints to your task\n"
@@ -1097,13 +1097,13 @@ def format_tool_outputs_for_prompt(
     error_output = ""
 
     if failed_functions or failed_rag or failed_extras:
-        error_output += "\n[⚠️  TOOL ERRORS - ANALYZE AND CORRECT]\n"
+        error_output += "\n[️  TOOL ERRORS - ANALYZE AND CORRECT]\n"
         error_output += "━" * 60 + "\n"
-        error_output += "🔴 CRITICAL: The following tools FAILED. You MUST learn from these errors.\n\n"
+        error_output += " CRITICAL: The following tools FAILED. You MUST learn from these errors.\n\n"
 
     # Failed functions with parameter correction guidance
     if failed_functions:
-        error_output += "❌ FAILED FUNCTIONS:\n"
+        error_output += " FAILED FUNCTIONS:\n"
         error_output += "=" * 60 + "\n\n"
 
         for i, fail in enumerate(failed_functions, 1):
@@ -1125,18 +1125,18 @@ def format_tool_outputs_for_prompt(
                 # Missing required parameter
                 missing_param = _extract_missing_parameter(error_message)
                 if missing_param:
-                    error_output += f"  ⚠️  MISSING REQUIRED PARAMETER: '{missing_param}'\n"
-                    error_output += f"  ✓ FIX: Add '{missing_param}' parameter with appropriate value\n"
+                    error_output += f"  ️  MISSING REQUIRED PARAMETER: '{missing_param}'\n"
+                    error_output += f"   FIX: Add '{missing_param}' parameter with appropriate value\n"
 
                     # Check if they used wrong parameter name
                     similar_params = [p for p in attempted_params.keys()
                                      if missing_param in p or p in missing_param]
                     if similar_params:
-                        error_output += f"  💡 NOTE: You used '{similar_params[0]}' but function needs '{missing_param}'\n"
+                        error_output += f"   NOTE: You used '{similar_params[0]}' but function needs '{missing_param}'\n"
                         error_output += f"     Example: Change {similar_params[0]}=value to {missing_param}=value\n"
 
                     # Provide correct function signature hint
-                    error_output += f"\n  📋 CHECK FUNCTION SIGNATURE:\n"
+                    error_output += f"\n   CHECK FUNCTION SIGNATURE:\n"
                     error_output += f"     Review the function definition to see required parameters\n"
                     error_output += f"     Required parameters MUST be provided\n"
 
@@ -1144,25 +1144,25 @@ def format_tool_outputs_for_prompt(
                 # Wrong parameter name
                 wrong_param = _extract_unexpected_parameter(error_message)
                 if wrong_param:
-                    error_output += f"  ⚠️  INVALID PARAMETER: '{wrong_param}'\n"
-                    error_output += f"  ✓ FIX: This parameter doesn't exist in the function\n"
+                    error_output += f"  ️  INVALID PARAMETER: '{wrong_param}'\n"
+                    error_output += f"   FIX: This parameter doesn't exist in the function\n"
                     error_output += f"     Check the function signature for correct parameter names\n"
                     error_output += f"     Remove '{wrong_param}' or rename to correct parameter\n"
 
             elif "invalid" in error_message.lower() or "type" in error_message.lower():
                 # Type/value error
-                error_output += f"  ⚠️  INVALID PARAMETER VALUE\n"
-                error_output += f"  ✓ FIX: Check parameter types and value formats\n"
+                error_output += f"  ️  INVALID PARAMETER VALUE\n"
+                error_output += f"   FIX: Check parameter types and value formats\n"
                 error_output += f"     Ensure values match expected types (string, number, etc.)\n"
 
             else:
                 # General error
-                error_output += f"  ⚠️  FUNCTION EXECUTION FAILED\n"
-                error_output += f"  ✓ FIX: Review error message and adjust parameters accordingly\n"
+                error_output += f"  ️  FUNCTION EXECUTION FAILED\n"
+                error_output += f"   FIX: Review error message and adjust parameters accordingly\n"
 
             error_output += f"\n{'─' * 50}\n\n"
 
-        error_output += "🔧 NEXT STEPS FOR FUNCTIONS:\n"
+        error_output += " NEXT STEPS FOR FUNCTIONS:\n"
         error_output += "  1. ANALYZE the error messages above\n"
         error_output += "  2. IDENTIFY incorrect or missing parameters\n"
         error_output += "  3. CORRECT parameter names and values\n"
@@ -1171,7 +1171,7 @@ def format_tool_outputs_for_prompt(
 
     # Failed RAG queries
     if failed_rag:
-        error_output += "❌ FAILED RAG QUERIES:\n"
+        error_output += " FAILED RAG QUERIES:\n"
         error_output += "=" * 60 + "\n\n"
 
         for i, fail in enumerate(failed_rag, 1):
@@ -1181,14 +1181,14 @@ def format_tool_outputs_for_prompt(
             error_output += f"QUERY #{i}: \"{query}\"\n"
             error_output += f"ERROR: {error_message}\n\n"
 
-        error_output += "🔧 NEXT STEPS FOR RAG:\n"
+        error_output += " NEXT STEPS FOR RAG:\n"
         error_output += "  1. If RAG not configured: Continue without RAG evidence\n"
         error_output += "  2. If query failed: Try different query or proceed without\n"
         error_output += "  3. ADAPTIVE mode: Can request different RAG query\n\n"
 
     # Failed extras
     if failed_extras:
-        error_output += "❌ FAILED EXTRAS:\n"
+        error_output += " FAILED EXTRAS:\n"
         error_output += "=" * 60 + "\n\n"
 
         for i, fail in enumerate(failed_extras, 1):
@@ -1198,13 +1198,13 @@ def format_tool_outputs_for_prompt(
             error_output += f"KEYWORDS #{i}: {', '.join(keywords)}\n"
             error_output += f"ERROR: {error_message}\n\n"
 
-        error_output += "🔧 NEXT STEPS FOR EXTRAS:\n"
+        error_output += " NEXT STEPS FOR EXTRAS:\n"
         error_output += "  1. Continue extraction without these hints\n"
         error_output += "  2. ADAPTIVE mode: Can try different keywords\n\n"
 
     if error_output:
         error_output += "━" * 60 + "\n"
-        error_output += "⚡ IMPORTANT: Learn from these errors and DO NOT repeat the same mistakes!\n"
+        error_output += " IMPORTANT: Learn from these errors and DO NOT repeat the same mistakes!\n"
         error_output += "━" * 60 + "\n"
 
     # Append errors to function output (most relevant location)
@@ -1355,7 +1355,7 @@ This section defines HOW to use tools ITERATIVELY to gather the information you 
 11. Extract remaining fields directly from clinical text
 12. Output final JSON matching the exact schema structure
 
-🔴 CRITICAL: You autonomously determine which tools are REQUIRED to fulfill the task.
+ CRITICAL: You autonomously determine which tools are REQUIRED to fulfill the task.
 Tools must serve the TASK requirements, not unrelated exploration.
 
 **CRITICAL PRINCIPLES:**

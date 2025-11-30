@@ -195,7 +195,7 @@ class ToolDedupPreventer:
     
         if duplicates_removed > 0:
             logger.warning(
-                f"⚠️ PREVENTED {duplicates_removed} DUPLICATE TOOL CALLS "
+                f"️ PREVENTED {duplicates_removed} DUPLICATE TOOL CALLS "
                 f"(same tool + same parameters called multiple times)"
             )
             logger.info(
@@ -218,7 +218,7 @@ class ToolDedupPreventer:
 
         # Build warning message
         lines = []
-        lines.append("\n⚠️ DUPLICATE TOOL CALL PREVENTION WARNING ⚠️")
+        lines.append("\n️ DUPLICATE TOOL CALL PREVENTION WARNING ️")
         lines.append("=" * 70)
         lines.append("")
         lines.append("The following tool calls have ALREADY been executed:")
@@ -235,11 +235,11 @@ class ToolDedupPreventer:
             params = call.get('parameters', {})
 
             if tool_type == 'function':
-                func_calls.append(f"  ✓ {tool_name}({self._format_params(params)})")
+                func_calls.append(f"   {tool_name}({self._format_params(params)})")
             elif tool_type == 'rag':
-                rag_calls.append(f"  ✓ query_rag(query=\"{params.get('query', '')}\")")
+                rag_calls.append(f"   query_rag(query=\"{params.get('query', '')}\")")
             elif tool_type == 'extras':
-                extras_calls.append(f"  ✓ query_extras(keywords={params.get('keywords', [])})")
+                extras_calls.append(f"   query_extras(keywords={params.get('keywords', [])})")
 
         if func_calls:
             lines.append("FUNCTIONS ALREADY CALLED:")
@@ -262,10 +262,10 @@ class ToolDedupPreventer:
 
         # Budget warning
         usage_pct = self.budget.get_usage_percentage()
-        lines.append(f"📊 TOOL CALL BUDGET: {self.budget.calls_used}/{self.budget.max_calls} used ({usage_pct:.0f}%)")
+        lines.append(f" TOOL CALL BUDGET: {self.budget.calls_used}/{self.budget.max_calls} used ({usage_pct:.0f}%)")
 
         if self.budget.is_budget_warning_threshold():
-            lines.append(f"⚠️ WARNING: Budget at {usage_pct:.0f}% - conserve remaining {self.budget.calls_remaining} calls!")
+            lines.append(f"️ WARNING: Budget at {usage_pct:.0f}% - conserve remaining {self.budget.calls_remaining} calls!")
 
         if self.budget.is_budget_exceeded():
             lines.append(f"🛑 BUDGET EXCEEDED: No more tool calls allowed!")
