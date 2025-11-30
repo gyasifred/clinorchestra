@@ -25,5 +25,6 @@
     "type": "dict",
     "description": "Dictionary with gold_grade (1-4), abcd_group, severity, and treatment_recommendation"
   },
+  "enabled": true,
   "signature": "(fev1_percent_predicted, symptom_score='unknown', exacerbations_per_year=0)"
 }

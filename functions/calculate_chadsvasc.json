@@ -40,5 +40,6 @@
     }
   },
   "returns": "CHA2DS2-VASc score (0-9)",
+  "enabled": true,
   "signature": "(age, gender, chf, hypertension, stroke_tia, vascular_disease, diabetes)"
 }

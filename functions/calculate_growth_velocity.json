@@ -47,5 +47,6 @@
     "interpretation": "Clinical interpretation of growth velocity",
     "growth_assessment": "Assessment category (normal, low, high, etc.)"
   },
+  "enabled": true,
   "signature": "(initial_height_cm, final_height_cm, initial_date=None, final_date=None, time_interval_days=None, age_months=None) -> dict"
 }

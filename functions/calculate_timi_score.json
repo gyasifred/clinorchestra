@@ -43,5 +43,6 @@
     "type": "dict",
     "description": "Dictionary with score (0-7), risk_level, and estimated_risk_percent"
   },
+  "enabled": true,
   "signature": "(age_65_or_older, three_or_more_cad_risk_factors, known_cad_stenosis_50_percent, aspirin_use_in_past_7_days, severe_angina_24h, st_changes, elevated_cardiac_markers)"
 }

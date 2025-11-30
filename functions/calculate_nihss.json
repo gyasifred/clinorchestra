@@ -83,5 +83,6 @@
     "type": "dict",
     "description": "Dictionary with score (0-42), severity, and prognosis"
   },
+  "enabled": true,
   "signature": "(loc_consciousness, loc_questions, loc_commands, gaze, visual, facial_palsy, motor_arm_left, motor_arm_right, motor_leg_left, motor_leg_right, limb_ataxia, sensory, language, dysarthria, extinction_inattention)"
 }

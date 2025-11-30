@@ -55,5 +55,6 @@
     }
   },
   "returns": "CIWA-Ar score (0-67)",
+  "enabled": true,
   "signature": "(nausea, tremor, sweating, anxiety, agitation, tactile_disturbances, auditory_disturbances, visual_disturbances, headache, orientation)"
 }

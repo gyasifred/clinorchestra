@@ -10,5 +10,6 @@
     }
   },
   "returns": {},
+  "enabled": true,
   "signature": "(kg)"
 }

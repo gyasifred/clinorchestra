@@ -10,5 +10,6 @@
     }
   },
   "returns": "dict with dementia stage and functional implications",
+  "enabled": true,
   "signature": "(cdr_global_score)"
 }

@@ -15,5 +15,6 @@
     }
   },
   "returns": "MAP in mmHg",
+  "enabled": true,
   "signature": "(systolic_bp, diastolic_bp)"
 }

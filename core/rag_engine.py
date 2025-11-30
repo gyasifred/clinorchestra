@@ -361,8 +361,11 @@ class VectorStore:
         # Initialize CPU index first (safe default)
         self.index = faiss.IndexFlatIP(self.dimension)
 
-        # Try to initialize GPU index only if explicitly requested
-        if use_gpu:
+        # TIER 1.4: Auto-detect and use GPU if available (even if use_gpu=False)
+        # This provides 10-90x speedup with zero configuration
+        auto_detect_gpu = True  # Always try GPU first
+
+        if use_gpu or auto_detect_gpu:
             try:
                 import torch
                 if torch.cuda.is_available():
@@ -389,16 +392,18 @@ class VectorStore:
                     del gpu_test_index
                     self.index = faiss.index_cpu_to_gpu(res, 0, self.index)
                     self.gpu_available = True
-                    logger.info(f" FAISS GPU mode: ACTIVE (50-100x faster searches!)")
+                    mode_info = "(explicitly enabled)" if use_gpu else "(auto-detected)"
+                    logger.info(f" FAISS GPU mode: ACTIVE {mode_info} - 10-90x faster searches!")
                 else:
                     logger.info(f" FAISS CPU mode: ACTIVE (CUDA not available)")
             except Exception as e:
-                logger.warning(f"  GPU FAISS initialization failed, using CPU mode: {type(e).__name__}: {str(e)}")
+                logger.warning(f"GPU FAISS auto-detection failed: {type(e).__name__}: {str(e)}")
+                logger.info(f" FAISS CPU mode: ACTIVE (GPU not available or incompatible)")
                 # Keep the CPU index we already created
                 self.index = faiss.IndexFlatIP(self.dimension)
-                logger.info(f" FAISS CPU mode: ACTIVE (fallback)")
         else:
-            logger.info(f" FAISS CPU mode: ACTIVE (GPU disabled by configuration)")
+            # This branch should never execute now since auto_detect_gpu=True
+            logger.info(f" FAISS CPU mode: ACTIVE")
 
         self.chunks = []
         self.documents = {}

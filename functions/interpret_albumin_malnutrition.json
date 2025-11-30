@@ -20,5 +20,6 @@
     "interpretation": "string describing clinical significance",
     "caveats": "string noting limitations (inflammation, liver disease, etc.)"
   },
+  "enabled": true,
   "signature": "(albumin: float, age_years: float = None) -> dict"
 }

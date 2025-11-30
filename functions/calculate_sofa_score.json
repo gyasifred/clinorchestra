@@ -45,5 +45,6 @@
     }
   },
   "returns": "SOFA score (0-24)",
+  "enabled": true,
   "signature": "(pao2_fio2_ratio=None, platelets=None, bilirubin=None, map_value=None, on_vasopressor=False, gcs=None, creatinine=None, urine_output=None)"
 }

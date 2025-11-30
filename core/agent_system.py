@@ -602,9 +602,9 @@ class ExtractionAgent:
 
             # Get function definition from registry
             try:
-                func_def = self.function_registry.get_function_definition(func_name)
-            except:
-                logger.warning(f"Function '{func_name}' not found in registry, skipping")
+                func_def = self.function_registry.get_function_info(func_name)
+            except Exception as e:
+                logger.warning(f"Function '{func_name}' not found in registry: {e}, skipping")
                 invalid_count += 1
                 # Add to filtered results for LLM
                 filtered_results.append({

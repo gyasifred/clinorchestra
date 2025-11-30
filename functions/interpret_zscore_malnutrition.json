@@ -16,5 +16,6 @@
     "type": "string",
     "description": "Clinical interpretation with severity classification"
   },
+  "enabled": true,
   "signature": "(zscore: float, measurement_type: str) -> str"
 }

@@ -15,5 +15,6 @@
     }
   },
   "returns": {},
+  "enabled": true,
   "signature": "(weight_kg, height_cm)"
 }
