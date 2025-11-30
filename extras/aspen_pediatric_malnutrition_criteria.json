@@ -2,7 +2,7 @@
   "id": "aspen_pediatric_malnutrition_criteria",
   "name": "ASPEN Pediatric Malnutrition Criteria",
   "type": "criteria",
-  "content": "ASPEN Pediatric Malnutrition: Requires \u22652 of: 1) Insufficient energy intake, 2) Weight loss or deceleration, 3) Loss of muscle/subcutaneous fat, 4) Edema. Severity: Mild (1-2 SD), Moderate (2-3 SD), Severe (>3 SD below mean for anthropometrics). Context-dependent assessment for children with chronic conditions.",
+  "content": "ASPEN Pediatric Malnutrition: Requires \u22652 of: 1) Insufficient energy intake, 2) Weight loss or deceleration, 3) Loss of muscle/subcutaneous fat, 4) Edema. Severity by z-scores: Mild (z-score -1.0 to -1.9), Moderate (z-score -2.0 to -2.9), Severe (z-score ≤-3.0). Context-dependent assessment for children with chronic conditions.",
   "metadata": {
     "category": "pediatrics",
     "subcategory": "malnutrition",
