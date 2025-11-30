@@ -36,6 +36,7 @@ from core.logging_config import get_logger, log_extraction_stage
 from core.performance_monitor import get_performance_monitor, TimingContext
 from core.tool_dedup_preventer import create_tool_dedup_preventer
 from core.adaptive_retry import AdaptiveRetryManager, create_retry_context
+from core.model_tier_helper import get_model_for_stage
 
 logger = get_logger(__name__)
 perf_monitor = get_performance_monitor(enabled=True)
@@ -227,10 +228,14 @@ class ExtractionAgent:
             for attempt in range(self.max_retries):
                 try:
                     logger.info(f"Analysis attempt {attempt + 1}/{self.max_retries}")
-                    
+
+                    # TIER 1.2: Use tiered models - fast model for Stage 1 planning
+                    stage_model = get_model_for_stage(self.app_state, stage=1)
+
                     response = self.llm_manager.generate(
                         analysis_prompt,
-                        max_tokens=self.app_state.model_config.max_tokens
+                        max_tokens=self.app_state.model_config.max_tokens,
+                        override_model_name=stage_model
                     )
                     
                     if not response:
@@ -1000,10 +1005,14 @@ class ExtractionAgent:
             for attempt in range(self.max_retries):
                 try:
                     logger.info(f"Extraction attempt {attempt + 1}/{self.max_retries}")
-                    
+
+                    # TIER 1.2: Use tiered models - accurate model for Stage 3 extraction
+                    stage_model = get_model_for_stage(self.app_state, stage=3)
+
                     response = self.llm_manager.generate(
                         extraction_prompt,
-                        max_tokens=self.app_state.model_config.max_tokens
+                        max_tokens=self.app_state.model_config.max_tokens,
+                        override_model_name=stage_model
                     )
                     
                     if not response:
@@ -1110,9 +1119,13 @@ class ExtractionAgent:
                         additional_tool_results
                     )
 
+                    # TIER 1.2: Use tiered models - fast model for Stage 4 refinement
+                    stage_model = get_model_for_stage(self.app_state, stage=4)
+
                     response = self.llm_manager.generate(
                         refinement_prompt,
-                        max_tokens=self.app_state.model_config.max_tokens
+                        max_tokens=self.app_state.model_config.max_tokens,
+                        override_model_name=stage_model
                     )
 
                     if not response:
@@ -1157,9 +1170,13 @@ class ExtractionAgent:
         try:
             gap_analysis_prompt = self._build_stage4_gap_analysis_prompt()
 
+            # TIER 1.2: Use tiered models - fast model for Stage 4 gap analysis
+            stage_model = get_model_for_stage(self.app_state, stage=4)
+
             response = self.llm_manager.generate(
                 gap_analysis_prompt,
-                max_tokens=self.app_state.model_config.max_tokens
+                max_tokens=self.app_state.model_config.max_tokens,
+                override_model_name=stage_model
             )
 
             if not response:

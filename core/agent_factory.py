@@ -20,6 +20,7 @@ Selection based on app_state.adaptive_mode_enabled
 
 from typing import Union
 from core.logging_config import get_logger
+from core.model_tier_helper import log_tiered_model_config
 
 logger = get_logger(__name__)
 
@@ -77,6 +78,9 @@ def create_agent(llm_manager, rag_engine, extras_manager, function_registry,
         logger.info("Execution: 4-Stage Sequential Pipeline with ASYNC Tools")
         logger.info("Universal: Adapts to ANY clinical task via prompts/schema")
         logger.info("=" * 80)
+
+        # Log tiered model configuration if enabled
+        log_tiered_model_config(app_state)
 
         from core.agent_system import ExtractionAgent
 

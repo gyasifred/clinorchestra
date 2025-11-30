@@ -2,7 +2,9 @@
 
 ## Available Optimizations
 
-ClinOrchestra includes several performance optimization features that can be enabled via configuration.
+ClinOrchestra includes several performance optimization features that can be enabled via the UI or configuration.
+
+**Quick Start:** Go to the **Config Tab** → **⚙️ Optimization Settings** to enable/disable features.
 
 ### 1. LLM Response Caching
 
@@ -16,30 +18,40 @@ app_state.optimization_config.llm_cache_db_path = "cache/llm_responses.db"
 
 Caches LLM responses to avoid redundant API calls. Automatically invalidates cache when configuration changes.
 
-### 2. Prompt Caching (Anthropic Only)
+### 2. Tiered Model Usage (STRUCTURED Mode)
 
-**Status:** 🔧 Infrastructure Ready (Advanced Feature)
-**Impact:** 90% cost reduction for cached tokens
-**Config:**
-```python
-app_state.optimization_config.enable_prompt_caching = True  # Default: True
-```
-
-Uses Anthropic's prompt caching API to cache system prompts and tool definitions. Requires integration work to split prompts into cacheable sections. See `core/llm_manager.py` for implementation details.
-
-### 3. Tiered Model Usage
-
-**Status:** 🔧 Infrastructure Ready (Advanced Feature)
+**Status:** ✅ Production Ready & Fully Integrated
 **Impact:** -30% LLM time, -40% cost
+**UI:** Config Tab → Optimization Settings → "Enable Tiered Models"
 **Config:**
 ```python
 app_state.optimization_config.enable_tiered_models = True  # Default: False
 ```
 
-Uses different models for different stages (fast model for planning, accurate model for extraction). Requires workflow integration. Supports:
-- Anthropic: haiku (fast) / sonnet (accurate)
-- OpenAI: gpt-4o-mini (fast) / gpt-4o (accurate)
-- Google: gemini-1.5-flash (fast) / gemini-1.5-pro (accurate)
+**How It Works:**
+Uses different models for different stages in STRUCTURED workflow:
+- **Stage 1 (Planning):** Fast model for quick task analysis
+- **Stage 3 (Extraction):** Accurate model for quality output
+- **Stage 4 (Refinement):** Fast model for simple refinement
+
+**Supported Providers:**
+- **Anthropic:** haiku (fast) / sonnet (accurate)
+- **OpenAI:** gpt-4o-mini (fast) / gpt-4o (accurate)
+- **Google:** gemini-1.5-flash (fast) / gemini-1.5-pro (accurate)
+
+**Note:** ADAPTIVE mode uses configured model throughout for conversation consistency.
+
+### 3. Prompt Caching (Anthropic Only)
+
+**Status:** 🔧 Infrastructure Ready
+**Impact:** 90% cost reduction for cached tokens (when fully integrated)
+**UI:** Config Tab → Optimization Settings → "Enable Prompt Caching"
+**Config:**
+```python
+app_state.optimization_config.enable_prompt_caching = True  # Default: True
+```
+
+Uses Anthropic's prompt caching API to cache system prompts and tool definitions. Core API support is ready in `core/llm_manager.py`. Full integration requires restructuring prompts into cacheable sections (future work).
 
 ### 4. Batch Processing
 
@@ -77,36 +89,44 @@ Automatically applies optimized temperature and token settings based on model ty
 
 ## Production-Ready Features
 
-The following optimizations are **fully implemented and tested**, ready for production use:
+The following optimizations are **fully integrated and ready** for production use:
 
-1. ✅ LLM Response Caching
-2. ✅ Batch Processing
-3. ✅ GPU FAISS
-4. ✅ Model Profiles
-5. ✅ Performance Monitoring
-6. ✅ Multi-GPU Support (for local models)
+1. ✅ **LLM Response Caching** - 400x faster for repeated queries
+2. ✅ **Tiered Model Usage** - -30% time, -40% cost (STRUCTURED mode)
+3. ✅ **Batch Processing** - Parallel processing of multiple records
+4. ✅ **GPU FAISS** - 10x faster RAG searches (if GPU available)
+5. ✅ **Model Profiles** - Optimized settings per model
+6. ✅ **Performance Monitoring** - Detailed timing metrics
+7. ✅ **Multi-GPU Support** - For local models
 
-## Advanced Features (Infrastructure Ready)
+## Infrastructure Ready (Future Integration)
 
-The following features have infrastructure in place but require workflow integration:
-
-1. 🔧 Prompt Caching (Anthropic) - Core API support ready in `llm_manager.py`
-2. 🔧 Tiered Model Usage - Configuration system ready in `app_state.py`
-
-These can be integrated when implementing comprehensive test cases.
+1. 🔧 **Prompt Caching (Anthropic)** - Core API ready, requires prompt restructuring for full benefit
 
 ## Configuration Example
 
+### Via UI (Recommended)
+1. Go to **Config Tab**
+2. Scroll to **⚙️ Optimization Settings** accordion
+3. Enable desired optimizations:
+   - ✅ Enable LLM Response Caching
+   - ✅ Enable Tiered Models (STRUCTURED Mode Only)
+   - ✅ Enable Prompt Caching (Anthropic Only)
+   - ✅ Enable Parallel Processing
+   - ✅ Enable GPU FAISS (if GPU available)
+4. Click **Save Configuration**
+
+### Via Code
 ```python
 # Enable all production-ready optimizations
 app_state.optimization_config.llm_cache_enabled = True
+app_state.optimization_config.enable_tiered_models = True  # NEW: Fully integrated!
 app_state.optimization_config.use_parallel_processing = True
 app_state.optimization_config.use_model_profiles = True
 app_state.optimization_config.use_gpu_faiss = True  # If GPU available
 
-# Advanced features (default: disabled)
-app_state.optimization_config.enable_prompt_caching = True
-app_state.optimization_config.enable_tiered_models = False  # Requires integration
+# Advanced features
+app_state.optimization_config.enable_prompt_caching = True  # Infrastructure ready
 ```
 
 ## Performance Monitoring

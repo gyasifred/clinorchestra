@@ -310,7 +310,8 @@ class LLMManager:
         return any(indicator in prompt or indicator in prompt_lower for indicator in json_indicators)
     
     def generate(self, prompt: str, max_tokens: Optional[int] = None, enable_retry: bool = None,
-                 system_prompt: Optional[str] = None, enable_prompt_caching: bool = False) -> str:
+                 system_prompt: Optional[str] = None, enable_prompt_caching: bool = False,
+                 override_model_name: Optional[str] = None) -> str:
         """
         Generate text from prompt with caching and optional adaptive retry
 
@@ -320,39 +321,53 @@ class LLMManager:
             enable_retry: Override adaptive retry setting (None = use default)
             system_prompt: Optional system prompt (Anthropic only, will be cached if caching enabled)
             enable_prompt_caching: Enable Anthropic prompt caching (reduces cost by 90% for cached content)
+            override_model_name: Temporarily use a different model for this call (tiered models)
 
         Returns:
             Generated text
         """
         max_tok = max_tokens or self.max_tokens
 
-        # Check cache first (unless bypassed)
-        # Note: System prompt is included in cache key for Anthropic
-        cache_key_suffix = f"_sys:{hash(system_prompt)}" if system_prompt else ""
-        if not self.cache_bypass:
-            cached_response = self.llm_cache.get(
-                prompt=prompt + cache_key_suffix,
-                model_name=f"{self.provider}:{self.model_name}",
-                temperature=self.temperature,
-                max_tokens=max_tok,
-                config_hash=self.prompt_config_hash  # Invalidates cache when config changes
-            )
-            if cached_response:
-                logger.debug(f" Cache HIT (400x faster)")
-                return cached_response
-        else:
-            logger.debug(f" Cache BYPASSED - forcing fresh LLM call")
+        # TIER 1.2: Temporarily override model if specified (for tiered model usage)
+        original_model_name = None
+        if override_model_name and override_model_name != self.model_name:
+            original_model_name = self.model_name
+            self.model_name = override_model_name
 
-        # Determine if adaptive retry should be used
-        use_retry = enable_retry if enable_retry is not None else self.enable_adaptive_retry
+        try:
+            # Check cache first (unless bypassed)
+            # Note: System prompt and model name included in cache key
+            cache_key_suffix = f"_sys:{hash(system_prompt)}" if system_prompt else ""
+            cache_key_suffix += f"_model:{override_model_name or self.model_name}"
+            if not self.cache_bypass:
+                cached_response = self.llm_cache.get(
+                    prompt=prompt + cache_key_suffix,
+                    model_name=f"{self.provider}:{override_model_name or self.model_name}",
+                    temperature=self.temperature,
+                    max_tokens=max_tok,
+                    config_hash=self.prompt_config_hash  # Invalidates cache when config changes
+                )
+                if cached_response:
+                    logger.debug(f" Cache HIT (400x faster)")
+                    return cached_response
+            else:
+                logger.debug(f" Cache BYPASSED - forcing fresh LLM call")
 
-        # Cache miss or bypass - generate response
-        if use_retry:
-            # Use adaptive retry for robust generation
-            return self._generate_with_adaptive_retry(prompt, max_tok, system_prompt, enable_prompt_caching)
-        else:
-            # Direct generation without retry
-            return self._generate_direct(prompt, max_tok, system_prompt, enable_prompt_caching)
+            # Determine if adaptive retry should be used
+            use_retry = enable_retry if enable_retry is not None else self.enable_adaptive_retry
+
+            # Cache miss or bypass - generate response
+            if use_retry:
+                # Use adaptive retry for robust generation
+                return self._generate_with_adaptive_retry(prompt, max_tok, system_prompt, enable_prompt_caching)
+            else:
+                # Direct generation without retry
+                return self._generate_direct(prompt, max_tok, system_prompt, enable_prompt_caching)
+
+        finally:
+            # TIER 1.2: Restore original model if it was overridden
+            if original_model_name:
+                self.model_name = original_model_name
 
     def _generate_direct(self, prompt: str, max_tokens: int, system_prompt: Optional[str] = None,
                         enable_prompt_caching: bool = False) -> str:
