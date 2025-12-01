@@ -230,8 +230,9 @@ class DocumentLoader:
 class EmbeddingGenerator:
     """Generate embeddings with caching"""
 
-    def __init__(self, model_name: str = "sentence-transformers/all-mpnet-base-v2"):
+    def __init__(self, model_name: str = "sentence-transformers/all-mpnet-base-v2", device: Optional[str] = None):
         self.model_name = model_name
+        self.device = device  # e.g., "cuda:0", "cuda:1", "cpu", or None for auto
         self.model = None
         self.cache = {}
         self._initialize()
@@ -240,7 +241,11 @@ class EmbeddingGenerator:
         """Load embedding model with error handling"""
         try:
             logger.info(f"Loading embedding model: {self.model_name}")
-            self.model = SentenceTransformer(self.model_name)
+            if self.device:
+                logger.info(f" Setting embedding model device to: {self.device}")
+                self.model = SentenceTransformer(self.model_name, device=self.device)
+            else:
+                self.model = SentenceTransformer(self.model_name)
             logger.info(f" Embedding model loaded: {self.model_name}")
         except Exception as e:
             logger.error(f"Failed to load embedding model: {e}")
@@ -353,10 +358,11 @@ class DocumentChunker:
 class VectorStore:
     """Vector store using FAISS for cosine similarity search with persistent caching and GPU acceleration"""
 
-    def __init__(self, embedding_generator: EmbeddingGenerator, cache_db_path: str, use_gpu: bool = False):
+    def __init__(self, embedding_generator: EmbeddingGenerator, cache_db_path: str, use_gpu: bool = False, gpu_device: int = 0):
         self.embedding_generator = embedding_generator
         self.dimension = embedding_generator.get_dimension()
         self.use_gpu = use_gpu
+        self.gpu_device = gpu_device  # Which GPU to use (0, 1, 2, etc.)
         self.gpu_available = False
         self.gpu_resources = None
 
@@ -388,8 +394,8 @@ class VectorStore:
                         test_index.add(test_vectors)
 
                         # Try to move test index to GPU
-                        logger.info(" Moving test index to GPU...")
-                        gpu_test_index = faiss.index_cpu_to_gpu(self.gpu_resources, 0, test_index)
+                        logger.info(f" Moving test index to GPU {self.gpu_device}...")
+                        gpu_test_index = faiss.index_cpu_to_gpu(self.gpu_resources, self.gpu_device, test_index)
 
                         # Perform a comprehensive test search to verify GPU works
                         # This will trigger GPU kernel execution including L2Norm
@@ -402,11 +408,11 @@ class VectorStore:
                         if D is not None and I is not None and len(D[0]) > 0:
                             # GPU test successful! Now move the real index to GPU
                             del gpu_test_index
-                            self.index = faiss.index_cpu_to_gpu(self.gpu_resources, 0, self.index)
+                            self.index = faiss.index_cpu_to_gpu(self.gpu_resources, self.gpu_device, self.index)
                             self.gpu_available = True
                             gpu_success = True
                             mode_info = "(explicitly enabled)" if use_gpu else "(environment variable)"
-                            logger.info(f" FAISS GPU mode: ACTIVE {mode_info} - 10-90x faster searches!")
+                            logger.info(f" FAISS GPU mode: ACTIVE on GPU {self.gpu_device} {mode_info} - 10-90x faster searches!")
                         else:
                             logger.warning("GPU test returned invalid results")
                             raise RuntimeError("GPU test validation failed")
@@ -648,6 +654,7 @@ class RAGEngine:
         self.chunk_overlap = config.get('chunk_overlap', 50)
         self.cache_dir = config.get('cache_dir', './rag_cache')
         self.use_gpu_faiss = config.get('use_gpu_faiss', False)
+        self.gpu_device = config.get('gpu_device', 0)  # Which GPU to use (0, 1, 2, etc.)
 
         # Ensure cache directory exists
         Path(self.cache_dir).mkdir(parents=True, exist_ok=True)
@@ -693,8 +700,23 @@ class RAGEngine:
             
             # Initialize components
             logger.info("Step 1: Loading embedding model...")
-            self.embedding_generator = EmbeddingGenerator(self.embedding_model)
-            
+            # Determine device for embedding model
+            # If GPU is requested, use the specified GPU device (cuda:N)
+            # Otherwise let SentenceTransformer auto-detect
+            embedding_device = None
+            if self.use_gpu_faiss or (hasattr(app_state, 'optimization_config') and
+                                     hasattr(app_state.optimization_config, 'use_gpu_faiss') and
+                                     app_state.optimization_config.use_gpu_faiss):
+                try:
+                    import torch
+                    if torch.cuda.is_available():
+                        embedding_device = f"cuda:{self.gpu_device}"
+                        logger.info(f" Using GPU device {self.gpu_device} for embeddings")
+                except ImportError:
+                    logger.warning(" PyTorch not available - embedding model will use CPU")
+
+            self.embedding_generator = EmbeddingGenerator(self.embedding_model, device=embedding_device)
+
             logger.info("Step 2: Initializing chunker...")
             self.chunker = DocumentChunker(self.chunk_size, self.chunk_overlap)
 
@@ -704,7 +726,8 @@ class RAGEngine:
             if hasattr(app_state, 'optimization_config') and hasattr(app_state.optimization_config, 'use_gpu_faiss'):
                 use_gpu = app_state.optimization_config.use_gpu_faiss
 
-            self.vector_store = VectorStore(self.embedding_generator, Path(self.cache_dir) / "rag_cache.db", use_gpu=use_gpu)
+            self.vector_store = VectorStore(self.embedding_generator, Path(self.cache_dir) / "rag_cache.db",
+                                          use_gpu=use_gpu, gpu_device=self.gpu_device)
             
             # Load documents
             logger.info("Step 4: Loading documents...")

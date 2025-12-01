@@ -400,10 +400,16 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
         with redirect_stdout(stdout_capture), redirect_stderr(stderr_capture):
             print(f"[WORKER-{gpu_id}] Starting task {task.task_id}")
 
-            # Set GPU for this process
-            torch.cuda.set_device(gpu_id)
+            # CRITICAL: Set CUDA_VISIBLE_DEVICES BEFORE any CUDA operations
+            # This ensures this process only sees the assigned GPU as device 0
+            # NOTE: We set it to the actual GPU ID, but in the process it will appear as cuda:0
             os.environ['CUDA_VISIBLE_DEVICES'] = str(gpu_id)
-            print(f"[WORKER-{gpu_id}] GPU set to {gpu_id}")
+            print(f"[WORKER-{gpu_id}] CUDA_VISIBLE_DEVICES set to {gpu_id}")
+
+            # Now set the torch device (this will be cuda:0 from the worker's perspective)
+            # because CUDA_VISIBLE_DEVICES makes the assigned GPU appear as device 0
+            torch.cuda.set_device(0)
+            print(f"[WORKER-{gpu_id}] PyTorch device set to cuda:0 (physical GPU {gpu_id})")
 
             # Import required modules
             from core.llm_manager import LLMManager
@@ -501,7 +507,8 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
                     'chunk_size': 512,
                     'chunk_overlap': 50,
                     'cache_dir': './rag_cache',
-                    'force_refresh': False
+                    'force_refresh': False,
+                    'gpu_device': 0  # Always 0 because CUDA_VISIBLE_DEVICES makes assigned GPU appear as device 0
                 })
                 # Initialize with documents if available
                 if config.rag_documents_path:
@@ -523,11 +530,12 @@ def _process_single_task_on_gpu(task: MultiGPUTask,
             print(f"[WORKER-{gpu_id}] Agent created successfully")
 
             # Ensure model is on correct device
+            # Note: Because we set CUDA_VISIBLE_DEVICES, the physical GPU appears as cuda:0
             if hasattr(agent, 'llm_manager') and hasattr(agent.llm_manager, 'model'):
                 if agent.llm_manager.model is not None:
-                    print(f"[WORKER-{gpu_id}] Moving model to GPU {gpu_id}...")
-                    agent.llm_manager.model.to(f'cuda:{gpu_id}')
-                    print(f"[WORKER-{gpu_id}] Model moved to GPU {gpu_id}")
+                    print(f"[WORKER-{gpu_id}] Moving model to cuda:0 (physical GPU {gpu_id})...")
+                    agent.llm_manager.model.to('cuda:0')
+                    print(f"[WORKER-{gpu_id}] Model moved to cuda:0 (physical GPU {gpu_id})")
 
             # Process the extraction
             print(f"[WORKER-{gpu_id}] Running extraction...")
