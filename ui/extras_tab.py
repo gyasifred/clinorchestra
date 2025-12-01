@@ -114,13 +114,16 @@ def create_extras_tab(app_state) -> Dict[str, Any]:
             gr.Markdown("#### Enable/Disable Extras")
             gr.Markdown("*Check to enable, uncheck to disable*")
 
-            extras_checkboxes = gr.CheckboxGroup(
-                choices=[],
-                value=[],
-                label="Enabled Extras (Click to toggle)",
-                interactive=True
-            )
-            components['extras_checkboxes'] = extras_checkboxes
+            # UPDATED: Horizontal display with column layout for better organization
+            with gr.Accordion("Enable/Disable Controls (Horizontal View)", open=True):
+                extras_checkboxes = gr.CheckboxGroup(
+                    choices=[],
+                    value=[],
+                    label="Enabled Extras",
+                    interactive=True,
+                    elem_classes="horizontal-checkboxes"
+                )
+                components['extras_checkboxes'] = extras_checkboxes
 
             gr.Markdown("#### Manage")
 
