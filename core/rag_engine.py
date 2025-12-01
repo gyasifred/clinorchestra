@@ -25,6 +25,7 @@ from io import BytesIO
 import sqlite3
 import json
 import pickle
+import os
 from core.logging_config import get_logger
 
 logger = get_logger(__name__)
@@ -357,53 +358,100 @@ class VectorStore:
         self.dimension = embedding_generator.get_dimension()
         self.use_gpu = use_gpu
         self.gpu_available = False
+        self.gpu_resources = None
 
         # Initialize CPU index first (safe default)
         self.index = faiss.IndexFlatIP(self.dimension)
 
-        # TIER 1.4: Auto-detect and use GPU if available (even if use_gpu=False)
-        # This provides 10-90x speedup with zero configuration
-        auto_detect_gpu = True  # Always try GPU first
+        # GPU acceleration with opt-in to prevent CUDA architecture mismatch crashes
+        # Set CLINORCHESTRA_ENABLE_GPU=1 environment variable to enable GPU
+        # Note: Requires FAISS compiled for matching CUDA architecture
+        enable_gpu_env = os.getenv('CLINORCHESTRA_ENABLE_GPU', '0').lower() in ('1', 'true', 'yes')
+        auto_detect_gpu = use_gpu or enable_gpu_env
 
-        if use_gpu or auto_detect_gpu:
+        if auto_detect_gpu:
+            gpu_success = False
             try:
                 import torch
                 if torch.cuda.is_available():
-                    logger.info(" Attempting GPU FAISS initialization...")
+                    logger.info(" GPU requested - Attempting FAISS GPU initialization...")
+                    logger.info(" NOTE: This requires FAISS compiled for your CUDA architecture")
 
-                    # Create test GPU resources first
-                    res = faiss.StandardGpuResources()
+                    try:
+                        # Create GPU resources
+                        self.gpu_resources = faiss.StandardGpuResources()
 
-                    # Test with a small dummy operation to verify compatibility
-                    test_index = faiss.IndexFlatIP(self.dimension)
-                    test_vectors = np.random.rand(10, self.dimension).astype('float32')
-                    faiss.normalize_L2(test_vectors)
-                    test_index.add(test_vectors)
+                        # Test GPU compatibility with a comprehensive test
+                        test_index = faiss.IndexFlatIP(self.dimension)
+                        test_vectors = np.random.rand(10, self.dimension).astype('float32')
+                        faiss.normalize_L2(test_vectors)
+                        test_index.add(test_vectors)
 
-                    # Try to move test index to GPU
-                    gpu_test_index = faiss.index_cpu_to_gpu(res, 0, test_index)
+                        # Try to move test index to GPU
+                        logger.info(" Moving test index to GPU...")
+                        gpu_test_index = faiss.index_cpu_to_gpu(self.gpu_resources, 0, test_index)
 
-                    # Perform a test search to verify GPU works
-                    test_query = np.random.rand(1, self.dimension).astype('float32')
-                    faiss.normalize_L2(test_query)
-                    D, I = gpu_test_index.search(test_query, 1)
+                        # Perform a comprehensive test search to verify GPU works
+                        # This will trigger GPU kernel execution including L2Norm
+                        logger.info(" Running GPU compatibility test...")
+                        test_query = np.random.rand(1, self.dimension).astype('float32')
+                        faiss.normalize_L2(test_query)
+                        D, I = gpu_test_index.search(test_query, 1)
 
-                    # If we got here, GPU works! Use it for real index
-                    del gpu_test_index
-                    self.index = faiss.index_cpu_to_gpu(res, 0, self.index)
-                    self.gpu_available = True
-                    mode_info = "(explicitly enabled)" if use_gpu else "(auto-detected)"
-                    logger.info(f" FAISS GPU mode: ACTIVE {mode_info} - 10-90x faster searches!")
+                        # Verify results are valid
+                        if D is not None and I is not None and len(D[0]) > 0:
+                            # GPU test successful! Now move the real index to GPU
+                            del gpu_test_index
+                            self.index = faiss.index_cpu_to_gpu(self.gpu_resources, 0, self.index)
+                            self.gpu_available = True
+                            gpu_success = True
+                            mode_info = "(explicitly enabled)" if use_gpu else "(environment variable)"
+                            logger.info(f" FAISS GPU mode: ACTIVE {mode_info} - 10-90x faster searches!")
+                        else:
+                            logger.warning("GPU test returned invalid results")
+                            raise RuntimeError("GPU test validation failed")
+
+                    except Exception as gpu_error:
+                        # GPU initialization or test failed - fall back to CPU
+                        error_msg = str(gpu_error)
+                        logger.warning(f"GPU FAISS initialization failed: {type(gpu_error).__name__}: {error_msg}")
+
+                        # Provide helpful error message for common CUDA errors
+                        if "209" in error_msg or "no kernel image" in error_msg.lower():
+                            logger.error(" CUDA Error 209: FAISS was compiled for a different GPU architecture")
+                            logger.error(" Your GPU is not compatible with the FAISS build.")
+                            logger.error(" To fix: Reinstall FAISS compiled for your specific CUDA compute capability")
+
+                        logger.info(" Falling back to CPU mode...")
+
+                        # Clean up GPU resources if allocated
+                        if self.gpu_resources is not None:
+                            try:
+                                del self.gpu_resources
+                                self.gpu_resources = None
+                            except:
+                                pass
+
+                        # Ensure we have a clean CPU index
+                        self.index = faiss.IndexFlatIP(self.dimension)
+                        self.gpu_available = False
+                        logger.info(f" FAISS CPU mode: ACTIVE (GPU incompatible)")
+
                 else:
-                    logger.info(f" FAISS CPU mode: ACTIVE (CUDA not available)")
+                    logger.info(f" FAISS CPU mode: ACTIVE (CUDA not available via PyTorch)")
+
+            except ImportError:
+                logger.info(f" FAISS CPU mode: ACTIVE (PyTorch not installed)")
             except Exception as e:
-                logger.warning(f"GPU FAISS auto-detection failed: {type(e).__name__}: {str(e)}")
-                logger.info(f" FAISS CPU mode: ACTIVE (GPU not available or incompatible)")
-                # Keep the CPU index we already created
-                self.index = faiss.IndexFlatIP(self.dimension)
+                logger.warning(f"Unexpected error during GPU detection: {type(e).__name__}: {str(e)}")
+                logger.info(f" FAISS CPU mode: ACTIVE (GPU detection error)")
+                # Ensure CPU index is initialized
+                if not gpu_success:
+                    self.index = faiss.IndexFlatIP(self.dimension)
         else:
-            # This branch should never execute now since auto_detect_gpu=True
-            logger.info(f" FAISS CPU mode: ACTIVE")
+            # GPU not requested - use CPU mode
+            logger.info(f" FAISS CPU mode: ACTIVE (default)")
+            logger.info(f" To enable GPU: Set environment variable CLINORCHESTRA_ENABLE_GPU=1")
 
         self.chunks = []
         self.documents = {}
@@ -599,6 +647,7 @@ class RAGEngine:
         self.chunk_size = config.get('chunk_size', 512)
         self.chunk_overlap = config.get('chunk_overlap', 50)
         self.cache_dir = config.get('cache_dir', './rag_cache')
+        self.use_gpu_faiss = config.get('use_gpu_faiss', False)
 
         # Ensure cache directory exists
         Path(self.cache_dir).mkdir(parents=True, exist_ok=True)
@@ -648,9 +697,14 @@ class RAGEngine:
             
             logger.info("Step 2: Initializing chunker...")
             self.chunker = DocumentChunker(self.chunk_size, self.chunk_overlap)
-            
+
             logger.info("Step 3: Initializing vector store...")
-            self.vector_store = VectorStore(self.embedding_generator, Path(self.cache_dir) / "rag_cache.db")
+            # Get use_gpu_faiss from config or app_state
+            use_gpu = self.use_gpu_faiss
+            if hasattr(app_state, 'optimization_config') and hasattr(app_state.optimization_config, 'use_gpu_faiss'):
+                use_gpu = app_state.optimization_config.use_gpu_faiss
+
+            self.vector_store = VectorStore(self.embedding_generator, Path(self.cache_dir) / "rag_cache.db", use_gpu=use_gpu)
             
             # Load documents
             logger.info("Step 4: Loading documents...")

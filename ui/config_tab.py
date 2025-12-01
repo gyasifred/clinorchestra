@@ -331,7 +331,7 @@ def create_config_tab(app_state) -> Dict[str, Any]:
                 use_gpu_faiss = gr.Checkbox(
                     label="Enable GPU FAISS",
                     value=app_state.optimization_config.use_gpu_faiss,
-                    info="Use GPU acceleration for RAG embeddings (requires FAISS-GPU)"
+                    info="Use GPU acceleration for RAG embeddings (requires compatible FAISS-GPU and CUDA architecture). Set CLINORCHESTRA_ENABLE_GPU=1 to enable."
                 )
                 components['use_gpu_faiss'] = use_gpu_faiss
 
