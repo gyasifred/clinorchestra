@@ -272,17 +272,25 @@ class RegexPreprocessor:
             json.dump(pattern_data, f, indent=2)
     
     def _load_all_patterns(self):
-        """Load all patterns from storage"""
+        """Load all patterns from storage with duplicate checking"""
+        loaded_names = set()  # Track loaded names to prevent duplicates
+
         for pattern_file in self.storage_path.glob("*.json"):
             try:
                 with open(pattern_file, 'r') as f:
                     data = json.load(f)
-                
+
                 # FIXED: Validate pattern before loading
                 if not self._validate_pattern_syntax(data['pattern']):
                     logger.error(f"Pattern '{data['name']}' failed: bad escape \\U at position 0")
                     continue
-                
+
+                # CRITICAL FIX: Check for duplicate by name before adding
+                pattern_name = data['name']
+                if pattern_name in loaded_names:
+                    logger.warning(f"Skipping duplicate pattern '{pattern_name}' from {pattern_file.name} (already loaded)")
+                    continue
+
                 pattern = RegexPattern(
                     name=data['name'],
                     pattern=data['pattern'],
@@ -290,7 +298,8 @@ class RegexPreprocessor:
                     description=data['description'],
                     enabled=data.get('enabled', True)
                 )
-                
+
+                loaded_names.add(pattern_name)
                 self.patterns.append(pattern)
             except Exception as e:
                 logger.error(f"Failed to load {pattern_file}: {e}")

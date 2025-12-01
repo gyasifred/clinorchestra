@@ -491,38 +491,60 @@ class FunctionRegistry:
         return False
     
     def _convert_parameter_value(self, value: Any, expected_type: str, param_name: str) -> Any:
-        """Convert parameter value to expected type"""
+        """Convert parameter value to expected type with enhanced error handling"""
         try:
             if expected_type == 'number':
+                # ENHANCED: Better handling of numeric conversions
                 if isinstance(value, (int, float)):
                     return float(value)
                 elif isinstance(value, str):
                     # Handle common number formats
-                    cleaned = value.strip().replace(',', '')
-                    if cleaned:
+                    cleaned = value.strip().replace(',', '').replace('+', '')
+                    if not cleaned or cleaned.lower() in ['none', 'null', 'n/a', 'na']:
+                        return None
+                    # Try to parse as float
+                    try:
                         return float(cleaned)
-                    else:
+                    except ValueError:
+                        # Try to extract first number from string
+                        import re
+                        numbers = re.findall(r'-?\d+\.?\d*', cleaned)
+                        if numbers:
+                            return float(numbers[0])
                         return None
                 else:
-                    return float(value)
-                    
+                    # Try to convert other types
+                    try:
+                        return float(value)
+                    except (ValueError, TypeError):
+                        return None
+
             elif expected_type == 'boolean':
                 if isinstance(value, bool):
                     return value
                 elif isinstance(value, str):
                     return value.lower() in ['true', 'yes', '1', 'y', 'on']
+                elif isinstance(value, (int, float)):
+                    return bool(value)
                 else:
                     return bool(value)
-                    
+
             elif expected_type == 'string':
-                return str(value) if value is not None else None
-                
+                if value is None:
+                    return None
+                # Convert to string, handling numeric types
+                if isinstance(value, (int, float)):
+                    return str(value)
+                return str(value)
+
             else:
                 # Default to string
-                return str(value) if value is not None else None
-                
+                if value is None:
+                    return None
+                return str(value)
+
         except (ValueError, TypeError) as e:
-            logger.warning(f"Parameter conversion failed for {param_name}: {e}")
+            logger.warning(f"Parameter conversion failed for {param_name} (type={expected_type}, value={value}): {e}")
             return None
     
     def _apply_parameter_transformations(self, params: Dict[str, Any], func_name: str) -> Dict[str, Any]:
