@@ -209,10 +209,10 @@ def create_config_tab(app_state) -> Dict[str, Any]:
         )
         quantization_value = saved_config.get('quantization', '4bit') if saved_config else '4bit'
         quantization = gr.Dropdown(
-            choices=["none", "4bit"],
-            value=quantization_value,
+            choices=["4bit"],
+            value="4bit",
             label="Quantization",
-            info="4bit recommended for memory efficiency"
+            info="4-bit quantization for memory efficiency (required for local models)"
         )
         gpu_layers_value = saved_config.get('gpu_layers', -1) if saved_config else -1
         gpu_layers = gr.Slider(

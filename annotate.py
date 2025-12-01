@@ -128,6 +128,24 @@ def create_main_interface() -> gr.Blocks:
         border-bottom: 3px solid #73000A !important;
         color: #73000A !important;
     }
+
+    /* Horizontal checkbox layout for extras and patterns */
+    .horizontal-checkboxes label {
+        display: inline-flex !important;
+        margin-right: 15px !important;
+        margin-bottom: 8px !important;
+        align-items: center !important;
+    }
+
+    .horizontal-checkboxes .wrap {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+    }
+
+    .horizontal-checkboxes input[type="checkbox"] {
+        margin-right: 5px !important;
+    }
     """
 
     with gr.Blocks(

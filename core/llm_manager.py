@@ -584,12 +584,23 @@ class LLMManager:
     def _generate_local(self, prompt: str, max_tokens: int) -> str:
         """Generate with local model"""
         try:
+            # CRITICAL FIX: Check if model and tokenizer are properly initialized
+            if self.model is None:
+                error_msg = "Local model not initialized. Call _initialize_local_model() first."
+                logger.error(error_msg)
+                raise RuntimeError(error_msg)
+
+            if self.tokenizer is None:
+                error_msg = "Tokenizer not initialized. Call _initialize_local_model() first."
+                logger.error(error_msg)
+                raise RuntimeError(error_msg)
+
             # Check if JSON mode is needed for Qwen or Llama models
             use_json_mode_for_qwen = self._should_use_json_mode_for_qwen(prompt)
             use_json_mode_for_llama = self._should_use_json_mode_for_llama(prompt)
-            
+
             messages = []
-            
+
             # Add system message for Qwen models
             if use_json_mode_for_qwen:
                 messages.append({
@@ -597,7 +608,7 @@ class LLMManager:
                     "content": "You are a helpful assistant that provides responses exclusively in JSON format. Never include any text before or after the JSON object."
                 })
                 logger.info("JSON mode enabled for Qwen model via system message")
-            
+
             # Add system message for Llama models
             if use_json_mode_for_llama:
                 messages.append({
@@ -605,9 +616,9 @@ class LLMManager:
                     "content": "You are a helpful assistant that provides responses exclusively in JSON format. Never include any text before or after the JSON object."
                 })
                 logger.info("JSON mode enabled for Llama model via system message")
-            
+
             messages.append({"role": "user", "content": prompt})
-            
+
             # Apply chat template
             formatted_text = self.tokenizer.apply_chat_template(
                 messages,

@@ -125,13 +125,16 @@ def create_patterns_tab(app_state) -> Dict[str, Any]:
             gr.Markdown("#### Enable/Disable Patterns")
             gr.Markdown("*Check to enable, uncheck to disable*")
 
-            patterns_checkboxes = gr.CheckboxGroup(
-                choices=[],
-                value=[],
-                label="Enabled Patterns (Click to toggle)",
-                interactive=True
-            )
-            components['patterns_checkboxes'] = patterns_checkboxes
+            # UPDATED: Horizontal display with accordion for better organization
+            with gr.Accordion("Enable/Disable Controls (Horizontal View)", open=True):
+                patterns_checkboxes = gr.CheckboxGroup(
+                    choices=[],
+                    value=[],
+                    label="Enabled Patterns",
+                    interactive=True,
+                    elem_classes="horizontal-checkboxes"
+                )
+                components['patterns_checkboxes'] = patterns_checkboxes
 
             gr.Markdown("#### Manage Patterns")
 

@@ -95,7 +95,7 @@ class ConfigurationPersistenceManager:
                     config_dict['google_project_id'] = getattr(model_config, 'google_project_id', '')
                 elif model_config.provider == "local":
                     config_dict['local_model_path'] = getattr(model_config, 'local_model_path', '')
-                    config_dict['quantization'] = getattr(model_config, 'quantization', 'none')
+                    config_dict['quantization'] = getattr(model_config, 'quantization', '4bit')
                     config_dict['max_seq_length'] = getattr(model_config, 'max_seq_length', 16384)
                     config_dict['gpu_layers'] = getattr(model_config, 'gpu_layers', -1)
 

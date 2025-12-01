@@ -53,6 +53,12 @@ class ExtrasManager:
             if not name or not name.strip():
                 name = self._generate_name_from_content(content, extra_type)
 
+            # CRITICAL FIX: Check for duplicate by name to prevent duplicates on instance restart
+            existing_extra = self._get_extra_by_name(name.strip())
+            if existing_extra:
+                logger.info(f"Extra with name '{name}' already exists (ID: {existing_extra['id']}). Skipping duplicate.")
+                return True  # Return success since the extra already exists
+
             extra = {
                 'id': f"extra_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}",
                 'name': name.strip(),
@@ -343,6 +349,13 @@ class ExtrasManager:
             if extra['id'] == extra_id:
                 return extra
         return None
+
+    def _get_extra_by_name(self, name: str) -> Optional[Dict[str, Any]]:
+        """Get specific extra by name (for duplicate checking)"""
+        for extra in self.extras:
+            if extra.get('name', '').strip() == name.strip():
+                return extra
+        return None
     
     def update_extra(self, extra_id: str, extra_type: str, content: str, metadata: Optional[Dict] = None, name: Optional[str] = None) -> bool:
         """Update an existing extra"""
@@ -425,6 +438,8 @@ class ExtrasManager:
     
     def _load_all_extras(self):
         """Load all extras from storage with backward compatibility for name and id fields"""
+        loaded_names = set()  # Track loaded names to prevent duplicates
+
         for extra_file in self.storage_path.glob("*.json"):
             try:
                 with open(extra_file, 'r') as f:
@@ -457,6 +472,13 @@ class ExtrasManager:
                         extra['enabled'] = True
                         self._save_extra(extra)
 
+                    # CRITICAL FIX: Check for duplicate by name before adding
+                    extra_name = extra.get('name', '').strip()
+                    if extra_name in loaded_names:
+                        logger.warning(f"Skipping duplicate extra '{extra_name}' from {extra_file.name} (already loaded)")
+                        continue
+
+                    loaded_names.add(extra_name)
                     self.extras.append(extra)
             except Exception as e:
                 logger.error(f"Failed to load {extra_file}: {e}")
