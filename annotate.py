@@ -15,6 +15,22 @@ What's New in v1.0.0:
 - Enhanced RAG with batch embeddings
 - Comprehensive performance documentation
 """
+
+# GPU ISOLATION: Set CUDA_VISIBLE_DEVICES before any CUDA imports
+# This MUST be done before importing torch, transformers, sentence-transformers, etc.
+# to prevent GPU context leakage to unintended devices
+import os
+if 'CLINORCHESTRA_GPU_DEVICE' in os.environ:
+    # User explicitly specified which GPU to use
+    gpu_device = os.environ['CLINORCHESTRA_GPU_DEVICE']
+    os.environ['CUDA_VISIBLE_DEVICES'] = gpu_device
+    print(f"[GPU ISOLATION] Restricting CUDA to device(s): {gpu_device}")
+elif 'CUDA_VISIBLE_DEVICES' not in os.environ:
+    # Default: Use only GPU 0 to prevent leakage
+    # Users can override by setting CUDA_VISIBLE_DEVICES before running
+    os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+    print("[GPU ISOLATION] Defaulting to GPU 0 only (set CUDA_VISIBLE_DEVICES to override)")
+
 import gradio as gr
 import argparse
 from pathlib import Path
