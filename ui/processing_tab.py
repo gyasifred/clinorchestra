@@ -196,21 +196,32 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
         log_lines.append("")
         process_state.add_log(process_id, "Processing started")
         
+        # Initialize variables that will be used in exception handler
+        processed = 0
+        failed = 0
+        total_rows = len(df)
+
         try:
             llm_manager = app_state.get_llm_manager()
             log_lines.append(f"✅ Using LLM Manager: {llm_manager.provider}/{llm_manager.model_name}")
             process_state.add_log(process_id, f"Using LLM Manager: {llm_manager.provider}/{llm_manager.model_name}")
-            
+
             regex_preprocessor = app_state.get_regex_preprocessor()
+            if not regex_preprocessor:
+                raise ValueError("Regex Preprocessor not initialized")
             log_lines.append("✅ Using Regex Preprocessor")
             process_state.add_log(process_id, "Using Regex Preprocessor")
-            
+
             extras_manager = app_state.get_extras_manager()
+            if not extras_manager:
+                raise ValueError("Extras Manager not initialized")
             all_extras = extras_manager.list_extras()
             log_lines.append(f"✅ Extras Manager: {len(all_extras)} extras available")
             process_state.add_log(process_id, f"Extras Manager: {len(all_extras)} extras available")
-            
+
             function_registry = app_state.get_function_registry()
+            if not function_registry:
+                raise ValueError("Function Registry not initialized")
             all_funcs = function_registry.list_functions()
             log_lines.append(f"✅ Function Registry: {len(all_funcs)} functions available")
             process_state.add_log(process_id, f"Function Registry: {len(all_funcs)} functions available")
@@ -274,12 +285,13 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
             )
             log_lines.append("✅ Output Handler initialized")
             process_state.add_log(process_id, "Output Handler initialized")
-            
+
             if is_dry_run:
                 df = df.head(5)
                 log_lines.append("🔬 DRY RUN: Processing only 5 rows")
                 process_state.add_log(process_id, "Dry run: Processing only 5 rows")
-            
+
+            # Update total_rows after potential dry run filtering
             total_rows = len(df)
             text_column = app_state.data_config.text_column
             label_column = app_state.data_config.label_column
@@ -296,7 +308,8 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
             log_lines.append("=" * 80)
             log_lines.append("")
             process_state.add_log(process_id, "Starting row processing")
-            
+
+            # Reset counters (already initialized before try block for exception handler)
             processed = 0
             failed = 0
             total_extras_used = 0
