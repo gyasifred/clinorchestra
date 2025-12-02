@@ -1331,6 +1331,47 @@ class ExtractionAgent:
         available_functions = self.function_registry.get_all_functions_info()
         function_descriptions = self._build_available_tools_description(available_functions)
 
+        # CRITICAL: Extract previously used keywords for RAG and extras to avoid repetition
+        previous_rag_keywords = []
+        previous_extras_keywords = []
+        previous_function_calls = []
+
+        for tool_result in self.context.tool_results:
+            tool_type = tool_result.get('type', '').lower()
+            if tool_type == 'rag':
+                query = tool_result.get('query', '')
+                if query:
+                    # Extract keywords from query
+                    previous_rag_keywords.extend(query.lower().split())
+            elif tool_type == 'extras':
+                keywords = tool_result.get('keywords', [])
+                previous_extras_keywords.extend([k.lower() for k in keywords])
+            elif tool_type == 'function':
+                func_name = tool_result.get('name', '')
+                params = tool_result.get('parameters', {})
+                previous_function_calls.append({
+                    'name': func_name,
+                    'params': params
+                })
+
+        # Remove duplicates and clean up
+        previous_rag_keywords = list(set([k for k in previous_rag_keywords if len(k) > 3]))
+        previous_extras_keywords = list(set(previous_extras_keywords))
+
+        # Build keyword guidance section
+        keyword_guidance = ""
+        if previous_rag_keywords:
+            keyword_guidance += f"\n   CRITICAL - RAG Keywords Already Used (DO NOT REPEAT):\n   {', '.join(previous_rag_keywords[:20])}\n"
+            keyword_guidance += "   → Use DIFFERENT, RELEVANT keywords that target NEW information\n"
+        if previous_extras_keywords:
+            keyword_guidance += f"\n   CRITICAL - Extras Keywords Already Used (DO NOT REPEAT):\n   {', '.join(previous_extras_keywords[:20])}\n"
+            keyword_guidance += "   → Use DIFFERENT, RELEVANT keywords to get NEW hints\n"
+        if previous_function_calls:
+            keyword_guidance += f"\n   Functions Already Called:\n"
+            for fc in previous_function_calls[:5]:
+                keyword_guidance += f"   - {fc['name']} with params: {fc['params']}\n"
+            keyword_guidance += "   → Only call functions with DIFFERENT parameters or for NEW measurements\n"
+
         prompt = f"""You are analyzing an extraction to identify gaps and determine if additional tools are needed for refinement.
 
 ORIGINAL TEXT:
@@ -1370,6 +1411,7 @@ YOUR TASK:
    RAG: Retrieve additional clinical guidelines/standards
 
    EXTRAS: Get supplementary hints/patterns
+{keyword_guidance}
 
 RESPONSE FORMAT:
 {{
@@ -1384,7 +1426,7 @@ RESPONSE FORMAT:
     }},
     {{
       "type": "rag",
-      "query": "specific focused query",
+      "query": "specific focused query with NEW keywords",
       "reason": "What additional guideline/standard is needed"
     }},
     {{
@@ -1395,10 +1437,13 @@ RESPONSE FORMAT:
   ]
 }}
 
-IMPORTANT:
+CRITICAL REQUIREMENTS:
 - Only request tools that will genuinely improve the extraction
 - If extraction is complete and accurate, return empty additional_tools_needed list
-- Be specific with parameters and queries
+- For RAG/Extras: Use RELEVANT keywords that are DIFFERENT from previously used ones
+- DO NOT repeat the same keywords - this will return the same results and waste resources
+- Focus on finding NEW information that fills specific gaps identified in your analysis
+- Functions can be repeated ONLY with different parameters for new measurements
 
 Respond with JSON only."""
 
