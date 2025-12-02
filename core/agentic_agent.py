@@ -291,6 +291,13 @@ Be strategic: prioritize essential tools, avoid redundant calls, and output JSON
                             ConversationMessage(role='user', content=prevention_prompt)
                         )
 
+                # CRITICAL: Add keyword variation guidance for RAG/Extras to avoid repeating same queries
+                keyword_guidance = self._build_keyword_variation_guidance()
+                if keyword_guidance:
+                    self.context.conversation_history.append(
+                        ConversationMessage(role='user', content=keyword_guidance)
+                    )
+
                 # Warn LLM if this is the last iteration
                 if self.context.iteration == self.context.max_iterations:
                     warning_message = f"""WARNING: This is iteration {self.context.iteration} of {self.context.max_iterations} (FINAL ITERATION). You MUST output complete valid JSON now. Do not call more tools unless absolutely necessary. Focus on completing the extraction with available information."""
@@ -767,6 +774,93 @@ Example format:
             signatures.append(sig)
 
         return ";".join(sorted(signatures))
+
+    def _build_keyword_variation_guidance(self) -> Optional[str]:
+        """
+        Build keyword variation guidance for RAG/Extras to avoid repeating same queries
+
+        Analyzes all previous tool results to extract used keywords and instructs
+        LLM to use DIFFERENT keywords in subsequent calls to get diverse information.
+
+        Returns:
+            String with keyword guidance, or None if no previous tool usage detected
+        """
+        if not self.context.tool_results:
+            return None
+
+        # Extract previously used keywords from tool results
+        previous_rag_keywords = []
+        previous_extras_keywords = []
+        previous_function_calls = []
+
+        for result in self.context.tool_results:
+            if result.type == 'rag' and result.success:
+                # Extract query string
+                query = getattr(result.result, 'query', '') if hasattr(result.result, 'query') else str(result.result)
+                if query:
+                    # Split query into keywords (simple approach)
+                    words = query.lower().split()
+                    previous_rag_keywords.extend([w for w in words if len(w) > 3])
+
+            elif result.type == 'extras' and result.success:
+                # Extras uses keywords list
+                if hasattr(result.result, 'keywords'):
+                    keywords = result.result.keywords
+                elif isinstance(result.result, dict) and 'keywords' in result.result:
+                    keywords = result.result['keywords']
+                else:
+                    keywords = []
+                previous_extras_keywords.extend([k.lower() for k in keywords])
+
+            elif result.type == 'function':
+                # Track function names
+                func_name = result.tool_call_id.split('_')[0] if '_' in result.tool_call_id else 'unknown'
+                previous_function_calls.append(func_name)
+
+        # Remove duplicates and filter
+        previous_rag_keywords = list(set([k for k in previous_rag_keywords if len(k) > 3]))
+        previous_extras_keywords = list(set(previous_extras_keywords))
+        previous_function_calls = list(set(previous_function_calls))
+
+        # Only build guidance if we have previous tool usage
+        if not (previous_rag_keywords or previous_extras_keywords or previous_function_calls):
+            return None
+
+        # Build guidance message
+        guidance_lines = []
+        guidance_lines.append("🔄 KEYWORD VARIATION GUIDANCE - Avoid Repeating Queries:")
+        guidance_lines.append("━" * 60)
+
+        if previous_rag_keywords:
+            guidance_lines.append("")
+            guidance_lines.append("📚 RAG Keywords Already Used (DO NOT REPEAT):")
+            guidance_lines.append(f"   {', '.join(previous_rag_keywords[:20])}")
+            guidance_lines.append("   → Use DIFFERENT, RELEVANT keywords to get NEW information")
+            guidance_lines.append("   → Example: If you used 'ASPEN criteria', try 'WHO standards', 'CDC guidelines', 'nutritional assessment', etc.")
+
+        if previous_extras_keywords:
+            guidance_lines.append("")
+            guidance_lines.append("💡 Extras Keywords Already Used (DO NOT REPEAT):")
+            guidance_lines.append(f"   {', '.join(previous_extras_keywords[:20])}")
+            guidance_lines.append("   → Use DIFFERENT, RELEVANT keywords to get NEW hints")
+            guidance_lines.append("   → Example: If you used 'malnutrition', try 'growth parameters', 'clinical assessment', 'diagnostic criteria', etc.")
+
+        if previous_function_calls:
+            guidance_lines.append("")
+            guidance_lines.append("⚙️ Functions Already Called:")
+            guidance_lines.append(f"   {', '.join(previous_function_calls[:10])}")
+            guidance_lines.append("   → Only call again with DIFFERENT parameters for NEW measurements")
+            guidance_lines.append("   → DO NOT recalculate the same values")
+
+        guidance_lines.append("")
+        guidance_lines.append("✅ CRITICAL: When calling RAG/Extras again:")
+        guidance_lines.append("   1. Identify what NEW information would fill gaps")
+        guidance_lines.append("   2. Use keywords that are DIFFERENT from previous calls")
+        guidance_lines.append("   3. Target specific missing information, not general exploration")
+        guidance_lines.append("   4. Avoid repeating the same query - it will return the same results!")
+        guidance_lines.append("━" * 60)
+
+        return "\n".join(guidance_lines)
 
     def _detect_and_resolve_dependencies(self, tool_calls: List[ToolCall]) -> List[ToolCall]:
         """
