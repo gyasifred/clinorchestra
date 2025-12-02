@@ -2184,24 +2184,34 @@ This allows you to structure sophisticated multi-step calculations in a single r
         return None
 
     def _preprocess_clinical_text(self, text: str) -> str:
-        """Preprocess clinical text"""
+        """
+        Preprocess clinical text with normalization and redaction
+
+        CRITICAL ORDER: Normalize FIRST, then Redact
+        - Normalization standardizes patterns (e.g., "5'11"" → "5 feet 11 inches")
+        - Redaction then operates on the normalized text
+        - This ensures PHI detection works on clean, standardized patterns
+        """
         if not text or not text.strip():
             return ""
 
         processed_text = text
 
-        # Pattern normalization
+        # Step 1: Pattern Normalization (if enabled)
+        # Standardize medical measurements, units, abbreviations, etc.
         if self.app_state.data_config.enable_pattern_normalization and self.regex_preprocessor:
             try:
                 normalized = self.regex_preprocessor.preprocess(processed_text)
                 if self.app_state.data_config.save_normalized_text and self.context:
                     self.context.normalized_text = normalized
-                processed_text = normalized
+                processed_text = normalized  # Continue with normalized text
                 logger.info("Pattern normalization applied")
             except Exception as e:
                 logger.warning(f"Regex preprocessing failed: {e}")
 
-        # PHI redaction
+        # Step 2: PHI Redaction (if enabled)
+        # Redact PHI from the NORMALIZED text (not original)
+        # This ensures redaction operates on standardized patterns
         if self.app_state.data_config.enable_phi_redaction:
             try:
                 from core.pii_redactor import create_redactor
@@ -2211,10 +2221,11 @@ This allows you to structure sophisticated multi-step calculations in a single r
                     method=self.app_state.data_config.redaction_method
                 )
 
+                # IMPORTANT: Redact the normalized text, not the original!
                 redacted, redactions = redactor.redact(processed_text)
                 if self.app_state.data_config.save_redacted_text and self.context:
                     self.context.redacted_text = redacted
-                processed_text = redacted
+                processed_text = redacted  # Continue with redacted text
                 logger.info(f"PHI redaction applied: {len(redactions)} entities")
             except Exception as e:
                 logger.warning(f"PHI redaction failed: {e}")

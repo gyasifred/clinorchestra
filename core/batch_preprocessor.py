@@ -97,7 +97,14 @@ class BatchPreprocessor:
             'redaction_enabled': apply_pii_redaction
         }
 
+        # CRITICAL ORDER: Normalize FIRST, then Redact
+        # This ensures:
+        # 1. Patterns are standardized before PHI detection
+        # 2. Redaction operates on clean, normalized text
+        # 3. PHI entities are more reliably detected
+
         # Step 1: Pattern Normalization (if enabled)
+        # Convert variations like "5'11"" to "5 feet 11 inches", "100mg" to "100 milligrams", etc.
         if apply_normalization and self.regex_preprocessor:
             logger.info("[CONFIG] Applying pattern normalization...")
             norm_start = time.time()
@@ -109,10 +116,13 @@ class BatchPreprocessor:
             metadata['normalization_duration'] = norm_duration
 
         # Step 2: PII Redaction (if enabled)
+        # Redact PHI from the NORMALIZED text (not original)
+        # This ensures redaction works on standardized patterns
         if apply_pii_redaction and self.pii_redactor:
             logger.info("[SECURITY] Applying PII redaction...")
             redact_start = time.time()
 
+            # IMPORTANT: Pass normalized_texts, not original texts!
             redacted_texts, redaction_stats = self._batch_redact(normalized_texts)
 
             redact_duration = time.time() - redact_start
