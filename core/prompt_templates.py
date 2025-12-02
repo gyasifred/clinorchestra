@@ -33,32 +33,29 @@ from typing import Dict, Any, List
 # DEFAULT PROMPT TEMPLATES (main, minimal, RAG refinement)
 # ============================================================================
 
-DEFAULT_MAIN_PROMPT = """[TASK DESCRIPTION - Edit this section with your extraction task]
+DEFAULT_MAIN_PROMPT = """[TASK DESCRIPTION - Edit with your extraction requirements]
 
-You are a clinical expert analyzing medical records for structured information extraction to curate training data for a conversational AI.
+You are a clinical expert analyzing medical records for structured information extraction.
 
 YOUR TASK:
-Extract and synthesize clinical information from the provided text to create a comprehensive narrative, following the JSON schema exactly. The goal is to annotate data with expert-level clinical analysis, focusing on factual evidence aligned with the ICD classification.
+Extract and synthesize clinical information from the provided text, following the JSON schema exactly.
 
 EXTRACTION GUIDELINES:
 - Be precise and accurate
-- Use null for truly unknown values
+- Use null for unknown values
 - Maintain clinical terminology
-- Extract only factual information present in the text
-- ANONYMIZE: NEVER use patient or family names; ALWAYS use "the patient", "the [age]-year-old", or "the family"
+- Extract only factual information from the text
+- ANONYMIZE: Use "the patient", "the [age]-year-old", or "the family" (NEVER use names)
 
-FUNCTION CALLING RULE:
-Ensure all function parameters are provided in correct units. Convert units (e.g., cm to m) using a conversion function before calling the primary function.
-
-INTELLIGENT QUERIES:
-Build RAG queries from clinical text and ICD classification, targeting relevant guidelines (e.g., "ASPEN malnutrition criteria"). Summarize extras outputs in two sentences, focusing on diagnostic insights.
+FUNCTION CALLING:
+Ensure parameters are in correct units. Convert units using conversion functions before calling primary functions.
 
 [END TASK DESCRIPTION]
 
-CLINICAL TEXT TO ANALYZE:
+CLINICAL TEXT:
 {clinical_text}
 
-ICD CLASSIFICATION:
+CLASSIFICATION CONTEXT:
 {label_context}
 
 {rag_outputs}
@@ -71,20 +68,20 @@ ICD CLASSIFICATION:
 
 DEFAULT_MINIMAL_PROMPT = """[TASK DESCRIPTION - Concise Version]
 
-Extract and synthesize clinical information in JSON format to curate training data for a conversational AI, aligning with the ICD classification.
+Extract clinical information in JSON format, following the schema exactly.
 
-FUNCTION CALLING RULE:
-Ensure all function parameters are provided in correct units. Convert units (e.g., cm to m) using a conversion function before calling the primary function.
-
-INTELLIGENT QUERIES:
-Build RAG queries from clinical text and ICD classification, targeting relevant guidelines (e.g., "ASPEN malnutrition criteria"). Summarize extras outputs in two sentences, focusing on diagnostic insights.
+CRITICAL RULES:
+- Extract factual information only
+- Use null for unknown values
+- ANONYMIZE patient/family names
+- Convert units before calling functions
 
 [END TASK DESCRIPTION]
 
 CLINICAL TEXT:
 {clinical_text}
 
-ICD CLASSIFICATION:
+CLASSIFICATION:
 {label_context}
 
 {rag_outputs}
@@ -97,7 +94,7 @@ ICD CLASSIFICATION:
 
 DEFAULT_RAG_REFINEMENT_PROMPT = """[RAG REFINEMENT TASK]
 
-You are refining a preliminary clinical extraction using evidence from authoritative sources, acting as a clinical expert to curate high-quality training data for a conversational AI. Synthesize findings to support the ICD classification of nutritional status.
+You are refining a preliminary extraction using evidence from authoritative sources.
 
 CRITICAL ANONYMIZATION:
 - NEVER use patient or family names
@@ -105,58 +102,43 @@ CRITICAL ANONYMIZATION:
 
 REFINEMENT OBJECTIVES:
 
-1. VALIDATE: Confirm clinical interpretations against guideline criteria (e.g., ASPEN), classification accuracy, and diagnostic reasoning.
+1. VALIDATE: Confirm interpretations against guideline criteria, verify accuracy
 
-2. CORRECT: Adjust misclassifications with guideline citations, update inappropriate differentials, and align recommendations with evidence-based practice. Replace any patient names with "the patient", "the [age]-year-old", etc.
+2. CORRECT: Adjust misclassifications with citations, align with evidence-based practice
 
-3. ENHANCE: Add guideline interpretations (e.g., "Per ASPEN criteria..."), prognostic information, and diagnostic criteria met.
+3. ENHANCE: Add guideline interpretations, prognostic information, diagnostic criteria
 
-4. FILL GAPS: Specify severity if parameters are present but unstated, include guideline-indicated recommendations, and complete evidence-supported care plan elements.
+4. FILL GAPS: Complete missing but important details supported by evidence
 
-5. ENSURE CONSISTENCY: Verify assessments align with clinical findings, symptoms support the ICD classification, and recommendations match severity/presentation.
+5. ENSURE CONSISTENCY: Verify assessments align with findings and support classification
 
-6. HANDLE MISSING DATA: For null, none, or not documented fields, provide a normal response. Example: If labs are null, state, "No laboratory investigations were ordered, consistent with clinical presentation."
+6. HANDLE MISSING DATA: For null/not documented fields, provide appropriate clinical reasoning
 
 CRITICAL PRINCIPLES:
 - Preserve fidelity: Never remove correct data or fabricate information
-- Quote guidelines when correcting: "Per WHO standards..."
-- Flag discrepancies: "Parameters suggest severe, but initial extraction stated moderate"
-- Add value only when guidelines clearly apply
-- Maintain conversational expert tone
-- ANONYMIZE: Use "the patient", "the [age]-year-old", "the family"
-
-Z-SCORE AND PERCENTILE VALIDATION:
-- Validate z-score sign with percentile:
-  • Percentiles <50th: Negative z-scores (below average, e.g., "1 z 2.36" is -2.36)
-  • Percentiles >50th: Positive z-scores (above average, e.g., "85 ile z 1.04" is +1.04)
-- Confirm alignment with clinical descriptions (e.g., "short stature" indicates below average; "well-nourished" indicates normal/above average)
-- Flag discrepancies between z-scores, percentiles, and clinical narrative for review
-
-SYNTHESIS GUIDELINES FOR MALNUTRITION ASSESSMENT:
-- For ICD classification "MALNUTRITION PRESENT":
-  • Synthesize evidence supporting presence (e.g., low z-scores, wasting, inadequate intake)
-  • Classify severity (mild, moderate, severe) per guidelines (e.g., ASPEN)
-  • Identify etiology (e.g., illness-related, non-illness-related)
-- For ICD classification "NO MALNUTRITION":
-  • Synthesize evidence supporting adequate nutritional status (e.g., normal z-scores, well-nourished appearance, adequate intake)
-  • Highlight stable growth and absence of malnutrition signs
-  • If risk factors exist, note them without implying current deficits
-- Avoid negative assertions (e.g., do not state "malnutrition is absent"; focus on evidence of adequate nutrition)
-- Present findings neutrally: "The ICD classification of [label_context] is supported by..."
+- Quote sources when correcting: "Per [guideline/source]..."
+- Flag discrepancies clearly
+- Add value only when evidence clearly applies
+- Maintain expert clinical tone
+- ANONYMIZE always
 
 [END RAG REFINEMENT TASK]
 
 ORIGINAL TEXT:
 {clinical_text}
 
-ICD CLASSIFICATION:
+CLASSIFICATION CONTEXT:
 {label_context}
 
 INITIAL EXTRACTION:
 {stage3_json_output}
 
 EVIDENCE BASE:
-{retrieved_evidence_chunks}"""
+{retrieved_evidence_chunks}
+
+{json_schema_instructions}
+
+Return ONLY JSON in the exact schema format. No markdown. Use evidence to refine extraction."""
 
 # ============================================================================
 # EXAMPLE TEMPLATE 1: MALNUTRITION ASSESSMENT
@@ -520,107 +502,76 @@ ICD CLASSIFICATION:
 # ============================================================================
 
 STAGE1_ANALYSIS_PROMPT = """[SYSTEM INSTRUCTION]
-You are an agentic clinical analyst planning information extraction using available tools. Your job is to understand the extraction task, analyze the clinical text, and intelligently select tools that will help complete the extraction.
+You are an intelligent task analyst for clinical data extraction. Your job: understand the extraction task, analyze available data, and determine which tools would help complete the task.
 
 [EXTRACTION TASK]
-
-The extraction task requires the following information to be extracted:
-
 {task_description}
 
-EXPECTED OUTPUT SCHEMA:
+OUTPUT SCHEMA:
 {json_schema}
 
 [AVAILABLE TOOLS]
-
-You have access to these tools:
-
 {available_tools_description}
 
-[YOUR AGENTIC TASK]
+[YOUR ANALYSIS TASK]
 
-Analyze the clinical text and determine which tools are needed to extract the required information:
+**STEP 1 - UNDERSTAND REQUIREMENTS:**
+- Review task description → understand WHAT to extract and HOW
+- Review output schema → understand required fields and structure
 
-1. **Understand the Task**: Review the extraction task description and output schema to understand what information needs to be extracted.
+**STEP 2 - ANALYZE AVAILABLE DATA:**
+- Read clinical text → identify what information is currently available
+- Identify available values, measurements, and mentions
 
-2. **Analyze the Clinical Text**: Identify key information present in the clinical text that relates to the extraction task.
+**STEP 3 - GAP ANALYSIS:**
+Determine what's missing or needs transformation:
+- Calculations needed? (e.g., available values need to be computed/converted)
+- Guidelines/criteria needed? (e.g., task mentions standards to apply)
+- Context/hints needed? (e.g., domain knowledge would clarify interpretation)
 
-3. **Identify Functions**: Determine which functions need to be called and extract their parameters from the clinical text.
-   - Extract numeric values (weight, height, age, etc.) from the clinical text
-   - If a parameter cannot be extracted, leave it out (the system will attempt extraction)
-   - For age calculations, extract date of birth and current date
-   - For growth calculations, extract age, sex, and relevant measurements
-
-4. **Build RAG Queries**: Create intelligent queries to retrieve relevant guidelines and evidence.
-   - Build queries from the task description, clinical context, and label classification
-   - Target specific guidelines, criteria, and standards relevant to the task
-   - Use 3-7 meaningful keywords that capture the clinical context
-
-5. **Build Extras Keywords**: Create keywords to match relevant hints and contextual information.
-   - Extract key medical terms and concepts from the clinical text
-   - Include terms from the label classification and task description
-   - Use 3-5 specific, relevant keywords
-
-CRITICAL PARAMETER EXTRACTION RULES:
-- Extract ALL numeric parameters from the clinical text (weight, height, age, measurements, lab values)
-- Look for patterns like "weight: 45.5 kg", "height 150cm", "5 year old", "DOB: 01/15/2020"
-- Convert units appropriately (e.g., pounds to kg: multiply by 0.453592; feet to cm: multiply by 30.48)
-- For dates, extract in format MM/DD/YYYY or similar
-- For sex, identify from context (male/female indicators)
-
-INTELLIGENT QUERY BUILDING:
-- RAG queries should target guidelines, criteria, and standards relevant to the extraction task
-- Extract key medical concepts from clinical text: diagnoses, conditions, assessments
-- Include classification/label terms in queries
-- Include schema-related terms (e.g., if schema has "malnutrition_status", include "malnutrition" in queries)
-
-TOOL SELECTION STRATEGY:
-- Call functions when: calculations are needed, specific values must be computed
-- Use RAG when: guidelines, criteria, or evidence-based standards are needed for the task
-- Use extras when: contextual information, coding, or reference data would help
+**STEP 4 - SELECT TOOLS:**
+Based on gaps, determine which tools are REQUIRED:
+- **Functions**: Call when calculations, conversions, or computations are needed
+- **RAG**: Call when guidelines, criteria, or evidence-based standards would help
+- **Extras**: Call when supplementary context or domain knowledge would assist
 
 [CLINICAL TEXT TO ANALYZE]
 {clinical_text}
 
-[LABEL CLASSIFICATION]
+[CLASSIFICATION/LABEL CONTEXT]
 {label_context}
 
-[REQUIRED OUTPUT FORMAT]
-
-Return your response in this EXACT JSON format:
+[OUTPUT FORMAT]
+Return JSON with this EXACT structure:
 {{
-  "analysis": "Brief analysis of what information needs to be extracted and which tools will help",
+  "analysis": "Brief analysis of required information and tools that will help",
   "tool_requests": [
     {{
       "tool": "function",
-      "name": "extract_age_from_dates",
-      "arguments": {{"date_of_birth": "01/15/2020", "current_date": "10/30/2025"}},
-      "reasoning": "Need to calculate age in months for growth assessment"
-    }},
-    {{
-      "tool": "function",
-      "name": "calculate_bmi",
-      "arguments": {{"weight_kg": 45.5, "height_cm": 150}},
-      "reasoning": "Need BMI for nutritional status assessment"
+      "name": "<function_name>",
+      "arguments": {{"param1": value1, "param2": value2}},
+      "reasoning": "Why this function is needed to complete the task"
     }},
     {{
       "tool": "rag",
-      "keywords": ["malnutrition criteria", "ASPEN guidelines", "pediatric nutrition"],
-      "reasoning": "Need evidence-based criteria for nutritional assessment and diagnosis"
+      "keywords": ["<keyword1>", "<keyword2>", "<keyword3>"],
+      "reasoning": "What guidelines/evidence this will retrieve and why needed"
     }},
     {{
       "tool": "extras",
-      "keywords": ["ICD-10", "malnutrition", "coding"],
-      "reasoning": "Need contextual coding information for documentation"
+      "keywords": ["<keyword1>", "<keyword2>", "<keyword3>"],
+      "reasoning": "What contextual information this will provide"
     }}
   ]
 }}
 
-REMEMBER:
-- Extract ALL relevant parameters from the clinical text
-- Build intelligent queries that target guidelines and standards for the specific task
-- Only request tools that will genuinely help with the extraction task
-- The goal is to gather all information needed to complete the extraction schema"""
+CRITICAL PRINCIPLES:
+- Extract parameters from clinical text (ages, weights, measurements, dates, etc.)
+- Build queries from task requirements and schema fields
+- Select tools that DIRECTLY support completing the required output
+- Tools must serve the task requirements, not unrelated exploration
+- For RAG/Extras: Use RELEVANT keywords that will find NEW information to fill gaps
+- DO NOT repeat the same keywords that were used before - vary terms to get diverse results"""
 
 # ============================================================================
 # TEMPLATE REGISTRY - Your Starting Points
