@@ -192,13 +192,19 @@ def create_playground_tab(app_state) -> Dict[str, Any]:
             log.append(f"Using LLM Manager: {llm_manager.provider}/{llm_manager.model_name}")
             
             regex_preprocessor = app_state.get_regex_preprocessor()
+            if not regex_preprocessor:
+                raise ValueError("Regex Preprocessor not initialized")
             log.append("Using Regex Preprocessor")
-            
+
             extras_manager = app_state.get_extras_manager()
+            if not extras_manager:
+                raise ValueError("Extras Manager not initialized")
             all_extras = extras_manager.list_extras()
             log.append(f"Extras Manager: {len(all_extras)} extras available")
-            
+
             function_registry = app_state.get_function_registry()
+            if not function_registry:
+                raise ValueError("Function Registry not initialized")
             all_funcs = function_registry.list_functions()
             log.append(f"Function Registry: {len(all_funcs)} functions available")
             
@@ -370,6 +376,9 @@ def create_playground_tab(app_state) -> Dict[str, Any]:
         """Refresh function list"""
         try:
             function_registry = app_state.get_function_registry()
+            if not function_registry:
+                logger.error("Function Registry not initialized")
+                return gr.update(choices=[], value=None)
             func_names = function_registry.list_functions()
             
             logger.info(f"Refreshed functions: {func_names}")
@@ -387,9 +396,11 @@ def create_playground_tab(app_state) -> Dict[str, Any]:
         """Show function info"""
         if not func_name:
             return {}
-        
+
         try:
             function_registry = app_state.get_function_registry()
+            if not function_registry:
+                return {'error': 'Function Registry not initialized'}
             func_info = function_registry.get_function_info(func_name)
             
             if func_info:
@@ -410,10 +421,12 @@ def create_playground_tab(app_state) -> Dict[str, Any]:
         """Test function call"""
         if not func_name:
             return "Select a function"
-        
+
         try:
             params = json.loads(params_json) if params_json.strip() else {}
             function_registry = app_state.get_function_registry()
+            if not function_registry:
+                return "Error: Function Registry not initialized"
             success, result, message = function_registry.execute_function(func_name, **params)
             
             if success:
@@ -435,6 +448,9 @@ def create_playground_tab(app_state) -> Dict[str, Any]:
         """Refresh extras list"""
         try:
             extras_manager = app_state.get_extras_manager()
+            if not extras_manager:
+                logger.error("Extras Manager not initialized")
+                return gr.update(choices=[], value=[])
             extras = extras_manager.list_extras()
             
             choices = [
@@ -452,9 +468,11 @@ def create_playground_tab(app_state) -> Dict[str, Any]:
         """Test extras matching"""
         if not text or not text.strip():
             return "No text provided"
-        
+
         try:
             extras_manager = app_state.get_extras_manager()
+            if not extras_manager:
+                return "Error: Extras Manager not initialized"
             all_extras = extras_manager.list_extras()
             
             text_lower = text.lower()
