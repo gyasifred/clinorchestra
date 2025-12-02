@@ -307,7 +307,21 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
             if app_state.optimization_config.use_batch_preprocessing:
                 log_lines.append("🚀 Batch Preprocessing: Preparing all texts...")
                 process_state.add_log(process_id, "Batch preprocessing started")
-                batch_preprocessor = BatchPreprocessor()
+
+                # CRITICAL FIX: Initialize BatchPreprocessor with required components
+                # Without these, normalization and redaction won't work!
+                pii_redactor_inst = None
+                if app_state.data_config.enable_phi_redaction:
+                    from core.pii_redactor import create_redactor
+                    pii_redactor_inst = create_redactor(
+                        entity_types=app_state.data_config.phi_entity_types,
+                        method=app_state.data_config.redaction_method
+                    )
+
+                batch_preprocessor = BatchPreprocessor(
+                    pii_redactor=pii_redactor_inst,
+                    regex_preprocessor=regex_preprocessor
+                )
                 all_texts = [str(row[text_column]) for _, row in df.iterrows()]
 
                 preprocessed_batch = batch_preprocessor.preprocess_batch(
