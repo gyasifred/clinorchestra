@@ -623,8 +623,8 @@ Example format:
         """
         tools = []
 
-        # RAG tool (always include if available - critical for retrieval)
-        if self.rag_engine:
+        # RAG tool (only include if initialized with documents)
+        if self.rag_engine and self.rag_engine.initialized:
             tools.append({
                 'type': 'function',
                 'function': {
@@ -647,8 +647,8 @@ Example format:
                 }
             })
 
-        # Extras tool (always include if available - critical for hints)
-        if self.extras_manager:
+        # Extras tool (only include if there are enabled extras)
+        if self.extras_manager and len([e for e in self.extras_manager.extras if e.get('enabled', True)]) > 0:
             tools.append({
                 'type': 'function',
                 'function': {
@@ -860,14 +860,14 @@ Example format:
             guidance_lines.append("📚 RAG Keywords Already Used (DO NOT REPEAT):")
             guidance_lines.append(f"   {', '.join(previous_rag_keywords[:20])}")
             guidance_lines.append("   → Use DIFFERENT, RELEVANT keywords to get NEW information")
-            guidance_lines.append("   → Example: If you used 'ASPEN criteria', try 'WHO standards', 'CDC guidelines', 'nutritional assessment', etc.")
+            guidance_lines.append("   → Try alternative terms, different aspects, or related concepts")
 
         if previous_extras_keywords:
             guidance_lines.append("")
             guidance_lines.append("💡 Extras Keywords Already Used (DO NOT REPEAT):")
             guidance_lines.append(f"   {', '.join(previous_extras_keywords[:20])}")
             guidance_lines.append("   → Use DIFFERENT, RELEVANT keywords to get NEW hints")
-            guidance_lines.append("   → Example: If you used 'malnutrition', try 'growth parameters', 'clinical assessment', 'diagnostic criteria', etc.")
+            guidance_lines.append("   → Try related concepts, alternative terminology, or different aspects")
 
         if previous_function_calls:
             guidance_lines.append("")
@@ -1521,14 +1521,14 @@ You have access to tools:
 1. Read the task description → Understand WHAT needs to be extracted and HOW
 2. Read the clinical text → Identify WHAT data is currently available
 3. Perform gap analysis between available data and required output:
-   - Compare available format vs. required format (e.g., percentile vs. z-score)
+   - Compare available format vs. required format
    - Identify guidelines mentioned in task that need to be retrieved
    - Identify calculations needed to complete schema fields
 
 **PHASE 2 - AUTONOMOUSLY DETERMINE & EXECUTE REQUIRED TOOLS:**
 4. Based on gap analysis, autonomously determine which tools are REQUIRED:
-   - Call functions to convert/calculate (percentile → z-score, weight+height → BMI)
-   - Call RAG to retrieve guidelines/criteria mentioned in task (ASPEN, WHO, CDC)
+   - Call functions to convert/calculate values as needed
+   - Call RAG to retrieve guidelines/criteria mentioned in task
    - Call extras for task-related supplementary hints
    - Call same function multiple times for serial/temporal measurements
 5. Execute all required tool calls
@@ -1563,7 +1563,6 @@ Tools must serve the TASK requirements, not unrelated exploration.
    - TRACK what you've already calculated
    - DO NOT call the same function with the same parameters twice
    - If you need a value you already calculated, REMEMBER it from the tool result
-   - Example: If you called percentile_to_zscore(14) and got 0.72, DO NOT call it again
 
 **3. INCORPORATE RETRIEVED INFORMATION:**
    - When RAG returns criteria/guidelines -> CITE them in your output
@@ -1593,22 +1592,22 @@ You can now chain function calls where one function's output becomes another's i
 - The system will automatically execute dependencies in the correct order
 - You can reference specific fields using "$call_X.field_name"
 
-**Example - Calculate pediatric nutrition status:**
+**Example - Chained calculations:**
 ```
-TOOL_CALL: {{"id": "call_1", "tool": "call_calculate_age_months", "parameters": {{"birth_date": "2020-01-15"}}}}
-TOOL_CALL: {{"id": "call_2", "tool": "call_calculate_bmi", "parameters": {{"weight_kg": 20, "height_m": 1.1}}}}
-TOOL_CALL: {{"id": "call_3", "tool": "call_analyze_nutrition", "parameters": {{"age_months": "$call_1", "bmi": "$call_2"}}}}
+TOOL_CALL: {{"id": "call_1", "tool": "call_function_a", "parameters": {{"param": "value1"}}}}
+TOOL_CALL: {{"id": "call_2", "tool": "call_function_b", "parameters": {{"param": "value2"}}}}
+TOOL_CALL: {{"id": "call_3", "tool": "call_function_c", "parameters": {{"param_a": "$call_1", "param_b": "$call_2"}}}}
 ```
 
 **What happens:**
-1. call_1 executes -> returns 58 (age in months)
-2. call_2 executes -> returns 16.5 (BMI)
-3. call_3 executes with age_months=58, bmi=16.5 (values auto-substituted)
+1. call_1 executes -> returns result1
+2. call_2 executes -> returns result2
+3. call_3 executes with param_a=result1, param_b=result2 (values auto-substituted)
 
 **When to use this:**
 - When you need to combine results from multiple calculations
 - When one function needs the output of another
-- When building complex clinical assessments from simple measurements
+- When building complex assessments from simple measurements
 
 **Important:**
 - Each tool call needs a unique ID (call_1, call_2, etc.)
