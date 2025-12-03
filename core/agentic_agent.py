@@ -684,18 +684,42 @@ Example format:
                 functions = functions[:remaining_slots]
 
             for func in functions:
-                tools.append({
+                # Build proper JSON Schema for parameters
+                # CRITICAL: Remove 'required' field from individual properties (it should only be at parameters level)
+                properties = {}
+                required_params = []
+
+                for param_name, param_spec in func.get('parameters', {}).items():
+                    # Extract only JSON Schema fields, excluding our custom 'required' field
+                    prop = {}
+                    for key, value in param_spec.items():
+                        if key == 'required':
+                            # Track which parameters are required (for parameters-level 'required' array)
+                            if value:
+                                required_params.append(param_name)
+                        else:
+                            # Include all other fields (type, description, etc.)
+                            prop[key] = value
+                    properties[param_name] = prop
+
+                # Build tool schema in OpenAI format
+                tool_schema = {
                     'type': 'function',
                     'function': {
                         'name': f"call_{func['name']}",
                         'description': f"{func.get('description', 'Calculation or transformation function')}. Can be called multiple times with different inputs.",
                         'parameters': {
                             'type': 'object',
-                            'properties': func.get('parameters', {}),
-                            'required': list(func.get('parameters', {}).keys())
+                            'properties': properties
                         }
                     }
-                })
+                }
+
+                # Only add 'required' array if there are required parameters
+                if required_params:
+                    tool_schema['function']['parameters']['required'] = required_params
+
+                tools.append(tool_schema)
 
         logger.debug(f"[TOOLS] Built tool schema with {len(tools)} tools (RAG: {1 if self.rag_engine else 0}, Extras: {1 if self.extras_manager else 0}, Functions: {len(tools) - (1 if self.rag_engine else 0) - (1 if self.extras_manager else 0)})")
         return tools
