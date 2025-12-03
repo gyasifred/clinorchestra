@@ -1879,12 +1879,19 @@ Respond with ONLY the JSON object in the format shown above."""
     def _build_available_tools_description(self, functions: List[Dict[str, Any]] = None) -> str:
         """Build description of available tools"""
         if functions is None:
-            # Use consistent function registry instance
+            # Use consistent function registry instance (ONLY ENABLED ONES)
             functions = self.function_registry.get_all_functions_info()
-        
+
+        logger.info(f"🔧 Building tool descriptions: {len(functions)} enabled functions available")
+
         if not functions:
+            logger.warning("⚠️  NO FUNCTIONS AVAILABLE - all may be disabled")
             return "No functions available."
-        
+
+        # DIAGNOSTIC: Log function names
+        function_names = [func['name'] for func in functions]
+        logger.info(f"📋 Functions available: {', '.join(function_names)}")
+
         descriptions = []
         for func in functions:
             name = func.get('name', 'unknown')
