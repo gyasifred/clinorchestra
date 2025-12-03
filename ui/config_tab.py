@@ -347,13 +347,21 @@ def create_config_tab(app_state) -> Dict[str, Any]:
                 import torch
                 max_gpus = torch.cuda.device_count() if torch.cuda.is_available() else 1
 
+                # FIXED: Add checkbox for auto-detect all GPUs
+                use_all_gpus = gr.Checkbox(
+                    label="Auto-detect and use all available GPUs",
+                    value=(app_state.optimization_config.num_gpus == -1),
+                    info="When enabled, automatically uses all detected GPUs"
+                )
+                components['use_all_gpus'] = use_all_gpus
+
                 num_gpus = gr.Slider(
                     minimum=1,
-                    maximum=max(max_gpus, 2),
-                    value=app_state.optimization_config.num_gpus if app_state.optimization_config.num_gpus != -1 else max_gpus,
+                    maximum=max(max_gpus, 8),  # Support up to 8 GPUs
+                    value=app_state.optimization_config.num_gpus if app_state.optimization_config.num_gpus > 0 else max_gpus,
                     step=1,
-                    label="Number of GPUs to Use",
-                    info=f"Detected {max_gpus} GPU(s). Set to match detected for auto-use all GPUs."
+                    label="Number of GPUs to Use (when auto-detect is disabled)",
+                    info=f"Detected {max_gpus} GPU(s). Specify exact number of GPUs to use."
                 )
                 components['num_gpus'] = num_gpus
 
@@ -561,7 +569,7 @@ Status: Model is ready for processing."""
          llm_cache_en, llm_cache_bypass_val, llm_cache_path,
          enable_prompt_caching_val, enable_tiered_models_val,
          perf_mon, use_parallel, max_workers, use_batch_preproc, use_profiles, use_gpu_f,
-         use_multi_gpu_val, num_gpus_val) = args  # NEW: Multi-GPU + optimization params
+         use_multi_gpu_val, use_all_gpus_val, num_gpus_val) = args  # FIXED: Added use_all_gpus
 
         try:
             config = ModelConfig(
@@ -597,6 +605,9 @@ Status: Model is ready for processing."""
                 if agentic_success:
                     persistence_manager.save_agentic_config(app_state.agentic_config)
 
+                # FIXED: Calculate actual num_gpus value (-1 for auto, or specific number)
+                actual_num_gpus = -1 if use_all_gpus_val else int(num_gpus_val)
+
                 # Save optimization configuration to app_state
                 opt_success = app_state.set_optimization_config(
                     llm_cache_enabled=llm_cache_en,
@@ -611,7 +622,7 @@ Status: Model is ready for processing."""
                     use_model_profiles=use_profiles,
                     use_gpu_faiss=use_gpu_f,
                     use_multi_gpu=use_multi_gpu_val,  # Multi-GPU support
-                    num_gpus=int(num_gpus_val)  # Number of GPUs
+                    num_gpus=actual_num_gpus  # FIXED: Use calculated value
                 )
 
                 # Save optimization configuration to disk
@@ -690,7 +701,7 @@ Status: Model is ready for processing."""
             performance_monitoring_enabled,
             use_parallel_processing, max_parallel_workers, use_batch_preprocessing,
             use_model_profiles, use_gpu_faiss,
-            use_multi_gpu, num_gpus  # Multi-GPU parameters
+            use_multi_gpu, use_all_gpus, num_gpus  # FIXED: Added use_all_gpus
         ],
         outputs=[validation_result]
     )
