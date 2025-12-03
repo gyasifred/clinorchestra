@@ -17,10 +17,42 @@ import sqlite3
 logger = logging.getLogger(__name__)
 
 class ConfigurationPersistenceManager:
-    """Manages persistent storage of configuration state"""
-    
-    def __init__(self, persistence_dir: str = "./config_persistence"):
-        """Initialize persistence manager"""
+    """Manages persistent storage of configuration state
+
+    Instance Isolation:
+    -------------------
+    To run multiple isolated instances with separate configurations,
+    set the CLINORCHESTRA_CONFIG_DIR environment variable:
+
+    Example:
+        # Instance 1
+        export CLINORCHESTRA_CONFIG_DIR="./instance1_config"
+        python app.py
+
+        # Instance 2 (separate terminal/process)
+        export CLINORCHESTRA_CONFIG_DIR="./instance2_config"
+        python app.py
+
+    Each instance will maintain its own separate:
+    - Model configurations
+    - Optimization settings (workers, GPU count, etc.)
+    - Prompt templates
+    - RAG configurations
+    - Processing history
+    """
+
+    def __init__(self, persistence_dir: str = None):
+        """Initialize persistence manager
+
+        Args:
+            persistence_dir: Custom persistence directory path. If None, uses
+                           environment variable CLINORCHESTRA_CONFIG_DIR or
+                           defaults to "./config_persistence"
+        """
+        # FIXED: Support custom persistence directory for instance isolation
+        if persistence_dir is None:
+            persistence_dir = os.environ.get('CLINORCHESTRA_CONFIG_DIR', './config_persistence')
+
         self.persistence_dir = Path(persistence_dir)
         self.persistence_dir.mkdir(parents=True, exist_ok=True)
         self.lock = threading.Lock()
@@ -351,6 +383,8 @@ class ConfigurationPersistenceManager:
                     'llm_cache_enabled': optimization_config.llm_cache_enabled,
                     'llm_cache_db_path': optimization_config.llm_cache_db_path,
                     'llm_cache_bypass': optimization_config.llm_cache_bypass,
+                    'enable_prompt_caching': optimization_config.enable_prompt_caching,  # FIXED: Added missing field
+                    'enable_tiered_models': optimization_config.enable_tiered_models,  # FIXED: Added missing field
                     'performance_monitoring_enabled': optimization_config.performance_monitoring_enabled,
                     'use_parallel_processing': optimization_config.use_parallel_processing,
                     'use_batch_preprocessing': optimization_config.use_batch_preprocessing,
@@ -757,6 +791,9 @@ class ConfigurationPersistenceManager:
                     app_state.optimization_config = OptimizationConfig(
                         llm_cache_enabled=optimization_config_data.get('llm_cache_enabled', True),
                         llm_cache_db_path=optimization_config_data.get('llm_cache_db_path', 'cache/llm_responses.db'),
+                        llm_cache_bypass=optimization_config_data.get('llm_cache_bypass', False),
+                        enable_prompt_caching=optimization_config_data.get('enable_prompt_caching', True),  # FIXED: Added missing field
+                        enable_tiered_models=optimization_config_data.get('enable_tiered_models', False),  # FIXED: Added missing field
                         performance_monitoring_enabled=optimization_config_data.get('performance_monitoring_enabled', True),
                         use_parallel_processing=optimization_config_data.get('use_parallel_processing', True),
                         use_batch_preprocessing=optimization_config_data.get('use_batch_preprocessing', True),
