@@ -1546,14 +1546,21 @@ Return ONLY JSON for the selected fields."""
         # Get schema as JSON string for analysis
         schema_json = json.dumps(self.app_state.prompt_config.json_schema, indent=2)
 
-        prompt = f"""You are a tool planning assistant. Your job is to read the TASK DESCRIPTION below and identify which tools are needed to fulfill it.
+        prompt = f"""You are a tool planning assistant. Your job is to read the TASK DESCRIPTION below and determine which tools (if any) are needed to fulfill it.
 
- CRITICAL INSTRUCTIONS:
+ CRITICAL INSTRUCTIONS - TOOLS ARE OPTIONAL:
 - Read the TASK DESCRIPTION to understand WHAT needs to be extracted
 - Analyze the CLINICAL TEXT to identify available data
-- Autonomously DETERMINE which tools are REQUIRED to fulfill the task
-- Call tools to transform available data into required format (e.g., percentile → z-score)
-- Call tools to retrieve guidelines/criteria mentioned in task (e.g., ASPEN, WHO)
+- Autonomously DETERMINE which tools (if any) are needed based on the task requirements
+- **IMPORTANT**: Tools are OPTIONAL and TASK-DEPENDENT:
+  * If task requires CALCULATIONS or TRANSFORMATIONS → call relevant functions
+  * If task requires GUIDELINES/STANDARDS → generate RAG queries
+  * If task only extracts VALUES ALREADY PRESENT in text → NO TOOLS NEEDED (empty arrays OK)
+- Only call tools when the task EXPLICITLY requires them:
+  * Functions: when calculations, unit conversions, or transformations are specified in task
+  * RAG: when guidelines/criteria/standards are mentioned or needed for interpretation
+  * Extras: when task needs specialized hints or reference ranges
+- If task is simple extraction of existing values, return EMPTY arrays for functions_needed, rag_queries, and extras_keywords
 - DO NOT call tools unrelated to the task requirements (no exploration beyond task scope)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1689,8 +1696,8 @@ YOUR TASK:
 RESPONSE FORMAT (JSON only):
 {{
   "required_information": ["field1", "field2", "field3"],
-  "task_analysis": "Brief analysis of what needs to be extracted and clinical context",
-  "functions_needed": [
+  "task_analysis": "Brief analysis of what needs to be extracted and whether tools are needed",
+  "functions_needed": [  # Can be EMPTY [] if no calculations/transformations needed
     {{
       "name": "function_name",
       "parameters": {{"param1": "value1", "param2": "value2"}},
@@ -1698,7 +1705,7 @@ RESPONSE FORMAT (JSON only):
       "reason": "why this function is needed for extraction"
     }}
   ],
-  "rag_queries": [
+  "rag_queries": [  # Can be EMPTY [] if no guidelines/standards needed
     {{
       "query": "specific focused query with 4-8 keywords",
       "query_type": "guideline|diagnostic|assessment|treatment|domain_specific",
@@ -1710,14 +1717,28 @@ RESPONSE FORMAT (JSON only):
       "purpose": "complementary information for extraction"
     }}
   ],
-  "extras_keywords": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"]
+  "extras_keywords": []  # Can be EMPTY [] if no specialized hints needed
 }}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  ILLUSTRATIVE EXAMPLES (Adapt to YOUR specific task!)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-EXAMPLE 1: Renal Function Assessment (Serial Measurements)
+EXAMPLE 0: Simple Value Extraction (NO TOOLS NEEDED)
+─────────────────────────────────────────────────────
+If task is: "Extract blood pressure, heart rate, and respiratory rate"
+And text contains: "BP 120/80, HR 75 bpm, RR 18"
+
+Response should be:
+{{
+  "required_information": ["blood_pressure", "heart_rate", "respiratory_rate"],
+  "task_analysis": "Simple extraction of vital signs that are already present in text. No calculations or guidelines needed.",
+  "functions_needed": [],  # NO CALCULATIONS REQUIRED
+  "rag_queries": [],       # NO GUIDELINES NEEDED
+  "extras_keywords": []     # NO SPECIALIZED HINTS NEEDED
+}}
+
+EXAMPLE 1: Renal Function Assessment (Serial Measurements - REQUIRES CALCULATIONS)
 ─────────────────────────────────────────────────────────
 If extracting renal function data and text contains:
 "Creatinine was 1.2 mg/dL on 1/15/2024, increased to 1.5 mg/dL on 3/20/2024, and now 1.8 mg/dL on 6/10/2024. Patient is 65yo male, 70kg."
@@ -1842,46 +1863,47 @@ The examples above show renal, growth, and cardiac tasks. YOUR task may be compl
 - Examples: WHO, CDC, ADA, ACC/AHA, ASPEN, KDIGO, ASCO (use what's relevant to YOUR task)
 - Do NOT use generic queries like "help", "information", or "guidelines" alone
 
-🛠️ FUNCTION CALLING:
-- Extract parameters with precision from actual text values
+🛠️ FUNCTION CALLING (Task-Dependent):
+- Only call functions when task EXPLICITLY requires calculations/transformations
+- If task just extracts existing values → NO FUNCTIONS NEEDED (empty array OK)
+- When calling: extract parameters with precision from actual text values
 - Chain functions if needed (e.g., unit conversion before calculation)
-- Only call functions that help with YOUR specific extraction schema
 
  EXTRAS KEYWORDS:
 - 5-8 keywords: specific terminology from YOUR domain, not generic words
 - Extract from YOUR schema field names and clinical context
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- ONE-SHOT PLANNING: THIS IS YOUR ONLY CHANCE TO PLAN TOOLS!
+ ONE-SHOT PLANNING: PLAN TOOLS BASED ON TASK REQUIREMENTS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-️  CRITICAL: Unlike iterative modes, you CANNOT call tools again after this stage.
-This is your ONLY opportunity to request ALL necessary tools.
+️  CRITICAL: This is a one-shot planning stage. You CANNOT call tools again after this.
+This is your ONLY opportunity to request tools - BUT ONLY IF THE TASK REQUIRES THEM.
 
-PLAN COMPREHENSIVELY:
+PLANNING STRATEGY (Task-Driven):
 
- IDENTIFY ALL MEASUREMENTS: Scan the entire text for EVERY numeric value, lab result,
-  vital sign, and measurement. Don't miss any data points.
+ 1. EVALUATE TASK REQUIREMENTS FIRST:
+   - Does the task require CALCULATIONS? (e.g., "calculate BMI", "convert percentiles")
+   - Does the task require GUIDELINES/STANDARDS? (e.g., "classify per WHO", "stage per KDIGO")
+   - Does the task require TRANSFORMATIONS? (e.g., "convert units", "compute scores")
+   - If task only needs verbatim extraction of existing values → SKIP ALL TOOLS (empty arrays)
 
- CALL FUNCTIONS MULTIPLE TIMES: If you see serial/temporal data (measurements at
-  different time points), call the SAME function MULTIPLE times. Examples:
-  - "Weight 65kg (today), 68kg (3mo ago), 70kg (6mo ago)" → call calculate_bmi 3 times
-  - "Cr 1.2, 1.5, 1.8 over past 6 months" → call eGFR function 3 times
-  - Do NOT skip any time points!
+ 2. IF CALCULATIONS ARE NEEDED:
+   - Scan the text for ALL numeric values, lab results, vital signs needed for calculations
+   - Call functions MULTIPLE TIMES for serial/temporal data:
+     * "Weight 65kg (today), 68kg (3mo ago)" → call calculate_bmi twice
+     * "Cr 1.2, 1.5, 1.8 over 6 months" → call eGFR function 3 times
+   - Extract PRECISE parameter values from text
 
- EXTRACT ALL PARAMETERS: For each function call, extract PRECISE parameter values
-  from the text. Don't leave parameters empty if values are available.
+ 3. IF GUIDELINES/STANDARDS ARE NEEDED:
+   - Generate 3-5 focused RAG queries for:
+     * Clinical guidelines (WHO, CDC, ADA, ACC/AHA, ASPEN, KDIGO, etc.)
+     * Diagnostic criteria, assessment methods, domain-specific standards
+   - Make queries specific with 4-8 keywords each
 
- PLAN RAG QUERIES STRATEGICALLY: Request 3-5 focused queries covering:
-  - Clinical guidelines (WHO, CDC, ADA, ACC/AHA, ASPEN, etc.)
-  - Diagnostic criteria
-  - Assessment methods
-  - Domain-specific standards
-  Make queries specific with 4-8 keywords each.
-
- CHOOSE RELEVANT EXTRAS KEYWORDS: Select 5-8 specific medical terms from:
-  - Schema field names
-  - Clinical conditions in the text
+ 4. IF SPECIALIZED HINTS ARE NEEDED:
+   - Select 5-8 specific medical term extras keywords from:
+     * Schema field names, clinical conditions in text
   - Assessment types
   - Medical specialty terms
 

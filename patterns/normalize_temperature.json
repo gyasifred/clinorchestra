@@ -1,7 +1,0 @@
-{
-  "name": "normalize_temperature",
-  "pattern": "([Tt]emp|[Tt]emperature)[\\s:]*(\\d+\\.?\\d*)\\s*([CFcf])?",
-  "replacement": "Temperature: \\2\\3",
-  "description": "Standardize temperature notation",
-  "enabled": true
-}

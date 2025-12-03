@@ -1,7 +1,0 @@
-{
-  "name": "normalize_heart_rate",
-  "pattern": "HR:?\\s*(\\d{2,3})\\s*b?pm?",
-  "replacement": "heart rate \\1 bpm",
-  "description": "Normalize heart rate format",
-  "enabled": true
-}
