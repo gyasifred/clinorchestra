@@ -1546,14 +1546,21 @@ Return ONLY JSON for the selected fields."""
         # Get schema as JSON string for analysis
         schema_json = json.dumps(self.app_state.prompt_config.json_schema, indent=2)
 
-        prompt = f"""You are a tool planning assistant. Your job is to read the TASK DESCRIPTION below and identify which tools are needed to fulfill it.
+        prompt = f"""You are a tool planning assistant. Your job is to read the TASK DESCRIPTION below and determine which tools (if any) are needed to fulfill it.
 
- CRITICAL INSTRUCTIONS:
+ CRITICAL INSTRUCTIONS - TOOLS ARE OPTIONAL:
 - Read the TASK DESCRIPTION to understand WHAT needs to be extracted
 - Analyze the CLINICAL TEXT to identify available data
-- Autonomously DETERMINE which tools are REQUIRED to fulfill the task
-- Call tools to transform available data into required format (e.g., percentile → z-score)
-- Call tools to retrieve guidelines/criteria mentioned in task (e.g., ASPEN, WHO)
+- Autonomously DETERMINE which tools (if any) are needed based on the task requirements
+- **IMPORTANT**: Tools are OPTIONAL and TASK-DEPENDENT:
+  * If task requires CALCULATIONS or TRANSFORMATIONS → call relevant functions
+  * If task requires GUIDELINES/STANDARDS → generate RAG queries
+  * If task only extracts VALUES ALREADY PRESENT in text → NO TOOLS NEEDED (empty arrays OK)
+- Only call tools when the task EXPLICITLY requires them:
+  * Functions: when calculations, unit conversions, or transformations are specified in task
+  * RAG: when guidelines/criteria/standards are mentioned or needed for interpretation
+  * Extras: when task needs specialized hints or reference ranges
+- If task is simple extraction of existing values, return EMPTY arrays for functions_needed, rag_queries, and extras_keywords
 - DO NOT call tools unrelated to the task requirements (no exploration beyond task scope)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1580,9 +1587,9 @@ AVAILABLE TOOLS:
 FUNCTIONS:
 {function_descriptions}
 
-RAG: {"Available - retrieves relevant guidelines, standards, and reference information" if self.rag_engine else "Not available"}
+RAG: {"Available - retrieves relevant guidelines, standards, and reference information" if self.rag_engine and self.rag_engine.initialized else "Not available"}
 
-EXTRAS (HINTS): {"Available - retrieves supplementary hints/tips/patterns that help understand and break down the task" if self.extras_manager else "Not available"}
+EXTRAS (HINTS): {"Available - retrieves supplementary hints/tips/patterns" if self.extras_manager and len([e for e in self.extras_manager.extras if e.get('enabled', True)]) > 0 else "Not available"}
 
 YOUR TASK:
 
@@ -1606,33 +1613,18 @@ YOUR TASK:
    *** CRITICAL: If there are multiple measurements of the same type at different time points,
        call the SAME function MULTIPLE times (once for each time point) ***
 
-   Examples:
-   - Text: "Creatinine 1.2 mg/dL on 1/15, 1.5 mg/dL on 3/20, 1.8 mg/dL on 6/10"
-     -> Call calculate_creatinine_clearance() THREE times (once for each Cr value)
-
-   - Text: "Weight 12.5 kg today, was 13.0 kg 3 months ago, and 13.5 kg 6 months ago"
-     -> Call calculate_bmi() THREE times (once for each weight measurement)
-
-   - Text: "BP readings: 140/90 (visit 1), 135/85 (visit 2), 130/80 (visit 3)"
-     -> Call calculate_mean_arterial_pressure() THREE times (once per reading)
-
    C. MAP VALUES TO FUNCTION PARAMETERS:
-   - Map values to function parameters based on context:
-     * "45.5 kg" -> weight_kg parameter
-     * "165 cm" or "5'5\"" -> height parameter (convert inches if needed)
-     * "65 year old" or "age 65" -> age parameter
-     * "BP 140/90" -> systolic=140, diastolic=90
-     * "male" or "female" or "boy" or "girl" -> sex parameter (pass as string 'male' or 'female')
-     * IMPORTANT: For growth percentile functions, sex can be passed as string ('male'/'female')
-       and will be automatically converted to numbers (1=male, 2=female) by the system
+   - Match values in text to function parameter names based on context
+   - Pass string values as strings, numeric values as numbers
+   - Extract precise values from the text for each parameter
 
    D. HANDLE UNIT CONVERSIONS:
-   - If function needs kg but text has lbs -> call lbs_to_kg first
-   - If function needs meters but text has cm -> call cm_to_m first
+   - Check if function requires specific units
+   - Call conversion functions if text contains different units
 
    E. CHAIN FUNCTIONS WHEN NEEDED:
-   - Example: calculate_bmi needs weight_kg and height_m
-   - If text has "150 cm", first call cm_to_m(150), then use result in calculate_bmi
+   - Some functions may need output from other functions as input
+   - Call prerequisite functions first, then use their results
 
    F. EXTRACT DATES AND TEMPORAL CONTEXT:
    - Extract date/time for each measurement: "01/15/2024", "3 months ago", "baseline", "follow-up"
@@ -1648,49 +1640,42 @@ YOUR TASK:
    - Create MULTIPLE focused queries, each targeting different aspects:
 
    Query Strategy:
-   a) GUIDELINE QUERY: Target clinical guidelines/standards
-      - Extract from: diagnosis, condition, assessment type
-      - Example: "WHO pediatric growth standards malnutrition criteria"
+   a) GUIDELINE QUERY: Target relevant clinical guidelines/standards
+      - Extract keywords from: diagnosis, condition, assessment type in YOUR task
 
    b) DIAGNOSTIC QUERY: Target diagnostic criteria
-      - Extract from: diagnosis fields, classification fields
-      - Example: "diabetes diagnostic criteria HbA1c fasting glucose"
+      - Extract keywords from: diagnosis fields, classification fields in YOUR task
 
    c) ASSESSMENT QUERY: Target assessment methods/scoring
-      - Extract from: assessment fields, severity fields
-      - Example: "sepsis assessment qSOFA SIRS criteria scoring"
+      - Extract keywords from: assessment fields, severity fields in YOUR task
 
    d) TREATMENT QUERY: Target treatment guidelines (if relevant)
-      - Extract from: treatment/management fields
-      - Example: "hypertension blood pressure management ACC AHA guidelines"
+      - Extract keywords from: treatment/management fields in YOUR task
 
    e) DOMAIN-SPECIFIC QUERY: Target specialized knowledge
-      - Extract from: specific medical domain in text/label
-      - Example: "pediatric developmental milestones age assessment"
+      - Extract keywords from: specific domain in YOUR task text/label
 
-   - Each query should have 4-8 specific keywords
-   - Use medical terminology from the input text
-   - Reference known standards (WHO, CDC, ADA, ACC/AHA, ASPEN, etc.)
+   - Each query should have 4-8 specific keywords from YOUR task
+   - Use terminology from YOUR input text and task description
+   - Reference relevant standards if applicable to YOUR task
    - Avoid generic terms like "information", "help", "guidelines" alone
 
-4. IDENTIFY EXTRAS KEYWORDS (5-8 SPECIFIC KEYWORDS):
+4. IDENTIFY EXTRAS KEYWORDS (5-8 SPECIFIC KEYWORDS IF EXTRAS NEEDED):
    - Extras provide task-specific hints, reference ranges, criteria
-   - Extract from multiple sources:
-     * Schema field names: ["malnutrition", "status", "diagnosis"]
-     * Label classification: ["pediatric", "diabetes", "hypertension"]
-     * Medical conditions in text: ["growth", "assessment", "z-score"]
-     * Assessment types: ["screening", "diagnostic", "monitoring"]
-   - Use specific medical terminology (not generic words)
-   - Include age group if relevant: ["pediatric", "geriatric", "adult"]
-   - Include system if relevant: ["cardiac", "respiratory", "renal"]
-   - Example good keywords: ["malnutrition", "pediatric", "z-score", "WHO", "assessment"]
-   - Example bad keywords: ["patient", "information", "data"]
+   - Extract keywords from YOUR task:
+     * Schema field names from YOUR task
+     * Label classification from YOUR task
+     * Medical conditions in YOUR text
+     * Assessment types from YOUR task
+   - Use specific terminology (not generic words)
+   - Include relevant qualifiers (age group, system, etc.) from YOUR task
+   - Avoid generic words like "patient", "information", "data"
 
 RESPONSE FORMAT (JSON only):
 {{
   "required_information": ["field1", "field2", "field3"],
-  "task_analysis": "Brief analysis of what needs to be extracted and clinical context",
-  "functions_needed": [
+  "task_analysis": "Brief analysis of what needs to be extracted and whether tools are needed",
+  "functions_needed": [  # Can be EMPTY [] if no calculations/transformations needed
     {{
       "name": "function_name",
       "parameters": {{"param1": "value1", "param2": "value2"}},
@@ -1698,7 +1683,7 @@ RESPONSE FORMAT (JSON only):
       "reason": "why this function is needed for extraction"
     }}
   ],
-  "rag_queries": [
+  "rag_queries": [  # Can be EMPTY [] if no guidelines/standards needed
     {{
       "query": "specific focused query with 4-8 keywords",
       "query_type": "guideline|diagnostic|assessment|treatment|domain_specific",
@@ -1710,178 +1695,106 @@ RESPONSE FORMAT (JSON only):
       "purpose": "complementary information for extraction"
     }}
   ],
-  "extras_keywords": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5"]
+  "extras_keywords": []  # Can be EMPTY [] if no specialized hints needed
 }}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  ILLUSTRATIVE EXAMPLES (Adapt to YOUR specific task!)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-EXAMPLE 1: Renal Function Assessment (Serial Measurements)
-─────────────────────────────────────────────────────────
-If extracting renal function data and text contains:
-"Creatinine was 1.2 mg/dL on 1/15/2024, increased to 1.5 mg/dL on 3/20/2024, and now 1.8 mg/dL on 6/10/2024. Patient is 65yo male, 70kg."
+EXAMPLE 0: Simple Value Extraction (NO TOOLS NEEDED)
+─────────────────────────────────────────────────────
+If task is: "Extract blood pressure, heart rate, and respiratory rate"
+And text contains: "BP 120/80, HR 75 bpm, RR 18"
 
-Response should include:
+Response should be:
 {{
-  "functions_needed": [
-    {{
-      "name": "calculate_creatinine_clearance",
-      "parameters": {{"creatinine": 1.2, "age": 65, "weight": 70, "sex": "male"}},
-      "date_context": "2024-01-15 (baseline)",
-      "reason": "Calculate eGFR for baseline creatinine to assess renal function"
-    }},
-    {{
-      "name": "calculate_creatinine_clearance",
-      "parameters": {{"creatinine": 1.5, "age": 65, "weight": 70, "sex": "male"}},
-      "date_context": "2024-03-20 (follow-up)",
-      "reason": "Calculate eGFR for follow-up creatinine to track renal function decline"
-    }},
-    {{
-      "name": "calculate_creatinine_clearance",
-      "parameters": {{"creatinine": 1.8, "age": 65, "weight": 70, "sex": "male"}},
-      "date_context": "2024-06-10 (current)",
-      "reason": "Calculate eGFR for most recent creatinine to assess current renal function"
-    }}
-  ],
-  "rag_queries": [
-    {{
-      "query": "CKD chronic kidney disease staging eGFR classification guidelines",
-      "query_type": "guideline",
-      "purpose": "Get CKD staging criteria based on eGFR values"
-    }}
-  ],
-  "extras_keywords": ["renal", "CKD", "eGFR", "creatinine", "staging"]
+  "required_information": ["blood_pressure", "heart_rate", "respiratory_rate"],
+  "task_analysis": "Simple extraction of vital signs that are already present in text. No calculations or guidelines needed.",
+  "functions_needed": [],  # NO CALCULATIONS REQUIRED
+  "rag_queries": [],       # NO GUIDELINES NEEDED
+  "extras_keywords": []     # NO SPECIALIZED HINTS NEEDED
 }}
 
-EXAMPLE 2: Pediatric Growth Assessment
-──────────────────────────────────────
-If extracting growth data and text contains:
-"3-year-old with weight 12.5 kg (3rd percentile), height 92 cm (25th percentile)"
-
-Response should include:
-{{
-  "functions_needed": [
-    {{
-      "name": "percentile_to_zscore",
-      "parameters": {{"percentile": 3}},
-      "reason": "Convert weight percentile to z-score for WHO classification"
-    }},
-    {{
-      "name": "percentile_to_zscore",
-      "parameters": {{"percentile": 25}},
-      "reason": "Convert height percentile to z-score for growth assessment"
-    }},
-    {{
-      "name": "calculate_bmi",
-      "parameters": {{"weight_kg": 12.5, "height_cm": 92}},
-      "reason": "Calculate BMI for nutritional status assessment"
-    }}
-  ],
-  "rag_queries": [
-    {{
-      "query": "WHO pediatric growth standards percentile z-score classification",
-      "query_type": "guideline",
-      "purpose": "Get WHO growth classification criteria"
-    }}
-  ],
-  "extras_keywords": ["growth", "pediatric", "WHO", "percentile", "z-score"]
-}}
-
-EXAMPLE 3: Cardiovascular Risk Assessment
+EXAMPLE 1: When Calculations are Needed
 ─────────────────────────────────────────
-If extracting cardiac data and text contains:
-"BP 145/95, total cholesterol 240 mg/dL, HDL 35 mg/dL, age 60, smoker"
+If task requires calculations (e.g., "calculate X", "compute Y", "convert Z"):
+- Include relevant functions in functions_needed array
+- For serial measurements, call same function multiple times
+- Include date_context for temporal data
 
-Response should include:
-{{
-  "functions_needed": [
-    {{
-      "name": "calculate_mean_arterial_pressure",
-      "parameters": {{"systolic": 145, "diastolic": 95}},
-      "reason": "Calculate MAP for hypertension assessment"
-    }},
-    {{
-      "name": "calculate_framingham_risk",
-      "parameters": {{"age": 60, "total_chol": 240, "hdl": 35, "smoker": true}},
-      "reason": "Calculate 10-year cardiovascular risk"
-    }}
-  ],
-  "rag_queries": [
-    {{
-      "query": "ACC AHA hypertension blood pressure classification guidelines",
-      "query_type": "guideline",
-      "purpose": "Get BP classification criteria"
-    }},
-    {{
-      "query": "Framingham cardiovascular risk assessment interpretation",
-      "query_type": "assessment",
-      "purpose": "Get risk stratification guidelines"
-    }}
-  ],
-  "extras_keywords": ["cardiovascular", "hypertension", "cholesterol", "risk", "ACC", "AHA"]
-}}
+EXAMPLE 2: When Guidelines are Needed
+───────────────────────────────────────
+If task mentions standards/guidelines (e.g., "classify per WHO", "stage using criteria"):
+- Include relevant RAG queries
+- Target guideline documents and classification criteria
+- Use specific keywords from the classification system mentioned
+
+EXAMPLE 3: When Simple Extraction Only
+───────────────────────────────────────
+If task only extracts existing values with no calculations or classifications:
+- Return empty arrays: functions_needed: [], rag_queries: [], extras_keywords: []
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  CRITICAL REQUIREMENTS (Universal Principles)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
  ADAPT TO YOUR TASK:
-The examples above show renal, growth, and cardiac tasks. YOUR task may be completely different
-(diabetes, sepsis, AKI, oncology, etc.). Analyze YOUR schema and clinical text to determine what's needed.
+Analyze YOUR specific task schema and clinical text to determine what tools are needed.
 
  FOR SERIAL/TEMPORAL DATA:
 - *** Call the same function MULTIPLE times (once per time point) ***
 - Include "date_context" for each function call to track temporal sequence
 - When you see multiple measurements over time, calculate for ALL time points
 
- RAG QUERIES:
+ RAG QUERIES (if needed):
 - Provide 3-5 queries targeting different aspects relevant to YOUR task
 - Each query should have 4-8 specific keywords from YOUR domain
-- Reference appropriate standards/organizations for YOUR domain
-- Examples: WHO, CDC, ADA, ACC/AHA, ASPEN, KDIGO, ASCO (use what's relevant to YOUR task)
+- Reference appropriate standards/organizations relevant to YOUR task
 - Do NOT use generic queries like "help", "information", or "guidelines" alone
 
-🛠️ FUNCTION CALLING:
-- Extract parameters with precision from actual text values
+🛠️ FUNCTION CALLING (Task-Dependent):
+- Only call functions when task EXPLICITLY requires calculations/transformations
+- If task just extracts existing values → NO FUNCTIONS NEEDED (empty array OK)
+- When calling: extract parameters with precision from actual text values
 - Chain functions if needed (e.g., unit conversion before calculation)
-- Only call functions that help with YOUR specific extraction schema
 
- EXTRAS KEYWORDS:
+ EXTRAS KEYWORDS (if needed):
 - 5-8 keywords: specific terminology from YOUR domain, not generic words
 - Extract from YOUR schema field names and clinical context
+- Only include if task needs specialized hints or reference ranges
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- ONE-SHOT PLANNING: THIS IS YOUR ONLY CHANCE TO PLAN TOOLS!
+ ONE-SHOT PLANNING: PLAN TOOLS BASED ON TASK REQUIREMENTS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-️  CRITICAL: Unlike iterative modes, you CANNOT call tools again after this stage.
-This is your ONLY opportunity to request ALL necessary tools.
+️  CRITICAL: This is a one-shot planning stage. You CANNOT call tools again after this.
+This is your ONLY opportunity to request tools - BUT ONLY IF THE TASK REQUIRES THEM.
 
-PLAN COMPREHENSIVELY:
+PLANNING STRATEGY (Task-Driven):
 
- IDENTIFY ALL MEASUREMENTS: Scan the entire text for EVERY numeric value, lab result,
-  vital sign, and measurement. Don't miss any data points.
+ 1. EVALUATE TASK REQUIREMENTS FIRST:
+   - Does the task require CALCULATIONS? (e.g., "calculate BMI", "convert percentiles")
+   - Does the task require GUIDELINES/STANDARDS? (e.g., "classify per WHO", "stage per KDIGO")
+   - Does the task require TRANSFORMATIONS? (e.g., "convert units", "compute scores")
+   - If task only needs verbatim extraction of existing values → SKIP ALL TOOLS (empty arrays)
 
- CALL FUNCTIONS MULTIPLE TIMES: If you see serial/temporal data (measurements at
-  different time points), call the SAME function MULTIPLE times. Examples:
-  - "Weight 65kg (today), 68kg (3mo ago), 70kg (6mo ago)" → call calculate_bmi 3 times
-  - "Cr 1.2, 1.5, 1.8 over past 6 months" → call eGFR function 3 times
-  - Do NOT skip any time points!
+ 2. IF CALCULATIONS ARE NEEDED:
+   - Scan the text for ALL numeric values, lab results, vital signs needed for calculations
+   - Call functions MULTIPLE TIMES for serial/temporal data:
+     * "Weight 65kg (today), 68kg (3mo ago)" → call calculate_bmi twice
+     * "Cr 1.2, 1.5, 1.8 over 6 months" → call eGFR function 3 times
+   - Extract PRECISE parameter values from text
 
- EXTRACT ALL PARAMETERS: For each function call, extract PRECISE parameter values
-  from the text. Don't leave parameters empty if values are available.
+ 3. IF GUIDELINES/STANDARDS ARE NEEDED:
+   - Generate 3-5 focused RAG queries for:
+     * Clinical guidelines and standards relevant to YOUR task
+     * Diagnostic criteria, assessment methods, domain-specific standards
+   - Make queries specific with 4-8 keywords each from YOUR domain
 
- PLAN RAG QUERIES STRATEGICALLY: Request 3-5 focused queries covering:
-  - Clinical guidelines (WHO, CDC, ADA, ACC/AHA, ASPEN, etc.)
-  - Diagnostic criteria
-  - Assessment methods
-  - Domain-specific standards
-  Make queries specific with 4-8 keywords each.
-
- CHOOSE RELEVANT EXTRAS KEYWORDS: Select 5-8 specific medical terms from:
-  - Schema field names
-  - Clinical conditions in the text
+ 4. IF SPECIALIZED HINTS ARE NEEDED:
+   - Select 5-8 specific medical term extras keywords from:
+     * Schema field names, clinical conditions in text
   - Assessment types
   - Medical specialty terms
 

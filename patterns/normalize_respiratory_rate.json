@@ -1,7 +1,0 @@
-{
-  "name": "normalize_respiratory_rate",
-  "pattern": "RR:?\\s*(\\d{1,2})",
-  "replacement": "respiratory rate \\1 per minute",
-  "description": "Normalize respiratory rate",
-  "enabled": true
-}

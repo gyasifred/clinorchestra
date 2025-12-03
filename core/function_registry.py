@@ -734,8 +734,15 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
     def get_all_functions_info(self) -> List[Dict[str, Any]]:
         """Get metadata for all enabled functions"""
         # Filter to only return enabled functions for LLM tool selection
-        enabled_functions = [name for name in self.list_functions()
+        all_functions = self.list_functions()
+        enabled_functions = [name for name in all_functions
                            if self.functions[name].get('enabled', True)]
+
+        # DIAGNOSTIC LOGGING: Show enabled vs disabled count
+        disabled_count = len(all_functions) - len(enabled_functions)
+        if disabled_count > 0:
+            logger.info(f"Function filter: {len(enabled_functions)} enabled, {disabled_count} disabled (not passed to LLM)")
+
         return [self.get_function_info(name) for name in enabled_functions]
     
     def remove_function(self, name: str) -> Tuple[bool, str]:
