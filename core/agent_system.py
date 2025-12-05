@@ -1138,29 +1138,39 @@ class ExtractionAgent:
             top_k = self.app_state.rag_config.rag_top_k
             logger.debug(f"Using rag_top_k = {top_k} from RAGConfig")
 
+            # DEDUPLICATION with backfill: Fetch extra results to account for potential duplicates
+            # Request 2x to ensure we can fill top_k with NEW chunks after filtering
+            fetch_count = min(top_k * 2, 50)  # Cap at 50 to avoid excessive fetching
             results = self.rag_engine.query(
                 query_text=query,
-                k=top_k
+                k=fetch_count
             )
 
-            # DEDUPLICATION: Filter out already-fetched chunks
+            # Filter out duplicates and collect first top_k NEW chunks
             original_count = len(results)
             new_results = []
+            duplicates_skipped = 0
+
             for chunk in results:
+                # Stop once we have enough new chunks
+                if len(new_results) >= top_k:
+                    break
+
                 # Use content as unique identifier
                 content = chunk.get('content', '') or chunk.get('text', '')
                 if content and content not in self.context.fetched_rag_content:
                     new_results.append(chunk)
                     self.context.fetched_rag_content.add(content)
+                elif content:
+                    duplicates_skipped += 1
 
-            if len(new_results) < original_count:
-                duplicates_filtered = original_count - len(new_results)
-                logger.info(f"RAG deduplication: {original_count} retrieved, {duplicates_filtered} duplicates filtered, {len(new_results)} new chunks")
+            if duplicates_skipped > 0:
+                logger.info(f"RAG deduplication: Fetched {original_count}, skipped {duplicates_skipped} duplicates, returned {len(new_results)} NEW chunks (requested: {top_k})")
 
             if len(new_results) > 0:
-                logger.info(f"RAG retrieved {len(new_results)} NEW documents")
+                logger.info(f"RAG retrieved {len(new_results)} NEW documents (requested top_k={top_k})")
             elif original_count > 0:
-                logger.warning(f"RAG retrieved {original_count} chunks but all were duplicates - no new content")
+                logger.warning(f"RAG fetched {original_count} chunks but all were duplicates - no new content available")
 
             return {
                 'type': 'rag',
@@ -1169,7 +1179,7 @@ class ExtractionAgent:
                 'results': new_results,
                 'count': len(new_results),
                 'top_k_used': top_k,
-                'duplicates_filtered': duplicates_filtered if len(new_results) < original_count else 0
+                'duplicates_skipped': duplicates_skipped
             }
 
         except Exception as e:
