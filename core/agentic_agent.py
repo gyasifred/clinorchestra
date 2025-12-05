@@ -1272,27 +1272,38 @@ Example format:
             logger.info(f" RAG query: '{query}'")
 
             top_k = self.app_state.rag_config.rag_top_k
-            results = self.rag_engine.query(query_text=query, k=top_k)
 
-            # DEDUPLICATION: Filter out already-fetched chunks
+            # DEDUPLICATION with backfill: Fetch extra results to account for potential duplicates
+            # Request 2x to ensure we can fill top_k with NEW chunks after filtering
+            fetch_count = min(top_k * 2, 50)  # Cap at 50 to avoid excessive fetching
+            results = self.rag_engine.query(query_text=query, k=fetch_count)
+
+            # Filter out duplicates and collect first top_k NEW chunks
             original_count = len(results)
             new_results = []
+            duplicates_skipped = 0
+
             for chunk in results:
+                # Stop once we have enough new chunks
+                if len(new_results) >= top_k:
+                    break
+
                 # Use content as unique identifier
                 content = chunk.get('content', '') or chunk.get('text', '')
                 if content and content not in self.context.fetched_rag_content:
                     new_results.append(chunk)
                     self.context.fetched_rag_content.add(content)
+                elif content:
+                    duplicates_skipped += 1
 
-            if len(new_results) < original_count:
-                duplicates_filtered = original_count - len(new_results)
-                logger.info(f" RAG deduplication: {original_count} retrieved, {duplicates_filtered} duplicates filtered, {len(new_results)} new chunks")
+            if duplicates_skipped > 0:
+                logger.info(f" RAG deduplication: Fetched {original_count}, skipped {duplicates_skipped} duplicates, returned {len(new_results)} NEW chunks (requested: {top_k})")
 
             if len(new_results) > 0:
-                logger.info(f" RAG retrieved {len(new_results)} NEW documents (top_k={top_k})")
+                logger.info(f" RAG retrieved {len(new_results)} NEW documents (requested top_k={top_k})")
             else:
                 if original_count > 0:
-                    logger.warning(f" RAG retrieved {original_count} chunks but all were duplicates - no new content")
+                    logger.warning(f" RAG fetched {original_count} chunks but all were duplicates - no new content available")
                 else:
                     logger.warning(f" RAG found no results for query: '{query}'")
 
@@ -1301,7 +1312,7 @@ Example format:
                 type='rag',
                 success=len(new_results) > 0,
                 result=new_results,
-                message=f"Retrieved {len(new_results)} new documents ({duplicates_filtered if len(new_results) < original_count else 0} duplicates filtered)" if original_count > 0 else "No results found"
+                message=f"Retrieved {len(new_results)} new documents ({duplicates_skipped} duplicates skipped)" if duplicates_skipped > 0 else f"Retrieved {len(new_results)} documents"
             )
 
         except Exception as e:
