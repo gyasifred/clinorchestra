@@ -678,7 +678,13 @@ class ExtractionAgent:
     @log_extraction_stage("Stage 2: Tool Execution")
     def _execute_stage2_tools(self):
         """
-        Execute all tool requests in PARALLEL using async
+        Execute all tool requests with FUNCTION CHAINING support
+
+        FUNCTION CHAINING: Tools can reference outputs from other tools using $call_X syntax
+        - Detects dependencies automatically
+        - Uses topological sort for execution order
+        - Executes independent tools in PARALLEL (async)
+        - Executes dependent tools sequentially with result substitution
 
         PERFORMANCE ENHANCEMENT: Tools run concurrently for 60-75% speedup
         - Multiple function calls can run simultaneously
@@ -721,39 +727,34 @@ class ExtractionAgent:
             logger.warning("No valid tool requests to execute after validation")
             return
 
-        logger.info(f"Executing {len(self.context.tool_requests)} tools in PARALLEL (async)")
-        if original_count > len(self.context.tool_requests):
-            logger.info(f" Deduplicated: {original_count} -> {len(self.context.tool_requests)} requests (removed {original_count - len(self.context.tool_requests)} duplicates)")
+        # FUNCTION CHAINING: Detect dependencies
+        self.context.tool_requests = self._detect_tool_dependencies(self.context.tool_requests)
 
-        # Run async execution - asyncio.run() handles event loop creation automatically
-        try:
-            # asyncio.run() creates new event loop and cleans up after
-            # This is the recommended way in Python 3.7+
-            results = asyncio.run(self._execute_stage2_tools_async())
-        except RuntimeError as e:
-            # Event loop already running (e.g., Jupyter notebook)
-            if "cannot be called from a running event loop" in str(e):
-                logger.warning(" Event loop already running - falling back to sequential execution")
-                logger.warning("   (Async optimization disabled in this context)")
-                # Fall back to sequential synchronous execution
-                results = []
-                for tool_request in self.context.tool_requests:
-                    tool_type = tool_request.get('type')
-                    if tool_type == 'function':
-                        results.append(self._execute_function_tool(tool_request))
-                    elif tool_type == 'rag':
-                        results.append(self._execute_rag_tool(tool_request))
-                    elif tool_type == 'extras':
-                        results.append(self._execute_extras_tool(tool_request))
-                    else:
-                        results.append({
-                            'type': tool_type,
-                            'success': False,
-                            'message': f"Unknown tool type: {tool_type}"
-                        })
-            else:
-                # Different RuntimeError - re-raise
-                raise
+        # Check if any dependencies exist
+        has_dependencies = any(req.get('depends_on') for req in self.context.tool_requests)
+
+        if has_dependencies:
+            logger.info(f"🔗 FUNCTION CHAINING DETECTED - Executing {len(self.context.tool_requests)} tools with dependency resolution")
+            # Execute with dependency handling
+            try:
+                # Sort by dependencies
+                sorted_requests = self._topological_sort_tools(self.context.tool_requests)
+
+                # Execute in dependency order with result substitution
+                results = self._execute_tools_with_dependencies(sorted_requests)
+
+            except ValueError as e:
+                logger.error(f"Dependency resolution error: {e}")
+                # Fall back to parallel execution (will likely fail, but provides feedback)
+                logger.warning("Falling back to parallel execution despite dependencies")
+                results = self._execute_tools_parallel()
+        else:
+            logger.info(f"Executing {len(self.context.tool_requests)} tools in PARALLEL (async)")
+            if original_count > len(self.context.tool_requests):
+                logger.info(f" Deduplicated: {original_count} -> {len(self.context.tool_requests)} requests (removed {original_count - len(self.context.tool_requests)} duplicates)")
+
+            # No dependencies - execute all in parallel (original behavior)
+            results = self._execute_tools_parallel()
 
         # Store results in order
         self.context.tool_results.extend(results)
@@ -795,7 +796,253 @@ class ExtractionAgent:
         logger.info(f" Executed {len(tasks)} tools in {elapsed:.2f}s (parallel)")
 
         return results
-    
+
+    def _detect_tool_dependencies(self, tool_requests: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """
+        Detect parameter dependencies in tool requests for function chaining.
+
+        Scans each tool's parameters for references to other tools using $call_X syntax.
+        Adds 'depends_on' field and 'id' field to each tool request.
+
+        Examples:
+            "$call_1" - References result of tool with id="call_1"
+            "$call_2.field" - References specific field in result
+
+        Returns:
+            List of tool requests with 'id' and 'depends_on' fields populated
+        """
+        enhanced_requests = []
+
+        for idx, tool_request in enumerate(tool_requests):
+            dependencies = set()
+
+            # Assign ID if not present (for dependency tracking)
+            if 'id' not in tool_request:
+                tool_request['id'] = f"call_{idx + 1}"
+
+            # Recursively scan parameters for dependencies
+            def scan_for_deps(obj):
+                if isinstance(obj, str):
+                    # Check if string is a reference (starts with $)
+                    if obj.startswith('$'):
+                        # Extract the tool call ID
+                        # Format: $call_1 or $call_1.field
+                        ref = obj[1:]  # Remove $
+                        call_id = ref.split('.')[0]  # Get ID before any dot
+                        dependencies.add(call_id)
+                elif isinstance(obj, dict):
+                    for value in obj.values():
+                        scan_for_deps(value)
+                elif isinstance(obj, list):
+                    for item in obj:
+                        scan_for_deps(item)
+
+            # Scan parameters for dependencies
+            if 'parameters' in tool_request:
+                scan_for_deps(tool_request['parameters'])
+
+            # Add dependencies field
+            if dependencies:
+                tool_request['depends_on'] = list(dependencies)
+                logger.info(f" Detected dependencies for {tool_request['id']}: {dependencies}")
+            else:
+                tool_request['depends_on'] = None
+
+            enhanced_requests.append(tool_request)
+
+        return enhanced_requests
+
+    def _topological_sort_tools(self, tool_requests: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """
+        Sort tool requests in dependency order using topological sort.
+
+        Ensures that tools are executed in an order where all dependencies
+        are satisfied before a tool is executed.
+
+        Returns:
+            Sorted list of tool requests (dependencies first)
+
+        Raises:
+            ValueError: If circular dependencies detected
+        """
+        # Build adjacency list and in-degree map
+        graph = {tr['id']: [] for tr in tool_requests}
+        in_degree = {tr['id']: 0 for tr in tool_requests}
+        id_to_request = {tr['id']: tr for tr in tool_requests}
+
+        for tool_request in tool_requests:
+            if tool_request.get('depends_on'):
+                for dep_id in tool_request['depends_on']:
+                    if dep_id in graph:
+                        graph[dep_id].append(tool_request['id'])
+                        in_degree[tool_request['id']] += 1
+                    else:
+                        logger.warning(f" Dependency {dep_id} not found for {tool_request['id']} - will be ignored")
+
+        # Kahn's algorithm for topological sort
+        queue = [tr_id for tr_id, degree in in_degree.items() if degree == 0]
+        sorted_ids = []
+
+        while queue:
+            current_id = queue.pop(0)
+            sorted_ids.append(current_id)
+
+            for neighbor_id in graph[current_id]:
+                in_degree[neighbor_id] -= 1
+                if in_degree[neighbor_id] == 0:
+                    queue.append(neighbor_id)
+
+        # Check for circular dependencies
+        if len(sorted_ids) != len(tool_requests):
+            remaining = [tr_id for tr_id in in_degree if in_degree[tr_id] > 0]
+            raise ValueError(f"Circular dependency detected in tool requests: {remaining}")
+
+        # Return sorted tool requests
+        return [id_to_request[tr_id] for tr_id in sorted_ids]
+
+    def _resolve_parameter_dependencies(self, parameters: Dict[str, Any], results_map: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Resolve parameter references to actual results for function chaining.
+
+        Replaces strings like "$call_1" with the actual result from that tool.
+        Supports nested dictionaries and lists.
+
+        Args:
+            parameters: Original parameters (may contain references like $call_1)
+            results_map: Map of tool_id -> result
+
+        Returns:
+            Parameters with all references resolved
+        """
+        def resolve(obj):
+            if isinstance(obj, str):
+                if obj.startswith('$'):
+                    # Parse reference: $call_1 or $call_1.field
+                    ref = obj[1:]
+                    parts = ref.split('.', 1)
+                    call_id = parts[0]
+
+                    if call_id not in results_map:
+                        logger.warning(f" Cannot resolve reference {obj} - tool not executed yet")
+                        return obj  # Return unchanged if dependency not resolved
+
+                    result = results_map[call_id]
+
+                    # If there's a field selector (.field), navigate into result
+                    if len(parts) > 1 and isinstance(result, dict):
+                        field_path = parts[1]
+                        for field in field_path.split('.'):
+                            if isinstance(result, dict) and field in result:
+                                result = result[field]
+                            else:
+                                logger.warning(f" Field {field} not found in result for {call_id}")
+                                return obj
+
+                    logger.info(f"   ✓ Resolved {obj} = {result}")
+                    return result
+                return obj
+            elif isinstance(obj, dict):
+                return {k: resolve(v) for k, v in obj.items()}
+            elif isinstance(obj, list):
+                return [resolve(item) for item in obj]
+            else:
+                return obj
+
+        return resolve(parameters)
+
+    def _execute_tools_parallel(self) -> List[Dict[str, Any]]:
+        """
+        Execute tools in parallel (original behavior for tools without dependencies)
+        """
+        try:
+            # asyncio.run() creates new event loop and cleans up after
+            # This is the recommended way in Python 3.7+
+            results = asyncio.run(self._execute_stage2_tools_async())
+        except RuntimeError as e:
+            # Event loop already running (e.g., Jupyter notebook)
+            if "cannot be called from a running event loop" in str(e):
+                logger.warning(" Event loop already running - falling back to sequential execution")
+                logger.warning("   (Async optimization disabled in this context)")
+                # Fall back to sequential synchronous execution
+                results = []
+                for tool_request in self.context.tool_requests:
+                    tool_type = tool_request.get('type')
+                    if tool_type == 'function':
+                        results.append(self._execute_function_tool(tool_request))
+                    elif tool_type == 'rag':
+                        results.append(self._execute_rag_tool(tool_request))
+                    elif tool_type == 'extras':
+                        results.append(self._execute_extras_tool(tool_request))
+                    else:
+                        results.append({
+                            'type': tool_type,
+                            'success': False,
+                            'message': f"Unknown tool type: {tool_type}"
+                        })
+            else:
+                # Different RuntimeError - re-raise
+                raise
+
+        return results
+
+    def _execute_tools_with_dependencies(self, sorted_requests: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """
+        Execute tools in dependency order with result substitution for function chaining.
+
+        Args:
+            sorted_requests: Tool requests sorted in topological order (dependencies first)
+
+        Returns:
+            List of results in execution order
+        """
+        results = []
+        results_map = {}  # Map of tool_id -> result for dependency resolution
+        start_time = time.time()
+
+        # Execute tools in dependency order
+        for tool_request in sorted_requests:
+            tool_id = tool_request.get('id', 'unknown')
+            tool_type = tool_request.get('type')
+
+            # Resolve dependencies in parameters before execution
+            if tool_request.get('depends_on'):
+                logger.info(f"🔗 Resolving dependencies for {tool_id}: {tool_request['depends_on']}")
+                original_params = tool_request.get('parameters', {})
+                resolved_params = self._resolve_parameter_dependencies(original_params, results_map)
+                tool_request['parameters'] = resolved_params
+
+            # Execute the tool
+            if tool_type == 'function':
+                result = self._execute_function_tool(tool_request)
+            elif tool_type == 'rag':
+                result = self._execute_rag_tool(tool_request)
+            elif tool_type == 'extras':
+                result = self._execute_extras_tool(tool_request)
+            else:
+                result = {
+                    'type': tool_type,
+                    'success': False,
+                    'message': f"Unknown tool type: {tool_type}"
+                }
+
+            # Store result for dependency resolution
+            if result.get('success'):
+                # For functions, store the actual result value
+                if tool_type == 'function':
+                    results_map[tool_id] = result.get('result')
+                else:
+                    # For RAG/extras, store the full result
+                    results_map[tool_id] = result
+
+            # Add ID to result for tracking
+            result['id'] = tool_id
+            results.append(result)
+
+        elapsed = time.time() - start_time
+        logger.info(f"🔗 Executed {len(results)} tools with dependency resolution in {elapsed:.2f}s")
+
+        return results
+
     def _execute_function_tool(self, tool_request: Dict[str, Any]) -> Dict[str, Any]:
         """Execute a function call"""
         try:
@@ -1622,9 +1869,35 @@ YOUR TASK:
    - Check if function requires specific units
    - Call conversion functions if text contains different units
 
-   E. CHAIN FUNCTIONS WHEN NEEDED:
+   E. CHAIN FUNCTIONS WHEN NEEDED (FUNCTION CHAINING):
+   *** NEW CAPABILITY: Function chaining allows using one function's output as another's input ***
+
    - Some functions may need output from other functions as input
-   - Call prerequisite functions first, then use their results
+   - Use "$call_X" syntax to reference another function's result:
+     * "$call_1" - References the complete result of the first function
+     * "$call_2.field_name" - References a specific field from second function's result
+
+   - Example of function chaining:
+     {{
+       "name": "convert_cm_to_m",
+       "parameters": {{"cm": 165}},
+       "reason": "Convert height from cm to m"
+     }},
+     {{
+       "name": "calculate_bmi",
+       "parameters": {{"weight_kg": 70, "height_m": "$call_1"}},
+       "reason": "Calculate BMI using converted height from previous function"
+     }}
+
+   - System automatically:
+     * Detects dependencies between function calls
+     * Executes functions in correct order (dependencies first)
+     * Substitutes "$call_X" with actual results before execution
+
+   - When to use function chaining:
+     * Unit conversions before calculations (cm→m, lbs→kg, etc.)
+     * Sequential calculations where later steps need earlier results
+     * Multi-step transformations or data processing
 
    F. EXTRACT DATES AND TEMPORAL CONTEXT:
    - Extract date/time for each measurement: "01/15/2024", "3 months ago", "baseline", "follow-up"
