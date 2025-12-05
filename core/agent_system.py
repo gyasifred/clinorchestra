@@ -20,8 +20,8 @@ import json
 import time
 import re
 import asyncio
-from typing import Dict, Any, Optional, List, Tuple
-from dataclasses import dataclass
+from typing import Dict, Any, Optional, List, Tuple, Set
+from dataclasses import dataclass, field
 from enum import Enum
 from concurrent.futures import ThreadPoolExecutor
 
@@ -76,7 +76,11 @@ class ExtractionAgentContext:
     redacted_text: Optional[str] = None
     normalized_text: Optional[str] = None
     stage4_additional_tool_results: List[Dict[str, Any]] = None  # NEW: Track Stage 4 gap-filling tools
-    
+
+    # DEDUPLICATION: Track fetched RAG chunks and extras patterns
+    fetched_rag_content: Set[str] = field(default_factory=set)  # Track unique RAG chunk content
+    fetched_extras_patterns: Set[str] = field(default_factory=set)  # Track unique extras pattern names
+
 
 class ExtractionAgent:
     """
@@ -1139,13 +1143,33 @@ class ExtractionAgent:
                 k=top_k
             )
 
+            # DEDUPLICATION: Filter out already-fetched chunks
+            original_count = len(results)
+            new_results = []
+            for chunk in results:
+                # Use content as unique identifier
+                content = chunk.get('content', '') or chunk.get('text', '')
+                if content and content not in self.context.fetched_rag_content:
+                    new_results.append(chunk)
+                    self.context.fetched_rag_content.add(content)
+
+            if len(new_results) < original_count:
+                duplicates_filtered = original_count - len(new_results)
+                logger.info(f"RAG deduplication: {original_count} retrieved, {duplicates_filtered} duplicates filtered, {len(new_results)} new chunks")
+
+            if len(new_results) > 0:
+                logger.info(f"RAG retrieved {len(new_results)} NEW documents")
+            elif original_count > 0:
+                logger.warning(f"RAG retrieved {original_count} chunks but all were duplicates - no new content")
+
             return {
                 'type': 'rag',
                 'query': query,
-                'success': len(results) > 0,
-                'results': results,
-                'count': len(results),
-                'top_k_used': top_k
+                'success': len(new_results) > 0,
+                'results': new_results,
+                'count': len(new_results),
+                'top_k_used': top_k,
+                'duplicates_filtered': duplicates_filtered if len(new_results) < original_count else 0
             }
 
         except Exception as e:
@@ -1176,15 +1200,33 @@ class ExtractionAgent:
             
             # ENHANCED: Match extras based on keywords (supplementary hints)
             matched_extras = self.extras_manager.match_extras_by_keywords(keywords)
-            
-            logger.info(f"Matched {len(matched_extras)} extras items (hints/tips)")
-            
+
+            # DEDUPLICATION: Filter out already-fetched extras patterns
+            original_count = len(matched_extras)
+            new_extras = []
+            for extra in matched_extras:
+                # Use pattern name or ID as unique identifier
+                extra_id = extra.get('pattern_name', '') or extra.get('id', '')
+                if extra_id and extra_id not in self.context.fetched_extras_patterns:
+                    new_extras.append(extra)
+                    self.context.fetched_extras_patterns.add(extra_id)
+
+            if len(new_extras) < original_count:
+                duplicates_filtered = original_count - len(new_extras)
+                logger.info(f"Extras deduplication: {original_count} matched, {duplicates_filtered} duplicates filtered, {len(new_extras)} new patterns")
+
+            if len(new_extras) > 0:
+                logger.info(f"Matched {len(new_extras)} NEW extras items (hints/tips)")
+            elif original_count > 0:
+                logger.warning(f"Matched {original_count} extras but all were duplicates - no new patterns")
+
             return {
                 'type': 'extras',
                 'keywords': keywords,
-                'success': len(matched_extras) > 0,
-                'results': matched_extras,
-                'count': len(matched_extras)
+                'success': len(new_extras) > 0,
+                'results': new_extras,
+                'count': len(new_extras),
+                'duplicates_filtered': duplicates_filtered if len(new_extras) < original_count else 0
             }
             
         except Exception as e:
@@ -2152,29 +2194,23 @@ Respond with ONLY the JSON object in the format shown above."""
     def _build_available_tools_description(self, functions: List[Dict[str, Any]] = None) -> str:
         """Build description of available tools"""
         if functions is None:
-            # Use consistent function registry instance (ONLY ENABLED ONES)
+            # Use consistent function registry instance (ONLY ENABLED ONES from cache)
             functions = self.function_registry.get_all_functions_info()
-
-        logger.info(f"🔧 Building tool descriptions: {len(functions)} enabled functions available")
 
         if not functions:
             logger.warning("⚠️  NO FUNCTIONS AVAILABLE - all may be disabled")
             return "No functions available."
-
-        # DIAGNOSTIC: Log function names
-        function_names = [func['name'] for func in functions]
-        logger.info(f"📋 Functions available: {', '.join(function_names)}")
 
         descriptions = []
         for func in functions:
             name = func.get('name', 'unknown')
             description = func.get('description', 'No description')
             parameters = func.get('parameters', {})
-            
+
             param_str = ", ".join(f"{k}: {v.get('type', 'any')}" for k, v in parameters.items())
-            
+
             descriptions.append(f"- {name}({param_str}): {description}")
-        
+
         return "\n".join(descriptions)
     
     def _build_stage3_main_extraction_prompt(self) -> str:

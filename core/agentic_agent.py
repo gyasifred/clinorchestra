@@ -21,7 +21,7 @@ import json
 import time
 import re
 import asyncio
-from typing import Dict, Any, Optional, List, Tuple
+from typing import Dict, Any, Optional, List, Tuple, Set
 from dataclasses import dataclass, field
 from enum import Enum
 from concurrent.futures import ThreadPoolExecutor
@@ -113,6 +113,10 @@ class AgenticContext:
     # PERFORMANCE: Conversation history management
     conversation_window_size: int = 20  # Keep only last 20 messages for context
     total_messages_sent: int = 0  # Track total messages for metrics
+
+    # DEDUPLICATION: Track fetched RAG chunks and extras patterns
+    fetched_rag_content: Set[str] = field(default_factory=set)  # Track unique RAG chunk content
+    fetched_extras_patterns: Set[str] = field(default_factory=set)  # Track unique extras pattern names
 
 
 class AgenticAgent:
@@ -671,10 +675,8 @@ Example format:
         # Function tool (use consistent instance)
         # INTELLIGENT LIMITING: Only include up to max_functions to avoid exceeding model limits
         if self.function_registry:
-            # Get all available functions (ONLY ENABLED ONES)
+            # Get all available functions (ONLY ENABLED ONES from cache)
             functions = self.function_registry.get_all_functions_info()
-
-            logger.info(f"🔧 Building tool schema: {len(functions)} enabled functions retrieved from registry")
 
             # Calculate remaining space for functions (accounting for RAG + Extras)
             remaining_slots = max_functions - len(tools)
@@ -722,10 +724,6 @@ Example format:
                     tool_schema['function']['parameters']['required'] = required_params
 
                 tools.append(tool_schema)
-
-            # DIAGNOSTIC: Log all function names added to schema
-            function_names = [func['name'] for func in functions]
-            logger.info(f"📋 Functions in tool schema: {', '.join(function_names) if function_names else 'NONE'}")
 
         logger.info(f"[TOOLS] Built tool schema with {len(tools)} tools (RAG: {1 if self.rag_engine and self.rag_engine.initialized else 0}, Extras: {1 if self.extras_manager and len([e for e in self.extras_manager.extras if e.get('enabled', True)]) > 0 else 0}, Functions: {len([f for f in functions]) if 'functions' in locals() else 0})")
         return tools
@@ -1276,17 +1274,34 @@ Example format:
             top_k = self.app_state.rag_config.rag_top_k
             results = self.rag_engine.query(query_text=query, k=top_k)
 
-            if len(results) > 0:
-                logger.info(f" RAG retrieved {len(results)} documents (top_k={top_k})")
+            # DEDUPLICATION: Filter out already-fetched chunks
+            original_count = len(results)
+            new_results = []
+            for chunk in results:
+                # Use content as unique identifier
+                content = chunk.get('content', '') or chunk.get('text', '')
+                if content and content not in self.context.fetched_rag_content:
+                    new_results.append(chunk)
+                    self.context.fetched_rag_content.add(content)
+
+            if len(new_results) < original_count:
+                duplicates_filtered = original_count - len(new_results)
+                logger.info(f" RAG deduplication: {original_count} retrieved, {duplicates_filtered} duplicates filtered, {len(new_results)} new chunks")
+
+            if len(new_results) > 0:
+                logger.info(f" RAG retrieved {len(new_results)} NEW documents (top_k={top_k})")
             else:
-                logger.warning(f" RAG found no results for query: '{query}'")
+                if original_count > 0:
+                    logger.warning(f" RAG retrieved {original_count} chunks but all were duplicates - no new content")
+                else:
+                    logger.warning(f" RAG found no results for query: '{query}'")
 
             return ToolResult(
                 tool_call_id=tool_call.id,
                 type='rag',
-                success=len(results) > 0,
-                result=results,
-                message=f"Retrieved {len(results)} documents"
+                success=len(new_results) > 0,
+                result=new_results,
+                message=f"Retrieved {len(new_results)} new documents ({duplicates_filtered if len(new_results) < original_count else 0} duplicates filtered)" if original_count > 0 else "No results found"
             )
 
         except Exception as e:
@@ -1375,22 +1390,39 @@ Example format:
 
             matched_extras = self.extras_manager.match_extras_by_keywords(keywords)
 
-            if len(matched_extras) > 0:
-                logger.info(f" Matched {len(matched_extras)} extras hints/patterns")
+            # DEDUPLICATION: Filter out already-fetched extras patterns
+            original_count = len(matched_extras)
+            new_extras = []
+            for extra in matched_extras:
+                # Use pattern name or ID as unique identifier
+                extra_id = extra.get('pattern_name', '') or extra.get('id', '')
+                if extra_id and extra_id not in self.context.fetched_extras_patterns:
+                    new_extras.append(extra)
+                    self.context.fetched_extras_patterns.add(extra_id)
+
+            if len(new_extras) < original_count:
+                duplicates_filtered = original_count - len(new_extras)
+                logger.info(f" Extras deduplication: {original_count} matched, {duplicates_filtered} duplicates filtered, {len(new_extras)} new patterns")
+
+            if len(new_extras) > 0:
+                logger.info(f" Matched {len(new_extras)} NEW extras hints/patterns")
                 # Log first few matched extras for debugging
-                for i, extra in enumerate(matched_extras[:3]):
+                for i, extra in enumerate(new_extras[:3]):
                     extra_id = extra.get('id', 'N/A')
                     extra_type = extra.get('type', 'unknown')
                     logger.debug(f"   - Extra [{i+1}]: {extra_id} ({extra_type})")
             else:
-                logger.warning(f" No extras matched for keywords: {keywords}")
+                if original_count > 0:
+                    logger.warning(f" Matched {original_count} extras but all were duplicates - no new patterns")
+                else:
+                    logger.warning(f" No extras matched for keywords: {keywords}")
 
             return ToolResult(
                 tool_call_id=tool_call.id,
                 type='extras',
-                success=len(matched_extras) > 0,
-                result=matched_extras,
-                message=f"Matched {len(matched_extras)} extras"
+                success=len(new_extras) > 0,
+                result=new_extras,
+                message=f"Matched {len(new_extras)} new extras ({duplicates_filtered if len(new_extras) < original_count else 0} duplicates filtered)" if original_count > 0 else "No extras matched"
             )
 
         except Exception as e:
