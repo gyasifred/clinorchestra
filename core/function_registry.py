@@ -40,6 +40,10 @@ class FunctionRegistry:
         self.cache_hits = 0
         self.cache_misses = 0
 
+        # PERFORMANCE: Cache enabled functions to avoid repeated filtering
+        self._enabled_functions_cache: Optional[List[Dict[str, Any]]] = None
+        self._cache_valid = False
+
         # RECURSIVE CALLS: Use thread-local storage for call tracking
         # This prevents race conditions when functions execute in parallel (ThreadPoolExecutor)
         import threading
@@ -49,10 +53,15 @@ class FunctionRegistry:
         self._load_all_functions()
         self._register_builtin_functions()
 
+        # PERFORMANCE: Build enabled functions cache once on initialization
+        self._rebuild_enabled_cache()
+
         # CRITICAL: Set this instance as the global registry for call_function helper
         set_global_registry(self)
 
         logger.info(f"FunctionRegistry initialized with {len(self.functions)} functions")
+        if self._enabled_functions_cache:
+            logger.info(f"  Enabled functions cache built: {len(self._enabled_functions_cache)} functions ready")
 
     def _get_call_depth(self) -> int:
         """Get call depth for current thread"""
@@ -732,28 +741,58 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
         return func_info
     
     def get_all_functions_info(self) -> List[Dict[str, Any]]:
-        """Get metadata for all enabled functions"""
-        # Filter to only return enabled functions for LLM tool selection
+        """
+        Get metadata for all enabled functions (PERFORMANCE OPTIMIZED)
+
+        Uses cached enabled functions list to avoid repeated filtering.
+        Cache is built once on initialization and invalidated when enabled status changes.
+        """
+        # Use cached enabled functions if valid
+        if self._cache_valid and self._enabled_functions_cache is not None:
+            logger.debug(f"📦 Using cached enabled functions: {len(self._enabled_functions_cache)} functions")
+            return self._enabled_functions_cache
+
+        # Cache invalid or not built - rebuild it
+        logger.debug("🔄 Cache invalid, rebuilding enabled functions list")
+        self._rebuild_enabled_cache()
+        return self._enabled_functions_cache if self._enabled_functions_cache else []
+
+    def _rebuild_enabled_cache(self) -> None:
+        """
+        Rebuild the enabled functions cache (INTERNAL)
+
+        Called on initialization and when enabled status changes.
+        """
         all_functions = self.list_functions()
 
-        # DIAGNOSTIC: Log each function's enabled status
-        for name in all_functions:
-            enabled_status = self.functions[name].get('enabled', True)
-            logger.debug(f"Function '{name}': enabled={enabled_status}")
-
+        # Filter to only enabled functions
         enabled_functions = [name for name in all_functions
                            if self.functions[name].get('enabled', True)]
 
-        # DIAGNOSTIC LOGGING: Show enabled vs disabled count
+        # DIAGNOSTIC LOGGING: Show enabled vs disabled count (only on rebuild)
         disabled_count = len(all_functions) - len(enabled_functions)
         if disabled_count > 0:
             disabled_names = [name for name in all_functions if not self.functions[name].get('enabled', True)]
             logger.warning(f"⚠️  FUNCTION FILTER: {len(enabled_functions)} enabled, {disabled_count} disabled")
             logger.warning(f"⚠️  DISABLED FUNCTIONS (NOT passed to LLM): {', '.join(disabled_names)}")
         else:
-            logger.info(f"Function filter: All {len(enabled_functions)} functions enabled")
+            logger.info(f"✓ Function filter: All {len(enabled_functions)} functions enabled")
 
-        return [self.get_function_info(name) for name in enabled_functions]
+        # Build function info list and cache it
+        self._enabled_functions_cache = [self.get_function_info(name) for name in enabled_functions]
+        self._cache_valid = True
+        logger.debug(f"✓ Enabled functions cache rebuilt: {len(self._enabled_functions_cache)} functions")
+
+    def invalidate_enabled_cache(self) -> None:
+        """
+        Invalidate the enabled functions cache (PUBLIC API)
+
+        Call this when function enabled status changes (e.g., from UI).
+        Next call to get_all_functions_info() will rebuild the cache.
+        """
+        logger.debug("🔄 Invalidating enabled functions cache")
+        self._cache_valid = False
+        self._enabled_functions_cache = None
     
     def remove_function(self, name: str) -> Tuple[bool, str]:
         """Remove a registered function"""
@@ -790,6 +829,9 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
         try:
             self.functions[name]['enabled'] = enabled
             self._save_function(name)
+
+            # PERFORMANCE: Invalidate cache when enabled status changes
+            self.invalidate_enabled_cache()
 
             status = "enabled" if enabled else "disabled"
             logger.info(f"Function '{name}' {status}")
@@ -897,6 +939,10 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
                     count += 1
                 else:
                     errors.append(f"{func['name']}: {message}")
+
+            # PERFORMANCE: Invalidate cache after import (enabled states may have changed)
+            if count > 0:
+                self.invalidate_enabled_cache()
 
             if errors:
                 error_summary = "\n".join(errors[:5])

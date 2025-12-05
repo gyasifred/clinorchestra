@@ -671,10 +671,8 @@ Example format:
         # Function tool (use consistent instance)
         # INTELLIGENT LIMITING: Only include up to max_functions to avoid exceeding model limits
         if self.function_registry:
-            # Get all available functions (ONLY ENABLED ONES)
+            # Get all available functions (ONLY ENABLED ONES from cache)
             functions = self.function_registry.get_all_functions_info()
-
-            logger.info(f"🔧 Building tool schema: {len(functions)} enabled functions retrieved from registry")
 
             # Calculate remaining space for functions (accounting for RAG + Extras)
             remaining_slots = max_functions - len(tools)
@@ -722,10 +720,6 @@ Example format:
                     tool_schema['function']['parameters']['required'] = required_params
 
                 tools.append(tool_schema)
-
-            # DIAGNOSTIC: Log all function names added to schema
-            function_names = [func['name'] for func in functions]
-            logger.info(f"📋 Functions in tool schema: {', '.join(function_names) if function_names else 'NONE'}")
 
         logger.info(f"[TOOLS] Built tool schema with {len(tools)} tools (RAG: {1 if self.rag_engine and self.rag_engine.initialized else 0}, Extras: {1 if self.extras_manager and len([e for e in self.extras_manager.extras if e.get('enabled', True)]) > 0 else 0}, Functions: {len([f for f in functions]) if 'functions' in locals() else 0})")
         return tools
