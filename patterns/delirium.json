@@ -1,7 +1,0 @@
-{
-  "name": "detect_delirium",
-  "pattern": "delirium|acute confusional state|acute confusion",
-  "replacement": "[DELIRIUM]",
-  "description": "Detect delirium (important differential diagnosis for dementia)",
-  "enabled": true
-}

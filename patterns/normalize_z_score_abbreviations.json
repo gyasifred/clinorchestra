@@ -1,7 +1,0 @@
-{
-  "name": "normalize_z_score_abbreviations",
-  "pattern": "\\b(WHZ|BAZ|HAZ|WLZ|WAZ)[\\s:]*(\\-?\\d+\\.?\\d*)",
-  "replacement": "\\1: \\2",
-  "description": "Standardize z-score abbreviation format",
-  "enabled": true
-}

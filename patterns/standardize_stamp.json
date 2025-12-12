@@ -1,7 +1,0 @@
-{
-  "name": "standardize_stamp",
-  "pattern": "\\b(STAMP|stamp|Screening\\s+Tool\\s+for\\s+Assessment\\s+of\\s+Malnutrition)\\s*(score)?[\\s:]*(\\d+)",
-  "replacement": "STAMP score: \\3",
-  "description": "Standardize STAMP screening tool notation",
-  "enabled": true
-}

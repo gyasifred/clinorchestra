@@ -1,7 +1,0 @@
-{
-  "name": "normalize_diagnosis_copd",
-  "pattern": "\\bCOPD\\b",
-  "replacement": "chronic obstructive pulmonary disease",
-  "description": "Expand COPD abbreviation",
-  "enabled": true
-}

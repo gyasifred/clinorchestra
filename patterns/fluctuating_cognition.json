@@ -1,7 +1,0 @@
-{
-  "name": "detect_fluctuating_cognition",
-  "pattern": "fluctuating (?:cognition|cognitive|mental status)",
-  "replacement": "[FLUCTUATING_COGNITION]",
-  "description": "Detect fluctuating cognition (core feature of Lewy body dementia)",
-  "enabled": true
-}

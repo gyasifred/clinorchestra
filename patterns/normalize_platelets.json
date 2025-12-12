@@ -1,7 +1,0 @@
-{
-  "name": "normalize_platelets",
-  "pattern": "(?:PLT|platelets):?\\s*(\\d{2,3})\\s*(?:k/uL|\u00d710\u00b3/\u00b5L)?",
-  "replacement": "platelet count \\1 k/uL",
-  "description": "Normalize platelet count",
-  "enabled": true
-}

@@ -1,7 +1,0 @@
-{
-  "name": "standardize_negative_for",
-  "pattern": "\\b(negative|neg|denies|no\\s+c\\/o|no\\s+complaints?\\s+of)\\s+(?:for\\s+)?",
-  "replacement": "negative for ",
-  "description": "Standardize negation language",
-  "enabled": true
-}

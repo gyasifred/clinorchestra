@@ -1,7 +1,0 @@
-{
-  "name": "normalize_goal_weight",
-  "pattern": "goal\\s*(?:weight)?[\\s:]*(\\d+\\.?\\d*)\\s*(kg|g|lb)",
-  "replacement": "Goal weight: \\1 \\2",
-  "description": "Standardize goal weight notation",
-  "enabled": true
-}

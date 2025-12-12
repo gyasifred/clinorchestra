@@ -1,7 +1,0 @@
-{
-  "name": "fix_hemoglobin",
-  "pattern": "\\b(hemoglobin|hgb|hb)[\\s:]*(\\d+\\.?\\d*)\\s*(g\\s*/\\s*dL|g\\/dL)",
-  "replacement": "Hemoglobin: \\2 g/dL",
-  "description": "Standardize hemoglobin format",
-  "enabled": true
-}

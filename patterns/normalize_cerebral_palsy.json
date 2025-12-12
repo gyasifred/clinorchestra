@@ -1,7 +1,0 @@
-{
-  "name": "normalize_cerebral_palsy",
-  "pattern": "\\b(CP|cp|cerebral\\s+palsy)\\b",
-  "replacement": "cerebral palsy (CP)",
-  "description": "Standardize cerebral palsy notation",
-  "enabled": true
-}

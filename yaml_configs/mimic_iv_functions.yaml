@@ -1,0 +1,187 @@
+- name: calculate_sofa_score
+  code: "\ndef calculate_sofa_score(pao2_fio2_ratio=None, platelets=None, bilirubin=None,\
+    \ map_value=None, on_vasopressor=False, gcs=None, creatinine=None, urine_output=None):\n\
+    \    \"\"\"Calculate SOFA (Sequential Organ Failure Assessment) Score for sepsis\
+    \ severity\"\"\"\n    \n    score = 0\n    \n    # Respiration (PaO2/FiO2)\n \
+    \   if pao2_fio2_ratio is not None:\n        if pao2_fio2_ratio < 100:\n     \
+    \       score += 4\n        elif pao2_fio2_ratio < 200:\n            score +=\
+    \ 3\n        elif pao2_fio2_ratio < 300:\n            score += 2\n        elif\
+    \ pao2_fio2_ratio < 400:\n            score += 1\n    \n    # Coagulation (Platelets)\n\
+    \    if platelets is not None:\n        if platelets < 20:\n            score\
+    \ += 4\n        elif platelets < 50:\n            score += 3\n        elif platelets\
+    \ < 100:\n            score += 2\n        elif platelets < 150:\n            score\
+    \ += 1\n    \n    # Liver (Bilirubin)\n    if bilirubin is not None:\n       \
+    \ if bilirubin >= 12.0:\n            score += 4\n        elif bilirubin >= 6.0:\n\
+    \            score += 3\n        elif bilirubin >= 2.0:\n            score +=\
+    \ 2\n        elif bilirubin >= 1.2:\n            score += 1\n    \n    # Cardiovascular\n\
+    \    if on_vasopressor:\n        score += 4\n    elif map_value is not None and\
+    \ map_value < 70:\n        score += 1\n    \n    # CNS (Glasgow Coma Scale)\n\
+    \    if gcs is not None:\n        if gcs < 6:\n            score += 4\n      \
+    \  elif gcs < 10:\n            score += 3\n        elif gcs < 13:\n          \
+    \  score += 2\n        elif gcs < 15:\n            score += 1\n    \n    # Renal\n\
+    \    if creatinine is not None:\n        if creatinine >= 5.0:\n            score\
+    \ += 4\n        elif creatinine >= 3.5:\n            score += 3\n        elif\
+    \ creatinine >= 2.0:\n            score += 2\n        elif creatinine >= 1.2:\n\
+    \            score += 1\n    \n    if urine_output is not None and urine_output\
+    \ < 200:\n        score = max(score, 4)\n    \n    return score\n"
+  description: Calculate SOFA score for sepsis/organ dysfunction severity (0-24, higher
+    = worse)
+  parameters:
+    pao2_fio2_ratio:
+      type: number
+      description: PaO2/FiO2 ratio in mmHg (optional)
+      required: false
+    platelets:
+      type: number
+      description: Platelet count in 10^3/μL (optional)
+      required: false
+    bilirubin:
+      type: number
+      description: Total bilirubin in mg/dL (optional)
+      required: false
+    map_value:
+      type: number
+      description: Mean arterial pressure in mmHg (optional)
+      required: false
+    on_vasopressor:
+      type: boolean
+      description: Whether patient is on vasopressors (optional)
+      required: false
+    gcs:
+      type: number
+      description: Glasgow Coma Scale score 3-15 (optional)
+      required: false
+    creatinine:
+      type: number
+      description: Serum creatinine in mg/dL (optional)
+      required: false
+    urine_output:
+      type: number
+      description: Urine output in mL/day (optional)
+      required: false
+  returns: SOFA score (0-24)
+  enabled: true
+  signature: (pao2_fio2_ratio=None, platelets=None, bilirubin=None, map_value=None,
+    on_vasopressor=False, gcs=None, creatinine=None, urine_output=None)
+- name: classify_aki_stage_kdigo
+  code: "def classify_aki_stage_kdigo(baseline_cr: float, current_cr: float,\n   \
+    \                          cr_change_48h: float = None,\n                    \
+    \         on_rrt: bool = False) -> dict:\n    \"\"\"\n    Classify AKI stage per\
+    \ KDIGO criteria\n\n    KDIGO AKI Staging:\n    - Stage 1: Cr increase ≥0.3 mg/dL\
+    \ within 48h OR 1.5-1.9x baseline\n    - Stage 2: Cr increase 2.0-2.9x baseline\n\
+    \    - Stage 3: Cr increase ≥3.0x baseline OR Cr ≥4.0 mg/dL OR initiation of RRT\n\
+    \n    Args:\n        baseline_cr: Baseline creatinine (mg/dL)\n        current_cr:\
+    \ Current creatinine (mg/dL)\n        cr_change_48h: Change in Cr over 48h (mg/dL)\n\
+    \        on_rrt: Patient on renal replacement therapy\n\n    Returns:\n      \
+    \  {\n            'aki_stage': 0-3,\n            'criteria_met': str,\n      \
+    \      'cr_ratio': float,\n            'absolute_change': float\n        }\n \
+    \   \"\"\"\n    cr_ratio = current_cr / baseline_cr if baseline_cr > 0 else 0\n\
+    \    absolute_change = current_cr - baseline_cr\n\n    # Stage 3\n    if on_rrt\
+    \ or current_cr >= 4.0 or cr_ratio >= 3.0:\n        return {\n            'aki_stage':\
+    \ 3,\n            'criteria_met': f\"Stage 3: RRT={on_rrt}, Cr={current_cr:.1f},\
+    \ Ratio={cr_ratio:.2f}x\",\n            'cr_ratio': cr_ratio,\n            'absolute_change':\
+    \ absolute_change\n        }\n\n    # Stage 2\n    if cr_ratio >= 2.0:\n     \
+    \   return {\n            'aki_stage': 2,\n            'criteria_met': f\"Stage\
+    \ 2: Ratio {cr_ratio:.2f}x baseline\",\n            'cr_ratio': cr_ratio,\n  \
+    \          'absolute_change': absolute_change\n        }\n\n    # Stage 1\n  \
+    \  if cr_ratio >= 1.5 or (cr_change_48h is not None and cr_change_48h >= 0.3):\n\
+    \        criteria = []\n        if cr_ratio >= 1.5:\n            criteria.append(f\"\
+    {cr_ratio:.2f}x baseline\")\n        if cr_change_48h and cr_change_48h >= 0.3:\n\
+    \            criteria.append(f\"+{cr_change_48h:.1f} mg/dL in 48h\")\n\n     \
+    \   return {\n            'aki_stage': 1,\n            'criteria_met': f\"Stage\
+    \ 1: {', '.join(criteria)}\",\n            'cr_ratio': cr_ratio,\n           \
+    \ 'absolute_change': absolute_change\n        }\n\n    # No AKI\n    return {\n\
+    \        'aki_stage': 0,\n        'criteria_met': \"No AKI criteria met\",\n \
+    \       'cr_ratio': cr_ratio,\n        'absolute_change': absolute_change\n  \
+    \  }\n"
+  description: Classify AKI stage per KDIGO criteria using baseline and current creatinine
+    values. Returns stage (0-3), criteria met, creatinine ratio, and absolute change.
+  parameters:
+    baseline_cr:
+      type: number
+      description: Baseline creatinine in mg/dL (lowest in past 7 days or admission
+        value)
+      required: true
+    current_cr:
+      type: number
+      description: Current creatinine in mg/dL
+      required: true
+    cr_change_48h:
+      type: number
+      description: Change in creatinine over 48 hours in mg/dL (optional)
+      required: false
+    on_rrt:
+      type: boolean
+      description: Patient on renal replacement therapy (dialysis/CRRT)
+      required: false
+  returns:
+    aki_stage: integer (0-3)
+    criteria_met: string describing which KDIGO criteria are met
+    cr_ratio: float (current/baseline ratio)
+    absolute_change: float (current - baseline in mg/dL)
+  enabled: true
+  signature: '(baseline_cr: float, current_cr: float, cr_change_48h: float = None,
+    on_rrt: bool = False) -> dict'
+- name: calculate_kdigo_aki_stage
+  code: "\ndef calculate_kdigo_aki_stage(baseline_creatinine=None, current_creatinine=None,\
+    \ urine_output_6h=None, urine_output_12h=None, urine_output_24h=None, weight_kg=None):\n\
+    \    stage = 0\n    criteria_met = []\n    \n    # Creatinine criteria\n    if\
+    \ baseline_creatinine is not None and current_creatinine is not None:\n      \
+    \  cr_increase = current_creatinine - baseline_creatinine\n        cr_ratio =\
+    \ current_creatinine / baseline_creatinine\n        \n        if cr_increase >=\
+    \ 0.3 or cr_ratio >= 1.5:\n            stage = max(stage, 1)\n            criteria_met.append('Cr\
+    \ increase ≥0.3 mg/dL or 1.5x baseline')\n        \n        if cr_ratio >= 2.0:\n\
+    \            stage = max(stage, 2)\n            criteria_met.append('Cr increase\
+    \ 2x baseline')\n        \n        if cr_ratio >= 3.0 or current_creatinine >=\
+    \ 4.0:\n            stage = max(stage, 3)\n            criteria_met.append('Cr\
+    \ increase 3x baseline or ≥4.0 mg/dL')\n    \n    # Urine output criteria (if\
+    \ weight provided)\n    if weight_kg is not None:\n        if urine_output_6h\
+    \ is not None:\n            uo_6h_rate = urine_output_6h / (weight_kg * 6)  #\
+    \ mL/kg/h\n            if uo_6h_rate < 0.5:\n                stage = max(stage,\
+    \ 1)\n                criteria_met.append('UO <0.5 mL/kg/h for 6h')\n        \
+    \    if uo_6h_rate < 0.3:\n                stage = max(stage, 3)\n           \
+    \     criteria_met.append('UO <0.3 mL/kg/h for 6h')\n        \n        if urine_output_12h\
+    \ is not None:\n            uo_12h_rate = urine_output_12h / (weight_kg * 12)\n\
+    \            if uo_12h_rate < 0.5:\n                stage = max(stage, 2)\n  \
+    \              criteria_met.append('UO <0.5 mL/kg/h for 12h')\n        \n    \
+    \    if urine_output_24h is not None:\n            uo_24h_rate = urine_output_24h\
+    \ / (weight_kg * 24)\n            if uo_24h_rate < 0.3 or urine_output_24h < 500:\n\
+    \                stage = max(stage, 3)\n                criteria_met.append('UO\
+    \ <0.3 mL/kg/h for 24h or anuria')\n    \n    severity_map = {\n        0: 'No\
+    \ AKI',\n        1: 'Mild AKI (Stage 1)',\n        2: 'Moderate AKI (Stage 2)',\n\
+    \        3: 'Severe AKI (Stage 3)'\n    }\n    \n    return {\n        'stage':\
+    \ stage,\n        'severity': severity_map.get(stage, 'Unknown'),\n        'criteria_met':\
+    \ criteria_met\n    }\n"
+  description: 'Calculate KDIGO AKI (Acute Kidney Injury) stage based on creatinine
+    changes or urine output. Stages: 0 (no AKI), 1 (mild), 2 (moderate), 3 (severe).'
+  parameters:
+    baseline_creatinine:
+      type: float
+      description: Baseline creatinine in mg/dL
+      required: false
+    current_creatinine:
+      type: float
+      description: Current creatinine in mg/dL
+      required: false
+    urine_output_6h:
+      type: float
+      description: Urine output over 6 hours in mL
+      required: false
+    urine_output_12h:
+      type: float
+      description: Urine output over 12 hours in mL
+      required: false
+    urine_output_24h:
+      type: float
+      description: Urine output over 24 hours in mL
+      required: false
+    weight_kg:
+      type: float
+      description: Patient weight in kg (for urine output calculation)
+      required: false
+  returns:
+    type: dict
+    description: Dictionary with stage (0-3), severity, and criteria_met
+  enabled: true
+  signature: (baseline_creatinine=None, current_creatinine=None, urine_output_6h=None,
+    urine_output_12h=None, urine_output_24h=None, weight_kg=None)

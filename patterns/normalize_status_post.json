@@ -1,7 +1,0 @@
-{
-  "name": "normalize_status_post",
-  "pattern": "\\b(s\\/p|S\\/P|status\\s+post)\\b",
-  "replacement": "status post",
-  "description": "Standardize status post surgical notation",
-  "enabled": true
-}

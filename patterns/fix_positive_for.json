@@ -1,7 +1,0 @@
-{
-  "name": "fix_positive_for",
-  "pattern": "\\b(positive|pos)\\s+(?:for\\s+)?",
-  "replacement": "positive for ",
-  "description": "Standardize positive findings language",
-  "enabled": true
-}

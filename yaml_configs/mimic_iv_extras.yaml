@@ -1,0 +1,881 @@
+- name: aki_risk_factors
+  type: guideline
+  keywords:
+  - aki
+  - acute kidney injury
+  - risk factors
+  - aki risk
+  - nephrotoxic
+  - renal injury risk
+  - kidney injury risk
+  content: 'Acute Kidney Injury (AKI) Risk Factors:
+
+
+    Patient Risk Factors:
+
+    1. Advanced age (>65 years)
+
+    2. Pre-existing CKD (baseline creatinine elevation or reduced GFR)
+
+    3. Diabetes mellitus
+
+    4. Hypertension
+
+    5. Heart failure (especially acute decompensated)
+
+    6. Liver disease or cirrhosis
+
+    7. Sepsis or systemic infection
+
+    8. Hypovolemia or dehydration
+
+    9. Previous episodes of AKI
+
+
+    Medication-Related Risk Factors (Nephrotoxins):
+
+    1. NSAIDs (ibuprofen, naproxen, ketorolac)
+
+    2. ACE inhibitors and ARBs (especially with volume depletion)
+
+    3. Aminoglycosides (gentamicin, tobramycin, amikacin)
+
+    4. Vancomycin (especially high trough levels)
+
+    5. Amphotericin B
+
+    6. Contrast agents (IV contrast for CT scans, angiography)
+
+    7. Calcineurin inhibitors (tacrolimus, cyclosporine)
+
+    8. Diuretics (can cause pre-renal AKI if volume depleted)
+
+    9. Chemotherapy agents (cisplatin, methotrexate)
+
+
+    Clinical Situations with High AKI Risk:
+
+    1. Major surgery (cardiac, vascular, abdominal)
+
+    2. Critical illness/ICU admission
+
+    3. Severe burns
+
+    4. Rhabdomyolysis (elevated CK)
+
+    5. Tumor lysis syndrome
+
+    6. Shock states (septic, cardiogenic, hypovolemic)
+
+    7. Obstruction (urinary retention, kidney stones, prostatic hypertrophy)
+
+
+    Prevention Strategies:
+
+    - Maintain adequate hydration
+
+    - Avoid nephrotoxic medications when possible
+
+    - Monitor creatinine closely in high-risk patients
+
+    - Adjust medication doses for renal function
+
+    - Prompt treatment of infections and hemodynamic instability
+
+    - Pre-hydration before contrast procedures
+
+
+    Source: KDIGO AKI Guidelines; Clinical practice recommendations'
+  source: KDIGO AKI Guidelines and clinical literature
+  relevance_score: 1.0
+- id: sepsis_criteria
+  type: diagnostic_criteria
+  name: Sepsis - Sepsis-3 Definition and Management
+  content: "SEPSIS-3 DEFINITION (2016):\n\nDEFINITION:\n- Life-threatening organ dysfunction\
+    \ caused by dysregulated host response to infection\n- Requires: (1) Suspected\
+    \ or confirmed infection, PLUS (2) SOFA score increase ≥2 points\n\nqSOFA (Quick\
+    \ SOFA) - Bedside Screening:\n- Altered mental status (GCS <15)\n- Systolic BP\
+    \ ≤100 mmHg\n- Respiratory rate ≥22/min\n≥2 criteria: High risk for poor outcome,\
+    \ prompt assessment needed\n\nSOFA SCORE (Sequential Organ Failure Assessment):\n\
+    - Respiration: PaO2/FiO2 ratio\n- Coagulation: Platelets\n- Liver: Bilirubin\n\
+    - Cardiovascular: MAP and vasopressors\n- CNS: Glasgow Coma Scale\n- Renal: Creatinine\
+    \ or urine output\nScore 0-24; increase ≥2 = organ dysfunction\n\nSEPTIC SHOCK:\n\
+    - Sepsis + persisting hypotension requiring vasopressors (MAP ≥65 mmHg)\n- AND\
+    \ lactate >2 mmol/L despite adequate fluid resuscitation\n- Mortality >40%\n\n\
+    DIAGNOSTIC WORKUP:\n- Blood cultures (×2 sets before antibiotics)\n- Lactate level\n\
+    - CBC, CMP, coagulation studies\n- Source identification: Urinalysis, CXR, imaging\
+    \ as indicated\n\nMANAGEMENT (Surviving Sepsis Campaign):\n1. HOUR-1 BUNDLE:\n\
+    \   - Measure lactate (remeasure if >2 mmol/L)\n   - Obtain blood cultures before\
+    \ antibiotics\n   - Administer broad-spectrum antibiotics\n   - Begin rapid fluid\
+    \ resuscitation (30 mL/kg crystalloid if hypotensive/lactate ≥4)\n   - Apply vasopressors\
+    \ if hypotensive during/after fluid resuscitation (MAP ≥65)\n\n2. SOURCE CONTROL:\n\
+    \   - Identify and remove infection source within 12h if possible\n\n3. ADDITIONAL\
+    \ INTERVENTIONS:\n   - Norepinephrine first-line vasopressor\n   - Stress-dose\
+    \ steroids if refractory shock\n   - Avoid bicarbonate for pH ≥7.15\n   - Restrictive\
+    \ transfusion strategy (Hgb <7 g/dL)\n\nPROGNOSIS:\n- Sepsis mortality: 10-20%\n\
+    - Septic shock mortality: 40-50%"
+  metadata:
+    category: infectious
+    diagnosis: sepsis
+    priority: CRITICAL
+    source: Sepsis-3 Definitions, Surviving Sepsis Campaign 2021
+- id: extra_approach_001
+  type: methodology
+  content: 'Clinical Annotation Systematic Approach: (1) Read entire clinical record
+    first for overview. (2) Identify primary diagnosis and expected findings. (3)
+    Extract vital signs with trends (admission vs peak vs discharge). (4) Extract
+    all abnormal lab values with clinical significance. (5) Review imaging systematically
+    - chest X-ray for infiltrates/effusions/cardiomegaly, CT for specific findings.
+    (6) Note medications as diagnostic clues - antibiotics suggest infection, diuretics
+    suggest fluid overload, vasopressors suggest shock. (7) Extract temporal relationships
+    - symptom onset, progression, hospital course. (8) Identify severity indicators
+    - ICU admission, mechanical ventilation, vasopressor requirement, dialysis. (9)
+    Note pertinent negatives - absence of expected findings. (10) Link evidence to
+    pathophysiology.'
+  metadata:
+    category: general
+    priority: HIGH
+    subcategory: annotation_methodology
+  created_at: '2025-11-10T00:00:00'
+  name: Systematic Clinical Annotation Approach
+- name: renal_replacement_therapy_indications
+  type: guideline
+  keywords:
+  - dialysis
+  - rrt
+  - renal replacement therapy
+  - hemodialysis
+  - continuous renal replacement therapy
+  - crrt
+  - peritoneal dialysis
+  - dialysis indication
+  - aki dialysis
+  content: "Renal Replacement Therapy (RRT) Indications:\n\nEmergent Indications (AEIOU\
+    \ mnemonic):\nA - Acidosis: Severe metabolic acidosis (pH <7.1) refractory to\
+    \ medical management\nE - Electrolytes: Life-threatening hyperkalemia (K+ >6.5\
+    \ mEq/L with ECG changes) unresponsive to medical therapy\nI - Ingestions/Intoxications:\
+    \ Certain toxins (methanol, ethylene glycol, lithium, salicylates)\nO - Fluid\
+    \ overload: Pulmonary edema unresponsive to diuretics\nU - Uremia: Uremic complications\
+    \ (pericarditis, encephalopathy, bleeding)\n\nAdditional Indications:\n1. AKI\
+    \ Stage 3 with:\n   - Oliguria/anuria not responding to fluid resuscitation\n\
+    \   - Uremia (BUN >100 mg/dL with symptoms)\n   - Severe azotemia\n\n2. Electrolyte\
+    \ abnormalities:\n   - Severe hyperkalemia (K+ >6.5 mEq/L)\n   - Severe hyperphosphatemia\n\
+    \   - Severe hypercalcemia or hypocalcemia\n\n3. Acid-base disorders:\n   - Severe\
+    \ metabolic acidosis (pH <7.1 or HCO3 <10 mEq/L)\n\n4. Volume overload:\n   -\
+    \ Pulmonary edema with hypoxemia\n   - Anasarca unresponsive to diuretics\n\n\
+    5. Uremic symptoms:\n   - Encephalopathy\n   - Pericarditis\n   - Bleeding diathesis\n\
+    \   - Nausea/vomiting from uremia\n\nRRT Modalities:\n\n1. Intermittent Hemodialysis\
+    \ (IHD):\n   - Standard outpatient dialysis\n   - 3-4 hours per session\n   -\
+    \ Hemodynamically stable patients\n\n2. Continuous Renal Replacement Therapy (CRRT):\n\
+    \   - Continuous venovenous hemofiltration (CVVH)\n   - Continuous venovenous\
+    \ hemodialysis (CVVHD)\n   - Preferred for hemodynamically unstable ICU patients\n\
+    \   - Better fluid/electrolyte control\n   - Slower, more gradual treatment\n\n\
+    3. Peritoneal Dialysis:\n   - Less common for acute AKI\n   - May be used in pediatrics\
+    \ or resource-limited settings\n\nTiming Considerations:\n- Early initiation vs.\
+    \ watchful waiting is debated\n- Most nephrologists initiate when emergent indications\
+    \ present\n- Consider patient trajectory and likelihood of recovery\n\nSource:\
+    \ KDIGO Guidelines; Nephrology clinical practice"
+  source: KDIGO Guidelines and nephrology clinical practice
+  relevance_score: 1.0
+- id: extra_pneumonia_001
+  type: diagnostic_criteria
+  content: 'Pneumonia: Acute infection of lung parenchyma. Community-acquired (CAP)
+    vs hospital-acquired (HAP) vs ventilator-associated (VAP). Clinical: fever, cough
+    (productive), dyspnea, pleuritic chest pain, tachypnea. Exam: crackles, bronchial
+    breath sounds, dullness to percussion, egophony. CXR: infiltrate/consolidation
+    (lobar, multilobar, interstitial). Labs: leukocytosis or leukopenia, elevated
+    procalcitonin. Sputum/blood cultures (before antibiotics). CURB-65 score for severity
+    (Confusion, Urea >19, RR≥30, BP<90/60, age≥65): 0-1=outpatient, 2=inpatient, 3-5=ICU.
+    PSI (Pneumonia Severity Index) also used. Organisms: S. pneumoniae (most common),
+    H. influenzae, atypicals (Mycoplasma, Legionella, Chlamydia). Treatment: empiric
+    antibiotics (β-lactam + macrolide or fluoroquinolone), adjust based on cultures.
+    Complications: pleural effusion, empyema, sepsis, respiratory failure, death.'
+  metadata:
+    category: infectious_pulmonary
+    diagnosis: pneumonia
+    priority: HIGH
+    icd9_codes:
+    - '486'
+    icd10_codes:
+    - J189
+  created_at: '2025-11-10T00:00:00'
+  name: Pneumonia - Diagnosis & Severity Assessment
+- id: hypertensive_heart_ckd_criteria
+  type: diagnostic_criteria
+  name: Hypertensive Heart and Chronic Kidney Disease
+  content: "HYPERTENSIVE HEART AND CHRONIC KIDNEY DISEASE:\n\nDEFINITION:\n- Combination\
+    \ of hypertensive heart disease AND chronic kidney disease\n- ICD-10: I13.0 (with\
+    \ heart failure), I13.1 (without HF), I13.2 (with HF and CKD stage 5/ESRD)\n\n\
+    COMPONENTS:\n\n1. HYPERTENSIVE HEART DISEASE:\n   - Cardiac structural/functional\
+    \ changes due to chronic hypertension\n   - LV hypertrophy (most common finding)\n\
+    \   - Diastolic dysfunction → HFpEF\n   - May progress to systolic dysfunction\
+    \ → HFrEF\n   - Coronary artery disease (accelerated atherosclerosis)\n\n2. CHRONIC\
+    \ KIDNEY DISEASE:\n   - GFR <60 mL/min/1.73m² for ≥3 months\n   - OR kidney damage\
+    \ (albuminuria, structural abnormality) for ≥3 months\n   \n   CKD Stages:\n \
+    \  - Stage 1: GFR ≥90 with kidney damage\n   - Stage 2: GFR 60-89 with kidney\
+    \ damage\n   - Stage 3a: GFR 45-59\n   - Stage 3b: GFR 30-44\n   - Stage 4: GFR\
+    \ 15-29\n   - Stage 5: GFR <15 or on dialysis\n\nCARDIOVASCULAR-RENAL INTERACTION:\n\
+    \nType 1 Cardiorenal Syndrome:\n- Acute cardiac dysfunction → acute kidney injury\n\
+    - Example: Acute HF → reduced renal perfusion → AKI\n\nType 2 Cardiorenal Syndrome:\n\
+    - Chronic cardiac dysfunction → progressive CKD\n- Example: Chronic HF → chronic\
+    \ renal hypoperfusion → CKD\n\nType 4 Cardiorenal Syndrome:\n- Primary CKD → cardiac\
+    \ disease\n- Mechanisms: Volume overload, anemia, electrolyte abnormalities, uremic\
+    \ toxins\n\nType 5 Cardiorenal Syndrome:\n- Systemic disease affecting both (e.g.,\
+    \ diabetes, hypertension)\n\nDIAGNOSTIC EVALUATION:\n\n1. CARDIAC:\n   - Echocardiogram:\
+    \ LV mass, LVEF, diastolic function, wall thickness\n   - ECG: LVH (Sokolow-Lyon,\
+    \ Cornell criteria)\n   - BNP/NT-proBNP (if HF symptoms)\n   - Coronary assessment\
+    \ if angina\n\n2. RENAL:\n   - Serum creatinine, calculate eGFR (CKD-EPI equation)\n\
+    \   - Urinalysis: Protein, albumin-to-creatinine ratio (ACR)\n   - Electrolytes:\
+    \ K, bicarb, calcium, phosphate, PTH\n   - CBC: Anemia common in CKD\n   - Renal\
+    \ ultrasound: Size, echogenicity, obstruction\n\n3. BLOOD PRESSURE:\n   - Ambulatory\
+    \ BP monitoring (if suspected white coat or masked HTN)\n   - Home BP monitoring\n\
+    \nBLOOD PRESSURE TARGETS:\n\nGeneral CKD:\n- <130/80 mmHg (ACC/AHA 2017)\n- <140/90\
+    \ mmHg (KDIGO 2021, more conservative)\n\nCKD with albuminuria:\n- <130/80 mmHg\
+    \ to reduce albuminuria and CV events\n\nDialysis:\n- Individualized, generally\
+    \ <140/90 pre-dialysis\n\nTREATMENT:\n\n1. BLOOD PRESSURE CONTROL:\n   \n   First-line\
+    \ (CKD with albuminuria or diabetes):\n   - ACE inhibitor OR ARB (not both)\n\
+    \   - Reduces proteinuria, slows CKD progression\n   - Monitor: Cr may increase\
+    \ up to 30% (acceptable), K\n   \n   Additional agents:\n   - Thiazide diuretic\
+    \ (if GFR >30) or loop diuretic (if GFR <30)\n   - Calcium channel blocker (dihydropyridine)\n\
+    \   - Beta-blocker (if HF, CAD, or post-MI)\n   \n   Avoid:\n   - NSAIDs (nephrotoxic,\
+    \ worsen BP control)\n   - Mineralocorticoid receptor antagonists if K >5.0 or\
+    \ GFR <30 (unless carefully monitored)\n\n2. HEART FAILURE MANAGEMENT:\n   - GDMT\
+    \ for HFrEF: ACE-I/ARB/ARNI, beta-blocker, MRA, SGLT2i\n   - SGLT2 inhibitors:\
+    \ Benefit in both HF and CKD (reduce progression)\n   - Diuretics for volume management\n\
+    \   - Adjust doses for renal function\n\n3. CKD MANAGEMENT:\n   - Slow progression:\
+    \ BP control, RAAS inhibition, SGLT2i\n   - Manage complications:\n     * Anemia:\
+    \ ESA if Hgb <10, iron supplementation\n     * Bone disease: Phosphate binders,\
+    \ vitamin D, manage PTH\n     * Acidosis: Sodium bicarbonate if bicarb <22\n \
+    \    * Hyperkalemia: Dietary restriction, K-binders (patiromer, SZC)\n   - Diet:\
+    \ Protein restriction (0.8 g/kg/day), sodium <2g/day, potassium restriction if\
+    \ elevated\n   - Prepare for RRT if approaching stage 5\n\n4. CARDIOVASCULAR RISK\
+    \ REDUCTION:\n   - Statin therapy (moderate-high intensity)\n   - Antiplatelet\
+    \ if CAD (weigh bleeding risk)\n   - Lifestyle: Smoking cessation, weight loss,\
+    \ exercise\n\nMONITORING:\n- Serum Cr, eGFR, electrolytes: Every 3-6 months (more\
+    \ frequent if unstable)\n- Urine ACR: Annually\n- Echocardiogram: As clinically\
+    \ indicated\n- BP: Home monitoring\n\nPROGNOSIS:\n- CKD is major CV risk factor\
+    \ (equivalent to CAD)\n- Risk of CV death > risk of progression to ESRD in early\
+    \ CKD\n- Combined heart and kidney disease: Significantly worse prognosis\n- Tight\
+    \ BP control and RAAS inhibition reduce CV events and slow CKD progression"
+  metadata:
+    category: cardiovascular_renal
+    diagnosis: hypertensive_heart_disease_with_ckd
+    priority: HIGH
+    source: KDIGO 2021, ACC/AHA HTN Guidelines 2017
+- name: nephrotoxic_medications
+  type: reference
+  keywords:
+  - nephrotoxic
+  - nephrotoxicity
+  - kidney damage
+  - medication
+  - drug induced
+  - aki medication
+  - renal toxicity
+  - drug renal
+  content: "Nephrotoxic Medications - Complete Reference:\n\n1. NSAIDs (Non-Steroidal\
+    \ Anti-Inflammatory Drugs):\n   - Examples: Ibuprofen, naproxen, ketorolac, indomethacin,\
+    \ diclofenac, celecoxib\n   - Mechanism: Inhibit prostaglandin synthesis → decreased\
+    \ renal perfusion\n   - Risk: Acute tubular necrosis, interstitial nephritis,\
+    \ papillary necrosis\n   - Higher risk with: Volume depletion, heart failure,\
+    \ cirrhosis, pre-existing CKD\n\n2. ACE Inhibitors and ARBs:\n   - Examples: Lisinopril,\
+    \ enalapril, losartan, valsartan\n   - Mechanism: Efferent arteriole dilation\
+    \ → decreased GFR\n   - Risk: Acute decrease in GFR, hyperkalemia\n   - Avoid:\
+    \ Bilateral renal artery stenosis, severe volume depletion\n\n3. Aminoglycosides:\n\
+    \   - Examples: Gentamicin, tobramycin, amikacin\n   - Mechanism: Direct tubular\
+    \ toxicity\n   - Risk: Dose and duration dependent\n   - Monitor: Trough levels,\
+    \ creatinine\n\n4. Vancomycin:\n   - Mechanism: Direct tubular damage\n   - Risk:\
+    \ Increased with high trough levels (>20 mg/L)\n   - Higher risk when combined\
+    \ with other nephrotoxins\n\n5. Contrast Agents:\n   - Types: Iodinated contrast\
+    \ (CT, angiography)\n   - Mechanism: Contrast-induced nephropathy (CIN)\n   -\
+    \ Risk factors: Pre-existing CKD, diabetes, volume depletion, contrast volume\n\
+    \   - Prevention: Pre-hydration with IV fluids\n\n6. Diuretics:\n   - Examples:\
+    \ Furosemide, hydrochlorothiazide\n   - Mechanism: Volume depletion → pre-renal\
+    \ AKI\n   - Risk: Excessive diuresis, electrolyte abnormalities\n\n7. Calcineurin\
+    \ Inhibitors:\n   - Examples: Tacrolimus, cyclosporine\n   - Used in: Transplant\
+    \ immunosuppression\n   - Mechanism: Vasoconstriction, chronic fibrosis\n   -\
+    \ Monitor: Drug levels, creatinine\n\n8. Chemotherapy Agents:\n   - Cisplatin:\
+    \ Direct tubular toxicity\n   - Methotrexate: Crystalline nephropathy\n   - Ifosfamide:\
+    \ Tubular damage\n   - Prevention: Aggressive hydration, dose adjustment\n\n9.\
+    \ Amphotericin B:\n   - Antifungal agent\n   - Mechanism: Direct tubular toxicity\n\
+    \   - Risk: Dose dependent\n   - Liposomal forms less nephrotoxic\n\n10. Lithium:\n\
+    \    - Used for: Bipolar disorder\n    - Mechanism: Chronic interstitial nephritis,\
+    \ nephrogenic diabetes insipidus\n    - Monitor: Lithium levels, creatinine\n\n\
+    11. Proton Pump Inhibitors (PPIs):\n    - Examples: Omeprazole, pantoprazole,\
+    \ esomeprazole\n    - Mechanism: Acute interstitial nephritis\n    - Risk: Usually\
+    \ after weeks to months of use\n\n12. Antivirals:\n    - Acyclovir: Crystalline\
+    \ nephropathy\n    - Tenofovir: Tubular toxicity\n    - Cidofovir: Direct tubular\
+    \ damage\n\nCombination Risks:\n- Triple whammy: NSAID + ACE-I/ARB + Diuretic\
+    \ = very high AKI risk\n- Aminoglycoside + Vancomycin = synergistic nephrotoxicity\n\
+    - Multiple nephrotoxins = cumulative risk\n\nPrevention Strategies:\n- Avoid nephrotoxins\
+    \ in high-risk patients when possible\n- Maintain adequate hydration\n- Monitor\
+    \ creatinine and electrolytes\n- Dose adjust for renal function\n- Use alternative\
+    \ medications when available\n- Minimize duration of nephrotoxic drugs\n\nSource:\
+    \ Clinical pharmacology and nephrology literature"
+  source: Clinical pharmacology and nephrology references
+  relevance_score: 1.0
+- id: aortic_valve_disorders_criteria
+  type: diagnostic_criteria
+  name: Aortic Stenosis - Diagnosis and Management
+  content: "AORTIC STENOSIS (AS):\n\nDEFINITION:\n- Narrowing of aortic valve orifice\n\
+    - Obstruction to LV outflow\n\nETIOLOGY:\n- Degenerative/calcific (most common,\
+    \ elderly)\n- Bicuspid aortic valve (younger patients)\n- Rheumatic (rare in developed\
+    \ countries)\n\nCLASSIC TRIAD (Late symptoms):\n1. Exertional dyspnea (HF)\n2.\
+    \ Angina (myocardial O2 supply-demand mismatch)\n3. Syncope (exertional, due to\
+    \ fixed CO)\n\nPHYSICAL EXAM:\n- Crescendo-decrescendo systolic murmur\n- Radiates\
+    \ to carotids\n- Diminished/delayed carotid upstrokes (pulsus parvus et tardus)\n\
+    - Paradoxical splitting S2 (if severe)\n- S4 gallop\n\nECHOCARDIOGRAPHIC CRITERIA:\n\
+    \nSeverity grading:\n\nMild AS:\n- Aortic jet velocity: 2.6-2.9 m/s\n- Mean gradient:\
+    \ <20 mmHg\n- Valve area: >1.5 cm²\n\nModerate AS:\n- Velocity: 3.0-3.9 m/s\n\
+    - Mean gradient: 20-39 mmHg\n- Valve area: 1.0-1.5 cm²\n\nSevere AS:\n- Velocity:\
+    \ ≥4.0 m/s\n- Mean gradient: ≥40 mmHg\n- Valve area: <1.0 cm² (or indexed area\
+    \ <0.6 cm²/m²)\n\nVery Severe AS:\n- Velocity: ≥5.0 m/s\n- Mean gradient: ≥60\
+    \ mmHg\n- Valve area: <0.75 cm²\n\nAdditional assessment:\n- LV function (LVEF)\n\
+    - LV hypertrophy\n- Degree of calcification\n\nSTAGING (ACC/AHA 2020):\n\nStage\
+    \ A: At risk\n- Bicuspid AoV, sclerosis\n- Asymptomatic, normal hemodynamics\n\
+    \nStage B: Progressive\n- Mild-moderate AS\n- Asymptomatic\n\nStage C: Asymptomatic\
+    \ severe AS\n- C1: LVEF >50%\n- C2: LVEF <50%\n\nStage D: Symptomatic severe AS\n\
+    - D1: High gradient (≥40 mmHg)\n- D2: Low-flow/low-gradient with reduced LVEF\n\
+    - D3: Low-flow/low-gradient with normal LVEF (paradoxical)\n\nNATURAL HISTORY:\n\
+    - Asymptomatic severe AS: 2-5 years to symptoms\n- Once symptoms: Survival 2-3\
+    \ years without intervention\n- Sudden cardiac death: 1% per year if asymptomatic,\
+    \ much higher if symptomatic\n\nINDICATIONS FOR INTERVENTION:\n\n1. Symptomatic\
+    \ severe AS (Class I)\n2. Asymptomatic severe AS with:\n   - LVEF <50%\n   - Undergoing\
+    \ other cardiac surgery\n   - Very severe AS (velocity ≥5 m/s)\n   - Rapid progression\
+    \ (velocity increase ≥0.3 m/s/year)\n   - BNP >3× normal\n   - Abnormal exercise\
+    \ test\n\nTREATMENT OPTIONS:\n\n1. SURGICAL AVR (SAVR):\n   - Mechanical valve\
+    \ (requires lifelong anticoagulation)\n   - Bioprosthetic valve (no anticoagulation,\
+    \ but limited durability 10-20 years)\n   - Indications: Low surgical risk, younger\
+    \ age, other cardiac surgery needed\n\n2. TRANSCATHETER AVR (TAVR):\n   - Less\
+    \ invasive, transfemoral or transapical approach\n   - Now approved for all risk\
+    \ categories\n   - Preferred if high surgical risk, elderly >80\n   - Complications:\
+    \ Vascular injury, stroke, paravalvular leak, conduction abnormalities (may need\
+    \ PPM)\n\n3. BALLOON VALVULOPLASTY:\n   - Palliative only (high restenosis rate)\n\
+    \   - Bridge to AVR or destination if not candidate\n\nMEDICAL MANAGEMENT:\n-\
+    \ No medications slow AS progression\n- Treat hypertension cautiously (avoid aggressive\
+    \ BP lowering)\n- Avoid strenuous activity if symptomatic severe AS\n- Serial\
+    \ echo surveillance:\n  * Mild AS: Every 3-5 years\n  * Moderate AS: Every 1-2\
+    \ years\n  * Severe asymptomatic: Every 6-12 months\n\nCOMPLICATIONS:\n- Heart\
+    \ failure (most common)\n- Sudden cardiac death\n- Syncope\n- Gastrointestinal\
+    \ bleeding (Heyde syndrome: AVMs + AS)\n- Endocarditis\n\nPROGNOSIS:\n- Excellent\
+    \ after AVR/TAVR (30-day mortality 1-3% for SAVR, 1-2% for TAVR)\n- Poor without\
+    \ intervention if symptomatic (50% mortality at 2 years)"
+  metadata:
+    category: cardiovascular
+    diagnosis: aortic_valve_disorders
+    priority: HIGH
+    source: ACC/AHA Valvular Heart Disease Guidelines 2020
+- id: aki_kdigo_criteria
+  name: AKI KDIGO Criteria
+  type: criteria
+  content: 'Stage 1: SCr 1.5-1.9x baseline or ≥0.3 mg/dL increase, or UO <0.5 mL/kg/h
+    for 6-12h. Stage 2: SCr 2-2.9x baseline, or UO <0.5 mL/kg/h for ≥12h. Stage 3:
+    SCr ≥3x baseline or ≥4.0 mg/dL increase, or UO <0.3 mL/kg/h for ≥24h, or anuria
+    ≥12h. Requires baseline SCr.'
+  metadata:
+    category: nephrology
+    subcategory: aki
+    priority: medium
+  created_at: '2025-11-05T02:53:21.385691'
+- id: pneumonia_criteria
+  type: diagnostic_criteria
+  name: Pneumonia - Community-Acquired Pneumonia (CAP) Guidelines
+  content: 'COMMUNITY-ACQUIRED PNEUMONIA (CAP):
+
+
+    DEFINITION:
+
+    - Acute infection of lung parenchyma acquired outside healthcare setting
+
+    - Develops >48 hours after hospital discharge
+
+
+    CLINICAL PRESENTATION:
+
+    - Symptoms: Cough (productive/non-productive), fever, dyspnea, pleuritic chest
+    pain
+
+    - Signs: Tachypnea, tachycardia, crackles, bronchial breath sounds, dullness to
+    percussion
+
+
+    DIAGNOSTIC CRITERIA:
+
+    - Clinical signs/symptoms of pneumonia
+
+    - Radiographic infiltrate (CXR or CT)
+
+
+    COMMON PATHOGENS:
+
+    - Streptococcus pneumoniae (most common)
+
+    - Mycoplasma pneumoniae, Chlamydia pneumoniae (atypicals)
+
+    - Haemophilus influenzae
+
+    - Respiratory viruses (influenza, RSV, SARS-CoV-2)
+
+    - Legionella pneumophila
+
+
+    SEVERITY ASSESSMENT - CURB-65:
+
+    - C: Confusion
+
+    - U: Urea >19 mg/dL (BUN >19)
+
+    - R: Respiratory rate ≥30/min
+
+    - B: Blood pressure (SBP <90 or DBP ≤60)
+
+    - 65: Age ≥65 years
+
+    Score 0-1: Outpatient, 2: Inpatient, ≥3: ICU consideration
+
+
+    PSI (Pneumonia Severity Index):
+
+    - More complex, 20 variables
+
+    - Classes I-V; I-II outpatient, III consider admission, IV-V inpatient
+
+
+    WORKUP:
+
+    - CXR (PA and lateral)
+
+    - CBC, CMP
+
+    - Blood cultures (if severe)
+
+    - Sputum culture (if severe or MRSA/Pseudomonas risk)
+
+    - Urinary antigen: Legionella, Pneumococcus (if severe)
+
+    - Viral testing during flu season
+
+
+    TREATMENT:
+
+    Outpatient:
+
+    - No comorbidities: Amoxicillin 1g TID OR doxycycline OR macrolide
+
+    - With comorbidities: Amoxicillin-clavulanate + macrolide OR respiratory fluoroquinolone
+
+
+    Inpatient (non-ICU):
+
+    - Beta-lactam (ceftriaxone, ampicillin-sulbactam) + macrolide
+
+    - OR respiratory fluoroquinolone monotherapy
+
+
+    ICU:
+
+    - Beta-lactam (ceftriaxone, cefotaxime) + azithromycin
+
+    - OR beta-lactam + respiratory fluoroquinolone
+
+    - Add vancomycin or linezolid if MRSA risk
+
+    - Add antipseudomonal if risk factors
+
+
+    DURATION: Minimum 5 days, afebrile 48-72h, clinically stable'
+  metadata:
+    category: infectious
+    diagnosis: pneumonia
+    priority: HIGH
+    source: IDSA/ATS CAP Guidelines 2019
+- id: aki_criteria
+  type: diagnostic_criteria
+  name: Acute Kidney Injury - KDIGO Classification
+  content: "ACUTE KIDNEY INJURY (AKI) - KDIGO 2012:\n\nDEFINITION:\n- Increase in\
+    \ serum creatinine ≥0.3 mg/dL within 48 hours\n- OR increase in creatinine ≥1.5×\
+    \ baseline within 7 days\n- OR urine output <0.5 mL/kg/h for 6 hours\n\nKDIGO\
+    \ STAGING:\nStage 1:\n- Cr 1.5-1.9× baseline OR ≥0.3 mg/dL increase\n- Urine output\
+    \ <0.5 mL/kg/h for 6-12 hours\n\nStage 2:\n- Cr 2.0-2.9× baseline\n- Urine output\
+    \ <0.5 mL/kg/h for ≥12 hours\n\nStage 3:\n- Cr 3.0× baseline OR ≥4.0 mg/dL OR\
+    \ initiation of RRT\n- Urine output <0.3 mL/kg/h for ≥24 hours OR anuria ≥12 hours\n\
+    \nCLASSIFICATION BY ETIOLOGY:\n\n1. PRE-RENAL (60-70%):\n   - Volume depletion,\
+    \ hemorrhage, GI losses\n   - Decreased cardiac output (HF, MI)\n   - Medications\
+    \ (NSAIDs, ACE-I, ARB)\n   - FENa <1%, BUN/Cr >20:1\n\n2. INTRINSIC RENAL (25-40%):\n\
+    \   - Acute tubular necrosis (ATN) - most common\n   - Acute interstitial nephritis\
+    \ (AIN)\n   - Glomerulonephritis\n   - Vascular (renal artery stenosis, thrombosis)\n\
+    \   - FENa >2%, muddy brown casts (ATN), WBC casts (AIN)\n\n3. POST-RENAL (5-10%):\n\
+    \   - Urinary tract obstruction\n   - Bladder outlet obstruction (BPH, neurogenic\
+    \ bladder)\n   - Bilateral ureteral obstruction\n   - Hydronephrosis on ultrasound\n\
+    \nWORKUP:\n- Serum creatinine, BUN, electrolytes\n- Urinalysis with microscopy\n\
+    - Urine sodium, FENa = [(UNa × PCr)/(PNa × UCr)] × 100\n- Renal ultrasound (rule\
+    \ out obstruction)\n- Consider: Autoimmune serologies, complement levels\n\nMANAGEMENT:\n\
+    1. Identify and treat underlying cause\n2. Discontinue nephrotoxic medications\n\
+    3. Optimize hemodynamics and volume status\n4. Avoid contrast and other nephrotoxins\n\
+    5. Adjust medication doses for renal function\n6. Monitor fluid balance, daily\
+    \ weights\n7. RRT indications: Refractory hyperkalemia, acidosis, volume overload,\
+    \ uremic complications\n\nPROGNOSIS:\n- Stage 1: Generally reversible\n- Stage\
+    \ 3: 50% progress to CKD, 25% require chronic dialysis"
+  metadata:
+    category: renal
+    diagnosis: acute_kidney_injury
+    priority: CRITICAL
+    source: KDIGO AKI Guidelines 2012
+- id: extra_uti_001
+  type: diagnostic_criteria
+  content: 'Urinary Tract Infection (UTI): Bacterial infection of urinary system.
+    Lower (cystitis): dysuria, frequency, urgency, suprapubic pain, hematuria. Upper
+    (pyelonephritis): fever, flank pain, CVA tenderness, nausea/vomiting. Diagnosis:
+    UA shows WBC, bacteria, nitrites, leukocyte esterase; urine culture >10^5 CFU/mL
+    (gold standard). Complicated UTI: male, pregnant, catheterized, anatomic abnormality,
+    immunosuppressed, recent antibiotics, symptoms >7d. Organisms: E. coli (80%),
+    Klebsiella, Proteus, Enterococcus, Pseudomonas (nosocomial). Treatment: uncomplicated
+    cystitis (nitrofurantoin, TMP-SMX); pyelonephritis (fluoroquinolone or ceftriaxone);
+    complicated (broad-spectrum, culture-guided). Complications: sepsis, renal abscess,
+    chronic pyelonephritis. Risk factors: female, sexual activity, catheter, DM, obstruction.'
+  metadata:
+    category: infectious_genitourinary
+    diagnosis: urinary_tract_infection
+    priority: MODERATE
+    icd9_codes:
+    - '5990'
+    icd10_codes:
+    - N390
+  created_at: '2025-11-10T00:00:00'
+  name: UTI - Clinical Features & Management
+- id: extra_aki_002
+  type: diagnostic_criteria
+  content: 'Acute Kidney Injury (AKI): Abrupt decline in renal function. KDIGO Criteria
+    - Stage 1: Cr 1.5-1.9x baseline OR ≥0.3 mg/dL increase OR UOP <0.5 mL/kg/h x 6-12h.
+    Stage 2: Cr 2-2.9x baseline OR UOP <0.5 mL/kg/h x ≥12h. Stage 3: Cr ≥3x baseline
+    OR ≥4.0 mg/dL OR UOP <0.3 mL/kg/h x ≥24h OR anuria x 12h OR need for RRT. Etiology:
+    Prerenal (60%: hypov olemia, hypotension, decreased CO, renal artery stenosis
+    - responds to fluids, BUN/Cr >20:1, FENa <1%). Intrinsic renal (35%: ATN from
+    ischemia/toxins, AIN, GN, vascular - muddy brown casts, FENa >2%). Postrenal (5%:
+    obstruction - BPH, stones, tumor). Workup: basic metabolic panel, UA/micro, renal
+    US. Complications: hyperkalemia, metabolic acidosis, volume overload, uremia.
+    Treatment: treat cause, avoid nephrotoxins, dose-adjust meds, dialysis if indicated.'
+  metadata:
+    category: nephrology
+    diagnosis: acute_kidney_injury
+    priority: HIGH
+    icd9_codes:
+    - '5849'
+    icd10_codes:
+    - N179
+    - N170
+    - N171
+    - N172
+  created_at: '2025-11-10T00:00:00'
+  name: AKI - KDIGO Staging & Etiology
+- id: syncope_criteria
+  type: diagnostic_criteria
+  name: Syncope - Evaluation and Risk Stratification
+  content: "SYNCOPE:\n\nDEFINITION:\n- Transient loss of consciousness (TLOC)\n- Rapid\
+    \ onset, short duration, spontaneous complete recovery\n- Due to global cerebral\
+    \ hypoperfusion\n\nCLASSIFICATION:\n\n1. REFLEX (NEURALLY-MEDIATED) SYNCOPE (60%):\n\
+    \   - Vasovagal (most common): Emotional stress, pain, prolonged standing\n  \
+    \ - Situational: Cough, micturition, defecation, post-exercise\n   - Carotid sinus\
+    \ hypersensitivity\n   Mechanism: Inappropriate reflex → bradycardia/vasodilation\n\
+    \n2. ORTHOSTATIC HYPOTENSION (15%):\n   - Volume depletion, medications (diuretics,\
+    \ vasodilators)\n   - Autonomic failure (diabetes, Parkinson's, age)\n   - Defined:\
+    \ SBP drop ≥20 mmHg or DBP ≥10 mmHg within 3min of standing\n\n3. CARDIAC SYNCOPE\
+    \ (10-15%):\n   a. Arrhythmic:\n      - Bradycardia: Sinus node dysfunction, AV\
+    \ block\n      - Tachycardia: VT, SVT, long QT, Brugada, WPW\n   b. Structural:\n\
+    \      - Aortic stenosis, HCM, cardiac tamponade\n      - Pulmonary embolism,\
+    \ pulmonary hypertension\n      - MI, aortic dissection\n   Highest mortality\
+    \ risk\n\n4. UNKNOWN CAUSE (10-15%)\n\nEVALUATION:\n\nINITIAL (All patients):\n\
+    1. History: Detailed description of event, prodrome, triggers, position, recovery\n\
+    2. Physical exam: Orthostatic vital signs, cardiac exam, neurologic exam\n3. ECG:\
+    \ Assess for arrhythmia, conduction disease, structural disease\n\nRED FLAGS (High-risk\
+    \ features):\n- Age >60\n- No prodrome (sudden onset)\n- During exertion or supine\n\
+    - Chest pain, dyspnea, palpitations\n- Family history sudden cardiac death\n-\
+    \ ECG abnormalities: LBBB, bifascicular block, QTc >500ms, Brugada pattern, epsilon\
+    \ waves, Q waves\n- Structural heart disease, HF\n- Severe anemia, electrolyte\
+    \ abnormality\n\nADDITIONAL TESTING (Based on suspicion):\n\n1. CARDIAC:\n   -\
+    \ Echocardiogram: If structural disease suspected\n   - Telemetry/Holter: If arrhythmia\
+    \ suspected\n   - Event recorder (30-day): If recurrent unexplained\n   - Implantable\
+    \ loop recorder: Recurrent unexplained, high-risk\n   - Exercise stress test:\
+    \ If exertional syncope\n   - EP study: If high-risk ECG or known structural disease\n\
+    \n2. ORTHOSTATIC:\n   - Tilt table test: If vasovagal suspected\n   - Autonomic\
+    \ testing\n\n3. NEUROLOGIC (Rarely needed):\n   - CT/MRI brain: Only if focal\
+    \ neurologic signs (not syncope)\n   - EEG: Only if concern for seizure\n   -\
+    \ Carotid ultrasound: Not routinely indicated\n\nRISK STRATIFICATION - SAN FRANCISCO\
+    \ SYNCOPE RULE:\nHigh risk if ANY:\n- History of heart failure (C)\n- Hematocrit\
+    \ <30% (H)\n- Abnormal ECG (E)\n- Shortness of breath (S)\n- Systolic BP <90 mmHg\
+    \ (T)\n\nAlternative: ROSE, OESIL, EGSYS scores\n\nMANAGEMENT:\n\n1. REFLEX SYNCOPE:\n\
+    \   - Education, reassurance\n   - Avoid triggers, adequate hydration\n   - Physical\
+    \ counterpressure maneuvers\n   - Midodrine or fludrocortisone if severe recurrent\n\
+    \n2. ORTHOSTATIC HYPOTENSION:\n   - Adequate hydration (2-3L daily)\n   - Increase\
+    \ salt intake\n   - Compression stockings\n   - Review/adjust medications\n  \
+    \ - Midodrine, fludrocortisone, droxidopa\n\n3. CARDIAC SYNCOPE:\n   - Pacemaker:\
+    \ Bradycardia, AV block\n   - ICD: Ventricular arrhythmias, high-risk cardiomyopathy\n\
+    \   - Ablation: Supraventricular tachycardias\n   - Treat underlying structural\
+    \ disease\n\n4. DRIVING RESTRICTIONS:\n   - Cardiac syncope: 3-6 months until\
+    \ treated\n   - Single vasovagal: May resume after counseling\n   - Recurrent\
+    \ unexplained: Until diagnosis/treatment\n\nPROGNOSIS:\n- Reflex/orthostatic:\
+    \ Benign prognosis\n- Cardiac: 1-year mortality 20-40%\n- Overall recurrence:\
+    \ 30% at 3 years"
+  metadata:
+    category: cardiovascular
+    diagnosis: syncope
+    priority: MEDIUM
+    source: ESC Syncope Guidelines 2018, AHA/ACC/HRS
+- name: kdigo_aki_stages
+  type: guideline
+  keywords:
+  - aki
+  - acute kidney injury
+  - kdigo
+  - creatinine
+  - renal failure
+  - kidney injury
+  - aki stage
+  - aki staging
+  content: 'KDIGO Acute Kidney Injury (AKI) Staging Criteria:
+
+
+    Definition: AKI is defined as any of the following:
+
+    - Increase in serum creatinine by ≥0.3 mg/dL within 48 hours
+
+    - Increase in serum creatinine to ≥1.5 times baseline within 7 days
+
+    - Urine output <0.5 mL/kg/h for 6 hours
+
+
+    Staging:
+
+
+    Stage 1:
+
+    - Serum creatinine: 1.5-1.9 times baseline OR ≥0.3 mg/dL increase
+
+    - Urine output: <0.5 mL/kg/h for 6-12 hours
+
+
+    Stage 2:
+
+    - Serum creatinine: 2.0-2.9 times baseline
+
+    - Urine output: <0.5 mL/kg/h for ≥12 hours
+
+
+    Stage 3:
+
+    - Serum creatinine: 3.0 times baseline OR increase to ≥4.0 mg/dL OR initiation
+    of renal replacement therapy (RRT)
+
+    - Urine output: <0.3 mL/kg/h for ≥24 hours OR anuria for ≥12 hours
+
+
+    Baseline Creatinine:
+
+    - Use the lowest creatinine value in the previous 7 days as baseline
+
+    - If no prior creatinine available, may estimate using MDRD equation assuming
+    baseline GFR 75 mL/min/1.73m²
+
+
+    Clinical Significance:
+
+    - Even Stage 1 AKI is associated with increased mortality and morbidity
+
+    - AKI increases risk of progression to chronic kidney disease (CKD)
+
+    - Early recognition allows for preventive interventions (fluid management, medication
+    adjustment, nephrotoxin avoidance)
+
+
+    Source: KDIGO Clinical Practice Guideline for Acute Kidney Injury (Kidney International
+    Supplements 2012)'
+  source: KDIGO AKI Guidelines 2012
+  relevance_score: 1.0
+- id: temporal_progression_initially_status
+  type: pattern
+  content: 'Temporal progression: ''initially [status], then [change], currently [status]''.
+    Example: ''initially refusing all PO, then tolerating small volumes, currently
+    taking 60% needs'''
+  metadata:
+    category: clinical_reasoning
+    priority: medium
+    subcategory: progression
+  created_at: '2025-10-25T13:54:48.591486'
+  name: 'Pattern: Temporal progression: ''initially [status...'
+- id: uti_criteria
+  type: diagnostic_criteria
+  name: Urinary Tract Infection - Classification and Management
+  content: "URINARY TRACT INFECTION (UTI):\n\nCLASSIFICATION:\n\n1. UNCOMPLICATED\
+    \ CYSTITIS:\n   - Non-pregnant, premenopausal women\n   - No structural/functional\
+    \ abnormalities\n   - Symptoms: Dysuria, frequency, urgency, suprapubic pain\n\
+    \   - No fever or systemic symptoms\n\n2. COMPLICATED UTI:\n   - Male sex, pregnancy,\
+    \ immunosuppression\n   - Structural/functional abnormalities (stones, catheter)\n\
+    \   - Healthcare-associated\n   - Recent antibiotic use or resistant organisms\n\
+    \n3. PYELONEPHRITIS:\n   - Upper tract infection\n   - Fever, flank pain, CVA\
+    \ tenderness\n   - Nausea/vomiting\n   - May have lower tract symptoms\n\n4. ASYMPTOMATIC\
+    \ BACTERIURIA:\n   - Positive culture without symptoms\n   - Treatment only in\
+    \ pregnancy or before urologic procedures\n\nDIAGNOSTIC CRITERIA:\n\nUncomplicated\
+    \ cystitis:\n- Symptoms alone sufficient in young women\n- Urinalysis: Pyuria,\
+    \ bacteriuria, + nitrites, + leukocyte esterase\n- Culture not routinely needed\n\
+    \nComplicated UTI/Pyelonephritis:\n- Urinalysis and urine culture\n- Culture >10^5\
+    \ CFU/mL (or >10^3 if catheterized)\n- Blood cultures if septic\n- Imaging (ultrasound,\
+    \ CT) if complicated course\n\nCOMMON PATHOGENS:\n- E. coli (75-95%)\n- Klebsiella,\
+    \ Proteus, Enterococcus\n- Staphylococcus saprophyticus (young women)\n- Pseudomonas\
+    \ (catheter-associated)\n\nTREATMENT:\n\nUncomplicated Cystitis (3-5 days):\n\
+    - First-line: Nitrofurantoin 100mg BID × 5 days\n- Alternative: TMP-SMX DS BID\
+    \ × 3 days (if local resistance <20%)\n- Second-line: Fosfomycin 3g single dose,\
+    \ Beta-lactams\n\nComplicated UTI (7-14 days):\n- Fluoroquinolone (ciprofloxacin,\
+    \ levofloxacin)\n- Ceftriaxone if severe\n- Tailor based on culture results\n\n\
+    Pyelonephritis:\n- Outpatient (mild): Fluoroquinolone × 7 days or ceftriaxone\
+    \ 1g IV then oral\n- Inpatient (moderate-severe): Ceftriaxone or fluoroquinolone\
+    \ IV\n- Duration: 10-14 days total\n\nCatheter-Associated UTI (CAUTI):\n- Remove\
+    \ or replace catheter if possible\n- 7-day treatment if prompt resolution\n- 10-14\
+    \ days if delayed response\n\nPREVENTION:\n- Adequate hydration\n- Post-coital\
+    \ voiding (women)\n- Avoid spermicides\n- Cranberry products (limited evidence)\n\
+    - Prophylaxis if recurrent (≥2 UTIs in 6mo or ≥3 in 12mo)"
+  metadata:
+    category: infectious
+    diagnosis: urinary_tract_infection
+    priority: MEDIUM
+    source: IDSA UTI Guidelines 2019
+- id: extra_sepsis_001
+  type: diagnostic_criteria
+  content: 'Sepsis-3 Definition (2016): Sepsis is life-threatening organ dysfunction
+    caused by a dysregulated host response to infection. Clinically defined as suspected
+    or documented infection AND acute increase in Sequential Organ Failure Assessment
+    (SOFA) score ≥2 points. Septic Shock is sepsis with persistent hypotension requiring
+    vasopressors to maintain MAP ≥65 mmHg AND lactate >2 mmol/L despite adequate fluid
+    resuscitation. Key indicators: fever/hypothermia, tachycardia, tachypnea, hypotension,
+    altered mental status, elevated lactate, elevated WBC or leukopenia.'
+  metadata:
+    category: infectious_disease
+    diagnosis: sepsis
+    priority: CRITICAL
+    icd9_codes:
+    - 0389
+    - '389'
+    icd10_codes:
+    - A419
+  created_at: '2025-11-10T00:00:00'
+  name: Sepsis-3 Diagnostic Criteria
+- id: sepsis_recognition_qsofa
+  name: Sepsis Recognition - qSOFA
+  type: criteria
+  content: 'Quick SOFA (≥2 indicates sepsis risk): Respiratory rate ≥22/min, Altered
+    mentation (GCS <15), Systolic BP ≤100 mmHg. SIRS criteria (≥2): Temp >38°C or
+    <36°C, HR >90, RR >20 or PaCO2 <32, WBC >12k or <4k or >10% bands. Early recognition
+    critical for outcomes.'
+  metadata:
+    category: infectious_disease
+    subcategory: sepsis
+    priority: high
+  created_at: '2025-11-05T02:53:21.384220'
+- name: kdigo_ckd_stages
+  type: guideline
+  keywords:
+  - ckd
+  - chronic kidney disease
+  - kdigo
+  - egfr
+  - renal insufficiency
+  - kidney disease
+  - ckd stage
+  - chronic renal failure
+  content: 'KDIGO Chronic Kidney Disease (CKD) Classification:
+
+
+    CKD Definition:
+
+    Kidney damage or GFR <60 mL/min/1.73m² for ≥3 months
+
+
+    Stages Based on GFR:
+
+
+    Stage 1: Normal or High GFR
+
+    - GFR: ≥90 mL/min/1.73m²
+
+    - Kidney damage present (albuminuria, hematuria, structural abnormality)
+
+    - Description: Kidney damage with normal or increased GFR
+
+
+    Stage 2: Mild Reduction in GFR
+
+    - GFR: 60-89 mL/min/1.73m²
+
+    - With kidney damage
+
+    - Description: Mildly decreased GFR
+
+
+    Stage 3a: Mild to Moderate Reduction
+
+    - GFR: 45-59 mL/min/1.73m²
+
+    - Description: Mildly to moderately decreased GFR
+
+    - Clinical action: Evaluate and treat complications, slow progression
+
+
+    Stage 3b: Moderate to Severe Reduction
+
+    - GFR: 30-44 mL/min/1.73m²
+
+    - Description: Moderately to severely decreased GFR
+
+    - Clinical action: More intensive management of complications
+
+
+    Stage 4: Severe Reduction
+
+    - GFR: 15-29 mL/min/1.73m²
+
+    - Description: Severely decreased GFR
+
+    - Clinical action: Prepare for kidney replacement therapy
+
+
+    Stage 5: Kidney Failure (ESRD)
+
+    - GFR: <15 mL/min/1.73m²
+
+    - Description: Kidney failure
+
+    - Clinical action: Kidney replacement therapy if uremic
+
+
+    Albuminuria Categories:
+
+    A1 (Normal/Mild): <30 mg/g creatinine
+
+    A2 (Moderate): 30-300 mg/g creatinine (microalbuminuria)
+
+    A3 (Severe): >300 mg/g creatinine (macroalbuminuria)
+
+
+    Risk Stratification (GFR + Albuminuria):
+
+    - Green: Low risk (Stage 1-2, A1)
+
+    - Yellow: Moderately increased risk
+
+    - Orange: High risk
+
+    - Red: Very high risk (Stage 4-5 or A3)
+
+
+    Complications by Stage:
+
+    Stage 3: Anemia, bone disease onset
+
+    Stage 4: Hyperkalemia, metabolic acidosis, hyperphosphatemia
+
+    Stage 5: Uremia, need for RRT consideration
+
+
+    Source: KDIGO 2012 Clinical Practice Guideline for the Evaluation and Management
+    of Chronic Kidney Disease'
+  source: KDIGO CKD Guidelines 2012
+  relevance_score: 1.0

@@ -1,7 +1,0 @@
-{
-  "name": "fix_pyms",
-  "pattern": "\\b(PYMS|pyms|Yorkhill)\\s*(score)?[\\s:]*(\\d+)",
-  "replacement": "PYMS score: \\3",
-  "description": "Standardize PYMS screening tool notation",
-  "enabled": true
-}

@@ -1,7 +1,0 @@
-{
-  "name": "expand_nad",
-  "pattern": "\\bin\\s+no\\s+(?:acute\\s+)?distress\\b|\\bNAD\\b",
-  "replacement": "in no acute distress",
-  "description": "Expand NAD abbreviation",
-  "enabled": true
-}

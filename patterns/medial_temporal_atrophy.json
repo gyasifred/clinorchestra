@@ -1,7 +1,0 @@
-{
-  "name": "detect_medial_temporal_atrophy",
-  "pattern": "medial temporal (?:lobe )?atrophy",
-  "replacement": "[MEDIAL_TEMPORAL_ATROPHY]",
-  "description": "Detect medial temporal lobe atrophy (highly specific for Alzheimer's disease)",
-  "enabled": true
-}

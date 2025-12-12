@@ -1,7 +1,0 @@
-{
-  "name": "fix_percentile_with_measurement",
-  "pattern": "(weight|height|length|BMI)[\\s:]*(at|@)?\\s*(\\d+)\\s*(?:th)?\\s*percentile",
-  "replacement": "\\1 at \\3th percentile",
-  "description": "Standardize percentile notation for growth measurements",
-  "enabled": true
-}

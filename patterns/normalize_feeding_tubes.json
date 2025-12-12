@@ -1,7 +1,0 @@
-{
-  "name": "normalize_feeding_tubes",
-  "pattern": "\\b(NG|ng|nasogastric|naso[\\s\\-]?gastric)[\\s\\-]?(tube|feeding)?\\b",
-  "replacement": "NG tube",
-  "description": "Standardize nasogastric tube notation",
-  "enabled": true
-}

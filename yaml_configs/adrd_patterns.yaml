@@ -1,0 +1,60 @@
+- name: extract_cdr_score
+  pattern: CDR\s*(?:global|score|=|:)?\s*(0|0\.5|1|2|3)
+  replacement: 'CDR: \1'
+  description: Extract CDR (Clinical Dementia Rating) global score
+  enabled: true
+- name: extract_mmse_score_alt
+  pattern: Mini[- ]Mental State.*?(\d{1,2})\s*/\s*30
+  replacement: 'MMSE: \1/30'
+  description: Extract MMSE score (alternative format with full name)
+  enabled: true
+- name: extract_moca_score_alt
+  pattern: Montreal Cognitive.*?(\d{1,2})\s*/\s*30
+  replacement: 'MoCA: \1/30'
+  description: Extract MoCA score (alternative format with full name)
+  enabled: true
+- name: extract_cdr_sum_of_boxes
+  pattern: (?:CDR\s*)?sum of boxes\s*(?:score|=|:)?\s*(\d{1,2}(?:\.\d)?)
+  replacement: 'CDR Sum of Boxes: \1'
+  description: Extract CDR Sum of Boxes score (0-18, more sensitive than global CDR)
+  enabled: true
+- name: detect_vascular_dementia
+  pattern: vascular dementia|VaD|multi[- ]?infarct dementia
+  replacement: '[VASCULAR_DEMENTIA]'
+  description: Detect vascular dementia diagnosis mention
+  enabled: true
+- name: extract_boston_naming
+  pattern: Boston Naming.*?(\d{1,2})\s*/\s*(\d{1,2})
+  replacement: 'Boston Naming Test: \1/\2'
+  description: Extract Boston Naming Test score (language, semantic memory)
+  enabled: true
+- name: detect_frontotemporal_dementia
+  pattern: frontotemporal dementia|FTD|Pick(?:'s)? disease|behavioral variant FTD|bvFTD
+  replacement: '[FRONTOTEMPORAL_DEMENTIA]'
+  description: Detect frontotemporal dementia diagnosis mention
+  enabled: true
+- name: extract_clock_drawing
+  pattern: Clock.*?(?:drawing|draw).*?(\d{1,2})\s*/\s*(\d{1,2})
+  replacement: 'Clock Drawing: \1/\2'
+  description: Extract Clock Drawing Test score
+  enabled: true
+- name: extract_mmse_score
+  pattern: MMSE\s*(?:score|=|:)?\s*(\d{1,2})\s*(?:/\s*30|out of 30)?
+  replacement: 'MMSE: \1/30'
+  description: Extract MMSE (Mini-Mental State Examination) score
+  enabled: true
+- name: extract_moca_score
+  pattern: MoCA\s*(?:score|=|:)?\s*(\d{1,2})\s*(?:/\s*30|out of 30)?
+  replacement: 'MoCA: \1/30'
+  description: Extract MoCA (Montreal Cognitive Assessment) score
+  enabled: true
+- name: detect_alzheimer_diagnosis
+  pattern: 'Alzheimer(?:''s)?(?: disease)?|AD(?:\s|$)|probable AD|possible AD'
+  replacement: '[ALZHEIMER_DISEASE]'
+  description: Detect Alzheimer's disease diagnosis mention
+  enabled: true
+- name: detect_lewy_body_dementia
+  pattern: (?:dementia with )?Lewy bod(?:y|ies)|DLB|LBD
+  replacement: '[LEWY_BODY_DEMENTIA]'
+  description: Detect Lewy body dementia diagnosis mention
+  enabled: true

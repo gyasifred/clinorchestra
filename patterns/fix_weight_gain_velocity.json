@@ -1,7 +1,0 @@
-{
-  "name": "fix_weight_gain_velocity",
-  "pattern": "(\\d+\\.?\\d*)\\s*(g|gm|grams?)[\\s/]*(day|d|week|wk)",
-  "replacement": "\\1 g/\\3",
-  "description": "Standardize weight gain velocity format (e.g., 20 g/day)",
-  "enabled": true
-}

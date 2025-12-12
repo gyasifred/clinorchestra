@@ -1,7 +1,0 @@
-{
-  "name": "extract_verbal_fluency",
-  "pattern": "(?:verbal|word) fluency.*?(\\d{1,2})(?:\\s+words?)?",
-  "replacement": "Verbal Fluency: \\1 words",
-  "description": "Extract verbal/phonemic fluency score (executive function, language)",
-  "enabled": true
-}

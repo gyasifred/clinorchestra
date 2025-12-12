@@ -1,7 +1,0 @@
-{
-  "name": "extract_bun",
-  "pattern": "(?i)(?:bun|blood\\s+urea\\s+nitrogen)[:\\s]*([0-9]+)\\s*(?:mg/dl)?",
-  "replacement": "BUN: \\1 mg/dL",
-  "description": "Extract BUN levels (renal function marker)",
-  "enabled": true
-}

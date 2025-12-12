@@ -1,7 +1,0 @@
-{
-  "name": "fix_differential_diagnosis",
-  "pattern": "\\b(DDx|ddx|differential\\s+diagnosis|differential)[\\s:]*",
-  "replacement": "Differential diagnosis: ",
-  "description": "Standardize differential diagnosis notation",
-  "enabled": true
-}

@@ -1,7 +1,0 @@
-{
-  "name": "fix_sga_aga_lga_v2",
-  "pattern": "\\b(SGA|AGA|LGA)\\b",
-  "replacement": "\\1",
-  "description": "Standardize gestational age classifications (SGA/AGA/LGA)",
-  "enabled": false
-}

@@ -1,7 +1,0 @@
-{
-  "name": "standardize_emesis_frequency",
-  "pattern": "(emesis|vomiting|vomited)\\s*(?:x|\u00d7|times?)\\s*(\\d+)",
-  "replacement": "emesis \u00d7\\2",
-  "description": "Standardize emesis frequency notation",
-  "enabled": true
-}

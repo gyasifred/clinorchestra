@@ -1,7 +1,0 @@
-{
-  "name": "remove_sentence_tags",
-  "pattern": "\\s*<\\/?\\s*s\\s*>\\s*",
-  "replacement": ". ",
-  "description": "Remove XML sentence tags and replace with periods",
-  "enabled": true
-}

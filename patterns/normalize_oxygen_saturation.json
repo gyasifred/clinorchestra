@@ -1,7 +1,0 @@
-{
-  "name": "normalize_oxygen_saturation",
-  "pattern": "O2\\s*sat:?\\s*(\\d{2,3})%?",
-  "replacement": "oxygen saturation \\1%",
-  "description": "Normalize oxygen saturation",
-  "enabled": true
-}

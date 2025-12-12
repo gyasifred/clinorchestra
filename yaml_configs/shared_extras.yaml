@@ -1,0 +1,825 @@
+- id: glasgow_coma_scale
+  name: Glasgow Coma Scale
+  type: reference
+  content: 'Eye opening: 4 spontaneous, 3 to voice, 2 to pain, 1 none. Verbal: 5 oriented,
+    4 confused, 3 inappropriate words, 2 incomprehensible, 1 none. Motor: 6 obeys,
+    5 localizes, 4 withdraws, 3 flexion, 2 extension, 1 none. Total 3-15. ≤8 suggests
+    severe injury, consider intubation.'
+  metadata:
+    category: neurology
+    subcategory: consciousness
+    priority: medium
+  created_at: '2025-11-05T02:53:21.384525'
+- id: gi_abbreviations_gerd_gastroesophagea
+  type: pattern
+  content: 'GI abbreviations: GERD = gastroesophageal reflux disease, IBD = inflammatory
+    bowel disease, NEC = necrotizing enterocolitis, SBS = short bowel syndrome, FPIES
+    = food protein-induced enterocolitis syndrome'
+  metadata:
+    category: abbreviations
+    priority: medium
+    subcategory: gastrointestinal
+  created_at: '2025-10-25T13:54:48.592106'
+  name: 'Pattern: GI abbreviations: GERD = gastroesophagea...'
+- id: copd_criteria
+  type: diagnostic_criteria
+  name: COPD - GOLD Classification and Management
+  content: "CHRONIC OBSTRUCTIVE PULMONARY DISEASE (COPD):\n\nDEFINITION:\n- Progressive\
+    \ airflow limitation\n- Not fully reversible\n- Associated with abnormal inflammatory\
+    \ response (noxious particles/gases)\n\nDIAGNOSTIC CRITERIA:\n- Post-bronchodilator\
+    \ FEV1/FVC <0.70 on spirometry\n- Risk factors: Smoking, occupational exposures,\
+    \ biomass fuel\n- Symptoms: Dyspnea, chronic cough, sputum production\n\nGOLD\
+    \ SPIROMETRIC CLASSIFICATION (FEV1 % predicted):\n- GOLD 1 (Mild): FEV1 ≥80%\n\
+    - GOLD 2 (Moderate): 50% ≤ FEV1 < 80%\n- GOLD 3 (Severe): 30% ≤ FEV1 < 50%\n-\
+    \ GOLD 4 (Very Severe): FEV1 <30%\n\nSYMPTOM ASSESSMENT:\n\nmMRC Dyspnea Scale:\n\
+    - 0: Dyspnea only with strenuous exercise\n- 1: Short of breath when hurrying\n\
+    - 2: Walks slower, stops after 100m\n- 3: Stops after few minutes\n- 4: Too breathless\
+    \ to leave house\n\nCAT Score (COPD Assessment Test):\n- 0-40 score\n- <10: Low\
+    \ impact, ≥10: High impact\n\nABCD ASSESSMENT:\n- Group A: Low symptoms (mMRC\
+    \ 0-1, CAT <10), low risk (0-1 exacerbation/year)\n- Group B: High symptoms (mMRC\
+    \ ≥2, CAT ≥10), low risk\n- Group C: Low symptoms, high risk (≥2 exacerbations\
+    \ or ≥1 hospitalization)\n- Group D: High symptoms, high risk\n\nACUTE EXACERBATION:\n\
+    \nDefinition:\n- Acute worsening of respiratory symptoms beyond normal variation\n\
+    - Requires change in medication\n\nSeverity:\n- Mild: Treat with SABA only\n-\
+    \ Moderate: SABA + antibiotics and/or oral corticosteroids\n- Severe: Requires\
+    \ hospitalization or ED visit\n\nTreatment:\n1. Bronchodilators: Increase SABA\
+    \ ± SAMA\n2. Systemic corticosteroids: Prednisone 40mg × 5 days\n3. Antibiotics\
+    \ (if bacterial): Amoxicillin-clavulanate, macrolide, or fluoroquinolone × 5-7\
+    \ days\n   Indications: Increased purulence + (increased volume OR increased dyspnea)\n\
+    4. Oxygen: Target SpO2 88-92%\n5. NIV if pH 7.25-7.35, respiratory distress\n\n\
+    STABLE COPD MANAGEMENT:\n\nNon-pharmacologic:\n- Smoking cessation (most important)\n\
+    - Vaccinations: Influenza (annual), pneumococcal (PPSV23, PCV20)\n- Pulmonary\
+    \ rehabilitation\n- Supplemental O2 if resting SpO2 ≤88% or PaO2 ≤55 mmHg\n\n\
+    Pharmacologic (Based on ABCD):\n\nGroup A:\n- Bronchodilator PRN (SABA or SAMA)\n\
+    \nGroup B:\n- LABA or LAMA\n- If persistent dyspnea: LABA + LAMA\n\nGroup C:\n\
+    - LAMA\n- If further exacerbations: LAMA + LABA\n\nGroup D:\n- LAMA + LABA\n-\
+    \ If eosinophils ≥300 or ≥2 exacerbations: Add ICS (LABA + LAMA + ICS)\n- If further\
+    \ exacerbations: Add roflumilast or azithromycin\n\nKey Medications:\n- SABA:\
+    \ Albuterol\n- SAMA: Ipratropium\n- LABA: Formoterol, salmeterol\n- LAMA: Tiotropium,\
+    \ umeclidinium\n- ICS: Fluticasone, budesonide\n- Combinations: LABA/LAMA, LABA/ICS,\
+    \ LABA/LAMA/ICS (triple therapy)\n\nCOMPLICATIONS:\n- Respiratory failure\n- Pneumonia\
+    \ (increased risk with ICS)\n- Pneumothorax\n- Cor pulmonale\n- Depression/anxiety"
+  metadata:
+    category: respiratory
+    diagnosis: copd
+    priority: HIGH
+    source: GOLD COPD Guidelines 2024
+- id: stroke_assessment_nihss
+  name: Stroke Assessment - NIHSS
+  type: reference
+  content: 'NIH Stroke Scale assesses: Level of consciousness, gaze, visual fields,
+    facial palsy, motor arm/leg, limb ataxia, sensory, language, dysarthria, extinction/inattention.
+    Score 0-42. >25 severe, 15-24 moderate-severe, 5-14 moderate, <5 minor. Helps
+    triage for thrombolytics/thrombectomy.'
+  metadata:
+    category: neurology
+    subcategory: stroke
+    priority: medium
+  created_at: '2025-11-05T02:53:21.384857'
+- id: normal_vital_sign_ranges_adult
+  name: Normal Vital Sign Ranges - Adult
+  type: reference
+  content: 'Heart rate: 60-100 bpm. Respiratory rate: 12-20/min. Blood pressure: <120/<80
+    normal, 120-129/<80 elevated, 130-139/80-89 Stage 1 HTN, ≥140/≥90 Stage 2 HTN.
+    Temperature: 97-99°F (36.1-37.2°C) oral. SpO2: ≥95% normal.'
+  metadata:
+    category: vitals
+    subcategory: adults
+    priority: medium
+  created_at: '2025-11-05T02:53:21.378157'
+- id: for_conversational_extraction_capture_t
+  type: guideline
+  content: 'For conversational extraction: Capture the clinical narrative flow - how
+    the story unfolds, what questions were asked, what reasoning was used, what concerns
+    were expressed'
+  metadata:
+    category: extraction_guidelines
+    priority: high
+    subcategory: conversational_style
+  created_at: '2025-10-25T13:54:48.591840'
+  name: 'Guideline: For conversational extraction: Capture t...'
+- id: electrolyte_abnormalities_hyponatremia
+  name: Electrolyte Abnormalities - Hyponatremia
+  type: criteria
+  content: 'Mild 130-135 mEq/L, Moderate 125-129, Severe <125. Symptoms: headache,
+    confusion, seizures (if acute/severe). Causes: SIADH, heart failure, cirrhosis,
+    diuretics, polydipsia. Correction rate: ≤10-12 mEq/L per 24h to avoid osmotic
+    demyelination syndrome.'
+  metadata:
+    category: laboratory
+    subcategory: electrolytes
+    priority: medium
+  created_at: '2025-11-05T02:53:21.381270'
+- id: heart_failure_nyha_classification
+  name: Heart Failure NYHA Classification
+  type: criteria
+  content: 'Class I: No limitation, asymptomatic. Class II: Slight limitation, symptoms
+    with ordinary activity. Class III: Marked limitation, symptoms with less than
+    ordinary activity. Class IV: Unable to perform any activity without symptoms,
+    symptoms at rest. Guides prognosis and treatment intensity.'
+  metadata:
+    category: cardiology
+    subcategory: heart_failure
+    priority: medium
+  created_at: '2025-11-05T02:53:21.383733'
+- id: extra_depression_001
+  type: diagnostic_criteria
+  content: 'Major Depressive Disorder (MDD): DSM-5 criteria require ≥5 symptoms for
+    ≥2 weeks with functional impairment, including ≥1 of: (1) Depressed mood most
+    of day, (2) Anhedonia (loss of interest/pleasure). Additional symptoms: weight/appetite
+    change, insomnia/hypersomnia, psychomotor agitation/retardation, fatigue, worthlessness/guilt,
+    decreased concentration, recurrent thoughts of death/suicidal ideation. Severity:
+    mild (few symptoms, minor impairment), moderate, severe (many symptoms, major
+    impairment), severe with psychotic features. PHQ-9 score: 5-9 mild, 10-14 moderate,
+    15-19 moderately severe, ≥20 severe. Suicidal risk assessment: MANDATO RY for
+    all patients (ideation, plan, means, prior attempts). Treatment: psychotherapy
+    (CBT), antidepressants (SSRI/SNRI first-line), ECT for severe/refractory. Hospitalization
+    if acutely suicidal, psychotic, severe impairment.'
+  metadata:
+    category: psychiatry
+    diagnosis: major_depressive_disorder
+    priority: HIGH
+    icd9_codes:
+    - '311'
+    icd10_codes:
+    - F329
+  created_at: '2025-11-10T00:00:00'
+  name: Major Depressive Disorder - DSM-5 Criteria
+- id: extra_alcohol_001
+  type: diagnostic_criteria
+  content: 'Alcohol Use Disorder: DSM-5 criteria ≥2 of 11 symptoms in 12 months: tolerance,
+    withdrawal, drinking more/longer than intended, persistent desire/failed attempts
+    to cut down, time spent obtaining/using/recovering, craving, role impairment,
+    continued use despite social/interpersonal problems, activities given up, use
+    in hazardous situations, continued despite physical/psychological problems. Severity:
+    mild 2-3, moderate 4-5, severe ≥6. Alcohol Withdrawal: 6-24h onset: tremor, anxiety,
+    diaphoresis, N/V, headache, insomnia. 12-48h: hallucinations. 48-96h: seizures
+    (generalized tonic-clonic). Delirium Tremens (2-5d): confusion, disorientation,
+    autonomic instability, hallucinations - medical emergency, 5-15% mortality. CIWA-Ar
+    score: <8 minimal, 8-15 mild-moderate, >15 severe withdrawal. Treatment: benzodiazepines
+    (symptom-triggered or fixed-schedule), thiamine, folate, multivitamin. Complications:
+    cirrhosis, pancreatitis, cardiomyopathy, Wernicke-Korsakoff, peripheral neuropathy.'
+  metadata:
+    category: psychiatry_substance
+    diagnosis: alcohol_use_disorder
+    priority: HIGH
+    icd9_codes:
+    - '30500'
+    icd10_codes:
+    - F10129
+    - F1010
+  created_at: '2025-11-10T00:00:00'
+  name: Alcohol Use Disorder & Withdrawal - Criteria
+- id: anticoagulation_management_warfarin
+  name: Anticoagulation Management - Warfarin
+  type: guideline
+  content: 'Target INR: 2-3 for most indications (DVT, PE, AFib), 2.5-3.5 for mechanical
+    valves. Monitor INR regularly. Bleeding risk increases with INR >4. Reversal:
+    Vitamin K (oral/IV), PCC, FFP for severe bleeding. Drug-drug and drug-food interactions
+    common - educate patients.'
+  metadata:
+    category: pharmacotherapy
+    subcategory: anticoagulation
+    priority: medium
+  created_at: '2025-11-05T02:53:21.381818'
+- id: when_data_is_ambiguous_or_unclear_expli
+  type: guideline
+  content: 'When data is ambiguous or unclear, explicitly state: ''unclear from documentation'',
+    ''ambiguous - could be [A] or [B]'', ''documentation incomplete for [element]'''
+  metadata:
+    category: extraction_guidelines
+    priority: high
+    subcategory: quality_control
+  created_at: '2025-10-25T13:54:48.591752'
+  name: 'Guideline: When data is ambiguous or unclear, expli...'
+- id: child_pugh_score_for_cirrhosis
+  name: Child-Pugh Score for Cirrhosis
+  type: criteria
+  content: 'Assess: Bilirubin, Albumin, INR, Ascites, Encephalopathy. Class A (5-6
+    points): Compensated, 1-2 yr survival 100%. Class B (7-9): Intermediate, 1-2 yr
+    survival 60-80%. Class C (10-15): Decompensated, 1-2 yr survival 35-45%. Guides
+    prognosis and transplant timing.'
+  metadata:
+    category: hepatology
+    subcategory: cirrhosis
+    priority: medium
+  created_at: '2025-11-05T02:53:21.385370'
+- id: preeclampsia_diagnosis
+  name: Preeclampsia Diagnosis
+  type: criteria
+  content: 'After 20 weeks: BP ≥140/90 on 2 occasions 4h apart + proteinuria (≥300mg/24h
+    or P/C ratio ≥0.3) or end-organ dysfunction. Severe features: BP ≥160/110, platelets
+    <100k, Cr >1.1, pulmonary edema, visual symptoms, RUQ pain. HELLP: Hemolysis,
+    Elevated Liver enzymes, Low Platelets.'
+  metadata:
+    category: obstetrics
+    subcategory: preeclampsia
+    priority: high
+  created_at: '2025-11-05T02:53:21.386953'
+- id: developmental_milestones_pediatric
+  name: Developmental Milestones - Pediatric
+  type: reference
+  content: '2mo: Social smile, tracks past midline. 4mo: Rolls, reaches. 6mo: Sits
+    unsupported, babbles. 9mo: Crawls, pincer grasp, stranger anxiety. 12mo: Walks,
+    1-2 words, waves bye. 18mo: Runs, 10-25 words, uses spoon. 24mo: 2-word phrases,
+    kicks ball. 3yr: 3-word sentences, pedals tricycle. Screen with validated tools
+    (ASQ, MCHAT).'
+  metadata:
+    category: pediatrics
+    subcategory: development
+    priority: medium
+  created_at: '2025-11-05T02:53:21.387711'
+- id: newborn_apgar_scoring
+  name: Newborn APGAR Scoring
+  type: criteria
+  content: 'At 1 and 5 minutes. Each 0-2 points: Appearance (color), Pulse (HR), Grimace
+    (reflex), Activity (tone), Respiration. 7-10 reassuring, 4-6 moderately abnormal
+    (requires intervention), 0-3 critically low (immediate resuscitation). 5-min score
+    <7 associated with increased risk.'
+  metadata:
+    category: neonatology
+    subcategory: assessment
+    priority: medium
+  created_at: '2025-11-05T02:53:21.387317'
+- id: extra_resp_001
+  type: pattern
+  content: 'Respiratory Failure Types: Type 1 (Hypoxemic) - PaO2 <60 mmHg with normal/low
+    PaCO2, caused by V/Q mismatch (pneumonia, ARDS, pulmonary edema, PE). Type 2 (Hypercapnic)
+    - PaCO2 >50 mmHg with/without hypoxemia, caused by hypoventilation (COPD, neuromuscular
+    disease, CNS depression). Acute vs Chronic: Acute has pH <7.35 with elevated CO2;
+    Chronic has normal pH due to metabolic compensation. Key findings: tachypnea,
+    dyspnea, accessory muscle use, cyanosis, altered mental status. ABG is diagnostic.'
+  metadata:
+    category: pulmonary
+    diagnosis: respiratory_failure
+    priority: CRITICAL
+    icd10_codes:
+    - J96.01
+    - J96.02
+    - J96.91
+    - J96.92
+  created_at: '2025-11-10T00:00:00'
+  name: Respiratory Failure Classification
+- id: extra_chemo_001
+  type: pattern
+  content: 'Chemotherapy Encounter: Z51.11 (ICD-10) / V58.11 (ICD-9) codes indicate
+    patient is admitted primarily for administration of chemotherapy. This is NOT
+    a diagnosis but an encounter code. Clinical context: Patient has underlying malignancy
+    (check for cancer diagnosis in PMH or concurrent diagnoses). Chemotherapy agents
+    administered during this visit are diagnostic clues (cisplatin, carboplatin, 5-FU,
+    doxorubicin, etc.). Complications to monitor: febrile neutropenia (fever + ANC<500),
+    nausea/vomiting, mucositis, diarrhea, cytopenias, tumor lysis syndrome, cardiotoxicity,
+    nephrotoxicity. Common concurrent diagnoses: cancer type (breast, lung, colon,
+    lymphoma, etc.), anemia, thrombocytopenia, neutropenia, dehydration, electrolyte
+    abnormalities. Lab surveillance: CBC, CMP, tumor markers. Supportive care: anti-emetics,
+    growth factors (G-CSF), hydration, prophylactic antibiotics if neutropenic.'
+  metadata:
+    category: oncology
+    diagnosis: chemotherapy_encounter
+    priority: MODERATE
+    icd9_codes:
+    - V5811
+    icd10_codes:
+    - Z5111
+  created_at: '2025-11-10T00:00:00'
+  name: Chemotherapy Encounter - Clinical Context
+- id: pregnancy_terminology_and_dating
+  name: Pregnancy Terminology and Dating
+  type: reference
+  content: 'Gravida (G): Total pregnancies. Para (P): Births after 20 weeks. TPAL:
+    Term, Preterm, Abortions, Living. Dating: LMP, ultrasound (most accurate 8-13
+    weeks). Trimesters: 1st 0-13wk, 2nd 14-27wk, 3rd 28-40wk. Term: 37-40+6wk. Preterm
+    <37wk, post-term ≥42wk.'
+  metadata:
+    category: obstetrics
+    subcategory: pregnancy
+    priority: medium
+  created_at: '2025-11-05T02:53:21.386350'
+- id: opioid_equianalgesic_dosing
+  name: Opioid Equianalgesic Dosing
+  type: reference
+  content: 'Approximate oral equivalents to morphine 30mg: Hydrocodone 30mg, Hydromorphone
+    6mg, Oxycodone 20mg, Tramadol 200mg. IV to PO conversion: Morphine 1:3 ratio.
+    Fentanyl transdermal 12mcg/hr ≈ morphine 30mg/day oral. Reduce dose 25-50% when
+    rotating opioids.'
+  metadata:
+    category: pain_management
+    subcategory: opioids
+    priority: medium
+  created_at: '2025-11-05T02:53:21.382560'
+- id: extra_hf_001
+  type: diagnostic_criteria
+  content: 'Heart Failure Classification: Acute vs Chronic, and Systolic vs Diastolic.
+    Acute Decompensated Heart Failure presents with sudden onset dyspnea, orthopnea,
+    paroxysmal nocturnal dyspnea, peripheral edema, elevated JVP, pulmonary rales.
+    Key labs: elevated BNP/NT-proBNP (>400 pg/mL suggests HF). Imaging: chest X-ray
+    shows pulmonary edema, cardiomegaly, pleural effusions. Echocardiogram shows reduced
+    ejection fraction (<40% for HFrEF) or preserved EF with diastolic dysfunction
+    (HFpEF). Acute on chronic HF is exacerbation of existing chronic heart failure.'
+  metadata:
+    category: cardiovascular
+    diagnosis: heart_failure
+    priority: HIGH
+    icd10_codes:
+    - I50.23
+    - I50.33
+    - I50.43
+  created_at: '2025-11-10T00:00:00'
+  name: Heart Failure Classification and Diagnosis
+- id: extra_hhd_ckd_001
+  type: diagnostic_criteria
+  content: 'Hypertensive Heart Disease with CKD (I13.0): Combined diagnosis of HTN-related
+    cardiac dysfunction + chronic kidney disease. Hypertensive Heart Disease: LVH
+    (ECG: increased voltage, echo: wall thickness >11mm women, >12mm men), diastolic
+    dysfunction (impaired relaxation), may progress to HF (systolic or diastolic).
+    Chronic Kidney Disease staging: Stage 1 (GFR ≥90 + kidney damage), Stage 2 (GFR
+    60-89), Stage 3a (45-59), Stage 3b (30-44), Stage 4 (15-29), Stage 5 (<15 or dialysis).
+    Clinical: HTN history, kidney disease history, volume overload, dyspnea, peripheral
+    edema, uremia. Labs: elevated Cr, decreased GFR, proteinuria, anemia of CKD. Echo:
+    LVH, preserved or reduced EF. Treatment: BP control (ACE-I/ARB nephroprotective),
+    diuretics for volume, manage CKD complications (anemia, bone disease, acidosis,
+    hyperkalemia). Cardiac-renal syndrome interplay: HF worsens kidney function, CKD
+    increases cardiac risk.'
+  metadata:
+    category: cardiovascular_renal
+    diagnosis: hypertensive_heart_ckd
+    priority: HIGH
+    icd10_codes:
+    - I130
+  created_at: '2025-11-10T00:00:00'
+  name: Hypertensive Heart Disease with CKD - Combined Pathology
+- id: feeding_route_abbreviations_npo_nothi
+  type: pattern
+  content: 'Feeding route abbreviations: NPO = nothing by mouth, PO = by mouth (per
+    os), NG = nasogastric, NJ = nasojejunal, OG = orogastric, G = gastrostomy, J =
+    jejunostomy'
+  metadata:
+    category: abbreviations
+    priority: high
+    subcategory: nutrition_support
+  created_at: '2025-10-25T13:54:48.592206'
+  name: 'Pattern: Feeding route abbreviations: NPO = nothi...'
+- id: shock_classification_and_management
+  name: Shock Classification and Management
+  type: criteria
+  content: 'Hypovolemic: Low CVP, treat with fluids. Cardiogenic: High CVP, pulmonary
+    edema, inotropes. Distributive (septic/anaphylactic): Warm extremities, wide pulse
+    pressure, fluids + vasopressors. Obstructive: PE/tamponade, treat underlying cause.
+    Assess perfusion, lactate, urine output.'
+  metadata:
+    category: critical_care
+    subcategory: shock
+    priority: high
+  created_at: '2025-11-05T02:53:21.383935'
+- id: extra_cad_001
+  type: diagnostic_criteria
+  content: 'Coronary Artery Disease (CAD): Atherosclerotic narrowing of coronary arteries
+    causing myocardial ischemia. Risk factors: HTN, DM, dyslipidemia, smoking, family
+    history, age (M>45, F>55). Clinical: stable angina (exertional chest pain relieved
+    by rest), unstable angina (rest pain, crescendo pattern), asymptomatic. Diagnosis:
+    stress test (EKG, echo, nuclear), coronary angiography (gold standard shows %
+    stenosis). ECG: ST depression, T-wave inversion during ischemia. Troponin: elevated
+    in ACS, normal in stable angina. Treatment: medical therapy (antiplatelet, statin,
+    BB, ACE-I, nitrates), revascularization (PCI, CABG) for severe disease. Complications:
+    MI, HF, arrhythmia, sudden cardiac death.'
+  metadata:
+    category: cardiovascular
+    diagnosis: coronary_artery_disease
+    priority: HIGH
+    icd9_codes:
+    - '41401'
+    icd10_codes:
+    - I2510
+  created_at: '2025-11-10T00:00:00'
+  name: Coronary Artery Disease - Clinical Features
+- id: diabetes_diagnostic_criteria
+  name: Diabetes Diagnostic Criteria
+  type: criteria
+  content: 'ADA Criteria: FPG ≥126 mg/dL, or 2-hr OGTT ≥200 mg/dL, or HbA1c ≥6.5%,
+    or random glucose ≥200 mg/dL with symptoms. Prediabetes: FPG 100-125 mg/dL, 2-hr
+    OGTT 140-199 mg/dL, or HbA1c 5.7-6.4%. Confirm with repeat testing unless symptomatic
+    hyperglycemia.'
+  metadata:
+    category: endocrinology
+    subcategory: diabetes
+    priority: high
+  created_at: '2025-11-05T02:53:21.379389'
+- id: critical_extraction_rules_1_always_quo
+  type: guideline
+  content: 'CRITICAL EXTRACTION RULES: 1) Always quote exact text in quotation marks,
+    2) Never infer/calculate values not documented, 3) Mark missing data as ''not
+    documented'' or null, 4) Preserve all units (kg, cm, g/dL, kcal/kg/day)'
+  metadata:
+    category: extraction_guidelines
+    priority: high
+    subcategory: critical_rules
+  created_at: '2025-10-25T13:54:48.591666'
+  name: 'Guideline: CRITICAL EXTRACTION RULES: 1) Always quo...'
+- id: respiratory_distress_signs
+  name: Respiratory Distress Signs
+  type: criteria
+  content: 'Signs: Tachypnea, nasal flaring, retractions (intercostal, subcostal,
+    suprasternal), grunting, head bobbing, cyanosis, altered mental status, inability
+    to speak in full sentences. Assess oxygenation (SpO2), work of breathing, and
+    air movement. Consider oxygen therapy, positioning, bronchodilators.'
+  metadata:
+    category: respiratory
+    subcategory: assessment
+    priority: high
+  created_at: '2025-11-05T02:53:21.382829'
+- id: immunization_schedule_highlights
+  name: Immunization Schedule Highlights
+  type: reference
+  content: 'Birth: HepB. 2mo: DTaP, IPV, Hib, PCV13, RV. 6mo: Influenza (annually).
+    12-15mo: MMR, Varicella, HepA. 4-6yr: DTaP, IPV, MMR, Varicella boosters. 11-12yr:
+    Tdap, MCV4, HPV. Adults: Tdap once, then Td q10yr; yearly flu; pneumococcal (≥65yr);
+    shingles (≥50yr). Adjust for high-risk.'
+  metadata:
+    category: pediatrics
+    subcategory: immunizations
+    priority: medium
+  created_at: '2025-11-05T02:53:21.388010'
+- id: hba1c_target_goals
+  name: HbA1c Target Goals
+  type: guideline
+  content: 'ADA targets: <7% for most adults, <6.5% if achieved safely without hypoglycemia,
+    <8% for elderly/limited life expectancy/hypoglycemia risk/advanced complications.
+    Pediatric: <7% (ADA), <7.5% (ISPAD). Pregnancy: <6% if safe, <7% otherwise. Individualize
+    based on patient factors.'
+  metadata:
+    category: endocrinology
+    subcategory: diabetes_management
+    priority: medium
+  created_at: '2025-11-05T02:53:21.379777'
+- id: stroke_criteria
+  type: diagnostic_criteria
+  name: Acute Ischemic Stroke - Diagnosis and Management
+  content: "ACUTE ISCHEMIC STROKE:\n\nDEFINITION:\n- Sudden onset focal neurological\
+    \ deficit\n- Vascular territory distribution\n- Symptoms lasting >24 hours or\
+    \ leading to death\n\nCLINICAL PRESENTATION (BE-FAST):\n- Balance: Loss of balance,\
+    \ coordination\n- Eyes: Vision changes, diplopia\n- Face: Facial droop (asymmetric\
+    \ smile)\n- Arm: Arm weakness or drift\n- Speech: Slurred speech, aphasia\n- Time:\
+    \ Time to call 911\n\nNIH STROKE SCALE (NIHSS):\n- Score 0-42 (higher = more severe)\n\
+    - 0: No deficit, 1-4: Minor, 5-15: Moderate, 16-20: Mod-severe, 21-42: Severe\n\
+    - Used to determine treatment eligibility and prognosis\n\nEVALUATION:\n\nImmediate\
+    \ (<25 minutes):\n- Non-contrast CT head (rule out hemorrhage)\n- Fingerstick\
+    \ glucose\n- Oxygen saturation\n- Vital signs, IV access\n\nLaboratory:\n- CBC,\
+    \ CMP, PT/INR, PTT\n- Troponin, lipid panel\n- HbA1c\n\nAdvanced imaging:\n- CT\
+    \ angiography (CTA) head/neck if thrombectomy candidate\n- MRI brain with DWI/ADC\
+    \ (more sensitive, defines ischemia)\n- Perfusion imaging (CT or MRI) to assess\
+    \ penumbra\n\nACUTE TREATMENT:\n\n1. IV THROMBOLYSIS (tPA/Alteplase):\n   Eligibility:\n\
+    \   - Onset <4.5 hours (or 3-4.5h with restrictions)\n   - No contraindications\
+    \ (hemorrhage, recent surgery, severe hypertension >185/110)\n   - Dose: 0.9 mg/kg\
+    \ (max 90mg), 10% bolus, 90% over 60min\n   \n   Exclusions:\n   - ICH on CT,\
+    \ recent stroke/trauma/surgery <3mo\n   - Active bleeding, platelets <100K\n \
+    \  - Glucose <50 or >400, SBP >185 or DBP >110\n\n2. MECHANICAL THROMBECTOMY:\n\
+    \   Eligibility:\n   - Large vessel occlusion (ICA, MCA-M1)\n   - NIHSS ≥6\n \
+    \  - Onset <6 hours (or up to 24h if imaging shows salvageable tissue)\n   - mRS\
+    \ 0-1 pre-stroke\n   \n3. BLOOD PRESSURE MANAGEMENT:\n   - If receiving tPA: Target\
+    \ <185/110 before, <180/105 after\n   - If not receiving tPA: Permissive hypertension\
+    \ (allow up to 220/120 first 24h)\n\n4. SUPPORTIVE CARE:\n   - Aspirin 325mg (after\
+    \ 24h if received tPA, immediately if not)\n   - Statin (high-intensity)\n   -\
+    \ DVT prophylaxis\n   - Swallow evaluation before PO\n   - Monitor for complications\
+    \ (hemorrhagic transformation, edema)\n\nSECONDARY PREVENTION:\n- Antiplatelet:\
+    \ Aspirin 81mg OR clopidogrel 75mg daily\n- Dual antiplatelet (aspirin + clopidogrel)\
+    \ × 21-90 days if minor stroke/TIA\n- Anticoagulation if cardioembolic (AFib)\n\
+    - Statin (atorvastatin 80mg or rosuvastatin 20mg)\n- BP control: <140/90 (or <130/80\
+    \ if high-risk)\n- Diabetes management: HbA1c <7%\n- Lifestyle: Smoking cessation,\
+    \ exercise, diet\n\nPROGNOSIS:\n- tPA reduces disability by 30% if given within\
+    \ 3h\n- Thrombectomy NNT = 3-7 for good outcome"
+  metadata:
+    category: neurological
+    diagnosis: stroke
+    priority: CRITICAL
+    source: AHA/ASA Stroke Guidelines 2019
+- id: wound_assessment_and_documentation
+  name: Wound Assessment and Documentation
+  type: pattern
+  content: 'Document: Location, size (length x width x depth in cm), wound bed (percentage
+    granulation/slough/eschar/necrotic), exudate (amount, color, odor), edges (attached,
+    rolled, undermining, tunneling), periwound skin (intact, macerated, erythema),
+    pain level. Photograph if possible. Measure weekly or with changes.'
+  metadata:
+    category: wound_care
+    subcategory: assessment
+    priority: medium
+  created_at: '2025-11-05T02:53:21.390307'
+- id: laboratory_value_normal_ranges
+  name: Laboratory Value Normal Ranges
+  type: reference
+  content: Sodium 136-145 mEq/L, Potassium 3.5-5.0 mEq/L, Chloride 98-106 mEq/L, Bicarbonate
+    22-29 mEq/L, BUN 7-20 mg/dL, Creatinine 0.6-1.2 mg/dL, Glucose 70-100 mg/dL (fasting),
+    Calcium 8.5-10.5 mg/dL, Albumin 3.5-5.5 g/dL, Hemoglobin 13.5-17.5 g/dL (M), 12-16
+    g/dL (F).
+  metadata:
+    category: laboratory
+    subcategory: chemistry
+    priority: high
+  created_at: '2025-11-05T02:53:21.378828'
+- id: copd_gold_staging
+  name: COPD GOLD Staging
+  type: criteria
+  content: 'Based on post-bronchodilator FEV1: GOLD 1 (Mild) ≥80% predicted, GOLD
+    2 (Moderate) 50-79%, GOLD 3 (Severe) 30-49%, GOLD 4 (Very Severe) <30%. Also assess
+    symptoms (mMRC/CAT) and exacerbation history. Combined ABCD assessment guides
+    management.'
+  metadata:
+    category: respiratory
+    subcategory: copd
+    priority: medium
+  created_at: '2025-11-05T02:53:21.383444'
+- id: asthma_severity_classification
+  name: Asthma Severity Classification
+  type: criteria
+  content: 'Intermittent: Symptoms ≤2 days/week, nighttime ≤2x/month, no interference,
+    FEV1 ≥80%. Mild persistent: >2 days/week but not daily. Moderate: Daily symptoms,
+    nighttime >1x/week. Severe: Throughout day, often at night, extremely limited,
+    FEV1 <60%. Step up therapy based on severity and control.'
+  metadata:
+    category: respiratory
+    subcategory: asthma
+    priority: medium
+  created_at: '2025-11-05T02:53:21.383127'
+- id: ckd_staging_by_gfr
+  name: CKD Staging by GFR
+  type: criteria
+  content: 'Stage 1: GFR ≥90 with kidney damage. Stage 2: GFR 60-89 with damage. Stage
+    3a: GFR 45-59. Stage 3b: GFR 30-44. Stage 4: GFR 15-29. Stage 5: GFR <15 or dialysis.
+    Also classify by albuminuria: A1 <30 mg/g, A2 30-300, A3 >300 mg/g.'
+  metadata:
+    category: nephrology
+    subcategory: ckd
+    priority: medium
+  created_at: '2025-11-05T02:53:21.380337'
+- id: anemia_classification
+  name: Anemia Classification
+  type: criteria
+  content: 'WHO criteria: Hemoglobin <13 g/dL (adult M), <12 g/dL (adult F), <11 g/dL
+    (pregnant F), <11 g/dL (children 6mo-5yr), <11.5 g/dL (children 5-11yr), <12 g/dL
+    (children 12-14yr). Severity: Mild 10-normal, Moderate 8-10, Severe <8 g/dL.'
+  metadata:
+    category: hematology
+    subcategory: anemia
+    priority: medium
+  created_at: '2025-11-05T02:53:21.379119'
+- id: fluid_balance_calculation
+  name: Fluid Balance Calculation
+  type: pattern
+  content: 'Fluid balance = Intake - Output. Intake: oral fluids, IV fluids, tube
+    feeds, medications. Output: urine, drains, emesis, diarrhea, insensible losses
+    (~500-1000 mL/day). Positive balance suggests fluid retention, negative balance
+    suggests dehydration. Monitor daily weights (1 kg ≈ 1 L fluid).'
+  metadata:
+    category: fluid_management
+    subcategory: balance
+    priority: medium
+  created_at: '2025-11-05T02:53:21.380639'
+- id: thyroid_function_interpretation
+  name: Thyroid Function Interpretation
+  type: pattern
+  content: 'Primary hypothyroidism: High TSH, low T4. Primary hyperthyroidism: Low
+    TSH, high T4/T3. Central hypothyroidism: Low/normal TSH, low T4. Subclinical hypothyroid:
+    High TSH, normal T4. Subclinical hyperthyroid: Low TSH, normal T4/T3. Treat based
+    on symptoms and severity.'
+  metadata:
+    category: endocrinology
+    subcategory: thyroid
+    priority: medium
+  created_at: '2025-11-05T02:53:21.386060'
+- id: extra_afib_001
+  type: diagnostic_criteria
+  content: 'Atrial Fibrillation: Irregularly irregular rhythm with absent P waves.
+    Types: paroxysmal (self-terminating <7d), persistent (>7d), permanent (accepted).
+    Symptoms: palpitations, dyspnea, fatigue, chest discomfort; may be asymptomatic.
+    ECG: irregularly irregular RR intervals, no discrete P waves, fibrillatory waves.
+    Causes: HTN, valvular disease, CAD, HF, hyperthyroidism, alcohol, sleep apnea,
+    post-cardiac surgery. Rate control: BB (metoprolol), CCB (diltiazem), digoxin.
+    Rhythm control: cardioversion, antiarrhythmics (amiodarone, flecainide). Anticoagulation:
+    CHA2DS2-VASc score (≥2 men, ≥3 women = anticoagulate); HAS-BLED score for bleeding
+    risk. Complications: stroke (5x risk), HF, tachycardia-induced cardiomyopathy.'
+  metadata:
+    category: cardiovascular
+    diagnosis: atrial_fibrillation
+    priority: HIGH
+    icd9_codes:
+    - '42731'
+    icd10_codes:
+    - I4891
+  created_at: '2025-11-10T00:00:00'
+  name: Atrial Fibrillation - Classification & Management
+- id: uncertainty_language_unclear_etiology
+  type: pattern
+  content: 'Uncertainty language: ''unclear etiology'', ''uncertain significance'',
+    ''equivocal findings'', ''awaiting further workup'', ''requires additional evaluation'',
+    ''unclear if [A] vs [B]'''
+  metadata:
+    category: clinical_reasoning
+    priority: medium
+    subcategory: uncertainty
+  created_at: '2025-10-25T13:54:48.591312'
+  name: 'Pattern: Uncertainty language: ''unclear etiology''...'
+- id: dehydration_assessment
+  name: Dehydration Assessment
+  type: criteria
+  content: 'Mild (3-5% weight loss): Slightly dry mucous membranes, normal vital signs.
+    Moderate (6-9%): Dry mucous membranes, decreased skin turgor, tachycardia, decreased
+    urine output. Severe (≥10%): Sunken eyes/fontanelle, poor perfusion, hypotension,
+    lethargy. Infants and elderly at higher risk.'
+  metadata:
+    category: fluid_management
+    subcategory: dehydration
+    priority: medium
+  created_at: '2025-11-05T02:53:21.380988'
+- id: extra_chest_pain_001
+  type: diagnostic_criteria
+  content: 'Chest Pain Evaluation: MUST rule out life-threatening causes first: ACS
+    (troponin, ECG), aortic dissection (BP differential, CT angio), PE (d-dimer, CTPA),
+    pneumothorax (CXR), cardiac tamponade (echo). RED FLAGS: crushing substernal pain,
+    radiation to arm/jaw, diaphoresis, dyspnea, hypotension, syncope. Cardiac: exertional
+    pain relieved by rest/nitrates suggests angina; prolonged pain >20min suggests
+    MI; positional pain suggests pericarditis. Pulmonary: pleuritic pain worse with
+    breathing (PE, pneumonia, pleuritis). GI: burning epigastric pain (GERD), worse
+    with meals. MSK: reproducible with palpation. Risk stratification: HEART score,
+    TIMI score. Workup: troponin x2-3, ECG, CXR minimum. Disposition based on risk
+    and clinical suspicion.'
+  metadata:
+    category: cardiovascular
+    diagnosis: chest_pain
+    priority: CRITICAL
+    icd9_codes:
+    - '78650'
+    - '78659'
+    icd10_codes:
+    - R079
+  created_at: '2025-11-10T00:00:00'
+  name: Chest Pain - Diagnostic Approach
+- id: medication_dosing_by_weight_pediatric
+  name: Medication Dosing by Weight - Pediatric
+  type: pattern
+  content: 'Many pediatric medications dosed by mg/kg. Always verify: 1) Weight in
+    kg, 2) Dose calculation, 3) Maximum dose limit, 4) Frequency. Example: Amoxicillin
+    40-50 mg/kg/day divided BID-TID, max 1500 mg/day. Acetaminophen 10-15 mg/kg q4-6h,
+    max 75 mg/kg/day. Double-check all calculations.'
+  metadata:
+    category: pediatrics
+    subcategory: dosing
+    priority: high
+  created_at: '2025-11-05T02:53:21.388278'
+- id: coronary_atherosclerosis_criteria
+  type: diagnostic_criteria
+  name: Coronary Atherosclerosis - Diagnosis and Classification
+  content: "CORONARY ARTERY DISEASE (CAD) / ATHEROSCLEROSIS:\n\nDEFINITION:\n- Atherosclerotic\
+    \ plaque buildup in coronary arteries\n- May be asymptomatic or present as stable\
+    \ angina, ACS, or sudden cardiac death\n\nCLINICAL PRESENTATION:\n- Stable angina:\
+    \ predictable chest pain with exertion, relieved by rest/nitroglycerin\n- Unstable\
+    \ angina: new onset, crescendo, or rest angina\n- Silent ischemia: no symptoms\
+    \ despite documented ischemia\n\nRISK FACTORS (Major):\n- Non-modifiable: Age\
+    \ (men ≥45, women ≥55), male sex, family history\n- Modifiable: Smoking, hypertension,\
+    \ diabetes, dyslipidemia, obesity, sedentary lifestyle\n\nDIAGNOSTIC TESTING:\n\
+    1. Non-invasive:\n   - Exercise ECG stress test (sensitivity 68%, specificity\
+    \ 77%)\n   - Stress echocardiography or nuclear imaging\n   - Coronary CTA (high\
+    \ NPV for excluding CAD)\n   - Coronary calcium score (Agatston score)\n2. Invasive:\n\
+    \   - Coronary angiography (gold standard)\n   - Fractional flow reserve (FFR)\
+    \ for lesion significance\n\nSIGNIFICANCE:\n- ≥50% stenosis in left main coronary\
+    \ artery\n- ≥70% stenosis in other major epicardial vessels\n\nTREATMENT:\n- Medical:\
+    \ Antiplatelet, statin, beta-blocker, ACE-I/ARB, nitrates\n- Revascularization:\
+    \ PCI vs CABG based on anatomy and SYNTAX score"
+  metadata:
+    category: cardiovascular
+    diagnosis: coronary_atherosclerosis
+    priority: HIGH
+    source: AHA/ACC CAD Guidelines
+- id: liver_function_interpretation
+  name: Liver Function Interpretation
+  type: pattern
+  content: 'Hepatocellular injury: Elevated AST/ALT (ALT>AST usually, except alcoholic).
+    Cholestatic: Elevated Alk Phos, GGT, bilirubin. Synthetic function: Albumin, INR/PT.
+    AST/ALT >1000 suggests acute injury (toxin, ischemia, viral). Chronic: elevated
+    Alk Phos suggests biliary obstruction.'
+  metadata:
+    category: hepatology
+    subcategory: lab_interpretation
+    priority: medium
+  created_at: '2025-11-05T02:53:21.385108'
+- id: pulmonary_embolism_criteria
+  type: diagnostic_criteria
+  name: Pulmonary Embolism - Diagnosis and Risk Stratification
+  content: "PULMONARY EMBOLISM (PE):\n\nDEFINITION:\n- Obstruction of pulmonary artery\
+    \ or branches by thrombus (usually from DVT)\n\nCLINICAL PRESENTATION:\n- Dyspnea\
+    \ (most common, 73%)\n- Pleuritic chest pain (44%)\n- Cough (34%), hemoptysis\
+    \ (13%)\n- Tachypnea >20/min (54%)\n- Tachycardia >100 bpm (24%)\n- Signs of DVT\
+    \ (15%)\n\nPRE-TEST PROBABILITY - Wells Score:\n- Clinical signs DVT (3 points)\n\
+    - PE most likely diagnosis (3)\n- HR >100 (1.5)\n- Immobilization ≥3 days or surgery\
+    \ within 4 weeks (1.5)\n- Prior PE/DVT (1.5)\n- Hemoptysis (1)\n- Malignancy (1)\n\
+    \nInterpretation:\n- ≤4: PE unlikely (use D-dimer)\n- >4: PE likely (proceed to\
+    \ imaging)\n\nPESI (Pulmonary Embolism Severity Index):\n- Age, male sex, cancer,\
+    \ HF, COPD, HR, SBP, RR, temp, O2 sat, mental status\n- Class I-II: Low risk (mortality\
+    \ <3%)\n- Class III-V: High risk (mortality 3-25%)\n\nDIAGNOSTIC WORKUP:\n\n1.\
+    \ D-DIMER:\n   - High sensitivity, low specificity\n   - <500 ng/mL rules out\
+    \ PE if low pre-test probability\n   - Age-adjusted: Age × 10 for patients >50\
+    \ years\n   - Limited use if high pre-test probability, hospitalized, cancer,\
+    \ pregnant\n\n2. CT PULMONARY ANGIOGRAPHY (CTPA):\n   - Gold standard for diagnosis\n\
+    \   - Sensitivity 83%, specificity 96%\n   - Direct visualization of clot\n\n\
+    3. V/Q SCAN:\n   - Alternative if contrast contraindicated\n   - High probability\
+    \ scan diagnostic\n   - Normal scan rules out PE\n\n4. ADDITIONAL TESTS:\n   -\
+    \ Lower extremity ultrasound (if DVT suspected)\n   - ECG: Sinus tachycardia,\
+    \ S1Q3T3 pattern (20%)\n   - ABG: Hypoxemia, respiratory alkalosis\n   - Troponin,\
+    \ BNP (prognostic)\n   - Echocardiogram (assess RV strain)\n\nRISK STRATIFICATION:\n\
+    \nMassive PE (High-risk):\n- Sustained hypotension (SBP <90 or drop ≥40mmHg >15min)\n\
+    - Cardiogenic shock, cardiac arrest\n- Mortality 25-50%\n\nSubmassive PE (Intermediate-risk):\n\
+    - Hemodynamically stable\n- RV dysfunction (echo or CT) OR troponin elevation\n\
+    - Mortality 3-15%\n\nLow-risk PE:\n- Hemodynamically stable\n- No RV dysfunction\
+    \ or troponin elevation\n- PESI class I-II\n- Mortality <1%, consider outpatient\
+    \ treatment\n\nTREATMENT:\n\n1. ANTICOAGULATION (All patients):\n   \n   Initial:\n\
+    \   - LMWH (enoxaparin 1 mg/kg SC q12h or 1.5 mg/kg daily)\n   - Unfractionated\
+    \ heparin (if renal insufficiency, high bleeding risk)\n   - Fondaparinux\n  \
+    \ \n   Long-term:\n   - DOACs preferred: Rivaroxaban, apixaban, edoxaban, dabigatran\n\
+    \   - Warfarin (target INR 2-3) if DOAC contraindicated\n   - Duration:\n    \
+    \ * Provoked (surgery, trauma): 3 months\n     * Unprovoked: 3-6 months (consider\
+    \ extended if low bleeding risk)\n     * Cancer-associated: 3-6 months (prefer\
+    \ LMWH or DOAC)\n     * Recurrent: Indefinite\n\n2. THROMBOLYSIS (Massive PE):\n\
+    \   - tPA 100mg IV over 2 hours\n   - Contraindications: Active bleeding, recent\
+    \ surgery, ICH, ischemic stroke <3mo\n\n3. CATHETER-DIRECTED THERAPY:\n   - Consider\
+    \ if massive PE with contraindication to systemic lysis\n   - Or submassive PE\
+    \ with deterioration\n\n4. SURGICAL EMBOLECTOMY:\n   - Rescue therapy if thrombolysis\
+    \ fails or contraindicated\n\n5. IVC FILTER:\n   - Only if absolute contraindication\
+    \ to anticoagulation\n   - Prefer retrievable filters\n\n6. SUPPORTIVE:\n   -\
+    \ Oxygen to maintain SpO2 >90%\n   - Fluid resuscitation (caution: avoid overload\
+    \ in RV failure)\n   - Vasopressors if shock (norepinephrine)\n\nPROGNOSIS:\n\
+    - Overall mortality: 10-30% (if untreated)\n- 2-3% (if treated)\n- Recurrence\
+    \ risk: 5-10% at 1 year if unprovoked"
+  metadata:
+    category: cardiovascular
+    diagnosis: pulmonary_embolism
+    priority: CRITICAL
+    source: ESC PE Guidelines 2019, CHEST Guidelines
+- id: fetal_heart_rate_interpretation
+  name: Fetal Heart Rate Interpretation
+  type: criteria
+  content: 'Baseline 110-160 bpm normal. Tachycardia >160, bradycardia <110. Variability:
+    Absent <5 bpm, minimal 5-10, moderate 10-25 (reassuring), marked >25. Accelerations:
+    15 bpm above baseline for 15 sec (reactive NST). Decelerations: Early (head compression),
+    variable (cord compression), late (uteroplacental insufficiency - concerning).'
+  metadata:
+    category: obstetrics
+    subcategory: fetal_monitoring
+    priority: medium
+  created_at: '2025-11-05T02:53:21.386629'
+- id: pressure_injury_staging
+  name: Pressure Injury Staging
+  type: criteria
+  content: 'Stage 1: Non-blanchable erythema, intact skin. Stage 2: Partial-thickness
+    skin loss, shallow ulcer. Stage 3: Full-thickness skin loss, subcutaneous fat
+    visible. Stage 4: Full-thickness tissue loss, bone/tendon/muscle exposed. Unstageable:
+    Depth unknown due to slough/eschar. DTI: Purple/maroon intact skin or blood blister.'
+  metadata:
+    category: wound_care
+    subcategory: pressure_injuries
+    priority: medium
+  created_at: '2025-11-05T02:53:21.390004'
+- id: response_to_intervention_improved_with
+  type: pattern
+  content: 'Response to intervention: ''improved with [intervention]'', ''no response
+    to [intervention]'', ''worsened despite [intervention]'', ''stable on current
+    regimen'''
+  metadata:
+    category: clinical_reasoning
+    priority: medium
+    subcategory: progression
+  created_at: '2025-10-25T13:54:48.591574'
+  name: 'Pattern: Response to intervention: ''improved with...'
+- id: electrolyte_abnormalities_hyperkalemia
+  name: Electrolyte Abnormalities - Hyperkalemia
+  type: criteria
+  content: 'Mild 5.5-6.0 mEq/L, Moderate 6.1-7.0, Severe >7.0. ECG changes: peaked
+    T waves, widened QRS, sine wave (severe). Causes: renal failure, K-sparing diuretics,
+    ACE inhibitors, tissue breakdown. Treatment: Calcium gluconate (cardiac protection),
+    insulin + glucose, albuterol, dialysis if severe.'
+  metadata:
+    category: laboratory
+    subcategory: electrolytes
+    priority: high
+  created_at: '2025-11-05T02:53:21.381516'
+- id: pain_assessment_scales
+  name: Pain Assessment Scales
+  type: reference
+  content: 'Numeric (0-10): 0=no pain, 1-3 mild, 4-6 moderate, 7-10 severe. Visual
+    Analog Scale (VAS): Mark on line. FLACC (pediatric): Face, Legs, Activity, Cry,
+    Consolability (0-10). Wong-Baker FACES (pediatric): Facial expressions (0-10).
+    Reassess after interventions.'
+  metadata:
+    category: pain_management
+    subcategory: assessment
+    priority: medium
+  created_at: '2025-11-05T02:53:21.382167'
+- id: clinical_reasoning_phrases_based_on_d
+  type: pattern
+  content: 'Clinical reasoning phrases: ''based on [data]'', ''given [findings]'',
+    ''in light of [context]'', ''considering [factors]'', ''supported by [evidence]'',
+    ''per [guideline]'''
+  metadata:
+    category: clinical_reasoning
+    priority: high
+    subcategory: evidence_based
+  created_at: '2025-10-25T13:54:48.591221'
+  name: 'Pattern: Clinical reasoning phrases: ''based on [d...'

@@ -1,7 +1,0 @@
-{
-  "name": "normalize_muac",
-  "pattern": "MUAC[\\s:]*(\\d+\\.?\\d*)\\s*(cm|mm)",
-  "replacement": "MUAC: \\1 \\2",
-  "description": "Standardize MUAC (mid-upper arm circumference) format",
-  "enabled": true
-}

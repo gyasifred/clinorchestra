@@ -1,7 +1,0 @@
-{
-  "name": "standardize_bid_tid_qid_v2",
-  "pattern": "\\b(BID|TID|QID|QD)\\b",
-  "replacement": "\\1",
-  "description": "Standardize medication frequency abbreviations",
-  "enabled": true
-}

@@ -1,7 +1,0 @@
-{
-  "name": "normalize_percentages",
-  "pattern": "(\\d+\\.?\\d*)\\s*\\%",
-  "replacement": "\\1%",
-  "description": "Remove spaces before percentage signs",
-  "enabled": true
-}

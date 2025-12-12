@@ -1,7 +1,0 @@
-{
-  "name": "normalize_z_score",
-  "pattern": "z\\s*([\\-+]?\\d+\\.?\\d*)",
-  "replacement": "z-score \\1",
-  "description": "Standardize z-score notation",
-  "enabled": true
-}

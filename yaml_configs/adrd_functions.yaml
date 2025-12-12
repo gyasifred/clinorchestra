@@ -1,0 +1,169 @@
+- name: calculate_moca_severity
+  code: "def calculate_moca_severity(moca_score, education_years=None):\n    \"\"\"\
+    \n    Interpret MoCA score with education correction\n\n    IMPORTANT: Returns\
+    \ cognitive impairment assessment. Does NOT diagnose dementia.\n    Dementia requires:\
+    \ cognitive impairment + functional decline + chronicity.\n\n    MoCA scoring\
+    \ (Nasreddine et al., 2005):\n    - ≥26: Normal (add 1 point if education ≤12\
+    \ years)\n    - 18-25: Mild cognitive impairment range\n    - <18: Significant\
+    \ cognitive impairment range\n\n    Args:\n        moca_score (int): MoCA total\
+    \ score (0-30)\n        education_years (int, optional): Years of formal education\n\
+    \n    Returns:\n        dict: Interpretation including education-corrected score\n\
+    \    \"\"\"\n    if not isinstance(moca_score, (int, float)):\n        return\
+    \ {\n            \"category\": \"Unable to determine\",\n            \"interpretation\"\
+    : \"Invalid MoCA score provided\",\n            \"cognitive_impairment_level\"\
+    : None\n        }\n\n    score = float(moca_score)\n\n    if score < 0 or score\
+    \ > 30:\n        return {\n            \"category\": \"Invalid score\",\n    \
+    \        \"interpretation\": \"MoCA score must be between 0-30\",\n          \
+    \  \"cognitive_impairment_level\": None\n        }\n\n    # Education correction\n\
+    \    corrected_score = score\n    education_adjustment = False\n    if education_years\
+    \ is not None and education_years <= 12 and score < 30:\n        corrected_score\
+    \ = min(score + 1, 30)\n        education_adjustment = True\n\n    # Interpretation\n\
+    \    if corrected_score >= 26:\n        category = \"Normal Cognition\"\n    \
+    \    interpretation = \"MoCA ≥26 suggests normal cognitive function.\"\n     \
+    \   impairment_level = \"no_impairment_detected\"\n        functional_note = \"\
+    If cognitive symptoms present despite normal score, consider functional assessment\
+    \ and alternative testing.\"\n    elif corrected_score >= 18:\n        category\
+    \ = \"Mild Cognitive Impairment Range\"\n        interpretation = \"MoCA 18-25\
+    \ indicates mild cognitive impairment. May represent MCI (if functionally independent)\
+    \ or mild dementia (if functional decline present).\"\n        impairment_level\
+    \ = \"mild_impairment_detected\"\n        functional_note = \"Functional assessment\
+    \ required to distinguish MCI from mild dementia.\"\n    else:\n        category\
+    \ = \"Significant Cognitive Impairment Range\"\n        interpretation = \"MoCA\
+    \ <18 indicates significant cognitive impairment across multiple domains. IF functional\
+    \ decline present, consistent with dementia. IF functionally independent, may\
+    \ represent severe MCI.\"\n        impairment_level = \"significant_impairment_detected\"\
+    \n        functional_note = \"Assess functional status. Dementia requires functional\
+    \ decline interfering with independence.\"\n\n    return {\n        \"raw_score\"\
+    : score,\n        \"corrected_score\": corrected_score if education_adjustment\
+    \ else score,\n        \"education_adjustment_applied\": education_adjustment,\n\
+    \        \"category\": category,\n        \"interpretation\": interpretation,\n\
+    \        \"cognitive_impairment_level\": impairment_level,\n        \"functional_assessment_note\"\
+    : functional_note,\n        \"diagnostic_context\": \"MoCA score indicates cognitive\
+    \ status. Dementia diagnosis requires: cognitive impairment + functional decline\
+    \ + chronicity (≥6 months) + exclusion of delirium.\",\n        \"note\": \"MoCA\
+    \ is more sensitive than MMSE for detecting MCI and early dementia, especially\
+    \ executive dysfunction.\"\n    }\n"
+  description: Interpret MoCA score - v1.0.0 NO boolean flags, requires functional
+    assessment
+  parameters:
+    moca_score:
+      type: number
+      description: MoCA total score (0-30)
+      required: true
+    education_years:
+      type: number
+      description: Years of formal education (optional, adds 1 point if ≤12 years)
+      required: false
+  returns: dict with cognitive_impairment_level, interpretation, and functional assessment
+    note
+  enabled: true
+  signature: (moca_score, education_years=None)
+- name: calculate_mmse_severity
+  code: "\ndef calculate_mmse_severity(mmse_score):\n    \"\"\"\n    Interpret MMSE\
+    \ score and categorize cognitive impairment severity\n\n    MMSE scoring ranges\
+    \ (Folstein et al., 1975):\n    - 24-30: Normal cognition or mild impairment\n\
+    \    - 18-23: Mild dementia\n    - 10-17: Moderate dementia\n    - 0-9: Severe\
+    \ dementia\n\n    Args:\n        mmse_score (int): MMSE total score (0-30)\n\n\
+    \    Returns:\n        dict: Interpretation including severity category\n    \"\
+    \"\"\n    if not isinstance(mmse_score, (int, float)):\n        return {\n   \
+    \         \"category\": \"Unable to determine\",\n            \"interpretation\"\
+    : \"Invalid MMSE score provided\",\n            \"dementia_suggested\": None\n\
+    \        }\n\n    score = float(mmse_score)\n\n    if score < 0 or score > 30:\n\
+    \        return {\n            \"category\": \"Invalid score\",\n            \"\
+    interpretation\": \"MMSE score must be between 0-30\",\n            \"dementia_suggested\"\
+    : None\n        }\n\n    if score >= 24:\n        category = \"Normal or Mild\
+    \ Impairment\"\n        interpretation = \"MMSE ≥24 suggests normal cognition\
+    \ or questionably significant impairment. May be MCI or early dementia if functional\
+    \ decline present.\"\n        dementia_suggested = False\n    elif score >= 18:\n\
+    \        category = \"Mild Dementia\"\n        interpretation = \"MMSE 18-23 consistent\
+    \ with mild dementia. Further evaluation needed.\"\n        dementia_suggested\
+    \ = True\n    elif score >= 10:\n        category = \"Moderate Dementia\"\n  \
+    \      interpretation = \"MMSE 10-17 consistent with moderate dementia. Significant\
+    \ cognitive and functional impairment.\"\n        dementia_suggested = True\n\
+    \    else:\n        category = \"Severe Dementia\"\n        interpretation = \"\
+    MMSE <10 consistent with severe dementia. Profound impairment in multiple domains.\"\
+    \n        dementia_suggested = True\n\n    return {\n        \"score\": score,\n\
+    \        \"category\": category,\n        \"interpretation\": interpretation,\n\
+    \        \"dementia_suggested\": dementia_suggested,\n        \"note\": \"MMSE\
+    \ may be affected by education level, language, and cultural factors. Should be\
+    \ interpreted in clinical context.\"\n    }\n"
+  description: Interpret MMSE score and categorize cognitive impairment severity (normal,
+    mild, moderate, severe dementia)
+  parameters:
+    mmse_score:
+      type: number
+      description: MMSE total score (0-30)
+      required: true
+  returns: dict with severity category, interpretation, and whether dementia is suggested
+  enabled: true
+  signature: (mmse_score)
+- name: calculate_cdr_severity
+  code: "\ndef calculate_cdr_severity(cdr_global_score):\n    \"\"\"\n    Interpret\
+    \ Clinical Dementia Rating (CDR) global score\n\n    CDR Global Score (Morris,\
+    \ 1993):\n    - 0: No cognitive impairment\n    - 0.5: MCI or questionable dementia\
+    \ (AMBIGUOUS - requires functional assessment)\n    - 1: Mild dementia\n    -\
+    \ 2: Moderate dementia\n    - 3: Severe dementia\n\n    CRITICAL: CDR 0.5 is AMBIGUOUS\
+    \ and requires functional assessment to distinguish MCI from very mild dementia.\n\
+    \n    Args:\n        cdr_global_score (float): CDR global score\n\n    Returns:\n\
+    \        dict: Severity interpretation with clinical guidance\n    \"\"\"\n  \
+    \  valid_scores = [0, 0.5, 1, 2, 3]\n\n    if cdr_global_score not in valid_scores:\n\
+    \        return {\n            \"category\": \"Invalid score\",\n            \"\
+    interpretation\": \"CDR global score must be 0, 0.5, 1, 2, or 3\",\n         \
+    \   \"clinical_significance\": None\n        }\n\n    interpretations = {\n  \
+    \      0: {\n            \"category\": \"No Cognitive Impairment\",\n        \
+    \    \"interpretation\": \"CDR 0 indicates no cognitive impairment. Normal function\
+    \ in memory, orientation, judgment, community affairs, home and hobbies, and personal\
+    \ care.\",\n            \"clinical_significance\": \"No dementia\",\n        \
+    \    \"functional_impact\": \"Fully independent in all domains\",\n          \
+    \  \"diagnostic_implications\": \"Does not meet criteria for MCI or dementia\"\
+    \n        },\n        0.5: {\n            \"category\": \"MCI or Questionable\
+    \ Dementia (Requires Functional Assessment)\",\n            \"interpretation\"\
+    : \"CDR 0.5 is AMBIGUOUS. Represents subtle cognitive decline that may be MCI\
+    \ (if independence preserved) or very early dementia (if functional dependence\
+    \ present). Requires comprehensive functional assessment to distinguish.\",\n\
+    \            \"clinical_significance\": \"Questionable - depends on functional\
+    \ status\",\n            \"functional_impact\": \"May be fully independent (suggests\
+    \ MCI) or have subtle IADL dependence (suggests very mild dementia)\",\n     \
+    \       \"diagnostic_implications\": \"IF fully independent in IADLs → MCI (Non-ADRD).\
+    \ IF IADL dependence present → Very mild dementia (ADRD). Must assess functional\
+    \ independence.\",\n            \"critical_note\": \"Do NOT automatically classify\
+    \ CDR 0.5 as dementia. Preserved independence = MCI.\"\n        },\n        1:\
+    \ {\n            \"category\": \"Mild Dementia\",\n            \"interpretation\"\
+    : \"CDR 1 indicates mild dementia. Moderate memory loss (especially for recent\
+    \ events), moderate difficulty with time relationships, impaired judgment and\
+    \ problem solving. Difficulty in community affairs, home activities, and hobbies.\
+    \ Requires assistance with complex IADLs.\",\n            \"clinical_significance\"\
+    : \"Mild dementia\",\n            \"functional_impact\": \"IADL dependence; requires\
+    \ assistance with finances, medications, transportation. ADLs generally preserved.\"\
+    ,\n            \"diagnostic_implications\": \"Meets criteria for mild dementia\
+    \ (Major Neurocognitive Disorder)\"\n        },\n        2: {\n            \"\
+    category\": \"Moderate Dementia\",\n            \"interpretation\": \"CDR 2 indicates\
+    \ moderate dementia. Severe memory loss (only highly learned material retained),\
+    \ disorientation to time and often to place, severely impaired judgment. Unable\
+    \ to function independently in community affairs or at home. Requires assistance\
+    \ with personal care (dressing, hygiene).\",\n            \"clinical_significance\"\
+    : \"Moderate dementia\",\n            \"functional_impact\": \"ADL and IADL dependence;\
+    \ requires assistance with basic self-care\",\n            \"diagnostic_implications\"\
+    : \"Meets criteria for moderate dementia with significant functional decline\"\
+    \n        },\n        3: {\n            \"category\": \"Severe Dementia\",\n \
+    \           \"interpretation\": \"CDR 3 indicates severe dementia. Severe memory\
+    \ loss (only fragments remain), disoriented to person, completely dependent for\
+    \ personal care. Minimal verbal communication, often incontinent.\",\n       \
+    \     \"clinical_significance\": \"Severe dementia\",\n            \"functional_impact\"\
+    : \"Total dependence; requires full-time care for all ADLs and IADLs\",\n    \
+    \        \"diagnostic_implications\": \"Meets criteria for severe dementia with\
+    \ profound functional impairment\"\n        }\n    }\n\n    result = interpretations[cdr_global_score]\n\
+    \    result[\"cdr_score\"] = cdr_global_score\n    result[\"version_note\"] =\
+    \ \"v1.0.0 - Removed boolean dementia_present flag. CDR 0.5 requires functional\
+    \ assessment.\"\n\n    return result\n"
+  description: Interpret CDR global score - v1.0.0 fixed to remove boolean flags and
+    clarify CDR 0.5 ambiguity
+  parameters:
+    cdr_global_score:
+      type: number
+      description: CDR global score (0, 0.5, 1, 2, or 3)
+      required: true
+  returns: dict with category, interpretation, clinical_significance, and diagnostic_implications
+    (NO boolean dementia_present)
+  enabled: true
+  signature: (cdr_global_score)

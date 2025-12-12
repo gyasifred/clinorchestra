@@ -1,7 +1,0 @@
-{
-  "name": "normalize_temperature",
-  "pattern": "(?:temp|temperature|T)\\s*[:=]?\\s*(\\d{2,3}\\.?\\d?)\\s*(?:°?F|°?C|degrees?)?",
-  "replacement": "Temp: \\1°F",
-  "description": "Standardize temperature measurements to format 'Temp: value°F' (assumes Fahrenheit unless otherwise specified)",
-  "enabled": true
-}

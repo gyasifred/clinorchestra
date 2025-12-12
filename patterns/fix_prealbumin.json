@@ -1,7 +1,0 @@
-{
-  "name": "fix_prealbumin",
-  "pattern": "\\b(prealbumin|pre[\\s\\-]?albumin)[\\s:]*(\\d+\\.?\\d*)\\s*(mg\\s*/\\s*dL|mg\\/dL)",
-  "replacement": "Prealbumin: \\2 mg/dL",
-  "description": "Standardize prealbumin lab format",
-  "enabled": true
-}

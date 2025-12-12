@@ -1,7 +1,0 @@
-{
-  "name": "normalize_wbc_count",
-  "pattern": "(?:WBC|white blood cell count|leukocytes?)\\s*[:=]?\\s*(\\d+\\.?\\d*)\\s*(?:K/uL|K/μL|x10\\^3/μL|thousand/μL)?",
-  "replacement": "WBC: \\1 K/μL",
-  "description": "Standardize white blood cell count to format 'WBC: value K/μL'",
-  "enabled": true
-}

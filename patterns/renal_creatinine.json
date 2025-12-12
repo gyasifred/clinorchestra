@@ -1,7 +1,0 @@
-{
-  "name": "normalize_creatinine",
-  "pattern": "(?:creatinine|Cr)\\s*[:=]?\\s*(\\d+\\.?\\d*)\\s*(?:mg/dL|mg/L)?",
-  "replacement": "Creatinine: \\1 mg/dL",
-  "description": "Standardize creatinine measurements to format 'Creatinine: value mg/dL'",
-  "enabled": true
-}

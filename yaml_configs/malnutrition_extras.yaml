@@ -1,0 +1,1363 @@
+- id: myocardial_infarction_criteria
+  type: diagnostic_criteria
+  name: Myocardial Infarction - Universal Definition and Classification
+  content: "MYOCARDIAL INFARCTION (MI) - FOURTH UNIVERSAL DEFINITION:\n\nDIAGNOSTIC\
+    \ CRITERIA (Requires ≥1):\n1. Detection of rise/fall of cardiac troponin with\
+    \ ≥1 value >99th percentile AND ≥1 of:\n   - Symptoms of myocardial ischemia\n\
+    \   - New ischemic ECG changes (ST-T changes, LBBB)\n   - Development of pathological\
+    \ Q waves\n   - New loss of viable myocardium or wall motion abnormality (imaging)\n\
+    \   - Intracoronary thrombus on angiography\n\nCLASSIFICATION:\n- Type 1: Spontaneous\
+    \ MI (plaque rupture, erosion, dissection)\n- Type 2: MI secondary to ischemic\
+    \ imbalance (supply-demand mismatch)\n- Type 3: Cardiac death with suspected MI\
+    \ (sudden death before biomarkers obtained)\n- Type 4a: MI related to PCI\n- Type\
+    \ 4b: MI related to stent thrombosis\n- Type 5: MI related to CABG\n\nSTEMI vs\
+    \ NSTEMI:\n- STEMI: ST elevation ≥1mm in ≥2 contiguous leads OR new LBBB\n- NSTEMI:\
+    \ Troponin elevation WITHOUT ST elevation\n\nBIOMARKERS:\n- Troponin I/T: Rise\
+    \ detectable 2-4h, peak 12-48h, elevated 4-14 days\n- High-sensitivity troponin:\
+    \ Earlier detection (0h, 1h, 3h protocols)\n\nTREATMENT:\n- STEMI: Immediate reperfusion\
+    \ (PCI <90min or thrombolysis <30min)\n- NSTEMI: Risk stratification (TIMI/GRACE\
+    \ score), early invasive vs conservative\n- Antiplatelet: Dual antiplatelet therapy\
+    \ (aspirin + P2Y12 inhibitor)\n- Anticoagulation: Heparin/enoxaparin\n- Adjuncts:\
+    \ Beta-blocker, ACE-I, statin"
+  metadata:
+    category: cardiovascular
+    diagnosis: myocardial_infarction
+    priority: CRITICAL
+    source: Fourth Universal Definition of MI (2018)
+- id: percentile_format_measurement_at_x_t
+  type: pattern
+  content: 'Percentile format: [measurement] at [X]th percentile. Example: Weight
+    at 5th percentile, Height at 10th percentile, BMI at 3rd percentile'
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: anthropometrics
+  created_at: '2025-10-25T13:54:48.584580'
+  name: 'Pattern: Percentile format: [measurement] at [X]t...'
+- id: z_score_documentation_format_variations
+  type: pattern
+  content: 'Z-score documentation format variations: The format ''[NUMBER] z [NUMBER]''
+    shows PERCENTILE first, then z-score value second (e.g., ''1 z 2.36'' = 1st percentile,
+    z-score should be interpreted as -2.36 indicating severely below average; ''85
+    ile z 1.04'' = 85th percentile where ''ile'' means percentile, z-score +1.04 indicating
+    above average). Other formats include ''z-score: -2.3'' (z-score only with sign),
+    ''1st percentile (z=-2.3)'' (percentile with z-score in parentheses). Note: The
+    ''z'' in the format is a SEPARATOR between percentile and z-score value, NOT the
+    z-score itself.'
+  metadata:
+    category: pediatric_malnutrition
+    priority: CRITICAL
+    subcategory: anthropometrics
+  created_at: '2025-10-25T13:54:48.584735'
+  name: 'Pattern: Z-score documentation format variations:...'
+- id: z_score_verification_step_after_extract
+  type: guideline
+  content: 'Z-score verification step: After extracting z-scores, validate that the
+    sign matches the percentile (e.g., 3rd percentile with z-score documented as ''2.05''
+    should be interpreted as -2.05 = severely below average; 92nd percentile with
+    ''1.41'' should be +1.41 = above average) and confirm alignment with clinical
+    descriptions such as ''short stature,'' ''underweight,'' ''appears small for age''
+    (indicating below average) or ''well-nourished,'' ''tall for age,'' ''overweight''
+    (indicating above average). Flag any discrepancies where percentile ranking contradicts
+    the z-score sign or conflicts with the clinical narrative for manual review.'
+  metadata:
+    category: extraction_guidelines
+    priority: CRITICAL
+    subcategory: quality_control
+  created_at: '2025-10-25T13:54:48.584964'
+  name: 'Guideline: Z-score verification step: After extract...'
+- id: when_guideline_is_referenced_quote_it_e
+  type: guideline
+  content: 'When guideline is referenced, quote it exactly: ''per ASPEN/Academy 2015
+    criteria'', ''following WHO growth standards'', ''consistent with AAP recommendations'''
+  metadata:
+    category: clinical_reasoning
+    priority: high
+    subcategory: guidelines
+  created_at: '2025-10-25T13:54:48.591401'
+  name: 'Guideline: When guideline is referenced, quote it e...'
+- id: nutrition_abbreviations_whz_weight_fo
+  type: pattern
+  content: 'Nutrition abbreviations: WHZ = weight-for-height z-score, BAZ = BMI-for-age
+    z-score, HAZ = height-for-age z-score, MUAC = mid-upper arm circumference, RDA
+    = recommended dietary allowance, DRI = dietary reference intake'
+  metadata:
+    category: abbreviations
+    priority: high
+    subcategory: nutrition
+  created_at: '2025-10-25T13:54:48.592012'
+  name: 'Pattern: Nutrition abbreviations: WHZ = weight-fo...'
+- id: reference_muac_cutoffs_for_ages_6_59_months_who
+  type: reference
+  content: 'MUAC cutoffs for ages 6-59 months (WHO): Severe malnutrition <11.5cm,
+    Moderate malnutrition 11.5-12.5cm, At risk 12.5-13.5cm, Normal >13.5cm'
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: anthropometrics
+  created_at: '2025-10-25T13:54:48.585620'
+  name: 'Reference: MUAC cutoffs for ages 6-59 months (WHO):...'
+- id: reference_common_malnutrition_differentials_failu
+  type: reference
+  content: 'Common malnutrition differentials: failure to thrive (FTT), celiac disease,
+    cystic fibrosis, inflammatory bowel disease (Crohn''s, UC), food allergies/FPIES,
+    metabolic disorders, feeding disorders, child neglect'
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: differential_diagnosis
+  created_at: '2025-10-25T13:54:48.589489'
+  name: 'Reference: Common malnutrition differentials: failu...'
+- id: edema_documentation_location_periorbit
+  type: pattern
+  content: 'Edema documentation: location (periorbital, sacral, pedal, ascites), type
+    (pitting vs non-pitting), severity (1+ to 4+), bilateral vs unilateral'
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: nfpe
+  created_at: '2025-10-25T13:54:48.586982'
+  name: 'Pattern: Edema documentation: location (periorbit...'
+- id: feeding_tolerance_indicators_toleratin
+  type: pattern
+  content: 'Feeding tolerance indicators: ''tolerating well'', ''residuals <[X]mL'',
+    ''no emesis'', ''stool output [X]/day'', ''abdominal distension'', ''dumping syndrome'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: nutrition_support
+  created_at: '2025-10-25T13:54:48.588854'
+  name: 'Pattern: Feeding tolerance indicators: ''toleratin...'
+- id: gi_symptom_patterns_x_episodes_of_s
+  type: pattern
+  content: 'GI symptom patterns: ''[X] episodes of [symptom] per [timeframe]''. Example:
+    ''6-8 large volume watery stools daily'', ''emesis ×3 overnight'', ''c/o abdominal
+    pain after meals'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: gi_symptoms
+  created_at: '2025-10-25T13:54:48.590854'
+  name: 'Pattern: GI symptom patterns: ''[X] episodes of [s...'
+- id: common_z_score_interpretation_errors
+  name: Common Z-Score Interpretation Errors
+  type: guideline
+  content: 'COMMON ERRORS IN Z-SCORE INTERPRETATION (AVOID THESE):
+
+
+    ERROR 1: Wrong Sign
+
+    ✗ "Patient at 3rd percentile with z-score +1.88"
+
+    ✓ "Patient at 3rd percentile with z-score -1.88"
+
+    RULE: Low percentiles = negative z-scores
+
+
+    ERROR 2: Inverted Relationship
+
+    ✗ "Low percentile indicates good growth"
+
+    ✓ "Low percentile indicates poor growth/malnutrition risk"
+
+    RULE: Lower percentile = worse growth
+
+
+    ERROR 3: Inconsistent Pairs
+
+    ✗ "Z-score -2.5, 95th percentile"
+
+    ✓ "Z-score -2.5, <1st percentile (severe malnutrition)"
+
+    RULE: Negative z-scores pair with low percentiles
+
+
+    ERROR 4: Missing Context
+
+    ✗ "Z-score -2"
+
+    ✓ "Weight-for-height z-score -2 (2nd percentile), indicating moderate acute malnutrition
+    per WHO criteria"
+
+    RULE: Always specify measurement type and interpretation
+
+
+    ERROR 5: Ignoring Trends
+
+    ✗ "Single z-score measurement without context"
+
+    ✓ "Z-score decreased from -1.0 to -2.5 over 3 months, indicating rapid weight
+    loss and nutritional decline"
+
+    RULE: Document trajectory and velocity
+
+
+    ERROR 6: Confusing Weight-for-Age with Weight-for-Height
+
+    - Weight-for-age: Can be low due to stunting OR wasting
+
+    - Weight-for-height or BMI-for-age: Better indicator of ACUTE malnutrition
+
+    - Height-for-age: Indicator of CHRONIC malnutrition (stunting)
+
+    RULE: Use all three indicators for comprehensive assessment'
+  metadata:
+    category: malnutrition
+    keywords:
+    - z-score
+    - percentile
+    - malnutrition
+    - growth
+    - WHO
+    - ASPEN
+    - nutrition
+    clinical_area: pediatric nutrition
+  created_at: '2025-11-05T03:41:13.712317'
+- id: illness_related_etiology_examples_seco
+  type: example
+  content: 'Illness-related etiology examples: ''secondary to Crohn''s disease'',
+    ''due to cystic fibrosis with pancreatic insufficiency'', ''following prolonged
+    hospitalization for sepsis'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: etiology
+  created_at: '2025-10-25T13:54:48.586311'
+  name: 'Example: Illness-related etiology examples: ''seco...'
+- id: increased_gi_losses_ostomy_output_x_m
+  type: pattern
+  content: 'Increased GI losses: ''ostomy output [X]mL/day'', ''high nasogastric losses'',
+    ''fistula output'', ''excessive emesis'', ''profuse diarrhea'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: gi_symptoms
+  created_at: '2025-10-25T13:54:48.591039'
+  name: 'Pattern: Increased GI losses: ''ostomy output [X]m...'
+- id: differential_diagnosis_format_ddx_1
+  type: pattern
+  content: 'Differential diagnosis format: ''DDx: 1) [primary], 2) [secondary], 3)
+    [less likely]'' OR ''differential includes [list]'' OR ''considering [diagnosis]
+    vs [diagnosis]'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: differential_diagnosis
+  created_at: '2025-10-25T13:54:48.589314'
+  name: 'Pattern: Differential diagnosis format: ''DDx: 1)...'
+- id: hypertension_diagnosis_and_classification
+  name: Hypertension Diagnosis and Classification
+  type: criteria
+  content: 'ACC/AHA: Normal <120/<80, Elevated 120-129/<80, Stage 1 HTN 130-139/80-89,
+    Stage 2 HTN ≥140/≥90. Confirm with multiple readings. Pediatric HTN: >95th percentile
+    for age/sex/height. Target BP: <130/<80 for most adults, individualize for elderly
+    and comorbidities.'
+  metadata:
+    category: cardiology
+    subcategory: hypertension
+    priority: medium
+  created_at: '2025-11-05T02:53:21.380068'
+- id: reference_micronutrient_deficiency_signs_vitamin
+  type: reference
+  content: 'Micronutrient deficiency signs - Vitamin A: Bitot''s spots, night blindness;
+    Vitamin C: petechiae, bleeding gums; Vitamin D: rickets; Iron: pallor, koilonychia;
+    Zinc: dermatitis, hair changes; B vitamins: glossitis, cheilosis'
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: nfpe
+  created_at: '2025-10-25T13:54:48.586887'
+  name: 'Reference: Micronutrient deficiency signs - Vitamin...'
+- id: feeding_route_abbreviations_po_by_mout
+  type: pattern
+  content: 'Feeding route abbreviations: PO (by mouth), NG (nasogastric), NJ (nasojejunal),
+    G-tube (gastrostomy), GJ (gastrojejunal), TPN (total parenteral nutrition), PPN
+    (peripheral parenteral nutrition)'
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: dietary_intake
+  created_at: '2025-10-25T13:54:48.587170'
+  name: 'Pattern: Feeding route abbreviations: PO (by mout...'
+- id: tpn_composition_format_protein_x_g_kg
+  type: pattern
+  content: 'TPN composition format: protein [X]g/kg/day, lipids [X]g/kg/day, dextrose
+    [X]g/kg/day. Example: ''TPN with 2.5g/kg protein, 3g/kg lipids, GIR 12'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: nutrition_support
+  created_at: '2025-10-25T13:54:48.588671'
+  name: 'Pattern: TPN composition format: protein [X]g/kg/...'
+- id: nfpe_language_patterns_visible_ribs
+  type: pattern
+  content: 'NFPE language patterns: ''visible ribs'', ''prominent clavicles'', ''temporal
+    wasting noted'', ''loss of buccal fat pad'', ''minimal subcutaneous fat'', ''sunken
+    eyes'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: nfpe
+  created_at: '2025-10-25T13:54:48.586787'
+  name: 'Pattern: NFPE language patterns: ''visible ribs'',...'
+- id: nutrition_goals_format_goal_parameter
+  type: pattern
+  content: 'Nutrition goals format: ''goal [parameter] [value] over [timeframe]''.
+    Example: ''goal weight gain 20-30g/day'', ''goal intake 120% RDA'', ''target BMI
+    z-score >-1 by 3 months'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: recommendations
+  created_at: '2025-10-25T13:54:48.589669'
+  name: 'Pattern: Nutrition goals format: ''goal [parameter...'
+- id: growth_trajectory_language_crossing_pe
+  type: pattern
+  content: 'Growth trajectory language: ''crossing percentiles downward'', ''falling
+    off growth curve'', ''declining z-scores'', ''static weight'', ''inadequate weight
+    gain velocity'', ''catch-up growth'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: growth_patterns
+  created_at: '2025-10-25T13:54:48.585520'
+  name: 'Pattern: Growth trajectory language: ''crossing pe...'
+- id: adolescent_considerations_tanner_stage
+  type: pattern
+  content: 'Adolescent considerations: Tanner stage [I-V], pubertal growth spurt,
+    eating disorder screening, BMI interpreted in context of puberty'
+  metadata:
+    category: pediatric_malnutrition
+    priority: low
+    subcategory: age_specific_adolescent
+  created_at: '2025-10-25T13:54:48.588398'
+  name: 'Pattern: Adolescent considerations: Tanner stage...'
+- id: reference_common_pediatric_formulas_pediasure_ped
+  type: reference
+  content: 'Common pediatric formulas: Pediasure/PediaSure 1.5 (oral supplement),
+    Similac/Enfamil (infant formula), Elecare/Neocate (hypoallergenic), Compleat Pediatric
+    (blenderized), Peptamen Junior (semi-elemental)'
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: nutrition_support
+  created_at: '2025-10-25T13:54:48.588574'
+  name: 'Reference: Common pediatric formulas: Pediasure/Ped...'
+- id: when_classifying_malnutrition_etiology
+  type: guideline
+  content: When classifying malnutrition etiology, identify if illness-related or
+    non-illness-related, then specify subcategory. Quote the primary diagnosis or
+    contributing factors directly from the note.
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: etiology
+  created_at: '2025-10-25T13:54:48.586217'
+  name: 'Guideline: When classifying malnutrition etiology,...'
+- id: reference_percentile_to_z_score_relationship_belo
+  type: reference
+  content: 'Percentile to z-score relationship: Below 50th percentile = negative z-score
+    (below average), 50th percentile = z-score 0 (average), Above 50th percentile
+    = positive z-score (above average). Examples: 3rd percentile ≈ z-score -1.88,
+    10th percentile ≈ z-score -1.28, 25th percentile ≈ z-score -0.67, 50th percentile
+    = z-score 0, 75th percentile ≈ z-score +0.67, 90th percentile ≈ z-score +1.28,
+    97th percentile ≈ z-score +1.88.'
+  metadata:
+    category: pediatric_malnutrition
+    priority: HIGH
+    subcategory: anthropometrics
+  created_at: '2025-10-25T13:54:48.585178'
+  name: 'Reference: Percentile to z-score relationship: Belo...'
+- id: referral_language_gi_consult_for_reas
+  type: pattern
+  content: 'Referral language: ''GI consult for [reason]'', ''feeding therapy referral'',
+    ''social work for [issue]'', ''PT/OT eval'', ''speech eval for dysphagia'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: recommendations
+  created_at: '2025-10-25T13:54:48.589932'
+  name: 'Pattern: Referral language: ''GI consult for [reas...'
+- id: reference_days_to_regain_birthweight_term_infants
+  type: reference
+  content: 'Days to regain birthweight: term infants should regain by 7-14 days, preterm
+    by 14-21 days. Delayed regain suggests feeding issues or malnutrition risk'
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: age_specific_neonatal
+  created_at: '2025-10-25T13:54:48.588222'
+  name: 'Reference: Days to regain birthweight: term infants...'
+- id: normal_vital_sign_ranges_pediatric
+  name: Normal Vital Sign Ranges - Pediatric
+  type: reference
+  content: 'Heart rate (bpm): Newborn 120-160, Infant 100-160, Toddler 90-150, Preschool
+    80-140, School-age 70-120, Adolescent 60-100. Respiratory rate: Newborn 30-60,
+    Infant 24-40, Toddler 20-30, Preschool 20-25, School-age 18-22, Adolescent 12-20.
+    BP increases with age; use age-specific percentiles.'
+  metadata:
+    category: pediatrics
+    subcategory: vitals
+    priority: medium
+  created_at: '2025-11-05T02:53:21.377701'
+- id: reference_common_malnutrition_icd_10_codes_e44_0
+  type: reference
+  content: 'Common malnutrition ICD-10 codes: E44.0 (moderate PCM), E44.1 (mild PCM),
+    E43 (severe PCM), E46 (unspecified PCM), R62.51 (failure to thrive), Z68.51 (BMI
+    <5th percentile)'
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: documentation
+  created_at: '2025-10-25T13:54:48.590117'
+  name: 'Reference: Common malnutrition ICD-10 codes: E44.0...'
+- id: temporal_data_capture
+  name: Temporal Data Capture
+  type: pattern
+  content: 'Always capture dates with measurements: ''Weight 12.5kg on 1/15/25 (25th%ile,
+    z-score -0.7)''. Calculate trends: absolute change, percentage change, rate of
+    change, velocity, percentile trajectory. Identify assessment type: single-point,
+    serial same-encounter, longitudinal multi-encounter.'
+  metadata:
+    category: documentation
+    subcategory: temporal
+    priority: high
+  created_at: '2025-11-05T02:53:21.377370'
+- id: malnutrition_etiology_classification
+  name: Malnutrition Etiology Classification
+  type: criteria
+  content: 'Illness-related malnutrition: Associated with acute/chronic disease, inflammation.
+    Non-illness-related: Caused by environmental factors, food insecurity, neglect.
+    Socio-environmental: Social determinants of health. Mixed etiology: Combination
+    of factors. Document primary driver.'
+  metadata:
+    category: malnutrition
+    subcategory: etiology
+    priority: medium
+  created_at: '2025-11-05T02:53:21.377070'
+- id: food_insecurity_language_food_insecuri
+  type: pattern
+  content: 'Food insecurity language: ''food insecurity identified'', ''family unable
+    to afford formula'', ''WIC referral made'', ''food pantry information provided'',
+    ''SNAP enrollment assisted'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: social_determinants
+  created_at: '2025-10-25T13:54:48.590298'
+  name: 'Pattern: Food insecurity language: ''food insecuri...'
+- id: dietary_recommendation_format_high_cal
+  type: pattern
+  content: 'Dietary recommendation format: ''high-calorie, high-protein diet'', ''fortify
+    with [ingredient]'', ''liberalize diet to [description]'', ''advance texture to
+    [level]'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: recommendations
+  created_at: '2025-10-25T13:54:48.589846'
+  name: 'Pattern: Dietary recommendation format: ''high-cal...'
+- id: who_malnutrition_z_score_criteria
+  name: WHO Malnutrition Z-Score Criteria
+  type: guideline
+  content: "WHO MALNUTRITION CLASSIFICATION BY Z-SCORE:\n\nWeight-for-Height or BMI-for-Age:\n\
+    - z < -3 SD: SEVERE ACUTE MALNUTRITION (SAM)\n  * Requires immediate intervention\n\
+    \  * High mortality risk\n  * <1st percentile\n\n- -3 ≤ z < -2 SD: MODERATE ACUTE\
+    \ MALNUTRITION (MAM)\n  * Nutritional rehabilitation needed\n  * 2nd-3rd percentile\n\
+    \  * Risk of progression to SAM\n\n- -2 ≤ z < -1 SD: MILD MALNUTRITION RISK\n\
+    \  * Close monitoring required\n  * 3rd-15th percentile\n  * Early intervention\
+    \ may prevent progression\n\n- -1 ≤ z ≤ +1 SD: NORMAL RANGE\n  * 15th-85th percentile\n\
+    \  * No malnutrition\n\n- z > +2 SD: OVERWEIGHT/OBESITY\n  * >97th percentile\n\
+    \nHeight-for-Age (Stunting - Chronic Malnutrition):\n- z < -3 SD: SEVERELY STUNTED\n\
+    - z < -2 SD: STUNTED (chronic undernutrition)\n- z ≥ -2 SD: Normal height\n\n\
+    Weight-for-Age (Combined Indicator):\n- z < -3 SD: SEVERELY UNDERWEIGHT\n- z <\
+    \ -2 SD: UNDERWEIGHT\n- z ≥ -2 SD: Normal weight"
+  metadata:
+    category: malnutrition
+    keywords:
+    - z-score
+    - percentile
+    - malnutrition
+    - growth
+    - WHO
+    - ASPEN
+    - nutrition
+    clinical_area: pediatric nutrition
+  created_at: '2025-11-05T03:41:13.711399'
+- id: access_barriers_transportation_challen
+  type: pattern
+  content: 'Access barriers: ''transportation challenges'', ''no phone for follow-up'',
+    ''missed appointments ×[X]'', ''housing instability'', ''limited English proficiency'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: social_determinants
+  created_at: '2025-10-25T13:54:48.590395'
+  name: 'Pattern: Access barriers: ''transportation challen...'
+- id: aspen_pediatric_malnutrition_criteria_with_z_scores
+  name: ASPEN Pediatric Malnutrition Criteria with Z-Scores
+  type: guideline
+  content: "ASPEN PEDIATRIC MALNUTRITION CRITERIA (Requires 2+ indicators):\n\nZ-Score\
+    \ Based Indicators:\n\n1. WEIGHT-FOR-HEIGHT or BMI-FOR-AGE:\n   Mild: z-score\
+    \ -1 to -1.9 (approximately 3rd-15th percentile)\n   Moderate: z-score -2 to -2.9\
+    \ (approximately 0.5th-3rd percentile)\n   Severe: z-score ≤ -3 (<0.5th percentile)\n\
+    \n2. LENGTH/HEIGHT-FOR-AGE (if chronically malnourished):\n   Mild: z-score -1\
+    \ to -1.9\n   Moderate: z-score -2 to -2.9\n   Severe: z-score ≤ -3\n\n3. WEIGHT\
+    \ LOSS (compared to baseline):\n   Mild: 5% weight loss\n   Moderate: 7.5% weight\
+    \ loss\n   Severe: 10% weight loss\n\n4. DECELERATION IN WEIGHT GAIN VELOCITY:\n\
+    \   Mild: Decline of 1 z-score\n   Moderate: Decline of 2 z-scores\n   Severe:\
+    \ Decline of 3 z-scores\n\n5. INADEQUATE NUTRIENT INTAKE:\n   Mild: <75% estimated\
+    \ needs for >7 days\n   Moderate: <50% estimated needs for >7 days\n   Severe:\
+    \ <25% estimated needs for >7 days\n\nAdditional Indicators (support diagnosis):\n\
+    - Physical exam: muscle wasting, subcutaneous fat loss\n- Laboratory: low albumin,\
+    \ prealbumin\n- Functional: reduced activity, developmental delay\n\nIMPORTANT:\
+    \ Z-score below -2 is a PRIMARY indicator. Document trends over time."
+  metadata:
+    category: malnutrition
+    keywords:
+    - z-score
+    - percentile
+    - malnutrition
+    - growth
+    - WHO
+    - ASPEN
+    - nutrition
+    clinical_area: pediatric nutrition
+  created_at: '2025-11-05T03:41:13.711719'
+- id: reference_expected_weight_gain_velocity_infants
+  type: reference
+  content: 'Expected weight gain velocity - Infants 0-3 months: 25-35g/day, 3-6 months:
+    15-20g/day, 6-12 months: 10-15g/day, 1-2 years: 5-10g/day'
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: growth_velocity
+  created_at: '2025-10-25T13:54:48.587266'
+  name: 'Reference: Expected weight gain velocity - Infants...'
+- id: infant_feeding_types_exclusive_breastfe
+  type: pattern
+  content: 'Infant feeding types: exclusive breastfeeding, formula feeding (specify
+    brand/type), mixed feeding, complementary foods started at [X] months'
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: age_specific_infant
+  created_at: '2025-10-25T13:54:48.588307'
+  name: 'Pattern: Infant feeding types: exclusive breastfe...'
+- id: intake_adequacy_phrases_consuming_x
+  type: pattern
+  content: 'Intake adequacy phrases: ''consuming [X]% of estimated needs'', ''inadequate
+    intake × [X] days/weeks'', ''tolerating [X]% of goal feeds'', ''refusing most/all
+    PO intake'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: dietary_intake
+  created_at: '2025-10-25T13:54:48.587075'
+  name: 'Pattern: Intake adequacy phrases: ''consuming [X]%...'
+- id: cdc_growth_charts
+  name: CDC Growth Charts
+  type: guideline
+  content: 'CDC Growth Charts (2-20 years): Weight-for-age, stature-for-age, BMI-for-age.
+    Percentiles classify: <5th underweight, 5-84th healthy weight, 85-94th overweight,
+    ≥95th obese. Z-scores: -2 SD corresponds to ~2nd percentile, +2 SD to ~98th percentile.'
+  metadata:
+    category: pediatrics
+    subcategory: growth
+    priority: high
+  created_at: '2025-11-05T02:53:21.375207'
+- id: pediatric_abbreviations_ftt_failure_t
+  type: pattern
+  content: 'Pediatric abbreviations: FTT = failure to thrive, PCM = protein-calorie
+    malnutrition, IUGR = intrauterine growth restriction, SGA = small for gestational
+    age, AGA = appropriate for gestational age, LGA = large for gestational age'
+  metadata:
+    category: abbreviations
+    priority: high
+    subcategory: pediatric
+  created_at: '2025-10-25T13:54:48.591928'
+  name: 'Pattern: Pediatric abbreviations: FTT = failure t...'
+- id: non_illness_related_etiology_examples
+  type: example
+  content: 'Non-illness-related etiology examples: ''food insecurity documented'',
+    ''behavioral feeding disorder'', ''extreme dietary restriction'', ''inadequate
+    caregiver knowledge'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: etiology
+  created_at: '2025-10-25T13:54:48.586403'
+  name: 'Example: Non-illness-related etiology examples: ''...'
+- id: z_score_documentation_best_practices
+  name: Z-Score Documentation Best Practices
+  type: pattern
+  content: 'BEST PRACTICES FOR DOCUMENTING Z-SCORES IN MALNUTRITION ASSESSMENT:
+
+
+    Always Document:
+
+    1. The actual z-score value (with sign)
+
+    2. The corresponding percentile
+
+    3. The measurement type (weight-for-age, height-for-age, BMI-for-age, weight-for-height)
+
+    4. Date of measurement
+
+    5. Comparison to previous measurements (trend)
+
+
+    Correct Documentation Examples:
+
+    ✓ "Weight 12.5 kg, weight-for-age z-score -1.88 (3rd percentile)"
+
+    ✓ "BMI 14.8 kg/m², BMI-for-age z-score -2.1 (2nd percentile), indicating moderate
+    acute malnutrition"
+
+    ✓ "Height 92 cm, height-for-age z-score -0.67 (25th percentile), within normal
+    range"
+
+
+    Incorrect Documentation (DO NOT USE):
+
+    ✗ "3rd percentile, z-score +1.88" (wrong sign - should be negative)
+
+    ✗ "Below average growth, z-score positive" (contradiction)
+
+    ✗ "Z-score -2, 97th percentile" (inconsistent - -2 ≈ 2nd percentile, not 97th)
+
+
+    Trend Documentation:
+
+    - "Weight z-score declined from -1.2 (6 months ago) to -2.1 (today), indicating
+    progression of malnutrition"
+
+    - "Height-for-age z-score improved from -2.5 to -1.8 over 3 months with nutritional
+    intervention"
+
+
+    Remember: Negative z-scores = below average = lower percentiles'
+  metadata:
+    category: malnutrition
+    keywords:
+    - z-score
+    - percentile
+    - malnutrition
+    - growth
+    - WHO
+    - ASPEN
+    - nutrition
+    clinical_area: pediatric nutrition
+  created_at: '2025-11-05T03:41:13.711983'
+- id: growth_velocity_assessment
+  name: Growth Velocity Assessment
+  type: tip
+  content: 'Growth velocity = change in measurement over time. Calculate: (final -
+    initial) / time period. Express as g/day for weight, cm/month for height. Compare
+    to expected velocity for age. Deceleration (crossing percentiles downward) is
+    concerning even if absolute values are normal.'
+  metadata:
+    category: pediatrics
+    subcategory: growth
+    priority: medium
+  created_at: '2025-11-05T02:53:21.376687'
+- id: icd_10_format_in_notes_icd_10_code
+  type: pattern
+  content: 'ICD-10 format in notes: ICD-10 [code], [description]. Example: ''ICD-10
+    E44.0, moderate protein-calorie malnutrition'' OR ''coded as E44.1 mild PCM'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: low
+    subcategory: documentation
+  created_at: '2025-10-25T13:54:48.590207'
+  name: 'Pattern: ICD-10 format in notes: ICD-10 [code], [...'
+- id: reference_stamp_scoring_green_0_1_low_risk_a
+  type: reference
+  content: 'STAMP scoring: Green (0-1) = low risk, Amber (2-3) = medium risk, Red
+    (≥4) = high risk'
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: screening_tools
+  created_at: '2025-10-25T13:54:48.585824'
+  name: 'Reference: STAMP scoring: Green (0-1) = low risk, A...'
+- id: developmental_milestones_language_not
+  type: pattern
+  content: 'Developmental milestones language: ''not meeting milestones'', ''developmental
+    delay'', ''age-appropriate development'', ''unable to [skill] at [age]'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: low
+    subcategory: functional_status
+  created_at: '2025-10-25T13:54:48.590585'
+  name: 'Pattern: Developmental milestones language: ''not...'
+- id: when_extracting_recommendations_capture
+  type: guideline
+  content: 'When extracting recommendations, capture: 1) What intervention, 2) Why
+    (rationale), 3) How (specifics/dosing), 4) When (monitoring/follow-up), 5) What
+    if it fails (contingency)'
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: recommendations
+  created_at: '2025-10-25T13:54:48.590026'
+  name: 'Guideline: When extracting recommendations, capture...'
+- id: malnutrition_etiology_types_mehta_2013
+  type: definition
+  content: 'Malnutrition etiology types (Mehta 2013): Illness-related (acute illness/injury,
+    chronic disease, environmental/social circumstances) OR Non-illness-related (behavioral,
+    food insecurity)'
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: etiology
+  created_at: '2025-10-25T13:54:48.586123'
+  name: 'Definition: Malnutrition etiology types (Mehta 2013)...'
+- id: percentile_to_z_score_conversion
+  name: Percentile to Z-Score Conversion
+  type: reference
+  content: 'Common conversions: 2nd%ile ≈ -2.0 SD, 5th%ile ≈ -1.64 SD, 10th%ile ≈
+    -1.28 SD, 25th%ile ≈ -0.67 SD, 50th%ile = 0 SD, 75th%ile ≈ +0.67 SD, 90th%ile
+    ≈ +1.28 SD, 95th%ile ≈ +1.64 SD, 98th%ile ≈ +2.0 SD.'
+  metadata:
+    category: statistics
+    subcategory: conversion
+    priority: high
+  created_at: '2025-11-05T02:53:21.376309'
+- id: weight_loss_documentation_x_body_we
+  type: pattern
+  content: 'Weight loss documentation: ''[X]% body weight lost over [timeframe]''.
+    Example: ''8% weight loss over 2 weeks'', ''5% weight loss in past month'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: growth_velocity
+  created_at: '2025-10-25T13:54:48.587360'
+  name: 'Pattern: Weight loss documentation: ''[X]% body we...'
+- id: validated_pediatric_nutrition_screening
+  type: definition
+  content: 'Validated pediatric nutrition screening tools: STRONGkids (Screening Tool
+    for Risk on Nutritional Status and Growth), STAMP (Screening Tool for Assessment
+    of Malnutrition in Pediatrics), PYMS (Pediatric Yorkhill Malnutrition Score),
+    PNST (Pediatric Nutrition Screening Tool)'
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: screening_tools
+  created_at: '2025-10-25T13:54:48.586025'
+  name: 'Definition: Validated pediatric nutrition screening...'
+- id: reference_inflammatory_markers_crp_c_reactive_pr
+  type: reference
+  content: 'Inflammatory markers: CRP (C-reactive protein) >10 mg/L = inflammation
+    present. ESR (erythrocyte sedimentation rate) elevated = inflammation. Always
+    interpret albumin/prealbumin in context of inflammation'
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: laboratory
+  created_at: '2025-10-25T13:54:48.587754'
+  name: 'Reference: Inflammatory markers: CRP (C-reactive pr...'
+- id: reference_malnutrition_associated_complications_i
+  type: reference
+  content: 'Malnutrition-associated complications: increased infection risk, delayed
+    wound healing, prolonged ventilation, increased ICU LOS, higher readmission rates,
+    impaired growth/development'
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: outcomes
+  created_at: '2025-10-25T13:54:48.589130'
+  name: 'Reference: Malnutrition-associated complications: i...'
+- id: z_score_and_percentile_relationship
+  name: Z-Score and Percentile Relationship
+  type: reference
+  content: 'Z-SCORE AND PERCENTILE RELATIONSHIP FOR GROWTH ASSESSMENT:
+
+
+    CRITICAL: Lower percentiles correspond to NEGATIVE z-scores
+
+
+    Standard Conversions:
+
+    - 50th percentile = z-score 0 (mean/average)
+
+    - 25th percentile = z-score -0.67
+
+    - 10th percentile = z-score -1.28
+
+    - 5th percentile = z-score -1.64 (malnutrition risk threshold)
+
+    - 3rd percentile = z-score -1.88 (moderate malnutrition)
+
+    - 2nd percentile = z-score -2.0 (severe malnutrition threshold)
+
+    - 1st percentile = z-score -2.33
+
+    - <1st percentile = z-score < -2.5 (very severe)
+
+
+    Above Mean:
+
+    - 75th percentile = z-score +0.67
+
+    - 90th percentile = z-score +1.28
+
+    - 95th percentile = z-score +1.64 (overweight threshold)
+
+    - 97th percentile = z-score +1.88
+
+    - 99th percentile = z-score +2.33
+
+
+    INTERPRETATION RULE: If a patient is at a low percentile (e.g., 3rd), the z-score
+    MUST be negative (e.g., -1.88). Never report positive z-scores for low percentiles.'
+  metadata:
+    category: malnutrition
+    keywords:
+    - z-score
+    - percentile
+    - malnutrition
+    - growth
+    - WHO
+    - ASPEN
+    - nutrition
+    clinical_area: pediatric nutrition
+  created_at: '2025-11-05T03:41:13.710822'
+- id: albumin_format_albumin_value_g_dl_no
+  type: pattern
+  content: 'Albumin format: albumin [value] g/dL. Normal: 3.5-5.0 g/dL. Low albumin
+    does NOT diagnose malnutrition - consider inflammation (check CRP)'
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: laboratory
+  created_at: '2025-10-25T13:54:48.587560'
+  name: 'Pattern: Albumin format: albumin [value] g/dL. No...'
+- id: grip_strength_format_hand_grip_value_k
+  type: pattern
+  content: 'Grip strength format: hand grip [value]kg (expected [value]kg for age).
+    Example: ''hand grip 12kg, expected 18kg for age - reduced'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: low
+    subcategory: functional_status
+  created_at: '2025-10-25T13:54:48.590679'
+  name: 'Pattern: Grip strength format: hand grip [value]k...'
+- id: z_score_extraction_and_interpretation_w
+  type: guideline
+  content: 'Z-score extraction and interpretation: When extracting z-scores from format
+    ''[NUMBER] z [NUMBER]'', the FIRST number is the percentile and the SECOND number
+    is the z-score value. For percentiles below 50th, add a negative sign to the z-score
+    value and interpret as below average for age; for percentiles above 50th, z-scores
+    remain positive and indicate above average for age. Always cross-check against
+    clinical context like ''short stature,'' ''underweight,'' or ''appears small for
+    age'' to validate interpretation.'
+  metadata:
+    category: extraction_guidelines
+    priority: CRITICAL
+    subcategory: anthropometrics
+  created_at: '2025-10-25T13:54:48.584852'
+  name: 'Guideline: Z-score extraction and interpretation: W...'
+- id: quick_reference_z_score_cutoffs
+  name: Quick Reference - Z-Score Cutoffs
+  type: reference
+  content: 'QUICK REFERENCE: CRITICAL Z-SCORE CUTOFFS FOR MALNUTRITION
+
+
+    Immediate Red Flags (Require Urgent Action):
+
+    - z < -3 SD: SEVERE malnutrition (<1st percentile)
+
+    - z < -2 SD: MODERATE malnutrition (2nd-3rd percentile)
+
+
+    Monitoring Needed:
+
+    - z < -1.64 SD: Below 5th percentile (at-risk)
+
+    - z < -1 SD: Below 15th percentile (monitor)
+
+
+    Normal Range:
+
+    - -1 to +1 SD: 15th-85th percentile (normal)
+
+
+    Overweight Thresholds:
+
+    - z > +1.64 SD: Above 95th percentile (overweight)
+
+    - z > +2 SD: Above 97th percentile (obesity)
+
+
+    Velocity/Decline Thresholds (ASPEN):
+
+    - Decline of 1 z-score: Mild concern
+
+    - Decline of 2 z-scores: Moderate concern
+
+    - Decline of 3 z-scores: Severe concern
+
+
+    Memory Aid: "2-2-2 Rule"
+
+    - Below -2: Moderate problem
+
+    - Below -2 in 2 indicators: Malnutrition diagnosis (ASPEN)
+
+    - Decline of 2: Moderate severity'
+  metadata:
+    category: malnutrition
+    keywords:
+    - z-score
+    - percentile
+    - malnutrition
+    - growth
+    - WHO
+    - ASPEN
+    - nutrition
+    clinical_area: pediatric nutrition
+  created_at: '2025-11-05T03:41:13.712557'
+- id: length_of_stay_format_hospital_day_x
+  type: pattern
+  content: 'Length of stay format: hospital day [X], LOS [X] days, ICU days [X], prolonged
+    hospitalization (>expected for diagnosis)'
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: outcomes
+  created_at: '2025-10-25T13:54:48.589034'
+  name: 'Pattern: Length of stay format: hospital day [X],...'
+- id: micronutrient_lab_patterns_25_oh_vitam
+  type: pattern
+  content: 'Micronutrient lab patterns: ''25-OH vitamin D [value] ng/mL'', ''ferritin
+    [value] ng/mL'', ''zinc level [value] mcg/dL'', ''vitamin B12 [value] pg/mL'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: laboratory
+  created_at: '2025-10-25T13:54:48.587939'
+  name: 'Pattern: Micronutrient lab patterns: ''25-OH vitam...'
+- id: activity_level_descriptions_lethargic
+  type: pattern
+  content: 'Activity level descriptions: ''lethargic'', ''active and playful'', ''decreased
+    activity'', ''fatigues easily'', ''limited mobility'', ''bedbound'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: low
+    subcategory: functional_status
+  created_at: '2025-10-25T13:54:48.590765'
+  name: 'Pattern: Activity level descriptions: ''lethargic''...'
+- id: muscle_wasting_sites_temporalis_clavic
+  type: pattern
+  content: 'Muscle wasting sites: temporalis, clavicle, scapula, ribs, quadriceps,
+    calf. Severity grading: none, mild, moderate, severe'
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: nfpe
+  created_at: '2025-10-25T13:54:48.586497'
+  name: 'Pattern: Muscle wasting sites: temporalis, clavic...'
+- id: who_growth_standards
+  name: WHO Growth Standards
+  type: guideline
+  content: 'WHO Child Growth Standards (0-5 years): Weight-for-age, length/height-for-age,
+    weight-for-length/height, and BMI-for-age. Z-scores classify nutritional status:
+    <-3 SD severely wasted, <-2 SD wasted, -2 to +1 SD normal, >+1 SD possible risk
+    of overweight, >+2 SD overweight, >+3 SD obese.'
+  metadata:
+    category: pediatrics
+    subcategory: growth
+    priority: high
+  created_at: '2025-11-05T02:53:21.374824'
+- id: caregiver_concerns_inadequate_caregive
+  type: pattern
+  content: 'Caregiver concerns: ''inadequate caregiver knowledge'', ''concern for
+    neglect'', ''overwhelmed single parent'', ''mental health barriers'', ''competing
+    priorities'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: social_determinants
+  created_at: '2025-10-25T13:54:48.590487'
+  name: 'Pattern: Caregiver concerns: ''inadequate caregive...'
+- id: z_score_interpretation
+  name: Z-Score Interpretation
+  type: tip
+  content: Z-scores represent standard deviations from population mean. Negative z-scores
+    are below average (e.g., -2.0 = 2 SD below mean, ~2nd percentile). Positive z-scores
+    are above average (e.g., +1.5 = 1.5 SD above mean, ~93rd percentile). For percentiles
+    <50th, expect negative z-scores; for >50th, expect positive z-scores.
+  metadata:
+    category: statistics
+    subcategory: interpretation
+    priority: high
+  created_at: '2025-11-05T02:53:21.375971'
+- id: critical_per_aspen_2021_position_paper
+  type: guideline
+  content: 'CRITICAL: Per ASPEN 2021 position paper, albumin and prealbumin are NOT
+    markers of nutritional status. They reflect inflammation and illness severity.
+    Do not use to diagnose malnutrition - use z-scores instead.'
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: laboratory
+  created_at: '2025-10-25T13:54:48.587849'
+  name: 'Guideline: CRITICAL: Per ASPEN 2021 position paper,...'
+- id: ddx_example_ddx_1_moderate_acute_mal
+  type: example
+  content: 'DDx example: ''DDx: 1) Moderate acute malnutrition 2° IBD, 2) Celiac disease
+    (tTG pending), 3) Pancreatic insufficiency (fecal elastase ordered)'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: differential_diagnosis
+  created_at: '2025-10-25T13:54:48.589578'
+  name: 'Example: DDx example: ''DDx: 1) Moderate acute mal...'
+- id: readmission_language_readmitted_within
+  type: pattern
+  content: 'Readmission language: ''readmitted within [X] days'', ''second admission
+    this month'', ''frequent flyer'', ''revolving door admissions'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: low
+    subcategory: outcomes
+  created_at: '2025-10-25T13:54:48.589224'
+  name: 'Pattern: Readmission language: ''readmitted within...'
+- id: reference_key_anthropometric_indicators_whz_weig
+  type: reference
+  content: 'Key anthropometric indicators: WHZ (weight-for-height z-score), BAZ (BMI-for-age
+    z-score), HAZ (height-for-age z-score), MUAC (mid-upper arm circumference) z-score'
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: anthropometrics
+  created_at: '2025-10-25T13:54:48.585411'
+  name: 'Reference: Key anthropometric indicators: WHZ (weig...'
+- id: screening_tool_format_tool_name_score
+  type: pattern
+  content: 'Screening tool format: [Tool name] score [X], [risk level]. Example: STRONGkids
+    score 4, high risk; STAMP score 3, medium risk; PYMS score 2'
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: screening_tools
+  created_at: '2025-10-25T13:54:48.585925'
+  name: 'Pattern: Screening tool format: [Tool name] score...'
+- id: rule_out_language_ruling_out_diagnosi
+  type: pattern
+  content: 'Rule-out language: ''ruling out [diagnosis]'', ''r/o [diagnosis]'', ''[diagnosis]
+    unlikely given [reason]'', ''negative [test] rules out [diagnosis]'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: differential_diagnosis
+  created_at: '2025-10-25T13:54:48.589401'
+  name: 'Pattern: Rule-out language: ''ruling out [diagnosi...'
+- id: reference_neonatal_malnutrition_risk_factors_extr
+  type: reference
+  content: 'Neonatal malnutrition risk factors: extremely preterm (<28 weeks), ELBW
+    (<1000g), IUGR (intrauterine growth restriction), NEC (necrotizing enterocolitis),
+    congenital GI malformations (gastroschisis)'
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: age_specific_neonatal
+  created_at: '2025-10-25T13:54:48.588033'
+  name: 'Reference: Neonatal malnutrition risk factors: extr...'
+- id: monitoring_plan_language_daily_weights
+  type: pattern
+  content: 'Monitoring plan language: ''daily weights'', ''weekly growth checks'',
+    ''q[X] days RD follow-up'', ''recheck labs in [X] weeks'', ''food diary × [X]
+    days'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: recommendations
+  created_at: '2025-10-25T13:54:48.589755'
+  name: 'Pattern: Monitoring plan language: ''daily weights...'
+- id: fat_loss_assessment_sites_orbital_eyes
+  type: pattern
+  content: 'Fat loss assessment sites: orbital (eyes), triceps (back of upper arm),
+    subscapular (below shoulder blade). Severity: none, mild, moderate, severe'
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: nfpe
+  created_at: '2025-10-25T13:54:48.586587'
+  name: 'Pattern: Fat loss assessment sites: orbital (eyes...'
+- id: nutritional_risk_screening
+  name: Nutritional Risk Screening
+  type: criteria
+  content: 'Screen with validated tools: MST (Malnutrition Screening Tool), NRS-2002,
+    MUST (Malnutrition Universal Screening Tool). Red flags: Unintentional weight
+    loss ≥5% in 1 month or ≥10% in 6 months, BMI <18.5, decreased oral intake, GI
+    symptoms, chronic disease. Refer to dietitian if positive screen.'
+  metadata:
+    category: nutrition
+    subcategory: screening
+    priority: medium
+  created_at: '2025-11-05T02:53:21.390694'
+- id: prealbumin_format_prealbumin_value_mg
+  type: pattern
+  content: 'Prealbumin format: prealbumin [value] mg/dL. Normal: 20-40 mg/dL. Short
+    half-life marker but affected by inflammation, not diagnostic of malnutrition
+    alone'
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: laboratory
+  created_at: '2025-10-25T13:54:48.587654'
+  name: 'Pattern: Prealbumin format: prealbumin [value] mg...'
+- id: z_score_format_measurement_z_score
+  type: pattern
+  content: 'Z-score format: [measurement] z-score: [value]. Example: BMI-for-age z-score:
+    -2.3, Weight-for-length z-score: -1.8, MUAC z-score: -2.1'
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: anthropometrics
+  created_at: '2025-10-25T13:54:48.584288'
+  name: 'Pattern: Z-score format: [measurement] z-score: [...'
+- id: enteral_formula_format_formula_name
+  type: pattern
+  content: 'Enteral formula format: [Formula name] [caloric density] at [rate] [route].
+    Example: ''Pediasure 1.5 Cal at 40mL/hr via NG tube'', ''Elecare 20cal/oz PO'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: nutrition_support
+  created_at: '2025-10-25T13:54:48.588487'
+  name: 'Pattern: Enteral formula format: [Formula name] [...'
+- id: for_infants_2_years_extract_weight_gai
+  type: guideline
+  content: For infants <2 years, extract weight gain velocity in g/day or g/week.
+    For children 2-20 years, extract % weight loss with timeframe. Always quote exact
+    values from the note.
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: dietary_intake
+  created_at: '2025-10-25T13:54:48.587461'
+  name: 'Guideline: For infants <2 years, extract weight gai...'
+- id: bmi_classification_adults
+  name: BMI Classification - Adults
+  type: criteria
+  content: 'BMI (kg/m²): <18.5 Underweight, 18.5-24.9 Normal weight, 25-29.9 Overweight,
+    30-34.9 Obesity Class I, 35-39.9 Obesity Class II, ≥40 Obesity Class III (severe).
+    Limitations: Doesn''t distinguish muscle vs fat, varies by ethnicity.'
+  metadata:
+    category: nutrition
+    subcategory: bmi
+    priority: high
+  created_at: '2025-11-05T02:53:21.378496'
+- id: reference_strongkids_scoring_0_points_low_risk
+  type: reference
+  content: 'STRONGkids scoring: 0 points = low risk, 1-3 points = moderate risk, 4-5
+    points = high risk for malnutrition'
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: screening_tools
+  created_at: '2025-10-25T13:54:48.585727'
+  name: 'Reference: STRONGkids scoring: 0 points = low risk,...'
+- id: chemotherapy_encounter_criteria
+  type: diagnostic_criteria
+  name: Chemotherapy Encounter - Management and Complications
+  content: "ENCOUNTER FOR ANTINEOPLASTIC CHEMOTHERAPY:\n\nDEFINITION:\n- Healthcare\
+    \ encounter for administration of systemic chemotherapy\n- ICD-10: Z51.11 (encounter\
+    \ for antineoplastic chemotherapy)\n- May be inpatient or outpatient\n\nPRE-CHEMOTHERAPY\
+    \ ASSESSMENT:\n\n1. LABORATORY:\n   - CBC with differential (assess for cytopenias)\n\
+    \   - CMP (renal/hepatic function, electrolytes)\n   - LFTs (many agents hepatically\
+    \ metabolized)\n   - Pregnancy test (if applicable)\n   - Additional: Tumor markers,\
+    \ specific organ function tests\n\n2. DOSE ADJUSTMENT CRITERIA:\n   - Renal function\
+    \ (GFR/CrCl) - many agents renally cleared\n   - Hepatic function (bilirubin,\
+    \ transaminases)\n   - Performance status (ECOG 0-4, Karnofsky 0-100)\n   - Prior\
+    \ toxicities\n\n3. SUPPORTIVE CARE:\n   - Antiemetics: 5-HT3 antagonists, NK1\
+    \ antagonists, dexamethasone\n   - Hydration (nephrotoxic agents: cisplatin, ifosfamide)\n\
+    \   - Growth factors: G-CSF if high risk neutropenia\n   - Tumor lysis prophylaxis:\
+    \ Allopurinol, rasburicase (high tumor burden)\n\nCOMMON CHEMOTHERAPY TOXICITIES:\n\
+    \n1. HEMATOLOGIC:\n   - Myelosuppression (nadir typically 7-14 days)\n   - Neutropenia:\
+    \ Infection risk, fever >38.3°C = emergency\n   - Anemia: Fatigue, may need transfusion\
+    \ or ESA\n   - Thrombocytopenia: Bleeding risk\n   \n   Management:\n   - G-CSF\
+    \ (filgrastim, pegfilgrastim) if ANC <1000 or febrile neutropenia\n   - Dose delay\
+    \ or reduction if severe\n\n2. GASTROINTESTINAL:\n   - Nausea/vomiting (acute\
+    \ <24h, delayed 24h-5days, anticipatory)\n   - Mucositis/stomatitis\n   - Diarrhea\
+    \ or constipation\n   - Hepatotoxicity\n   \n   Emetogenic potential:\n   - High\
+    \ (>90%): Cisplatin, AC regimen\n   - Moderate (30-90%): Carboplatin, oxaliplatin,\
+    \ doxorubicin\n   - Low (<30%): Taxanes, gemcitabine\n\n3. RENAL:\n   - Acute\
+    \ kidney injury (cisplatin, ifosfamide, methotrexate)\n   - Hemorrhagic cystitis\
+    \ (cyclophosphamide, ifosfamide)\n   - Electrolyte wasting (cisplatin: Mg, K)\n\
+    \   \n   Prevention:\n   - Aggressive hydration\n   - Mesna (for cyclophosphamide/ifosfamide)\n\
+    \   - Electrolyte replacement\n\n4. CARDIAC:\n   - Cardiomyopathy (anthracyclines:\
+    \ doxorubicin, lifetime dose limit)\n   - Arrhythmias\n   - Ischemia (5-FU, capecitabine)\n\
+    \   \n   Monitoring:\n   - Baseline and periodic echocardiogram/MUGA for anthracyclines\n\
+    \   - Consider dexrazoxane (cardioprotective)\n\n5. PULMONARY:\n   - Pneumonitis/fibrosis\
+    \ (bleomycin, methotrexate)\n   - Monitor O2 sat, PFTs\n\n6. NEUROLOGIC:\n   -\
+    \ Peripheral neuropathy (taxanes, platinum agents, vinca alkaloids)\n   - Encephalopathy\
+    \ (ifosfamide, high-dose methotrexate)\n   - Ototoxicity (cisplatin)\n\n7. DERMATOLOGIC:\n\
+    \   - Alopecia (most agents, reversible)\n   - Hand-foot syndrome (capecitabine,\
+    \ doxorubicin)\n   - Extravasation injury (vesicants)\n\n8. HYPERSENSITIVITY:\n\
+    \   - Infusion reactions (taxanes, platinum agents)\n   - Premedicate: Dexamethasone,\
+    \ antihistamines\n\nONCOLOGIC EMERGENCIES:\n\n1. FEBRILE NEUTROPENIA:\n   - Fever\
+    \ ≥38.3°C (101°F) OR ≥38°C (100.4°F) for 1h + ANC <500 (or <1000 with anticipated\
+    \ decline)\n   - EMERGENCY - Immediate broad-spectrum antibiotics within 1 hour\n\
+    \   - Empiric: Cefepime, pip-tazo, or carbapenem\n   - Add vancomycin if: Hemodynamic\
+    \ instability, skin/soft tissue infection, positive blood culture for gram-positive\n\
+    \   - Antifungal if persistent fever >4-7 days\n\n2. TUMOR LYSIS SYNDROME:\n \
+    \  - Massive tumor cell death → release of intracellular contents\n   - Hyperkalemia,\
+    \ hyperphosphatemia, hypocalcemia, hyperuricemia\n   - AKI from uric acid precipitation\n\
+    \   - Prevention: Allopurinol, rasburicase, aggressive hydration\n   - Treatment:\
+    \ Electrolyte management, dialysis if refractory\n\n3. SUPERIOR VENA CAVA SYNDROME:\n\
+    \   - Obstruction of SVC → facial/upper body swelling, dyspnea\n   - Urgent radiation\
+    \ or chemotherapy\n\n4. SPINAL CORD COMPRESSION:\n   - Back pain, weakness, sensory\
+    \ changes, bowel/bladder dysfunction\n   - MRI urgent, dexamethasone, radiation/surgery\n\
+    \n5. HYPERCALCEMIA OF MALIGNANCY:\n   - Ca >12 mg/dL: Nausea, confusion, polyuria\n\
+    \   - Treatment: IV fluids, bisphosphonates, calcitonin\n\nQUALITY OF LIFE:\n\
+    - Assess ECOG performance status\n- Screen for distress, depression, anxiety\n\
+    - Nutritional support\n- Palliative care integration for symptom management\n\
+    - Advance care planning\n\nFOLLOW-UP:\n- Assess for delayed toxicities\n- Monitor\
+    \ for recurrence (imaging, tumor markers)\n- Survivorship care plan\n- Screen\
+    \ for late effects (secondary malignancies, organ dysfunction)\n\nDOSE MODIFICATIONS:\n\
+    - Hold if: ANC <1000, platelets <50K (varies by regimen), grade 3-4 non-hematologic\
+    \ toxicity\n- Reduce 20-25% for grade 3-4 toxicity\n- Discontinue if life-threatening\
+    \ toxicity"
+  metadata:
+    category: oncology
+    diagnosis: chemotherapy_encounter
+    priority: HIGH
+    source: NCCN Guidelines, ASCO Clinical Practice
+- id: acute_pancreatitis_criteria
+  type: diagnostic_criteria
+  name: Acute Pancreatitis - Diagnosis and Management
+  content: "ACUTE PANCREATITIS:\n\nDEFINITION:\n- Acute inflammation of the pancreas\n\
+    - May involve peripancreatic tissues or remote organ systems\n\nDIAGNOSTIC CRITERIA\
+    \ (Requires ≥2 of 3):\n1. Characteristic abdominal pain (severe, epigastric, radiating\
+    \ to back)\n2. Serum lipase (or amylase) ≥3 times upper limit of normal\n3. Characteristic\
+    \ findings on imaging (CT, MRI, or US)\n\nETIOLOGY:\n- Gallstones (40-50%) - most\
+    \ common\n- Alcohol (25-35%) - second most common\n- Hypertriglyceridemia (TG\
+    \ >1000 mg/dL)\n- Post-ERCP (3-5% of procedures)\n- Medications (azathioprine,\
+    \ 6-MP, valproic acid, sulfonamides, thiazides, pentamidine)\n- Hypercalcemia\n\
+    - Trauma\n- Autoimmune\n- Genetic (PRSS1, SPINK1, CFTR mutations)\n- Idiopathic\
+    \ (10-20%)\n\nCLINICAL PRESENTATION:\n- Severe epigastric pain, constant, radiating\
+    \ to back\n- Nausea, vomiting\n- Abdominal tenderness, guarding\n- Decreased bowel\
+    \ sounds\n- Cullen sign (periumbilical ecchymosis) or Grey Turner sign (flank\
+    \ ecchymosis) - suggests hemorrhagic pancreatitis\n\nLABORATORY:\n- Lipase: More\
+    \ specific than amylase, remains elevated longer\n- Amylase: Less specific (also\
+    \ elevated in bowel perforation, ischemia)\n- Degree of elevation does NOT correlate\
+    \ with severity\n- CMP: Assess for hypocalcemia, hyperglycemia, AKI\n- CBC: Leukocytosis,\
+    \ hemoconcentration\n- LFTs: Elevated if biliary etiology (ALT >3× suggests gallstone)\n\
+    - Triglycerides: If >1000, likely causative\n- Lactate, calcium (prognostic)\n\
+    \nIMAGING:\n\nInitial:\n- RUQ ultrasound: Identify gallstones, CBD dilation\n\
+    - CT abdomen with IV contrast: Not needed for diagnosis, reserve for:\n  * Diagnostic\
+    \ uncertainty\n  * No improvement after 48-72 hours\n  * Clinical deterioration\n\
+    \  * Assess for complications (necrosis, fluid collections)\n\nTiming:\n- Delay\
+    \ CT until 48-72h after onset for accurate assessment of necrosis\n\nMRI/MRCP:\n\
+    - If concern for choledocholithiasis\n- Better for ductal anatomy\n\nSEVERITY\
+    \ CLASSIFICATION (Revised Atlanta 2012):\n\n1. MILD:\n   - No organ failure\n\
+    \   - No local or systemic complications\n   - Usually resolves in <1 week\n\n\
+    2. MODERATELY SEVERE:\n   - Transient organ failure (<48h) OR\n   - Local complications\
+    \ (fluid collections, pseudocyst) OR\n   - Exacerbation of comorbidities\n\n3.\
+    \ SEVERE:\n   - Persistent organ failure (>48h)\n   - Single or multiple organ\
+    \ failure\n   - Mortality 20-30%\n\nORGAN FAILURE (Modified Marshall Score ≥2):\n\
+    - Cardiovascular: SBP <90 mmHg\n- Respiratory: PaO2/FiO2 ≤300\n- Renal: Creatinine\
+    \ ≥2.0 mg/dL\n\nPROGNOSTIC SCORING:\n\nRanson Criteria (0-11 points):\nAt admission:\n\
+    - Age >55, WBC >16K, glucose >200, LDH >350, AST >250\n\nAt 48h:\n- Hct drop >10%,\
+    \ BUN rise >5, Ca <8, PaO2 <60, Base deficit >4, Fluid sequestration >6L\n\nScore\
+    \ ≥3: Severe pancreatitis\n\nBISAP Score (0-5 points):\n- BUN >25\n- Impaired\
+    \ mental status (GCS <15)\n- SIRS (≥2 criteria)\n- Age >60\n- Pleural effusion\n\
+    \nScore ≥3: Increased mortality\n\nLOCAL COMPLICATIONS:\n\n1. Acute peripancreatic\
+    \ fluid collections (APFC):\n   - <4 weeks, no wall\n   - Most resolve spontaneously\n\
+    \n2. Pancreatic pseudocyst:\n   - >4 weeks, well-defined wall, no solid material\n\
+    \   - Treatment if symptomatic, infected, or enlarging\n\n3. Acute necrotic collection\
+    \ (ANC):\n   - <4 weeks, necrosis + fluid\n   \n4. Walled-off necrosis (WON):\n\
+    \   - >4 weeks, necrosis with encapsulating wall\n   - Infected necrosis requires\
+    \ debridement (endoscopic, percutaneous, or surgical)\n\nSYSTEMIC COMPLICATIONS:\n\
+    - ARDS, respiratory failure\n- AKI\n- Shock\n- Sepsis\n- GI bleeding\n- Splanchnic\
+    \ vein thrombosis\n\nMANAGEMENT:\n\n1. SUPPORTIVE CARE:\n   - Aggressive IV fluid\
+    \ resuscitation: LR 250-500 mL/h (5-10 mL/kg/h)\n   - Goal: UOP >0.5 mL/kg/h,\
+    \ Hct 35-44%\n   - Avoid overresuscitation (↑ abdominal compartment syndrome)\n\
+    \   \n2. PAIN CONTROL:\n   - Opioids (no evidence morphine worsens outcomes)\n\
+    \   - PCAs for severe pain\n\n3. NUTRITION:\n   - Early enteral nutrition (within\
+    \ 24-48h) reduces infection, mortality\n   - Oral diet as tolerated (no need to\
+    \ wait for lipase normalization)\n   - If unable to tolerate PO: Nasogastric or\
+    \ nasojejunal tube\n   - TPN only if enteral feeding fails\n\n4. ANTIBIOTICS:\n\
+    \   - NOT indicated for prophylaxis in sterile necrosis\n   - Only if: Infected\
+    \ necrosis, cholangitis, extrapancreatic infection\n   - Empiric if suspected\
+    \ infected necrosis: Carbapenem or fluoroquinolone + metronidazole\n\n5. GALLSTONE\
+    \ PANCREATITIS:\n   - ERCP within 24h if cholangitis or persistent CBD obstruction\n\
+    \   - Cholecystectomy during same hospitalization (if mild) or after 6 weeks (if\
+    \ severe)\n   - Delay if necrotizing pancreatitis\n\n6. COMPLICATIONS:\n   - Infected\
+    \ necrosis: Step-up approach (percutaneous drainage → minimally invasive debridement\
+    \ → open necrosectomy)\n   - Persistent organ failure: ICU care, mechanical ventilation,\
+    \ dialysis, vasopressors\n\nPREVENTION (If recurrent):\n- Gallstones: Cholecystectomy\n\
+    - Alcohol: Abstinence\n- Hypertriglyceridemia: Fibrates, omega-3 fatty acids,\
+    \ goal TG <500\n- Medication-induced: Discontinue offending agent\n\nPROGNOSIS:\n\
+    - Mild: Mortality <1%\n- Severe: Mortality 20-30%\n- Infected necrosis: Mortality\
+    \ up to 40%"
+  metadata:
+    category: gastrointestinal
+    diagnosis: acute_pancreatitis
+    priority: HIGH
+    source: ACG Acute Pancreatitis Guidelines 2013, Revised Atlanta Classification
+      2012
+- id: aspen_pediatric_malnutrition_criteria
+  name: ASPEN Pediatric Malnutrition Criteria
+  type: criteria
+  content: 'ASPEN Pediatric Malnutrition: Requires ≥2 of: 1) Insufficient energy intake,
+    2) Weight loss or deceleration, 3) Loss of muscle/subcutaneous fat, 4) Edema.
+    Severity by z-scores: Mild (z-score -1.0 to -1.9), Moderate (z-score -2.0 to -2.9),
+    Severe (z-score ≤-3.0). Context-dependent assessment for children with chronic
+    conditions.'
+  metadata:
+    category: pediatrics
+    subcategory: malnutrition
+    priority: high
+  created_at: '2025-11-05T02:53:21.375602'
+- id: reference_standard_percentile_rankings_and_clinica
+  type: reference
+  content: 'Standard percentile rankings and clinical significance: 1st-5th percentile
+    = BELOW average, concerning for underweight/short stature/growth failure, 5th-25th
+    percentile = BELOW average but may be normal for some children, 25th-75th percentile
+    = NORMAL/AVERAGE range, 75th-95th percentile = ABOVE average, 95th-99th percentile
+    = WELL ABOVE average, may indicate overweight/obesity for BMI or tall stature
+    for height.'
+  metadata:
+    category: pediatric_malnutrition
+    priority: HIGH
+    subcategory: anthropometrics
+  created_at: '2025-10-25T13:54:48.585071'
+  name: 'Reference: Standard percentile rankings and clinica...'
+- id: neonatal_weight_documentation_birth_wei
+  type: pattern
+  content: 'Neonatal weight documentation: birth weight [value]g, gestational age
+    [X] weeks, SGA/AGA/LGA classification. Example: ''birth weight 850g at 26 weeks
+    GA, SGA'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: age_specific_neonatal
+  created_at: '2025-10-25T13:54:48.588126'
+  name: 'Pattern: Neonatal weight documentation: birth wei...'
+- id: feed_advancement_language_initiate_at
+  type: pattern
+  content: 'Feed advancement language: ''initiate at [rate], advance by [increment]
+    q[timeframe] to goal [rate]''. Example: ''start at 20mL/hr, advance by 10mL q4h
+    to goal 60mL/hr'''
+  metadata:
+    category: pediatric_malnutrition
+    priority: high
+    subcategory: nutrition_support
+  created_at: '2025-10-25T13:54:48.588764'
+  name: 'Pattern: Feed advancement language: ''initiate at...'
+- id: reference_malabsorption_indicators_steatorrhea_f
+  type: reference
+  content: 'Malabsorption indicators: steatorrhea (fatty stools), undigested food
+    in stool, chronic diarrhea, failure to gain despite adequate intake, fat-soluble
+    vitamin deficiencies'
+  metadata:
+    category: pediatric_malnutrition
+    priority: medium
+    subcategory: gi_symptoms
+  created_at: '2025-10-25T13:54:48.590946'
+  name: 'Reference: Malabsorption indicators: steatorrhea (f...'

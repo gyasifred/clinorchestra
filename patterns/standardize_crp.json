@@ -1,7 +1,0 @@
-{
-  "name": "standardize_crp",
-  "pattern": "\\b(CRP|crp|c[\\s\\-]?reactive\\s+protein)[\\s:]*(\\d+\\.?\\d*)\\s*(mg\\s*/\\s*L|mg\\/L)",
-  "replacement": "CRP: \\2 mg/L",
-  "description": "Standardize C-reactive protein format",
-  "enabled": true
-}

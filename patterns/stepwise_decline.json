@@ -1,7 +1,0 @@
-{
-  "name": "detect_stepwise_decline",
-  "pattern": "step(?:-)?wise (?:decline|progression|deterioration)",
-  "replacement": "[STEPWISE_DECLINE]",
-  "description": "Detect stepwise decline (suggestive of vascular dementia)",
-  "enabled": true
-}

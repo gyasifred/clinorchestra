@@ -1,7 +1,0 @@
-{
-  "name": "standardize_no_results_statements",
-  "pattern": "no results found for this or any previous visit",
-  "replacement": "[No prior results available]",
-  "description": "Standardize no results language",
-  "enabled": true
-}

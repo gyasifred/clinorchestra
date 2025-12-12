@@ -1,0 +1,754 @@
+- name: standardize_bp
+  pattern: BP[\s:]*(\d+)\s*/\s*(\d+)
+  replacement: 'BP: \1/\2'
+  description: 'Standardize blood pressure: ''BP 120 / 80'' -> ''BP: 120/80'''
+  enabled: true
+- name: fix_pr_procedure_notation
+  pattern: \bpr\s+
+  replacement: 'Procedure: '
+  description: Expand pr (procedure) notation
+  enabled: true
+- name: normalize_potassium
+  pattern: K:?\s*(\d{1}\.?\d*)\s*(?:mEq/L|mmol/L)?
+  replacement: potassium \1 mEq/L
+  description: Normalize potassium level
+  enabled: false
+- name: normalize_sodium
+  pattern: Na:?\s*(\d{2,3})\s*(?:mEq/L|mmol/L)?
+  replacement: sodium \1 mEq/L
+  description: Normalize sodium level
+  enabled: true
+- name: detect_b12_deficiency
+  pattern: (?:vitamin )?B12 (?:deficiency|def(?:icient)?|low)
+  replacement: '[B12_DEFICIENCY]'
+  description: Detect B12 deficiency (reversible cause of cognitive impairment)
+  enabled: true
+- name: normalize_frequency_qid
+  pattern: \b(?:QID|qid|q\.i\.d\.)\b
+  replacement: four times daily
+  description: Normalize QID to four times daily
+  enabled: true
+- name: fix_bmi_spacing
+  pattern: BMI[\s:]*(\d+\.?\d*)\s*kg\s*/\s*m\s*\^?\s*2
+  replacement: 'BMI: \1 kg/m2'
+  description: Standardize BMI notation with proper unit formatting
+  enabled: true
+- name: extract_lactate
+  pattern: (?i)lactate[:\s]*([0-9]+\.?[0-9]*)\s*(?:mmol/l)?
+  replacement: 'Lactate: \1 mmol/L'
+  description: Extract lactate levels (important for sepsis)
+  enabled: true
+- name: normalize_weight_kg
+  pattern: wt:?\s*(\d{1,3}\.?\d*)\s*kg
+  replacement: weight \1kg
+  description: Normalize weight in kilograms
+  enabled: true
+- name: standardize_age_format
+  pattern: (\d+)\s*(?:year|yr|y)[\s\-]?old
+  replacement: \1-year-old
+  description: Standardize age notation (e.g., 5-year-old)
+  enabled: true
+- name: extract_verbal_fluency
+  pattern: (?:verbal|word) fluency.*?(\d{1,2})(?:\s+words?)?
+  replacement: 'Verbal Fluency: \1 words'
+  description: Extract verbal/phonemic fluency score (executive function, language)
+  enabled: true
+- name: normalize_blood_pressure
+  pattern: (?:BP|blood pressure|B\.?P\.?)\s*[:=]?\s*(\d{2,3})\s*/\s*(\d{2,3})(?:\s*mmHg)?
+  replacement: 'BP: \1/\2 mmHg'
+  description: 'Standardize blood pressure measurements to format ''BP: systolic/diastolic
+    mmHg'''
+  enabled: true
+- name: detect_visual_hallucinations
+  pattern: (?:visual hallucinations?|seeing things|seeing (?:people|animals) that
+    (?:aren't|are not) there)
+  replacement: '[VISUAL_HALLUCINATIONS]'
+  description: Detect visual hallucinations (core feature of Lewy body dementia)
+  enabled: true
+- name: detect_stepwise_decline
+  pattern: step(?:-)?wise (?:decline|progression|deterioration)
+  replacement: '[STEPWISE_DECLINE]'
+  description: Detect stepwise decline (suggestive of vascular dementia)
+  enabled: true
+- name: fix_gestational_age
+  pattern: (\d+)\s*(?:weeks?|wks?)\s*(?:gestation|gestational\s+age|GA)
+  replacement: \1 weeks gestational age
+  description: Standardize gestational age format
+  enabled: true
+- name: fix_hemoglobin
+  pattern: \b(hemoglobin|hgb|hb)[\s:]*(\d+\.?\d*)\s*(g\s*/\s*dL|g\/dL)
+  replacement: 'Hemoglobin: \2 g/dL'
+  description: Standardize hemoglobin format
+  enabled: true
+- name: standardize_lab_format
+  pattern: ([A-Za-z0-9]+)\s*[:=]\s*(\d+\.?\d*)\s*([a-zA-Z/]+)
+  replacement: '\1: \2 \3'
+  description: 'Standardize lab format: ''Glucose=120mg/dL'' -> ''Glucose: 120 mg/dL'''
+  enabled: true
+- name: standardize_negation
+  pattern: \b(no|not|negative for|denies)\s+([a-zA-Z\s]+)
+  replacement: No \2
+  description: 'Standardize negation: ''negative for fever'' -> ''No fever'''
+  enabled: true
+- name: detect_medial_temporal_atrophy
+  pattern: medial temporal (?:lobe )?atrophy
+  replacement: '[MEDIAL_TEMPORAL_ATROPHY]'
+  description: Detect medial temporal lobe atrophy (highly specific for Alzheimer's
+    disease)
+  enabled: true
+- name: detect_parkinsonism
+  pattern: parkinson(?:ism|ian (?:features?|signs?))|rigidity.*?bradykinesia|(?:cogwheel|lead[-
+    ]pipe) rigidity
+  replacement: '[PARKINSONISM]'
+  description: Detect parkinsonian features (supportive of Lewy body dementia or Parkinson's
+    disease dementia)
+  enabled: true
+- name: detect_fluctuating_cognition
+  pattern: fluctuating (?:cognition|cognitive|mental status)
+  replacement: '[FLUCTUATING_COGNITION]'
+  description: Detect fluctuating cognition (core feature of Lewy body dementia)
+  enabled: true
+- name: normalize_diagnosis_copd
+  pattern: \bCOPD\b
+  replacement: chronic obstructive pulmonary disease
+  description: Expand COPD abbreviation
+  enabled: true
+- name: normalize_route_iv
+  pattern: \b(?:IV|i\.v\.)\b
+  replacement: intravenously
+  description: Normalize IV to intravenously
+  enabled: true
+- name: standardize_dosage
+  pattern: (\d+)\s+(mg|mcg|g|ml|units)
+  replacement: \1\2
+  description: 'Remove space between dose and unit: ''20 mg'' -> ''20mg'''
+  enabled: true
+- name: standardize_height_format
+  pattern: ([Hh]eight|[Hh]t|[Ll]ength)[\s:]*(\d+\.?\d*)\s*(cm|m|in|inches)
+  replacement: 'Height: \2 \3'
+  description: Standardize height/length notation
+  enabled: true
+- name: normalize_diagnosis_ckd
+  pattern: \bCKD\b
+  replacement: chronic kidney disease
+  description: Expand CKD abbreviation
+  enabled: true
+- name: fix_stool_frequency
+  pattern: (\d+)[\s\-](\d+)\s*(large\s+volume|watery|loose|formed)?\s*stools?\s*(per\s+day|daily|\/day|\/d)
+  replacement: \1-\2 \3 stools per day
+  description: Standardize stool frequency and character
+  enabled: true
+- name: fix_prealbumin
+  pattern: \b(prealbumin|pre[\s\-]?albumin)[\s:]*(\d+\.?\d*)\s*(mg\s*/\s*dL|mg\/dL)
+  replacement: 'Prealbumin: \2 mg/dL'
+  description: Standardize prealbumin lab format
+  enabled: true
+- name: fix_rd_notation
+  pattern: \b(RD|rd|R\.D\.|registered\s+dietitian)\b
+  replacement: RD
+  description: Standardize registered dietitian abbreviation
+  enabled: true
+- name: normalize_muac
+  pattern: MUAC[\s:]*(\d+\.?\d*)\s*(cm|mm)
+  replacement: 'MUAC: \1 \2'
+  description: Standardize MUAC (mid-upper arm circumference) format
+  enabled: true
+- name: extract_creatinine
+  pattern: (?i)creatinine[:\s]*([0-9]+\.?[0-9]*)\s*(?:mg/dl)?
+  replacement: 'Creatinine: \1 mg/dL'
+  description: Extract serum creatinine levels
+  enabled: true
+- name: remove_extra_whitespace
+  pattern: \s+
+  replacement: ' '
+  description: Replace multiple spaces with single space
+  enabled: true
+- name: standardize_history_of
+  pattern: \b(h\/o|H\/O|hx\s+of|history\s+of)\b
+  replacement: history of
+  description: Standardize history of notation
+  enabled: true
+- name: normalize_weight_lbs
+  pattern: wt:?\s*(\d{1,3}\.?\d*)\s*(?:lbs?|pounds?)
+  replacement: weight \1 lbs
+  description: Normalize weight in pounds
+  enabled: true
+- name: detect_rem_sleep_behavior
+  pattern: REM sleep behavior (?:disorder|disturbance)|acting out dreams
+  replacement: '[REM_SLEEP_BEHAVIOR_DISORDER]'
+  description: Detect REM sleep behavior disorder (supportive feature of Lewy body
+    dementia)
+  enabled: true
+- name: extract_blood_pressure
+  pattern: (?i)(?:bp|blood\s+pressure)[:\s]*([0-9]{2,3})\s*/\s*([0-9]{2,3})
+  replacement: 'BP: \1/\2'
+  description: Extract and standardize blood pressure readings (systolic/diastolic)
+  enabled: true
+- name: normalize_troponin_values
+  pattern: (?:troponin|trop)[-\s]?([IT])\s*[:=]?\s*(\d+\.?\d*)\s*(?:ng/mL|ng/dL|ng/L)?
+  replacement: 'Troponin-\1: \2 ng/mL'
+  description: 'Standardize troponin (I or T) measurements to format ''Troponin-I/T:
+    value ng/mL'''
+  enabled: true
+- name: fix_esrd
+  pattern: \b(ESRD|esrd|end[\s\-]?stage\s+renal\s+disease)\b
+  replacement: end-stage renal disease (ESRD)
+  description: Standardize ESRD notation
+  enabled: true
+- name: fix_period_spacing
+  pattern: \.\s*\.
+  replacement: '. '
+  description: Fix spacing between sentences
+  enabled: true
+- name: expand_prn
+  pattern: \b(prn|PRN)\b
+  replacement: as needed
+  description: Expand prn abbreviation
+  enabled: true
+- name: detect_white_matter_hyperintensities
+  pattern: white matter (?:hyperintensities?|disease|changes?)|WMH|leukoaraiosis
+  replacement: '[WHITE_MATTER_HYPERINTENSITIES]'
+  description: Detect white matter hyperintensities (suggestive of vascular disease)
+  enabled: true
+- name: fix_date_placeholders
+  pattern: _date_
+  replacement: '[DATE]'
+  description: Replace date placeholders with readable marker
+  enabled: true
+- name: extract_bun
+  pattern: (?i)(?:bun|blood\s+urea\s+nitrogen)[:\s]*([0-9]+)\s*(?:mg/dl)?
+  replacement: 'BUN: \1 mg/dL'
+  description: Extract BUN levels (renal function marker)
+  enabled: true
+- name: normalize_frequency_qd
+  pattern: \b(?:QD|qd|q\.d\.)\b
+  replacement: once daily
+  description: Normalize QD to once daily
+  enabled: true
+- name: standardize_no_results_statements
+  pattern: no results found for this or any previous visit
+  replacement: '[No prior results available]'
+  description: Standardize no results language
+  enabled: true
+- name: detect_csf_abeta_low
+  pattern: (?:CSF|cerebrospinal fluid).*?(?:A[βb]|amyloid[- ]?beta).*?(?:low|decreased|reduced)
+  replacement: '[CSF_ABETA_LOW]'
+  description: Detect low CSF amyloid-beta (biomarker for Alzheimer's disease)
+  enabled: true
+- name: fix_ibd
+  pattern: \b(IBD|ibd|inflammatory\s+bowel\s+disease)\b
+  replacement: inflammatory bowel disease (IBD)
+  description: Standardize IBD notation
+  enabled: true
+- name: normalize_hemoglobin
+  pattern: (?:Hgb|Hb):?\s*(\d{1,2}\.?\d*)\s*g/dL
+  replacement: hemoglobin \1 g/dL
+  description: Normalize hemoglobin
+  enabled: true
+- name: fix_positive_for
+  pattern: \b(positive|pos)\s+(?:for\s+)?
+  replacement: 'positive for '
+  description: Standardize positive findings language
+  enabled: true
+- name: normalize_creatinine
+  pattern: (?:creatinine|Cr)\s*[:=]?\s*(\d+\.?\d*)\s*(?:mg/dL|mg/L)?
+  replacement: 'Creatinine: \1 mg/dL'
+  description: 'Standardize creatinine measurements to format ''Creatinine: value
+    mg/dL'''
+  enabled: true
+- name: normalize_risk_level
+  pattern: (low|moderate|medium|high)[\s\-]?(risk|nutrition\s+risk|malnutrition\s+risk)
+  replacement: \1 risk
+  description: Standardize malnutrition risk level language
+  enabled: true
+- name: normalize_vitamin_d
+  pattern: \b(25[\s\-]?OH\s+)?vitamin\s+D[\s:]*(\d+\.?\d*)\s*(ng\s*/\s*mL|ng\/mL)
+  replacement: '25-OH vitamin D: \2 ng/mL'
+  description: Standardize vitamin D lab format
+  enabled: true
+- name: normalize_pcm
+  pattern: \b(PCM|pcm|PEM|pem|protein[\s\-]energy|protein[\s\-]calorie)\s*malnutrition\b
+  replacement: protein-calorie malnutrition (PCM)
+  description: Standardize protein-calorie malnutrition notation
+  enabled: true
+- name: normalize_temperature_c
+  pattern: (\d{2}\.?\d*)\s*°?C
+  replacement: \1°C
+  description: Normalize temperature in Celsius
+  enabled: true
+- name: detect_amyloid_positive
+  pattern: amyloid (?:positive|PET positive)
+  replacement: '[AMYLOID_POSITIVE]'
+  description: Detect positive amyloid PET scan (indicative of Alzheimer's pathology)
+  enabled: true
+- name: detect_csf_tau_high
+  pattern: (?:CSF|cerebrospinal fluid).*?(?:total )?tau.*?(?:high|elevated|increased)
+  replacement: '[CSF_TAU_HIGH]'
+  description: Detect elevated CSF total tau (biomarker for neurodegeneration)
+  enabled: true
+- name: detect_insidious_onset
+  pattern: insidious(?:ly)? onset|gradual(?:ly)? onset
+  replacement: '[INSIDIOUS_ONSET]'
+  description: Detect insidious/gradual onset (typical of Alzheimer's disease)
+  enabled: true
+- name: fix_times_duration
+  pattern: (?:×|x|times?)\s*(\d+)\s*(days?|weeks?|months?|d|wk|mo)
+  replacement: ×\1 \2
+  description: Standardize duration notation (e.g., ×5 days)
+  enabled: true
+- name: remove_pagination_artifacts
+  pattern: pediatric progress note medical university of south carolina
+  replacement: ''
+  description: Remove repeated header artifacts
+  enabled: true
+- name: extract_hvlt_delayed
+  pattern: HVLT.*?delayed.*?(\d{1,2})
+  replacement: 'HVLT Delayed Recall: \1'
+  description: Extract HVLT delayed recall score (episodic memory)
+  enabled: true
+- name: detect_delirium
+  pattern: delirium|acute confusional state|acute confusion
+  replacement: '[DELIRIUM]'
+  description: Detect delirium (important differential diagnosis for dementia)
+  enabled: true
+- name: fix_differential_diagnosis
+  pattern: \b(DDx|ddx|differential\s+diagnosis|differential)[\s:]*
+  replacement: 'Differential diagnosis: '
+  description: Standardize differential diagnosis notation
+  enabled: true
+- name: fix_fat_loss_sites
+  pattern: (orbital|tricep|subscapular)\s*(?:fat)?\s*(?:loss|depletion)
+  replacement: \1 fat loss
+  description: Standardize fat loss site notation
+  enabled: true
+- name: extract_bnp
+  pattern: (?i)(?:bnp|b-type\s+natriuretic|brain\s+natriuretic)[:\s]*([0-9]+)\s*(?:pg/ml)?
+  replacement: 'BNP: \1 pg/mL'
+  description: Extract BNP levels (heart failure marker)
+  enabled: true
+- name: standardize_weight_format
+  pattern: ([Ww]eight|[Ww]t)[\s:]*(\d+\.?\d*)\s*(kg|g|lb|lbs|oz)
+  replacement: 'Weight: \2 \3'
+  description: Standardize weight notation with consistent format
+  enabled: true
+- name: normalize_percentages
+  pattern: (\d+\.?\d*)\s*\%
+  replacement: \1%
+  description: Remove spaces before percentage signs
+  enabled: true
+- name: normalize_platelets
+  pattern: (?:PLT|platelets):?\s*(\d{2,3})\s*(?:k/uL|×10³/µL)?
+  replacement: platelet count \1 k/uL
+  description: Normalize platelet count
+  enabled: true
+- name: standardize_feeding_route
+  pattern: \b(PO|p\.o\.|per\s+os|by\s+mouth|oral|orally)\b
+  replacement: PO
+  description: Standardize oral feeding notation to PO
+  enabled: true
+- name: normalize_temperature_f
+  pattern: (\d{2,3}\.?\d*)\s*°?F
+  replacement: \1°F
+  description: Normalize temperature in Fahrenheit
+  enabled: true
+- name: normalize_wbc_count
+  pattern: (?:WBC|white blood cell count|leukocytes?)\s*[:=]?\s*(\d+\.?\d*)\s*(?:K/uL|K/μL|x10\^3/μL|thousand/μL)?
+  replacement: 'WBC: \1 K/μL'
+  description: 'Standardize white blood cell count to format ''WBC: value K/μL'''
+  enabled: true
+- name: standardize_emesis_frequency
+  pattern: (emesis|vomiting|vomited)\s*(?:x|×|times?)\s*(\d+)
+  replacement: emesis ×\2
+  description: Standardize emesis frequency notation
+  enabled: true
+- name: extract_trails_a
+  pattern: Trail(?:s?).*?(?:Making)?.*?(?:Test|Part).*?A.*?(\d+)\s*(?:sec(?:ond)?s?|s)
+  replacement: 'Trail Making Test A: \1 seconds'
+  description: Extract Trail Making Test Part A time (processing speed, attention)
+  enabled: true
+- name: normalize_glucose
+  pattern: (?:glucose|BG):?\s*(\d{2,4})\s*mg/dL
+  replacement: glucose \1 mg/dL
+  description: Normalize blood glucose
+  enabled: true
+- name: fix_tube_feed_rate
+  pattern: (\d+\.?\d*)\s*ml\s*/\s*(hr|h|hour)
+  replacement: \1 mL/hr
+  description: Standardize tube feeding rate format
+  enabled: true
+- name: normalize_diagnosis_htn
+  pattern: \bHTN\b
+  replacement: hypertension
+  description: Expand HTN to hypertension
+  enabled: true
+- name: standardize_crp
+  pattern: \b(CRP|crp|c[\s\-]?reactive\s+protein)[\s:]*(\d+\.?\d*)\s*(mg\s*/\s*L|mg\/L)
+  replacement: 'CRP: \2 mg/L'
+  description: Standardize C-reactive protein format
+  enabled: true
+- name: fix_time_placeholders
+  pattern: _time_
+  replacement: '[TIME]'
+  description: Replace time placeholders with readable marker
+  enabled: true
+- name: standardize_follow_up
+  pattern: \b(f\/u|F\/U|f\/up|follow[\s\-]?up)\b
+  replacement: follow-up
+  description: Standardize follow-up notation
+  enabled: true
+- name: normalize_edema_severity
+  pattern: (\d+)\s*\+\s*(?:pitting)?\s*edema
+  replacement: \1+ pitting edema
+  description: Standardize edema severity grading
+  enabled: true
+- name: fix_decimal_spacing
+  pattern: (\d+)\s+\.\s+(\d+)
+  replacement: \1.\2
+  description: Remove spaces around decimal points
+  enabled: true
+- name: extract_category_fluency
+  pattern: (?:category|semantic) fluency.*?(\d{1,2})(?:\s+(?:words?|items?))?
+  replacement: 'Category Fluency: \1'
+  description: Extract category/semantic fluency score (semantic memory)
+  enabled: true
+- name: detect_csf_ptau_high
+  pattern: (?:CSF|cerebrospinal fluid).*?(?:phospho[- ]?tau|p[- ]?tau).*?(?:high|elevated|increased)
+  replacement: '[CSF_PTAU_HIGH]'
+  description: Detect elevated CSF phosphorylated tau (biomarker for Alzheimer's disease)
+  enabled: true
+- name: extract_troponin
+  pattern: (?i)troponin[\s-]*(?:I|T)?[:\s]*([0-9]+\.?[0-9]*)\s*(?:ng/ml)?
+  replacement: 'Troponin: \1 ng/mL'
+  description: Extract troponin levels (cardiac marker for MI)
+  enabled: true
+- name: normalize_inr
+  pattern: INR:?\s*(\d{1}\.?\d*)
+  replacement: INR \1
+  description: Normalize INR format
+  enabled: true
+- name: normalize_feeding_tubes
+  pattern: \b(NG|ng|nasogastric|naso[\s\-]?gastric)[\s\-]?(tube|feeding)?\b
+  replacement: NG tube
+  description: Standardize nasogastric tube notation
+  enabled: true
+- name: normalize_wbc
+  pattern: WBC:?\s*(\d{1,2}\.?\d*)\s*(?:k/uL|×10³/µL)?
+  replacement: white blood cell count \1 k/uL
+  description: Normalize WBC count
+  enabled: true
+- name: fix_ftt_notation
+  pattern: \b(FTT|ftt|failure\s+to\s+thrive)\b
+  replacement: failure to thrive (FTT)
+  description: Expand FTT abbreviation on first use
+  enabled: true
+- name: normalize_route_sc
+  pattern: \b(?:SC|SQ|s\.c\.|subcutaneous)\b
+  replacement: subcutaneously
+  description: Normalize SC/SQ to subcutaneously
+  enabled: true
+- name: standardize_ranges
+  pattern: (\d+\.?\d*)\s*[\-–—]\s*(\d+\.?\d*)
+  replacement: \1-\2
+  description: Standardize numeric ranges with consistent hyphen
+  enabled: true
+- name: fix_gtube_notation
+  pattern: \b(G[\s\-]?tube|g[\s\-]?tube|gastrostomy|PEG|peg)\b
+  replacement: G-tube
+  description: Standardize gastrostomy tube notation
+  enabled: true
+- name: normalize_status_post
+  pattern: \b(s\/p|S\/P|status\s+post)\b
+  replacement: status post
+  description: Standardize status post surgical notation
+  enabled: true
+- name: extract_heart_rate
+  pattern: (?i)(?:hr|heart\s+rate|pulse)[:\s]*([0-9]{2,3})(?:\s*bpm)?
+  replacement: 'HR: \1 bpm'
+  description: Extract and standardize heart rate measurements
+  enabled: true
+- name: expand_qhs
+  pattern: \b(qhs|QHS)\b
+  replacement: at bedtime
+  description: Expand qhs abbreviation
+  enabled: true
+- name: normalize_frequency_bid
+  pattern: \b(?:BID|bid|b\.i\.d\.)\b
+  replacement: twice daily
+  description: Normalize BID to twice daily
+  enabled: true
+- name: extract_wbc
+  pattern: (?i)(?:wbc|white\s+blood\s+cell)[:\s]*([0-9]+\.?[0-9]*)\s*(?:k|thousand|x10\^3)?
+  replacement: 'WBC: \1 K/uL'
+  description: Extract white blood cell count
+  enabled: true
+- name: standardize_heart_rate
+  pattern: ([Hh]eart\s+[Rr]ate|HR)[\s:]*(\d+)\s*bpm?
+  replacement: 'HR: \2 bpm'
+  description: Standardize heart rate notation
+  enabled: true
+- name: normalize_route_po
+  pattern: \b(?:PO|p\.o\.)\b
+  replacement: by mouth
+  description: Normalize PO to by mouth
+  enabled: true
+- name: normalize_heart_rate
+  pattern: (?:HR|heart rate|pulse|H\.?R\.?)\s*[:=]?\s*(\d{2,3})(?:\s*bpm|\s*beats/min)?
+  replacement: 'HR: \1 bpm'
+  description: 'Standardize heart rate measurements to format ''HR: value bpm'''
+  enabled: true
+- name: expand_nad
+  pattern: \bin\s+no\s+(?:acute\s+)?distress\b|\bNAD\b
+  replacement: in no acute distress
+  description: Expand NAD abbreviation
+  enabled: true
+- name: fix_pyms
+  pattern: \b(PYMS|pyms|Yorkhill)\s*(score)?[\s:]*(\d+)
+  replacement: 'PYMS score: \3'
+  description: Standardize PYMS screening tool notation
+  enabled: true
+- name: extract_respiratory_rate
+  pattern: (?i)(?:rr|resp(?:iratory)?\s+rate)[:\s]*([0-9]{1,2})
+  replacement: 'RR: \1'
+  description: Extract and standardize respiratory rate
+  enabled: true
+- name: fix_weight_gain_velocity
+  pattern: (\d+\.?\d*)\s*(g|gm|grams?)[\s/]*(day|d|week|wk)
+  replacement: \1 g/\3
+  description: Standardize weight gain velocity format (e.g., 20 g/day)
+  enabled: true
+- name: normalize_cerebral_palsy
+  pattern: \b(CP|cp|cerebral\s+palsy)\b
+  replacement: cerebral palsy (CP)
+  description: Standardize cerebral palsy notation
+  enabled: true
+- name: fix_etiology_classification
+  pattern: (illness[\s\-]related|non[\s\-]illness[\s\-]related)\s*malnutrition
+  replacement: \1 malnutrition
+  description: Standardize malnutrition etiology classification format
+  enabled: true
+- name: normalize_height_cm
+  pattern: ht:?\s*(\d{2,3})\s*cm
+  replacement: height \1cm
+  description: Normalize height in centimeters
+  enabled: true
+- name: standardize_strongkids
+  pattern: \b(STRONGkids|strongkids|STRONG[\s\-]?kids)\s*(score)?[\s:]*(\d+)
+  replacement: 'STRONGkids score: \3'
+  description: Standardize STRONGkids screening tool notation
+  enabled: true
+- name: clean_multiple_periods
+  pattern: \.{2,}
+  replacement: .
+  description: Replace multiple periods with single period
+  enabled: true
+- name: detect_mci_diagnosis
+  pattern: mild cognitive impairment|MCI|amnestic MCI|non[- ]?amnestic MCI
+  replacement: '[MILD_COGNITIVE_IMPAIRMENT]'
+  description: Detect mild cognitive impairment (MCI) diagnosis mention
+  enabled: true
+- name: extract_trails_b
+  pattern: Trail(?:s?).*?(?:Making)?.*?(?:Test|Part).*?B.*?(\d+)\s*(?:sec(?:ond)?s?|s)
+  replacement: 'Trail Making Test B: \1 seconds'
+  description: Extract Trail Making Test Part B time (executive function, set-shifting)
+  enabled: true
+- name: normalize_diarrhea
+  pattern: \b(chronic|acute|persistent)\s*diarrhea
+  replacement: \1 diarrhea
+  description: Standardize diarrhea classification
+  enabled: true
+- name: fix_punctuation_spacing
+  pattern: \s+([.,;:!?])
+  replacement: \1
+  description: Remove spaces before punctuation
+  enabled: true
+- name: detect_hippocampal_atrophy
+  pattern: hippocampal? atrophy
+  replacement: '[HIPPOCAMPAL_ATROPHY]'
+  description: Detect hippocampal atrophy on imaging (supportive of Alzheimer's disease)
+  enabled: true
+- name: normalize_lactate
+  pattern: (?:lactate|lactic acid)\s*[:=]?\s*(\d+\.?\d*)\s*(?:mmol/L|mEq/L)?
+  replacement: 'Lactate: \1 mmol/L'
+  description: 'Standardize lactate measurements to format ''Lactate: value mmol/L'''
+  enabled: true
+- name: fix_formula_concentration
+  pattern: (\d+\.?\d*)\s*cal\s*/\s*(oz|ml|mL)
+  replacement: \1 cal/\2
+  description: Standardize formula caloric density format
+  enabled: true
+- name: normalize_respiratory_rate
+  pattern: (?:RR|respiratory rate|resp rate|R\.?R\.?)\s*[:=]?\s*(\d{1,2})(?:\s*breaths/min|\s*bpm)?
+  replacement: 'RR: \1 breaths/min'
+  description: 'Standardize respiratory rate measurements to format ''RR: value breaths/min'''
+  enabled: true
+- name: normalize_medication_dose_mcg
+  pattern: (\w+)\s+(\d+)\s*mcg\b
+  replacement: \1 \2mcg
+  description: Normalize medication dosing in mcg
+  enabled: true
+- name: normalize_goal_weight
+  pattern: goal\s*(?:weight)?[\s:]*(\d+\.?\d*)\s*(kg|g|lb)
+  replacement: 'Goal weight: \1 \2'
+  description: Standardize goal weight notation
+  enabled: true
+- name: extract_temperature
+  pattern: (?i)(?:temp(?:erature)?|t)[:\s]*([0-9]{2,3}\.?[0-9]?)\s*([FC°])?
+  replacement: 'Temperature: \1\2'
+  description: Extract and standardize temperature readings
+  enabled: true
+- name: expand_sora
+  pattern: \b(SORA|sora)\b
+  replacement: spontaneous respiration in room air
+  description: Expand SORA abbreviation
+  enabled: true
+- name: normalize_birth_weight
+  pattern: \b(birth\s+weight|birthweight|BW)[\s:]*(\d+\.?\d*)\s*(g|kg|grams?|kilograms?)
+  replacement: 'Birth weight: \2 \3'
+  description: Standardize birth weight notation
+  enabled: true
+- name: fix_secondary_to
+  pattern: \b(2°|secondary\s+to|sec\s+to|due\s+to)\b
+  replacement: secondary to
+  description: Standardize secondary to notation
+  enabled: true
+- name: normalize_lab_units_slash
+  pattern: (\d+\.?\d*)\s*([a-zA-Z]+)\s*/\s*([a-zA-Z]+)
+  replacement: \1 \2/\3
+  description: Remove spaces around slashes in lab units
+  enabled: true
+- name: normalize_temperature
+  pattern: (?:temp|temperature|T)\s*[:=]?\s*(\d{2,3}\.?\d?)\s*(?:°?F|°?C|degrees?)?
+  replacement: 'Temp: \1°F'
+  description: 'Standardize temperature measurements to format ''Temp: value°F'' (assumes
+    Fahrenheit unless otherwise specified)'
+  enabled: true
+- name: extract_oxygen_saturation
+  pattern: (?i)(?:spo2|o2\s+sat|oxygen\s+saturation)[:\s]*([0-9]{1,3})%?
+  replacement: 'SpO2: \1%'
+  description: Extract and standardize oxygen saturation
+  enabled: true
+- name: standardize_negative_for
+  pattern: \b(negative|neg|denies|no\s+c\/o|no\s+complaints?\s+of)\s+(?:for\s+)?
+  replacement: 'negative for '
+  description: Standardize negation language
+  enabled: true
+- name: standardize_albumin
+  pattern: \b(albumin|alb)[\s:]*(\d+\.?\d*)\s*(g\s*/\s*dL|g\/dL|gm\/dL)
+  replacement: 'Albumin: \2 g/dL'
+  description: Standardize albumin lab format
+  enabled: true
+- name: normalize_oxygen_saturation
+  pattern: O2\s*sat:?\s*(\d{2,3})%?
+  replacement: oxygen saturation \1%
+  description: Normalize oxygen saturation
+  enabled: true
+- name: detect_thyroid_disorder
+  pattern: (?:hypothyroid|thyroid (?:disorder|disease|dysfunction))|TSH (?:elevated|high)
+  replacement: '[THYROID_DISORDER]'
+  description: Detect thyroid disorder (reversible cause of cognitive impairment)
+  enabled: true
+- name: normalize_diagnosis_dm
+  pattern: \bDM\b
+  replacement: diabetes mellitus
+  description: Expand DM to diabetes mellitus
+  enabled: true
+- name: extract_gcs
+  pattern: (?i)(?:gcs|glasgow\s+coma\s+scale)[:\s]*([0-9]{1,2})
+  replacement: 'GCS: \1'
+  description: Extract Glasgow Coma Scale score (mental status)
+  enabled: true
+- name: remove_sentence_tags
+  pattern: \s*<\/?\s*s\s*>\s*
+  replacement: '. '
+  description: Remove XML sentence tags and replace with periods
+  enabled: true
+- name: standardize_bid_tid_qid_v2
+  pattern: \b(BID|TID|QID|QD)\b
+  replacement: \1
+  description: Standardize medication frequency abbreviations
+  enabled: true
+- name: normalize_medication_dose_mg
+  pattern: (\w+)\s+(\d+)\s*mg\b
+  replacement: \1 \2mg
+  description: Normalize medication dosing in mg
+  enabled: true
+- name: normalize_hba1c
+  pattern: HbA1[Cc]:?\s*(\d{1,2}\.?\d*)%?
+  replacement: HbA1c \1%
+  description: Normalize HbA1c format
+  enabled: true
+- name: standardize_weight_loss_percent
+  pattern: (\d+\.?\d*)\s*%\s*(weight\s+loss|wt\s+loss|body\s+weight\s+loss)
+  replacement: \1% weight loss
+  description: Standardize weight loss percentage format
+  enabled: true
+- name: detect_lacunar_infarct
+  pattern: lacunar (?:infarcts?|stroke)|lacunes?
+  replacement: '[LACUNAR_INFARCT]'
+  description: Detect lacunar infarcts (small vessel disease, vascular dementia)
+  enabled: true
+- name: normalize_musc_hospital
+  pattern: \b(MUSC|musc|Medical\s+University\s+of\s+South\s+Carolina)\b
+  replacement: MUSC
+  description: Standardize hospital name
+  enabled: true
+- name: standardize_cf
+  pattern: \b(CF|cf|cystic\s+fibrosis)\b
+  replacement: cystic fibrosis (CF)
+  description: Standardize cystic fibrosis notation
+  enabled: true
+- name: normalize_route_im
+  pattern: \b(?:IM|i\.m\.)\b
+  replacement: intramuscularly
+  description: Normalize IM to intramuscularly
+  enabled: true
+- name: fix_sga_aga_lga_v2
+  pattern: \b(SGA|AGA|LGA)\b
+  replacement: \1
+  description: Standardize gestational age classifications (SGA/AGA/LGA)
+  enabled: false
+- name: standardize_npo
+  pattern: \b(NPO|npo|nothing\s+by\s+mouth|nil\s+per\s+os)\b
+  replacement: NPO
+  description: Standardize nothing by mouth to NPO
+  enabled: true
+- name: normalize_frequency_tid
+  pattern: \b(?:TID|tid|t\.i\.d\.)\b
+  replacement: three times daily
+  description: Normalize TID to three times daily
+  enabled: true
+- name: normalize_diagnosis_chf
+  pattern: \bCHF\b
+  replacement: congestive heart failure
+  description: Expand CHF to congestive heart failure
+  enabled: true
+- name: normalize_rule_out
+  pattern: \b(r\/o|R\/O|rule\s+out|ruling\s+out)\b
+  replacement: rule out
+  description: Standardize rule-out language
+  enabled: true
+- name: standardize_stamp
+  pattern: \b(STAMP|stamp|Screening\s+Tool\s+for\s+Assessment\s+of\s+Malnutrition)\s*(score)?[\s:]*(\d+)
+  replacement: 'STAMP score: \3'
+  description: Standardize STAMP screening tool notation
+  enabled: true
+- name: normalize_intake_percentage
+  pattern: (consuming|taking|tolerating)\s*(\d+\.?\d*)\s*%\s*(of)?\s*(needs|goal|estimated\s+needs|requirements)
+  replacement: consuming \2% of estimated needs
+  description: Standardize intake adequacy language
+  enabled: true
+- name: standardize_tpn_notation
+  pattern: \b(TPN|tpn|total\s+parenteral\s+nutrition|parenteral\s+nutrition)\b
+  replacement: TPN
+  description: Standardize total parenteral nutrition
+  enabled: true
+- name: normalize_weight_change_timeframe
+  pattern: (over|in|across|within)\s+(past|last|previous)?\s*(\d+)\s*(days?|weeks?|months?|d|wk|mo)
+  replacement: over \3 \4
+  description: Standardize timeframe language for weight changes
+  enabled: true
+- name: extract_hvlt_total
+  pattern: HVLT.*?(?:total|raw).*?(\d{1,2})
+  replacement: 'HVLT Total Recall: \1'
+  description: Extract HVLT (Hopkins Verbal Learning Test) total recall score
+  enabled: true

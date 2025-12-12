@@ -1,7 +1,0 @@
-{
-  "name": "standardize_history_of",
-  "pattern": "\\b(h\\/o|H\\/O|hx\\s+of|history\\s+of)\\b",
-  "replacement": "history of",
-  "description": "Standardize history of notation",
-  "enabled": true
-}

@@ -1,7 +1,0 @@
-{
-  "name": "fix_ibd",
-  "pattern": "\\b(IBD|ibd|inflammatory\\s+bowel\\s+disease)\\b",
-  "replacement": "inflammatory bowel disease (IBD)",
-  "description": "Standardize IBD notation",
-  "enabled": true
-}

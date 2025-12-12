@@ -1,7 +1,0 @@
-{
-  "name": "extract_hvlt_delayed",
-  "pattern": "HVLT.*?delayed.*?(\\d{1,2})",
-  "replacement": "HVLT Delayed Recall: \\1",
-  "description": "Extract HVLT delayed recall score (episodic memory)",
-  "enabled": true
-}
