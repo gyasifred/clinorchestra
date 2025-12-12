@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
 Function Registry - Parameter validation and transformation
-Version: 1.0.0
+Version: 2.0.0 - YAML-Only
 """
 import sys
-import json
+import yaml
 from typing import Dict, Any, Tuple, List, Callable, Optional
 from pathlib import Path
 import inspect
@@ -849,16 +849,16 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
         return match.group(1) if match else None
     
     def _save_function(self, name: str):
-        """Save function to disk"""
-        func_file = self.storage_path / f"{name}.json"
-        
+        """Save function to disk as YAML"""
+        func_file = self.storage_path / f"{name}.yaml"
+
         # Get function data without compiled function
         func_data = self.functions[name].copy()
         func_data.pop('compiled', None)
-        
+
         try:
             with open(func_file, 'w', encoding='utf-8') as f:
-                json.dump(func_data, f, indent=2)
+                yaml.dump(func_data, f, default_flow_style=False, sort_keys=False, allow_unicode=True)
             logger.debug(f"Saved function to {func_file}")
         except Exception as e:
             logger.error(f"Failed to save function {name}: {e}")
@@ -868,38 +868,28 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
         if not self.storage_path.exists():
             return
 
-        for func_file in self.storage_path.glob("*.json"):
+        # YAML ONLY - No JSON fallback
+        for func_file in self.storage_path.glob("*.yaml"):
             try:
                 with open(func_file, 'r', encoding='utf-8') as f:
-                    func_data = json.load(f)
+                    func_data = yaml.safe_load(f)
 
-                # Check if code is in JSON or separate .py file
-                if 'code' in func_data:
-                    # Old format: code embedded in JSON
-                    code = func_data['code']
-                else:
-                    # New format: code in separate .py file
-                    py_file = func_file.with_suffix('.py')
-                    if py_file.exists():
-                        with open(py_file, 'r', encoding='utf-8') as pf:
-                            code = pf.read()
-                    else:
-                        logger.warning(f"No code found for {func_file} (no 'code' field and no .py file)")
-                        continue
+                if not func_data or 'code' not in func_data:
+                    logger.warning(f"No code found in {func_file}")
+                    continue
 
                 # Register the function
                 success, message = self.register_function(
                     func_data['name'],
-                    code,
+                    func_data['code'],
                     func_data.get('description', ''),
                     func_data.get('parameters', {}),
                     func_data.get('returns', {})
                 )
 
-                # Backward compatibility: restore enabled field if it was in stored data
+                # Restore enabled field if it was in stored data
                 if success and 'enabled' in func_data:
                     self.functions[func_data['name']]['enabled'] = func_data['enabled']
-                # If not present in stored data, it will default to True (set in register_function)
 
                 if not success:
                     logger.warning(f"Failed to load function from {func_file}: {message}")
@@ -908,18 +898,27 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
                 logger.error(f"Failed to load function from {func_file}: {e}")
     
     def export_functions(self) -> str:
-        """Export all functions as JSON string"""
+        """Export all functions as YAML string"""
         export_data = []
         for name, func in self.functions.items():
             func_copy = func.copy()
             func_copy.pop('compiled', None)
             export_data.append(func_copy)
-        return json.dumps(export_data, indent=2)
+        return yaml.dump(export_data, default_flow_style=False, sort_keys=False, allow_unicode=True)
     
-    def import_functions(self, json_str: str) -> Tuple[bool, int, str]:
-        """Import functions from JSON string"""
+    def import_functions(self, yaml_str: str) -> Tuple[bool, int, str]:
+        """Import functions from YAML string (YAML ONLY - NO JSON FALLBACK)"""
         try:
-            functions = json.loads(json_str)
+            data = yaml.safe_load(yaml_str)
+
+            # Handle both list format and dict with 'functions' key
+            if isinstance(data, dict) and 'functions' in data:
+                functions = data['functions']
+            elif isinstance(data, list):
+                functions = data
+            else:
+                return False, 0, "Invalid YAML: expected list of functions or dict with 'functions' key"
+
             count = 0
             errors = []
 
@@ -927,9 +926,9 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
                 success, message = self.register_function(
                     func['name'],
                     func['code'],
-                    func['description'],
-                    func['parameters'],
-                    func['returns']
+                    func.get('description', ''),
+                    func.get('parameters', {}),
+                    func.get('returns', {})
                 )
                 if success:
                     # Preserve enabled state from import if it exists, otherwise default to True
@@ -952,8 +951,8 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
 
             return True, count, f"Successfully imported {count} functions"
 
-        except json.JSONDecodeError as e:
-            return False, 0, f"Invalid JSON: {str(e)}"
+        except yaml.YAMLError as e:
+            return False, 0, f"Invalid YAML: {str(e)}"
         except Exception as e:
             logger.error(f"Function import failed: {e}", exc_info=True)
             return False, 0, f"Import error: {str(e)}"

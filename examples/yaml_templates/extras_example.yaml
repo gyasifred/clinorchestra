@@ -1,0 +1,476 @@
+# ============================================================================
+# EXTRAS YAML TEMPLATE - Clinical Knowledge and Guidelines
+# ============================================================================
+#
+# This template shows how to create extras (supplementary knowledge) for LLMs.
+# Extras provide context, criteria, and guidelines to help LLMs understand tasks.
+#
+# USAGE:
+# 1. Copy this template
+# 2. Modify the extras details below
+# 3. Upload via UI Extras tab "Import Extras" or save to extras/ directory
+# 4. Extras are matched by keywords and provided to LLM as context
+#
+# ============================================================================
+
+# Single Extra Example
+id: aspen_malnutrition_criteria
+name: "ASPEN Pediatric Malnutrition Criteria"
+type: criteria
+enabled: true
+
+content: |
+  ASPEN Pediatric Malnutrition Diagnostic Criteria:
+
+  Requires ≥2 of the following indicators:
+  1. Insufficient energy intake
+  2. Weight loss or deceleration
+  3. Loss of muscle mass or subcutaneous fat
+  4. Fluid accumulation (edema)
+
+  Severity Classification by Z-Scores:
+  - Mild: z-score -1.0 to -1.9
+  - Moderate: z-score -2.0 to -2.9
+  - Severe: z-score ≤-3.0
+
+  IMPORTANT: Context-dependent assessment required for children with
+  chronic conditions. Consider etiology and duration.
+
+keywords:
+  - malnutrition
+  - ASPEN
+  - pediatric
+  - criteria
+  - diagnosis
+  - z-score
+  - severity
+
+metadata:
+  category: malnutrition
+  subcategory: diagnostic_criteria
+  reference: "ASPEN 2014 Pediatric Malnutrition Consensus"
+  clinical_area: pediatric_nutrition
+  priority: high
+
+---
+# ============================================================================
+# DIAGNOSTIC CRITERIA EXAMPLES
+# ============================================================================
+
+id: who_malnutrition_zscore
+name: "WHO Malnutrition Z-Score Classification"
+type: guideline
+enabled: true
+
+content: |
+  WHO MALNUTRITION CLASSIFICATION BY Z-SCORE:
+
+  Weight-for-Height or BMI-for-Age:
+  - z < -3 SD: SEVERE ACUTE MALNUTRITION (SAM)
+    * Requires immediate intervention
+    * High mortality risk
+    * <1st percentile
+
+  - -3 ≤ z < -2 SD: MODERATE ACUTE MALNUTRITION (MAM)
+    * Nutritional rehabilitation needed
+    * 2nd-3rd percentile
+    * Risk of progression to SAM
+
+  - -2 ≤ z < -1 SD: MILD MALNUTRITION RISK
+    * Close monitoring required
+    * 3rd-15th percentile
+
+  - -1 ≤ z ≤ +1 SD: NORMAL RANGE
+    * 15th-85th percentile
+
+  - z > +2 SD: OVERWEIGHT/OBESITY
+    * >97th percentile
+
+  Height-for-Age (Stunting):
+  - z < -3 SD: Severely stunted (chronic malnutrition)
+  - z < -2 SD: Stunted
+  - z ≥ -2 SD: Normal height
+
+keywords:
+  - WHO
+  - z-score
+  - malnutrition
+  - wasting
+  - stunting
+  - percentile
+  - classification
+
+metadata:
+  category: malnutrition
+  reference: "WHO Child Growth Standards 2006"
+  priority: high
+
+---
+id: mmse_scoring_interpretation
+name: "MMSE Scoring and Interpretation"
+type: guideline
+enabled: true
+
+content: |
+  MINI-MENTAL STATE EXAMINATION (MMSE) SCORING:
+
+  Score Range (0-30 points):
+  - 24-30: Normal cognition
+  - 19-23: Mild cognitive impairment
+  - 10-18: Moderate cognitive impairment
+  - 0-9: Severe cognitive impairment
+
+  IMPORTANT CONSIDERATIONS:
+  - Adjust for education level (add 1-2 points for <8 years education)
+  - Not diagnostic alone - requires clinical correlation
+  - Limited sensitivity for early/mild dementia
+  - Cultural and language factors affect performance
+
+  Domains Assessed:
+  1. Orientation (10 points)
+  2. Registration (3 points)
+  3. Attention/Calculation (5 points)
+  4. Recall (3 points)
+  5. Language (8 points)
+  6. Visual construction (1 point)
+
+keywords:
+  - MMSE
+  - cognitive
+  - dementia
+  - assessment
+  - scoring
+  - interpretation
+
+metadata:
+  category: cognitive_assessment
+  subcategory: screening_tools
+  clinical_area: neurology
+  priority: high
+
+---
+# ============================================================================
+# CLINICAL TIPS AND GUIDANCE
+# ============================================================================
+
+id: growth_velocity_assessment_tip
+name: "Growth Velocity Assessment"
+type: tip
+enabled: true
+
+content: |
+  GROWTH VELOCITY CALCULATION:
+
+  Formula: (final_measurement - initial_measurement) / time_period
+
+  Expression Units:
+  - Weight: g/day or kg/month
+  - Height: cm/month or cm/year
+
+  Clinical Interpretation:
+  - Compare to expected velocity for age and sex
+  - Deceleration (crossing percentiles downward) is concerning
+  - May indicate malnutrition even if absolute values are normal
+
+  CRITICAL: Requires serial measurements over appropriate intervals
+  (minimum 1-3 months for reliable assessment)
+
+keywords:
+  - growth
+  - velocity
+  - serial measurements
+  - percentile crossing
+  - weight gain
+
+metadata:
+  category: growth_assessment
+  subcategory: velocity
+  priority: medium
+
+---
+id: refeeding_syndrome_warning
+name: "Refeeding Syndrome Risk and Prevention"
+type: warning
+enabled: true
+
+content: |
+  REFEEDING SYNDROME RISK FACTORS:
+
+  High Risk Patients:
+  - Prolonged fasting (>7-10 days)
+  - Severe malnutrition (BMI <16 or >15% weight loss in 3-6 months)
+  - Low baseline electrolytes (especially phosphate)
+
+  Prevention Strategy:
+  1. Start feeding slowly (50-70% of estimated needs)
+  2. Gradual increase over 4-7 days
+  3. Monitor electrolytes closely (phosphate, potassium, magnesium)
+  4. Supplement thiamine before refeeding
+  5. Careful fluid management
+
+  Warning Signs:
+  - Hypophosphatemia (<0.6 mmol/L)
+  - Cardiac arrhythmias
+  - Respiratory failure
+  - Altered mental status
+  - Edema
+
+keywords:
+  - refeeding syndrome
+  - malnutrition
+  - electrolytes
+  - phosphate
+  - complications
+
+metadata:
+  category: malnutrition
+  subcategory: complications
+  priority: critical
+
+---
+# ============================================================================
+# REFERENCE VALUES AND RANGES
+# ============================================================================
+
+id: pediatric_vital_signs_normal_ranges
+name: "Pediatric Vital Signs Normal Ranges"
+type: reference
+enabled: true
+
+content: |
+  PEDIATRIC VITAL SIGNS NORMAL RANGES BY AGE:
+
+  Heart Rate (beats/min):
+  - Newborn (0-1 month): 100-160
+  - Infant (1-12 months): 100-150
+  - Toddler (1-3 years): 90-140
+  - Preschool (3-5 years): 80-120
+  - School age (6-12 years): 70-110
+  - Adolescent (13-18 years): 60-100
+
+  Respiratory Rate (breaths/min):
+  - Newborn: 30-60
+  - Infant: 24-40
+  - Toddler: 22-30
+  - Preschool: 20-25
+  - School age: 18-22
+  - Adolescent: 12-18
+
+  Blood Pressure (mmHg) - 50th percentile:
+  - 1 year: 90/56
+  - 5 years: 95/57
+  - 10 years: 103/63
+  - 15 years: 112/68
+
+keywords:
+  - vital signs
+  - pediatric
+  - normal ranges
+  - heart rate
+  - blood pressure
+  - respiratory rate
+
+metadata:
+  category: vital_signs
+  subcategory: reference_ranges
+  age_group: pediatric
+  priority: medium
+
+---
+id: common_medical_abbreviations
+name: "Common Medical Abbreviations"
+type: reference
+enabled: true
+
+content: |
+  COMMON MEDICAL ABBREVIATIONS:
+
+  Vital Signs:
+  - BP: Blood pressure
+  - HR: Heart rate
+  - RR: Respiratory rate
+  - T or Temp: Temperature
+  - SpO2: Oxygen saturation
+
+  Laboratory:
+  - WBC: White blood cell count
+  - Hgb/Hb: Hemoglobin
+  - Hct: Hematocrit
+  - PLT: Platelets
+  - BUN: Blood urea nitrogen
+  - Cr: Creatinine
+
+  Routes:
+  - PO: By mouth (per os)
+  - IV: Intravenous
+  - IM: Intramuscular
+  - SC/SQ: Subcutaneous
+  - PR: Per rectum
+
+  Frequency:
+  - QD: Daily (being phased out - use "daily")
+  - BID: Twice daily
+  - TID: Three times daily
+  - QID: Four times daily
+  - PRN: As needed
+
+keywords:
+  - abbreviations
+  - medical terminology
+  - documentation
+  - reference
+
+metadata:
+  category: reference
+  subcategory: abbreviations
+  priority: low
+
+---
+# ============================================================================
+# ASSESSMENT METHODOLOGY
+# ============================================================================
+
+id: cdr_assessment_methodology
+name: "CDR Assessment Methodology"
+type: methodology
+enabled: true
+
+content: |
+  CLINICAL DEMENTIA RATING (CDR) ASSESSMENT:
+
+  Six Domains Assessed:
+  1. Memory
+  2. Orientation
+  3. Judgment & Problem Solving
+  4. Community Affairs
+  5. Home & Hobbies
+  6. Personal Care
+
+  Rating Scale (per domain):
+  - 0: None (no impairment)
+  - 0.5: Questionable (very mild)
+  - 1: Mild impairment
+  - 2: Moderate impairment
+  - 3: Severe impairment
+
+  Global CDR Score Determination:
+  - Memory is primary domain (weighted)
+  - At least 3 secondary domains must support
+  - CDR 0.5 is AMBIGUOUS:
+    * May represent MCI if independent
+    * May represent very mild dementia if dependent
+
+  CRITICAL: Requires informant interview (not patient alone)
+
+keywords:
+  - CDR
+  - dementia
+  - assessment
+  - methodology
+  - cognitive
+
+metadata:
+  category: cognitive_assessment
+  subcategory: methodology
+  clinical_area: neurology
+  priority: medium
+
+---
+# ============================================================================
+# ICD-10 CODING REFERENCE
+# ============================================================================
+
+id: malnutrition_icd10_codes
+name: "Malnutrition ICD-10 Codes"
+type: reference
+enabled: true
+
+content: |
+  MALNUTRITION ICD-10 CODING:
+
+  Protein-Calorie Malnutrition:
+  - E44.0: Moderate protein-calorie malnutrition
+  - E44.1: Mild protein-calorie malnutrition
+  - E43: Unspecified severe protein-calorie malnutrition
+  - E45: Retarded development following PCM
+  - E46: Unspecified protein-calorie malnutrition
+
+  Specific Deficiencies:
+  - E50-E64: Vitamin and mineral deficiencies
+  - E55: Vitamin D deficiency
+  - E61: Other mineral deficiencies
+
+  Sequelae:
+  - E64.0: Sequelae of protein-calorie malnutrition
+
+  Adult Malnutrition (newer codes):
+  - E44.0: Moderate malnutrition
+  - E44.1: Mild malnutrition
+  - E43: Severe malnutrition
+
+keywords:
+  - ICD-10
+  - coding
+  - malnutrition
+  - billing
+  - documentation
+
+metadata:
+  category: documentation
+  subcategory: coding
+  priority: low
+
+---
+# ============================================================================
+# NOTES ON CREATING EXTRAS:
+# ============================================================================
+#
+# 1. EXTRA TYPES:
+#    - criteria: Diagnostic criteria and classification systems
+#    - guideline: Clinical guidelines and protocols
+#    - tip: Helpful hints and clinical pearls
+#    - warning: Important warnings and contraindications
+#    - reference: Reference values and lookup tables
+#    - methodology: Assessment and evaluation procedures
+#
+# 2. CONTENT FORMATTING:
+#    - Use | after "content:" for multi-line text
+#    - Use clear hierarchical structure
+#    - Include bullet points and numbered lists
+#    - Emphasize key points with CAPS or **bold**
+#
+# 3. KEYWORDS:
+#    - List all relevant terms that should trigger this extra
+#    - Include variations and synonyms
+#    - Add abbreviations
+#    - Think about what user might search for
+#
+# 4. METADATA:
+#    - category: Main clinical domain
+#    - subcategory: Specific area within category
+#    - reference: Citation or source
+#    - priority: high, medium, low (affects ranking)
+#    - clinical_area: Specialty or field
+#
+# 5. ID NAMING:
+#    - Use descriptive, unique IDs
+#    - Lowercase with underscores
+#    - Include domain: aspen_*, who_*, cdc_*
+#
+# 6. ENABLED FLAG:
+#    - Set to false to disable without deleting
+#    - Disabled extras won't be matched or provided to LLM
+#
+# 7. KEYWORD MATCHING:
+#    - Extras matched when keywords appear in task/schema
+#    - More keywords = higher chance of match
+#    - Use specific clinical terms
+#
+# 8. BEST PRACTICES:
+#    - Keep content focused and concise
+#    - Include practical guidance, not just theory
+#    - Cite authoritative sources
+#    - Update regularly as guidelines change
+#    - Test keyword matching effectiveness
+#
+# ============================================================================

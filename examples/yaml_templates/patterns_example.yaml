@@ -1,0 +1,325 @@
+# ============================================================================
+# PATTERN YAML TEMPLATE - Text Normalization Patterns
+# ============================================================================
+#
+# This template shows how to create regex patterns for text normalization.
+# Patterns standardize clinical text before extraction.
+#
+# USAGE:
+# 1. Copy this template
+# 2. Modify the pattern details below
+# 3. Upload via UI Patterns tab "Import Patterns" or save to patterns/ directory
+# 4. Patterns are applied in order before LLM extraction
+#
+# ============================================================================
+
+# Single Pattern Example
+name: normalize_blood_pressure
+pattern: '\b(BP|bp|blood pressure)\s*[=:]?\s*(\d+)\s*/\s*(\d+)\b'
+replacement: 'BP \2/\3'
+description: "Standardize blood pressure notation to BP 120/80 format"
+enabled: true
+
+---
+# ============================================================================
+# WHITESPACE AND FORMATTING PATTERNS
+# ============================================================================
+
+name: remove_extra_whitespace
+pattern: '\s+'
+replacement: ' '
+description: "Replace multiple spaces with single space"
+enabled: true
+
+---
+name: fix_period_spacing
+pattern: '\.\s*\.'
+replacement: '. '
+description: "Fix spacing between sentences"
+enabled: true
+
+---
+name: normalize_newlines
+pattern: '\n+'
+replacement: '\n'
+description: "Replace multiple newlines with single newline"
+enabled: true
+
+---
+# ============================================================================
+# VITAL SIGNS NORMALIZATION
+# ============================================================================
+
+name: normalize_temperature_fahrenheit
+pattern: '\b(\d+\.?\d*)\s*(degrees?|deg|°)?\s*(F|Fahrenheit|f)\b'
+replacement: '\1°F'
+description: "Standardize temperature to °F notation"
+enabled: true
+
+---
+name: normalize_temperature_celsius
+pattern: '\b(\d+\.?\d*)\s*(degrees?|deg|°)?\s*(C|Celsius|c)\b'
+replacement: '\1°C'
+description: "Standardize temperature to °C notation"
+enabled: true
+
+---
+name: normalize_heart_rate
+pattern: '\b(HR|hr|heart rate|pulse)\s*[=:]?\s*(\d+)\s*(bpm|beats?\s*per\s*min)?\b'
+replacement: 'HR \2 bpm'
+description: "Standardize heart rate to HR 80 bpm format"
+enabled: true
+
+---
+name: normalize_respiratory_rate
+pattern: '\b(RR|rr|respiratory rate|resp rate)\s*[=:]?\s*(\d+)\s*(breaths?\s*per\s*min|bpm|/min)?\b'
+replacement: 'RR \2/min'
+description: "Standardize respiratory rate to RR 16/min format"
+enabled: true
+
+---
+name: normalize_oxygen_saturation
+pattern: '\b(O2\s*sat|SpO2|oxygen\s*saturation)\s*[=:]?\s*(\d+)\s*%?\b'
+replacement: 'SpO2 \2%'
+description: "Standardize oxygen saturation to SpO2 98% format"
+enabled: true
+
+---
+# ============================================================================
+# LAB VALUES NORMALIZATION
+# ============================================================================
+
+name: normalize_glucose
+pattern: '\b(glucose|blood\s+sugar|BS)\s*[=:]?\s*(\d+\.?\d*)\s*(mg/dl|mg/dL|mgdl)?\b'
+replacement: 'Glucose \2 mg/dL'
+description: "Standardize glucose values"
+enabled: true
+
+---
+name: normalize_hemoglobin
+pattern: '\b(Hgb|HGB|Hb|hemoglobin)\s*[=:]?\s*(\d+\.?\d*)\s*(g/dL|g/dl)?\b'
+replacement: 'Hemoglobin \2 g/dL'
+description: "Standardize hemoglobin values"
+enabled: true
+
+---
+name: normalize_creatinine
+pattern: '\b(Cr|creatinine)\s*[=:]?\s*(\d+\.?\d*)\s*(mg/dL|mg/dl)?\b'
+replacement: 'Creatinine \2 mg/dL'
+description: "Standardize creatinine values"
+enabled: true
+
+---
+# ============================================================================
+# MEDICATION AND DOSING PATTERNS
+# ============================================================================
+
+name: normalize_po_route
+pattern: '\b(PO|p\.o\.|per os|by mouth)\b'
+replacement: 'PO'
+description: "Standardize oral route notation"
+enabled: true
+
+---
+name: normalize_iv_route
+pattern: '\b(IV|i\.v\.|intravenous)\b'
+replacement: 'IV'
+description: "Standardize IV route notation"
+enabled: true
+
+---
+name: normalize_prn
+pattern: '\b(PRN|p\.r\.n\.|as needed)\b'
+replacement: 'PRN'
+description: "Standardize PRN notation"
+enabled: true
+
+---
+name: normalize_daily_dosing
+pattern: '\b(QD|q\.d\.|daily|once daily)\b'
+replacement: 'daily'
+description: "Standardize daily dosing notation"
+enabled: true
+
+---
+name: normalize_bid
+pattern: '\b(BID|b\.i\.d\.|twice daily|twice a day)\b'
+replacement: 'BID'
+description: "Standardize BID notation"
+enabled: true
+
+---
+# ============================================================================
+# ANTHROPOMETRIC MEASUREMENTS
+# ============================================================================
+
+name: normalize_weight_kg
+pattern: '\b(\d+\.?\d*)\s*(kg|kilogram|kilograms)\b'
+replacement: '\1 kg'
+description: "Standardize weight to kg notation"
+enabled: true
+
+---
+name: normalize_weight_lbs
+pattern: '\b(\d+\.?\d*)\s*(lb|lbs|pound|pounds)\b'
+replacement: '\1 lbs'
+description: "Standardize weight to lbs notation"
+enabled: true
+
+---
+name: normalize_height_cm
+pattern: '\b(\d+\.?\d*)\s*(cm|centimeter|centimeters)\b'
+replacement: '\1 cm'
+description: "Standardize height to cm notation"
+enabled: true
+
+---
+name: normalize_bmi
+pattern: '\b(BMI|bmi|Body\s+Mass\s+Index)\s*[=:]?\s*(\d+\.?\d*)\b'
+replacement: 'BMI \2'
+description: "Standardize BMI notation"
+enabled: true
+
+---
+# ============================================================================
+# DATE AND TIME PATTERNS
+# ============================================================================
+
+name: normalize_date_slashes
+pattern: '\b(\d{2})/(\d{2})/(\d{4})\b'
+replacement: '\1/\2/\3'
+description: "Standardize MM/DD/YYYY format"
+enabled: true
+
+---
+name: convert_date_dashes_to_slashes
+pattern: '\b(\d{2})-(\d{2})-(\d{4})\b'
+replacement: '\1/\2/\3'
+description: "Convert MM-DD-YYYY to MM/DD/YYYY"
+enabled: true
+
+---
+# ============================================================================
+# CLINICAL TERMINOLOGY STANDARDIZATION
+# ============================================================================
+
+name: normalize_negative_notation
+pattern: '\b(negative|neg|[-])\s+for\s+'
+replacement: 'negative for '
+description: "Standardize negative notation"
+enabled: true
+
+---
+name: normalize_positive_notation
+pattern: '\b(positive|pos|[+])\s+for\s+'
+replacement: 'positive for '
+description: "Standardize positive notation"
+enabled: true
+
+---
+name: normalize_severity_mild
+pattern: '\b(mild|minor|slight)\b'
+replacement: 'mild'
+description: "Standardize mild severity"
+enabled: true
+
+---
+name: normalize_severity_moderate
+pattern: '\b(moderate|moderately)\b'
+replacement: 'moderate'
+description: "Standardize moderate severity"
+enabled: true
+
+---
+name: normalize_severity_severe
+pattern: '\b(severe|severely|serious)\b'
+replacement: 'severe'
+description: "Standardize severe severity"
+enabled: true
+
+---
+# ============================================================================
+# TASK-SPECIFIC PATTERNS - MALNUTRITION EXAMPLE
+# ============================================================================
+
+name: normalize_zscore_notation
+pattern: '\b(z[\-\s]?score|Z[\-\s]?score|z[\-\s]?Score)\b'
+replacement: 'z-score'
+description: "Standardize z-score notation"
+enabled: true
+
+---
+name: normalize_percentile
+pattern: '\b(\d+)(st|nd|rd|th)\s+percentile\b'
+replacement: '\1th percentile'
+description: "Standardize percentile notation"
+enabled: true
+
+---
+name: standardize_malnutrition_severity
+pattern: '\b(mild|moderate|severe)\s*(acute|chronic)?\s*(protein[\s\-]calorie)?\s*malnutrition\b'
+replacement: '\1 \2 malnutrition'
+description: "Standardize malnutrition classification"
+enabled: true
+
+---
+# ============================================================================
+# TASK-SPECIFIC PATTERNS - COGNITIVE ASSESSMENT EXAMPLE
+# ============================================================================
+
+name: normalize_mmse_score
+pattern: '\b(MMSE|mmse|Mini[\-\s]Mental)\s*[=:]?\s*(\d+)\s*/\s*30\b'
+replacement: 'MMSE \2/30'
+description: "Standardize MMSE score notation"
+enabled: true
+
+---
+name: normalize_cdr_score
+pattern: '\b(CDR|cdr|Clinical\s+Dementia\s+Rating)\s*[=:]?\s*(\d+\.?\d*)\b'
+replacement: 'CDR \2'
+description: "Standardize CDR score notation"
+enabled: true
+
+---
+# ============================================================================
+# NOTES ON CREATING PATTERNS:
+# ============================================================================
+#
+# 1. PATTERN SYNTAX:
+#    - Uses Python regex syntax
+#    - Escape special chars: . * + ? [ ] { } ( ) ^ $ | \
+#    - Use \b for word boundaries
+#    - Use \s for whitespace
+#    - Use \d for digits
+#
+# 2. REPLACEMENT:
+#    - Use \1, \2, \3 for capture groups
+#    - Capture groups defined by parentheses in pattern
+#    - Example: pattern '(\d+) kg' with replacement '\1 kilograms'
+#
+# 3. ENABLED FLAG:
+#    - Set to false to disable without deleting
+#    - Disabled patterns are skipped during preprocessing
+#
+# 4. PATTERN ORDER:
+#    - Patterns applied in the order they appear
+#    - Put more specific patterns before general ones
+#    - Example: normalize_temperature_fahrenheit before remove_extra_whitespace
+#
+# 5. TESTING PATTERNS:
+#    - Test with various input formats
+#    - Check for unintended matches
+#    - Verify replacement output
+#
+# 6. COMMON MISTAKES:
+#    - Forgetting to escape special regex characters
+#    - Not using \b for word boundaries (matches partial words)
+#    - Wrong number of capture groups in replacement
+#
+# 7. BEST PRACTICES:
+#    - Use descriptive names: normalize_*, standardize_*, fix_*
+#    - Add clear descriptions
+#    - Group related patterns together
+#    - Keep patterns focused on single transformation
+#
+# ============================================================================
