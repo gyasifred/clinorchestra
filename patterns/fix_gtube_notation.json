@@ -1,7 +1,0 @@
-{
-  "name": "fix_gtube_notation",
-  "pattern": "\\b(G[\\s\\-]?tube|g[\\s\\-]?tube|gastrostomy|PEG|peg)\\b",
-  "replacement": "G-tube",
-  "description": "Standardize gastrostomy tube notation",
-  "enabled": true
-}

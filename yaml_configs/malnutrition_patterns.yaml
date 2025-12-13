@@ -1,0 +1,52 @@
+- name: fix_percentile_spacing
+  pattern: (\d+)\s*th\s+percentile
+  replacement: \1th percentile
+  description: Remove extra spaces in ordinal percentiles
+  enabled: true
+- name: normalize_percentile_abbr
+  pattern: (\d+)\s*ile
+  replacement: \1 percentile
+  description: Expand "ile" abbreviation to "percentile"
+  enabled: true
+- name: standardize_muscle_wasting
+  pattern: (temporal|clavicle|scapula|rib|quadricep|calf)\s*(?:muscle)?\s*wasting
+  replacement: \1 muscle wasting
+  description: Standardize muscle wasting site notation
+  enabled: true
+- name: normalize_growth_trajectory
+  pattern: (crossing|crossed|falling|dropped)\s+(percentile|growth\s+curve|z[\-\s]?score)
+  replacement: \1 \2
+  description: Standardize growth trajectory language
+  enabled: true
+- name: normalize_z_score_abbreviations
+  pattern: \b(WHZ|BAZ|HAZ|WLZ|WAZ)[\s:]*(\-?\d+\.?\d*)
+  replacement: '\1: \2'
+  description: Standardize z-score abbreviation format
+  enabled: true
+- name: standardize_malnutrition_severity
+  pattern: \b(mild|moderate|severe)\s*(acute|chronic)?\s*(protein[\s\-]calorie)?\s*malnutrition\b
+  replacement: \1 \2 malnutrition
+  description: Standardize malnutrition severity classification
+  enabled: true
+- name: fix_percentile_with_measurement
+  pattern: (weight|height|length|BMI)[\s:]*(at|@)?\s*(\d+)\s*(?:th)?\s*percentile
+  replacement: \1 at \3th percentile
+  description: Standardize percentile notation for growth measurements
+  enabled: true
+- name: fix_z_score_with_measurement
+  pattern: (weight|height|length|BMI|MUAC)[\s\-]for[\s\-](age|height|length)[\s:]*z[\s\-]?score[\s:]*(\-?\d+\.?\d*)
+  replacement: '\1-for-\2 z-score: \3'
+  description: 'Standardize anthropometric z-score format (e.g., weight-for-age z-score:
+    -2.3)'
+  enabled: true
+- name: fix_growth_percentile_headers
+  pattern: growth percentiles are based on (cdc|CDC) (\d+)\s*[\-–]\s*(\d+) years?
+    data
+  replacement: Growth percentiles based on CDC \2-\3 years data
+  description: Standardize growth chart reference notation
+  enabled: true
+- name: normalize_z_score
+  pattern: z\s*([\-+]?\d+\.?\d*)
+  replacement: z-score \1
+  description: Standardize z-score notation
+  enabled: true

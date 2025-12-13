@@ -1,7 +1,0 @@
-{
-  "name": "standardize_negation",
-  "pattern": "\\b(no|not|negative for|denies)\\s+([a-zA-Z\\s]+)",
-  "replacement": "No \\2",
-  "description": "Standardize negation: 'negative for fever' -> 'No fever'",
-  "enabled": true
-}

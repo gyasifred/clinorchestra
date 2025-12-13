@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
 Regex Preprocessor - Text preprocessing before LLM
-Version: 1.0.0
+Version: 2.0.0 - YAML-Only
 """
 
 import re
-import json
+import yaml
 from typing import Dict, Any, List, Optional, Tuple
 from pathlib import Path
 from dataclasses import dataclass
@@ -257,9 +257,9 @@ class RegexPreprocessor:
         return None
     
     def _save_pattern(self, pattern: RegexPattern):
-        """Save pattern to file"""
-        pattern_file = self.storage_path / f"{pattern.name}.json"
-        
+        """Save pattern to file as YAML"""
+        pattern_file = self.storage_path / f"{pattern.name}.yaml"
+
         pattern_data = {
             'name': pattern.name,
             'pattern': pattern.pattern,
@@ -267,18 +267,19 @@ class RegexPreprocessor:
             'description': pattern.description,
             'enabled': pattern.enabled
         }
-        
-        with open(pattern_file, 'w') as f:
-            json.dump(pattern_data, f, indent=2)
+
+        with open(pattern_file, 'w', encoding='utf-8') as f:
+            yaml.dump(pattern_data, f, default_flow_style=False, sort_keys=False, allow_unicode=True)
     
     def _load_all_patterns(self):
         """Load all patterns from storage with duplicate checking"""
         loaded_names = set()  # Track loaded names to prevent duplicates
 
-        for pattern_file in self.storage_path.glob("*.json"):
+        # YAML ONLY - No JSON fallback
+        for pattern_file in self.storage_path.glob("*.yaml"):
             try:
-                with open(pattern_file, 'r') as f:
-                    data = json.load(f)
+                with open(pattern_file, 'r', encoding='utf-8') as f:
+                    data = yaml.safe_load(f)
 
                 # FIXED: Validate pattern before loading
                 if not self._validate_pattern_syntax(data['pattern']):

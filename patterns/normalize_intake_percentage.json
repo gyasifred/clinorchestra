@@ -1,7 +1,0 @@
-{
-  "name": "normalize_intake_percentage",
-  "pattern": "(consuming|taking|tolerating)\\s*(\\d+\\.?\\d*)\\s*%\\s*(of)?\\s*(needs|goal|estimated\\s+needs|requirements)",
-  "replacement": "consuming \\2% of estimated needs",
-  "description": "Standardize intake adequacy language",
-  "enabled": true
-}

@@ -1,7 +1,0 @@
-{
-  "name": "extract_moca_score_alt",
-  "pattern": "Montreal Cognitive.*?(\\d{1,2})\\s*/\\s*30",
-  "replacement": "MoCA: \\1/30",
-  "description": "Extract MoCA score (alternative format with full name)",
-  "enabled": true
-}

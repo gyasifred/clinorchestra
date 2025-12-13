@@ -1,0 +1,553 @@
+- id: extra_adrd_differential_013
+  name: ADRD Differential Diagnoses
+  type: keyword_list
+  content: 'Differential diagnoses for cognitive impairment: Delirium, Acute confusional
+    state, Depression, Pseudodementia, Normal aging, Age-related cognitive decline,
+    Benign senescent forgetfulness, Medication-induced cognitive impairment, Normal
+    pressure hydrocephalus, NPH, Brain tumor, Subdural hematoma, Chronic subdural
+    hematoma, Alcohol-related dementia, Wernicke-Korsakoff, Autoimmune encephalitis,
+    Limbic encephalitis, Creutzfeldt-Jakob disease, CJD, Huntington disease, Progressive
+    supranuclear palsy, PSP, Corticobasal degeneration, CBD, Multiple sclerosis, Parkinson
+    disease dementia, PDD'
+  metadata:
+    category: differential_diagnosis
+    diagnosis: adrd
+    priority: CRITICAL
+    domain: neurology
+  created_at: '2025-11-15T00:00:00'
+- id: extra_nstemi_001
+  type: diagnostic_criteria
+  content: 'NSTEMI (Non-ST Elevation MI): Acute coronary syndrome with myocardial
+    necrosis WITHOUT ST elevation. Diagnosis requires: (1) Symptoms of ischemia (chest
+    pain >20min, dyspnea, diaphoresis); (2) Elevated cardiac biomarkers (troponin
+    rise/fall pattern); (3) ECG changes (ST depression, T inversion, no ST elevation).
+    TIMI Risk Score: 0-7 (age≥65, ≥3 CAD risk factors, known CAD, ASA use, severe
+    angina, ST changes, elevated markers). High-risk features: ongoing pain, hemodynamic
+    instability, arrhythmia, elevated troponin >10x ULN, dynamic ST changes. Treatment:
+    dual antiplatelet (ASA + P2Y12 inhibitor), anticoagulation (heparin/enoxaparin),
+    BB, statin, early invasive strategy (cath <24-48h for high-risk). GRACE score
+    predicts mortality. Complications: cardiogenic shock, VT/VF, HF, recurrent ischemia.'
+  metadata:
+    category: cardiovascular
+    diagnosis: nstemi
+    priority: CRITICAL
+    icd10_codes:
+    - I214
+    icd9_codes:
+    - '41071'
+  created_at: '2025-11-10T00:00:00'
+  name: NSTEMI - Diagnostic Criteria & Management
+- id: heart_failure_criteria
+  type: diagnostic_criteria
+  name: Heart Failure - Classification and Diagnostic Criteria
+  content: "HEART FAILURE (HF) - CLINICAL SYNDROME:\n\nDEFINITION:\n- Inability of\
+    \ heart to pump sufficient blood to meet metabolic demands\n- Structural or functional\
+    \ cardiac abnormality\n\nCLASSIFICATION BY EJECTION FRACTION:\n- HFrEF: LVEF ≤40%\
+    \ (reduced EF, systolic dysfunction)\n- HFmrEF: LVEF 41-49% (mildly reduced EF)\n\
+    - HFpEF: LVEF ≥50% (preserved EF, diastolic dysfunction)\n\nCLASSIFICATION BY\
+    \ TIMING:\n- Acute: New onset or decompensation of chronic HF\n- Chronic: Stable\
+    \ symptoms\n- Acute-on-chronic: Decompensation of known chronic HF\n\nNYHA FUNCTIONAL\
+    \ CLASS:\n- Class I: No limitation, asymptomatic\n- Class II: Slight limitation,\
+    \ comfortable at rest\n- Class III: Marked limitation, comfortable only at rest\n\
+    - Class IV: Symptoms at rest, inability to carry out any activity\n\nDIAGNOSTIC\
+    \ CRITERIA (Framingham):\nMajor: PND, neck vein distention, rales, cardiomegaly,\
+    \ acute pulmonary edema, S3 gallop, JVP >16cm, hepatojugular reflux\nMinor: Ankle\
+    \ edema, night cough, dyspnea on exertion, hepatomegaly, pleural effusion, tachycardia\
+    \ ≥120\nRequires: 2 major OR 1 major + 2 minor\n\nBIOMARKERS:\n- BNP >100 pg/mL\
+    \ or NT-proBNP >125 pg/mL (suggests HF)\n- Higher levels indicate worse prognosis\n\
+    \nECHOCARDIOGRAPHY (Essential):\n- Assess LVEF, wall motion, valve function, chamber\
+    \ sizes\n\nTREATMENT (HFrEF):\n- Guideline-directed medical therapy (GDMT):\n\
+    \  1. ACE-I/ARB or ARNI (sacubitril/valsartan)\n  2. Beta-blocker (carvedilol,\
+    \ metoprolol succinate, bisoprolol)\n  3. Mineralocorticoid receptor antagonist\
+    \ (spironolactone/eplerenone)\n  4. SGLT2 inhibitor (dapagliflozin, empagliflozin)\n\
+    - Diuretics for volume overload\n- Consider: ICD, CRT, cardiac transplant"
+  metadata:
+    category: cardiovascular
+    diagnosis: heart_failure
+    priority: CRITICAL
+    source: ACC/AHA HF Guidelines 2022
+- id: extra_adrd_imaging_007
+  name: ADRD Neuroimaging Findings
+  type: keyword_list
+  content: 'Neuroimaging findings in ADRD: Brain MRI, Brain CT, Head CT, Head MRI,
+    PET scan, FDG-PET, Amyloid PET, Tau PET, SPECT, Cerebral atrophy, Brain atrophy,
+    Cortical atrophy, Medial temporal atrophy, Hippocampal atrophy, Entorhinal atrophy,
+    Frontal atrophy, Temporal atrophy, Parietal atrophy, Ventricular enlargement,
+    White matter hyperintensities, WMH, Leukoaraiosis, Lacunar infarct, Lacunes, Stroke,
+    Infarct, Territorial infarct, Microbleeds, Cerebral microbleeds, Cerebrovascular
+    disease, Small vessel disease, Hypometabolism, Temporo-parietal hypometabolism,
+    Amyloid positive, Amyloid negative, Tau deposition'
+  metadata:
+    category: imaging
+    diagnosis: adrd
+    priority: HIGH
+    domain: radiology
+  created_at: '2025-11-15T00:00:00'
+- id: extra_adrd_functional_002
+  name: ADRD Functional Assessment Terms
+  type: keyword_list
+  content: 'Functional status terminology for ADRD classification: ADL (Activities
+    of Daily Living), IADL (Instrumental Activities of Daily Living), Functional decline,
+    Functional impairment, Independent in ADLs, Needs assistance, Bathing assistance,
+    Dressing assistance, Toileting assistance, Managing finances, Managing medications,
+    Meal preparation, Driving ability, Shopping ability, Functional independence,
+    Katz Index, Lawton Scale, FAQ (Functional Activities Questionnaire)'
+  metadata:
+    category: functional_assessment
+    diagnosis: adrd
+    priority: CRITICAL
+    domain: activities_of_daily_living
+  created_at: '2025-11-15T00:00:00'
+- id: extra_adrd_neuro_006
+  name: ADRD Neurological Examination Findings
+  type: keyword_list
+  content: 'Neurological examination findings in ADRD: Parkinsonism, Rigidity, Bradykinesia,
+    Tremor, Resting tremor, Gait disturbance, Gait abnormality, Shuffling gait, Falls,
+    Balance problems, Postural instability, Primitive reflexes, Grasp reflex, Snout
+    reflex, Palmomental reflex, Focal neurological deficit, Hemiparesis, Weakness,
+    Sensory loss, Extrapyramidal signs, Myoclonus, Seizures'
+  metadata:
+    category: examination
+    diagnosis: adrd
+    priority: MEDIUM
+    domain: neurology
+  created_at: '2025-11-15T00:00:00'
+- id: extra_adrd_criteria_012
+  name: ADRD Diagnostic Criteria References
+  type: keyword_list
+  content: 'Diagnostic criteria for ADRD: NIA-AA criteria, NIA-AA, National Institute
+    on Aging, Alzheimer''s Association criteria, DSM-5, DSM-IV, ICD-10, ICD-11, NINDS-AIREN,
+    NINCDS-ADRDA, DLB consortium criteria, Lewy body criteria, FTD criteria, Rascovsky
+    criteria, McKhann criteria'
+  metadata:
+    category: diagnostic_criteria
+    diagnosis: adrd
+    priority: HIGH
+    domain: guidelines
+  created_at: '2025-11-15T00:00:00'
+- id: extra_adrd_cognitive_001
+  name: ADRD Cognitive Assessment Terms
+  type: keyword_list
+  content: 'Cognitive assessment terminology for ADRD classification: MMSE (Mini-Mental
+    State Examination), MoCA (Montreal Cognitive Assessment), CDR (Clinical Dementia
+    Rating), Clock Drawing Test, Neuropsychological testing, Cognitive screening,
+    Memory testing, Executive function testing, Trail Making Test, Boston Naming Test,
+    HVLT (Hopkins Verbal Learning Test), Rey Auditory Verbal Learning, Digit Span,
+    Verbal fluency, Category fluency, Semantic memory, Episodic memory, Working memory,
+    Attention span, Processing speed'
+  metadata:
+    category: cognitive_assessment
+    diagnosis: adrd
+    priority: HIGH
+    domain: neuropsychology
+  created_at: '2025-11-15T00:00:00'
+- id: geriatric_considerations
+  name: Geriatric Considerations
+  type: tip
+  content: 'Polypharmacy common - review medications regularly (deprescribing). Altered
+    pharmacokinetics/dynamics: Lower GFR affects drug clearance, increased sensitivity
+    to CNS medications. Fall risk assessment. Frailty screening. Functional status
+    (ADLs/IADLs). Cognitive screening (MMSE, MoCA). Social support. Goals of care
+    discussions.'
+  metadata:
+    category: geriatrics
+    subcategory: comprehensive_assessment
+    priority: medium
+  created_at: '2025-11-05T02:53:21.388550'
+- id: beers_criteria_for_older_adults
+  name: Beers Criteria for Older Adults
+  type: guideline
+  content: 'Potentially inappropriate medications in elderly: Anticholinergics (confusion,
+    falls), Benzodiazepines (falls, cognitive impairment), NSAIDs (GI bleed, renal
+    injury), PPIs long-term (fractures, C.diff), First-gen antihistamines, Sliding
+    scale insulin. Consider alternatives or lowest effective dose.'
+  metadata:
+    category: geriatrics
+    subcategory: medication_safety
+    priority: medium
+  created_at: '2025-11-05T02:53:21.388828'
+- id: chest_pain_criteria
+  type: diagnostic_criteria
+  name: Chest Pain - Evaluation and Workup
+  content: 'CHEST PAIN EVALUATION:
+
+
+    IMMEDIATE ASSESSMENT:
+
+    - Life-threatening causes (ACS, PE, aortic dissection, tension pneumothorax, tamponade)
+
+    - Character: pressure/squeezing (cardiac), sharp/pleuritic (PE/pericarditis),
+    tearing (dissection)
+
+    - Location: substernal (cardiac), left-sided (cardiac/GI), positional (MSK/pericarditis)
+
+    - Radiation: left arm/jaw (cardiac), back (dissection/pancreatitis)
+
+    - Associated symptoms: dyspnea, diaphoresis, nausea, syncope
+
+
+    RISK STRATIFICATION:
+
+    - HEART Score: 0-3 (low risk), 4-6 (moderate), 7-10 (high)
+
+    - TIMI Score for UA/NSTEMI: 0-2 (low), 3-4 (moderate), 5-7 (high)
+
+
+    WORKUP:
+
+    - ECG within 10 minutes of arrival
+
+    - Cardiac biomarkers: Troponin I/T (serial if initial negative)
+
+    - Chest X-ray
+
+    - Consider: D-dimer (if PE suspected), CTA chest (dissection/PE)
+
+
+    DIFFERENTIAL DIAGNOSIS:
+
+    1. Cardiac: ACS, stable angina, pericarditis, myocarditis
+
+    2. Vascular: Aortic dissection, PE
+
+    3. Pulmonary: Pneumonia, pneumothorax, pleuritis
+
+    4. GI: GERD, esophageal spasm, peptic ulcer
+
+    5. MSK: Costochondritis, muscle strain
+
+    6. Psychiatric: Panic disorder, anxiety'
+  metadata:
+    category: cardiovascular
+    diagnosis: chest_pain
+    priority: CRITICAL
+    source: AHA/ACC Guidelines
+- id: extra_adrd_symptoms_004
+  name: ADRD Cognitive Symptoms
+  type: keyword_list
+  content: 'Cognitive symptom terminology: Memory loss, Memory impairment, Forgetfulness,
+    Short-term memory loss, Long-term memory loss, Recent memory loss, Remote memory
+    loss, Amnesia, Disorientation, Confused, Confusion, Word-finding difficulty, Anomia,
+    Aphasia, Language impairment, Getting lost, Visuospatial deficit, Executive dysfunction,
+    Poor judgment, Impaired reasoning, Abstract thinking deficit, Apraxia, Agnosia,
+    Difficulty concentrating, Attention deficit, Mental slowing, Bradyphrenia'
+  metadata:
+    category: symptoms
+    diagnosis: adrd
+    priority: HIGH
+    domain: cognitive
+  created_at: '2025-11-15T00:00:00'
+- id: extra_adrd_behavioral_005
+  name: ADRD Behavioral and Psychiatric Symptoms (BPSD)
+  type: keyword_list
+  content: 'Behavioral and psychiatric symptoms of dementia: BPSD, Behavioral symptoms,
+    Agitation, Aggression, Irritability, Apathy, Depression, Depressed mood, Anxiety,
+    Hallucinations, Visual hallucinations, Seeing things, Delusions, Paranoia, Paranoid,
+    Suspiciousness, Psychosis, Sundowning, Sleep disturbance, Insomnia, Wandering,
+    Disinhibition, Inappropriate behavior, Repetitive behaviors, Compulsive behaviors,
+    REM sleep behavior disorder, Acting out dreams'
+  metadata:
+    category: symptoms
+    diagnosis: adrd
+    priority: HIGH
+    domain: neuropsychiatric
+  created_at: '2025-11-15T00:00:00'
+- id: extra_adrd_vascular_010
+  name: ADRD Vascular Risk Factors
+  type: keyword_list
+  content: 'Vascular risk factors for dementia: Hypertension, High blood pressure,
+    Diabetes, Diabetes mellitus, Hyperglycemia, Hyperlipidemia, High cholesterol,
+    Dyslipidemia, Atrial fibrillation, AFib, Stroke history, TIA, Transient ischemic
+    attack, Coronary artery disease, CAD, Myocardial infarction, Heart attack, Smoking,
+    Tobacco use, Obesity, Metabolic syndrome'
+  metadata:
+    category: risk_factors
+    diagnosis: adrd
+    priority: HIGH
+    domain: cardiovascular
+  created_at: '2025-11-15T00:00:00'
+- id: atrial_fibrillation_criteria
+  type: diagnostic_criteria
+  name: Atrial Fibrillation - Diagnosis and Management
+  content: 'ATRIAL FIBRILLATION (AFib):
+
+
+    DEFINITION:
+
+    - Supraventricular tachyarrhythmia with uncoordinated atrial activation
+
+    - Irregular, rapid ventricular response
+
+
+    ECG CRITERIA:
+
+    - Irregularly irregular RR intervals
+
+    - No distinct P waves
+
+    - Atrial rate 350-600 bpm
+
+    - Variable ventricular rate (typically 80-180 bpm if untreated)
+
+
+    CLASSIFICATION:
+
+    - Paroxysmal: Self-terminating, usually <7 days
+
+    - Persistent: Lasting >7 days or requiring cardioversion
+
+    - Long-standing persistent: Continuous >12 months
+
+    - Permanent: Accepted, no further rhythm control attempts
+
+
+    CLINICAL PRESENTATION:
+
+    - May be asymptomatic (found incidentally)
+
+    - Palpitations, dyspnea, fatigue, dizziness
+
+    - Heart failure symptoms, syncope
+
+
+    COMPLICATIONS:
+
+    - Stroke/systemic embolism (5x increased risk)
+
+    - Heart failure (AFib-induced cardiomyopathy)
+
+    - Cognitive impairment
+
+
+    STROKE RISK STRATIFICATION (CHA2DS2-VASc):
+
+    - C: CHF (1 point)
+
+    - H: Hypertension (1)
+
+    - A2: Age ≥75 (2)
+
+    - D: Diabetes (1)
+
+    - S2: Prior stroke/TIA/thromboembolism (2)
+
+    - V: Vascular disease (1)
+
+    - A: Age 65-74 (1)
+
+    - Sc: Sex category female (1)
+
+    Score ≥2 (men) or ≥3 (women): Anticoagulation recommended
+
+
+    BLEEDING RISK (HAS-BLED):
+
+    - H: Hypertension, A: Abnormal renal/liver, S: Stroke, B: Bleeding, L: Labile
+    INR, E: Elderly >65, D: Drugs/alcohol
+
+    - Score ≥3: High bleeding risk (caution, not contraindication)
+
+
+    MANAGEMENT:
+
+    1. Rate control: Beta-blocker, CCB (diltiazem/verapamil), digoxin
+
+    2. Rhythm control: Cardioversion, antiarrhythmics, catheter ablation
+
+    3. Anticoagulation: DOACs preferred (apixaban, rivaroxaban, dabigatran, edoxaban)
+    vs warfarin
+
+    4. Treat underlying causes'
+  metadata:
+    category: cardiovascular
+    diagnosis: atrial_fibrillation
+    priority: HIGH
+    source: AHA/ACC/HRS AFib Guidelines 2023
+- id: extra_adrd_medications_011
+  name: ADRD Medications
+  type: keyword_list
+  content: 'Medications related to dementia (treatment and causative): Donepezil,
+    Aricept, Rivastigmine, Exelon, Galantamine, Razadyne, Memantine, Namenda, Cholinesterase
+    inhibitor, Anticholinergic, Benzodiazepine, Opioid, Sedative, Antipsychotic, Antidepressant,
+    SSRI, SNRI'
+  metadata:
+    category: medications
+    diagnosis: adrd
+    priority: MEDIUM
+    domain: pharmacology
+  created_at: '2025-11-15T00:00:00'
+- id: extra_adrd_biomarkers_008
+  name: ADRD Biomarkers
+  type: keyword_list
+  content: 'Biomarker terminology for ADRD: CSF biomarkers, Cerebrospinal fluid, Amyloid
+    beta, Abeta, Aβ42, Total tau, t-tau, Phospho-tau, p-tau, Tau/Abeta ratio, ATN
+    framework, Amyloid PET, Pittsburgh compound B, PIB, Florbetapir, Flutemetamol,
+    Plasma biomarkers, Blood biomarkers, p-tau181, p-tau217'
+  metadata:
+    category: biomarkers
+    diagnosis: adrd
+    priority: HIGH
+    domain: laboratory
+  created_at: '2025-11-15T00:00:00'
+- id: fall_risk_assessment
+  name: Fall Risk Assessment
+  type: criteria
+  content: 'Risk factors: Age >65, prior falls, mobility impairment, visual impairment,
+    polypharmacy (especially sedatives, antihypertensives), environmental hazards,
+    orthostatic hypotension, cognitive impairment. Screen with Timed Up and Go (>12
+    sec abnormal). Morse Fall Scale in hospitals. Multifactorial interventions.'
+  metadata:
+    category: geriatrics
+    subcategory: fall_prevention
+    priority: medium
+  created_at: '2025-11-05T02:53:21.389652'
+- id: extra_adrd_dementia_003
+  name: ADRD Dementia Types and Diagnoses
+  type: keyword_list
+  content: 'Dementia diagnosis terminology: Alzheimer disease, Alzheimers, Alzheimer''s,
+    AD, Dementia, Vascular dementia, VaD, Multi-infarct dementia, Lewy body dementia,
+    LBD, Dementia with Lewy bodies, DLB, Frontotemporal dementia, FTD, Pick disease,
+    Primary progressive aphasia, Semantic dementia, Behavioral variant FTD, bvFTD,
+    Mixed dementia, Mild cognitive impairment, MCI, Amnestic MCI, Non-amnestic MCI,
+    Neurocognitive disorder, Major neurocognitive disorder, Mild neurocognitive disorder,
+    Senile dementia, Dementia NOS'
+  metadata:
+    category: diagnosis
+    diagnosis: adrd
+    priority: CRITICAL
+    domain: neurology
+  created_at: '2025-11-15T00:00:00'
+- id: extra_adrd_reversible_009
+  name: ADRD Reversible Causes and Laboratory Tests
+  type: keyword_list
+  content: 'Reversible causes and laboratory workup for cognitive impairment: Vitamin
+    B12, B12 deficiency, Folate deficiency, Thyroid disorder, Hypothyroidism, TSH,
+    Free T4, Metabolic panel, Electrolyte imbalance, Hyponatremia, Hypercalcemia,
+    Renal function, Creatinine, Liver function, Hepatic encephalopathy, RPR, VDRL,
+    Syphilis, HIV, Lyme disease, CBC, Anemia, Inflammatory markers, ESR, CRP'
+  metadata:
+    category: laboratory
+    diagnosis: adrd
+    priority: CRITICAL
+    domain: differential_diagnosis
+  created_at: '2025-11-15T00:00:00'
+- id: psychosis_criteria
+  type: diagnostic_criteria
+  name: Psychosis - Differential Diagnosis and Management
+  content: "PSYCHOTIC DISORDERS:\n\nDEFINITION OF PSYCHOSIS:\n- Loss of contact with\
+    \ reality\n- Impaired reality testing\n\nCORE SYMPTOMS:\n\n1. HALLUCINATIONS:\n\
+    \   - Perceptions without external stimulus\n   - Auditory (most common in schizophrenia):\
+    \ Voices, commands\n   - Visual (suggest organic cause: delirium, substance)\n\
+    \   - Tactile, olfactory, gustatory\n\n2. DELUSIONS:\n   - Fixed false beliefs\
+    \ despite contrary evidence\n   - Persecutory, grandiose, referential, somatic,\
+    \ nihilistic\n   - Bizarre vs non-bizarre\n\n3. DISORGANIZED THINKING:\n   - Formal\
+    \ thought disorder\n   - Loose associations, tangentiality, word salad\n\n4. GROSSLY\
+    \ DISORGANIZED OR CATATONIC BEHAVIOR\n\n5. NEGATIVE SYMPTOMS:\n   - Affective\
+    \ flattening, alogia, avolition, anhedonia\n\nDIFFERENTIAL DIAGNOSIS:\n\nPRIMARY\
+    \ PSYCHOTIC DISORDERS:\n\n1. SCHIZOPHRENIA (DSM-5):\n   - Duration ≥6 months\n\
+    \   - ≥2 symptoms (≥1 must be delusions, hallucinations, or disorganized speech):\n\
+    \     * Delusions, hallucinations, disorganized speech, grossly disorganized/catatonic\
+    \ behavior, negative symptoms\n   - Significant functional impairment\n   - Not\
+    \ due to substance or medical condition\n   \n   Subtypes (historical, no longer\
+    \ in DSM-5):\n   - Paranoid, disorganized, catatonic, undifferentiated, residual\n\
+    \n2. SCHIZOAFFECTIVE DISORDER:\n   - Schizophrenia criteria + major mood episode\
+    \ (depression or mania)\n   - Delusions/hallucinations ≥2 weeks WITHOUT mood symptoms\n\
+    \   - Mood symptoms present for majority of illness\n\n3. BRIEF PSYCHOTIC DISORDER:\n\
+    \   - Psychotic symptoms lasting 1 day to 1 month\n   - Full return to baseline\n\
+    \   - Often follows stressor\n\n4. SCHIZOPHRENIFORM DISORDER:\n   - Schizophrenia\
+    \ symptoms lasting 1-6 months\n   - May or may not have functional impairment\n\
+    \n5. DELUSIONAL DISORDER:\n   - ≥1 non-bizarre delusion for ≥1 month\n   - Otherwise\
+    \ normal functioning\n   - No prominent hallucinations\n   - Types: Erotomanic,\
+    \ grandiose, jealous, persecutory, somatic, mixed\n\nSECONDARY PSYCHOSIS (Must\
+    \ rule out):\n\n1. SUBSTANCE-INDUCED:\n   - Intoxication: Stimulants (cocaine,\
+    \ amphetamines), cannabis, hallucinogens, PCP\n   - Withdrawal: Alcohol, benzodiazepines\n\
+    \   - Medication: Corticosteroids, anticholinergics, dopamine agonists, stimulants\n\
+    \n2. MEDICAL CONDITIONS:\n   - Neurologic: Seizures, tumors, stroke, dementia,\
+    \ encephalitis, MS\n   - Metabolic: Thyroid disorders, vitamin B12 deficiency,\
+    \ porphyria\n   - Autoimmune: Lupus, anti-NMDA receptor encephalitis\n   - Infectious:\
+    \ HIV, syphilis, Lyme disease\n   - Endocrine: Cushing's, hyperthyroidism, hypoglycemia\n\
+    \n3. MOOD DISORDERS WITH PSYCHOTIC FEATURES:\n   - Major depression with psychotic\
+    \ features (mood-congruent or incongruent)\n   - Bipolar disorder, manic episode\
+    \ with psychotic features\n\nWORKUP FOR FIRST-EPISODE PSYCHOSIS:\n\nLaboratory:\n\
+    - CBC, CMP (electrolytes, glucose, renal, hepatic)\n- TSH, vitamin B12, folate\n\
+    - RPR/VDRL (syphilis)\n- HIV\n- Urine drug screen\n- Pregnancy test (if applicable)\n\
+    - Consider: Ceruloplasmin (Wilson's), ANA, ESR (autoimmune), ammonia\n\nImaging:\n\
+    - Brain MRI (preferred) or CT\n- Rule out structural lesions, demyelination, stroke\n\
+    \nAdditional:\n- EEG if concern for seizures\n- Lumbar puncture if infectious/inflammatory\
+    \ concern\n\nTREATMENT:\n\nACUTE MANAGEMENT:\n\n1. SAFETY ASSESSMENT:\n   - Risk\
+    \ to self (suicide): 5% lifetime risk in schizophrenia\n   - Risk to others (violence):\
+    \ Assess command hallucinations, paranoia\n   - Involuntary hospitalization if\
+    \ imminent danger\n\n2. ANTIPSYCHOTICS:\n   \n   Typical (First-generation):\n\
+    \   - Haloperidol 5-10mg PO/IM (onset 30-60min)\n   - Mechanism: D2 receptor antagonism\n\
+    \   - Side effects: EPS (dystonia, akathisia, parkinsonism), tardive dyskinesia,\
+    \ hyperprolactinemia, NMS\n   \n   Atypical (Second-generation) - Preferred:\n\
+    \   - Risperidone 2-6mg/day\n   - Olanzapine 10-20mg/day (IM available for agitation)\n\
+    \   - Quetiapine 300-800mg/day\n   - Aripiprazole 10-30mg/day\n   - Ziprasidone,\
+    \ paliperidone, lurasidone\n   - Mechanism: D2 + 5-HT2A antagonism\n   - Side\
+    \ effects: Metabolic (weight gain, diabetes, dyslipidemia), sedation, QTc prolongation\n\
+    \   \n   Clozapine:\n   - Reserved for treatment-resistant (failed ≥2 trials)\n\
+    \   - Most effective but requires monitoring (ANC, metabolic)\n   - Risk of agranulocytosis\
+    \ (1%)\n\n3. AGITATION:\n   - Verbal de-escalation first\n   - Benzodiazepines:\
+    \ Lorazepam 1-2mg PO/IM\n   - Antipsychotic + benzodiazepine combination\n   -\
+    \ Avoid excessive sedation\n\nCHRONIC MANAGEMENT:\n\n1. MAINTENANCE ANTIPSYCHOTICS:\n\
+    \   - Continue indefinitely (high relapse risk if discontinued)\n   - Lowest effective\
+    \ dose\n   - Long-acting injectable (LAI) if adherence issues\n\n2. MONITORING:\n\
+    \   - Metabolic: Weight, BMI, fasting glucose, lipids (baseline, 3mo, annually)\n\
+    \   - Movement disorders: AIMS scale\n   - Prolactin if symptoms\n   - QTc if\
+    \ on QT-prolonging agent\n\n3. PSYCHOSOCIAL:\n   - Cognitive behavioral therapy\
+    \ (CBT) for psychosis\n   - Social skills training\n   - Supported employment/education\n\
+    \   - Family psychoeducation\n   - Assertive community treatment (ACT) teams\n\
+    \n4. COMORBIDITIES:\n   - Substance use (very common, 50%)\n   - Depression (treat\
+    \ with antidepressant + antipsychotic)\n   - Anxiety\n\nPROGNOSIS:\n- Schizophrenia:\
+    \ Chronic, relapsing\n- Better prognosis: Later onset, female, acute onset, good\
+    \ premorbid function, mood symptoms\n- Worse prognosis: Early onset, male, insidious\
+    \ onset, negative symptoms, substance use\n- Suicide risk: 5% lifetime\n- Reduced\
+    \ life expectancy (10-20 years) due to CV disease, metabolic syndrome"
+  metadata:
+    category: psychiatric
+    diagnosis: psychosis
+    priority: HIGH
+    source: DSM-5, APA Practice Guidelines for Schizophrenia
+- id: alcohol_use_disorder_criteria
+  type: diagnostic_criteria
+  name: Alcohol Use Disorder - DSM-5 Criteria and Management
+  content: "ALCOHOL USE DISORDER (AUD) - DSM-5:\n\nDIAGNOSTIC CRITERIA:\n≥2 symptoms\
+    \ within 12-month period:\n\n1. Alcohol taken in larger amounts or longer than\
+    \ intended\n2. Persistent desire or unsuccessful efforts to cut down\n3. Great\
+    \ deal of time spent obtaining, using, or recovering from alcohol\n4. Craving\
+    \ or strong desire to use alcohol\n5. Recurrent use resulting in failure to fulfill\
+    \ major obligations\n6. Continued use despite social/interpersonal problems\n\
+    7. Important activities given up or reduced\n8. Recurrent use in physically hazardous\
+    \ situations\n9. Continued use despite physical/psychological problems\n10. Tolerance\
+    \ (need for increased amounts or diminished effect)\n11. Withdrawal symptoms or\
+    \ alcohol taken to relieve withdrawal\n\nSEVERITY:\n- Mild: 2-3 criteria\n- Moderate:\
+    \ 4-5 criteria\n- Severe: ≥6 criteria\n\nSCREENING TOOLS:\n\nCAGE (≥2 positive\
+    \ suggests problem):\n- Cut down: Felt need to cut down?\n- Annoyed: People annoyed\
+    \ you about drinking?\n- Guilty: Felt guilty about drinking?\n- Eye-opener: Morning\
+    \ drink to steady nerves?\n\nAUDIT (Alcohol Use Disorders Identification Test):\n\
+    - 10 questions, score 0-40\n- ≥8 indicates harmful/hazardous drinking\n\nALCOHOL\
+    \ WITHDRAWAL:\n\nMinor (6-12h after last drink):\n- Tremor, anxiety, headache,\
+    \ nausea, insomnia\n- Diaphoresis, palpitations\n\nMajor (12-48h):\n- Hallucinations\
+    \ (visual, auditory, tactile)\n- Withdrawal seizures (6-48h, typically generalized\
+    \ tonic-clonic)\n\nDelirium Tremens (48-96h):\n- Altered mental status, severe\
+    \ autonomic hyperactivity\n- Hallucinations, agitation, fever\n- Mortality 5-15%\
+    \ if untreated\n\nCIWA-Ar Score (Clinical Institute Withdrawal Assessment):\n\
+    - Monitors withdrawal severity\n- Score >8: Give benzodiazepines\n\nWITHDRAWAL\
+    \ MANAGEMENT:\n1. Benzodiazepines:\n   - Symptom-triggered: Diazepam/lorazepam\
+    \ based on CIWA score\n   - Fixed-schedule: Chlordiazepoxide or diazepam taper\n\
+    2. Thiamine 100mg IV/IM before any glucose (prevent Wernicke's)\n3. Folate, multivitamin\n\
+    4. Supportive care: Hydration, electrolyte repletion\n\nLONG-TERM TREATMENT:\n\
+    \n1. PSYCHOSOCIAL:\n   - Motivational interviewing\n   - Cognitive behavioral\
+    \ therapy\n   - 12-step programs (AA)\n   - Community reinforcement\n\n2. PHARMACOTHERAPY:\n\
+    \   - Naltrexone: Reduces craving and heavy drinking\n   - Acamprosate: Reduces\
+    \ craving\n   - Disulfiram: Aversive therapy (acetaldehyde accumulation)\n   -\
+    \ Topiramate: Off-label, reduces heavy drinking\n\nCOMPLICATIONS:\n- Hepatic:\
+    \ Fatty liver, alcoholic hepatitis, cirrhosis\n- Neurologic: Wernicke-Korsakoff,\
+    \ peripheral neuropathy, cerebellar degeneration\n- GI: Pancreatitis, gastritis,\
+    \ esophageal varices\n- Cardiac: Cardiomyopathy, arrhythmias\n- Psychiatric: Depression,\
+    \ anxiety, suicide risk"
+  metadata:
+    category: psychiatric
+    diagnosis: alcohol_use_disorder
+    priority: HIGH
+    source: DSM-5, ASAM Guidelines

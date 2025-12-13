@@ -1,7 +1,0 @@
-{
-  "name": "normalize_risk_level",
-  "pattern": "(low|moderate|medium|high)[\\s\\-]?(risk|nutrition\\s+risk|malnutrition\\s+risk)",
-  "replacement": "\\1 risk",
-  "description": "Standardize malnutrition risk level language",
-  "enabled": true
-}

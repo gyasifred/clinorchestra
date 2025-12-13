@@ -1,7 +1,0 @@
-{
-  "name": "normalize_medication_dose_mcg",
-  "pattern": "(\\w+)\\s+(\\d+)\\s*mcg\\b",
-  "replacement": "\\1 \\2mcg",
-  "description": "Normalize medication dosing in mcg",
-  "enabled": true
-}

@@ -1,7 +1,0 @@
-{
-  "name": "normalize_respiratory_rate",
-  "pattern": "(?:RR|respiratory rate|resp rate|R\\.?R\\.?)\\s*[:=]?\\s*(\\d{1,2})(?:\\s*breaths/min|\\s*bpm)?",
-  "replacement": "RR: \\1 breaths/min",
-  "description": "Standardize respiratory rate measurements to format 'RR: value breaths/min'",
-  "enabled": true
-}

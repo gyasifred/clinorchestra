@@ -1,7 +1,0 @@
-{
-  "name": "normalize_weight_lbs",
-  "pattern": "wt:?\\s*(\\d{1,3}\\.?\\d*)\\s*(?:lbs?|pounds?)",
-  "replacement": "weight \\1 lbs",
-  "description": "Normalize weight in pounds",
-  "enabled": true
-}

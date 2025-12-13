@@ -1,7 +1,0 @@
-{
-  "name": "fix_formula_concentration",
-  "pattern": "(\\d+\\.?\\d*)\\s*cal\\s*/\\s*(oz|ml|mL)",
-  "replacement": "\\1 cal/\\2",
-  "description": "Standardize formula caloric density format",
-  "enabled": true
-}

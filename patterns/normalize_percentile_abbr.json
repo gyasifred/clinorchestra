@@ -1,7 +1,0 @@
-{
-  "name": "normalize_percentile_abbr",
-  "pattern": "(\\d+)\\s*ile",
-  "replacement": "\\1 percentile",
-  "description": "Expand \"ile\" abbreviation to \"percentile\"",
-  "enabled": true
-}

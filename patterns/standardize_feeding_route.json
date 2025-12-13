@@ -1,7 +1,0 @@
-{
-  "name": "standardize_feeding_route",
-  "pattern": "\\b(PO|p\\.o\\.|per\\s+os|by\\s+mouth|oral|orally)\\b",
-  "replacement": "PO",
-  "description": "Standardize oral feeding notation to PO",
-  "enabled": true
-}

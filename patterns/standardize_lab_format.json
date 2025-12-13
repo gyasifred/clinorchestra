@@ -1,7 +1,0 @@
-{
-  "name": "standardize_lab_format",
-  "pattern": "([A-Za-z0-9]+)\\s*[:=]\\s*(\\d+\\.?\\d*)\\s*([a-zA-Z/]+)",
-  "replacement": "\\1: \\2 \\3",
-  "description": "Standardize lab format: 'Glucose=120mg/dL' -> 'Glucose: 120 mg/dL'",
-  "enabled": true
-}

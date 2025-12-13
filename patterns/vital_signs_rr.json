@@ -1,7 +1,0 @@
-{
-  "name": "extract_respiratory_rate",
-  "pattern": "(?i)(?:rr|resp(?:iratory)?\\s+rate)[:\\s]*([0-9]{1,2})",
-  "replacement": "RR: \\1",
-  "description": "Extract and standardize respiratory rate",
-  "enabled": true
-}

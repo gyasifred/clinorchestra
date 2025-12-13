@@ -1,7 +1,0 @@
-{
-  "name": "detect_hippocampal_atrophy",
-  "pattern": "hippocampal? atrophy",
-  "replacement": "[HIPPOCAMPAL_ATROPHY]",
-  "description": "Detect hippocampal atrophy on imaging (supportive of Alzheimer's disease)",
-  "enabled": true
-}

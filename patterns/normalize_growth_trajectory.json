@@ -1,7 +1,0 @@
-{
-  "name": "normalize_growth_trajectory",
-  "pattern": "(crossing|crossed|falling|dropped)\\s+(percentile|growth\\s+curve|z[\\-\\s]?score)",
-  "replacement": "\\1 \\2",
-  "description": "Standardize growth trajectory language",
-  "enabled": true
-}

@@ -1,7 +1,0 @@
-{
-  "name": "expand_sora",
-  "pattern": "\\b(SORA|sora)\\b",
-  "replacement": "spontaneous respiration in room air",
-  "description": "Expand SORA abbreviation",
-  "enabled": true
-}

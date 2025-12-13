@@ -1,0 +1,685 @@
+- name: calculate_bmi
+  code: "\ndef calculate_bmi(weight_kg, height_m=None, height_cm=None):\n    \"\"\"\
+    Calculate BMI from weight in kg and height in meters or centimeters\"\"\"\n  \
+    \  if not weight_kg or weight_kg <= 0:\n        return None\n    \n    # Prioritize\
+    \ height_m if both are provided\n    if height_m and height_m > 0:\n        pass\
+    \  # Use height_m as is\n    elif height_cm and height_cm > 0:\n        # Convert\
+    \ height_cm to height_m\n        height_m = height_cm / 100.0\n    else:\n   \
+    \     return None\n    \n    bmi = weight_kg / (height_m ** 2)\n    return round(bmi,\
+    \ 2)\n                "
+  description: Calculate Body Mass Index
+  parameters:
+    weight_kg:
+      type: number
+      description: Weight in kilograms
+    height_m:
+      type: number
+      description: Height in meters (optional if height_cm provided)
+    height_cm:
+      type: number
+      description: Height in centimeters (optional if height_m provided)
+  returns: BMI value (number)
+  enabled: true
+  signature: (weight_kg, height_m=None, height_cm=None)
+- name: zscore_to_percentile
+  code: "def zscore_to_percentile(zscore: float) -> float:\n    \"\"\"\n    Convert\
+    \ z-score to percentile for growth assessment.\n\n    Clinical significance:\n\
+    \    - z < -2: Below 3rd percentile (severe malnutrition)\n    - z < -1.64: Below\
+    \ 5th percentile (malnutrition risk)\n    - z = 0: 50th percentile (average)\n\
+    \    - z > 1.64: Above 95th percentile (overweight/obesity)\n\n    Args:\n   \
+    \     zscore: Z-score (standard deviations from mean)\n\n    Returns:\n      \
+    \  Percentile (0-100)\n\n    Examples:\n        z = -2 -> 2.3rd percentile (severe\
+    \ malnutrition)\n        z = -1.88 -> 3rd percentile (malnutrition)\n        z\
+    \ = 0 -> 50th percentile (average)\n        z = 1.88 -> 97th percentile (overweight)\n\
+    \    \"\"\"\n    # Common z-score to percentile mappings\n    common_mappings\
+    \ = {\n        -3.0: 0.13,   # Extremely low\n        -2.5: 0.62,\n        -2.33:\
+    \ 1.0,   # 1st percentile\n        -2.0: 2.3,    # Severe malnutrition threshold\n\
+    \        -1.88: 3.0,   # 3rd percentile\n        -1.64: 5.0,   # 5th percentile\
+    \ (malnutrition risk)\n        -1.28: 10.0,  # 10th percentile\n        -1.0:\
+    \ 15.9,\n        -0.67: 25.0,  # 25th percentile\n        -0.5: 30.9,\n      \
+    \  0.0: 50.0,    # 50th percentile (median)\n        0.5: 69.1,\n        0.67:\
+    \ 75.0,   # 75th percentile\n        1.0: 84.1,\n        1.28: 90.0,   # 90th\
+    \ percentile\n        1.64: 95.0,   # 95th percentile (overweight risk)\n    \
+    \    1.88: 97.0,   # 97th percentile\n        2.0: 97.7,\n        2.33: 99.0,\
+    \   # 99th percentile\n        3.0: 99.87,   # Extremely high\n    }\n\n    #\
+    \ Check for exact match\n    if zscore in common_mappings:\n        return round(common_mappings[zscore],\
+    \ 2)\n\n    # Find closest matches for interpolation\n    z_keys = sorted(common_mappings.keys())\n\
+    \n    if zscore <= z_keys[0]:\n        return common_mappings[z_keys[0]]\n   \
+    \ if zscore >= z_keys[-1]:\n        return common_mappings[z_keys[-1]]\n\n   \
+    \ # Linear interpolation between closest points\n    for i in range(len(z_keys)\
+    \ - 1):\n        if z_keys[i] <= zscore <= z_keys[i+1]:\n            z1, z2 =\
+    \ z_keys[i], z_keys[i+1]\n            p1, p2 = common_mappings[z1], common_mappings[z2]\n\
+    \n            # Linear interpolation\n            proportion = (zscore - z1) /\
+    \ (z2 - z1)\n            percentile = p1 + proportion * (p2 - p1)\n          \
+    \  return round(percentile, 2)\n\n    return 50.0  # Default to median\n"
+  description: Convert z-score to growth percentile for malnutrition assessment. Negative
+    z-scores = lower percentiles. Used to interpret standard deviation scores.
+  parameters:
+    zscore:
+      type: number
+      description: 'Z-score (standard deviations from mean). Common values: -3, -2,
+        -1.88, -1, 0, +1, +2'
+  returns:
+    type: number
+    description: Growth percentile (0-100). Lower percentiles indicate below average
+      growth.
+  enabled: true
+  signature: '(zscore: float) -> float'
+- name: percentile_to_zscore
+  code: "def percentile_to_zscore(percentile: float) -> float:\n    \"\"\"\n    Convert\
+    \ percentile to z-score for growth assessment.\n\n    Clinical significance:\n\
+    \    - Below 5th percentile (z < -1.64): Malnutrition risk\n    - Below 3rd percentile\
+    \ (z < -1.88): Moderate-severe malnutrition\n    - 50th percentile (z = 0): Average\n\
+    \    - Above 95th percentile (z > 1.64): Overweight/obesity risk\n\n    Args:\n\
+    \        percentile: Growth percentile (0-100)\n\n    Returns:\n        Z-score\
+    \ (standard deviations from mean)\n\n    Examples:\n        50th percentile ->\
+    \ z = 0 (average)\n        3rd percentile -> z = -1.88 (malnutrition concern)\n\
+    \        97th percentile -> z = 1.88 (overweight concern)\n    \"\"\"\n    # Validate\
+    \ input\n    if percentile < 0 or percentile > 100:\n        raise ValueError(\"\
+    Percentile must be between 0 and 100\")\n\n    # Handle edge cases\n    if percentile\
+    \ == 0:\n        return -3.0  # Extremely low\n    if percentile == 100:\n   \
+    \     return 3.0  # Extremely high\n    if percentile == 50:\n        return 0.0\
+    \  # Mean\n\n    # Convert percentile to proportion\n    p = percentile / 100.0\n\
+    \n    # Common percentile to z-score mappings (for accuracy)\n    common_mappings\
+    \ = {\n        0.01: -2.33,  # 1st percentile\n        0.03: -1.88,  # 3rd percentile\n\
+    \        0.05: -1.64,  # 5th percentile\n        0.10: -1.28,  # 10th percentile\n\
+    \        0.25: -0.67,  # 25th percentile\n        0.50: 0.00,   # 50th percentile\
+    \ (median)\n        0.75: 0.67,   # 75th percentile\n        0.90: 1.28,   # 90th\
+    \ percentile\n        0.95: 1.64,   # 95th percentile\n        0.97: 1.88,   #\
+    \ 97th percentile\n        0.99: 2.33,   # 99th percentile\n    }\n\n    # Check\
+    \ for exact match\n    if p in common_mappings:\n        return round(common_mappings[p],\
+    \ 2)\n\n    # Approximate using inverse normal CDF (rational approximation)\n\
+    \    # This is Beasley-Springer-Moro algorithm (simplified)\n    if p < 0.5:\n\
+    \        # Lower tail\n        sign = -1.0\n        p_calc = p\n    else:\n  \
+    \      # Upper tail\n        sign = 1.0\n        p_calc = 1.0 - p\n\n    # Rational\
+    \ approximation coefficients\n    a = [2.50662823884, -18.61500062529, 41.39119773534,\
+    \ -25.44106049637]\n    b = [-8.47351093090, 23.08336743743, -21.06224101826,\
+    \ 3.13082909833]\n    c = [0.3374754822726147, 0.9761690190917186, 0.1607979714918209,\n\
+    \         0.0276438810333863, 0.0038405729373609, 0.0003951896511919,\n      \
+    \   0.0000321767881768, 0.0000002888167364, 0.0000003960315187]\n\n    # Use simplified\
+    \ approximation\n    if p_calc > 0.0 and p_calc < 1.0:\n        import math\n\
+    \        t = math.sqrt(-2.0 * math.log(p_calc))\n        z = t - (c[0] + c[1]*t\
+    \ + c[2]*t**2) / (1.0 + c[3]*t + c[4]*t**2 + c[5]*t**3)\n        return round(sign\
+    \ * z, 2)\n\n    return 0.0\n"
+  description: Convert growth percentile to z-score for malnutrition assessment. Lower
+    percentiles = negative z-scores. Used for growth chart interpretation.
+  parameters:
+    percentile:
+      type: number
+      description: 'Growth percentile (0-100). Common values: 3rd, 5th, 10th, 25th,
+        50th, 75th, 90th, 95th, 97th percentile'
+  returns:
+    type: number
+    description: Z-score (standard deviations from mean). Negative z-scores indicate
+      below average.
+  enabled: true
+  signature: '(percentile: float) -> float'
+- name: interpret_zscore_malnutrition
+  code: "def interpret_zscore_malnutrition(zscore: float, measurement_type: str) ->\
+    \ str:\n    \"\"\"\n    Interpret z-score for growth assessment following WHO/ASPEN\
+    \ criteria.\n\n    IMPORTANT: Returns OBJECTIVE interpretation only. Does NOT\
+    \ diagnose malnutrition.\n    Diagnosis requires comprehensive assessment per\
+    \ ASPEN (≥2 indicators).\n\n    Z-score ranges (WHO/ASPEN):\n    - Weight-for-height\
+    \ or BMI-for-age:\n      * z < -3: Severe growth deficit\n      * -3 ≤ z < -2:\
+    \ Moderate growth deficit\n      * -2 ≤ z < -1: Mild growth deficit (at risk)\n\
+    \      * -1 ≤ z ≤ +1: Normal range\n      * z > +2: Above normal range\n\n   \
+    \ Args:\n        zscore: Z-score value\n        measurement_type: Type of measurement\
+    \ ('weight-for-age', 'height-for-age', 'BMI-for-age', etc.)\n\n    Returns:\n\
+    \        Objective interpretation of z-score with percentile context\n    \"\"\
+    \"\n    measurement_type = measurement_type.lower().replace(\" \", \"-\")\n\n\
+    \    # Normalize measurement type\n    if \"weight\" in measurement_type and (\"\
+    height\" in measurement_type or \"length\" in measurement_type):\n        category\
+    \ = \"weight-for-height\"\n    elif \"bmi\" in measurement_type:\n        category\
+    \ = \"bmi\"\n    elif \"height\" in measurement_type or \"length\" in measurement_type:\n\
+    \        category = \"height-for-age\"\n    elif \"weight\" in measurement_type:\n\
+    \        category = \"weight-for-age\"\n    else:\n        category = \"unknown\"\
+    \n\n    # Calculate approximate percentile\n    def zscore_to_percentile(z):\n\
+    \        mappings = {-3.0: 0.13, -2.5: 0.62, -2.0: 2.3, -1.88: 3.0, -1.64: 5.0,\
+    \ -1.0: 15.9,\n                    0.0: 50.0, 1.0: 84.1, 1.64: 95.0, 2.0: 97.7,\
+    \ 3.0: 99.87}\n        if z in mappings:\n            return mappings[z]\n   \
+    \     z_keys = sorted(mappings.keys())\n        if z <= z_keys[0]:\n         \
+    \   return mappings[z_keys[0]]\n        if z >= z_keys[-1]:\n            return\
+    \ mappings[z_keys[-1]]\n        for i in range(len(z_keys) - 1):\n           \
+    \ if z_keys[i] <= z <= z_keys[i+1]:\n                z1, z2 = z_keys[i], z_keys[i+1]\n\
+    \                p1, p2 = mappings[z1], mappings[z2]\n                proportion\
+    \ = (z - z1) / (z2 - z1)\n                return p1 + proportion * (p2 - p1)\n\
+    \        return 50.0\n\n    percentile = zscore_to_percentile(zscore)\n\n    #\
+    \ Generate objective interpretation\n    if category in [\"weight-for-height\"\
+    , \"bmi\"]:\n        if zscore < -3:\n            severity_category = \"Severe\
+    \ growth deficit\"\n            interpretation = f\"Z-score {zscore:.2f} (<-3\
+    \ SD, ~{percentile:.1f}th percentile) indicates severe growth deficit. Corresponds\
+    \ to WHO severe acute malnutrition threshold.\"\n        elif zscore < -2:\n \
+    \           severity_category = \"Moderate growth deficit\"\n            interpretation\
+    \ = f\"Z-score {zscore:.2f} (-3 to -2 SD, ~{percentile:.1f}th percentile) indicates\
+    \ moderate growth deficit. Corresponds to WHO moderate malnutrition threshold.\"\
+    \n        elif zscore < -1:\n            severity_category = \"Mild growth deficit\"\
+    \n            interpretation = f\"Z-score {zscore:.2f} (-2 to -1 SD, ~{percentile:.1f}th\
+    \ percentile) indicates mild growth deficit. Within at-risk range.\"\n       \
+    \ elif zscore <= 1:\n            severity_category = \"Normal range\"\n      \
+    \      interpretation = f\"Z-score {zscore:.2f} (-1 to +1 SD, ~{percentile:.1f}th\
+    \ percentile) is within normal range.\"\n        elif zscore <= 2:\n         \
+    \   severity_category = \"Above normal\"\n            interpretation = f\"Z-score\
+    \ {zscore:.2f} (+1 to +2 SD, ~{percentile:.1f}th percentile) is above normal range.\"\
+    \n        else:\n            severity_category = \"Well above normal\"\n     \
+    \       interpretation = f\"Z-score {zscore:.2f} (>+2 SD, ~{percentile:.1f}th\
+    \ percentile) is well above normal range.\"\n\n    elif category == \"height-for-age\"\
+    :\n        if zscore < -3:\n            severity_category = \"Severe height deficit\"\
+    \n            interpretation = f\"Z-score {zscore:.2f} (<-3 SD) indicates severe\
+    \ stunting (chronic growth deficit).\"\n        elif zscore < -2:\n          \
+    \  severity_category = \"Moderate height deficit\"\n            interpretation\
+    \ = f\"Z-score {zscore:.2f} (-3 to -2 SD) indicates stunting (chronic growth deficit).\"\
+    \n        elif zscore < -1:\n            severity_category = \"Mild height deficit\"\
+    \n            interpretation = f\"Z-score {zscore:.2f} (-2 to -1 SD) indicates\
+    \ mild height deficit.\"\n        else:\n            severity_category = \"Normal\
+    \ height\"\n            interpretation = f\"Z-score {zscore:.2f} (≥-1 SD) indicates\
+    \ normal height-for-age.\"\n\n    elif category == \"weight-for-age\":\n     \
+    \   if zscore < -3:\n            severity_category = \"Severe weight deficit\"\
+    \n            interpretation = f\"Z-score {zscore:.2f} (<-3 SD) indicates severe\
+    \ underweight.\"\n        elif zscore < -2:\n            severity_category = \"\
+    Moderate weight deficit\"\n            interpretation = f\"Z-score {zscore:.2f}\
+    \ (-3 to -2 SD) indicates underweight.\"\n        elif zscore < -1:\n        \
+    \    severity_category = \"Mild weight deficit\"\n            interpretation =\
+    \ f\"Z-score {zscore:.2f} (-2 to -1 SD) indicates mild underweight risk.\"\n \
+    \       else:\n            severity_category = \"Normal weight\"\n           \
+    \ interpretation = f\"Z-score {zscore:.2f} (≥-1 SD) indicates normal weight-for-age.\"\
+    \n    else:\n        interpretation = f\"Z-score {zscore:.2f} for {measurement_type}.\
+    \ Measurement type not fully categorized.\"\n\n    # Add context note\n    context_note\
+    \ = \" | NOTE: Z-score interpretation provides growth assessment context. ASPEN\
+    \ malnutrition diagnosis requires ≥2 indicators. Consider clinical context, trajectory,\
+    \ and other factors.\"\n\n    return interpretation + context_note\n"
+  description: Interpret z-score for growth assessment - v1.0.0 returns OBJECTIVE
+    data only, no diagnostic labels
+  parameters:
+    zscore:
+      type: number
+      description: Z-score for growth measurement
+    measurement_type:
+      type: string
+      description: 'Type: ''weight-for-age'', ''height-for-age'', ''BMI-for-age'',
+        etc.'
+  returns:
+    type: string
+    description: Objective interpretation with percentile context and clinical note
+  enabled: true
+  signature: '(zscore: float, measurement_type: str) -> str'
+- name: calculate_ideal_body_weight
+  code: "def calculate_ideal_body_weight(height_cm, sex):\n    '''Calculate IBW using\
+    \ Devine formula'''\n    height_inches = height_cm / 2.54\n    if sex.lower()\
+    \ in ['male', 'm']:\n        ibw_kg = 50 + 2.3 * (height_inches - 60)\n    elif\
+    \ sex.lower() in ['female', 'f']:\n        ibw_kg = 45.5 + 2.3 * (height_inches\
+    \ - 60)\n    else:\n        return None\n    return round(ibw_kg, 1)"
+  description: Calculate Ideal Body Weight using Devine formula
+  parameters:
+    height_cm:
+      type: number
+      description: Height in centimeters
+      required: true
+    sex:
+      type: string
+      description: 'Sex: ''male'' or ''female'''
+      required: true
+  returns: {}
+  enabled: true
+  signature: (height_cm, sex)
+- name: test_composite_bmi_age
+  code: "def test_composite_bmi_age(weight_kg, height_m, birth_date):\n    '''\n \
+    \   TEST: Composite function demonstrating function composition\n\n    This function\
+    \ calls other registered functions:\n    1. calculate_age_months(birth_date) -\
+    \ to get age\n    2. calculate_bmi(weight_kg, height_m) - to get BMI\n\n    Args:\n\
+    \        weight_kg: Weight in kilograms\n        height_m: Height in meters\n\
+    \        birth_date: Birth date in YYYY-MM-DD format\n\n    Returns:\n       \
+    \ Dictionary with age_months, bmi, and categorization\n    '''\n    # Call calculate_age_months\
+    \ function\n    age_months = call_function('calculate_age_months', birth_date=birth_date)\n\
+    \n    # Call calculate_bmi function\n    bmi = call_function('calculate_bmi',\
+    \ weight_kg=weight_kg, height_m=height_m)\n\n    # Categorize BMI\n    if bmi\
+    \ < 18.5:\n        category = 'Underweight'\n    elif bmi < 25:\n        category\
+    \ = 'Normal'\n    elif bmi < 30:\n        category = 'Overweight'\n    else:\n\
+    \        category = 'Obese'\n\n    return {\n        'age_months': age_months,\n\
+    \        'bmi': bmi,\n        'category': category,\n        'weight_kg': weight_kg,\n\
+    \        'height_m': height_m\n    }\n"
+  description: 'TEST: Composite function that calls calculate_age_months and calculate_bmi
+    - demonstrates function composition'
+  parameters:
+    weight_kg:
+      type: number
+      description: Weight in kilograms
+      required: true
+    height_m:
+      type: number
+      description: Height in meters
+      required: true
+    birth_date:
+      type: string
+      description: Birth date in YYYY-MM-DD format
+      required: true
+  returns: Dictionary with age_months, bmi, and categorization
+  enabled: true
+  signature: (weight_kg, height_m, birth_date)
+- name: calculate_growth_velocity
+  code: "from datetime import datetime\nfrom dateutil import parser\n\ndef calculate_growth_velocity(initial_height_cm,\
+    \ final_height_cm, initial_date=None, final_date=None, time_interval_days=None,\
+    \ age_months=None) -> dict:\n    \"\"\"\n    Calculate growth velocity (rate of\
+    \ growth over time)\n    \n    Growth velocity is critical for pediatric assessment.\
+    \ Normal growth velocity varies by age:\n    - Infants (0-12 months): ~25 cm/year\
+    \ (highest velocity)\n    - Toddlers (1-2 years): ~12-13 cm/year\n    - Preschool\
+    \ (2-5 years): ~7-8 cm/year\n    - School age (5-10 years): ~5-6 cm/year\n   \
+    \ - Puberty: Variable, can reach 8-12 cm/year during growth spurt\n    \n    Args:\n\
+    \        initial_height_cm: Initial height/length in centimeters\n        final_height_cm:\
+    \ Final height/length in centimeters\n        initial_date: Initial measurement\
+    \ date (string, optional if time_interval_days provided)\n        final_date:\
+    \ Final measurement date (string, optional if time_interval_days provided)\n \
+    \       time_interval_days: Time between measurements in days (optional if dates\
+    \ provided)\n        age_months: Age in months at initial measurement (optional,\
+    \ for interpretation)\n    \n    Returns:\n        Dictionary with growth velocity\
+    \ in various units and interpretation\n    \"\"\"\n    # Calculate change in height\n\
+    \    height_change_cm = final_height_cm - initial_height_cm\n    \n    # Determine\
+    \ time interval\n    if time_interval_days is not None:\n        days = time_interval_days\n\
+    \    elif initial_date and final_date:\n        try:\n            date1 = parser.parse(str(initial_date))\n\
+    \            date2 = parser.parse(str(final_date))\n            days = abs((date2\
+    \ - date1).days)\n        except Exception as e:\n            return {\n     \
+    \           'error': f'Could not parse dates: {str(e)}',\n                'height_change_cm':\
+    \ round(height_change_cm, 2)\n            }\n    else:\n        return {\n   \
+    \         'error': 'Must provide either dates or time_interval_days',\n      \
+    \      'height_change_cm': round(height_change_cm, 2)\n        }\n    \n    if\
+    \ days == 0:\n        return {\n            'error': 'Time interval cannot be\
+    \ zero',\n            'height_change_cm': round(height_change_cm, 2),\n      \
+    \      'time_interval_days': days\n        }\n    \n    # Calculate velocity in\
+    \ different units\n    velocity_cm_per_day = height_change_cm / days\n    velocity_cm_per_month\
+    \ = velocity_cm_per_day * 30.44  # Average days per month\n    velocity_cm_per_year\
+    \ = velocity_cm_per_day * 365.25  # Account for leap years\n    \n    # Build\
+    \ result\n    result = {\n        'height_change_cm': round(height_change_cm,\
+    \ 2),\n        'time_interval_days': days,\n        'time_interval_months': round(days\
+    \ / 30.44, 2),\n        'time_interval_years': round(days / 365.25, 2),\n    \
+    \    'velocity_cm_per_day': round(velocity_cm_per_day, 3),\n        'velocity_cm_per_month':\
+    \ round(velocity_cm_per_month, 2),\n        'velocity_cm_per_year': round(velocity_cm_per_year,\
+    \ 2)\n    }\n    \n    # Add interpretation based on velocity\n    velocity_yearly\
+    \ = velocity_cm_per_year\n    \n    # Determine if growth velocity is appropriate\
+    \ based on age (if provided)\n    if age_months is not None:\n        if age_months\
+    \ < 12:  # Infant\n            expected_range = (20, 30)\n            age_group\
+    \ = 'infant (0-12 months)'\n        elif age_months < 24:  # Toddler\n       \
+    \     expected_range = (10, 15)\n            age_group = 'toddler (1-2 years)'\n\
+    \        elif age_months < 60:  # Preschool\n            expected_range = (6,\
+    \ 9)\n            age_group = 'preschool (2-5 years)'\n        elif age_months\
+    \ < 120:  # School age\n            expected_range = (4, 7)\n            age_group\
+    \ = 'school age (5-10 years)'\n        else:  # Adolescent\n            expected_range\
+    \ = (3, 12)  # Wide range due to pubertal variation\n            age_group = 'adolescent\
+    \ (10+ years)'\n        \n        result['age_group'] = age_group\n        result['expected_velocity_range_cm_per_year']\
+    \ = f'{expected_range[0]}-{expected_range[1]} cm/year'\n        \n        # Assess\
+    \ if within normal range\n        if velocity_yearly < expected_range[0] * 0.7:\
+    \  # <70% of minimum\n            result['interpretation'] = f'Growth velocity\
+    \ ({velocity_yearly:.1f} cm/year) is SIGNIFICANTLY BELOW expected for {age_group}.\
+    \ Consider growth evaluation.'\n            result['growth_assessment'] = 'significantly_low'\n\
+    \        elif velocity_yearly < expected_range[0]:  # Below minimum\n        \
+    \    result['interpretation'] = f'Growth velocity ({velocity_yearly:.1f} cm/year)\
+    \ is BELOW expected for {age_group}. Monitor closely.'\n            result['growth_assessment']\
+    \ = 'low'\n        elif velocity_yearly <= expected_range[1]:  # Within range\n\
+    \            result['interpretation'] = f'Growth velocity ({velocity_yearly:.1f}\
+    \ cm/year) is NORMAL for {age_group}.'\n            result['growth_assessment']\
+    \ = 'normal'\n        elif velocity_yearly <= expected_range[1] * 1.3:  # Slightly\
+    \ above\n            result['interpretation'] = f'Growth velocity ({velocity_yearly:.1f}\
+    \ cm/year) is ABOVE AVERAGE for {age_group}.'\n            result['growth_assessment']\
+    \ = 'high'\n        else:  # Significantly above\n            result['interpretation']\
+    \ = f'Growth velocity ({velocity_yearly:.1f} cm/year) is SIGNIFICANTLY ABOVE expected\
+    \ for {age_group}. May indicate growth spurt or other factors.'\n            result['growth_assessment']\
+    \ = 'significantly_high'\n    else:\n        # No age provided - general interpretation\n\
+    \        if velocity_yearly < 0:\n            result['interpretation'] = f'NEGATIVE\
+    \ growth velocity ({velocity_yearly:.1f} cm/year) - measurement error or pathology.\
+    \ Verify measurements.'\n            result['growth_assessment'] = 'negative'\n\
+    \        elif velocity_yearly < 3:\n            result['interpretation'] = f'VERY\
+    \ LOW growth velocity ({velocity_yearly:.1f} cm/year). Consider evaluation if\
+    \ child is growing.'\n            result['growth_assessment'] = 'very_low'\n \
+    \       elif velocity_yearly < 5:\n            result['interpretation'] = f'LOW\
+    \ growth velocity ({velocity_yearly:.1f} cm/year). May be normal for older children\
+    \ or concern for younger children.'\n            result['growth_assessment'] =\
+    \ 'low'\n        elif velocity_yearly <= 8:\n            result['interpretation']\
+    \ = f'MODERATE growth velocity ({velocity_yearly:.1f} cm/year). Normal for many\
+    \ age groups.'\n            result['growth_assessment'] = 'moderate'\n       \
+    \ elif velocity_yearly <= 15:\n            result['interpretation'] = f'HIGH growth\
+    \ velocity ({velocity_yearly:.1f} cm/year). Normal for infants/toddlers or during\
+    \ puberty.'\n            result['growth_assessment'] = 'high'\n        else:\n\
+    \            result['interpretation'] = f'VERY HIGH growth velocity ({velocity_yearly:.1f}\
+    \ cm/year). Typical for young infants or verify measurements.'\n            result['growth_assessment']\
+    \ = 'very_high'\n    \n    return result\n"
+  description: Calculate growth velocity (rate of linear growth over time) in cm/day,
+    cm/month, and cm/year. Provides age-appropriate interpretation when age is provided.
+    Critical for pediatric growth assessment and identifying growth disorders.
+  parameters:
+    initial_height_cm:
+      type: number
+      description: Initial height or length measurement in centimeters
+      required: true
+    final_height_cm:
+      type: number
+      description: Final height or length measurement in centimeters
+      required: true
+    initial_date:
+      type: string
+      description: 'Date of initial measurement (format: YYYY-MM-DD, MM/DD/YYYY, or
+        natural language). Required if time_interval_days not provided.'
+      required: false
+    final_date:
+      type: string
+      description: 'Date of final measurement (format: YYYY-MM-DD, MM/DD/YYYY, or
+        natural language). Required if time_interval_days not provided.'
+      required: false
+    time_interval_days:
+      type: number
+      description: Time between measurements in days. Optional if initial_date and
+        final_date are provided.
+      required: false
+    age_months:
+      type: number
+      description: Age in months at initial measurement. Optional but recommended
+        for age-appropriate interpretation.
+      required: false
+  returns:
+    height_change_cm: Change in height in centimeters
+    time_interval_days: Time between measurements in days
+    time_interval_months: Time between measurements in months
+    time_interval_years: Time between measurements in years
+    velocity_cm_per_day: Growth velocity in cm/day
+    velocity_cm_per_month: Growth velocity in cm/month
+    velocity_cm_per_year: Growth velocity in cm/year (primary metric)
+    age_group: Age group classification (if age_months provided)
+    expected_velocity_range_cm_per_year: Expected normal range for age (if age_months
+      provided)
+    interpretation: Clinical interpretation of growth velocity
+    growth_assessment: Assessment category (normal, low, high, etc.)
+  enabled: true
+  signature: (initial_height_cm, final_height_cm, initial_date=None, final_date=None,
+    time_interval_days=None, age_months=None) -> dict
+- name: calculate_growth_percentile
+  code: "def calculate_growth_percentile(measurement_type, value, age_months, sex,\
+    \ height_cm=None):\n    '''\n    Calculate growth percentile using CDC data\n\
+    \    \n    Args:\n        measurement_type: 'weight', 'height', 'stature', or\
+    \ 'bmi'\n        value: measurement value (kg for weight, cm for height, kg/m²\
+    \ for BMI)\n        age_months: age in months\n        sex: 1 for male, 2 for\
+    \ female\n             NOTE: The system automatically converts string values:\n\
+    \                   'male', 'm', 'boy', 'man' → 1\n                   'female',\
+    \ 'f', 'girl', 'woman' → 2\n             You can pass either format, the function\
+    \ registry will handle conversion.\n        height_cm: height in cm (only needed\
+    \ for weight-for-stature)\n    \n    Returns:\n        Dict with percentile, z_score,\
+    \ and metric information\n    '''\n    from core.growth_calculators import CDCGrowthCalculator,\
+    \ GrowthMetric, Sex\n    \n    # Initialize calculator\n    calculator = CDCGrowthCalculator(data_directory=\"\
+    cdc_data\")\n    \n    # Map measurement type to metric\n    metric_map = {\n\
+    \        'weight': GrowthMetric.WEIGHT_FOR_AGE,\n        'height': GrowthMetric.STATURE_FOR_AGE,\n\
+    \        'stature': GrowthMetric.STATURE_FOR_AGE,\n        'bmi': GrowthMetric.BMI_FOR_AGE\n\
+    \    }\n    \n    metric = metric_map.get(measurement_type.lower())\n    if not\
+    \ metric:\n        return {'error': f'Unknown measurement type: {measurement_type}'}\n\
+    \    \n    # Convert sex to enum\n    sex_enum = Sex.MALE if sex == 1 else Sex.FEMALE\n\
+    \    \n    # Calculate percentile\n    result = calculator.calculate_growth_percentile(\n\
+    \        metric=metric,\n        sex=sex_enum,\n        value=value,\n       \
+    \ age_months=age_months,\n        height_cm=height_cm\n    )\n    \n    if result\
+    \ is None:\n        return {'error': 'Could not calculate percentile'}\n    \n\
+    \    return {\n        'percentile': result.percentile,\n        'z_score': result.z_score,\n\
+    \        'reference_value': result.reference_value,\n        'metric': result.metric\n\
+    \    }\n"
+  description: Calculate CDC growth percentile for weight, height/stature, or BMI
+  parameters:
+    measurement_type:
+      type: string
+      description: 'Type of measurement: ''weight'', ''height'', ''stature'', or ''bmi'''
+      required: true
+    value:
+      type: number
+      description: Measurement value (kg for weight, cm for height, kg/m² for BMI)
+      required: true
+    age_months:
+      type: number
+      description: Age in months
+      required: true
+    sex:
+      type: number
+      description: 'Sex: 1 for male, 2 for female. Can also pass string ''male'' or
+        ''female'' which will be automatically converted.'
+      required: true
+    height_cm:
+      type: number
+      description: Height in cm (only for weight-for-stature calculations)
+      required: false
+  returns: Dictionary with percentile, z_score, reference_value, and metric
+  enabled: true
+  signature: (measurement_type, value, age_months, sex, height_cm=None)
+- name: calculate_weight_change_percent
+  code: "def calculate_weight_change_percent(initial_weight, final_weight):\n    '''Calculate\
+    \ percentage weight change'''\n    if initial_weight == 0:\n        return None\n\
+    \    change = ((final_weight - initial_weight) / initial_weight) * 100\n    return\
+    \ round(change, 2)"
+  description: Calculate percentage weight change between two timepoints
+  parameters:
+    initial_weight:
+      type: number
+      description: Initial weight in any unit
+      required: true
+    final_weight:
+      type: number
+      description: Final weight in same unit
+      required: true
+  returns: {}
+  enabled: true
+  signature: (initial_weight, final_weight)
+- name: calculate_zscore
+  code: "def calculate_zscore(measurement, value, age_months, sex, height_cm=None):\n\
+    \    '''\n    Calculate growth z-score using CDC data\n\n    Args:\n        measurement:\
+    \ 'weight', 'height', 'stature', or 'bmi'\n        value: measurement value (kg\
+    \ for weight, cm for height, kg/m² for BMI)\n        age_months: age in months\n\
+    \        sex: 'male', 'female', 'm', 'f', 1 (male), or 2 (female)\n        height_cm:\
+    \ height in cm (only needed for weight-for-stature)\n\n    Returns:\n        Z-score\
+    \ value (number) or error dict\n    '''\n    from core.growth_calculators import\
+    \ CDCGrowthCalculator, GrowthMetric, Sex\n\n    # Initialize calculator\n    calculator\
+    \ = CDCGrowthCalculator(data_directory=\"cdc_data\")\n\n    # Map measurement\
+    \ type to metric\n    metric_map = {\n        'weight': GrowthMetric.WEIGHT_FOR_AGE,\n\
+    \        'height': GrowthMetric.STATURE_FOR_AGE,\n        'stature': GrowthMetric.STATURE_FOR_AGE,\n\
+    \        'bmi': GrowthMetric.BMI_FOR_AGE\n    }\n\n    metric = metric_map.get(measurement.lower()\
+    \ if isinstance(measurement, str) else '')\n    if not metric:\n        return\
+    \ {'error': f'Unknown measurement type: {measurement}'}\n\n    # Convert sex to\
+    \ enum (handle both string and numeric inputs)\n    if isinstance(sex, str):\n\
+    \        sex_lower = sex.lower().strip()\n        if sex_lower in ['male', 'm',\
+    \ 'boy', 'man']:\n            sex_enum = Sex.MALE\n        elif sex_lower in ['female',\
+    \ 'f', 'girl', 'woman']:\n            sex_enum = Sex.FEMALE\n        else:\n \
+    \           return {'error': f'Unknown sex value: {sex}'}\n    elif sex == 1:\n\
+    \        sex_enum = Sex.MALE\n    elif sex == 2:\n        sex_enum = Sex.FEMALE\n\
+    \    else:\n        return {'error': f'Invalid sex value: {sex}'}\n\n    # Calculate\
+    \ percentile and z-score\n    result = calculator.calculate_growth_percentile(\n\
+    \        metric=metric,\n        sex=sex_enum,\n        value=value,\n       \
+    \ age_months=age_months,\n        height_cm=height_cm\n    )\n\n    if result\
+    \ is None:\n        return {'error': 'Could not calculate z-score'}\n\n    # Return\
+    \ just the z-score value\n    return result.z_score\n"
+  description: Calculate growth z-score for weight, height/stature, or BMI using CDC
+    growth standards
+  parameters:
+    measurement:
+      type: string
+      description: 'Type of measurement: ''weight'', ''height'', ''stature'', or ''bmi'''
+      required: true
+    value:
+      type: number
+      description: Measurement value (kg for weight, cm for height, kg/m² for BMI)
+      required: true
+    age_months:
+      type: number
+      description: Age in months
+      required: true
+    sex:
+      type: string
+      description: 'Sex: ''male'' or ''female'' (can also use ''m'', ''f'', 1 for
+        male, 2 for female)'
+      required: true
+    height_cm:
+      type: number
+      description: Height in cm (only for weight-for-stature calculations)
+      required: false
+  returns: Z-score value (number) or error message
+  enabled: true
+  signature: (measurement, value, age_months, sex, height_cm=None)
+- name: calculate_pediatric_nutrition_status
+  code: "def calculate_pediatric_nutrition_status(weight_kg, height_cm, age_months,\
+    \ sex):\n    '''\n    Calculate comprehensive pediatric growth assessment using\
+    \ CDC/WHO z-scores\n\n    IMPORTANT: Returns growth parameters for assessment.\
+    \ Does NOT diagnose malnutrition.\n    ASPEN malnutrition diagnosis requires ≥2\
+    \ indicators.\n\n    Args:\n        weight_kg: Weight in kilograms\n        height_cm:\
+    \ Height in centimeters\n        age_months: Age in months\n        sex: 'male'\
+    \ or 'female'\n\n    Returns:\n        Dictionary with z-scores, BMI, and WHO\
+    \ growth assessment categories\n    '''\n    # Calculate BMI first\n    height_m\
+    \ = height_cm / 100.0\n    bmi = call_function('calculate_bmi', weight_kg=weight_kg,\
+    \ height_m=height_m)\n\n    # Calculate z-scores\n    weight_zscore = call_function('calculate_zscore',\n\
+    \                                   measurement='weight',\n                  \
+    \                 value=weight_kg,\n                                   age_months=age_months,\n\
+    \                                   sex=sex)\n\n    height_zscore = call_function('calculate_zscore',\n\
+    \                                   measurement='height',\n                  \
+    \                 value=height_cm,\n                                   age_months=age_months,\n\
+    \                                   sex=sex)\n\n    bmi_zscore = call_function('calculate_zscore',\n\
+    \                                measurement='bmi',\n                        \
+    \        value=bmi,\n                                age_months=age_months,\n\
+    \                                sex=sex)\n\n    # Growth assessment categories\
+    \ (descriptive, not diagnostic)\n    def assess_wasting(bmi_z):\n        if bmi_z\
+    \ < -3:\n            return 'Severe growth deficit (wasting pattern)'\n      \
+    \  elif bmi_z < -2:\n            return 'Moderate growth deficit (wasting pattern)'\n\
+    \        elif bmi_z < -1:\n            return 'Mild growth deficit (at-risk)'\n\
+    \        else:\n            return 'Normal BMI-for-age'\n\n    def assess_stunting(height_z):\n\
+    \        if height_z < -3:\n            return 'Severe height deficit (stunting\
+    \ pattern)'\n        elif height_z < -2:\n            return 'Moderate height\
+    \ deficit (stunting pattern)'\n        elif height_z < -1:\n            return\
+    \ 'Mild height deficit (at-risk)'\n        else:\n            return 'Normal height-for-age'\n\
+    \n    def assess_underweight(weight_z):\n        if weight_z < -3:\n         \
+    \   return 'Severe weight deficit'\n        elif weight_z < -2:\n            return\
+    \ 'Moderate weight deficit'\n        elif weight_z < -1:\n            return 'Mild\
+    \ weight deficit (at-risk)'\n        else:\n            return 'Normal weight-for-age'\n\
+    \n    return {\n        'bmi': bmi,\n        'weight_zscore': weight_zscore,\n\
+    \        'height_zscore': height_zscore,\n        'bmi_zscore': bmi_zscore,\n\
+    \        'wasting_assessment': assess_wasting(bmi_zscore),\n        'stunting_assessment':\
+    \ assess_stunting(height_zscore),\n        'underweight_assessment': assess_underweight(weight_zscore),\n\
+    \        'age_months': age_months,\n        'sex': sex,\n        'aspen_note':\
+    \ 'ASPEN malnutrition diagnosis requires ≥2 indicators: (1) low z-score, (2) inadequate\
+    \ intake, (3) weight loss/deceleration, (4) muscle/fat loss, or (5) edema. Z-scores\
+    \ alone do NOT diagnose malnutrition.'\n    }\n"
+  description: Calculate pediatric growth assessment - v1.0.0 descriptive categories,
+    NOT diagnostic labels
+  parameters:
+    weight_kg:
+      type: number
+      description: Weight in kilograms
+      required: true
+    height_cm:
+      type: number
+      description: Height in centimeters
+      required: true
+    age_months:
+      type: number
+      description: Age in months
+      required: true
+    sex:
+      type: string
+      description: 'Sex: ''male'' or ''female'''
+      required: true
+  returns: Dictionary with z-scores, BMI, and growth assessment categories (NOT diagnoses)
+    + ASPEN note
+  enabled: true
+  signature: (weight_kg, height_cm, age_months, sex)
+- name: interpret_albumin_malnutrition
+  code: "def interpret_albumin_malnutrition(albumin: float, age_years: float = None)\
+    \ -> dict:\n    \"\"\"\n    Interpret serum albumin in nutritional context\n\n\
+    \    IMPORTANT: Albumin has MANY non-nutritional causes of low levels.\n    Does\
+    \ NOT diagnose malnutrition. Requires comprehensive assessment with anthropometrics.\n\
+    \n    Normal: 3.5-5.0 g/dL\n    Low albumin thresholds:\n    - 3.0-3.4 g/dL: Mild\
+    \ depletion\n    - 2.4-2.9 g/dL: Moderate depletion\n    - <2.4 g/dL: Severe depletion\n\
+    \n    Args:\n        albumin: Serum albumin in g/dL\n        age_years: Patient\
+    \ age (optional)\n\n    Returns:\n        dict with status, interpretation, and\
+    \ critical caveats\n    \"\"\"\n    if albumin >= 3.5:\n        return {\n   \
+    \         'albumin_level': f'{albumin:.1f} g/dL',\n            'albumin_status':\
+    \ 'Normal',\n            'interpretation': f\"Albumin {albumin:.1f} g/dL is within\
+    \ normal range (3.5-5.0 g/dL).\",\n            'clinical_context': 'Normal albumin\
+    \ does NOT exclude malnutrition. Assess anthropometric measurements (weight, height,\
+    \ BMI, z-scores).',\n            'limitations': 'Albumin is NOT a sensitive marker\
+    \ for acute malnutrition. Consider prealbumin for acute assessment.'\n       \
+    \ }\n    elif albumin >= 3.0:\n        return {\n            'albumin_level':\
+    \ f'{albumin:.1f} g/dL',\n            'albumin_status': 'Mild depletion',\n  \
+    \          'interpretation': f\"Albumin {albumin:.1f} g/dL indicates mild protein\
+    \ depletion.\",\n            'clinical_context': 'Low albumin may reflect inflammation,\
+    \ liver disease, nephrotic syndrome, OR malnutrition. Correlate with z-scores\
+    \ and clinical assessment.',\n            'limitations': 'Albumin alone does NOT\
+    \ diagnose malnutrition. Must assess anthropometrics per ASPEN criteria.'\n  \
+    \      }\n    elif albumin >= 2.4:\n        return {\n            'albumin_level':\
+    \ f'{albumin:.1f} g/dL',\n            'albumin_status': 'Moderate depletion',\n\
+    \            'interpretation': f\"Albumin {albumin:.1f} g/dL indicates moderate\
+    \ protein depletion.\",\n            'clinical_context': 'Moderate hypoalbuminemia\
+    \ requires evaluation for: (1) malnutrition (assess z-scores), (2) inflammation\
+    \ (check CRP), (3) liver disease, (4) protein loss (nephrotic syndrome).',\n \
+    \           'limitations': 'Albumin is a late marker (21-day half-life). Does\
+    \ NOT diagnose malnutrition without anthropometric data.'\n        }\n    else:\n\
+    \        return {\n            'albumin_level': f'{albumin:.1f} g/dL',\n     \
+    \       'albumin_status': 'Severe depletion',\n            'interpretation': f\"\
+    Albumin {albumin:.1f} g/dL indicates severe hypoalbuminemia.\",\n            'clinical_context':\
+    \ 'Severe hypoalbuminemia associated with poor outcomes. Evaluate for: malnutrition\
+    \ (check z-scores and weight trends), liver disease, nephrotic syndrome, acute\
+    \ inflammation, sepsis.',\n            'limitations': 'Low albumin does NOT equal\
+    \ malnutrition diagnosis. MUST assess anthropometrics. Consider nutrition support\
+    \ if malnutrition confirmed.'\n        }\n"
+  description: Interpret albumin in nutritional context - v1.0.0 NO boolean flags,
+    emphasizes limitations
+  parameters:
+    albumin:
+      type: number
+      description: Serum albumin in g/dL
+      required: true
+    age_years:
+      type: number
+      description: Patient age in years (optional)
+      required: false
+  returns: dict with status, interpretation, clinical_context, and limitations
+  enabled: true
+  signature: '(albumin: float, age_years: float = None) -> dict'
+- name: calculate_percentile
+  code: "def calculate_percentile(measurement, value, age_months, sex, height_cm=None):\n\
+    \    '''\n    Calculate growth percentile using CDC data\n\n    Args:\n      \
+    \  measurement: 'weight', 'height', 'stature', or 'bmi'\n        value: measurement\
+    \ value (kg for weight, cm for height, kg/m² for BMI)\n        age_months: age\
+    \ in months\n        sex: 'male', 'female', 'm', 'f', 1 (male), or 2 (female)\n\
+    \        height_cm: height in cm (only needed for weight-for-stature)\n\n    Returns:\n\
+    \        Percentile value (0-100) or error dict\n    '''\n    from core.growth_calculators\
+    \ import CDCGrowthCalculator, GrowthMetric, Sex\n\n    # Initialize calculator\n\
+    \    calculator = CDCGrowthCalculator(data_directory=\"cdc_data\")\n\n    # Map\
+    \ measurement type to metric\n    metric_map = {\n        'weight': GrowthMetric.WEIGHT_FOR_AGE,\n\
+    \        'height': GrowthMetric.STATURE_FOR_AGE,\n        'stature': GrowthMetric.STATURE_FOR_AGE,\n\
+    \        'bmi': GrowthMetric.BMI_FOR_AGE\n    }\n\n    metric = metric_map.get(measurement.lower()\
+    \ if isinstance(measurement, str) else '')\n    if not metric:\n        return\
+    \ {'error': f'Unknown measurement type: {measurement}'}\n\n    # Convert sex to\
+    \ enum (handle both string and numeric inputs)\n    if isinstance(sex, str):\n\
+    \        sex_lower = sex.lower().strip()\n        if sex_lower in ['male', 'm',\
+    \ 'boy', 'man']:\n            sex_enum = Sex.MALE\n        elif sex_lower in ['female',\
+    \ 'f', 'girl', 'woman']:\n            sex_enum = Sex.FEMALE\n        else:\n \
+    \           return {'error': f'Unknown sex value: {sex}'}\n    elif sex == 1:\n\
+    \        sex_enum = Sex.MALE\n    elif sex == 2:\n        sex_enum = Sex.FEMALE\n\
+    \    else:\n        return {'error': f'Invalid sex value: {sex}'}\n\n    # Calculate\
+    \ percentile and z-score\n    result = calculator.calculate_growth_percentile(\n\
+    \        metric=metric,\n        sex=sex_enum,\n        value=value,\n       \
+    \ age_months=age_months,\n        height_cm=height_cm\n    )\n\n    if result\
+    \ is None:\n        return {'error': 'Could not calculate percentile'}\n\n   \
+    \ # Return just the percentile value\n    return result.percentile\n"
+  description: Calculate growth percentile for weight, height/stature, or BMI using
+    CDC growth standards
+  parameters:
+    measurement:
+      type: string
+      description: 'Type of measurement: ''weight'', ''height'', ''stature'', or ''bmi'''
+      required: true
+    value:
+      type: number
+      description: Measurement value (kg for weight, cm for height, kg/m² for BMI)
+      required: true
+    age_months:
+      type: number
+      description: Age in months
+      required: true
+    sex:
+      type: string
+      description: 'Sex: ''male'' or ''female'' (can also use ''m'', ''f'', 1 for
+        male, 2 for female)'
+      required: true
+    height_cm:
+      type: number
+      description: Height in cm (only for weight-for-stature calculations)
+      required: false
+  returns: Percentile value (0-100) or error message
+  enabled: true
+  signature: (measurement, value, age_months, sex, height_cm=None)

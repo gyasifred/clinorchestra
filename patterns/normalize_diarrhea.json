@@ -1,7 +1,0 @@
-{
-  "name": "normalize_diarrhea",
-  "pattern": "\\b(chronic|acute|persistent)\\s*diarrhea",
-  "replacement": "\\1 diarrhea",
-  "description": "Standardize diarrhea classification",
-  "enabled": true
-}

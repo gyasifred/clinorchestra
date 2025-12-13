@@ -1,7 +1,0 @@
-{
-  "name": "detect_mci_diagnosis",
-  "pattern": "mild cognitive impairment|MCI|amnestic MCI|non[- ]?amnestic MCI",
-  "replacement": "[MILD_COGNITIVE_IMPAIRMENT]",
-  "description": "Detect mild cognitive impairment (MCI) diagnosis mention",
-  "enabled": true
-}

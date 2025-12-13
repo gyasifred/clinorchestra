@@ -1,7 +1,0 @@
-{
-  "name": "detect_frontotemporal_dementia",
-  "pattern": "frontotemporal dementia|FTD|Pick(?:'s)? disease|behavioral variant FTD|bvFTD",
-  "replacement": "[FRONTOTEMPORAL_DEMENTIA]",
-  "description": "Detect frontotemporal dementia diagnosis mention",
-  "enabled": true
-}

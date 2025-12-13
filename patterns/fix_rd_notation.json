@@ -1,7 +1,0 @@
-{
-  "name": "fix_rd_notation",
-  "pattern": "\\b(RD|rd|R\\.D\\.|registered\\s+dietitian)\\b",
-  "replacement": "RD",
-  "description": "Standardize registered dietitian abbreviation",
-  "enabled": true
-}

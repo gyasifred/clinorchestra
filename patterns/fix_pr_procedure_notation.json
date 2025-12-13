@@ -1,7 +1,0 @@
-{
-  "name": "fix_pr_procedure_notation",
-  "pattern": "\\bpr\\s+",
-  "replacement": "Procedure: ",
-  "description": "Expand pr (procedure) notation",
-  "enabled": true
-}

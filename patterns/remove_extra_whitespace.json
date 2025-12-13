@@ -1,7 +1,0 @@
-{
-  "name": "remove_extra_whitespace",
-  "pattern": "\\s+",
-  "replacement": " ",
-  "description": "Replace multiple spaces with single space",
-  "enabled": true
-}

@@ -1,8 +1,8 @@
-# ClinOrchestra v1.0.0
+# ClinOrchestra - Universal Clinical AI Platform
 
-**Universal, Autonomous Clinical AI Platform for Task-Driven LLM Orchestration**
+**YAML-Based Clinical Data Extraction with Autonomous LLM Orchestration**
 
-ClinOrchestra is a **universal, autonomous clinical AI platform** that enables task-driven language model orchestration to accomplish **any clinical task**. The platform integrates multiple tool types—functions (Python computations), RAG (clinical guidelines and publications), extras (task-specific hints), and patterns (text transformations)—that LLMs leverage autonomously based on task requirements. From malnutrition classification to ADRD diagnosis, from medication extraction to guideline adherence assessment, ClinOrchestra adapts to **any clinical task** through user-defined prompts, schemas, and configurations.
+ClinOrchestra is a universal clinical AI platform that enables autonomous language model orchestration for any clinical task. The platform uses **YAML configuration** for all components (functions, patterns, extras) and integrates multiple tool types that LLMs leverage autonomously.
 
 ![ClinOrchestra Logo](assets/clinorchestra_logo.svg)
 
@@ -10,32 +10,29 @@ ClinOrchestra is a **universal, autonomous clinical AI platform** that enables t
 
 ## Key Features
 
-- ** Universal Platform**: Accomplishes ANY clinical task through autonomous LLM orchestration
-  - No hardcoded task logic - driven by user-defined prompts and schemas
-  - Examples (malnutrition, ADRD) demonstrate capability, not limits
-  - Platform is fully user-configurable: custom functions, patterns, extras, and RAG resources
-- **️ Dual Workflow Types**:
-  - **STRUCTURED Workflows**: Predefined 4-stage pipeline for predictable, production-ready tasks
-  - **ADAPTIVE Workflows**: Dynamic, autonomous workflows that adjust based on task requirements
-- ** Multi-Column Prompt Variables**: Pass multiple dataset columns as prompt placeholders
-  - Configure which columns feed into prompts (e.g., patient_id, age, gender, diagnosis)
-  - Full backward compatibility with simple text-only workflows
-- ** Autonomous Task Execution**: LLM analyzes tasks, determines required tools, and orchestrates execution
-  - Adaptive workflow adjusts strategy based on intermediate results
-  - Intelligent tool selection and composition for complex clinical reasoning
-- ** Tool Integration**: Multiple tool types for comprehensive task support
-  - **Functions**: Python functions for medical calculations (20+ built-in, fully customizable)
-  - **RAG**: Clinical guidelines and publications from PDFs/URLs
-  - **Extras**: Task-specific hints and domain knowledge (49+ clinical extras)
-  - **Patterns**: Text preprocessing and postprocessing transformations (33+ patterns)
-- ** User-Driven Customization**: Complete control over platform behavior
-  - Write custom functions, define patterns, provide extras via JSON/YAML
-  - Selective tool enablement for each task
-  - Configure workflow type based on task complexity
-- ** Multi-LLM Support**: OpenAI, Anthropic, Google, Azure, Unsloth (local models)
-- ** High Performance**: Parallel processing, caching, async tool execution (60-75% faster)
-- ** Multi-GPU Processing**: Automatic multi-GPU support for local models (2-4x faster on H100 clusters)
-- **️ Web Interface**: User-friendly Gradio UI with real-time progress tracking
+- **Universal Platform**: Accomplishes ANY clinical task through autonomous LLM orchestration
+  - Task-driven by user-defined prompts and schemas
+  - Pre-configured tasks: Malnutrition, ADRD, MIMIC-IV critical care
+  - Fully customizable with YAML configurations
+
+- **Dual Workflow Types**:
+  - **STRUCTURED**: Predefined 4-stage pipeline for production tasks
+  - **ADAPTIVE**: Dynamic workflows that adjust based on task requirements
+
+- **YAML-Only Configuration**: Clean, organized, human-readable
+  - Task-specific YAMLs in `yaml_configs/`
+  - Example templates in `examples/yaml_templates/`
+  - Import via UI → Creates individual `.yaml` files
+
+- **Tool Integration**:
+  - **Functions**: Python calculations (z-scores, BMI, clinical scores)
+  - **RAG**: Clinical guidelines and publications
+  - **Extras**: Task-specific clinical knowledge
+  - **Patterns**: Text normalization
+
+- **Multi-LLM Support**: OpenAI, Anthropic, Google, Azure, local models
+- **High Performance**: Parallel processing, caching, async execution
+- **Web Interface**: Gradio UI with real-time tracking
 
 ---
 
@@ -44,9 +41,6 @@ ClinOrchestra is a **universal, autonomous clinical AI platform** that enables t
 ```bash
 # From PyPI
 pip install clinorchestra
-
-# With local LLM support
-pip install clinorchestra[local]
 
 # From source
 git clone https://github.com/gyasifred/clinorchestra.git
@@ -65,240 +59,253 @@ clinorchestra
 
 Web interface opens at `http://localhost:7860`
 
-### Basic Workflow
+### Getting Started with Pre-Configured Tasks
 
-1. **Model Setup**: Select LLM provider and configure API key
-2. **Define Task**: Write extraction prompt and JSON schema
-3. **Upload Data**: Load CSV file with clinical text
-4. **Configure Tools**: Enable patterns, functions, extras, RAG documents
-5. **Test**: Use Playground to test single extraction
-6. **Process**: Batch process entire dataset
+**1. Import Task-Specific YAMLs:**
+
+For **Malnutrition Assessment**:
+```
+1. Functions Tab → Import → yaml_configs/malnutrition_functions.yaml
+2. Patterns Tab → Import → yaml_configs/malnutrition_patterns.yaml
+3. Extras Tab → Import → yaml_configs/malnutrition_extras.yaml
+```
+
+For **ADRD/Cognitive Assessment**:
+```
+1. Functions Tab → Import → yaml_configs/adrd_functions.yaml
+2. Patterns Tab → Import → yaml_configs/adrd_patterns.yaml
+3. Extras Tab → Import → yaml_configs/adrd_extras.yaml
+```
+
+**2. Use Shared/Common Resources** (optional but recommended):
+```
+Functions Tab → Import → yaml_configs/shared_functions.yaml
+Patterns Tab → Import → yaml_configs/shared_patterns.yaml
+Extras Tab → Import → yaml_configs/shared_extras.yaml
+```
+
+**3. Process Your Data:**
+- Go to Processing Tab
+- Upload CSV with clinical notes
+- Define extraction task and schema
+- Run extraction
 
 ---
 
 ## System Architecture
 
-ClinOrchestra features a **6-layer modular architecture** designed for autonomous clinical task orchestration, scalability, and production-ready performance.
+### How It Works
 
-### Architecture Overview
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    YAML Configuration                        │
+│  yaml_configs/                                              │
+│  ├── malnutrition_functions.yaml (13 functions)            │
+│  ├── malnutrition_patterns.yaml (10 patterns)              │
+│  ├── malnutrition_extras.yaml (90 extras)                  │
+│  └── ... (ADRD, MIMIC-IV, shared)                          │
+└─────────────────────────────────────────────────────────────┘
+                          ↓ Import via UI
+┌─────────────────────────────────────────────────────────────┐
+│                  Individual YAML Files                       │
+│  functions/                                                 │
+│  ├── calculate_zscore.yaml                                 │
+│  ├── calculate_bmi.yaml                                    │
+│  └── ...                                                    │
+│  patterns/                                                  │
+│  ├── normalize_bp.yaml                                     │
+│  └── ...                                                    │
+│  extras/                                                    │
+│  ├── aspen_criteria.yaml                                   │
+│  └── ...                                                    │
+└─────────────────────────────────────────────────────────────┘
+                          ↓ Loaded by
+┌─────────────────────────────────────────────────────────────┐
+│                      Managers                               │
+│  • FunctionRegistry (loads .yaml functions)                │
+│  • RegexPreprocessor (loads .yaml patterns)                │
+│  • ExtrasManager (loads .yaml extras)                      │
+└─────────────────────────────────────────────────────────────┘
+                          ↓ Used by
+┌─────────────────────────────────────────────────────────────┐
+│                 Orchestration Engines                       │
+│  • STRUCTURED Pipeline (4 stages)                          │
+│  • ADAPTIVE Pipeline (dynamic)                             │
+└─────────────────────────────────────────────────────────────┘
+                          ↓ Produces
+┌─────────────────────────────────────────────────────────────┐
+│                  Extraction Results                         │
+│  Structured JSON matching your schema                       │
+└─────────────────────────────────────────────────────────────┘
+```
 
-![System Architecture](assets/diagrams/overall_architecture.svg)
+### Component Flow
 
-**The 6 Layers:**
-1. **Web Interface** - Gradio-based UI with configuration tabs
-2. **Application State** - Central configuration manager (Observer pattern)
-3. **Orchestration Engines** - Dual workflow types (STRUCTURED & ADAPTIVE)
-4. **Core Services** - LLM integration, RAG engine, preprocessing
-5. **Tool Systems** - Functions, patterns, extras, RAG for autonomous task execution
-6. **Optimization** - Caching (400x faster), parallel processing, adaptive retry
-
-**For detailed architecture documentation, see [ARCHITECTURE.md](ARCHITECTURE.md)**
+1. **User imports task-specific YAML** via UI
+2. **System creates individual `.yaml` files** for each function/pattern/extra
+3. **Managers load on startup** from individual YAML files
+4. **LLM uses tools** during extraction based on task requirements
+5. **Results extracted** matching defined schema
 
 ---
 
-## Workflow Types
+## Available Tasks
 
-### STRUCTURED Workflows (Default)
+### Malnutrition Assessment (13 functions, 10 patterns, 90 extras)
+- ASPEN Pediatric Malnutrition Criteria
+- WHO Z-Score Classification
+- Growth velocity calculations
+- Anthropometric assessments
 
-Predefined 4-stage pipeline for predictable, production-ready task execution:
+### ADRD/Cognitive Assessment (3 functions, 12 patterns, 22 extras)
+- CDR (Clinical Dementia Rating) scoring
+- MMSE interpretation
+- NIA-AA diagnostic criteria
+- Biomarker assessments
 
-![STRUCTURED Workflow](assets/diagrams/structured_mode_workflow.svg)
+### MIMIC-IV Critical Care (3 functions, 20 extras)
+- SOFA score calculation
+- KDIGO AKI staging
+- Critical care protocols
 
-```
-Stage 1: Task Analysis → LLM determines required tools autonomously
-Stage 2: Tool Execution → Execute functions, RAG, extras (async/parallel)
-Stage 3: Task Completion → Generate structured output based on task requirements
-Stage 4: RAG Refinement → Enhance specific fields with evidence (optional)
-```
-
-**Best for**: Predictable workflows, production deployments, maximum reliability
-
-**Key Features**: Fixed sequence, deterministic execution, optimized for scale
-
-### ADAPTIVE Workflows
-
-Dynamic, autonomous workflows that adjust based on task requirements and intermediate results:
-
-![ADAPTIVE Workflow](assets/diagrams/adaptive_mode_workflow.svg)
-
-```
-Continuous Autonomous Loop:
-1. LLM analyzes task and current state
-2. Decides which tools to call based on needs
-3. Executes tools in parallel (async)
-4. Analyzes results and adjusts strategy
-5. Iterates until task objective achieved
-6. Outputs final structured result
-```
-
-**Best for**: Complex clinical reasoning, evolving requirements, maximum flexibility
-
-**Key Features**: Dynamic tool selection, adaptive strategy, self-correcting execution
-
-Enable ADAPTIVE workflows in the Config tab with max iterations and tool call limits.
-
-### Component Interactions
-
-![Component Interactions](assets/diagrams/component_interactions.svg)
-
-See how all components work together seamlessly through the Observer pattern, with AppState managing configuration and agents orchestrating LLM + Tools + RAG.
+### Shared Utilities (25 functions, 149 patterns, 53 extras)
+- BMI, age, unit conversions
+- Vital signs normalization
+- Common medical abbreviations
+- Lab value standardization
 
 ---
 
-## Example
+## Creating Custom Tasks
 
-**JSON Schema:**
-```json
-{
-  "diagnosis": {"type": "string", "required": true},
-  "severity": {"type": "string"},
-  "medications": {"type": "array"}
-}
-```
+See `examples/yaml_templates/README.md` for comprehensive guides on creating:
+- Custom functions
+- Text normalization patterns
+- Clinical knowledge extras
 
-**Clinical Text:**
-```
-Patient presents with Type 2 DM, HbA1c 8.2%.
-BP 145/92. Current meds: Metformin 1000mg BID.
-```
-
-**Output:**
-```json
-{
-  "diagnosis": "Type 2 Diabetes Mellitus",
-  "severity": "Uncontrolled (HbA1c 8.2%)",
-  "medications": ["Metformin 1000mg twice daily"],
-  "blood_pressure": "145/92 mmHg - Stage 2 Hypertension"
-}
-```
+**Example templates provided:**
+- `functions_example.yaml` - 5 complete function examples with documentation
+- `patterns_example.yaml` - 40+ pattern examples
+- `extras_example.yaml` - Clinical knowledge examples
 
 ---
 
-## Core Components
+## Configuration
 
-### Functions (20+ medical calculations)
-- BMI, BSA, IBW calculations
-- Growth percentiles and z-scores
-- Lab value corrections (calcium, anion gap)
-- Unit conversions (kg/lbs, cm/inches)
-- Clinical scores (MAP, CrCl, HEART, TIMI, CAGE, NIHSS, KDIGO, GOLD)
+### YAML Format
 
-### Patterns (33+ text normalizations)
-- Vital signs: BP, HR, RR, temperature, SpO2
-- Lab values: glucose, HbA1c, electrolytes
-- Medications: dosing, frequency, routes
-- Diagnosis abbreviations: DM→diabetes mellitus
+**Functions:**
+```yaml
+name: calculate_bmi
+description: "Calculate Body Mass Index"
+enabled: true
+code: |
+  def calculate_bmi(weight_kg, height_m):
+      return round(weight_kg / (height_m ** 2), 2)
+parameters:
+  weight_kg:
+    type: number
+    required: true
+returns: "BMI value"
+```
 
-### Extras (49+ clinical hints)
-- Growth standards (WHO, CDC)
-- Malnutrition criteria (ASPEN)
-- Diagnostic criteria (diabetes, hypertension, sepsis)
-- Assessment scales (APGAR, Glasgow, NYHA)
-- Reference ranges and clinical norms
+**Patterns:**
+```yaml
+name: normalize_bp
+pattern: '\b(BP)\s*(\d+)/(\d+)\b'
+replacement: 'BP \2/\3'
+description: "Standardize blood pressure"
+enabled: true
+```
 
-### RAG (Knowledge retrieval)
-- Upload clinical guidelines (PDF/URL)
-- Automatic chunking and embedding
-- Similarity search during extraction
-- Source citation in outputs
-
----
-
-## Advanced Features
-
-- **PHI Redaction**: Detect and redact protected health information
-- **Multi-format Output**: Save redacted/normalized text alongside extractions
-- **Error Handling**: Configurable retry strategies with intelligent fallback
-- **Progress Tracking**: Real-time batch processing status
-- **Configuration Persistence**: Auto-save all settings
-- **Performance Monitoring**: Track extraction timing metrics
-- **Prompt Variables**: Pass any dataset columns as template variables
-
----
-
-## Use Cases (Platform is Universal - Not Limited to These)
-
-The platform is **universal** and autonomously accomplishes any clinical task you define. Examples include:
-
-- **Clinical Classification**: ADRD diagnosis, malnutrition assessment, disease staging
-- **Data Extraction & Curation**: Create annotated datasets for AI/ML training
-- **Chart Review Automation**: Process large medical record sets with structured outputs
-- **Quality Improvement**: Measure guideline adherence across patient populations
-- **Research Data Collection**: Extract research variables from clinical narratives
-- **Clinical Decision Support**: Generate parameters and recommendations for CDS systems
-- **Comprehensive Annotation**: Multi-evidence diagnostic reasoning for medical AI
-- **Risk Stratification**: Calculate clinical scores and assess patient risk levels
-- **Medication Reconciliation**: Extract, normalize, and reconcile medication lists
-- **Clinical Trial Screening**: Assess eligibility criteria from patient charts
-- **Adverse Event Detection**: Identify, classify, and report adverse events
-- **Guideline Compliance**: Assess adherence to clinical practice guidelines
-
-**The only limit is your task description** - ClinOrchestra provides the universal, autonomous infrastructure.
+**Extras:**
+```yaml
+id: aspen_criteria
+name: "ASPEN Malnutrition Criteria"
+type: criteria
+content: |
+  ASPEN Pediatric Malnutrition requires ≥2 of:
+  1. Insufficient energy intake
+  2. Weight loss or deceleration
+keywords:
+  - malnutrition
+  - ASPEN
+metadata:
+  category: malnutrition
+  priority: high
+```
 
 ---
 
 ## Documentation
 
-### Core Documentation
-- **`SDK_GUIDE.md`**: **Comprehensive guide for programmatic usage (Python SDK)**
-- `ARCHITECTURE.md`: System design and component overview
-- `MULTI_GPU_GUIDE.md`: Multi-GPU processing for local models (H100 clusters)
-- `README.md`: This file (quick start and overview)
-
-### SDK vs UI Usage
-
-**️ Web UI** (Default): Launch with `clinorchestra` command - best for interactive exploration and testing
-
-** Python SDK**: Import and use programmatically - best for:
-- Integration into data pipelines
-- Batch processing automation
-- Custom applications
-- Reproducible research workflows
-
-**→ See [`SDK_GUIDE.md`](SDK_GUIDE.md) for complete programmatic usage examples**
-
-### Examples (Demonstrating Universal Capability)
-- `examples/malnutrition_classification/`: Malnutrition assessment example
-- `examples/`: Additional sample datasets and use cases
-- `mimic-iv/`: MIMIC-IV diagnosis annotation example (comprehensive clinical AI training)
-
-### Evaluation
-- `evaluation/`: Benchmarking and testing tools
+- **Main README**: This file
+- **YAML Configs Guide**: `yaml_configs/README.md` - How to import task-specific YAMLs
+- **Template Examples**: `examples/yaml_templates/README.md` - How to create custom YAMLs
+- **Evaluation Guide**: `evaluation/README.md` - Testing and benchmarking
 
 ---
 
-## Contributing
+## Project Structure
 
-Contributions welcome! Please:
-1. Fork the repository
-2. Create a feature branch
-3. Add tests for new functionality
-4. Submit a pull request
+```
+clinorchestra/
+├── yaml_configs/              # Task-specific YAMLs to import
+│   ├── README.md
+│   ├── malnutrition_*.yaml
+│   ├── adrd_*.yaml
+│   ├── mimic_iv_*.yaml
+│   └── shared_*.yaml
+├── examples/
+│   └── yaml_templates/        # Example templates for creating new tasks
+│       ├── README.md
+│       ├── functions_example.yaml
+│       ├── patterns_example.yaml
+│       └── extras_example.yaml
+├── core/                      # Core managers and engines
+│   ├── function_registry.py   # Loads .yaml functions
+│   ├── regex_preprocessor.py  # Loads .yaml patterns
+│   ├── extras_manager.py      # Loads .yaml extras
+│   ├── agent_system.py        # STRUCTURED pipeline
+│   └── agentic_agent.py       # ADAPTIVE pipeline
+├── ui/                        # Gradio UI
+│   ├── functions_tab.py       # Import/manage functions
+│   ├── patterns_tab.py        # Import/manage patterns
+│   └── extras_tab.py          # Import/manage extras
+├── functions/                 # Individual function YAMLs (created on import)
+├── patterns/                  # Individual pattern YAMLs (created on import)
+└── extras/                    # Individual extra YAMLs (created on import)
+```
+
+---
+
+## Citation
+
+If you use ClinOrchestra in your research, please cite:
+
+```bibtex
+@software{clinorchestra2024,
+  title={ClinOrchestra: Universal Clinical AI Platform},
+  author={Gyasi, Frederick},
+  year={2024},
+  url={https://github.com/gyasifred/clinorchestra}
+}
+```
 
 ---
 
 ## License
 
-MIT License
+MIT License - See LICENSE file for details
 
 ---
 
-## Contact
+## Support
 
-- **GitHub**: https://github.com/gyasifred/clinorchestra
+- **Issues**: https://github.com/gyasifred/clinorchestra/issues
+- **Documentation**: See `yaml_configs/README.md` and `examples/yaml_templates/README.md`
 - **Email**: gyasi@musc.edu
-- **Institution**: Medical University of South Carolina, Biomedical Informatics Center
 
 ---
 
-## Acknowledgments
-
-- HeiderLab, ClinicalNLP Lab, MUSC
-- CDC (growth chart data)
-- Clinical guideline organizations (WHO, ASPEN, ADA, ACC/AHA)
-
----
-
-**Version**: 1.0.0 (Production Release)
-**Platform Type**: Universal, Autonomous Clinical AI Platform for Task-Driven LLM Orchestration
-**Author**: Frederick Gyasi
+**ClinOrchestra** - Universal, YAML-based clinical AI for any task

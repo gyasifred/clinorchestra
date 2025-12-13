@@ -1,7 +1,0 @@
-{
-  "name": "fix_z_score_with_measurement",
-  "pattern": "(weight|height|length|BMI|MUAC)[\\s\\-]for[\\s\\-](age|height|length)[\\s:]*z[\\s\\-]?score[\\s:]*(\\-?\\d+\\.?\\d*)",
-  "replacement": "\\1-for-\\2 z-score: \\3",
-  "description": "Standardize anthropometric z-score format (e.g., weight-for-age z-score: -2.3)",
-  "enabled": true
-}

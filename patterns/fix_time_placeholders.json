@@ -1,7 +1,0 @@
-{
-  "name": "fix_time_placeholders",
-  "pattern": "_time_",
-  "replacement": "[TIME]",
-  "description": "Replace time placeholders with readable marker",
-  "enabled": true
-}

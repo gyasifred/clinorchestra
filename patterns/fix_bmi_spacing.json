@@ -1,7 +1,0 @@
-{
-  "name": "fix_bmi_spacing",
-  "pattern": "BMI[\\s:]*(\\d+\\.?\\d*)\\s*kg\\s*/\\s*m\\s*\\^?\\s*2",
-  "replacement": "BMI: \\1 kg/m2",
-  "description": "Standardize BMI notation with proper unit formatting",
-  "enabled": true
-}

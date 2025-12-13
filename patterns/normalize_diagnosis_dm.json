@@ -1,7 +1,0 @@
-{
-  "name": "normalize_diagnosis_dm",
-  "pattern": "\\bDM\\b",
-  "replacement": "diabetes mellitus",
-  "description": "Expand DM to diabetes mellitus",
-  "enabled": true
-}

@@ -1,7 +1,0 @@
-{
-  "name": "normalize_diagnosis_ckd",
-  "pattern": "\\bCKD\\b",
-  "replacement": "chronic kidney disease",
-  "description": "Expand CKD abbreviation",
-  "enabled": true
-}

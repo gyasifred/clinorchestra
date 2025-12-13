@@ -1,7 +1,0 @@
-{
-  "name": "detect_alzheimer_diagnosis",
-  "pattern": "Alzheimer(?:'s)?(?: disease)?|AD(?:\\s|$)|probable AD|possible AD",
-  "replacement": "[ALZHEIMER_DISEASE]",
-  "description": "Detect Alzheimer's disease diagnosis mention",
-  "enabled": true
-}

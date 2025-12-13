@@ -1,7 +1,0 @@
-{
-  "name": "fix_decimal_spacing",
-  "pattern": "(\\d+)\\s+\\.\\s+(\\d+)",
-  "replacement": "\\1.\\2",
-  "description": "Remove spaces around decimal points",
-  "enabled": true
-}

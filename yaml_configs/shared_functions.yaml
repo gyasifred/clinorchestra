@@ -1,0 +1,909 @@
+- name: calculate_anion_gap
+  code: "def calculate_anion_gap(sodium, chloride, bicarbonate):\n    '''Calculate\
+    \ serum anion gap'''\n    ag = sodium - (chloride + bicarbonate)\n    return round(ag,\
+    \ 1)"
+  description: Calculate serum anion gap
+  parameters:
+    sodium:
+      type: number
+      description: Serum sodium (mEq/L)
+      required: true
+    chloride:
+      type: number
+      description: Serum chloride (mEq/L)
+      required: true
+    bicarbonate:
+      type: number
+      description: Serum bicarbonate (mEq/L)
+      required: true
+  returns: {}
+  enabled: true
+  signature: (sodium, chloride, bicarbonate)
+- name: calculate_heart_score
+  code: "\ndef calculate_heart_score(history_score, ecg_score, age, risk_factors_count,\
+    \ troponin_level):\n    # Convert inputs to proper types (handles string inputs\
+    \ from LLM)\n    history_score = int(history_score) if not isinstance(history_score,\
+    \ int) else history_score\n    ecg_score = int(ecg_score) if not isinstance(ecg_score,\
+    \ int) else ecg_score\n    age = int(age) if not isinstance(age, int) else age\n\
+    \    risk_factors_count = int(risk_factors_count) if not isinstance(risk_factors_count,\
+    \ int) else risk_factors_count\n    troponin_level = str(troponin_level)\n   \
+    \ \n    score = 0\n    \n    # History (0-2)\n    score += min(2, max(0, history_score))\n\
+    \    \n    # ECG (0-2)\n    score += min(2, max(0, ecg_score))\n    \n    # Age\
+    \ (0-2)\n    if age < 45:\n        score += 0\n    elif age <= 64:\n        score\
+    \ += 1\n    else:\n        score += 2\n    \n    # Risk factors (0-2)\n    if\
+    \ risk_factors_count == 0:\n        score += 0\n    elif risk_factors_count <=\
+    \ 2:\n        score += 1\n    else:\n        score += 2\n    \n    # Troponin\
+    \ (0-2)\n    if troponin_level.lower() == 'normal':\n        score += 0\n    elif\
+    \ troponin_level.lower() == 'borderline':\n        score += 1\n    else:\n   \
+    \     score += 2\n    \n    # Risk categorization\n    if score <= 3:\n      \
+    \  risk_category = 'Low Risk'\n        mace_risk = '0.9-1.7%'\n        recommendation\
+    \ = 'Early discharge, outpatient follow-up'\n    elif score <= 6:\n        risk_category\
+    \ = 'Moderate Risk'\n        mace_risk = '12-17%'\n        recommendation = 'Observation,\
+    \ further testing'\n    else:\n        risk_category = 'High Risk'\n        mace_risk\
+    \ = '50-65%'\n        recommendation = 'Admission, early invasive strategy'\n\
+    \    \n    return {\n        'score': score,\n        'risk_category': risk_category,\n\
+    \        'mace_risk_percent': mace_risk,\n        'recommendation': recommendation\n\
+    \    }\n"
+  description: 'Calculate HEART score for chest pain risk stratification. Score range:
+    0-10. Used to assess risk of major adverse cardiac events (MACE) within 6 weeks
+    in ED patients with chest pain.'
+  parameters:
+    history_score:
+      type: number
+      description: 'History: 0=slightly suspicious, 1=moderately suspicious, 2=highly
+        suspicious'
+      required: true
+    ecg_score:
+      type: number
+      description: 'ECG: 0=normal, 1=non-specific repolarization, 2=significant ST
+        deviation'
+      required: true
+    age:
+      type: number
+      description: Patient age in years
+      required: true
+    risk_factors_count:
+      type: number
+      description: 'Number of risk factors (HTN, DM, smoking, obesity, hyperlipidemia,
+        family history): 0=none, 1-2, ≥3'
+      required: true
+    troponin_level:
+      type: string
+      description: 'Troponin level: ''normal'', ''borderline'' (1-3x normal), ''elevated''
+        (>3x normal)'
+      required: true
+  returns:
+    type: dict
+    description: Dictionary with score (0-10), risk_category, and mace_risk_percent
+  enabled: true
+  signature: (history_score, ecg_score, age, risk_factors_count, troponin_level)
+- name: assess_functional_independence
+  code: "\ndef assess_functional_independence(adl_independent=True, iadl_independent=True):\n\
+    \    \"\"\"\n    Assess functional independence based on ADL and IADL status\n\
+    \n    CRITICAL: Dementia requires DEPENDENCE (not just difficulty) interfering\
+    \ with independence.\n    \n    Functional patterns:\n    - Normal aging: ADLs\
+    \ and IADLs intact\n    - MCI: Subtle IADL difficulties with compensatory strategies,\
+    \ maintains independence\n    - Mild dementia: IADL dependence (requires regular\
+    \ assistance), ADLs mostly intact\n    - Moderate/Severe dementia: ADL dependence\n\
+    \n    Args:\n        adl_independent (bool): Independent in basic ADLs (bathing,\
+    \ dressing, toileting, feeding, transferring)\n        iadl_independent (bool):\
+    \ Independent in IADLs (finances, medications, shopping, cooking, driving)\n\n\
+    \    Returns:\n        dict: Functional assessment with clinical implications\n\
+    \    \"\"\"\n    if adl_independent and iadl_independent:\n        category =\
+    \ \"Fully Independent (ADLs and IADLs)\"\n        functional_pattern = \"consistent_with_normal_cognition_or_MCI\"\
+    \n        clinical_implications = \"Does NOT meet functional criteria for dementia.\
+    \ Preserved independence in both ADLs and IADLs. May indicate normal cognition,\
+    \ normal aging, or MCI with compensatory strategies.\"\n        dementia_likelihood\
+    \ = \"Does not support dementia diagnosis\"\n        \n    elif not iadl_independent\
+    \ and adl_independent:\n        category = \"IADL Dependence, ADLs Preserved\"\
+    \n        functional_pattern = \"ambiguous_MCI_or_mild_dementia\"\n        clinical_implications\
+    \ = \"IADL impairment with preserved ADLs is AMBIGUOUS. Distinguish: (1) MCI if\
+    \ subtle difficulties with compensation/independence maintained, OR (2) Mild dementia\
+    \ if requires regular assistance/supervision. Assess severity of IADL impairment.\"\
+    \n        dementia_likelihood = \"Possible if IADL dependence (not just difficulty)\
+    \ is present\"\n        \n    elif not adl_independent:\n        category = \"\
+    ADL Dependence (with or without IADL impairment)\"\n        functional_pattern\
+    \ = \"consistent_with_moderate_to_severe_dementia\"\n        clinical_implications\
+    \ = \"ADL dependence indicates moderate to severe dementia or other significant\
+    \ medical condition. Basic self-care impairment represents advanced functional\
+    \ decline.\"\n        dementia_likelihood = \"Consistent with moderate-severe\
+    \ dementia if cognitive etiology\"\n        \n    else:\n        category = \"\
+    Unable to Determine\"\n        functional_pattern = \"insufficient_data\"\n  \
+    \      clinical_implications = \"Insufficient functional data to assess independence.\"\
+    \n        dementia_likelihood = \"Cannot assess\"\n\n    return {\n        \"\
+    functional_category\": category,\n        \"functional_pattern\": functional_pattern,\n\
+    \        \"adl_status\": \"Independent\" if adl_independent else \"Dependent\"\
+    ,\n        \"iadl_status\": \"Independent\" if iadl_independent else \"Dependent\"\
+    ,\n        \"clinical_implications\": clinical_implications,\n        \"dementia_likelihood\"\
+    : dementia_likelihood,\n        \"critical_distinctions\": {\n            \"difficulty_vs_dependence\"\
+    : \"'Difficulty' (takes longer, uses strategies) suggests MCI. 'Dependence' (requires\
+    \ assistance) suggests dementia.\",\n            \"functional_requirement\": \"\
+    Dementia REQUIRES functional decline from previous level interfering with independence\
+    \ (DSM-5/NIA-AA).\",\n            \"iadl_alone\": \"IADL impairment alone does\
+    \ NOT automatically indicate dementia - must assess if true dependence vs compensated\
+    \ difficulty.\"\n        }\n    }\n"
+  description: Assess functional independence and provide clinical implications (v1.0.0
+    - removed boolean shortcut flags)
+  parameters:
+    adl_independent:
+      type: boolean
+      description: Independent in basic ADLs (bathing, dressing, toileting, feeding,
+        transferring)
+      required: false
+    iadl_independent:
+      type: boolean
+      description: Independent in IADLs (finances, medications, shopping, cooking,
+        driving)
+      required: false
+  returns: dict with functional_pattern, clinical_implications, and dementia_likelihood
+    (NO boolean flags)
+  enabled: true
+  signature: (adl_independent=True, iadl_independent=True)
+- name: cm_to_m
+  code: "def cm_to_m(cm):\n    '''Convert centimeters to meters'''\n    return round(cm\
+    \ / 100, 3)"
+  description: Convert height from centimeters to meters
+  parameters:
+    cm:
+      type: number
+      description: Height in centimeters
+      required: true
+  returns: {}
+  enabled: true
+  signature: (cm)
+- name: lbs_to_kg
+  code: "def lbs_to_kg(lbs):\n    '''Convert pounds to kilograms'''\n    return round(lbs\
+    \ / 2.20462, 2)"
+  description: Convert weight from pounds to kilograms
+  parameters:
+    lbs:
+      type: number
+      description: Weight in pounds
+      required: true
+  returns: {}
+  enabled: true
+  signature: (lbs)
+- name: calculate_fluid_requirement
+  code: "def calculate_fluid_requirement(weight_kg):\n    '''Calculate daily maintenance\
+    \ fluid requirement (Holliday-Segar)'''\n    if weight_kg <= 10:\n        fluid\
+    \ = weight_kg * 100\n    elif weight_kg <= 20:\n        fluid = 1000 + (weight_kg\
+    \ - 10) * 50\n    else:\n        fluid = 1500 + (weight_kg - 20) * 20\n    return\
+    \ round(fluid, 0)"
+  description: Calculate daily maintenance fluid requirement using Holliday-Segar
+    method
+  parameters:
+    weight_kg:
+      type: number
+      description: Weight in kilograms
+      required: true
+  returns: {}
+  enabled: true
+  signature: (weight_kg)
+- name: classify_copd_gold
+  code: "\ndef classify_copd_gold(fev1_percent_predicted, symptom_score='unknown',\
+    \ exacerbations_per_year=0):\n    # Convert inputs to proper types (handles string\
+    \ inputs from LLM)\n    fev1_percent_predicted = float(fev1_percent_predicted)\n\
+    \    if isinstance(exacerbations_per_year, str):\n        exacerbations_per_year\
+    \ = int(exacerbations_per_year) if exacerbations_per_year.isdigit() else 0\n \
+    \   elif not isinstance(exacerbations_per_year, int):\n        exacerbations_per_year\
+    \ = int(exacerbations_per_year)\n    \n    # GOLD Spirometric Grade (1-4)\n  \
+    \  if fev1_percent_predicted >= 80:\n        gold_grade = 1\n        severity\
+    \ = 'Mild'\n    elif fev1_percent_predicted >= 50:\n        gold_grade = 2\n \
+    \       severity = 'Moderate'\n    elif fev1_percent_predicted >= 30:\n      \
+    \  gold_grade = 3\n        severity = 'Severe'\n    else:\n        gold_grade\
+    \ = 4\n        severity = 'Very Severe'\n    \n    # ABCD Assessment (based on\
+    \ symptoms and exacerbations)\n    abcd_group = None\n    if symptom_score !=\
+    \ 'unknown':\n        high_symptoms = str(symptom_score).lower() == 'high'\n \
+    \       high_risk = exacerbations_per_year >= 2\n        \n        if not high_risk\
+    \ and not high_symptoms:\n            abcd_group = 'A'\n        elif not high_risk\
+    \ and high_symptoms:\n            abcd_group = 'B'\n        elif high_risk and\
+    \ not high_symptoms:\n            abcd_group = 'C'\n        else:\n          \
+    \  abcd_group = 'D'\n    \n    # Treatment recommendations based on GOLD\n   \
+    \ treatment_map = {\n        1: 'Smoking cessation, influenza/pneumococcal vaccination,\
+    \ short-acting bronchodilator PRN',\n        2: 'Long-acting bronchodilator (LABA\
+    \ or LAMA), pulmonary rehabilitation',\n        3: 'Combination LABA+LAMA, consider\
+    \ ICS if frequent exacerbations, pulmonary rehab',\n        4: 'Combination therapy\
+    \ LABA+LAMA+ICS, oxygen therapy if hypoxemic, consider surgical options'\n   \
+    \ }\n    \n    return {\n        'gold_grade': gold_grade,\n        'severity':\
+    \ severity,\n        'abcd_group': abcd_group if abcd_group else 'Unknown (need\
+    \ symptom/exacerbation data)',\n        'treatment_recommendation': treatment_map.get(gold_grade,\
+    \ 'Unknown')\n    }\n"
+  description: Classify COPD severity using GOLD (Global Initiative for Chronic Obstructive
+    Lung Disease) criteria based on FEV1 percent predicted.
+  parameters:
+    fev1_percent_predicted:
+      type: number
+      description: FEV1 as percentage of predicted normal value
+      required: true
+    symptom_score:
+      type: string
+      description: 'Symptom assessment: ''low'' (mMRC 0-1, CAT <10) or ''high'' (mMRC
+        ≥2, CAT ≥10)'
+      required: false
+      default: unknown
+    exacerbations_per_year:
+      type: number
+      description: Number of exacerbations in past year
+      required: false
+      default: 0
+  returns:
+    type: dict
+    description: Dictionary with gold_grade (1-4), abcd_group, severity, and treatment_recommendation
+  enabled: true
+  signature: (fev1_percent_predicted, symptom_score='unknown', exacerbations_per_year=0)
+- name: calculate_days_between_measurements
+  code: "from datetime import datetime\nfrom dateutil import parser\n\ndef calculate_days_between_measurements(first_date:\
+    \ str, second_date: str) -> dict:\n    \"\"\"\n    Calculate days between two\
+    \ measurement dates\n\n    Args:\n        first_date: First measurement date (various\
+    \ formats supported)\n        second_date: Second measurement date (various formats\
+    \ supported)\n\n    Returns:\n        {\n            'days_between': int,\n  \
+    \          'weeks_between': float,\n            'interpretation': str\n      \
+    \  }\n    \"\"\"\n    try:\n        date1 = parser.parse(first_date)\n       \
+    \ date2 = parser.parse(second_date)\n\n        delta = abs((date2 - date1).days)\n\
+    \        weeks = delta / 7.0\n\n        if delta == 0:\n            interpretation\
+    \ = \"Same day\"\n        elif delta == 1:\n            interpretation = \"1 day\
+    \ apart\"\n        elif delta < 7:\n            interpretation = f\"{delta} days\
+    \ apart (less than 1 week)\"\n        elif delta < 14:\n            interpretation\
+    \ = f\"{delta} days apart (approximately {weeks:.1f} weeks)\"\n        elif delta\
+    \ < 30:\n            interpretation = f\"{delta} days apart (approximately {weeks:.1f}\
+    \ weeks)\"\n        elif delta < 365:\n            months = delta / 30.0\n   \
+    \         interpretation = f\"{delta} days apart (approximately {months:.1f} months)\"\
+    \n        else:\n            years = delta / 365.0\n            interpretation\
+    \ = f\"{delta} days apart (approximately {years:.1f} years)\"\n\n        return\
+    \ {\n            'days_between': delta,\n            'weeks_between': round(weeks,\
+    \ 2),\n            'interpretation': interpretation\n        }\n\n    except Exception\
+    \ as e:\n        return {\n            'days_between': None,\n            'weeks_between':\
+    \ None,\n            'interpretation': f\"Error parsing dates: {str(e)}\"\n  \
+    \      }\n"
+  description: Calculate the number of days between two measurement dates. Useful
+    for tracking serial measurements and temporal changes in lab values.
+  parameters:
+    first_date:
+      type: string
+      description: 'First measurement date (format: YYYY-MM-DD, MM/DD/YYYY, or natural
+        language)'
+      required: true
+    second_date:
+      type: string
+      description: 'Second measurement date (format: YYYY-MM-DD, MM/DD/YYYY, or natural
+        language)'
+      required: true
+  returns:
+    days_between: integer number of days
+    weeks_between: float number of weeks
+    interpretation: string describing the time interval
+  enabled: true
+  signature: '(first_date: str, second_date: str) -> dict'
+- name: calculate_creatinine_clearance
+  code: "\ndef calculate_creatinine_clearance(age, weight_kg, creatinine, sex):\n\
+    \    '''Calculate CrCl using Cockcroft-Gault'''\n    # Convert inputs to proper\
+    \ types (handles string inputs from LLM)\n    age = int(age) if not isinstance(age,\
+    \ int) else age\n    weight_kg = float(weight_kg) if not isinstance(weight_kg,\
+    \ (int, float)) else weight_kg\n    creatinine = float(creatinine) if not isinstance(creatinine,\
+    \ (int, float)) else creatinine\n    sex = str(sex)\n    \n    # Safety check:\
+    \ prevent division by zero\n    if creatinine <= 0:\n        return None  # Cannot\
+    \ calculate with invalid creatinine\n    \n    if sex.lower() in ['male', 'm']:\n\
+    \        crcl = ((140 - age) * weight_kg) / (72 * creatinine)\n    elif sex.lower()\
+    \ in ['female', 'f']:\n        crcl = ((140 - age) * weight_kg) / (72 * creatinine)\
+    \ * 0.85\n    else:\n        return None\n    return round(crcl, 1)\n"
+  description: Calculate creatinine clearance using Cockcroft-Gault equation
+  parameters:
+    age:
+      type: number
+      description: Age in years
+      required: true
+    weight_kg:
+      type: number
+      description: Weight in kilograms
+      required: true
+    creatinine:
+      type: number
+      description: Serum creatinine (mg/dL)
+      required: true
+    sex:
+      type: string
+      description: 'Sex: ''male'' or ''female'''
+      required: true
+  returns: {}
+  enabled: true
+  signature: (age, weight_kg, creatinine, sex)
+- name: calculate_curb65
+  code: "\ndef calculate_curb65(confusion, bun, respiratory_rate, systolic_bp, diastolic_bp,\
+    \ age):\n    \"\"\"Calculate CURB-65 score for pneumonia severity\"\"\"\n    \n\
+    \    score = 0\n    \n    # C: Confusion\n    if confusion:\n        score +=\
+    \ 1\n    \n    # U: Urea (BUN > 19 mg/dL)\n    if bun > 19:\n        score +=\
+    \ 1\n    \n    # R: Respiratory rate >= 30\n    if respiratory_rate >= 30:\n \
+    \       score += 1\n    \n    # B: Blood pressure (systolic <90 OR diastolic <=60)\n\
+    \    if systolic_bp < 90 or diastolic_bp <= 60:\n        score += 1\n    \n  \
+    \  # 65: Age >= 65\n    if age >= 65:\n        score += 1\n    \n    return score\n"
+  description: Calculate CURB-65 score for pneumonia severity assessment (0-5, higher
+    = more severe)
+  parameters:
+    confusion:
+      type: boolean
+      description: New onset confusion or altered mental status
+      required: true
+    bun:
+      type: number
+      description: Blood Urea Nitrogen in mg/dL
+      required: true
+    respiratory_rate:
+      type: number
+      description: Respiratory rate in breaths per minute
+      required: true
+    systolic_bp:
+      type: number
+      description: Systolic blood pressure in mmHg
+      required: true
+    diastolic_bp:
+      type: number
+      description: Diastolic blood pressure in mmHg
+      required: true
+    age:
+      type: number
+      description: Patient age in years
+      required: true
+  returns: CURB-65 score (0-5)
+  enabled: true
+  signature: (confusion, bun, respiratory_rate, systolic_bp, diastolic_bp, age)
+- name: calculate_osmolality
+  code: "def calculate_osmolality(sodium, glucose, bun):\n    '''Calculate serum osmolality'''\n\
+    \    osm = 2 * sodium + (glucose / 18) + (bun / 2.8)\n    return round(osm, 1)"
+  description: Calculate serum osmolality from electrolytes
+  parameters:
+    sodium:
+      type: number
+      description: Serum sodium (mEq/L)
+      required: true
+    glucose:
+      type: number
+      description: Serum glucose (mg/dL)
+      required: true
+    bun:
+      type: number
+      description: Blood urea nitrogen (mg/dL)
+      required: true
+  returns: {}
+  enabled: true
+  signature: (sodium, glucose, bun)
+- name: calculate_phq9
+  code: "\ndef calculate_phq9(little_interest, feeling_down, sleep_problems, tired,\
+    \ appetite, feeling_bad, concentration, moving_slow, thoughts_harm):\n    \"\"\
+    \"Calculate PHQ-9 depression severity score\n    \n    Each item scored 0-3:\n\
+    \    0 = Not at all\n    1 = Several days  \n    2 = More than half the days\n\
+    \    3 = Nearly every day\n    \"\"\"\n    \n    score = (little_interest + feeling_down\
+    \ + sleep_problems + tired + \n             appetite + feeling_bad + concentration\
+    \ + moving_slow + thoughts_harm)\n    \n    return score\n"
+  description: 'Calculate PHQ-9 depression severity score: 0-4 minimal, 5-9 mild,
+    10-14 moderate, 15-19 moderately severe, 20-27 severe'
+  parameters:
+    little_interest:
+      type: number
+      description: Little interest or pleasure in doing things (0-3)
+      required: true
+    feeling_down:
+      type: number
+      description: Feeling down, depressed, or hopeless (0-3)
+      required: true
+    sleep_problems:
+      type: number
+      description: Trouble falling/staying asleep, sleeping too much (0-3)
+      required: true
+    tired:
+      type: number
+      description: Feeling tired or having little energy (0-3)
+      required: true
+    appetite:
+      type: number
+      description: Poor appetite or overeating (0-3)
+      required: true
+    feeling_bad:
+      type: number
+      description: Feeling bad about yourself or failure (0-3)
+      required: true
+    concentration:
+      type: number
+      description: Trouble concentrating (0-3)
+      required: true
+    moving_slow:
+      type: number
+      description: Moving/speaking slowly or fidgety/restless (0-3)
+      required: true
+    thoughts_harm:
+      type: number
+      description: Thoughts of self-harm (0-3)
+      required: true
+  returns: PHQ-9 score (0-27)
+  enabled: true
+  signature: (little_interest, feeling_down, sleep_problems, tired, appetite, feeling_bad,
+    concentration, moving_slow, thoughts_harm)
+- name: calculate_pack_years
+  code: "def calculate_pack_years(packs_per_day, years_smoked):\n    '''Calculate\
+    \ smoking pack-years'''\n    pack_years = packs_per_day * years_smoked\n    return\
+    \ round(pack_years, 1)"
+  description: Calculate smoking history in pack-years
+  parameters:
+    packs_per_day:
+      type: number
+      description: Average packs smoked per day
+      required: true
+    years_smoked:
+      type: number
+      description: Number of years smoking
+      required: true
+  returns: {}
+  enabled: true
+  signature: (packs_per_day, years_smoked)
+- name: calculate_mean_arterial_pressure
+  code: "\ndef calculate_mean_arterial_pressure(systolic_bp, diastolic_bp):\n    \"\
+    \"\"Calculate Mean Arterial Pressure from systolic and diastolic BP\"\"\"\n  \
+    \  \n    if systolic_bp is None or diastolic_bp is None:\n        return None\n\
+    \    \n    map_value = diastolic_bp + (systolic_bp - diastolic_bp) / 3\n    return\
+    \ round(map_value, 1)\n"
+  description: Calculate Mean Arterial Pressure (MAP) from blood pressure readings
+  parameters:
+    systolic_bp:
+      type: number
+      description: Systolic blood pressure in mmHg
+      required: true
+    diastolic_bp:
+      type: number
+      description: Diastolic blood pressure in mmHg
+      required: true
+  returns: MAP in mmHg
+  enabled: true
+  signature: (systolic_bp, diastolic_bp)
+- name: calculate_corrected_calcium
+  code: "def calculate_corrected_calcium(calcium, albumin):\n    '''Calculate corrected\
+    \ calcium for hypoalbuminemia'''\n    corrected_ca = calcium + 0.8 * (4.0 - albumin)\n\
+    \    return round(corrected_ca, 2)"
+  description: Calculate corrected calcium for low albumin
+  parameters:
+    calcium:
+      type: number
+      description: Serum calcium (mg/dL)
+      required: true
+    albumin:
+      type: number
+      description: Serum albumin (g/dL)
+      required: true
+  returns: {}
+  enabled: true
+  signature: (calcium, albumin)
+- name: calculate_chadsvasc
+  code: "\ndef calculate_chadsvasc(age, gender, chf, hypertension, stroke_tia, vascular_disease,\
+    \ diabetes):\n    \"\"\"Calculate CHA2DS2-VASc score for stroke risk in atrial\
+    \ fibrillation\"\"\"\n    \n    score = 0\n    \n    # C: Congestive heart failure\n\
+    \    if chf:\n        score += 1\n    \n    # H: Hypertension\n    if hypertension:\n\
+    \        score += 1\n    \n    # A2: Age ≥75 (2 points)\n    if age >= 75:\n \
+    \       score += 2\n    # A: Age 65-74 (1 point)\n    elif age >= 65:\n      \
+    \  score += 1\n    \n    # D: Diabetes\n    if diabetes:\n        score += 1\n\
+    \    \n    # S2: Prior Stroke/TIA/thromboembolism (2 points)\n    if stroke_tia:\n\
+    \        score += 2\n    \n    # V: Vascular disease (prior MI, PAD, aortic plaque)\n\
+    \    if vascular_disease:\n        score += 1\n    \n    # Sc: Sex category (female)\
+    \ - 1 point\n    if gender and gender.upper() == 'F':\n        score += 1\n  \
+    \  \n    return score\n"
+  description: Calculate CHA2DS2-VASc score for stroke risk in atrial fibrillation
+    (0-9, higher = more risk, ≥2 men or ≥3 women = anticoagulate)
+  parameters:
+    age:
+      type: number
+      description: Patient age in years
+      required: true
+    gender:
+      type: string
+      description: Patient gender (M or F)
+      required: true
+    chf:
+      type: boolean
+      description: Congestive heart failure history
+      required: true
+    hypertension:
+      type: boolean
+      description: Hypertension history
+      required: true
+    stroke_tia:
+      type: boolean
+      description: Prior stroke or TIA
+      required: true
+    vascular_disease:
+      type: boolean
+      description: Vascular disease (MI, PAD, aortic plaque)
+      required: true
+    diabetes:
+      type: boolean
+      description: Diabetes mellitus
+      required: true
+  returns: CHA2DS2-VASc score (0-9)
+  enabled: true
+  signature: (age, gender, chf, hypertension, stroke_tia, vascular_disease, diabetes)
+- name: calculate_cage_score
+  code: "\ndef calculate_cage_score(cut_down, annoyed, guilty, eye_opener):\n    #\
+    \ Convert inputs to boolean (handles string inputs from LLM)\n    def to_bool(val):\n\
+    \        if isinstance(val, bool):\n            return val\n        if isinstance(val,\
+    \ str):\n            return val.lower() in ('true', 'yes', '1', 'y')\n       \
+    \ return bool(val)\n    \n    cut_down = to_bool(cut_down)\n    annoyed = to_bool(annoyed)\n\
+    \    guilty = to_bool(guilty)\n    eye_opener = to_bool(eye_opener)\n    \n  \
+    \  score = sum([cut_down, annoyed, guilty, eye_opener])\n    \n    if score ==\
+    \ 0:\n        interpretation = 'Low likelihood of alcohol use disorder'\n    \
+    \    recommendation = 'No immediate concern'\n    elif score == 1:\n        interpretation\
+    \ = 'Possible alcohol misuse'\n        recommendation = 'Brief intervention, monitor'\n\
+    \    elif score >= 2:\n        interpretation = 'Clinically significant alcohol\
+    \ problem likely'\n        recommendation = 'Further assessment, referral to addiction\
+    \ services'\n    \n    return {\n        'score': score,\n        'interpretation':\
+    \ interpretation,\n        'recommendation': recommendation\n    }\n"
+  description: 'Calculate CAGE questionnaire score for alcohol use disorder screening.
+    Score range: 0-4. ≥2 suggests clinically significant alcohol problem.'
+  parameters:
+    cut_down:
+      type: bool
+      description: Have you ever felt you should Cut down on your drinking?
+      required: true
+    annoyed:
+      type: bool
+      description: Have people Annoyed you by criticizing your drinking?
+      required: true
+    guilty:
+      type: bool
+      description: Have you ever felt bad or Guilty about your drinking?
+      required: true
+    eye_opener:
+      type: bool
+      description: Have you ever had a drink first thing in the morning (Eye-opener)?
+      required: true
+  returns:
+    type: dict
+    description: Dictionary with score (0-4), interpretation, and recommendation
+  enabled: true
+  signature: (cut_down, annoyed, guilty, eye_opener)
+- name: calculate_ciwa
+  code: "\ndef calculate_ciwa(nausea, tremor, sweating, anxiety, agitation, tactile_disturbances,\
+    \ auditory_disturbances, visual_disturbances, headache, orientation):\n    \"\"\
+    \"Calculate CIWA-Ar score for alcohol withdrawal severity\n    \n    Items scored:\n\
+    \    - Nausea/vomiting: 0-7\n    - Tremor: 0-7\n    - Sweating: 0-7\n    - Anxiety:\
+    \ 0-7\n    - Agitation: 0-7\n    - Tactile disturbances: 0-7\n    - Auditory disturbances:\
+    \ 0-7\n    - Visual disturbances: 0-7\n    - Headache: 0-7\n    - Orientation:\
+    \ 0-4\n    \"\"\"\n    \n    score = (nausea + tremor + sweating + anxiety + agitation\
+    \ + \n             tactile_disturbances + auditory_disturbances + \n         \
+    \    visual_disturbances + headache + orientation)\n    \n    return score\n"
+  description: 'Calculate CIWA-Ar score for alcohol withdrawal: <8 minimal, 8-15 mild-moderate,
+    >15 severe withdrawal requiring benzodiazepines'
+  parameters:
+    nausea:
+      type: number
+      description: Nausea/vomiting severity (0-7)
+      required: true
+    tremor:
+      type: number
+      description: Tremor severity (0-7)
+      required: true
+    sweating:
+      type: number
+      description: Paroxysmal sweats (0-7)
+      required: true
+    anxiety:
+      type: number
+      description: Anxiety severity (0-7)
+      required: true
+    agitation:
+      type: number
+      description: Agitation severity (0-7)
+      required: true
+    tactile_disturbances:
+      type: number
+      description: Tactile disturbances (0-7)
+      required: true
+    auditory_disturbances:
+      type: number
+      description: Auditory disturbances (0-7)
+      required: true
+    visual_disturbances:
+      type: number
+      description: Visual disturbances (0-7)
+      required: true
+    headache:
+      type: number
+      description: Headache severity (0-7)
+      required: true
+    orientation:
+      type: number
+      description: Orientation and clouding of sensorium (0-4)
+      required: true
+  returns: CIWA-Ar score (0-67)
+  enabled: true
+  signature: (nausea, tremor, sweating, anxiety, agitation, tactile_disturbances,
+    auditory_disturbances, visual_disturbances, headache, orientation)
+- name: calculate_age_months
+  code: "\ndef calculate_age_months(birth_date, reference_date=None):\n    \"\"\"\
+    Calculate age in months between birth date and reference date\"\"\"\n    from\
+    \ datetime import datetime\n    \n    if reference_date is None:\n        reference_date\
+    \ = datetime.now()\n    \n    if isinstance(birth_date, str):\n        try:\n\
+    \            birth_date = datetime.strptime(birth_date, '%Y-%m-%d')\n        except\
+    \ ValueError:\n            try:\n                birth_date = datetime.strptime(birth_date,\
+    \ '%m/%d/%Y')\n            except ValueError:\n                return None\n \
+    \   \n    if isinstance(reference_date, str):\n        try:\n            reference_date\
+    \ = datetime.strptime(reference_date, '%Y-%m-%d')\n        except ValueError:\n\
+    \            try:\n                reference_date = datetime.strptime(reference_date,\
+    \ '%m/%d/%Y')\n            except ValueError:\n                return None\n \
+    \   \n    # Calculate months difference\n    months = (reference_date.year - birth_date.year)\
+    \ * 12 + (reference_date.month - birth_date.month)\n    \n    # Adjust for day\
+    \ of month\n    if reference_date.day < birth_date.day:\n        months -= 1\n\
+    \    \n    return max(0, months)\n                "
+  description: Calculate age in months from birth date
+  parameters:
+    birth_date:
+      type: string
+      description: Birth date in YYYY-MM-DD or MM/DD/YYYY format
+    reference_date:
+      type: string
+      description: Reference date (optional, defaults to today)
+  returns: Age in months (number)
+  enabled: true
+  signature: (birth_date, reference_date=None)
+- name: calculate_nihss
+  code: "\ndef calculate_nihss(loc_consciousness, loc_questions, loc_commands, gaze,\
+    \ visual, facial_palsy, motor_arm_left, motor_arm_right, motor_leg_left, motor_leg_right,\
+    \ limb_ataxia, sensory, language, dysarthria, extinction_inattention):\n    score\
+    \ = (loc_consciousness + loc_questions + loc_commands + gaze + visual + \n   \
+    \          facial_palsy + motor_arm_left + motor_arm_right + motor_leg_left +\
+    \ \n             motor_leg_right + limb_ataxia + sensory + language + dysarthria\
+    \ + \n             extinction_inattention)\n    \n    if score == 0:\n       \
+    \ severity = 'No stroke symptoms'\n        prognosis = 'Excellent'\n    elif score\
+    \ <= 4:\n        severity = 'Minor stroke'\n        prognosis = 'Good recovery\
+    \ likely'\n    elif score <= 15:\n        severity = 'Moderate stroke'\n     \
+    \   prognosis = 'Variable recovery'\n    elif score <= 20:\n        severity =\
+    \ 'Moderate to severe stroke'\n        prognosis = 'Poor recovery likely'\n  \
+    \  else:\n        severity = 'Severe stroke'\n        prognosis = 'Very poor recovery'\n\
+    \    \n    return {\n        'score': score,\n        'severity': severity,\n\
+    \        'prognosis': prognosis\n    }\n"
+  description: 'Calculate NIH Stroke Scale (NIHSS) for stroke severity assessment.
+    Score range: 0-42. Higher scores indicate more severe neurological deficit. Used
+    for acute stroke evaluation.'
+  parameters:
+    loc_consciousness:
+      type: int
+      description: 'Level of consciousness: 0=alert, 1=drowsy, 2=obtunded, 3=coma/unresponsive'
+      required: true
+    loc_questions:
+      type: int
+      description: 'LOC questions (month, age): 0=both correct, 1=one correct, 2=neither
+        correct'
+      required: true
+    loc_commands:
+      type: int
+      description: 'LOC commands (open/close eyes, grip): 0=both correct, 1=one correct,
+        2=neither correct'
+      required: true
+    gaze:
+      type: int
+      description: 'Best gaze: 0=normal, 1=partial palsy, 2=forced deviation'
+      required: true
+    visual:
+      type: int
+      description: 'Visual fields: 0=no loss, 1=partial hemianopia, 2=complete hemianopia,
+        3=bilateral'
+      required: true
+    facial_palsy:
+      type: int
+      description: 'Facial palsy: 0=normal, 1=minor, 2=partial, 3=complete paralysis'
+      required: true
+    motor_arm_left:
+      type: int
+      description: 'Left arm motor: 0=no drift, 1=drift, 2=some effort, 3=no effort,
+        4=no movement'
+      required: true
+    motor_arm_right:
+      type: int
+      description: 'Right arm motor: 0=no drift, 1=drift, 2=some effort, 3=no effort,
+        4=no movement'
+      required: true
+    motor_leg_left:
+      type: int
+      description: 'Left leg motor: 0=no drift, 1=drift, 2=some effort, 3=no effort,
+        4=no movement'
+      required: true
+    motor_leg_right:
+      type: int
+      description: 'Right leg motor: 0=no drift, 1=drift, 2=some effort, 3=no effort,
+        4=no movement'
+      required: true
+    limb_ataxia:
+      type: int
+      description: 'Limb ataxia: 0=absent, 1=present one limb, 2=present two limbs'
+      required: true
+    sensory:
+      type: int
+      description: 'Sensory: 0=normal, 1=mild-moderate loss, 2=severe/total loss'
+      required: true
+    language:
+      type: int
+      description: 'Language/aphasia: 0=normal, 1=mild-moderate, 2=severe, 3=mute/global
+        aphasia'
+      required: true
+    dysarthria:
+      type: int
+      description: 'Dysarthria: 0=normal, 1=mild-moderate, 2=severe/unintelligible'
+      required: true
+    extinction_inattention:
+      type: int
+      description: 'Extinction/inattention: 0=none, 1=partial, 2=complete neglect'
+      required: true
+  returns:
+    type: dict
+    description: Dictionary with score (0-42), severity, and prognosis
+  enabled: true
+  signature: (loc_consciousness, loc_questions, loc_commands, gaze, visual, facial_palsy,
+    motor_arm_left, motor_arm_right, motor_leg_left, motor_leg_right, limb_ataxia,
+    sensory, language, dysarthria, extinction_inattention)
+- name: kg_to_lbs
+  code: "def kg_to_lbs(kg):\n    '''Convert kilograms to pounds'''\n    return round(kg\
+    \ * 2.20462, 2)"
+  description: Convert weight from kilograms to pounds
+  parameters:
+    kg:
+      type: number
+      description: Weight in kilograms
+      required: true
+  returns: {}
+  enabled: true
+  signature: (kg)
+- name: calculate_body_surface_area
+  code: "def calculate_body_surface_area(weight_kg, height_cm):\n    '''Calculate\
+    \ BSA using Mosteller formula'''\n    import math\n    bsa = math.sqrt((weight_kg\
+    \ * height_cm) / 3600)\n    return round(bsa, 3)"
+  description: Calculate Body Surface Area using Mosteller formula
+  parameters:
+    weight_kg:
+      type: number
+      description: Weight in kilograms
+      required: true
+    height_cm:
+      type: number
+      description: Height in centimeters
+      required: true
+  returns: {}
+  enabled: true
+  signature: (weight_kg, height_cm)
+- name: calculate_timi_score
+  code: "\ndef calculate_timi_score(age_65_or_older, three_or_more_cad_risk_factors,\
+    \ known_cad_stenosis_50_percent, aspirin_use_in_past_7_days, severe_angina_24h,\
+    \ st_changes, elevated_cardiac_markers):\n    # Convert inputs to boolean (handles\
+    \ string inputs from LLM)\n    def to_bool(val):\n        if isinstance(val, bool):\n\
+    \            return val\n        if isinstance(val, str):\n            return\
+    \ val.lower() in ('true', 'yes', '1', 'y')\n        return bool(val)\n    \n \
+    \   age_65_or_older = to_bool(age_65_or_older)\n    three_or_more_cad_risk_factors\
+    \ = to_bool(three_or_more_cad_risk_factors)\n    known_cad_stenosis_50_percent\
+    \ = to_bool(known_cad_stenosis_50_percent)\n    aspirin_use_in_past_7_days = to_bool(aspirin_use_in_past_7_days)\n\
+    \    severe_angina_24h = to_bool(severe_angina_24h)\n    st_changes = to_bool(st_changes)\n\
+    \    elevated_cardiac_markers = to_bool(elevated_cardiac_markers)\n    \n    score\
+    \ = 0\n    \n    if age_65_or_older:\n        score += 1\n    if three_or_more_cad_risk_factors:\n\
+    \        score += 1\n    if known_cad_stenosis_50_percent:\n        score += 1\n\
+    \    if aspirin_use_in_past_7_days:\n        score += 1\n    if severe_angina_24h:\n\
+    \        score += 1\n    if st_changes:\n        score += 1\n    if elevated_cardiac_markers:\n\
+    \        score += 1\n    \n    # Risk percentages based on TIMI study\n    risk_mapping\
+    \ = {\n        0: ('Very Low', 4.7),\n        1: ('Very Low', 4.7),\n        2:\
+    \ ('Low', 8.3),\n        3: ('Moderate', 13.2),\n        4: ('Moderate', 19.9),\n\
+    \        5: ('High', 26.2),\n        6: ('Very High', 40.9),\n        7: ('Very\
+    \ High', 40.9)\n    }\n    \n    risk_level, risk_percent = risk_mapping.get(score,\
+    \ ('Unknown', 0))\n    \n    return {\n        'score': score,\n        'risk_level':\
+    \ risk_level,\n        'estimated_risk_percent': risk_percent,\n        'interpretation':\
+    \ f'{risk_level} risk ({risk_percent}% risk of death/MI/urgent revasc at 14 days)'\n\
+    \    }\n"
+  description: 'Calculate TIMI Risk Score for UA/NSTEMI. Score range: 0-7. Used to
+    assess 14-day risk of death, MI, or urgent revascularization in patients with
+    unstable angina or NSTEMI.'
+  parameters:
+    age_65_or_older:
+      type: bool
+      description: Patient age ≥65 years
+      required: true
+    three_or_more_cad_risk_factors:
+      type: bool
+      description: ≥3 CAD risk factors (HTN, DM, smoking, family history, hyperlipidemia)
+      required: true
+    known_cad_stenosis_50_percent:
+      type: bool
+      description: Known CAD with ≥50% stenosis
+      required: true
+    aspirin_use_in_past_7_days:
+      type: bool
+      description: ASA use in prior 7 days
+      required: true
+    severe_angina_24h:
+      type: bool
+      description: Severe angina (≥2 episodes in 24h)
+      required: true
+    st_changes:
+      type: bool
+      description: ST-segment deviation ≥0.5mm on ECG
+      required: true
+    elevated_cardiac_markers:
+      type: bool
+      description: Elevated cardiac biomarkers (troponin, CK-MB)
+      required: true
+  returns:
+    type: dict
+    description: Dictionary with score (0-7), risk_level, and estimated_risk_percent
+  enabled: true
+  signature: (age_65_or_older, three_or_more_cad_risk_factors, known_cad_stenosis_50_percent,
+    aspirin_use_in_past_7_days, severe_angina_24h, st_changes, elevated_cardiac_markers)
+- name: inches_to_cm
+  code: "def inches_to_cm(inches):\n    '''Convert inches to centimeters'''\n    return\
+    \ round(inches * 2.54, 2)"
+  description: Convert height from inches to centimeters
+  parameters:
+    inches:
+      type: number
+      description: Height in inches
+      required: true
+  returns: {}
+  enabled: true
+  signature: (inches)
+- name: calculate_vascular_risk_score
+  code: "def calculate_vascular_risk_score(hypertension=False, diabetes=False, hyperlipidemia=False,\n\
+    \                                  smoking=False, atrial_fib=False, stroke_history=False,\n\
+    \                                  cad=False):\n    \"\"\"\n    Calculate vascular\
+    \ risk factor burden\n\n    IMPORTANT: Risk factors do NOT diagnose vascular dementia.\n\
+    \    Vascular dementia requires: (1) temporal relationship with stroke/TIA,\n\
+    \    (2) significant cerebrovascular disease on imaging, (3) stepwise cognitive\
+    \ decline.\n\n    Args:\n        hypertension (bool): History of hypertension\n\
+    \        diabetes (bool): History of diabetes mellitus\n        hyperlipidemia\
+    \ (bool): History of high cholesterol\n        smoking (bool): Current or former\
+    \ smoker\n        atrial_fib (bool): Atrial fibrillation\n        stroke_history\
+    \ (bool): Previous stroke or TIA\n        cad (bool): Coronary artery disease\n\
+    \n    Returns:\n        dict: Risk factor assessment\n    \"\"\"\n    risk_factors\
+    \ = {\n        \"Hypertension\": hypertension,\n        \"Diabetes\": diabetes,\n\
+    \        \"Hyperlipidemia\": hyperlipidemia,\n        \"Smoking\": smoking,\n\
+    \        \"Atrial Fibrillation\": atrial_fib,\n        \"Stroke/TIA History\"\
+    : stroke_history,\n        \"Coronary Artery Disease\": cad\n    }\n\n    present_factors\
+    \ = [factor for factor, present in risk_factors.items() if present]\n    risk_count\
+    \ = len(present_factors)\n\n    if risk_count == 0:\n        risk_level = \"Low\"\
+    \n        interpretation = \"No major vascular risk factors identified. Vascular\
+    \ contribution to cognitive impairment less likely.\"\n    elif risk_count <=\
+    \ 2:\n        risk_level = \"Moderate\"\n        interpretation = f\"{risk_count}\
+    \ vascular risk factor(s) present. Moderate vascular risk burden.\"\n    else:\n\
+    \        risk_level = \"High\"\n        interpretation = f\"{risk_count} vascular\
+    \ risk factors present. High vascular risk burden.\"\n\n    return {\n       \
+    \ \"vascular_risk_count\": risk_count,\n        \"risk_level\": risk_level,\n\
+    \        \"present_risk_factors\": present_factors,\n        \"interpretation\"\
+    : interpretation,\n        \"vascular_dementia_criteria\": \"For vascular dementia\
+    \ diagnosis, MUST have: (1) temporal relationship with stroke/TIA, (2) significant\
+    \ cerebrovascular disease on imaging (infarcts, white matter disease), (3) stepwise\
+    \ or fluctuating cognitive decline. Risk factors alone do NOT establish diagnosis.\"\
+    ,\n        \"note\": \"Vascular risk factors increase probability of both vascular\
+    \ dementia AND Alzheimer's disease. Many patients have mixed pathology. Imaging\
+    \ and clinical course required for diagnosis.\"\n    }\n"
+  description: Calculate vascular risk factor burden - v1.0.0 emphasizes risk ≠ diagnosis
+  parameters:
+    hypertension:
+      type: boolean
+      description: History of hypertension
+      required: false
+    diabetes:
+      type: boolean
+      description: History of diabetes
+      required: false
+    hyperlipidemia:
+      type: boolean
+      description: History of high cholesterol
+      required: false
+    smoking:
+      type: boolean
+      description: Current/former smoker
+      required: false
+    atrial_fib:
+      type: boolean
+      description: Atrial fibrillation
+      required: false
+    stroke_history:
+      type: boolean
+      description: Previous stroke/TIA
+      required: false
+    cad:
+      type: boolean
+      description: Coronary artery disease
+      required: false
+  returns: dict with risk assessment and vascular dementia diagnostic criteria
+  enabled: true
+  signature: (hypertension=False, diabetes=False, hyperlipidemia=False, smoking=False,
+    atrial_fib=False, stroke_history=False, cad=False)

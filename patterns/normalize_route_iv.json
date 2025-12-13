@@ -1,7 +1,0 @@
-{
-  "name": "normalize_route_iv",
-  "pattern": "\\b(?:IV|i\\.v\\.)\\b",
-  "replacement": "intravenously",
-  "description": "Normalize IV to intravenously",
-  "enabled": true
-}

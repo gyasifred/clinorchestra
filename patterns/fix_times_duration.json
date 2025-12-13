@@ -1,7 +1,0 @@
-{
-  "name": "fix_times_duration",
-  "pattern": "(?:\u00d7|x|times?)\\s*(\\d+)\\s*(days?|weeks?|months?|d|wk|mo)",
-  "replacement": "\u00d7\\1 \\2",
-  "description": "Standardize duration notation (e.g., \u00d75 days)",
-  "enabled": true
-}

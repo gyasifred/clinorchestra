@@ -1,7 +1,0 @@
-{
-  "name": "normalize_troponin_values",
-  "pattern": "(?:troponin|trop)[-\\s]?([IT])\\s*[:=]?\\s*(\\d+\\.?\\d*)\\s*(?:ng/mL|ng/dL|ng/L)?",
-  "replacement": "Troponin-\\1: \\2 ng/mL",
-  "description": "Standardize troponin (I or T) measurements to format 'Troponin-I/T: value ng/mL'",
-  "enabled": true
-}

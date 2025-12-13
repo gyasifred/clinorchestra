@@ -1,7 +1,0 @@
-{
-  "name": "standardize_dosage",
-  "pattern": "(\\d+)\\s+(mg|mcg|g|ml|units)",
-  "replacement": "\\1\\2",
-  "description": "Remove space between dose and unit: '20 mg' -> '20mg'",
-  "enabled": true
-}

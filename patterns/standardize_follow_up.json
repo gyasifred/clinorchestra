@@ -1,7 +1,0 @@
-{
-  "name": "standardize_follow_up",
-  "pattern": "\\b(f\\/u|F\\/U|f\\/up|follow[\\s\\-]?up)\\b",
-  "replacement": "follow-up",
-  "description": "Standardize follow-up notation",
-  "enabled": true
-}

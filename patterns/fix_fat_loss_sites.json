@@ -1,7 +1,0 @@
-{
-  "name": "fix_fat_loss_sites",
-  "pattern": "(orbital|tricep|subscapular)\\s*(?:fat)?\\s*(?:loss|depletion)",
-  "replacement": "\\1 fat loss",
-  "description": "Standardize fat loss site notation",
-  "enabled": true
-}

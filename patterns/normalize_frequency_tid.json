@@ -1,7 +1,0 @@
-{
-  "name": "normalize_frequency_tid",
-  "pattern": "\\b(?:TID|tid|t\\.i\\.d\\.)\\b",
-  "replacement": "three times daily",
-  "description": "Normalize TID to three times daily",
-  "enabled": true
-}

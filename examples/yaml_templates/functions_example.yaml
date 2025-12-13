@@ -1,0 +1,319 @@
+# ============================================================================
+# FUNCTION YAML TEMPLATE - Copy and modify for your clinical task
+# ============================================================================
+#
+# This template shows how to create custom functions for clinical data extraction.
+# Functions handle calculations, transformations, and validations that LLMs struggle with.
+#
+# USAGE:
+# 1. Copy this template
+# 2. Modify the function details below
+# 3. Upload via UI Functions tab "Import Functions" or save to functions/ directory
+# 4. Functions must have unique names
+#
+# ============================================================================
+
+# Single Function Example
+name: calculate_bmi
+description: "Calculate Body Mass Index from weight and height"
+enabled: true
+
+code: |
+  def calculate_bmi(weight_kg, height_m):
+      """
+      Calculate BMI from weight in kg and height in meters
+
+      Args:
+          weight_kg: Weight in kilograms
+          height_m: Height in meters
+
+      Returns:
+          BMI value rounded to 2 decimals
+      """
+      if not weight_kg or not height_m or height_m <= 0:
+          return None
+
+      bmi = weight_kg / (height_m ** 2)
+      return round(bmi, 2)
+
+parameters:
+  weight_kg:
+    type: number
+    description: "Weight in kilograms"
+    required: true
+    min: 0.5
+    max: 500
+
+  height_m:
+    type: number
+    description: "Height in meters"
+    required: true
+    min: 0.3
+    max: 3.0
+
+returns: "BMI value (kg/m²)"
+
+---
+# ============================================================================
+# MULTIPLE FUNCTIONS - You can define multiple functions in one YAML file
+# ============================================================================
+
+name: calculate_age_years
+description: "Calculate age in years from birth date"
+enabled: true
+
+code: |
+  def calculate_age_years(birth_date, reference_date=None):
+      """
+      Calculate age in years from birth date
+
+      Args:
+          birth_date: Birth date in YYYY-MM-DD format
+          reference_date: Reference date (optional, defaults to today)
+
+      Returns:
+          Age in years
+      """
+      from datetime import datetime
+
+      if reference_date is None:
+          reference_date = datetime.now()
+
+      if isinstance(birth_date, str):
+          birth_date = datetime.strptime(birth_date, '%Y-%m-%d')
+
+      if isinstance(reference_date, str):
+          reference_date = datetime.strptime(reference_date, '%Y-%m-%d')
+
+      age = reference_date.year - birth_date.year
+      if reference_date.month < birth_date.month or \
+         (reference_date.month == birth_date.month and reference_date.day < birth_date.day):
+          age -= 1
+
+      return max(0, age)
+
+parameters:
+  birth_date:
+    type: string
+    description: "Birth date in YYYY-MM-DD format"
+    required: true
+
+  reference_date:
+    type: string
+    description: "Reference date (optional, defaults to today)"
+    required: false
+
+returns: "Age in years"
+
+---
+# ============================================================================
+# CLINICAL CALCULATION EXAMPLE - Z-Score Calculation
+# ============================================================================
+
+name: calculate_zscore
+description: "Calculate z-score for growth assessment"
+enabled: true
+
+code: |
+  def calculate_zscore(measurement, value, age_months, sex):
+      """
+      Calculate growth z-score using CDC/WHO reference data
+
+      Args:
+          measurement: Type ('weight', 'height', 'bmi')
+          value: Measured value
+          age_months: Age in months
+          sex: 'male' or 'female'
+
+      Returns:
+          dict with z-score and interpretation
+      """
+      # This is a simplified example - real implementation would use
+      # CDC/WHO LMS tables or call external growth calculator
+
+      # Example reference values (normally loaded from tables)
+      ref_data = {
+          'weight': {'male': {24: {'L': 1, 'M': 12.5, 'S': 0.15}}},
+          'height': {'male': {24: {'L': 1, 'M': 86.0, 'S': 0.04}}},
+          'bmi': {'male': {24: {'L': -1, 'M': 16.5, 'S': 0.08}}}
+      }
+
+      if measurement not in ref_data:
+          return {'zscore': None, 'interpretation': 'Invalid measurement type'}
+
+      if sex not in ['male', 'female']:
+          return {'zscore': None, 'interpretation': 'Invalid sex'}
+
+      # Get LMS values (simplified - would interpolate for exact age)
+      lms = ref_data[measurement].get(sex, {}).get(age_months)
+      if not lms:
+          return {'zscore': None, 'interpretation': 'No reference data for age'}
+
+      # Calculate z-score using LMS method
+      L, M, S = lms['L'], lms['M'], lms['S']
+      zscore = ((value / M) ** L - 1) / (L * S) if L != 0 else 0
+      zscore = round(zscore, 2)
+
+      # Interpret
+      if zscore < -3:
+          interpretation = 'Severely low'
+      elif zscore < -2:
+          interpretation = 'Low'
+      elif zscore < -1:
+          interpretation = 'Below average'
+      elif zscore <= 1:
+          interpretation = 'Normal'
+      elif zscore <= 2:
+          interpretation = 'Above average'
+      elif zscore <= 3:
+          interpretation = 'High'
+      else:
+          interpretation = 'Severely high'
+
+      return {
+          'zscore': zscore,
+          'interpretation': interpretation,
+          'measurement': measurement,
+          'percentile': None  # Would calculate from z-score
+      }
+
+parameters:
+  measurement:
+    type: string
+    description: "Measurement type: 'weight', 'height', or 'bmi'"
+    required: true
+
+  value:
+    type: number
+    description: "Measured value"
+    required: true
+
+  age_months:
+    type: number
+    description: "Age in months"
+    required: true
+    min: 0
+    max: 240
+
+  sex:
+    type: string
+    description: "Patient sex: 'male' or 'female'"
+    required: true
+
+returns: "Dictionary with zscore, interpretation, and percentile"
+
+---
+# ============================================================================
+# FUNCTION WITH EXTERNAL DEPENDENCIES
+# ============================================================================
+
+name: calculate_mean_arterial_pressure
+description: "Calculate mean arterial pressure from systolic and diastolic BP"
+enabled: true
+
+code: |
+  def calculate_mean_arterial_pressure(systolic, diastolic):
+      """
+      Calculate MAP from blood pressure readings
+
+      Formula: MAP = DBP + (1/3)(SBP - DBP)
+
+      Args:
+          systolic: Systolic blood pressure (mmHg)
+          diastolic: Diastolic blood pressure (mmHg)
+
+      Returns:
+          dict with MAP and clinical interpretation
+      """
+      if not systolic or not diastolic:
+          return {'map': None, 'interpretation': 'Missing values'}
+
+      if systolic < diastolic:
+          return {'map': None, 'interpretation': 'Invalid: systolic < diastolic'}
+
+      map_value = diastolic + (1/3) * (systolic - diastolic)
+      map_value = round(map_value, 1)
+
+      # Clinical interpretation
+      if map_value < 60:
+          interpretation = 'Hypotensive - risk of inadequate organ perfusion'
+          severity = 'critical'
+      elif map_value < 70:
+          interpretation = 'Low - monitor closely'
+          severity = 'low'
+      elif map_value <= 100:
+          interpretation = 'Normal'
+          severity = 'normal'
+      elif map_value <= 110:
+          interpretation = 'Elevated'
+          severity = 'elevated'
+      else:
+          interpretation = 'Hypertensive'
+          severity = 'high'
+
+      return {
+          'map': map_value,
+          'interpretation': interpretation,
+          'severity': severity,
+          'systolic': systolic,
+          'diastolic': diastolic
+      }
+
+parameters:
+  systolic:
+    type: number
+    description: "Systolic blood pressure in mmHg"
+    required: true
+    min: 50
+    max: 300
+
+  diastolic:
+    type: number
+    description: "Diastolic blood pressure in mmHg"
+    required: true
+    min: 30
+    max: 200
+
+returns: "Dictionary with MAP value, interpretation, and severity"
+
+# ============================================================================
+# NOTES ON CREATING FUNCTIONS:
+# ============================================================================
+#
+# 1. FUNCTION NAME:
+#    - Must match the function defined in code
+#    - Use descriptive names: calculate_*, assess_*, interpret_*
+#    - Must be unique across all functions
+#
+# 2. CODE BLOCK:
+#    - Use |  after "code:" for multi-line code
+#    - Proper indentation is critical in YAML
+#    - Include docstrings for clarity
+#    - Handle edge cases and validation
+#
+# 3. PARAMETERS:
+#    - Define all function parameters
+#    - Specify type: string, number, boolean, array, object
+#    - Mark required: true/false
+#    - Add min/max for numeric validation
+#
+# 4. RETURNS:
+#    - Describe what the function returns
+#    - Can be simple type or complex object
+#
+# 5. ENABLED FLAG:
+#    - Set to false to disable without deleting
+#    - Disabled functions won't be available to LLM
+#
+# 6. AVAILABLE MODULES:
+#    - datetime, dateutil, math are available
+#    - pandas, numpy, scipy (if installed)
+#    - Can use call_function() to call other registered functions
+#
+# 7. BEST PRACTICES:
+#    - Keep functions focused on single task
+#    - Return structured data (dicts) for complex results
+#    - Include error handling
+#    - Test thoroughly before using in production
+#
+# ============================================================================

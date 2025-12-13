@@ -1,7 +1,0 @@
-{
-  "name": "standardize_ranges",
-  "pattern": "(\\d+\\.?\\d*)\\s*[\\-\u2013\u2014]\\s*(\\d+\\.?\\d*)",
-  "replacement": "\\1-\\2",
-  "description": "Standardize numeric ranges with consistent hyphen",
-  "enabled": true
-}

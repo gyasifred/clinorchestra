@@ -1,7 +1,0 @@
-{
-  "name": "fix_tube_feed_rate",
-  "pattern": "(\\d+\\.?\\d*)\\s*ml\\s*/\\s*(hr|h|hour)",
-  "replacement": "\\1 mL/hr",
-  "description": "Standardize tube feeding rate format",
-  "enabled": true
-}

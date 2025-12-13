@@ -1,7 +1,0 @@
-{
-  "name": "normalize_hba1c",
-  "pattern": "HbA1[Cc]:?\\s*(\\d{1,2}\\.?\\d*)%?",
-  "replacement": "HbA1c \\1%",
-  "description": "Normalize HbA1c format",
-  "enabled": true
-}

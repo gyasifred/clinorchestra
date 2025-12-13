@@ -1,7 +1,0 @@
-{
-  "name": "normalize_route_im",
-  "pattern": "\\b(?:IM|i\\.m\\.)\\b",
-  "replacement": "intramuscularly",
-  "description": "Normalize IM to intramuscularly",
-  "enabled": true
-}
