@@ -239,10 +239,19 @@ metadata:
 
 ## Documentation
 
-- **Main README**: This file
+- **Main README**: This file - Getting started with UI
+- **SDK Guide**: `SDK_GUIDE.md` - Using ClinOrchestra programmatically (without UI)
 - **YAML Configs Guide**: `yaml_configs/README.md` - How to import task-specific YAMLs
 - **Template Examples**: `examples/yaml_templates/README.md` - How to create custom YAMLs
 - **Evaluation Guide**: `evaluation/README.md` - Testing and benchmarking
+
+### For Developers
+
+If you want to use ClinOrchestra programmatically in your Python applications instead of the UI, see the **[SDK Guide](SDK_GUIDE.md)** for:
+- Direct API usage
+- Batch processing
+- Custom pipelines
+- Integration examples
 
 ---
 
