@@ -39,15 +39,15 @@ pip install -e .
 ### Minimal Example
 
 ```python
-from core.llm_interface import LLMInterface
+from core.llm_manager import LLMManager
 from core.agent_system import AgentSystem
 
 # 1. Initialize LLM
-llm = LLMInterface(
-    provider="openai",
-    model_name="gpt-4",
-    api_key="your-api-key"
-)
+llm = LLMManager(config={
+    'provider': 'openai',
+    'model_name': 'gpt-4',
+    'api_key': 'your-api-key'
+})
 
 # 2. Create extraction agent
 agent = AgentSystem(llm_interface=llm)
@@ -84,40 +84,50 @@ print(result)
 
 ## Core Components
 
-### 1. LLM Interface
+### 1. LLM Manager
 
-The `LLMInterface` manages connections to language model providers.
+The `LLMManager` manages connections to language model providers.
 
 ```python
-from core.llm_interface import LLMInterface
+from core.llm_manager import LLMManager
 
 # OpenAI
-llm = LLMInterface(
-    provider="openai",
-    model_name="gpt-4",
-    api_key="sk-..."
-)
+llm = LLMManager(config={
+    'provider': 'openai',
+    'model_name': 'gpt-4',
+    'api_key': 'sk-...',
+    'temperature': 0.1,
+    'max_tokens': 4096
+})
 
 # Anthropic Claude
-llm = LLMInterface(
-    provider="anthropic",
-    model_name="claude-3-5-sonnet-20241022",
-    api_key="sk-ant-..."
-)
+llm = LLMManager(config={
+    'provider': 'anthropic',
+    'model_name': 'claude-3-5-sonnet-20241022',
+    'api_key': 'sk-ant-...',
+    'temperature': 0.1,
+    'max_tokens': 4096
+})
 
 # Google Gemini
-llm = LLMInterface(
-    provider="google",
-    model_name="gemini-1.5-pro",
-    api_key="..."
-)
+llm = LLMManager(config={
+    'provider': 'google',
+    'model_name': 'gemini-1.5-pro',
+    'api_key': '...',
+    'temperature': 0.1,
+    'max_tokens': 4096
+})
 
-# Local models (Unsloth)
-llm = LLMInterface(
-    provider="unsloth",
-    model_name="unsloth/Meta-Llama-3.1-8B-Instruct",
-    device="cuda"
-)
+# Local models
+llm = LLMManager(config={
+    'provider': 'local',
+    'model_name': 'unsloth/Meta-Llama-3.1-8B-Instruct',
+    'local_model_path': 'unsloth/Meta-Llama-3.1-8B-Instruct',
+    'quantization': '4bit',
+    'max_seq_length': 16384,
+    'temperature': 0.1,
+    'max_tokens': 4096
+})
 ```
 
 ### 2. Function Registry
@@ -291,7 +301,7 @@ extras_mgr = ExtrasManager("./extras")               # Loads extras/*.yaml
 Recommended for production tasks with consistent requirements.
 
 ```python
-from core.llm_interface import LLMInterface
+from core.llm_manager import LLMManager
 from core.agent_system import AgentSystem
 from core.function_registry import FunctionRegistry
 from core.regex_preprocessor import RegexPreprocessor
@@ -299,7 +309,13 @@ from core.extras_manager import ExtrasManager
 from core.rag_engine import RAGEngine
 
 # 1. Initialize components
-llm = LLMInterface(provider="openai", model_name="gpt-4", api_key="...")
+llm = LLMManager(config={
+    'provider': 'openai',
+    'model_name': 'gpt-4',
+    'api_key': '...',
+    'temperature': 0.1,
+    'max_tokens': 4096
+})
 func_registry = FunctionRegistry("./functions")
 preprocessor = RegexPreprocessor("./patterns")
 extras_mgr = ExtrasManager("./extras")
@@ -360,12 +376,18 @@ print(result)
 Recommended for complex tasks requiring autonomous decision-making.
 
 ```python
-from core.llm_interface import LLMInterface
+from core.llm_manager import LLMManager
 from core.agentic_agent import AgenticAgent
 from core.function_registry import FunctionRegistry
 
 # 1. Initialize components
-llm = LLMInterface(provider="anthropic", model_name="claude-3-5-sonnet-20241022", api_key="...")
+llm = LLMManager(config={
+    'provider': 'anthropic',
+    'model_name': 'claude-3-5-sonnet-20241022',
+    'api_key': '...',
+    'temperature': 0.1,
+    'max_tokens': 4096
+})
 func_registry = FunctionRegistry("./functions")
 
 # 2. Create ADAPTIVE agent
@@ -416,12 +438,18 @@ print("Result:", result.get('extracted_data'))
 ### 1. Batch Processing
 
 ```python
-from core.llm_interface import LLMInterface
+from core.llm_manager import LLMManager
 from core.agent_system import AgentSystem
 import pandas as pd
 
 # Initialize
-llm = LLMInterface(provider="openai", model_name="gpt-4", api_key="...")
+llm = LLMManager(config={
+    'provider': 'openai',
+    'model_name': 'gpt-4',
+    'api_key': '...',
+    'temperature': 0.1,
+    'max_tokens': 4096
+})
 agent = AgentSystem(llm_interface=llm)
 
 # Load dataset
@@ -619,14 +647,20 @@ Complete malnutrition assessment using YAML configs
 """
 import yaml
 from pathlib import Path
-from core.llm_interface import LLMInterface
+from core.llm_manager import LLMManager
 from core.agent_system import AgentSystem
 from core.function_registry import FunctionRegistry
 from core.regex_preprocessor import RegexPreprocessor
 from core.extras_manager import ExtrasManager
 
 # 1. Initialize components
-llm = LLMInterface(provider="openai", model_name="gpt-4", api_key="sk-...")
+llm = LLMManager(config={
+    'provider': 'openai',
+    'model_name': 'gpt-4',
+    'api_key': 'sk-...',
+    'temperature': 0.1,
+    'max_tokens': 4096
+})
 
 func_registry = FunctionRegistry("./functions")
 preprocessor = RegexPreprocessor("./patterns")
@@ -719,17 +753,19 @@ print(f"Etiology: {result['malnutrition_etiology']}")
 """
 ADRD cognitive assessment with adaptive workflow
 """
-from core.llm_interface import LLMInterface
+from core.llm_manager import LLMManager
 from core.agentic_agent import AgenticAgent
 from core.function_registry import FunctionRegistry
 import yaml
 
 # 1. Initialize
-llm = LLMInterface(
-    provider="anthropic",
-    model_name="claude-3-5-sonnet-20241022",
-    api_key="sk-ant-..."
-)
+llm = LLMManager(config={
+    'provider': 'anthropic',
+    'model_name': 'claude-3-5-sonnet-20241022',
+    'api_key': 'sk-ant-...',
+    'temperature': 0.1,
+    'max_tokens': 4096
+})
 
 func_registry = FunctionRegistry("./functions")
 
@@ -796,7 +832,7 @@ print(f"Confidence: {result['confidence']}")
 """
 High-throughput batch processing with parallel workers
 """
-from core.llm_interface import LLMInterface
+from core.llm_manager import LLMManager
 from core.agent_system import AgentSystem
 import pandas as pd
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -804,7 +840,13 @@ from tqdm import tqdm
 
 def process_note(note_data):
     """Process single clinical note"""
-    llm = LLMInterface(provider="openai", model_name="gpt-4", api_key="...")
+    llm = LLMManager(config={
+        'provider': 'openai',
+        'model_name': 'gpt-4',
+        'api_key': '...',
+        'temperature': 0.1,
+        'max_tokens': 4096
+    })
     agent = AgentSystem(llm_interface=llm)
 
     try:
@@ -855,24 +897,32 @@ df_results.to_csv("extraction_results.csv", index=False)
 
 ## API Reference
 
-### LLMInterface
+### LLMManager
 
 ```python
-LLMInterface(
-    provider: str,              # "openai", "anthropic", "google", "azure", "unsloth"
-    model_name: str,            # Model identifier
-    api_key: str = None,        # API key (not needed for local models)
-    temperature: float = 0.0,   # Sampling temperature
-    max_tokens: int = 4000,     # Max response tokens
-    device: str = "cuda"        # For local models: "cuda" or "cpu"
+LLMManager(
+    config: dict                # Configuration dictionary
 )
+
+# Config dictionary keys:
+{
+    'provider': str,            # "openai", "anthropic", "google", "azure", "local"
+    'model_name': str,          # Model identifier
+    'api_key': str,             # API key (optional for local models)
+    'temperature': float,       # Sampling temperature (default: 0.01)
+    'max_tokens': int,          # Max response tokens (default: 4096)
+    'max_seq_length': int,      # Context window for local models (default: 16384)
+    'local_model_path': str,    # Path for local models (optional)
+    'quantization': str,        # "4bit" or "8bit" for local models (default: "4bit")
+    'gpu_layers': int           # GPU layers for local models (default: -1 = all)
+}
 ```
 
 ### AgentSystem (STRUCTURED)
 
 ```python
 AgentSystem(
-    llm_interface: LLMInterface,
+    llm_interface: LLMManager,
     function_registry: FunctionRegistry = None,
     regex_preprocessor: RegexPreprocessor = None,
     extras_manager: ExtrasManager = None,
@@ -897,7 +947,7 @@ agent.extract(
 
 ```python
 AgenticAgent(
-    llm_interface: LLMInterface,
+    llm_interface: LLMManager,
     function_registry: FunctionRegistry = None,
     max_iterations: int = 10     # Max autonomous iterations
 )
@@ -959,7 +1009,11 @@ print(f"Loaded functions: {list(registry.functions.keys())}")
 **Issue**: Extraction returns incomplete data
 ```python
 # Solution: Increase max_tokens or use more capable model
-llm = LLMInterface(provider="openai", model_name="gpt-4", max_tokens=8000)
+llm = LLMManager(config={
+    'provider': 'openai',
+    'model_name': 'gpt-4',
+    'max_tokens': 8000
+})
 ```
 
 **Issue**: Slow batch processing
