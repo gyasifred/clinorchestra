@@ -1539,8 +1539,10 @@ Example format:
                 json_schema_instructions=schema_instructions,
                 **self.context.prompt_variables  # NEW: Add prompt variables
             )
-        except KeyError:
-            # Template doesn't use these placeholders, pass as-is
+        except (KeyError, IndexError) as e:
+            # Template doesn't use these placeholders or has numbered placeholders, pass as-is
+            # IndexError occurs when template has {0}, {1} but only keyword args are provided
+            logger.debug(f"Could not format user_task_prompt with variables: {type(e).__name__}")
             pass
 
         prompt = get_agentic_extraction_prompt(

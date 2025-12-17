@@ -1232,11 +1232,12 @@ def get_agentic_extraction_prompt(clinical_text: str, label_context: str,
                 function_outputs="[You will perform calculations by calling call_[function_name]() tools as needed]",
                 extras_outputs="[You will get supplementary hints by calling query_extras() tool if needed]"
             )
-        except KeyError as e:
+        except (KeyError, IndexError) as e:
             # If there are other placeholders we don't know about, leave them
+            # IndexError occurs when template has {0}, {1} but only keyword args are provided
             import re
             user_prompt_filled = user_task_prompt
-            # Fill known placeholders using regex to avoid KeyError
+            # Fill known placeholders using regex to avoid KeyError/IndexError
             user_prompt_filled = re.sub(r'\{clinical_text\}', clinical_text, user_prompt_filled)
             user_prompt_filled = re.sub(r'\{label_context\}', label_context, user_prompt_filled)
             user_prompt_filled = re.sub(r'\{rag_outputs\}', '[You will retrieve guidelines/evidence by calling query_rag() tool]', user_prompt_filled)
