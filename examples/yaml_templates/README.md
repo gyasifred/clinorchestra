@@ -4,7 +4,7 @@ These YAML templates provide blueprints for creating your own functions, pattern
 
 ## Overview
 
-Clinorchestra uses YAML (not JSON) for configuration. These templates show you how to structure your own YAMLs for any clinical task.
+Clinorchestra accepts YAML imports for user-friendly configuration, which are automatically converted to JSON for internal storage and execution. These templates show you how to structure your own YAMLs for any clinical task.
 
 ## Files
 
@@ -29,12 +29,15 @@ Upload your YAML file through the Clinorchestra UI:
 - **Patterns Tab** → "Import Patterns" → Select your `patterns.yaml`
 - **Extras Tab** → "Import Extras" → Select your `extras.yaml`
 
-### 4. Files are Automatically Saved
+### 4. Files are Automatically Converted and Saved
 
-When you register via UI, Clinorchestra saves them as YAML files in:
-- `functions/*.yaml`
-- `patterns/*.yaml`
-- `extras/*.yaml`
+When you register via UI, Clinorchestra:
+1. Accepts your YAML imports (user-friendly format)
+2. Converts YAML to JSON (required for execution)
+3. Saves as JSON files in:
+   - `functions/*.json`
+   - `patterns/*.json`
+   - `extras/*.json`
 
 ## YAML Format Requirements
 
@@ -97,12 +100,14 @@ metadata:
 
 ## Important Notes
 
-### YAML Only - No JSON
+### YAML Import, JSON Storage
 
-Clinorchestra now uses **YAML only**. There is no JSON fallback.
-- Files must have `.yaml` extension
+Clinorchestra accepts **YAML imports** for ease of use, but stores configurations as **JSON** internally:
+- Import files: Use `.yaml` extension for your import files
+- Storage files: System automatically creates `.json` files for internal use
 - Use proper YAML syntax (indentation matters!)
 - Multi-line content uses `|` after the key
+- System handles conversion automatically
 
 ### Multi-Document YAML
 
