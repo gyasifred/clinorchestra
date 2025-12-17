@@ -7,7 +7,9 @@ Author: Frederick Gyasi (gyasi@musc.edu)
 """
 
 import json
-from typing import Dict, Any, List, Optional
+import yaml
+import re
+from typing import Dict, Any, List, Optional, Tuple
 from pathlib import Path
 from datetime import datetime
 from core.logging_config import get_logger
@@ -431,8 +433,13 @@ class ExtrasManager:
             return False
     
     def _save_extra(self, extra: Dict[str, Any]):
-        """Save extra to file"""
-        extra_file = self.storage_path / f"{extra['id']}.json"
+        """Save extra to file using extras name (not random UID)"""
+        # Use extras name for filename, sanitize it for filesystem safety
+        name = extra.get('name', extra.get('id', 'unnamed_extra'))
+        # Sanitize filename: remove/replace invalid characters
+        safe_name = re.sub(r'[^\w\s-]', '_', name).strip().replace(' ', '_')
+        extra_file = self.storage_path / f"{safe_name}.json"
+
         with open(extra_file, 'w') as f:
             json.dump(extra, f, indent=2)
     
@@ -487,20 +494,53 @@ class ExtrasManager:
         """Export all extras as JSON"""
         return json.dumps(self.extras, indent=2)
     
-    def import_extras(self, json_str: str) -> bool:
-        """Import extras from JSON"""
+    def import_extras(self, yaml_str: str) -> Tuple[bool, int, str]:
+        """Import extras from YAML or JSON string, stores internally as JSON"""
         try:
-            extras = json.loads(json_str)
+            # Try YAML first (supports both YAML and JSON since JSON is valid YAML)
+            extras = yaml.safe_load(yaml_str)
+
+            if not isinstance(extras, list):
+                return False, 0, "Invalid format: expected list of extras"
+
+            count = 0
+            errors = []
+
             for extra in extras:
-                # Ensure enabled field exists (backward compatibility)
-                if 'enabled' not in extra:
-                    extra['enabled'] = True
-                self.extras.append(extra)
-                self._save_extra(extra)
-            return True
+                try:
+                    # Ensure required fields
+                    if 'content' not in extra:
+                        errors.append(f"Extra missing 'content' field")
+                        continue
+
+                    # Ensure enabled field exists (backward compatibility)
+                    if 'enabled' not in extra:
+                        extra['enabled'] = True
+
+                    # Ensure id field (use name if available, otherwise generate)
+                    if 'id' not in extra:
+                        if 'name' in extra:
+                            extra['id'] = extra['name']
+                        else:
+                            extra['id'] = f"extra_{datetime.now().strftime('%Y%m%d_%H%M%S_%f')}"
+
+                    self.extras.append(extra)
+                    self._save_extra(extra)
+                    count += 1
+                except Exception as e:
+                    errors.append(f"Failed to import extra: {str(e)}")
+                    continue
+
+            if errors:
+                error_msg = "; ".join(errors[:3])  # Show first 3 errors
+                if len(errors) > 3:
+                    error_msg += f" ... and {len(errors) - 3} more"
+                return count > 0, count, f"Imported {count} extras with {len(errors)} errors: {error_msg}"
+
+            return True, count, f"Successfully imported {count} extras"
         except Exception as e:
             logger.error(f"Import failed: {e}")
-            return False
+            return False, 0, f"Import failed: {str(e)}"
     
     def search_extras(self, query: str) -> List[Dict[str, Any]]:
         """

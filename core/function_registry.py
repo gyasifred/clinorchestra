@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
 Function Registry - Parameter validation and transformation
-Version: 2.0.0 - YAML-Only
+Version: 2.0.0 - JSON storage with YAML import support
 """
 import sys
+import json
 import yaml
 from typing import Dict, Any, Tuple, List, Callable, Optional
 from pathlib import Path
@@ -849,8 +850,8 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
         return match.group(1) if match else None
     
     def _save_function(self, name: str):
-        """Save function to disk as YAML"""
-        func_file = self.storage_path / f"{name}.yaml"
+        """Save function to disk as JSON"""
+        func_file = self.storage_path / f"{name}.json"
 
         # Get function data without compiled function
         func_data = self.functions[name].copy()
@@ -858,21 +859,21 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
 
         try:
             with open(func_file, 'w', encoding='utf-8') as f:
-                yaml.dump(func_data, f, default_flow_style=False, sort_keys=False, allow_unicode=True)
+                json.dump(func_data, f, indent=2, ensure_ascii=False)
             logger.debug(f"Saved function to {func_file}")
         except Exception as e:
             logger.error(f"Failed to save function {name}: {e}")
     
     def _load_all_functions(self):
-        """Load all functions from storage directory"""
+        """Load all functions from storage directory (JSON files)"""
         if not self.storage_path.exists():
             return
 
-        # YAML ONLY - No JSON fallback
-        for func_file in self.storage_path.glob("*.yaml"):
+        # Load from JSON files
+        for func_file in self.storage_path.glob("*.json"):
             try:
                 with open(func_file, 'r', encoding='utf-8') as f:
-                    func_data = yaml.safe_load(f)
+                    func_data = json.load(f)
 
                 if not func_data or 'code' not in func_data:
                     logger.warning(f"No code found in {func_file}")
@@ -907,8 +908,9 @@ def calculate_bmi(weight_kg, height_m=None, height_cm=None):
         return yaml.dump(export_data, default_flow_style=False, sort_keys=False, allow_unicode=True)
     
     def import_functions(self, yaml_str: str) -> Tuple[bool, int, str]:
-        """Import functions from YAML string (YAML ONLY - NO JSON FALLBACK)"""
+        """Import functions from YAML or JSON string, stores internally as JSON"""
         try:
+            # Try YAML first (supports both YAML and JSON since JSON is valid YAML)
             data = yaml.safe_load(yaml_str)
 
             # Handle both list format and dict with 'functions' key
