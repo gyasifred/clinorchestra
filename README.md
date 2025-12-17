@@ -1,8 +1,8 @@
 # ClinOrchestra - Universal Clinical AI Platform
 
-**YAML-Based Clinical Data Extraction with Autonomous LLM Orchestration**
+**YAML-Friendly Clinical Data Extraction with Autonomous LLM Orchestration**
 
-ClinOrchestra is a universal clinical AI platform that enables autonomous language model orchestration for any clinical task. The platform uses **YAML configuration** for all components (functions, patterns, extras) and integrates multiple tool types that LLMs leverage autonomously.
+ClinOrchestra is a universal clinical AI platform that enables autonomous language model orchestration for any clinical task. The platform accepts **YAML imports** for easy configuration (functions, patterns, extras) which are converted and stored as JSON internally for execution.
 
 ![ClinOrchestra Logo](assets/clinorchestra_logo.svg)
 
@@ -19,10 +19,10 @@ ClinOrchestra is a universal clinical AI platform that enables autonomous langua
   - **STRUCTURED**: Predefined 4-stage pipeline for production tasks
   - **ADAPTIVE**: Dynamic workflows that adjust based on task requirements
 
-- **YAML-Only Configuration**: Clean, organized, human-readable
-  - Task-specific YAMLs in `yaml_configs/`
+- **YAML Import Support**: Clean, organized, human-readable configuration
+  - Task-specific YAMLs in `yaml_configs/` for easy import
   - Example templates in `examples/yaml_templates/`
-  - Import via UI → Creates individual `.yaml` files
+  - Import via UI → Converts to JSON → Stores as individual `.json` files
 
 - **Tool Integration**:
   - **Functions**: Python calculations (z-scores, BMI, clinical scores)
@@ -98,33 +98,33 @@ Extras Tab → Import → yaml_configs/shared_extras.yaml
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    YAML Configuration                        │
+│                YAML Import Files (User-Friendly)             │
 │  yaml_configs/                                              │
 │  ├── malnutrition_functions.yaml (13 functions)            │
 │  ├── malnutrition_patterns.yaml (10 patterns)              │
 │  ├── malnutrition_extras.yaml (90 extras)                  │
 │  └── ... (ADRD, MIMIC-IV, shared)                          │
 └─────────────────────────────────────────────────────────────┘
-                          ↓ Import via UI
+                ↓ Import via UI → Convert to JSON
 ┌─────────────────────────────────────────────────────────────┐
-│                  Individual YAML Files                       │
+│            Individual JSON Files (Internal Storage)          │
 │  functions/                                                 │
-│  ├── calculate_zscore.yaml                                 │
-│  ├── calculate_bmi.yaml                                    │
+│  ├── calculate_zscore.json                                 │
+│  ├── calculate_bmi.json                                    │
 │  └── ...                                                    │
 │  patterns/                                                  │
-│  ├── normalize_bp.yaml                                     │
+│  ├── normalize_bp.json                                     │
 │  └── ...                                                    │
 │  extras/                                                    │
-│  ├── aspen_criteria.yaml                                   │
+│  ├── ASPEN_Criteria.json                                   │
 │  └── ...                                                    │
 └─────────────────────────────────────────────────────────────┘
                           ↓ Loaded by
 ┌─────────────────────────────────────────────────────────────┐
 │                      Managers                               │
-│  • FunctionRegistry (loads .yaml functions)                │
-│  • RegexPreprocessor (loads .yaml patterns)                │
-│  • ExtrasManager (loads .yaml extras)                      │
+│  • FunctionRegistry (loads .json, executes functions)      │
+│  • RegexPreprocessor (loads .json, applies patterns)       │
+│  • ExtrasManager (loads .json, matches keywords)           │
 └─────────────────────────────────────────────────────────────┘
                           ↓ Used by
 ┌─────────────────────────────────────────────────────────────┐
@@ -141,9 +141,9 @@ Extras Tab → Import → yaml_configs/shared_extras.yaml
 
 ### Component Flow
 
-1. **User imports task-specific YAML** via UI
-2. **System creates individual `.yaml` files** for each function/pattern/extra
-3. **Managers load on startup** from individual YAML files
+1. **User imports task-specific YAML** via UI (user-friendly format)
+2. **System converts YAML to JSON** and saves individual `.json` files for each function/pattern/extra
+3. **Managers load on startup** from individual JSON files (required for execution)
 4. **LLM uses tools** during extraction based on task requirements
 5. **Results extracted** matching defined schema
 
@@ -272,18 +272,18 @@ clinorchestra/
 │       ├── patterns_example.yaml
 │       └── extras_example.yaml
 ├── core/                      # Core managers and engines
-│   ├── function_registry.py   # Loads .yaml functions
-│   ├── regex_preprocessor.py  # Loads .yaml patterns
-│   ├── extras_manager.py      # Loads .yaml extras
+│   ├── function_registry.py   # Loads .json functions, executes code
+│   ├── regex_preprocessor.py  # Loads .json patterns, applies regex
+│   ├── extras_manager.py      # Loads .json extras, matches keywords
 │   ├── agent_system.py        # STRUCTURED pipeline
 │   └── agentic_agent.py       # ADAPTIVE pipeline
 ├── ui/                        # Gradio UI
-│   ├── functions_tab.py       # Import/manage functions
-│   ├── patterns_tab.py        # Import/manage patterns
-│   └── extras_tab.py          # Import/manage extras
-├── functions/                 # Individual function YAMLs (created on import)
-├── patterns/                  # Individual pattern YAMLs (created on import)
-└── extras/                    # Individual extra YAMLs (created on import)
+│   ├── functions_tab.py       # Import YAML, convert to JSON
+│   ├── patterns_tab.py        # Import YAML, convert to JSON
+│   └── extras_tab.py          # Import YAML, convert to JSON
+├── functions/                 # Individual function JSON files (created on import)
+├── patterns/                  # Individual pattern JSON files (created on import)
+└── extras/                    # Individual extra JSON files (created on import)
 ```
 
 ---

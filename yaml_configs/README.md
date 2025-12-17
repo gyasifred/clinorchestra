@@ -32,21 +32,21 @@ This directory contains pre-configured YAML files for common clinical tasks, con
 2. Click **"Import Functions"**
 3. Select the YAML file for your task (e.g., `malnutrition_functions.yaml`)
 4. Click Import
-5. Functions will be saved to `functions/` directory as individual `.yaml` files
+5. YAML is converted to JSON and saved to `functions/` directory as individual `.json` files
 
 **For Patterns:**
 1. Go to **Patterns Tab**
 2. Click **"Import Patterns"**
 3. Select the YAML file (e.g., `shared_patterns.yaml`)
 4. Click Import
-5. Patterns will be saved to `patterns/` directory as individual `.yaml` files
+5. YAML is converted to JSON and saved to `patterns/` directory as individual `.json` files
 
 **For Extras:**
 1. Go to **Extras Tab**
 2. Click **"Import Extras"**
 3. Select the YAML file (e.g., `adrd_extras.yaml`)
 4. Click Import
-5. Extras will be saved to `extras/` directory as individual `.yaml` files
+5. YAML is converted to JSON and saved to `extras/` directory as individual `.json` files
 
 ### 2. Recommended Import Order
 
@@ -102,12 +102,13 @@ Now you have:
 ## What Happens When You Import
 
 1. **UI validates the YAML** - Checks syntax and structure
-2. **Registers each item** - Adds to the appropriate manager (FunctionRegistry, RegexPreprocessor, ExtrasManager)
-3. **Saves individual YAML files** - Each item gets its own `.yaml` file:
-   - Functions → `functions/<function_name>.yaml`
-   - Patterns → `patterns/<pattern_name>.yaml`
-   - Extras → `extras/<extra_id>.yaml`
-4. **Ready to use** - Items are immediately available for extraction tasks
+2. **Converts YAML to JSON** - System converts YAML to JSON format (required for execution)
+3. **Registers each item** - Adds to the appropriate manager (FunctionRegistry, RegexPreprocessor, ExtrasManager)
+4. **Saves individual JSON files** - Each item gets its own `.json` file:
+   - Functions → `functions/<function_name>.json`
+   - Patterns → `patterns/<pattern_name>.json`
+   - Extras → `extras/<extra_name>.json`
+5. **Ready to use** - Items are immediately available for extraction tasks
 
 ## File Format
 
