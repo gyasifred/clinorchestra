@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
 Regex Preprocessor - Text preprocessing before LLM
-Version: 2.0.0 - YAML-Only
+Version: 2.0.0 - JSON storage with YAML import support
 """
 
 import re
+import json
 import yaml
 from typing import Dict, Any, List, Optional, Tuple
 from pathlib import Path
@@ -257,8 +258,8 @@ class RegexPreprocessor:
         return None
     
     def _save_pattern(self, pattern: RegexPattern):
-        """Save pattern to file as YAML"""
-        pattern_file = self.storage_path / f"{pattern.name}.yaml"
+        """Save pattern to file as JSON"""
+        pattern_file = self.storage_path / f"{pattern.name}.json"
 
         pattern_data = {
             'name': pattern.name,
@@ -269,17 +270,17 @@ class RegexPreprocessor:
         }
 
         with open(pattern_file, 'w', encoding='utf-8') as f:
-            yaml.dump(pattern_data, f, default_flow_style=False, sort_keys=False, allow_unicode=True)
+            json.dump(pattern_data, f, indent=2, ensure_ascii=False)
     
     def _load_all_patterns(self):
         """Load all patterns from storage with duplicate checking"""
         loaded_names = set()  # Track loaded names to prevent duplicates
 
-        # YAML ONLY - No JSON fallback
-        for pattern_file in self.storage_path.glob("*.yaml"):
+        # Load from JSON files
+        for pattern_file in self.storage_path.glob("*.json"):
             try:
                 with open(pattern_file, 'r', encoding='utf-8') as f:
-                    data = yaml.safe_load(f)
+                    data = json.load(f)
 
                 # FIXED: Validate pattern before loading
                 if not self._validate_pattern_syntax(data['pattern']):
@@ -319,10 +320,11 @@ class RegexPreprocessor:
         ]
         return json.dumps(patterns_data, indent=2)
     
-    def import_patterns(self, json_str: str) -> Tuple[bool, int, str]:
-        """Import patterns from JSON"""
+    def import_patterns(self, yaml_str: str) -> Tuple[bool, int, str]:
+        """Import patterns from YAML or JSON string, stores internally as JSON"""
         try:
-            patterns_data = json.loads(json_str)
+            # Try YAML first (supports both YAML and JSON since JSON is valid YAML)
+            patterns_data = yaml.safe_load(yaml_str)
             count = 0
             
             for data in patterns_data:
