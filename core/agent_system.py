@@ -26,6 +26,7 @@ from enum import Enum
 from concurrent.futures import ThreadPoolExecutor
 
 from core.json_parser import JSONParser
+from core.json_validator import create_json_validator, JSONContentValidator
 from core.prompt_templates import (
     get_stage1_analysis_prompt_template,
     get_default_rag_refinement_prompt,
@@ -36,6 +37,7 @@ from core.logging_config import get_logger, log_extraction_stage
 from core.performance_monitor import get_performance_monitor, TimingContext
 from core.tool_dedup_preventer import create_tool_dedup_preventer
 from core.adaptive_retry import AdaptiveRetryManager, create_retry_context
+from core.retry_metrics import RetryMetricsTracker
 from core.model_tier_helper import get_model_for_stage
 
 logger = get_logger(__name__)
@@ -109,14 +111,29 @@ class ExtractionAgent:
         self.max_retries = 3
         self.json_parser = JSONParser()
 
+        # Initialize JSON content validator
+        # Requires at least 1 field filled and 10% of fields with content
+        self.json_validator = create_json_validator(
+            min_filled_fields=1,
+            min_fill_percentage=10.0,
+            strict_mode=False
+        )
+
         # Initialize tool deduplication preventer
         self.tool_dedup_preventer = None  # Created per extraction
 
-        # Initialize adaptive retry manager
-        self.retry_manager = AdaptiveRetryManager(max_retries=5)
+        # Initialize retry metrics tracker
+        self.retry_metrics_tracker = RetryMetricsTracker()
+
+        # Initialize adaptive retry manager with metrics tracker
+        self.retry_manager = AdaptiveRetryManager(
+            max_retries=5,
+            config=getattr(app_state, 'adaptive_retry_config', None),
+            metrics_tracker=self.retry_metrics_tracker
+        )
 
         logger.info(" ExtractionAgent v1.0.0 initialized - STRUCTURED Mode (predictable workflows with ASYNC)")
-        logger.info(" Enhanced with: Adaptive Retry + Proactive Tool Deduplication")
+        logger.info(" Enhanced with: Adaptive Retry + JSON Content Validation + Metrics Tracking")
         
     
     def extract(self, clinical_text: str, label_value: Optional[Any] = None,
@@ -1297,49 +1314,90 @@ class ExtractionAgent:
 
     @log_extraction_stage("Stage 3: JSON Extraction")
     def _execute_stage3_extraction(self) -> bool:
-        """Execute Stage 3: extraction with tool results"""
+        """Execute Stage 3: extraction with tool results using adaptive retry"""
         try:
-            extraction_prompt = self._build_stage3_main_extraction_prompt()
-            
-            for attempt in range(self.max_retries):
-                try:
-                    logger.info(f"Extraction attempt {attempt + 1}/{self.max_retries}")
+            # Create retry context for adaptive retry
+            retry_context = create_retry_context(
+                clinical_text=self.context.clinical_text,
+                conversation_history=[],  # STRUCTURED mode doesn't use conversation history
+                tool_results=self.context.tool_results,
+                max_attempts=5,
+                config=getattr(self.app_state, 'adaptive_retry_config', None),
+                provider=self.app_state.model_config.provider,
+                model_name=self.app_state.model_config.model_name
+            )
 
-                    # TIER 1.2: Use tiered models - accurate model for Stage 3 extraction
-                    stage_model = get_model_for_stage(self.app_state, stage=3)
+            # Generation function for retry manager
+            def generate_extraction():
+                """Generate extraction with current retry context"""
+                # Update clinical text from retry context (may be truncated)
+                self.context.clinical_text = retry_context.clinical_text
 
-                    response = self.llm_manager.generate(
-                        extraction_prompt,
-                        max_tokens=self.app_state.model_config.max_tokens,
-                        override_model_name=stage_model
-                    )
-                    
-                    if not response:
-                        logger.error("No response from LLM")
-                        continue
-                    
-                    self.context.last_raw_response = response
-                    
-                    # Parse JSON output
-                    parsed_output = self._parse_json_with_robust_parser(response, attempt, "stage3")
-                    
-                    if parsed_output:
-                        self.context.stage3_output = parsed_output
-                        logger.info("Extraction successful")
-                        return True
-                    
-                    logger.warning(f"Parsing failed, attempt {attempt + 1}")
-                    self.context.retry_count += 1
-                    
-                except Exception as e:
-                    logger.error(f"Extraction attempt {attempt + 1} failed: {e}")
-                    self.context.retry_count += 1
-            
-            logger.error("All extraction attempts failed")
-            return False
-            
+                # Build extraction prompt (switches to minimal if needed)
+                if retry_context.switched_to_minimal:
+                    logger.info("🔄 Using MINIMAL PROMPT due to retries")
+                    extraction_prompt = self._build_minimal_extraction_prompt()
+                else:
+                    extraction_prompt = self._build_stage3_main_extraction_prompt()
+
+                # TIER 1.2: Use tiered models - accurate model for Stage 3 extraction
+                stage_model = get_model_for_stage(self.app_state, stage=3)
+
+                logger.info(f"Generating extraction with {len(extraction_prompt)} char prompt")
+
+                response = self.llm_manager.generate(
+                    extraction_prompt,
+                    max_tokens=self.app_state.model_config.max_tokens,
+                    override_model_name=stage_model
+                )
+
+                if not response:
+                    raise Exception("No response from LLM")
+
+                self.context.last_raw_response = response
+
+                # Parse JSON output
+                parsed_output, parse_method = self.json_parser.parse_json_response(
+                    response,
+                    self.app_state.prompt_config.json_schema
+                )
+
+                if not parsed_output:
+                    raise Exception("JSON parsing failed after all 9 parsing methods")
+
+                # CRITICAL: Validate JSON has meaningful content (not all empty fields)
+                validation_result = self.json_validator.validate(
+                    parsed_output,
+                    self.app_state.prompt_config.json_schema
+                )
+
+                if not validation_result.is_valid:
+                    logger.warning(f"❌ JSON validation failed: {validation_result.reason}")
+                    logger.warning(f"   Filled fields: {validation_result.filled_fields}")
+                    logger.warning(f"   Empty fields: {validation_result.empty_fields}")
+                    raise Exception(f"JSON validation failed: {validation_result.reason}")
+
+                # Success!
+                logger.info(f"✅ JSON parsed using: {parse_method}")
+                logger.info(f"✅ JSON validation: {self.json_validator.get_validation_summary(validation_result)}")
+
+                self.context.stage3_output = parsed_output
+                self.context.parsing_method_used = parse_method
+
+                return parsed_output
+
+            # Execute with adaptive retry
+            logger.info("Starting Stage 3 extraction with adaptive retry system")
+            result = self.retry_manager.execute_with_retry(
+                generation_func=generate_extraction,
+                retry_context=retry_context
+            )
+
+            logger.info("✅ Stage 3 extraction successful with adaptive retry")
+            return True
+
         except Exception as e:
-            logger.error(f"Stage 3 extraction failed: {e}", exc_info=True)
+            logger.error(f"❌ Stage 3 extraction failed after all adaptive retries: {e}")
             return False
     
     def _parse_json_with_robust_parser(self, response: str, attempt: int, stage: str) -> Optional[Dict[str, Any]]:
@@ -1408,18 +1466,33 @@ class ExtractionAgent:
             logger.info("PHASE 2: Final Refinement with Tool Results")
             logger.info("=" * 60)
 
-            # Phase 2: Final refinement with original RAG + new tool results
-            for attempt in range(self.max_retries):
-                try:
-                    logger.info(f"Final refinement attempt {attempt + 1}/{self.max_retries}")
+            # Phase 2: Final refinement with original RAG + new tool results using adaptive retry
+            try:
+                # Create retry context for Stage 4 refinement
+                retry_context = create_retry_context(
+                    clinical_text=self.context.clinical_text,
+                    conversation_history=[],
+                    tool_results=self.context.tool_results + additional_tool_results,
+                    max_attempts=5,
+                    config=getattr(self.app_state, 'adaptive_retry_config', None),
+                    provider=self.app_state.model_config.provider,
+                    model_name=self.app_state.model_config.model_name
+                )
 
-                    # Build refinement prompt with all available context
+                def generate_refinement():
+                    """Generate refinement with current retry context"""
+                    # Update clinical text from retry context (may be truncated)
+                    self.context.clinical_text = retry_context.clinical_text
+
+                    # Build refinement prompt
                     refinement_prompt = self._build_stage4_final_refinement_prompt(
                         additional_tool_results
                     )
 
                     # TIER 1.2: Use tiered models - fast model for Stage 4 refinement
                     stage_model = get_model_for_stage(self.app_state, stage=4)
+
+                    logger.info(f"Generating refinement with {len(refinement_prompt)} char prompt")
 
                     response = self.llm_manager.generate(
                         refinement_prompt,
@@ -1428,32 +1501,57 @@ class ExtractionAgent:
                     )
 
                     if not response:
-                        logger.warning("No refinement response")
-                        continue
+                        raise Exception("No refinement response from LLM")
 
                     # Parse refined output
-                    refined_output = self._parse_json_with_robust_parser(response, attempt, "stage4")
+                    refined_output, parse_method = self.json_parser.parse_json_response(
+                        response,
+                        self.app_state.prompt_config.json_schema
+                    )
 
-                    if refined_output:
-                        # Merge refined fields with unrefined fields
-                        merged_output = self._merge_refined_fields(
-                            self.context.stage3_output,
-                            refined_output,
-                            selected_fields
-                        )
+                    if not refined_output:
+                        raise Exception("Refinement JSON parsing failed")
 
-                        logger.info(f"Refinement successful - merged {len(selected_fields)} refined fields")
-                        if additional_tool_results:
-                            logger.info(f"Refinement enhanced with {len(additional_tool_results)} additional tools")
-                        return merged_output
+                    # Validate refined output has content
+                    validation_result = self.json_validator.validate(
+                        refined_output,
+                        self.app_state.prompt_config.json_schema
+                    )
 
-                    logger.warning(f"Refinement parsing failed, attempt {attempt + 1}")
+                    if not validation_result.is_valid:
+                        logger.warning(f"❌ Refinement JSON validation failed: {validation_result.reason}")
+                        raise Exception(f"Refinement validation failed: {validation_result.reason}")
 
-                except Exception as e:
-                    logger.error(f"Refinement attempt {attempt + 1} failed: {e}")
+                    logger.info(f"✅ Refinement JSON parsed using: {parse_method}")
+                    logger.info(f"✅ Refinement validation: {self.json_validator.get_validation_summary(validation_result)}")
 
-            logger.warning("Refinement failed, using stage 3 output")
-            return self.context.stage3_output
+                    # Merge refined fields with unrefined fields
+                    merged_output = self._merge_refined_fields(
+                        self.context.stage3_output,
+                        refined_output,
+                        selected_fields
+                    )
+
+                    logger.info(f"Refinement successful - merged {len(selected_fields)} refined fields")
+                    if additional_tool_results:
+                        logger.info(f"Refinement enhanced with {len(additional_tool_results)} additional tools")
+
+                    return merged_output
+
+                # Execute with adaptive retry
+                logger.info("Starting Stage 4 refinement with adaptive retry system")
+                merged_output = self.retry_manager.execute_with_retry(
+                    generation_func=generate_refinement,
+                    retry_context=retry_context
+                )
+
+                logger.info("✅ Stage 4 refinement successful with adaptive retry")
+                return merged_output
+
+            except Exception as e:
+                logger.warning(f"⚠️ Stage 4 refinement failed after retries: {e}")
+                logger.warning("Falling back to Stage 3 output")
+                return self.context.stage3_output
 
         except Exception as e:
             logger.error(f"Stage 4 refinement failed: {e}", exc_info=True)
