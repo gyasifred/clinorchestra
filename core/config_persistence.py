@@ -8,6 +8,7 @@ Institution: Medical University of South Carolina, Biomedical Informatics Center
 
 import json
 import logging
+import os
 from pathlib import Path
 from datetime import datetime
 from typing import Dict, Any, Optional, List

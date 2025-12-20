@@ -472,18 +472,21 @@ class RetryMetricsTracker:
 _global_tracker: Optional[RetryMetricsTracker] = None
 
 
-def get_retry_metrics_tracker(db_path: str = "cache/retry_metrics.db", enabled: bool = True) -> RetryMetricsTracker:
+def get_retry_metrics_tracker(db_path: str = None, enabled: bool = True) -> RetryMetricsTracker:
     """
     Get global retry metrics tracker instance
 
     Args:
-        db_path: Path to metrics database
-        enabled: Enable metrics tracking (if False, tracker operates in no-op mode)
+        db_path: Path to metrics database (default: instance-specific path)
+        enabled: Enable metrics tracking
 
     Returns:
         RetryMetricsTracker instance
     """
     global _global_tracker
     if _global_tracker is None:
+        if db_path is None:
+            instance_id = os.environ.get("CLINORCHESTRA_INSTANCE_ID", "default")
+            db_path = f"./cache/{instance_id}/retry_metrics.db"
         _global_tracker = RetryMetricsTracker(db_path=db_path, enabled=enabled)
     return _global_tracker

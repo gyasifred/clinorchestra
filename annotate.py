@@ -35,6 +35,8 @@ import gradio as gr
 import argparse
 from pathlib import Path
 import unsloth
+import uuid
+import time
 from ui.config_tab import create_config_tab
 from ui.prompt_tab import create_prompt_tab
 from ui.data_tab import create_data_tab
@@ -47,31 +49,51 @@ from ui.processing_tab import create_processing_tab
 from ui.retry_metrics_tab import create_retry_metrics_tab
 from ui.footer import create_footer
 from core.app_state import AppState, StateEvent
-from core.config_persistence import get_persistence_manager
+from core.config_persistence import get_persistence_manager, ConfigurationPersistenceManager
 from core.logging_config import setup_logging, get_logger
 from core.session_manager import get_session_manager
 from core.app_state_proxy import AppStateProxy
 
-# Initialize enhanced logging system
-setup_logging(
-    log_dir="logs",
-    log_level="INFO",
-    console_level="INFO",
-    file_level="DEBUG",
-    enable_file_logging=True,
-    enable_colors=True
-)
+# Initialize enhanced logging system (will be updated per instance)
 logger = get_logger(__name__)
 
 def create_main_interface() -> gr.Blocks:
     """Create main Gradio interface with multi-instance session management (v1.0.0)"""
 
+    # INSTANCE ISOLATION: Generate unique instance ID for this launch
+    # Each Gradio interface launch gets its own instance with separate configs
+    instance_id = f"instance_{uuid.uuid4().hex[:8]}_{int(time.time())}"
+    instance_config_dir = f"./config_instances/{instance_id}"
+    instance_log_dir = f"./logs/{instance_id}"
+
+    # Set instance-specific directories
+    os.environ['CLINORCHESTRA_INSTANCE_ID'] = instance_id
+    os.environ['CLINORCHESTRA_CONFIG_DIR'] = instance_config_dir
+
+    # Setup instance-specific logging
+    setup_logging(
+        log_dir=instance_log_dir,
+        log_level="INFO",
+        console_level="INFO",
+        file_level="DEBUG",
+        enable_file_logging=True,
+        enable_colors=True
+    )
+
+    logger.info(f"=" * 80)
+    logger.info(f"INSTANCE CREATED: {instance_id}")
+    logger.info(f"Config Directory: {instance_config_dir}")
+    logger.info(f"Log Directory: {instance_log_dir}")
+    logger.info(f"=" * 80)
+
+    # Create instance-specific persistence manager
+    persistence_manager = ConfigurationPersistenceManager(persistence_dir=instance_config_dir)
+
     # v1.0.0: Multi-instance architecture - each session isolated
     session_manager = get_session_manager()
     session_id = session_manager.create_session()
-    persistence_manager = get_persistence_manager()
 
-    logger.info(f"Session created: {session_id}")
+    logger.info(f"Session created: {session_id} for instance: {instance_id}")
     logger.info("Multi-instance SessionManager initialized - tasks will be isolated")
 
     # Default task for new sessions

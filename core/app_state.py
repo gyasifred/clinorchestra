@@ -24,6 +24,15 @@ from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
+
+def _get_instance_cache_path(cache_file: str) -> str:
+    """Get instance-specific cache path"""
+    instance_id = os.environ.get('CLINORCHESTRA_INSTANCE_ID', 'default')
+    cache_dir = f"./cache/{instance_id}"
+    os.makedirs(cache_dir, exist_ok=True)
+    return f"{cache_dir}/{cache_file}"
+
+
 class StateEvent(Enum):
     """State change events for observer pattern"""
     MODEL_CONFIG_CHANGED = "model_config_changed"
@@ -94,7 +103,7 @@ class RAGConfig:
     rag_query_fields: List[str] = field(default_factory=list)
     k_value: int = 3
     initialized: bool = False
-    cache_dir: str = "./rag_cache"
+    cache_dir: str = field(default_factory=lambda: _get_instance_cache_path("rag_cache"))
     rag_top_k: int = field(init=False)  # Will be set in __post_init__
 
     def __post_init__(self):
@@ -206,7 +215,7 @@ class OptimizationConfig:
     """Performance optimization configuration (v1.0.0)"""
     # LLM optimizations
     llm_cache_enabled: bool = True  # Enable LLM response caching (400x faster cached)
-    llm_cache_db_path: str = "cache/llm_responses.db"  # Cache database path
+    llm_cache_db_path: str = field(default_factory=lambda: _get_instance_cache_path("llm_responses.db"))
     llm_cache_bypass: bool = False  # Bypass cache for this session (force fresh LLM calls)
 
     # Prompt caching (Anthropic only) - Reduces cost by 90% for cached tokens
