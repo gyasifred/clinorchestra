@@ -27,11 +27,13 @@ from enum import Enum
 from concurrent.futures import ThreadPoolExecutor
 
 from core.json_parser import JSONParser
+from core.json_validator import create_json_validator, JSONContentValidator
 from core.prompt_templates import format_schema_as_instructions
 from core.logging_config import get_logger
 from core.performance_monitor import get_performance_monitor, TimingContext
 from core.tool_dedup_preventer import create_tool_dedup_preventer
 from core.adaptive_retry import AdaptiveRetryManager, create_retry_context
+from core.retry_metrics import RetryMetricsTracker
 
 logger = get_logger(__name__)
 perf_monitor = get_performance_monitor(enabled=True)
@@ -144,14 +146,29 @@ class AgenticAgent:
         self.context: Optional[AgenticContext] = None
         self.json_parser = JSONParser()
 
+        # Initialize JSON content validator
+        # Requires at least 1 field filled and 10% of fields with content
+        self.json_validator = create_json_validator(
+            min_filled_fields=1,
+            min_fill_percentage=10.0,
+            strict_mode=False
+        )
+
         # Initialize tool deduplication preventer
         self.tool_dedup_preventer = None  # Created per extraction
 
-        # Initialize adaptive retry manager
-        self.retry_manager = AdaptiveRetryManager(max_retries=5)
+        # Initialize retry metrics tracker
+        self.retry_metrics_tracker = RetryMetricsTracker()
+
+        # Initialize adaptive retry manager with metrics tracker
+        self.retry_manager = AdaptiveRetryManager(
+            max_retries=5,
+            config=getattr(app_state, 'adaptive_retry_config', None),
+            metrics_tracker=self.retry_metrics_tracker
+        )
 
         logger.info(" AdaptiveAgent v1.0.0 initialized - ADAPTIVE Mode (evolving tasks with ASYNC)")
-        logger.info(" Enhanced with: Adaptive Retry + Proactive Tool Deduplication")
+        logger.info(" Enhanced with: Adaptive Retry + JSON Content Validation + Metrics Tracking")
 
     def extract(self, clinical_text: str, label_value: Optional[Any] = None,
                 prompt_variables: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
@@ -1762,7 +1779,7 @@ This allows you to structure sophisticated multi-step calculations in a single r
 
     def _try_parse_json(self, text: str) -> Optional[Dict[str, Any]]:
         """
-        Try to parse JSON from text with schema validation
+        Try to parse JSON from text with schema validation AND content validation
 
         CRITICAL: Validates that parsed JSON matches expected schema fields
         to prevent accidentally accepting tool call JSON as final output
@@ -1798,6 +1815,20 @@ This allows you to structure sophisticated multi-step calculations in a single r
                     logger.warning(f" Parsed JSON missing all required fields: {required_fields}")
                     logger.warning(f"Parsed JSON keys: {list(parsed.keys())}")
                     return None
+
+        # CRITICAL: Validate JSON has meaningful content (not all empty fields)
+        validation_result = self.json_validator.validate(parsed, schema)
+        if not validation_result.is_valid:
+            logger.warning(f"❌ JSON content validation failed: {validation_result.reason}")
+            logger.warning(f"   Filled fields ({validation_result.filled_field_count}): {validation_result.filled_fields}")
+            logger.warning(f"   Empty fields ({len(validation_result.empty_fields)}): {validation_result.empty_fields}")
+            # Track as JSON failure
+            self.context.consecutive_json_failures += 1
+            return None
+
+        # Success!
+        logger.info(f"✅ JSON parsed using: {method}")
+        logger.info(f"✅ JSON validation: {self.json_validator.get_validation_summary(validation_result)}")
 
         return parsed
 

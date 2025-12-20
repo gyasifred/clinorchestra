@@ -18,6 +18,7 @@ from core.app_state import StateEvent
 from core.logging_config import get_logger
 from core.parallel_processor import ParallelProcessor, ProcessingTask
 from core.batch_preprocessor import BatchPreprocessor
+from core.json_validator import create_json_validator
 
 logger = get_logger(__name__)
 
@@ -516,6 +517,8 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                     )
 
                 # Process results
+                json_validator = create_json_validator(min_filled_fields=1, min_fill_percentage=10.0)
+
                 for result in results:
                     idx = result.row_index
                     row = df.iloc[idx]
@@ -535,6 +538,17 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                         else:
                             final_output = extraction_result.get('stage3_output', {})
 
+                        # CRITICAL: Validate JSON output has meaningful content
+                        validation_result = json_validator.validate(final_output, app_state.prompt_config.json_schema)
+
+                        if not validation_result.is_valid:
+                            failed += 1
+                            log_lines.append(f"[Row {idx+1}/{total_rows}] ❌ VALIDATION FAILED: {validation_result.reason}")
+                            log_lines.append(f"   Filled: {validation_result.filled_fields}")
+                            log_lines.append(f"   Empty: {validation_result.empty_fields}")
+                            logger.error(f"Row {idx+1} validation failed: {validation_result.reason}")
+                            continue
+
                         label_value = row[label_column] if has_labels and label_column in row.index else None
                         label_context = app_state.data_config.label_mapping.get(str(label_value), None) if label_value is not None else None
 
@@ -553,11 +567,13 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
                                 'rag_used': rag_used,
                                 'functions_called': functions_called,
                                 'parallel_processing': True,
-                                'processing_time': result.duration
+                                'processing_time': result.duration,
+                                'validation_filled_fields': validation_result.filled_field_count,
+                                'validation_total_fields': validation_result.total_field_count
                             }
                         )
                         processed += 1
-                        log_lines.append(f"[Row {idx+1}/{total_rows}] ✅ SUCCESS ({result.duration:.2f}s)")
+                        log_lines.append(f"[Row {idx+1}/{total_rows}] ✅ SUCCESS ({result.duration:.2f}s) - {validation_result.filled_field_count}/{validation_result.total_field_count} fields")
                     else:
                         failed += 1
                         log_lines.append(f"[Row {idx+1}/{total_rows}] ❌ FAILED: {result.error}")
@@ -598,23 +614,36 @@ def create_processing_tab(app_state) -> Dict[str, Any]:
 
                     try:
                         result = agent.extract(clinical_text, label_value, prompt_variables)
-                        
+
                         extras_used = result.get('extras_used', 0)
                         rag_used = result.get('rag_used', 0)
                         functions_called = result.get('functions_called', 0)
                         metadata = result.get('processing_metadata', {})
-                        
+
                         total_extras_used += extras_used
                         total_rag_used += rag_used
                         total_functions_called += functions_called
-                        
+
                         if result.get('rag_refinement_applied', False):
                             final_output = result.get('stage4_final_output', {})
                         else:
                             final_output = result.get('stage3_output', {})
 
+                        # CRITICAL: Validate JSON output has meaningful content
+                        json_validator = create_json_validator(min_filled_fields=1, min_fill_percentage=10.0)
+                        validation_result = json_validator.validate(final_output, app_state.prompt_config.json_schema)
+
+                        if not validation_result.is_valid:
+                            log_lines.append(f"  ❌ VALIDATION FAILED: {validation_result.reason}")
+                            log_lines.append(f"     Filled: {validation_result.filled_fields}")
+                            log_lines.append(f"     Empty: {validation_result.empty_fields}")
+                            logger.error(f"Row {idx+1} validation failed: {validation_result.reason}")
+                            failed += 1
+                            continue
+
                         log_lines.append(f"  ✅ SUCCESS")
                         log_lines.append(f"     Extras: {extras_used} | RAG: {rag_used} | Functions: {functions_called}")
+                        log_lines.append(f"     Validation: {validation_result.filled_field_count}/{validation_result.total_field_count} fields filled")
                         process_state.add_log(process_id, f"Row {idx+1} processed: Extras={extras_used}, RAG={rag_used}, Functions={functions_called}")
                         
                         output_handler.add_record(
