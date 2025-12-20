@@ -35,7 +35,7 @@ from typing import Dict, Any, List
 
 DEFAULT_MAIN_PROMPT = """
 ╔════════════════════════════════════════════════════════════════════════════╗
-║                          📋 TASK DESCRIPTION                               ║
+║                          TASK DESCRIPTION                               ║
 ╚════════════════════════════════════════════════════════════════════════════╝
 
 You are a clinical expert analyzing medical records for structured information extraction.
@@ -57,10 +57,10 @@ Ensure parameters are in correct units. Convert units using conversion functions
 
 
 ╔════════════════════════════════════════════════════════════════════════════╗
-║                    📝 CLINICAL TEXT (PRIMARY SOURCE DATA)                  ║
+║                    CLINICAL TEXT (PRIMARY SOURCE DATA)                  ║
 ╚════════════════════════════════════════════════════════════════════════════╝
 
-⚠️  CRITICAL: This is the PRIMARY CLINICAL NOTE you must extract from.
+ CRITICAL: This is the PRIMARY CLINICAL NOTE you must extract from.
     All other sections below provide SUPPORTING INFORMATION ONLY.
 
 CLINICAL NOTE CONTENT:
@@ -70,7 +70,7 @@ CLINICAL NOTE CONTENT:
 
 
 ╔════════════════════════════════════════════════════════════════════════════╗
-║                         🏷️  CLASSIFICATION CONTEXT                         ║
+║                          CLASSIFICATION CONTEXT                         ║
 ╚════════════════════════════════════════════════════════════════════════════╝
 
 {label_context}
@@ -86,7 +86,7 @@ CLINICAL NOTE CONTENT:
 
 DEFAULT_MINIMAL_PROMPT = """
 ╔════════════════════════════════════════════════════════════════════════════╗
-║                    📋 TASK (MINIMAL MODE - CONCISE)                        ║
+║                    TASK (MINIMAL MODE - CONCISE)                        ║
 ╚════════════════════════════════════════════════════════════════════════════╝
 
 Extract clinical information in JSON format, following the schema exactly.
@@ -101,10 +101,10 @@ CRITICAL RULES:
 
 
 ╔════════════════════════════════════════════════════════════════════════════╗
-║                    📝 CLINICAL TEXT (PRIMARY SOURCE)                       ║
+║                    CLINICAL TEXT (PRIMARY SOURCE)                       ║
 ╚════════════════════════════════════════════════════════════════════════════╝
 
-⚠️  CRITICAL: Extract from THIS clinical note.
+ CRITICAL: Extract from THIS clinical note.
     Supporting info provided below.
 
 {clinical_text}
@@ -992,16 +992,16 @@ def format_tool_outputs_for_prompt(
             if results_list:
                 if not rag_output:
                     rag_output = "\n\n" + "╔" + "═"*78 + "╗\n"
-                    rag_output += "║" + " "*20 + "📚 EVIDENCE FROM GUIDELINES & LITERATURE" + " "*18 + "║\n"
+                    rag_output += "║" + " "*20 + "EVIDENCE FROM GUIDELINES & LITERATURE" + " "*18 + "║\n"
                     rag_output += "╚" + "═"*78 + "╝\n\n"
-                    rag_output += "⚠️  CRITICAL: This section contains AUTHORITATIVE EVIDENCE retrieved from\n"
+                    rag_output += " CRITICAL: This section contains AUTHORITATIVE EVIDENCE retrieved from\n"
                     rag_output += "    clinical guidelines and medical literature.\n\n"
-                    rag_output += "🎯 PURPOSE: Use this evidence to:\n"
-                    rag_output += "    • SUPPORT your clinical interpretations\n"
-                    rag_output += "    • APPLY diagnostic criteria and guidelines\n"
-                    rag_output += "    • CITE specific sources in your extraction\n"
-                    rag_output += "    • REFERENCE evidence when making decisions\n\n"
-                    rag_output += "⚠️  DO NOT CONFUSE WITH CLINICAL NOTES - This is REFERENCE MATERIAL!\n"
+                    rag_output += "PURPOSE: Use this evidence to:\n"
+                    rag_output += "    - SUPPORT your clinical interpretations\n"
+                    rag_output += "    - APPLY diagnostic criteria and guidelines\n"
+                    rag_output += "    - CITE specific sources in your extraction\n"
+                    rag_output += "    - REFERENCE evidence when making decisions\n\n"
+                    rag_output += " DO NOT CONFUSE WITH CLINICAL NOTES - This is REFERENCE MATERIAL!\n"
                     rag_output += "━"*80 + "\n\n"
 
                 for i, chunk in enumerate(results_list, 1):
@@ -1023,9 +1023,9 @@ def format_tool_outputs_for_prompt(
                         source_type = metadata.get('type', '') if isinstance(metadata, dict) else ''
 
                         rag_output += f"┌─ EVIDENCE #{i} ─ RELEVANCE: {score:.2f} " + "─"*40 + "\n"
-                        rag_output += f"│ 📖 SOURCE: {source}\n"
+                        rag_output += f"│ SOURCE: {source}\n"
                         if source_filename and source_filename != source:
-                            rag_output += f"│ 📄 FILE: {source_filename}\n"
+                            rag_output += f"│ FILE: {source_filename}\n"
                         rag_output += "│\n"
                         rag_output += f"│ CONTENT:\n"
                         for line in text[:1500].split('\n'):
@@ -1039,39 +1039,39 @@ def format_tool_outputs_for_prompt(
 
             if not function_output:
                 function_output = "\n\n" + "╔" + "═"*78 + "╗\n"
-                function_output += "║" + " "*22 + "🧮 CALCULATED VALUES & FUNCTION OUTPUTS" + " "*17 + "║\n"
+                function_output += "║" + " "*22 + "CALCULATED VALUES & FUNCTION OUTPUTS" + " "*17 + "║\n"
                 function_output += "╚" + "═"*78 + "╝\n\n"
-                function_output += "⚠️  CRITICAL: This section contains COMPUTED RESULTS from mathematical\n"
+                function_output += " CRITICAL: This section contains COMPUTED RESULTS from mathematical\n"
                 function_output += "    functions applied to data from the clinical notes.\n\n"
-                function_output += "🎯 PURPOSE OF EACH CALCULATION:\n"
-                function_output += "    • Each function was called to FILL A GAP in the clinical notes\n"
-                function_output += "    • The calculation addresses a SPECIFIC missing data point\n"
-                function_output += "    • USE these exact calculated values in your JSON output\n"
-                function_output += "    • DO NOT recalculate - the computation is already done!\n\n"
-                function_output += "⚠️  DO NOT CONFUSE WITH CLINICAL NOTES - These are DERIVED VALUES!\n"
+                function_output += "PURPOSE OF EACH CALCULATION:\n"
+                function_output += "    - Each function was called to FILL A GAP in the clinical notes\n"
+                function_output += "    - The calculation addresses a SPECIFIC missing data point\n"
+                function_output += "    - USE these exact calculated values in your JSON output\n"
+                function_output += "    - DO NOT recalculate - the computation is already done!\n\n"
+                function_output += " DO NOT CONFUSE WITH CLINICAL NOTES - These are DERIVED VALUES!\n"
                 function_output += "━"*80 + "\n\n"
 
             # Include date context for serial measurements
             function_output += "┌─ FUNCTION RESULT " + "─"*60 + "\n"
-            function_output += f"│ ⚙️  FUNCTION NAME: {func_name}\n"
+            function_output += f"│  FUNCTION NAME: {func_name}\n"
             if date_context:
-                function_output += f"│ 📅 DATE CONTEXT: {date_context}\n"
+                function_output += f"│ DATE CONTEXT: {date_context}\n"
             function_output += "│\n"
-            function_output += "│ 🎯 WHAT THIS CALCULATION FILLS:\n"
+            function_output += "│ WHAT THIS CALCULATION FILLS:\n"
             function_output += "│   This function was called because the clinical notes were\n"
             function_output += "│   missing computed/derived data. Use this result to populate\n"
             function_output += "│   the corresponding field in your JSON output.\n"
             function_output += "│\n"
-            function_output += "│ 📊 COMPUTED RESULT:\n"
+            function_output += "│ COMPUTED RESULT:\n"
 
             if isinstance(func_result, dict):
                 for key, value in func_result.items():
-                    function_output += f"│   ✓ {key}: {value}\n"
+                    function_output += f"│   - {key}: {value}\n"
             else:
-                function_output += f"│   ✓ Result: {func_result}\n"
+                function_output += f"│   - Result: {func_result}\n"
 
             function_output += "│\n"
-            function_output += "│ ⚠️  CRITICAL: Include this exact value in your extraction!\n"
+            function_output += "│  CRITICAL: Include this exact value in your extraction!\n"
             function_output += "└" + "─"*78 + "\n\n"
 
         elif tool_type == 'extras' and include_extras:
@@ -1082,16 +1082,16 @@ def format_tool_outputs_for_prompt(
             if items:
                 if not extras_output:
                     extras_output = "\n\n" + "╔" + "═"*78 + "╗\n"
-                    extras_output += "║" + " "*25 + "💡 CLINICAL HINTS & GUIDELINES" + " "*24 + "║\n"
+                    extras_output += "║" + " "*25 + "CLINICAL HINTS & GUIDELINES" + " "*24 + "║\n"
                     extras_output += "╚" + "═"*78 + "╝\n\n"
-                    extras_output += "⚠️  CRITICAL: This section contains DOMAIN KNOWLEDGE & CLINICAL PATTERNS\n"
+                    extras_output += " CRITICAL: This section contains DOMAIN KNOWLEDGE & CLINICAL PATTERNS\n"
                     extras_output += f"    Retrieved based on task keywords: {', '.join(keywords)}\n\n"
-                    extras_output += "🎯 PURPOSE: These hints help you:\n"
-                    extras_output += "    • UNDERSTAND clinical patterns relevant to this task\n"
-                    extras_output += "    • APPLY best practices for this type of extraction\n"
-                    extras_output += "    • FOLLOW domain-specific guidelines\n"
-                    extras_output += "    • INTERPRET clinical findings correctly\n\n"
-                    extras_output += "⚠️  DO NOT CONFUSE WITH CLINICAL NOTES - These are GUIDANCE HINTS!\n"
+                    extras_output += "PURPOSE: These hints help you:\n"
+                    extras_output += "    - UNDERSTAND clinical patterns relevant to this task\n"
+                    extras_output += "    - APPLY best practices for this type of extraction\n"
+                    extras_output += "    - FOLLOW domain-specific guidelines\n"
+                    extras_output += "    - INTERPRET clinical findings correctly\n\n"
+                    extras_output += " DO NOT CONFUSE WITH CLINICAL NOTES - These are GUIDANCE HINTS!\n"
                     extras_output += "━"*80 + "\n\n"
 
                 for i, item in enumerate(items, 1):
@@ -1103,7 +1103,7 @@ def format_tool_outputs_for_prompt(
                     if content:
                         extras_output += f"┌─ HINT #{i} ({item_type.upper()}) " + "─"*50 + "\n"
                         if matched_kw:
-                            extras_output += f"│ 🔑 MATCHED: {', '.join(matched_kw)}\n│\n"
+                            extras_output += f"│ MATCHED: {', '.join(matched_kw)}\n│\n"
                         extras_output += "│ GUIDANCE:\n"
                         for line in content.split('\n'):
                             extras_output += f"│   {line}\n"
@@ -1131,7 +1131,7 @@ def format_tool_outputs_for_prompt(
             error_output += f"{'─' * 50}\n"
             error_output += f"ATTEMPTED PARAMETERS:\n"
             for key, value in attempted_params.items():
-                error_output += f"  • {key} = {value}\n"
+                error_output += f"  - {key} = {value}\n"
             error_output += f"\nERROR MESSAGE:\n  {error_message}\n\n"
 
             # Intelligent error analysis
