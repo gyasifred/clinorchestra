@@ -192,10 +192,10 @@ class ExtrasManager:
             List of matched extras sorted by relevance score
 
         Example:
-            core_keywords = ["malnutrition", "pediatric"]
+            core_keywords = ["[condition_A]", "[domain_B]"]
             variations_map = {
-                "malnutrition": ["undernutrition", "PEM", "SAM", "wasting"],
-                "pediatric": ["child", "infant", "neonatal"]
+                "[condition_A]": ["[synonym1]", "[abbrev1]", "[abbrev2]", "[related1]"],
+                "[domain_B]": ["[related_B1]", "[related_B2]", "[qualified_B]"]
             }
             results = manager.match_extras_with_variations(core_keywords, variations_map)
         """

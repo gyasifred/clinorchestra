@@ -858,8 +858,8 @@ class RAGEngine:
             List of deduplicated search results combining all term queries
 
         Example:
-            primary_query = "ASPEN pediatric malnutrition diagnostic criteria"
-            variations = ["undernutrition", "PEM", "SAM", "wasting", "stunting"]
+            primary_query = "[organization] [domain] [condition] [criteria type]"
+            variations = ["[synonym1]", "[abbrev1]", "[abbrev2]", "[related1]", "[related2]"]
             results = engine.query_with_variations(primary_query, variations, k=10)
         """
         if not variations:

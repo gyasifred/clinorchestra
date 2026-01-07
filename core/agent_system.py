@@ -2092,38 +2092,34 @@ YOUR TASK:
       - Extract from: diagnosis, condition, assessment type, schema fields
 
    b) TERM VARIATIONS (for leniency and better recall):
-      • Synonyms: "malnutrition" → "undernutrition", "nutritional deficiency"
-      • Abbreviations: "malnutrition" → "PEM", "SAM", "MAM"
-      • Related terms: "malnutrition" → "wasting", "stunting", "failure to thrive"
-      • Broader terms: "ASPEN criteria" → "nutritional assessment", "pediatric screening"
-      • Alternative spellings: "oedema" vs "edema"
+      • Synonyms: "[condition]" → "[synonym1]", "[synonym2]"
+      • Abbreviations: "[condition]" → "[abbrev1]", "[abbrev2]", "[abbrev3]"
+      • Related terms: "[condition]" → "[related1]", "[related2]", "[related3]"
+      • Broader terms: "[specific term]" → "[broader category]", "[general term]"
+      • Alternative spellings: "[variant1]" vs "[variant2]"
 
    c) BUILD 3-5 MULTI-FACETED QUERIES (each targeting different angle):
       • Guideline Query: "[organization] [condition] [guideline]"
-        Example: "ASPEN pediatric malnutrition diagnostic criteria"
-        Variations: ["undernutrition", "PEM", "nutritional assessment"]
+        Format: "[standard/organization] [domain] [condition] [criteria type]"
+        Include variations: [synonym terms, abbreviations, related concepts]
 
       • Diagnostic Query: "[condition] [classification] [severity]"
-        Example: "moderate malnutrition z-score anthropometric"
-        Variations: ["undernutrition", "wasting", "growth deficit"]
+        Format: "[severity level] [condition] [measurement type] [classification]"
+        Include variations: [alternative terms, related metrics]
 
       • Assessment Query: "[method] [scoring] [interpretation]"
-        Example: "growth chart percentile WHO classification"
-        Variations: ["anthropometric", "z-score", "standard deviation"]
+        Format: "[measurement method] [scoring system] [classification approach]"
+        Include variations: [metric types, scoring variations]
 
       • Treatment/Domain-Specific: Based on task needs
 
    d) LENIENCY TACTICS:
       • Include common misspellings and variations
-      • Use both formal ("myocardial infarction") and colloquial ("heart attack") terms
-      • Add population qualifiers: "pediatric", "adult", "geriatric"
-      • Include metric variations: "z-score", "SD", "percentile"
+      • Use both formal and colloquial terms
+      • Add population qualifiers: "[age group]", "[demographic]", "[specialty]"
+      • Include metric variations: "[metric type1]", "[metric type2]", "[unit variations]"
 
-   Quick Example:
-   Query: "ASPEN pediatric malnutrition diagnostic criteria"
-   Variations: ["undernutrition", "PEM", "SAM", "wasting", "stunting",
-                "nutritional deficiency", "growth failure"]
-   → System searches with ALL terms for comprehensive recall
+   → System searches with ALL terms (primary + variations) for comprehensive recall
 
 4. BUILD SEARCH STRATEGY FOR EXTRAS (Term Expansion):
 
@@ -2137,14 +2133,14 @@ YOUR TASK:
    • Qualifiers: Age group, specialty, system (e.g., "pediatric", "cardiac")
 
    Example Expansion:
-   Core: "malnutrition"
-   Expanded: ["malnutrition", "undernutrition", "PEM", "SAM", "MAM",
-              "nutritional deficiency", "wasting", "stunting",
-              "pediatric malnutrition", "failure to thrive"]
+   Core: "[condition_A]"
+   Expanded: ["[condition_A]", "[synonym1]", "[abbrev1]", "[abbrev2]", "[abbrev3]",
+              "[related_term1]", "[related_term2]", "[related_term3]",
+              "[qualified_term]", "[alternative_name]"]
 
-   Core: "diabetes"
-   Expanded: ["diabetes", "DM", "T1DM", "T2DM", "diabetes mellitus",
-              "hyperglycemia", "glycemic control", "diabetic"]
+   Core: "[condition_B]"
+   Expanded: ["[condition_B]", "[abbrev_B]", "[subtype1]", "[subtype2]", "[full_name]",
+              "[related_concept]", "[measurement_term]", "[adjective_form]"]
 
    *** Return BOTH core terms AND variations for maximum recall ***
 

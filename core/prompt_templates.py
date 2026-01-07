@@ -1324,10 +1324,10 @@ This section defines HOW to use tools ITERATIVELY to gather the information you 
 1. **query_rag(query, purpose)** - Retrieve clinical guidelines with SEARCH STRATEGY
    - Use TERM VARIATIONS for better recall:
      • Include: synonyms, abbreviations, related terms, alternative phrasings
-     • Example: "malnutrition" → add "undernutrition", "PEM", "wasting", "nutritional deficiency"
-   - Build multi-term queries: "ASPEN pediatric malnutrition undernutrition criteria assessment"
+     • Build expanded query: "[primary term]" → add "[synonym1]", "[abbrev]", "[related1]", "[related2]"
+   - Build multi-term queries combining primary keywords with variations
    - Call MULTIPLE times with DIFFERENT terminology angles
-   - Example: query_rag("ASPEN pediatric malnutrition undernutrition PEM criteria", "classification with varied terms")
+   - Format: query_rag("[organization] [domain] [condition] [synonym] [abbrev] [criteria]", "purpose description")
 
 2. **call_[function_name](parameters)**
    - Perform medical calculations: z-scores, BMI, percentiles, growth calculations, lab interpretations
@@ -1339,7 +1339,7 @@ This section defines HOW to use tools ITERATIVELY to gather the information you 
    - Expand each concept with variations:
      • Core + synonyms + abbreviations + related terms
      • Add qualifiers: age group, specialty, system
-   - Example: ["malnutrition", "undernutrition", "PEM", "pediatric malnutrition", "nutritional assessment"]
+   - Format: ["[core_term]", "[synonym]", "[abbrev]", "[qualified_term]", "[related_concept]"]
    - Use VARIED terminology for better recall
 
 **AUTONOMOUS TASK-DRIVEN EXECUTION WORKFLOW:**
@@ -1357,11 +1357,11 @@ This section defines HOW to use tools ITERATIVELY to gather the information you 
    - Functions: Call for calculations/conversions as usual
    - RAG: Use MULTI-TERM queries with variations
      • Build: "primary keywords + synonyms + abbreviations + related terms"
-     • Example: "ASPEN malnutrition undernutrition PEM criteria pediatric assessment"
+     • Format: "[standard] [condition] [synonym] [abbrev] [criteria] [domain] [assessment]"
      • Leniency: Include broader/narrower terms, alternative phrasings
    - Extras: Expand keywords with variations
-     • Core concept + medical synonyms + abbreviations + qualifiers
-     • Example: ["malnutrition", "undernutrition", "PEM", "wasting", "nutritional deficiency"]
+     • Core concept + domain synonyms + abbreviations + qualifiers
+     • Format: ["[core]", "[synonym]", "[abbrev]", "[related]", "[qualified_term]"]
 5. Execute all tool calls (tools run in parallel for performance)
 
 **PHASE 3 - ASSESS & REFINE (ITERATIVE):**
