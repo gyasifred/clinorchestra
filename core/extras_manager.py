@@ -169,6 +169,56 @@ class ExtrasManager:
 
         return result
 
+    def match_extras_with_variations(self,
+                                     core_keywords: List[str],
+                                     variations_map: Optional[Dict[str, List[str]]] = None,
+                                     threshold: float = 0.2,
+                                     top_k: int = 10) -> List[Dict[str, Any]]:
+        """
+        Match extras using core keywords + term variations for improved recall and leniency.
+
+        This method implements the search strategy by expanding each core concept with
+        its variations (synonyms, abbreviations, related terms) to increase the chance
+        of finding relevant extras.
+
+        Args:
+            core_keywords: List of core concept keywords
+            variations_map: Dict mapping core keywords to their variations.
+                           If None, uses core_keywords directly.
+            threshold: Minimum relevance score (default: 0.2)
+            top_k: Maximum results to return (default: 10)
+
+        Returns:
+            List of matched extras sorted by relevance score
+
+        Example:
+            core_keywords = ["malnutrition", "pediatric"]
+            variations_map = {
+                "malnutrition": ["undernutrition", "PEM", "SAM", "wasting"],
+                "pediatric": ["child", "infant", "neonatal"]
+            }
+            results = manager.match_extras_with_variations(core_keywords, variations_map)
+        """
+        if not core_keywords:
+            logger.warning("No core keywords provided for extras matching")
+            return []
+
+        # Build expanded keyword list
+        all_keywords = set(core_keywords)
+
+        if variations_map:
+            for core in core_keywords:
+                if core in variations_map:
+                    variations = variations_map.get(core, [])
+                    all_keywords.update(variations)
+                    logger.debug(f"Expanded '{core}' with {len(variations)} variations")
+
+        expanded_keywords = list(all_keywords)
+        logger.info(f"Extras matching: {len(core_keywords)} core → {len(expanded_keywords)} total keywords")
+
+        # Use existing match_extras_by_keywords with expanded set
+        return self.match_extras_by_keywords(expanded_keywords)
+
     def clear_cache(self):
         """Clear the result cache"""
         self.result_cache.clear()

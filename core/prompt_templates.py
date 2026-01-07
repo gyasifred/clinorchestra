@@ -1321,12 +1321,13 @@ This section defines HOW to use tools ITERATIVELY to gather the information you 
 
 **AVAILABLE TOOLS (call as many times as needed):**
 
-1. **query_rag(query, purpose)**
-   - Retrieve clinical guidelines, standards, and evidence from authoritative sources
-   - Sources include: ASPEN, WHO, CDC, ADA, AHA, and other clinical guidelines
-   - Call MULTIPLE times with different queries to gather comprehensive information
-   - Refine queries based on what you learn
-   - Example: query_rag("ASPEN pediatric malnutrition severity criteria", "need classification thresholds")
+1. **query_rag(query, purpose)** - Retrieve clinical guidelines with SEARCH STRATEGY
+   - Use TERM VARIATIONS for better recall:
+     • Include: synonyms, abbreviations, related terms, alternative phrasings
+     • Example: "malnutrition" → add "undernutrition", "PEM", "wasting", "nutritional deficiency"
+   - Build multi-term queries: "ASPEN pediatric malnutrition undernutrition criteria assessment"
+   - Call MULTIPLE times with DIFFERENT terminology angles
+   - Example: query_rag("ASPEN pediatric malnutrition undernutrition PEM criteria", "classification with varied terms")
 
 2. **call_[function_name](parameters)**
    - Perform medical calculations: z-scores, BMI, percentiles, growth calculations, lab interpretations
@@ -1334,10 +1335,12 @@ This section defines HOW to use tools ITERATIVELY to gather the information you 
    - Available functions are dynamically listed based on your registry
    - Example: call_percentile_to_zscore({{"percentile": 3}})
 
-3. **query_extras(keywords)**
-   - Get supplementary hints, tips, patterns, and task-specific guidance
-   - Helps understand domain concepts and best practices
-   - Example: query_extras({{"keywords": ["malnutrition", "pediatric", "assessment"]}})
+3. **query_extras(keywords)** - Get hints with TERM EXPANSION
+   - Expand each concept with variations:
+     • Core + synonyms + abbreviations + related terms
+     • Add qualifiers: age group, specialty, system
+   - Example: ["malnutrition", "undernutrition", "PEM", "pediatric malnutrition", "nutritional assessment"]
+   - Use VARIED terminology for better recall
 
 **AUTONOMOUS TASK-DRIVEN EXECUTION WORKFLOW:**
 
@@ -1349,13 +1352,17 @@ This section defines HOW to use tools ITERATIVELY to gather the information you 
    - Guidelines mentioned in task vs. knowledge needed (e.g., "ASPEN criteria" mentioned)
    - Calculations needed to complete schema fields
 
-**PHASE 2 - AUTONOMOUSLY DETERMINE & EXECUTE REQUIRED TOOLS:**
-4. Based on gap analysis, autonomously determine which tools are REQUIRED to fulfill the task:
-   - Call functions to convert/calculate (percentile → z-score, weight+height → BMI, etc.)
-   - Call RAG to retrieve guidelines/criteria mentioned in task (ASPEN, WHO, CDC, etc.)
-   - Call extras for task-related supplementary hints
-   - Call same function multiple times for serial/temporal measurements
-5. Execute all required tool calls (tools run in parallel for performance)
+**PHASE 2 - EXECUTE TOOLS WITH SEARCH STRATEGY:**
+4. Based on gap analysis, determine required tools and USE SEARCH STRATEGY:
+   - Functions: Call for calculations/conversions as usual
+   - RAG: Use MULTI-TERM queries with variations
+     • Build: "primary keywords + synonyms + abbreviations + related terms"
+     • Example: "ASPEN malnutrition undernutrition PEM criteria pediatric assessment"
+     • Leniency: Include broader/narrower terms, alternative phrasings
+   - Extras: Expand keywords with variations
+     • Core concept + medical synonyms + abbreviations + qualifiers
+     • Example: ["malnutrition", "undernutrition", "PEM", "wasting", "nutritional deficiency"]
+5. Execute all tool calls (tools run in parallel for performance)
 
 **PHASE 3 - ASSESS & REFINE (ITERATIVE):**
 6. Review tool results and assess current extraction state
@@ -1364,7 +1371,10 @@ This section defines HOW to use tools ITERATIVELY to gather the information you 
    - Would fix inconsistencies or errors?
    - Would ascertain missing but important details?
    - Would improve completeness or quality?
-8. If yes: Call additional tools and return to Phase 3
+8. If yes: Call additional tools with DIFFERENT term variations
+   - Use NEW terminology angles (synonyms, related concepts not yet tried)
+   - Expand search with broader/narrower terms
+   - Return to Phase 3
 9. If no: Proceed to Phase 4
 
 **PHASE 4 - COMPLETE EXTRACTION:**
