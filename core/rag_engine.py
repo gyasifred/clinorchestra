@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """
-RAG Engine - Enhanced with performance optimizations
+RAG Engine - Enhanced with search strategy and performance optimizations
 Version: 1.0.0
 Author: Frederick Gyasi (gyasi@musc.edu)
 Institution: Medical University of South Carolina, Biomedical Informatics Center
 
-Enhancements in v1.0.1:
+Features:
 - Batch embedding generation with configurable batch size (25-40% faster)
+- Search strategy with term variations for better recall
+- Query with variations method for leniency
 - Improved logging with performance metrics
 - Memory-efficient embedding caching
 """
@@ -835,6 +837,68 @@ class RAGEngine:
         logger.debug(f"Cached RAG result for query '{query_text[:50]}...'")
 
         return dict_results
+
+    def query_with_variations(self,
+                              primary_query: str,
+                              variations: List[str],
+                              k: int = 10) -> List[Dict[str, Any]]:
+        """
+        Query RAG engine with term variations for improved recall and leniency.
+
+        This method implements the search strategy by combining primary query with
+        term variations (synonyms, abbreviations, related terms) to cast a wider
+        net for relevant chunks.
+
+        Args:
+            primary_query: Main query string with core keywords
+            variations: List of term variations (synonyms, abbreviations, related terms)
+            k: Number of unique results to return
+
+        Returns:
+            List of deduplicated search results combining all term queries
+
+        Example:
+            primary_query = "[organization] [domain] [condition] [criteria type]"
+            variations = ["[synonym1]", "[abbrev1]", "[abbrev2]", "[related1]", "[related2]"]
+            results = engine.query_with_variations(primary_query, variations, k=10)
+        """
+        if not variations:
+            # No variations provided, use standard query
+            return self.query(primary_query, k)
+
+        # Build expanded query combining primary + variations
+        variation_str = " ".join(variations)
+        expanded_query = f"{primary_query} {variation_str}"
+
+        logger.info(f"RAG query with variations: '{primary_query}' + {len(variations)} terms")
+        logger.debug(f"  Variations: {variations[:5]}{'...' if len(variations) > 5 else ''}")
+
+        # Fetch more results to account for potential duplicates
+        fetch_k = min(k * 2, 50)
+        results = self.query(expanded_query, k=fetch_k)
+
+        # Deduplicate based on content similarity
+        unique_results = []
+        seen_content = set()
+
+        for result in results:
+            content = result.get('text', '').strip()
+            if not content:
+                continue
+
+            # Use first 200 chars as uniqueness check (balance between accuracy and performance)
+            content_signature = content[:200].lower()
+
+            if content_signature not in seen_content:
+                unique_results.append(result)
+                seen_content.add(content_signature)
+
+                if len(unique_results) >= k:
+                    break
+
+        logger.info(f"  Retrieved {len(unique_results)} unique results from {len(results)} total")
+
+        return unique_results
 
     def clear_query_cache(self):
         """Clear the query result cache"""

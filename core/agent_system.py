@@ -1138,7 +1138,8 @@ class ExtractionAgent:
                 }
 
             query = tool_request.get('query', '').strip()
-            
+            term_variations = tool_request.get('term_variations', [])
+
             if not query or len(query) < 5:
                 logger.warning(f"RAG query too short or empty: '{query}'")
                 return {
@@ -1148,20 +1149,31 @@ class ExtractionAgent:
                     'results': [],
                     'message': 'Query too short or empty'
                 }
-            
-            logger.info(f"Executing RAG query: {query}")
 
             # Use RAGConfig.rag_top_k
             top_k = self.app_state.rag_config.rag_top_k
             logger.debug(f"Using rag_top_k = {top_k} from RAGConfig")
 
-            # DEDUPLICATION with backfill: Fetch extra results to account for potential duplicates
-            # Request 2x to ensure we can fill top_k with NEW chunks after filtering
-            fetch_count = min(top_k * 2, 50)  # Cap at 50 to avoid excessive fetching
-            results = self.rag_engine.query(
-                query_text=query,
-                k=fetch_count
-            )
+            # Check if term variations are provided - use enhanced query method
+            if term_variations and len(term_variations) > 0:
+                logger.info(f"Executing RAG query with variations: {query}")
+                logger.debug(f"  Term variations ({len(term_variations)}): {term_variations[:5]}...")
+
+                # Use query_with_variations for better recall
+                results = self.rag_engine.query_with_variations(
+                    primary_query=query,
+                    variations=term_variations,
+                    k=top_k * 2  # Fetch more for deduplication
+                )
+            else:
+                logger.info(f"Executing RAG query: {query}")
+
+                # DEDUPLICATION with backfill: Fetch extra results to account for potential duplicates
+                fetch_count = min(top_k * 2, 50)  # Cap at 50 to avoid excessive fetching
+                results = self.rag_engine.query(
+                    query_text=query,
+                    k=fetch_count
+                )
 
             # Filter out duplicates and collect first top_k NEW chunks
             original_count = len(results)
@@ -1806,9 +1818,19 @@ YOUR TASK:
 {function_descriptions}
 
    RAG: Retrieve additional clinical guidelines/standards
+   *** Use TERM VARIATIONS for better recall (synonyms, abbreviations, related terms) ***
 
    EXTRAS: Get supplementary hints/patterns
+   *** Expand keywords with variations (core + synonyms + related) ***
 {keyword_guidance}
+
+   SEARCH STRATEGY for Gap-Filling:
+   • RAG: Use DIFFERENT keywords with variations (not same as before)
+     - Try: synonyms, abbreviations, broader/narrower terms, alternative phrasings
+     - Target specific gaps with related terminology
+   • Extras: Expand with variations
+     - Core concept + medical synonyms + abbreviations + related terms
+     - Add qualifiers: age group, specialty, system
 
 RESPONSE FORMAT:
 {{
@@ -1824,6 +1846,7 @@ RESPONSE FORMAT:
     {{
       "type": "rag",
       "query": "specific focused query with NEW keywords",
+      "term_variations": ["synonym", "abbrev", "related"],
       "reason": "What additional guideline/standard is needed"
     }},
     {{
@@ -2059,40 +2082,67 @@ YOUR TASK:
    - Only call functions that are truly needed for the extraction schema
    - For serial data, ALL time points are usually relevant for trend analysis
 
-3. BUILD MULTIPLE INTELLIGENT RAG QUERIES (3-5 queries):
-   - Create MULTIPLE focused queries, each targeting different aspects:
+3. BUILD SEARCH STRATEGY FOR RAG (Multi-Faceted with Term Variations):
 
-   Query Strategy:
-   a) GUIDELINE QUERY: Target relevant clinical guidelines/standards
-      - Extract keywords from: diagnosis, condition, assessment type in YOUR task
+   *** CRITICAL: Use SEARCH STRATEGY with term variations for better recall ***
 
-   b) DIAGNOSTIC QUERY: Target diagnostic criteria
-      - Extract keywords from: diagnosis fields, classification fields in YOUR task
+   For each concept, build a query bundle with:
 
-   c) ASSESSMENT QUERY: Target assessment methods/scoring
-      - Extract keywords from: assessment fields, severity fields in YOUR task
+   a) PRIMARY KEYWORDS: Core medical terms from your task (4-8 terms)
+      - Extract from: diagnosis, condition, assessment type, schema fields
 
-   d) TREATMENT QUERY: Target treatment guidelines (if relevant)
-      - Extract keywords from: treatment/management fields in YOUR task
+   b) TERM VARIATIONS (for leniency and better recall):
+      • Synonyms: "[condition]" → "[synonym1]", "[synonym2]"
+      • Abbreviations: "[condition]" → "[abbrev1]", "[abbrev2]", "[abbrev3]"
+      • Related terms: "[condition]" → "[related1]", "[related2]", "[related3]"
+      • Broader terms: "[specific term]" → "[broader category]", "[general term]"
+      • Alternative spellings: "[variant1]" vs "[variant2]"
 
-   e) DOMAIN-SPECIFIC QUERY: Target specialized knowledge
-      - Extract keywords from: specific domain in YOUR task text/label
+   c) BUILD 3-5 MULTI-FACETED QUERIES (each targeting different angle):
+      • Guideline Query: "[organization] [condition] [guideline]"
+        Format: "[standard/organization] [domain] [condition] [criteria type]"
+        Include variations: [synonym terms, abbreviations, related concepts]
 
-   - Each query should have 4-8 specific keywords from YOUR task
-   - Use terminology from YOUR input text and task description
-   - Reference relevant standards if applicable to YOUR task
-   - Avoid generic terms like "information", "help", "guidelines" alone
+      • Diagnostic Query: "[condition] [classification] [severity]"
+        Format: "[severity level] [condition] [measurement type] [classification]"
+        Include variations: [alternative terms, related metrics]
 
-4. IDENTIFY EXTRAS KEYWORDS (5-8 SPECIFIC KEYWORDS IF EXTRAS NEEDED):
-   - Extras provide task-specific hints, reference ranges, criteria
-   - Extract keywords from YOUR task:
-     * Schema field names from YOUR task
-     * Label classification from YOUR task
-     * Medical conditions in YOUR text
-     * Assessment types from YOUR task
-   - Use specific terminology (not generic words)
-   - Include relevant qualifiers (age group, system, etc.) from YOUR task
-   - Avoid generic words like "patient", "information", "data"
+      • Assessment Query: "[method] [scoring] [interpretation]"
+        Format: "[measurement method] [scoring system] [classification approach]"
+        Include variations: [metric types, scoring variations]
+
+      • Treatment/Domain-Specific: Based on task needs
+
+   d) LENIENCY TACTICS:
+      • Include common misspellings and variations
+      • Use both formal and colloquial terms
+      • Add population qualifiers: "[age group]", "[demographic]", "[specialty]"
+      • Include metric variations: "[metric type1]", "[metric type2]", "[unit variations]"
+
+   → System searches with ALL terms (primary + variations) for comprehensive recall
+
+4. BUILD SEARCH STRATEGY FOR EXTRAS (Term Expansion):
+
+   *** Extract 5-8 CORE concepts, then EXPAND each with variations ***
+
+   For each core concept:
+   • Core term: From schema field name or medical condition
+   • Synonyms: Alternative medical terms
+   • Abbreviations: Medical abbreviations and acronyms
+   • Related terms: Clinically related concepts
+   • Qualifiers: Age group, specialty, system (e.g., "pediatric", "cardiac")
+
+   Example Expansion:
+   Core: "[condition_A]"
+   Expanded: ["[condition_A]", "[synonym1]", "[abbrev1]", "[abbrev2]", "[abbrev3]",
+              "[related_term1]", "[related_term2]", "[related_term3]",
+              "[qualified_term]", "[alternative_name]"]
+
+   Core: "[condition_B]"
+   Expanded: ["[condition_B]", "[abbrev_B]", "[subtype1]", "[subtype2]", "[full_name]",
+              "[related_concept]", "[measurement_term]", "[adjective_form]"]
+
+   *** Return BOTH core terms AND variations for maximum recall ***
 
 RESPONSE FORMAT (JSON only):
 {{
@@ -2108,17 +2158,20 @@ RESPONSE FORMAT (JSON only):
   ],
   "rag_queries": [  # Can be EMPTY [] if no guidelines/standards needed
     {{
-      "query": "specific focused query with 4-8 keywords",
+      "query": "primary keywords for focused query",
+      "term_variations": ["synonym1", "abbrev1", "related1", "broader1"],
       "query_type": "guideline|diagnostic|assessment|treatment|domain_specific",
       "purpose": "what specific information this retrieves"
     }},
     {{
-      "query": "another focused query targeting different aspect",
+      "query": "another query targeting different aspect",
+      "term_variations": ["synonym2", "abbrev2", "related2"],
       "query_type": "guideline|diagnostic|assessment|treatment|domain_specific",
       "purpose": "complementary information for extraction"
     }}
   ],
-  "extras_keywords": []  # Can be EMPTY [] if no specialized hints needed
+  "extras_keywords": ["core1", "variation1", "core2", "variation2", "core3", "variation3"]
+  # Include BOTH core terms AND variations (can be EMPTY [] if not needed)
 }}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
