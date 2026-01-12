@@ -1,4 +1,4 @@
-# ClinOrchestra: A Neuro-Symbolic AI Platform for Clinical NLP Annotation
+# ClinOrchestra: A Task-Agnostic Neuro-Symbolic AI Orchestration Platform
 
 ## Project Name: ClinOrchestra
 
@@ -10,10 +10,12 @@
 
 ## Brief Summary
 
-ClinOrchestra is a **Neuro-Symbolic AI Platform** designed for clinical natural language processing (NLP) annotation tasks. The platform uniquely combines the reasoning capabilities of large language models (LLMs) with deterministic symbolic computation and knowledge retrieval systems, implementing a novel **Neuro-Symbolic Feedback Loop** architecture.
+ClinOrchestra is a **Task-Agnostic Neuro-Symbolic AI Orchestration Platform** that combines the reasoning capabilities of large language models (LLMs) with deterministic symbolic computation and knowledge retrieval systems. The platform implements a novel **Neuro-Symbolic Feedback Loop** architecture that can support **any task** as long as the output schema is properly defined.
 
-The core innovation lies in augmenting LLM-based extraction with three complementary knowledge sources:
-1. **Custom Functions** - Deterministic computations (clinical calculations, scoring systems)
+**Key Design Principle:** ClinOrchestra is **task-agnostic and prompt-agnostic**. While initially developed for clinical NLP use cases, the architecture makes no assumptions about the domain, task type, or prompt structure. Users define their output schema, register relevant functions, configure domain-specific RAG sources, and add task-appropriate extras—the platform orchestrates the rest.
+
+The core innovation lies in augmenting LLM-based processing with three complementary knowledge sources:
+1. **Custom Functions** - Deterministic computations (any callable Python function)
 2. **RAG (Retrieval Augmented Generation)** - Domain-specific document retrieval
 3. **Extras** - Task-specific hints and domain knowledge patterns
 
@@ -21,11 +23,11 @@ The core innovation lies in augmenting LLM-based extraction with three complemen
 
 ## Important Research Questions
 
-1. **Can neuro-symbolic integration improve clinical NLP annotation accuracy** compared to pure LLM approaches by grounding neural reasoning in symbolic domain knowledge?
+1. **Can neuro-symbolic integration improve task accuracy** compared to pure LLM approaches by grounding neural reasoning in symbolic domain knowledge?
 
-2. **How does the Neuro-Symbolic Feedback Loop** (Functions + RAG + Extras) enhance LLM performance on complex clinical extraction tasks requiring domain expertise?
+2. **How does the Neuro-Symbolic Feedback Loop** (Functions + RAG + Extras) enhance LLM performance on complex tasks requiring domain expertise?
 
-3. **What is the optimal balance** between neural (LLM reasoning) and symbolic (deterministic computation) components for different clinical annotation tasks?
+3. **What is the optimal balance** between neural (LLM reasoning) and symbolic (deterministic computation) components for different task types?
 
 ---
 
@@ -37,13 +39,13 @@ ClinOrchestra implements a **hybrid neuro-symbolic architecture** where:
 - **Neural Component**: LLMs (Claude, GPT-4, Llama) handle natural language understanding, context interpretation, and synthesis
 - **Symbolic Component**: Functions, RAG, and Extras provide deterministic computation, factual grounding, and domain expertise
 
-The feedback loop ensures that LLM outputs are informed by and validated against symbolic knowledge sources.
+The feedback loop ensures that LLM outputs are informed by and validated against symbolic knowledge sources. **Critically, this architecture is domain-agnostic**—it can be applied to any task where structured output is desired, from clinical NLP to legal document analysis, financial data extraction, scientific literature processing, or any custom domain.
 
 ### Two Execution Modes
 
 | Mode | Implementation | Characteristics | Best Use Case |
 |------|---------------|-----------------|---------------|
-| **STRUCTURED** | `core/agent_system.py` | 4-stage deterministic pipeline, predictable, reproducible | Production annotation |
+| **STRUCTURED** | `core/agent_system.py` | 4-stage deterministic pipeline, predictable, reproducible | Production workloads |
 | **ADAPTIVE** | `core/agentic_agent.py` | ReAct-style iterative agent, self-directed tool selection | Exploratory tasks |
 
 ---
@@ -85,7 +87,7 @@ Tool Requests → Parallel Execution → Tool Results
 - **Topological Sort** (`_topological_sort_tools()`, line 876): Correct execution order for dependencies
 
 ### Stage 3: Synthesis (Lines 1050-1150)
-**Purpose:** LLM combines tool results with clinical understanding to produce structured output
+**Purpose:** LLM combines tool results with domain understanding to produce structured output
 
 ```
 Tool Results + Original Text + Schema → LLM → Structured JSON Output
@@ -114,7 +116,7 @@ JSON Output → Schema Validation → Optional Self-Critique → Final Output
 
 ### 1. Custom Functions (`core/function_registry.py`)
 
-**Purpose:** Register deterministic Python functions for clinical calculations
+**Purpose:** Register any deterministic Python functions for domain-specific computations
 
 **Architecture (Lines 1-350):**
 
@@ -145,11 +147,12 @@ registry.register_function(
 )
 ```
 
-**Use Cases:**
-- Clinical scoring systems (SOFA, APACHE, Glasgow Coma Scale)
-- Pharmacokinetic calculations (creatinine clearance, drug dosing)
-- Risk calculators (cardiovascular risk, mortality prediction)
-- Unit conversions and normalization
+**Example Use Cases (Domain-Specific):**
+- **Clinical:** Scoring systems (SOFA, APACHE), pharmacokinetic calculations, risk calculators
+- **Financial:** Interest calculations, risk scoring, currency conversions
+- **Legal:** Statute lookup, deadline calculations, jurisdiction determination
+- **Scientific:** Unit conversions, statistical computations, formula evaluations
+- **General:** Any deterministic computation that should not be left to LLM approximation
 
 ### 2. RAG Engine (`core/rag_engine.py`)
 
@@ -243,7 +246,7 @@ Schema Fields → Keywords → Keyword Matching → Relevance Scoring → Top Ex
 
 ## ADAPTIVE Mode: ReAct-Style Agent (`core/agentic_agent.py`)
 
-**Purpose:** Self-directed iterative agent for exploratory annotation tasks
+**Purpose:** Self-directed iterative agent for exploratory or complex tasks
 
 **Architecture (Lines 1-800):**
 
@@ -275,7 +278,7 @@ AgenticExtractionAgent(
 
 ## Application State Management (`core/app_state.py`)
 
-**Purpose:** Centralized state management for the annotation session
+**Purpose:** Centralized state management for the orchestration session
 
 **Key Components (Lines 1-200):**
 - `AppState`: Holds all session configuration
@@ -300,7 +303,7 @@ AgenticExtractionAgent(
 
 ### Main Application (`ui/main.py`)
 - Streamlit-based web interface
-- Text input area for clinical notes
+- Text input area for source documents
 - Configuration panels for schema, functions, RAG, extras
 - Results visualization with confidence scores
 
@@ -557,12 +560,14 @@ clinorchestra/
 
 ## Summary
 
-ClinOrchestra represents a novel approach to clinical NLP annotation by implementing a **Neuro-Symbolic Feedback Loop** that combines:
+ClinOrchestra is a **task-agnostic, prompt-agnostic orchestration platform** that implements a **Neuro-Symbolic Feedback Loop** combining:
 
 1. **Neural reasoning** (LLMs) for natural language understanding and synthesis
-2. **Symbolic computation** (Functions) for deterministic clinical calculations
-3. **Knowledge retrieval** (RAG) for domain-specific document grounding
+2. **Symbolic computation** (Functions) for deterministic domain-specific calculations
+3. **Knowledge retrieval** (RAG) for document grounding
 4. **Task guidance** (Extras) for domain expertise hints
+
+**The platform can support any task as long as the output schema is properly defined.** Whether the domain is clinical NLP, legal document processing, financial analysis, scientific literature extraction, or any custom application—ClinOrchestra orchestrates the neuro-symbolic workflow.
 
 This hybrid architecture addresses key limitations of pure LLM approaches:
 - **Hallucination mitigation** through factual grounding
@@ -570,4 +575,4 @@ This hybrid architecture addresses key limitations of pure LLM approaches:
 - **Domain expertise** through retrievable knowledge
 - **Reproducibility** through structured pipeline execution
 
-The platform supports both **STRUCTURED** (production) and **ADAPTIVE** (exploratory) modes, making it suitable for research and clinical deployment.
+The platform supports both **STRUCTURED** (production) and **ADAPTIVE** (exploratory) modes, making it suitable for research and deployment across any domain.
