@@ -299,18 +299,170 @@ AgenticExtractionAgent(
 
 ---
 
-## UI Components (`ui/`)
+## Web UI: Configuration via YAML/JSON
 
-### Main Application (`ui/main.py`)
-- Streamlit-based web interface
-- Text input area for source documents
-- Configuration panels for schema, functions, RAG, extras
-- Results visualization with confidence scores
+ClinOrchestra provides a **Gradio-based web interface** where all components can be configured through structured file uploads (YAML or JSON) or interactive forms. This enables **no-code task configuration**—users define their task entirely through the UI without writing Python code.
 
-### Shared Components (`ui/shared_ui.py`)
-- Reusable UI elements
-- Status indicators
-- RAG initialization monitoring
+### Prompt & Schema Configuration (`ui/prompt_tab.py`)
+
+The Prompt tab allows users to:
+- Define **main prompts** (primary task instructions)
+- Create **minimal prompts** (fallback for context window issues)
+- Configure **RAG refinement prompts** (evidence-based output refinement)
+- Define **JSON output schema** via interactive field builder or file upload
+
+**Schema File Upload (YAML or JSON):**
+
+```yaml
+# schema.yaml - Simplified format
+diagnosis:
+  type: string
+  description: "Primary diagnosis from the note"
+  required: true
+severity:
+  type: string
+  description: "Severity classification"
+  required: true
+confidence:
+  type: number
+  description: "Confidence score 0-1"
+  required: false
+```
+
+```json
+// schema.json - JSON Schema format also supported
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "diagnosis": {"type": "string", "description": "Primary diagnosis"},
+    "severity": {"type": "string"}
+  },
+  "required": ["diagnosis", "severity"]
+}
+```
+
+### Functions Configuration (`ui/functions_tab.py`)
+
+Register custom Python functions via the UI:
+
+**Functions File Schema (YAML):**
+```yaml
+functions:
+  - name: calculate_bmi
+    description: "Calculate Body Mass Index"
+    code: |
+      def calculate_bmi(weight_kg, height_m):
+          if height_m <= 0:
+              return None
+          return round(weight_kg / (height_m ** 2), 2)
+    parameters:
+      weight_kg:
+        type: number
+        description: "Weight in kilograms"
+      height_m:
+        type: number
+        description: "Height in meters"
+    returns: "BMI value (number)"
+```
+
+**Functions File Schema (JSON):**
+```json
+{
+  "functions": [
+    {
+      "name": "calculate_bmi",
+      "description": "Calculate Body Mass Index",
+      "code": "def calculate_bmi(weight_kg, height_m):\n    if height_m <= 0:\n        return None\n    return round(weight_kg / (height_m ** 2), 2)",
+      "parameters": {
+        "weight_kg": {"type": "number", "description": "Weight in kilograms"},
+        "height_m": {"type": "number", "description": "Height in meters"}
+      },
+      "returns": "BMI value (number)"
+    }
+  ]
+}
+```
+
+**UI Features:**
+- Interactive code editor with Python syntax highlighting
+- Parameter builder with type selection (string, number, boolean)
+- Test function execution with JSON arguments
+- Enable/disable individual functions
+- Import/export all functions
+
+### Extras Configuration (`ui/extras_tab.py`)
+
+Add task-specific hints and domain knowledge:
+
+**Extras File Schema (YAML):**
+```yaml
+extras:
+  - name: "WHO Malnutrition Criteria"
+    type: definition
+    content: "BMI categories - Underweight: <18.5, Normal: 18.5-24.9, Overweight: 25-29.9"
+    metadata:
+      category: clinical
+      priority: high
+
+  - name: "Lab Value Pattern"
+    type: pattern
+    content: "Lab values format - [test name]: [value] [unit]. Example: Glucose: 120 mg/dL"
+    metadata:
+      category: medical
+```
+
+**Extras File Schema (JSON):**
+```json
+{
+  "extras": [
+    {
+      "name": "WHO Malnutrition Criteria",
+      "type": "definition",
+      "content": "BMI categories - Underweight: <18.5, Normal: 18.5-24.9",
+      "metadata": {"category": "clinical", "priority": "high"}
+    }
+  ]
+}
+```
+
+**Extra Types:** `pattern`, `definition`, `guideline`, `example`, `reference`, `criteria`, `tip`
+
+**UI Features:**
+- Add/edit extras with name, type, content, and metadata
+- Enable/disable individual extras via checkboxes
+- Cache management (bypass or clear)
+- Import/export functionality
+
+### RAG Configuration (`ui/rag_tab.py`)
+
+Configure document sources and retrieval settings:
+
+**Document Sources (via UI):**
+- **URLs tab**: Paste document URLs (PDFs, HTML, TXT) one per line
+- **File Paths tab**: Enter local file paths one per line
+- **Upload tab**: Drag-and-drop document upload (.pdf, .txt, .md, .html)
+
+**Embedding & Retrieval Settings:**
+| Setting | Default | Description |
+|---------|---------|-------------|
+| Embedding Model | `all-mpnet-base-v2` | SentenceTransformer model for embeddings |
+| Chunk Size | 512 | Characters per text chunk |
+| Chunk Overlap | 50 | Overlap between chunks |
+| K Value | 5 | Number of chunks retrieved per query |
+
+**Cache Controls:**
+- Clear embedding cache (when configuration changes)
+- Bypass query cache (force fresh retrieval)
+- Clear query cache
+
+### Complete Task Configuration Workflow
+
+1. **Prompt Tab**: Define task prompt + JSON output schema (upload YAML/JSON or use builder)
+2. **Functions Tab**: Upload functions YAML/JSON or define interactively
+3. **Extras Tab**: Upload extras YAML/JSON or add manually
+4. **RAG Tab**: Add document sources + configure retrieval settings + initialize
+5. **Processing Tab**: Upload data, run extraction, view results
 
 ---
 
@@ -509,35 +661,6 @@ rag_config = {
 
 ---
 
-## File Structure
-
-```
-clinorchestra/
-├── core/                          # Core architecture
-│   ├── agent_system.py            # STRUCTURED mode (4-stage pipeline)
-│   ├── agentic_agent.py           # ADAPTIVE mode (ReAct agent)
-│   ├── function_registry.py       # Custom function management
-│   ├── rag_engine.py              # RAG with FAISS vector store
-│   ├── extras_manager.py          # Task-specific hints
-│   ├── app_state.py               # Session state management
-│   ├── prompt_templates.py        # LLM prompt engineering
-│   └── logging_config.py          # Logging configuration
-│
-├── ui/                            # Streamlit UI
-│   ├── main.py                    # Main application
-│   └── shared_ui.py               # Shared components
-│
-├── examples/                      # Example configurations
-│   ├── adrd_classification_sdk.py # Example: Dementia classification
-│   └── malnutrition_classification_sdk.py # Example: Malnutrition
-│
-├── annotate.py                    # CLI annotation entry point
-├── requirements.txt               # Python dependencies
-└── README.md                      # Quick start guide
-```
-
----
-
 ## Resources
 
 **Code Repository:** GitHub (private/institutional)
@@ -546,7 +669,7 @@ clinorchestra/
 - `anthropic` / `openai` / `ollama` - LLM backends
 - `sentence-transformers` - Embedding generation
 - `faiss-cpu` / `faiss-gpu` - Vector similarity search
-- `streamlit` - Web UI framework
+- `gradio` - Web UI framework
 - `pydantic` - Schema validation
 
 ---
