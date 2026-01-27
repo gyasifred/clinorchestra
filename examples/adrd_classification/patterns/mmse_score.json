@@ -1,7 +1,0 @@
-{
-  "name": "extract_mmse_score",
-  "pattern": "MMSE\\s*(?:score|=|:)?\\s*(\\d{1,2})\\s*(?:/\\s*30|out of 30)?",
-  "replacement": "MMSE: \\1/30",
-  "description": "Extract MMSE (Mini-Mental State Examination) score",
-  "enabled": true
-}

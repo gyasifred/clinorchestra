@@ -1,7 +1,0 @@
-{
-  "name": "detect_csf_tau_high",
-  "pattern": "(?:CSF|cerebrospinal fluid).*?(?:total )?tau.*?(?:high|elevated|increased)",
-  "replacement": "[CSF_TAU_HIGH]",
-  "description": "Detect elevated CSF total tau (biomarker for neurodegeneration)",
-  "enabled": true
-}

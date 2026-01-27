@@ -1,7 +1,0 @@
-{
-  "name": "detect_rem_sleep_behavior",
-  "pattern": "REM sleep behavior (?:disorder|disturbance)|acting out dreams",
-  "replacement": "[REM_SLEEP_BEHAVIOR_DISORDER]",
-  "description": "Detect REM sleep behavior disorder (supportive feature of Lewy body dementia)",
-  "enabled": true
-}

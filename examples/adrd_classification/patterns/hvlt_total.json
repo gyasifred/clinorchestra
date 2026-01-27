@@ -1,7 +1,0 @@
-{
-  "name": "extract_hvlt_total",
-  "pattern": "HVLT.*?(?:total|raw).*?(\\d{1,2})",
-  "replacement": "HVLT Total Recall: \\1",
-  "description": "Extract HVLT (Hopkins Verbal Learning Test) total recall score",
-  "enabled": true
-}

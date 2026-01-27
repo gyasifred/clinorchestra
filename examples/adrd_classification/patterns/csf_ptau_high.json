@@ -1,7 +1,0 @@
-{
-  "name": "detect_csf_ptau_high",
-  "pattern": "(?:CSF|cerebrospinal fluid).*?(?:phospho[- ]?tau|p[- ]?tau).*?(?:high|elevated|increased)",
-  "replacement": "[CSF_PTAU_HIGH]",
-  "description": "Detect elevated CSF phosphorylated tau (biomarker for Alzheimer's disease)",
-  "enabled": true
-}

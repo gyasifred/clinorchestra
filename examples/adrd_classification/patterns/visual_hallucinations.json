@@ -1,7 +1,0 @@
-{
-  "name": "detect_visual_hallucinations",
-  "pattern": "(?:visual hallucinations?|seeing things|seeing (?:people|animals) that (?:aren't|are not) there)",
-  "replacement": "[VISUAL_HALLUCINATIONS]",
-  "description": "Detect visual hallucinations (core feature of Lewy body dementia)",
-  "enabled": true
-}

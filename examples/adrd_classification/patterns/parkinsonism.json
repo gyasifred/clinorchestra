@@ -1,7 +1,0 @@
-{
-  "name": "detect_parkinsonism",
-  "pattern": "parkinson(?:ism|ian (?:features?|signs?))|rigidity.*?bradykinesia|(?:cogwheel|lead[- ]pipe) rigidity",
-  "replacement": "[PARKINSONISM]",
-  "description": "Detect parkinsonian features (supportive of Lewy body dementia or Parkinson's disease dementia)",
-  "enabled": true
-}
