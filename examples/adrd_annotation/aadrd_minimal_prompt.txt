@@ -1,15 +1,18 @@
 ADRD Classification.
 
-**CLINICAL TEXT:**
+CLINICAL TEXT:
 {clinical_text}
 
-**TOOLS:**
-{tool_outputs}
+CLASSIFICATION CONTEXT:
+{label_context}
 
-**SCHEMA:**
-{json_schema}
+{rag_outputs}
 
-**TASK:** Classify ADRD vs Non-ADRD.
+{function_outputs}
+
+{extras_outputs}
+
+TASK: Classify ADRD vs Non-ADRD.
 
 Three steps:
 1. SEVERITY: no_impairment / MCI / mild_dementia / moderate_dementia / severe_dementia
@@ -19,3 +22,5 @@ Three steps:
 Key: MCI = preserved function. Dementia = impaired function.
 
 Use clinical judgment to integrate all information.
+
+{json_schema_instructions}

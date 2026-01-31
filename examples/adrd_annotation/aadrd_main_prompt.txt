@@ -1,45 +1,39 @@
 ADRD Classification per AA 2024 Clinical Practice Guidelines.
 
-**CLINICAL TEXT:**
+CLINICAL TEXT:
 {clinical_text}
 
-**AVAILABLE TOOLS:**
-{tool_outputs}
+CLASSIFICATION CONTEXT:
+{label_context}
 
-**EXTRACTION SCHEMA:**
-{json_schema}
+{rag_outputs}
 
-**TASK:** Three-step diagnostic formulation to classify ADRD vs Non-ADRD.
+{function_outputs}
 
-**STEP 1 - SEVERITY:** No impairment / MCI / Mild / Moderate / Severe dementia
+{extras_outputs}
+
+TASK: Three-step diagnostic formulation - classify ADRD vs Non-ADRD.
+
+STEP 1 - SEVERITY: no_impairment / MCI / mild_dementia / moderate_dementia / severe_dementia
 - KEY: Functional impairment distinguishes MCI from dementia
 - MCI = cognitive impairment + functional independence PRESERVED
 - Dementia = cognitive impairment + functional IMPAIRMENT
 
-**STEP 2 - SYNDROME:** Pattern of cognitive deficits
+STEP 2 - SYNDROME: Pattern of deficits (amnestic/executive/language/visuospatial/behavioral/mixed)
 - Domains: memory, executive, visuospatial, language, behavior
 - Dementia requires >=2 domains affected
-- Patterns: amnestic, executive, language, visuospatial, behavioral, mixed
 
-**STEP 3 - ETIOLOGY:** ADRD vs Non-ADRD
+STEP 3 - ETIOLOGY: ADRD vs Non-ADRD
 - ADRD: AD, VaD, DLB, FTD, mixed
 - Non-ADRD: Delirium, psychiatric, medical, medications
 
-**KEY PRINCIPLES:**
+KEY PRINCIPLES:
 - Functions provide data only - YOU integrate with clinical judgment
 - Screening thresholds are NOT diagnostic cutoffs
 - Rule out delirium and non-ADRD causes first
-- Missing documentation ≠ absence of impairment
 
-**SCREENING THRESHOLDS (informational only):**
-- MoCA <26, MMSE <26, Mini-Cog <=3
+CDR STAGING: 0=normal, 0.5=MCI, 1=mild, 2=moderate, 3=severe dementia
 
-**CDR STAGING:**
-- 0=normal, 0.5=MCI, 1=mild, 2=moderate, 3=severe dementia
-- CDR 0.5 vs 1 = MCI vs dementia boundary (functional impairment)
+Use functions to interpret scores and count domains. Integrate findings with clinical judgment.
 
-**FUNCTIONAL ASSESSMENT:**
-- IADL impairment = dementia (not MCI)
-- IADLs decline before basic ADLs
-
-Use functions to interpret scores and count domains. Integrate all findings with clinical judgment.
+{json_schema_instructions}

@@ -1,23 +1,30 @@
 Refine ADRD classification using clinical guidelines.
 
-**INITIAL CLASSIFICATION:**
-{initial_classification}
+ORIGINAL TEXT:
+{clinical_text}
 
-**CLINICAL GUIDELINES:**
-{rag_context}
+CLASSIFICATION CONTEXT:
+{label_context}
 
-**TASK:** Validate and refine the classification against AA 2024 Guidelines.
+INITIAL EXTRACTION:
+{stage3_json_output}
 
-**VALIDATION CHECKLIST:**
+EVIDENCE BASE:
+{retrieved_evidence_chunks}
+
+TASK: Validate and refine classification against AA 2024 Guidelines.
+
+VALIDATION:
 1. Severity matches functional status (MCI=preserved, Dementia=impaired)
 2. Syndrome pattern consistent with affected domains
 3. Etiology supported by clinical features
-4. Confidence level appropriate for available evidence
+4. Confidence appropriate for available evidence
 
-**REFINEMENT FOCUS:**
-- Fill gaps in rationale using retrieved guidelines
-- Verify criteria application (NIA-AA, CDR staging)
+REFINEMENT:
+- Fill gaps using retrieved guidelines
+- Verify NIA-AA criteria and CDR staging
 - Strengthen differential considerations
-- Ensure clinical judgment is documented
 
-Return refined classification with enhanced rationale.
+{json_schema_instructions}
+
+Return refined JSON. No markdown.
