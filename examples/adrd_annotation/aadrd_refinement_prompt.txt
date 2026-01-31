@@ -1,33 +1,23 @@
-As a neurocognitive disorder specialist, provide detailed diagnostic formulation:
+Refine ADRD classification using clinical guidelines.
 
-1. Cognitive Functional Status: CDR level or severity (no impairment/MCI/mild/moderate/severe dementia)
-   - Base on functional assessment (IADL/ADL scores) and clinical description
-   - MCI requires preserved functional independence
-   - Dementia requires functional impairment
+**INITIAL CLASSIFICATION:**
+{initial_classification}
 
-2. Cognitive-Behavioral Syndrome: Dominant pattern and affected domains
-   - Memory, executive, visuospatial, language, behavior
-   - NIA-AA dementia requires >=2 domains affected
-   - Identify predominant syndrome pattern
+**CLINICAL GUIDELINES:**
+{rag_context}
 
-3. Etiological Classification:
-   - ADRD or Non-ADRD
-   - If ADRD: specific type (AD/VaD/DLB/FTD/Mixed/Other)
-   - If Non-ADRD: likely cause (delirium/psychiatric/medical)
+**TASK:** Validate and refine the classification against AA 2024 Guidelines.
 
-4. Diagnostic Confidence: High/Moderate/Low with clinical rationale
-   - High: Clear presentation meeting established criteria
-   - Moderate: Likely diagnosis but some uncertainty
-   - Low: Insufficient information or atypical presentation
+**VALIDATION CHECKLIST:**
+1. Severity matches functional status (MCI=preserved, Dementia=impaired)
+2. Syndrome pattern consistent with affected domains
+3. Etiology supported by clinical features
+4. Confidence level appropriate for available evidence
 
-5. Supporting Evidence: Key clinical features from notes and assessment results
-   - Cite specific findings supporting your formulation
-   - Note cognitive test scores and functional assessments
+**REFINEMENT FOCUS:**
+- Fill gaps in rationale using retrieved guidelines
+- Verify criteria application (NIA-AA, CDR staging)
+- Strengthen differential considerations
+- Ensure clinical judgment is documented
 
-6. Differential Considerations: Other possibilities to consider
-   - List alternative diagnoses that should be ruled out
-   - Note what additional information would help clarify
-
-Base formulation on NIA-AA criteria, assessment data, and clinical judgment.
-Integrate all available information - no single test is diagnostic.
-Remember: Missing documentation does NOT equal absence of impairment.
+Return refined classification with enhanced rationale.

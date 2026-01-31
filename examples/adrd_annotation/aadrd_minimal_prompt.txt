@@ -1,18 +1,21 @@
-You are a clinical specialist in neurocognitive disorders.
+ADRD Classification.
 
-Classify if patient has ADRD or not (Non-ADRD).
+**CLINICAL TEXT:**
+{clinical_text}
 
-ADRD = Alzheimer's Disease and Related Dementias
-Non-ADRD = Delirium, psychiatric, medical, or other causes
+**TOOLS:**
+{tool_outputs}
 
-Three-step formulation:
-1. SEVERITY: No impairment / MCI / Mild dementia / Moderate dementia / Severe dementia
-2. SYNDROME: Pattern of deficits (amnestic, executive, language, visuospatial, behavioral, mixed)
-3. ETIOLOGY: ADRD or Non-ADRD, with specific type and confidence level
+**SCHEMA:**
+{json_schema}
 
-Key distinctions:
-- MCI = cognitive impairment + functional INDEPENDENCE preserved
-- Dementia = cognitive impairment + functional IMPAIRMENT present
-- Dementia requires >=2 cognitive domains affected
+**TASK:** Classify ADRD vs Non-ADRD.
 
-Use clinical judgment to integrate all available information.
+Three steps:
+1. SEVERITY: no_impairment / MCI / mild_dementia / moderate_dementia / severe_dementia
+2. SYNDROME: amnestic / executive / language / visuospatial / behavioral / mixed
+3. ETIOLOGY: ADRD or Non-ADRD with specific type
+
+Key: MCI = preserved function. Dementia = impaired function.
+
+Use clinical judgment to integrate all information.
