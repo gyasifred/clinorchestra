@@ -1,842 +1,108 @@
-# ============================================================================
-# AADRD (Alzheimer's Association ADRD) Extras - Clinical Knowledge & Guidance
-# Per Alzheimer's Association 2024 Clinical Practice Guidelines
-# ============================================================================
-#
-# CRITICAL: These criteria provide GUIDANCE for clinical judgment.
-# They are NOT rigid checklists or diagnostic algorithms.
-# Integration of ALL clinical information with expert judgment is required.
-# No single criterion or test is diagnostic by itself.
-#
-# ============================================================================
-
-- id: aadrd_clinical_judgment_principles
-  name: Clinical Judgment Principles for ADRD Diagnosis
-  type: guideline
-  enabled: true
-  content: |
-    CLINICAL JUDGMENT PRINCIPLES FOR ADRD DIAGNOSIS
-
-    OVERARCHING PRINCIPLE:
-    Diagnosis requires integration of ALL available clinical information using expert judgment.
-
-    KEY REMINDERS:
-    1. Screening test thresholds are NOT diagnostic cutoffs
-    2. Missing documentation does NOT equal absence of impairment
-    3. Functional impairment distinguishes MCI from dementia
-    4. Multiple pathologies are common in elderly (>50% over age 85)
-    5. Psychiatric symptoms can BE early ADRD manifestation
-    6. Rule out delirium and non-ADRD causes first
-    7. Clinical context determines significance of test scores
-    8. No single test or criterion determines diagnosis
-
-    These principles must guide interpretation of all assessment data.
-  keywords:
-    - clinical judgment
-    - diagnostic principles
-    - ADRD diagnosis
-    - interpretation
-    - screening thresholds
-  metadata:
-    category: guidelines
-    diagnosis: adrd
-    priority: CRITICAL
-    source: AA 2024 Clinical Practice Guidelines
-    domain: neurology
-
 - id: aadrd_nia_aa_dementia_criteria
-  name: NIA-AA Dementia Diagnostic Criteria (Table 1)
+  name: NIA-AA Dementia Diagnostic Criteria
   type: diagnostic_criteria
-  enabled: true
-  content: |
-    NIA-AA DEMENTIA DIAGNOSTIC CRITERIA
-    Source: AA 2024 Guidelines Table 1
-
-    Dementia is diagnosed when cognitive or behavioral symptoms that:
-
-    1. INTERFERE WITH FUNCTION
-       - Interfere with ability to function at work or usual activities
-
-    2. REPRESENT DECLINE
-       - Represent decline from previous levels of functioning and performing
-
-    3. NOT EXPLAINED BY DELIRIUM
-       - Not explained by delirium (acute onset over hours-days, fluctuating, with inattention)
-
-    4. NOT EXPLAINED BY PSYCHIATRIC DISORDER
-       - Not explained by major psychiatric disorder (depression, schizophrenia, bipolar) as PRIMARY cause
-       - NOTE: Psychiatric symptoms can BE early ADRD manifestation (>50% who develop dementia had depression first)
-
-    PLUS: Cognitive impairment involves MINIMUM OF TWO of five domains:
-
-    a. MEMORY
-       - Repetitive questions or conversations
-       - Misplacing personal belongings
-       - Forgetting events or appointments
-       - Getting lost on familiar route
-
-    b. EXECUTIVE FUNCTION
-       - Poor understanding of safety risks
-       - Inability to manage finances
-       - Poor decision-making ability
-       - Inability to plan complex or sequential activities
-
-    c. VISUOSPATIAL FUNCTION
-       - Inability to recognize faces or common objects
-       - Inability to find objects in direct view
-       - Inability to operate simple implements or orient clothing to body
-
-    d. LANGUAGE
-       - Word-finding difficulty during spontaneous speech
-       - Hesitations
-       - Speech, spelling, and writing errors
-
-    e. PERSONALITY/BEHAVIOR
-       - Uncharacteristic mood fluctuations (agitation, impaired motivation, apathy)
-       - Loss of initiative, withdrawal, loss of interest
-       - Disinhibition
-       - Compulsive or obsessive behaviors
-       - Loss of empathy, socially unacceptable behaviors
-  keywords:
-    - NIA-AA
-    - dementia criteria
-    - diagnostic criteria
-    - cognitive domains
-    - functional impairment
-    - memory
-    - executive function
-    - visuospatial
-    - language
-    - behavior
+  content: 'NIA-AA DEMENTIA CRITERIA (AA 2024 Table 1): Dementia requires cognitive/behavioral symptoms that: (1) Interfere with function at work or usual activities, (2) Represent decline from previous level, (3) Not explained by delirium, (4) Not explained by major psychiatric disorder as PRIMARY cause. PLUS >=2 of 5 domains affected: Memory (repetitive questions, misplacing items, forgetting events), Executive (poor judgment, cannot manage finances), Visuospatial (cannot recognize faces/objects), Language (word-finding difficulty), Behavior (mood changes, apathy, disinhibition).'
   metadata:
     category: diagnostic_criteria
-    diagnosis: dementia
+    diagnosis: adrd
     priority: CRITICAL
-    source: NIA-AA 2011, AA 2024 Guidelines Table 1
-    domain: neurology
-
+    source: AA 2024 Guidelines Table 1
 - id: aadrd_nia_aa_mci_criteria
-  name: NIA-AA MCI Diagnostic Criteria (Table 1)
+  name: NIA-AA MCI Diagnostic Criteria
   type: diagnostic_criteria
-  enabled: true
-  content: |
-    NIA-AA MCI (MILD COGNITIVE IMPAIRMENT) DIAGNOSTIC CRITERIA
-    Source: AA 2024 Guidelines Table 1
-
-    MCI is diagnosed when:
-
-    1. COGNITIVE CONCERN
-       - Concern regarding change in cognition
-       - In comparison with person's previous level
-       - Reported by patient, informant, or clinician
-
-    2. OBJECTIVE EVIDENCE
-       - Objective evidence of impairment in one or more cognitive domains
-       - Typically includes memory
-       - May include other domains
-
-    3. PRESERVATION OF INDEPENDENCE (KEY DISTINCTION)
-       - Preservation of independence in functional abilities
-       - Patient may be slower, less efficient, or make more errors
-       - BUT maintains independence without assistance
-
-    4. NOT DEMENTED
-       - Does not meet criteria for dementia
-
-    CRITICAL DISTINCTION FROM DEMENTIA:
-    - MCI: Functional independence PRESERVED
-    - Dementia: Functional independence IMPAIRED
-
-    This distinction is THE key differentiator between MCI and dementia.
-    IADLs (instrumental activities) typically affected first:
-    - Managing finances
-    - Managing medications
-    - Using transportation
-    - Shopping
-    - Food preparation
-  keywords:
-    - MCI
-    - mild cognitive impairment
-    - diagnostic criteria
-    - functional independence
-    - preserved function
+  content: 'NIA-AA MCI CRITERIA: (1) Cognitive concern from patient/informant/clinician, (2) Objective evidence of impairment in >=1 cognitive domain, (3) PRESERVATION OF INDEPENDENCE in functional abilities (KEY distinction from dementia), (4) Not demented. CRITICAL: MCI = cognitive impairment + functional independence PRESERVED. Dementia = cognitive impairment + functional IMPAIRMENT.'
   metadata:
     category: diagnostic_criteria
     diagnosis: mci
     priority: CRITICAL
-    source: NIA-AA 2011, AA 2024 Guidelines Table 1
-    domain: neurology
-
+    source: AA 2024 Guidelines Table 1
+- id: aadrd_functional_assessment
+  name: Functional Assessment for MCI vs Dementia
+  type: guideline
+  content: 'FUNCTIONAL ASSESSMENT - KEY FOR MCI VS DEMENTIA: Lawton IADL (0-8, 8=independent) measures instrumental activities (phone, shopping, food prep, housekeeping, laundry, transport, meds, finances). IADL impairment = dementia (not MCI). IADLs decline BEFORE basic ADLs. Katz ADL (0-6, 6=independent) measures basic self-care (bathing, dressing, toileting, transferring, continence, feeding). Basic ADL impairment indicates more advanced disease.'
+  metadata:
+    category: functional_assessment
+    diagnosis: adrd
+    priority: CRITICAL
+    source: AA 2024 Guidelines
+- id: aadrd_cdr_staging
+  name: CDR Staging for Dementia Severity
+  type: guideline
+  content: 'CDR STAGING (Morris 1993): 0=no impairment, 0.5=MCI (functional independence PRESERVED - NOT dementia), 1=mild dementia (functional impairment PRESENT), 2=moderate dementia, 3=severe dementia. CRITICAL: CDR 0.5 vs 1.0 is the MCI/dementia boundary based on FUNCTIONAL IMPAIRMENT. Domains assessed: memory, orientation, judgment, community affairs, home/hobbies, personal care.'
+  metadata:
+    category: staging
+    diagnosis: adrd
+    priority: CRITICAL
+    source: Morris 1993
+- id: aadrd_screening_thresholds
+  name: Cognitive Screening Thresholds
+  type: reference
+  content: 'COGNITIVE SCREENING THRESHOLDS (AA 2024 Table 5) - SCREENING only, NOT diagnostic: MoCA <26 suggests possible impairment (add 1 point if education <=12 years; 90% sensitivity, 87% specificity for MCI). MMSE <26 suggests possible impairment (81% sensitivity, 82% specificity; LOW sensitivity for MCI). Mini-Cog <=3 suggests possible impairment (76% sensitivity, 89% specificity). These are thresholds for SCREENING, not diagnosis.'
+  metadata:
+    category: screening
+    diagnosis: adrd
+    priority: HIGH
+    source: AA 2024 Guidelines Table 5
 - id: aadrd_probable_ad_criteria
-  name: Probable Alzheimer's Disease Dementia Criteria (McKhann 2011)
+  name: Probable Alzheimer Disease Criteria
   type: diagnostic_criteria
-  enabled: true
-  content: |
-    PROBABLE ALZHEIMER'S DISEASE DEMENTIA CRITERIA
-    Source: McKhann 2011 NIA-AA Criteria (AA 2024 Guidelines Table 3)
-
-    Probable AD dementia diagnosed when patient:
-
-    1. MEETS DEMENTIA CRITERIA (Table 1)
-
-    2. INSIDIOUS ONSET
-       - Gradual onset over months to years
-       - NOT sudden over hours or days
-
-    3. CLEAR-CUT HISTORY OF WORSENING
-       - Clear-cut history of worsening cognition by report or observation
-
-    4. INITIAL/MOST PROMINENT DEFICITS IN ONE CATEGORY:
-
-       AMNESTIC PRESENTATION (Most Common):
-       - Learning and recall of recently learned information impaired
-       - PLUS impairment in at least one other cognitive domain
-
-       LANGUAGE PRESENTATION:
-       - Word-finding is most prominent deficit
-       - PLUS impairment in other domains
-
-       VISUOSPATIAL PRESENTATION:
-       - Spatial cognition is most prominent
-       - Including object agnosia, impaired face recognition
-       - Simultanagnosia, alexia
-       - PLUS impairment in other domains
-
-       EXECUTIVE PRESENTATION:
-       - Reasoning, judgment, problem solving is most prominent
-       - PLUS impairment in other domains
-
-    5. DIAGNOSIS SHOULD NOT APPLY WHEN THERE IS:
-       - Substantial concomitant cerebrovascular disease
-         (history of stroke temporally related to onset/worsening)
-       - Core features of dementia with Lewy bodies (other than dementia)
-       - Prominent features of behavioral variant FTD
-       - Prominent features of primary progressive aphasia
-       - Evidence of other concurrent neurological/medical condition
-         OR medication use that could substantially affect cognition
-  keywords:
-    - Alzheimer's disease
-    - probable AD
-    - McKhann criteria
-    - amnestic
-    - insidious onset
+  content: 'PROBABLE AD (McKhann 2011): Meets dementia criteria + insidious onset (gradual over months-years) + clear worsening + initial/prominent deficits in one pattern: Amnestic (most common - memory + other domain), Language (word-finding), Visuospatial (spatial cognition), Executive (reasoning/judgment). Should NOT apply if: substantial CVD with temporal relationship, core DLB features, prominent bvFTD features, prominent PPA features.'
   metadata:
     category: diagnostic_criteria
     diagnosis: alzheimers_disease
-    priority: CRITICAL
-    source: McKhann 2011, AA 2024 Guidelines Table 3
-    domain: neurology
-
+    priority: HIGH
+    source: McKhann 2011
 - id: aadrd_dlb_criteria
-  name: Dementia with Lewy Bodies Criteria (McKeith 2017)
+  name: Dementia with Lewy Bodies Criteria
   type: diagnostic_criteria
-  enabled: true
-  content: |
-    DEMENTIA WITH LEWY BODIES (DLB) DIAGNOSTIC CRITERIA
-    Source: McKeith 2017 DLB Consortium Criteria (AA 2024 Guidelines Table 4)
-
-    ESSENTIAL FEATURE:
-    - Dementia defined as progressive cognitive decline sufficient to interfere with normal social or occupational functions
-    - Prominent or persistent memory impairment may not necessarily occur early but usually evident with progression
-    - Deficits on tests of attention, executive function, and visuoperceptual ability may be especially prominent
-
-    CORE CLINICAL FEATURES (2 or more = Probable DLB, 1 = Possible DLB):
-
-    1. FLUCTUATING COGNITION
-       - Pronounced variations in attention and alertness
-       - May include drowsiness, lethargy, staring into space
-       - Episodes of disorganized speech
-
-    2. RECURRENT VISUAL HALLUCINATIONS
-       - Well-formed and detailed
-       - Typically of people or animals
-       - Usually non-threatening
-
-    3. REM SLEEP BEHAVIOR DISORDER
-       - May precede cognitive decline by years
-       - Acting out dreams
-       - Loss of normal REM atonia
-
-    4. SPONTANEOUS PARKINSONISM
-       - One or more: bradykinesia, rest tremor, rigidity
-       - Not caused by medications
-
-    DLB vs PDD DISTINCTION (1-year rule):
-    - DLB: Dementia occurs BEFORE or within 1 year of parkinsonism
-    - PDD: Dementia occurs MORE than 1 year after established Parkinson's disease
-
-    SUPPORTIVE FEATURES:
-    - Severe sensitivity to antipsychotic agents
-    - Postural instability, repeated falls
-    - Syncope or transient unresponsiveness
-    - Autonomic dysfunction
-    - Hypersomnia
-    - Hyposmia
-    - Hallucinations in other modalities
-    - Systematized delusions
-    - Apathy, anxiety, depression
-  keywords:
-    - Lewy body
-    - DLB
-    - visual hallucinations
-    - fluctuating cognition
-    - REM sleep behavior
-    - parkinsonism
-    - McKeith criteria
+  content: 'DLB CRITERIA (McKeith 2017): >=2 core features = probable DLB, 1 = possible DLB. CORE FEATURES: (1) Fluctuating cognition with pronounced variations in attention/alertness, (2) Recurrent visual hallucinations (well-formed, detailed), (3) REM sleep behavior disorder (may precede cognitive decline), (4) Spontaneous parkinsonism (bradykinesia, rigidity, tremor). DLB vs PDD: DLB = dementia within 1 year of parkinsonism; PDD = dementia >1 year after established PD.'
   metadata:
     category: diagnostic_criteria
-    diagnosis: dementia_with_lewy_bodies
-    priority: CRITICAL
-    source: McKeith 2017, AA 2024 Guidelines Table 4
-    domain: neurology
-
+    diagnosis: lewy_body_disease
+    priority: HIGH
+    source: McKeith 2017
 - id: aadrd_vascular_dementia_criteria
-  name: Vascular Dementia Criteria (NINDS-AIREN)
+  name: Vascular Dementia Criteria
   type: diagnostic_criteria
-  enabled: true
-  content: |
-    VASCULAR DEMENTIA DIAGNOSTIC CRITERIA
-    Source: NINDS-AIREN Criteria (Roman 1993), AA 2024 Guidelines Table 4
-
-    Vascular dementia requires:
-
-    1. DEMENTIA ESTABLISHED
-       - Clinically and neuropsychologically
-       - Meeting standard dementia criteria
-
-    2. CEREBROVASCULAR DISEASE PRESENT
-       - Evidence by history (stroke, TIA)
-       - OR neuroimaging (CT/MRI)
-       - Showing infarcts, white matter disease, or other vascular changes
-
-    3. RELATIONSHIP BETWEEN DEMENTIA AND CVD:
-
-       Temporal relationship suggesting causation:
-       - Onset of dementia within 3 months of recognized stroke
-       - OR abrupt deterioration in cognitive functions
-       - OR stepwise/fluctuating progression of cognitive deficits
-
-    CLINICAL FEATURES SUPPORTING DIAGNOSIS:
-    - Early gait disturbance (magnetic, marche a petits pas, apraxic-ataxic)
-    - History of unsteadiness and frequent unprovoked falls
-    - Early urinary urgency/frequency not explained by urologic disease
-    - Pseudobulbar palsy
-    - Personality and mood changes (abulia, depression, emotional incontinence)
-    - Psychomotor retardation
-    - Executive dysfunction (planning, organizing, sequencing)
-
-    FEATURES INCONSISTENT WITH VaD:
-    - Early memory deficit and progressive worsening without focal signs
-    - Absence of cerebrovascular lesions on imaging
-
-    NOTE: Mixed dementia (AD + vascular) is VERY COMMON, especially in elderly
-  keywords:
-    - vascular dementia
-    - VaD
-    - stroke
-    - cerebrovascular
-    - NINDS-AIREN
-    - white matter disease
-    - stepwise progression
+  content: 'VASCULAR DEMENTIA (NINDS-AIREN): Requires (1) dementia established clinically, (2) cerebrovascular disease present (history or imaging), (3) relationship between dementia and CVD: onset within 3 months of stroke, OR abrupt deterioration, OR stepwise/fluctuating progression. Clinical features: early gait disturbance, falls, urinary symptoms, pseudobulbar palsy, mood changes, executive dysfunction.'
   metadata:
     category: diagnostic_criteria
     diagnosis: vascular_dementia
-    priority: CRITICAL
-    source: NINDS-AIREN Roman 1993, AA 2024 Guidelines Table 4
-    domain: neurology
-
+    priority: HIGH
+    source: NINDS-AIREN Roman 1993
 - id: aadrd_ftd_criteria
-  name: Frontotemporal Dementia Criteria (Rascovsky 2011)
+  name: Frontotemporal Dementia Criteria
   type: diagnostic_criteria
-  enabled: true
-  content: |
-    BEHAVIORAL VARIANT FRONTOTEMPORAL DEMENTIA (bvFTD) CRITERIA
-    Source: Rascovsky 2011 Criteria (AA 2024 Guidelines Table 4)
-
-    REQUIRED FEATURE:
-    - Progressive deterioration of behavior and/or cognition
-       by observation or history
-
-    BEHAVIORAL FEATURES (THREE of six required for probable bvFTD):
-
-    1. EARLY BEHAVIORAL DISINHIBITION
-       - Socially inappropriate behavior
-       - Loss of manners or decorum
-       - Impulsive, rash, or careless actions
-
-    2. EARLY APATHY OR INERTIA
-       - Loss of interest or motivation
-       - Reduced initiative
-       - May be mistaken for depression
-
-    3. EARLY LOSS OF SYMPATHY OR EMPATHY
-       - Diminished response to others' needs/feelings
-       - Diminished social interest
-       - Loss of personal warmth
-
-    4. EARLY PERSEVERATIVE/STEREOTYPED/COMPULSIVE BEHAVIORS
-       - Simple repetitive movements
-       - Complex compulsive behaviors
-       - Ritualistic behaviors
-       - Stereotypy of speech
-
-    5. HYPERORALITY AND DIETARY CHANGES
-       - Altered food preferences (often sweets)
-       - Binge eating
-       - Increased consumption of alcohol/cigarettes
-       - Oral exploration of inedible objects
-
-    6. EXECUTIVE DEFICITS WITH RELATIVE SPARING OF:
-       - Memory
-       - Visuospatial functions
-
-    KEY DISTINGUISHING FEATURES FROM AD:
-    - Earlier age of onset (typically 45-65 years)
-    - Behavioral changes precede or dominate memory loss
-    - Memory relatively spared early in disease
-    - Personality changes prominent
-    - Less insight into deficits
-  keywords:
-    - frontotemporal dementia
-    - FTD
-    - bvFTD
-    - behavioral variant
-    - Rascovsky criteria
-    - disinhibition
-    - apathy
-    - behavioral changes
+  content: 'bvFTD CRITERIA (Rascovsky 2011): Progressive deterioration + THREE of six features: (1) Early behavioral disinhibition, (2) Early apathy/inertia, (3) Early loss of sympathy/empathy, (4) Early perseverative/compulsive behaviors, (5) Hyperorality/dietary changes, (6) Executive deficits with relative sparing of memory/visuospatial. KEY: Earlier onset (45-65), behavioral changes precede memory loss, personality changes prominent.'
   metadata:
     category: diagnostic_criteria
     diagnosis: frontotemporal_dementia
-    priority: CRITICAL
-    source: Rascovsky 2011, AA 2024 Guidelines Table 4
-    domain: neurology
-
+    priority: HIGH
+    source: Rascovsky 2011
 - id: aadrd_non_adrd_exclusions
   name: Non-ADRD Causes to Exclude
   type: guideline
-  enabled: true
-  content: |
-    NON-ADRD CAUSES TO EXCLUDE BEFORE DIAGNOSING ADRD
-
-    MUST RULE OUT THESE CONDITIONS FIRST:
-
-    =====================================
-    1. DELIRIUM (CRITICAL TO EXCLUDE)
-    =====================================
-    Definition: Acute, fluctuating confusion with inattention
-
-    KEY FEATURES DISTINGUISHING FROM DEMENTIA:
-    - Onset: Hours to days (NOT months to years)
-    - Course: Fluctuating within same day
-    - Attention: ALWAYS impaired (key feature)
-    - Consciousness: Altered (hyper- or hypoactive)
-    - Duration: Usually days to weeks if cause treated
-
-    IMPORTANT: Delirium can COEXIST with dementia
-    - Delirium superimposed on dementia is common
-    - Must distinguish baseline from acute change
-
-    =====================================
-    2. PSYCHIATRIC DISORDERS
-    =====================================
-
-    DEPRESSION/PSEUDODEMENTIA:
-    - Cognitive complaints may be prominent
-    - Mood symptoms present
-    - May improve with treatment
-    - IMPORTANT: Depression can BE early ADRD symptom
-      (>50% who develop dementia had depression first)
-    - Consider both diagnoses
-
-    SCHIZOPHRENIA:
-    - Hallucinations (typically auditory, not visual)
-    - Delusions
-    - Disorganized thinking
-    - Earlier onset typically
-
-    BIPOLAR DISORDER:
-    - Mood episodes
-    - Cognitive changes during episodes
-    - May improve between episodes
-
-    =====================================
-    3. MEDICAL CONDITIONS (Treatable Causes)
-    =====================================
-
-    LABORATORY WORKUP REQUIRED:
-    - TSH (hypothyroidism)
-    - Vitamin B12 (deficiency)
-    - CBC (anemia, infection)
-    - Comprehensive metabolic panel
-    - Consider: RPR/VDRL (syphilis), HIV
-
-    TREATABLE CONDITIONS:
-    - Hypothyroidism
-    - Vitamin B12 deficiency
-    - Infections
-    - Dehydration/electrolyte imbalance
-    - Normal pressure hydrocephalus (NPH)
-    - Subdural hematoma
-    - Brain tumor
-
-    NOTE ON REVERSIBILITY:
-    - Only 0.3-0.6% of dementias are truly reversible
-    - BUT approximately 9% have treatable comorbid conditions
-    - Always evaluate for treatable contributors
-
-    =====================================
-    4. MEDICATION-INDUCED
-    =====================================
-
-    HIGH-RISK MEDICATIONS:
-    - Anticholinergics (confusion, especially in elderly)
-    - Benzodiazepines
-    - Opioids
-    - Sedative-hypnotics
-    - Antipsychotics
-    - Some anticonvulsants
-
-    Review all medications in any patient with cognitive complaints
-  keywords:
-    - delirium
-    - psychiatric
-    - depression
-    - pseudodementia
-    - reversible dementia
-    - medication induced
-    - non-ADRD
-    - differential diagnosis
+  content: 'NON-ADRD CAUSES TO EXCLUDE: DELIRIUM (acute onset hours-days, fluctuating, inattention - must rule out before diagnosing dementia). PSYCHIATRIC (depression/pseudodementia - but depression can BE early ADRD symptom). MEDICAL (hypothyroidism-check TSH, B12 deficiency, infections, dehydration, medications especially anticholinergics/sedatives). Lab workup: CBC, CMP, TSH, B12, homocysteine, CRP/ESR. Imaging: MRI or CT. Only 0.3-0.6% truly reversible but ~9% have treatable comorbidities.'
   metadata:
     category: differential_diagnosis
     diagnosis: adrd
     priority: CRITICAL
-    source: AA 2024 Clinical Practice Guidelines
-    domain: neurology
-
-- id: aadrd_adrd_types_overview
-  name: ADRD Types Overview
+    source: AA 2024 Guidelines
+- id: aadrd_mixed_dementia
+  name: Mixed Dementia
   type: reference
-  enabled: true
-  content: |
-    ADRD TYPES OVERVIEW
-
-    =====================================
-    ALZHEIMER'S DISEASE (AD)
-    =====================================
-    Prevalence: Most common ADRD (~60-80% of dementia cases)
-    Onset: Insidious (gradual over months to years)
-    Progression: Progressive, continuous worsening
-    Typical Pattern: Memory-predominant early, other domains affected later
-    Key Features:
-    - Episodic memory loss is hallmark early symptom
-    - Difficulty learning new information
-    - Progressive involvement of other cognitive domains
-    - Amnestic presentation most common
-
-    =====================================
-    VASCULAR DEMENTIA (VaD)
-    =====================================
-    Prevalence: Second most common (~10-20%)
-    Onset: Can be sudden (stroke) or gradual (small vessel disease)
-    Progression: Stepwise or fluctuating (classic); can be gradual
-    Typical Pattern: Executive dysfunction prominent; depends on stroke location
-    Key Features:
-    - History of stroke or vascular risk factors
-    - Neuroimaging shows vascular changes
-    - Focal neurological signs may be present
-    - Gait disturbance, urinary symptoms common
-
-    =====================================
-    LEWY BODY DISEASE (DLB)
-    =====================================
-    Prevalence: ~5-10% of dementia
-    Distinguishing Features:
-    - Visual hallucinations (well-formed, detailed)
-    - Fluctuating cognition
-    - Parkinsonism (bradykinesia, rigidity, tremor)
-    - REM sleep behavior disorder
-    Note: DLB if dementia within 1 year of motor symptoms
-          PDD if dementia >1 year after established Parkinson's
-
-    =====================================
-    FRONTOTEMPORAL DEMENTIA (FTD)
-    =====================================
-    Prevalence: ~5-10%, typically younger onset
-    Onset: Usually 45-65 years (younger than AD)
-    Distinguishing Features:
-    - Behavioral changes or language problems EARLY
-    - Memory relatively SPARED initially
-    - Personality changes prominent
-    Variants:
-    - Behavioral variant (bvFTD)
-    - Semantic variant PPA
-    - Nonfluent/agrammatic variant PPA
-
-    =====================================
-    MIXED DEMENTIA
-    =====================================
-    Prevalence: VERY COMMON in elderly (>50% over age 85)
-    Definition: Multiple concurrent pathologies
-    Common Combinations:
-    - AD + vascular
-    - AD + Lewy body
-    - AD + vascular + Lewy body
-    Clinical Implication:
-    - Pure single-etiology dementia is often the exception
-    - Clinical presentation may have mixed features
-    - Treatment should address all contributing pathologies
-  keywords:
-    - Alzheimer's disease
-    - vascular dementia
-    - Lewy body
-    - frontotemporal
-    - mixed dementia
-    - ADRD types
+  content: 'MIXED DEMENTIA: Multiple pathologies VERY COMMON in elderly (>50% over age 85). Common combinations: AD + vascular, AD + Lewy body, AD + vascular + Lewy body. Pure single-etiology dementia is often the exception. Clinical presentation may have mixed features. Treatment should address all contributing pathologies.'
   metadata:
     category: reference
-    diagnosis: adrd
+    diagnosis: mixed_dementia
     priority: HIGH
-    source: AA 2024 Clinical Practice Guidelines
-    domain: neurology
-
-- id: aadrd_cognitive_lab_panel
-  name: Cognitive Evaluation Laboratory Panel
+    source: AA 2024 Guidelines
+- id: aadrd_clinical_judgment
+  name: Clinical Judgment Principles
   type: guideline
-  enabled: true
-  content: |
-    COGNITIVE EVALUATION LABORATORY PANEL
-    Purpose: Rule out treatable/reversible causes of cognitive impairment
-
-    =====================================
-    TIER 1 - STANDARD WORKUP (All patients)
-    =====================================
-
-    1. CBC with Differential
-       - Rule out: Anemia, infection, hematologic disorder
-
-    2. Complete Metabolic Panel (Chem-20)
-       - Includes: Electrolytes, glucose, renal function, hepatic function
-       - Rule out: Metabolic derangement, renal/hepatic encephalopathy
-
-    3. TSH (Thyroid Stimulating Hormone)
-       - Rule out: Hypothyroidism (can cause reversible cognitive impairment)
-
-    4. Vitamin B12
-       - Rule out: B12 deficiency (can cause dementia, neuropathy)
-       - Consider homocysteine if B12 borderline
-
-    5. Homocysteine
-       - Elevated in B12/folate deficiency
-       - Also vascular risk factor
-
-    6. CRP and ESR (Inflammatory Markers)
-       - Rule out: Inflammatory conditions, infection
-
-    =====================================
-    IMAGING (Essential)
-    =====================================
-
-    Brain MRI (Preferred) or CT
-    - Rule out: Stroke, tumor, hydrocephalus, subdural hematoma
-    - Assess: Atrophy pattern, white matter disease, vascular changes
-    - MRI superior for detecting:
-      - White matter hyperintensities
-      - Hippocampal atrophy
-      - Microbleeds
-      - Small vessel disease
-
-    =====================================
-    ADDITIONAL TESTING (As indicated)
-    =====================================
-
-    - RPR/VDRL: If syphilis risk or unexplained dementia
-    - HIV: If risk factors present
-    - Heavy metals: If exposure history
-    - LP (Lumbar Puncture): If infection, inflammation, or biomarkers needed
-    - EEG: If seizures suspected
-
-    =====================================
-    NOTE ON REVERSIBILITY
-    =====================================
-
-    - Only 0.3-0.6% of dementias are truly reversible
-    - BUT approximately 9% have treatable COMORBID conditions
-    - Always evaluate for treatable contributors
-    - Even if dementia not reversible, treating comorbidities improves function
-  keywords:
-    - laboratory workup
-    - cognitive evaluation
-    - reversible causes
-    - TSH
-    - B12
-    - imaging
-    - MRI
-  metadata:
-    category: guidelines
-    diagnosis: adrd
-    priority: HIGH
-    source: AA 2024 Clinical Practice Guidelines
-    domain: laboratory
-
-- id: aadrd_screening_tools_table5
-  name: Cognitive Screening Tools (Table 5)
-  type: reference
-  enabled: true
-  content: |
-    COGNITIVE SCREENING TOOLS
-    Source: AA 2024 Guidelines Table 5
-
-    CRITICAL REMINDER: These are SCREENING tools, NOT diagnostic tests.
-    Thresholds suggest possible impairment requiring further evaluation.
-    Clinical context, history, and comprehensive assessment determine diagnosis.
-
-    =====================================
-    MoCA (Montreal Cognitive Assessment)
-    =====================================
-    Range: 0-30
-    Screening Threshold: <26 suggests possible cognitive impairment
-    Education Adjustment: Add 1 point if <=12 years education
-    Validation: 90% sensitivity, 87% specificity for MCI
-    Domains Assessed: Multiple (attention, memory, language, visuospatial, executive)
-    Strengths: More sensitive than MMSE for MCI, executive dysfunction
-    Time: ~10 minutes
-
-    =====================================
-    MMSE (Mini-Mental State Examination)
-    =====================================
-    Range: 0-30
-    Screening Threshold: <26 suggests possible cognitive impairment
-    Validation: 81% sensitivity, 82% specificity
-    Domains Assessed: Orientation, registration, attention, recall, language, construction
-    LIMITATION: Low sensitivity for MCI - may miss mild impairment
-    Use: Better for tracking progression than initial screening
-    Time: ~10 minutes
-
-    =====================================
-    Mini-Cog
-    =====================================
-    Range: 0-5
-    Screening Threshold: <=3 suggests possible cognitive impairment
-    Validation: 76% sensitivity, 89% specificity
-    Components: 3-word recall + clock drawing
-    Strengths: Very brief, good for primary care
-    Limitation: Limited domain assessment
-    Time: ~3 minutes
-
-    =====================================
-    CDR (Clinical Dementia Rating)
-    =====================================
-    Range: 0, 0.5, 1, 2, 3
-    NOT a screening tool - STAGING tool for severity
-
-    0 = No impairment
-    0.5 = MCI/Questionable (functional independence PRESERVED)
-    1 = Mild dementia (functional impairment PRESENT)
-    2 = Moderate dementia
-    3 = Severe dementia
-
-    CRITICAL: CDR 0.5 vs 1 distinguishes MCI from dementia
-    Based on functional impairment, not just cognitive scores
-
-    Domains Assessed: Memory, orientation, judgment, community affairs, home/hobbies, personal care
-  keywords:
-    - MoCA
-    - MMSE
-    - Mini-Cog
-    - CDR
-    - cognitive screening
-    - screening thresholds
-    - Table 5
-  metadata:
-    category: reference
-    diagnosis: adrd
-    priority: HIGH
-    source: AA 2024 Guidelines Table 5
-    domain: neuropsychology
-
-- id: aadrd_functional_assessment_mci_dementia
-  name: Functional Assessment - MCI vs Dementia Distinction
-  type: guideline
-  enabled: true
-  content: |
-    FUNCTIONAL ASSESSMENT: THE KEY TO MCI vs DEMENTIA DISTINCTION
-
-    CRITICAL CONCEPT:
-    Functional impairment is THE distinguishing feature between MCI and dementia.
-    Cognitive test scores alone do NOT differentiate MCI from dementia.
-
-    =====================================
-    MCI (Mild Cognitive Impairment)
-    =====================================
-    - Functional independence PRESERVED
-    - May be slower, less efficient, make more errors
-    - BUT maintains independence without assistance
-    - Can still manage IADLs and ADLs
-
-    =====================================
-    DEMENTIA
-    =====================================
-    - Functional independence IMPAIRED
-    - Requires assistance with activities
-    - Cannot function independently in usual activities
-    - Progressive loss of independence
-
-    =====================================
-    FUNCTIONAL ASSESSMENT TOOLS
-    =====================================
-
-    LAWTON IADL (Instrumental Activities of Daily Living)
-    Range: 0-8 (8 = fully independent)
-    Activities: Phone, shopping, food prep, housekeeping, laundry, transport, medications, finances
-
-    CRITICAL FOR MCI vs DEMENTIA:
-    - MCI: Score 7-8 (preserved or minimal difficulty)
-    - Dementia: Score <7 (impaired)
-
-    IADLs decline BEFORE basic ADLs in neurodegenerative disease.
-
-    KATZ ADL (Basic Activities of Daily Living)
-    Range: 0-6 (6 = fully independent)
-    Activities: Bathing, dressing, toileting, transferring, continence, feeding
-
-    Basic ADL impairment indicates more advanced disease:
-    - MCI: ADLs fully preserved (score 6)
-    - Mild dementia: ADLs preserved or minimal difficulty
-    - Moderate/severe dementia: ADL impairment present
-
-    =====================================
-    FAQ (Functional Activities Questionnaire)
-    =====================================
-    Informant-rated assessment of functional abilities
-    Useful for detecting subtle IADL decline
-
-    =====================================
-    CLINICAL APPLICATION
-    =====================================
-
-    When evaluating a patient with cognitive complaints:
-
-    1. Document SPECIFIC functional abilities/limitations
-    2. Get informant input (patient may lack insight)
-    3. Ask about CHANGE from previous level
-    4. Assess IADLs first (most sensitive to early decline)
-
-    If cognitive impairment present:
-    - IADLs preserved → MCI
-    - IADLs impaired → Dementia
-  keywords:
-    - functional assessment
-    - MCI
-    - dementia
-    - IADL
-    - ADL
-    - Lawton
-    - Katz
-    - functional independence
+  content: 'CLINICAL JUDGMENT PRINCIPLES: (1) Screening thresholds are NOT diagnostic cutoffs, (2) Missing documentation does NOT equal absence of impairment, (3) Functional impairment distinguishes MCI from dementia, (4) Psychiatric symptoms can BE early ADRD manifestation, (5) Multiple pathologies common in elderly, (6) Rule out delirium and non-ADRD causes first, (7) No single test determines diagnosis, (8) Integrate ALL clinical information with expert judgment.'
   metadata:
     category: guidelines
     diagnosis: adrd
     priority: CRITICAL
-    source: AA 2024 Clinical Practice Guidelines
-    domain: functional_assessment
+    source: AA 2024 Guidelines
