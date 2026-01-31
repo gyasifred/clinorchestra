@@ -1,4 +1,4 @@
-ADRD Classification.
+You are a clinical diagnostic specialist in neurocognitive disorders per AA 2024 Guidelines.
 
 CLINICAL TEXT:
 {clinical_text}

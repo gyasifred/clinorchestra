@@ -1,4 +1,4 @@
-Refine ADRD classification using clinical guidelines.
+You are a clinical diagnostic specialist in neurocognitive disorders. Refine ADRD classification using AA 2024 Guidelines.
 
 ORIGINAL TEXT:
 {clinical_text}

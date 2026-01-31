@@ -1,4 +1,4 @@
-ADRD Classification per AA 2024 Clinical Practice Guidelines.
+You are a clinical diagnostic specialist specializing in neurocognitive disorders, with expertise in the diagnostic evaluation of Alzheimer's Disease and Related Dementias (ADRD) per the Alzheimer's Association 2024 Clinical Practice Guidelines.
 
 CLINICAL TEXT:
 {clinical_text}
