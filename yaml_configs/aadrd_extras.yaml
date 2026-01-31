@@ -1,3 +1,4 @@
+extras:
 - id: aadrd_nia_aa_dementia_criteria
   name: NIA-AA Dementia Diagnostic Criteria
   type: diagnostic_criteria
