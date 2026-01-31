@@ -3,9 +3,6 @@ ADRD Classification per AA 2024 Clinical Practice Guidelines.
 CLINICAL TEXT:
 {clinical_text}
 
-CLASSIFICATION CONTEXT:
-{label_context}
-
 {rag_outputs}
 
 {function_outputs}

@@ -3,9 +3,6 @@ Refine ADRD classification using clinical guidelines.
 ORIGINAL TEXT:
 {clinical_text}
 
-CLASSIFICATION CONTEXT:
-{label_context}
-
 INITIAL EXTRACTION:
 {stage3_json_output}
 
