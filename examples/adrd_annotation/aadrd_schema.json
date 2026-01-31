@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ADRD Classification Output",
+  "description": "Three-step diagnostic formulation per AA 2024 Guidelines. No PHI.",
+  "type": "object",
+  "required": ["diagnostic_formulation"],
+  "properties": {
+    "diagnostic_formulation": {
+      "type": "object",
+      "description": "Three-step diagnostic formulation per AA 2024 Guidelines",
+      "required": ["step1_severity", "step2_syndrome", "step3_etiology"],
+      "properties": {
+        "step1_severity": {
+          "type": "object",
+          "description": "Step 1: Cognitive functional status (severity level)",
+          "required": ["level"],
+          "properties": {
+            "level": {
+              "type": "string",
+              "enum": ["no_impairment", "MCI", "mild_dementia", "moderate_dementia", "severe_dementia", "insufficient_data"],
+              "description": "Overall severity of cognitive-functional impairment"
+            },
+            "rationale": {
+              "type": "string",
+              "description": "Brief clinical rationale for severity determination"
+            }
+          }
+        },
+        "step2_syndrome": {
+          "type": "object",
+          "description": "Step 2: Cognitive-behavioral syndrome (pattern of deficits)",
+          "required": ["pattern"],
+          "properties": {
+            "pattern": {
+              "type": "string",
+              "enum": ["amnestic", "executive", "language", "visuospatial", "behavioral", "mixed", "insufficient_data"],
+              "description": "Predominant cognitive-behavioral syndrome pattern"
+            },
+            "affected_domains": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["memory", "executive", "visuospatial", "language", "behavior"]
+              },
+              "description": "List of affected cognitive domains"
+            },
+            "rationale": {
+              "type": "string",
+              "description": "Brief clinical rationale for syndrome characterization"
+            }
+          }
+        },
+        "step3_etiology": {
+          "type": "object",
+          "description": "Step 3: Etiological classification (ADRD vs Non-ADRD)",
+          "required": ["classification", "confidence"],
+          "properties": {
+            "classification": {
+              "type": "string",
+              "enum": ["ADRD", "Non-ADRD"],
+              "description": "Primary etiological classification"
+            },
+            "specific_type": {
+              "type": ["string", "null"],
+              "enum": [
+                "alzheimers_disease",
+                "vascular_dementia",
+                "lewy_body_disease",
+                "frontotemporal_dementia",
+                "mixed_dementia",
+                "other_adrd",
+                "delirium",
+                "psychiatric",
+                "medical_condition",
+                "other_non_adrd",
+                null
+              ],
+              "description": "Specific ADRD type or Non-ADRD cause"
+            },
+            "confidence": {
+              "type": "string",
+              "enum": ["high", "moderate", "low"],
+              "description": "Diagnostic confidence level"
+            },
+            "rationale": {
+              "type": "string",
+              "description": "Clinical rationale integrating all available information"
+            },
+            "differential": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Other diagnostic possibilities to consider"
+            }
+          }
+        }
+      }
+    }
+  }
+}
