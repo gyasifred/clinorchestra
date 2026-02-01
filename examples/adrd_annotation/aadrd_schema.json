@@ -1,58 +1,38 @@
 {
   "type": "object",
   "properties": {
-    "severity_level": {
+    "severity": {
       "type": "string",
       "enum": ["no_impairment", "MCI", "mild_dementia", "moderate_dementia", "severe_dementia", "insufficient_data"],
-      "description": "Step 1: Cognitive functional status - MCI requires preserved function, dementia requires impaired function"
+      "description": "Cognitive functional status per NIA-AA: MCI = preserved function (CDR 0.5), dementia = impaired function (CDR ≥1)"
     },
-    "severity_rationale": {
-      "type": "string",
-      "description": "Brief rationale for severity determination based on functional assessment (CDR, IADL, ADL)"
-    },
-    "syndrome_pattern": {
+    "syndrome": {
       "type": "string",
       "enum": ["amnestic", "executive", "language", "visuospatial", "behavioral", "mixed", "insufficient_data"],
-      "description": "Step 2: Predominant cognitive-behavioral syndrome pattern"
+      "description": "Predominant cognitive-behavioral syndrome pattern based on affected domains"
     },
-    "affected_domains": {
-      "type": "array",
-      "items": {"type": "string"},
-      "description": "List of affected cognitive domains: memory, executive, visuospatial, language, behavior"
+    "diagnosis": {
+      "type": "object",
+      "properties": {
+        "classification": {
+          "type": "string",
+          "enum": ["ADRD", "Non-ADRD"]
+        },
+        "specific_type": {
+          "type": "string",
+          "enum": ["alzheimers_disease", "vascular_dementia", "lewy_body_disease", "frontotemporal_dementia", "mixed_dementia", "other_adrd", "delirium", "psychiatric", "medical_condition", "other_non_adrd"]
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["high", "moderate", "low"]
+        }
+      },
+      "description": "Etiological diagnosis with classification, specific type, and confidence level"
     },
-    "syndrome_rationale": {
+    "clinical_summary": {
       "type": "string",
-      "description": "Brief rationale for syndrome characterization and domain involvement"
-    },
-    "classification": {
-      "type": "string",
-      "enum": ["ADRD", "Non-ADRD"],
-      "description": "Step 3: Primary etiological classification"
-    },
-    "specific_type": {
-      "type": "string",
-      "enum": ["alzheimers_disease", "vascular_dementia", "lewy_body_disease", "frontotemporal_dementia", "mixed_dementia", "other_adrd", "delirium", "psychiatric", "medical_condition", "other_non_adrd"],
-      "description": "Specific ADRD type or Non-ADRD cause"
-    },
-    "confidence": {
-      "type": "string",
-      "enum": ["high", "moderate", "low"],
-      "description": "Diagnostic confidence level"
-    },
-    "etiology_rationale": {
-      "type": "string",
-      "description": "Clinical rationale integrating all available information for etiological classification"
-    },
-    "differential": {
-      "type": "array",
-      "items": {"type": "string"},
-      "description": "Other diagnostic possibilities to consider"
+      "description": "Integrated clinical narrative: severity rationale (functional assessment), syndrome characterization (affected domains), etiology reasoning, and differential considerations"
     }
   },
-  "required": [
-    "severity_level",
-    "syndrome_pattern",
-    "classification",
-    "confidence"
-  ]
+  "required": ["severity", "syndrome", "diagnosis", "clinical_summary"]
 }

@@ -1,6 +1,6 @@
-You are a clinical diagnostic specialist in neurocognitive disorders per AA 2024 Guidelines.
+ADRD specialist per AA 2024 Guidelines.
 
-CLINICAL TEXT:
+TEXT:
 {clinical_text}
 
 {rag_outputs}
@@ -11,13 +11,12 @@ CLINICAL TEXT:
 
 TASK: Classify ADRD vs Non-ADRD.
 
-Three steps:
-1. SEVERITY: no_impairment / MCI / mild_dementia / moderate_dementia / severe_dementia
-2. SYNDROME: amnestic / executive / language / visuospatial / behavioral / mixed
-3. ETIOLOGY: ADRD or Non-ADRD with specific type
+OUTPUT:
+- severity: no_impairment/MCI/mild_dementia/moderate_dementia/severe_dementia
+- syndrome: amnestic/executive/language/visuospatial/behavioral/mixed
+- diagnosis: {classification, specific_type, confidence}
+- clinical_summary: Integrated reasoning
 
-Key: MCI = preserved function. Dementia = impaired function.
-
-Use clinical judgment to integrate all information.
+Key: MCI=preserved function, Dementia=impaired function.
 
 {json_schema_instructions}
