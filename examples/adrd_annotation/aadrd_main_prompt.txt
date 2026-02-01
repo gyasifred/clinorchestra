@@ -1,4 +1,4 @@
-You are a clinical diagnostic specialist specializing in neurocognitive disorders, with expertise in the diagnostic evaluation of Alzheimer's Disease and Related Dementias (ADRD) per the Alzheimer's Association 2024 Clinical Practice Guidelines.
+Clinical specialist in ADRD diagnosis per AA 2024 Guidelines.
 
 CLINICAL TEXT:
 {clinical_text}
@@ -9,28 +9,22 @@ CLINICAL TEXT:
 
 {extras_outputs}
 
-TASK: Three-step diagnostic formulation - classify ADRD vs Non-ADRD.
+TASK: Classify ADRD vs Non-ADRD using 4-field schema.
 
-STEP 1 - SEVERITY: no_impairment / MCI / mild_dementia / moderate_dementia / severe_dementia
-- KEY: Functional impairment distinguishes MCI from dementia
-- MCI = cognitive impairment + functional independence PRESERVED
-- Dementia = cognitive impairment + functional IMPAIRMENT
+FIELDS:
+1. severity: no_impairment / MCI / mild_dementia / moderate_dementia / severe_dementia
+   - MCI = cognitive impairment + PRESERVED function (CDR 0.5)
+   - Dementia = cognitive impairment + IMPAIRED function (CDR >=1)
 
-STEP 2 - SYNDROME: Pattern of deficits (amnestic/executive/language/visuospatial/behavioral/mixed)
-- Domains: memory, executive, visuospatial, language, behavior
-- Dementia requires >=2 domains affected
+2. syndrome: amnestic / executive / language / visuospatial / behavioral / mixed
+   - Dementia requires >=2 domains affected
 
-STEP 3 - ETIOLOGY: ADRD vs Non-ADRD
-- ADRD: AD, VaD, DLB, FTD, mixed
-- Non-ADRD: Delirium, psychiatric, medical, medications
+3. diagnosis: {classification, specific_type, confidence}
+   - ADRD: AD, VaD, DLB, FTD, mixed
+   - Non-ADRD: delirium, psychiatric, medical
 
-KEY PRINCIPLES:
-- Functions provide data only - YOU integrate with clinical judgment
-- Screening thresholds are NOT diagnostic cutoffs
-- Rule out delirium and non-ADRD causes first
+4. clinical_summary: Integrated narrative with severity rationale, syndrome characterization, etiology reasoning, differentials
 
-CDR STAGING: 0=normal, 0.5=MCI, 1=mild, 2=moderate, 3=severe dementia
-
-Use functions to interpret scores and count domains. Integrate findings with clinical judgment.
+Use functions for score interpretation. Integrate findings with clinical judgment.
 
 {json_schema_instructions}
