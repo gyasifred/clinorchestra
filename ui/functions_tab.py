@@ -303,14 +303,14 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
     def register_function(func_name, func_desc, func_code, func_returns, func_params):
         """Register function"""
         if not func_name or not func_code:
-            return "", "", "", "", {}, "Function name and code required", gr.update()
-        
+            return "", "", "", "", "", {}, "Function name and code required", gr.update()
+
         function_registry = app_state.get_function_registry()
         if not function_registry:
             function_registry = FunctionRegistry()
             app_state.set_function_registry(function_registry)
             logger.warning("FunctionRegistry was not set; initialized new instance")
-        
+
         success, message = function_registry.register_function(
             func_name,
             func_code,
@@ -318,7 +318,7 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
             func_params,
             func_returns
         )
-        
+
         if success:
             data = []
             for f_name in function_registry.list_functions():
@@ -326,9 +326,9 @@ def create_functions_tab(app_state) -> Dict[str, Any]:
                 if func_info:
                     params_str = ', '.join(func_info.get('parameters', {}).keys())
                     data.append([f_name, func_info.get('description', ''), "Yes" if func_info.get('enabled', True) else "No", params_str])
-            return "", "", "", "", {}, f"Success: {message}", gr.update(value=data)
+            return "", "", "", "", "", {}, f"Success: {message}", gr.update(value=data)
         else:
-            return func_name, func_desc, func_code, func_returns, func_params, f"Error: {message}", gr.update()
+            return "", func_name, func_desc, func_code, func_returns, func_params, f"Error: {message}", gr.update()
     
     def save_function(func_id, func_name, func_desc, func_code, func_returns, func_params):
         """Save edited function"""
