@@ -1,0 +1,109 @@
+extras:
+- id: aadrd_nia_aa_dementia_criteria
+  name: NIA-AA Dementia Diagnostic Criteria
+  type: diagnostic_criteria
+  content: 'NIA-AA DEMENTIA CRITERIA (AA 2024 Table 1): Dementia requires cognitive/behavioral symptoms that: (1) Interfere with function at work or usual activities, (2) Represent decline from previous level, (3) Not explained by delirium, (4) Not explained by major psychiatric disorder as PRIMARY cause. PLUS >=2 of 5 domains affected: Memory (repetitive questions, misplacing items, forgetting events), Executive (poor judgment, cannot manage finances), Visuospatial (cannot recognize faces/objects), Language (word-finding difficulty), Behavior (mood changes, apathy, disinhibition).'
+  metadata:
+    category: diagnostic_criteria
+    diagnosis: adrd
+    priority: CRITICAL
+    source: AA 2024 Guidelines Table 1
+- id: aadrd_nia_aa_mci_criteria
+  name: NIA-AA MCI Diagnostic Criteria
+  type: diagnostic_criteria
+  content: 'NIA-AA MCI CRITERIA: (1) Cognitive concern from patient/informant/clinician, (2) Objective evidence of impairment in >=1 cognitive domain, (3) PRESERVATION OF INDEPENDENCE in functional abilities (KEY distinction from dementia), (4) Not demented. CRITICAL: MCI = cognitive impairment + functional independence PRESERVED. Dementia = cognitive impairment + functional IMPAIRMENT.'
+  metadata:
+    category: diagnostic_criteria
+    diagnosis: mci
+    priority: CRITICAL
+    source: AA 2024 Guidelines Table 1
+- id: aadrd_functional_assessment
+  name: Functional Assessment for MCI vs Dementia
+  type: guideline
+  content: 'FUNCTIONAL ASSESSMENT - KEY FOR MCI VS DEMENTIA: Lawton IADL (0-8, 8=independent) measures instrumental activities (phone, shopping, food prep, housekeeping, laundry, transport, meds, finances). IADL impairment = dementia (not MCI). IADLs decline BEFORE basic ADLs. Katz ADL (0-6, 6=independent) measures basic self-care (bathing, dressing, toileting, transferring, continence, feeding). Basic ADL impairment indicates more advanced disease.'
+  metadata:
+    category: functional_assessment
+    diagnosis: adrd
+    priority: CRITICAL
+    source: AA 2024 Guidelines
+- id: aadrd_cdr_staging
+  name: CDR Staging for Dementia Severity
+  type: guideline
+  content: 'CDR STAGING (Morris 1993): 0=no impairment, 0.5=MCI (functional independence PRESERVED - NOT dementia), 1=mild dementia (functional impairment PRESENT), 2=moderate dementia, 3=severe dementia. CRITICAL: CDR 0.5 vs 1.0 is the MCI/dementia boundary based on FUNCTIONAL IMPAIRMENT. Domains assessed: memory, orientation, judgment, community affairs, home/hobbies, personal care.'
+  metadata:
+    category: staging
+    diagnosis: adrd
+    priority: CRITICAL
+    source: Morris 1993
+- id: aadrd_screening_thresholds
+  name: Cognitive Screening Thresholds
+  type: reference
+  content: 'COGNITIVE SCREENING THRESHOLDS (AA 2024 Table 5) - SCREENING only, NOT diagnostic: MoCA <26 suggests possible impairment (add 1 point if education <=12 years; 90% sensitivity, 87% specificity for MCI). MMSE <26 suggests possible impairment (81% sensitivity, 82% specificity; LOW sensitivity for MCI). Mini-Cog <=3 suggests possible impairment (76% sensitivity, 89% specificity). These are thresholds for SCREENING, not diagnosis.'
+  metadata:
+    category: screening
+    diagnosis: adrd
+    priority: HIGH
+    source: AA 2024 Guidelines Table 5
+- id: aadrd_probable_ad_criteria
+  name: Probable Alzheimer Disease Criteria
+  type: diagnostic_criteria
+  content: 'PROBABLE AD (McKhann 2011): Meets dementia criteria + insidious onset (gradual over months-years) + clear worsening + initial/prominent deficits in one pattern: Amnestic (most common - memory + other domain), Language (word-finding), Visuospatial (spatial cognition), Executive (reasoning/judgment). Should NOT apply if: substantial CVD with temporal relationship, core DLB features, prominent bvFTD features, prominent PPA features.'
+  metadata:
+    category: diagnostic_criteria
+    diagnosis: alzheimers_disease
+    priority: HIGH
+    source: McKhann 2011
+- id: aadrd_dlb_criteria
+  name: Dementia with Lewy Bodies Criteria
+  type: diagnostic_criteria
+  content: 'DLB CRITERIA (McKeith 2017): >=2 core features = probable DLB, 1 = possible DLB. CORE FEATURES: (1) Fluctuating cognition with pronounced variations in attention/alertness, (2) Recurrent visual hallucinations (well-formed, detailed), (3) REM sleep behavior disorder (may precede cognitive decline), (4) Spontaneous parkinsonism (bradykinesia, rigidity, tremor). DLB vs PDD: DLB = dementia within 1 year of parkinsonism; PDD = dementia >1 year after established PD.'
+  metadata:
+    category: diagnostic_criteria
+    diagnosis: lewy_body_disease
+    priority: HIGH
+    source: McKeith 2017
+- id: aadrd_vascular_dementia_criteria
+  name: Vascular Dementia Criteria
+  type: diagnostic_criteria
+  content: 'VASCULAR DEMENTIA (NINDS-AIREN): Requires (1) dementia established clinically, (2) cerebrovascular disease present (history or imaging), (3) relationship between dementia and CVD: onset within 3 months of stroke, OR abrupt deterioration, OR stepwise/fluctuating progression. Clinical features: early gait disturbance, falls, urinary symptoms, pseudobulbar palsy, mood changes, executive dysfunction.'
+  metadata:
+    category: diagnostic_criteria
+    diagnosis: vascular_dementia
+    priority: HIGH
+    source: NINDS-AIREN Roman 1993
+- id: aadrd_ftd_criteria
+  name: Frontotemporal Dementia Criteria
+  type: diagnostic_criteria
+  content: 'bvFTD CRITERIA (Rascovsky 2011): Progressive deterioration + THREE of six features: (1) Early behavioral disinhibition, (2) Early apathy/inertia, (3) Early loss of sympathy/empathy, (4) Early perseverative/compulsive behaviors, (5) Hyperorality/dietary changes, (6) Executive deficits with relative sparing of memory/visuospatial. KEY: Earlier onset (45-65), behavioral changes precede memory loss, personality changes prominent.'
+  metadata:
+    category: diagnostic_criteria
+    diagnosis: frontotemporal_dementia
+    priority: HIGH
+    source: Rascovsky 2011
+- id: aadrd_non_adrd_exclusions
+  name: Non-ADRD Causes to Exclude
+  type: guideline
+  content: 'NON-ADRD CAUSES TO EXCLUDE: DELIRIUM (acute onset hours-days, fluctuating, inattention - must rule out before diagnosing dementia). PSYCHIATRIC (depression/pseudodementia - but depression can BE early ADRD symptom). MEDICAL (hypothyroidism-check TSH, B12 deficiency, infections, dehydration, medications especially anticholinergics/sedatives). Lab workup: CBC, CMP, TSH, B12, homocysteine, CRP/ESR. Imaging: MRI or CT. Only 0.3-0.6% truly reversible but ~9% have treatable comorbidities.'
+  metadata:
+    category: differential_diagnosis
+    diagnosis: adrd
+    priority: CRITICAL
+    source: AA 2024 Guidelines
+- id: aadrd_mixed_dementia
+  name: Mixed Dementia
+  type: reference
+  content: 'MIXED DEMENTIA: Multiple pathologies VERY COMMON in elderly (>50% over age 85). Common combinations: AD + vascular, AD + Lewy body, AD + vascular + Lewy body. Pure single-etiology dementia is often the exception. Clinical presentation may have mixed features. Treatment should address all contributing pathologies.'
+  metadata:
+    category: reference
+    diagnosis: mixed_dementia
+    priority: HIGH
+    source: AA 2024 Guidelines
+- id: aadrd_clinical_judgment
+  name: Clinical Judgment Principles
+  type: guideline
+  content: 'CLINICAL JUDGMENT PRINCIPLES: (1) Screening thresholds are NOT diagnostic cutoffs, (2) Missing documentation does NOT equal absence of impairment, (3) Functional impairment distinguishes MCI from dementia, (4) Psychiatric symptoms can BE early ADRD manifestation, (5) Multiple pathologies common in elderly, (6) Rule out delirium and non-ADRD causes first, (7) No single test determines diagnosis, (8) Integrate ALL clinical information with expert judgment.'
+  metadata:
+    category: guidelines
+    diagnosis: adrd
+    priority: CRITICAL
+    source: AA 2024 Guidelines

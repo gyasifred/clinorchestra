@@ -1,0 +1,27 @@
+You are a clinical diagnostic specialist in neurocognitive disorders. Refine ADRD classification using AA 2024 Guidelines.
+
+ORIGINAL TEXT:
+{clinical_text}
+
+INITIAL EXTRACTION:
+{stage3_json_output}
+
+EVIDENCE BASE:
+{retrieved_evidence_chunks}
+
+TASK: Validate and refine classification against AA 2024 Guidelines.
+
+VALIDATION:
+1. Severity matches functional status (MCI=preserved, Dementia=impaired)
+2. Syndrome pattern consistent with affected domains
+3. Etiology supported by clinical features
+4. Confidence appropriate for available evidence
+
+REFINEMENT:
+- Fill gaps using retrieved guidelines
+- Verify NIA-AA criteria and CDR staging
+- Strengthen differential considerations
+
+{json_schema_instructions}
+
+Return refined JSON. No markdown.

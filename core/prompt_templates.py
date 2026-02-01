@@ -33,86 +33,20 @@ from typing import Dict, Any, List
 # DEFAULT PROMPT TEMPLATES (main, minimal, RAG refinement)
 # ============================================================================
 
-DEFAULT_MAIN_PROMPT = """
-╔════════════════════════════════════════════════════════════════════════════╗
-║                          TASK DESCRIPTION                               ║
-╚════════════════════════════════════════════════════════════════════════════╝
+DEFAULT_MAIN_PROMPT = """[CLINICAL EXTRACTION TASK]
 
-You are a clinical expert analyzing medical records for structured information extraction.
+Extract structured information from clinical text. Follow JSON schema exactly.
 
-YOUR TASK:
-Extract and synthesize clinical information from the provided text, following the JSON schema exactly.
+RULES:
+• Use null for unknown values
+• Maintain clinical terminology
+• ANONYMIZE: "the patient", "the [age]-year-old" (NEVER names)
+• Convert units before function calls
 
-EXTRACTION GUIDELINES:
-- Be precise and accurate
-- Use null for unknown values
-- Maintain clinical terminology
-- Extract only factual information from the text
-- ANONYMIZE: Use "the patient", "the [age]-year-old", or "the family" (NEVER use names)
-
-FUNCTION CALLING:
-Ensure parameters are in correct units. Convert units using conversion functions before calling primary functions.
-
-════════════════════════════════════════════════════════════════════════════
-
-
-╔════════════════════════════════════════════════════════════════════════════╗
-║                    CLINICAL TEXT (PRIMARY SOURCE DATA)                  ║
-╚════════════════════════════════════════════════════════════════════════════╝
-
- CRITICAL: This is the PRIMARY CLINICAL NOTE you must extract from.
-    All other sections below provide SUPPORTING INFORMATION ONLY.
-
-CLINICAL NOTE CONTENT:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-{clinical_text}
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-
-╔════════════════════════════════════════════════════════════════════════════╗
-║                          CLASSIFICATION CONTEXT                         ║
-╚════════════════════════════════════════════════════════════════════════════╝
-
-{label_context}
-
-
-{rag_outputs}
-
-{function_outputs}
-
-{extras_outputs}
-
-{json_schema_instructions}"""
-
-DEFAULT_MINIMAL_PROMPT = """
-╔════════════════════════════════════════════════════════════════════════════╗
-║                    TASK (MINIMAL MODE - CONCISE)                        ║
-╚════════════════════════════════════════════════════════════════════════════╝
-
-Extract clinical information in JSON format, following the schema exactly.
-
-CRITICAL RULES:
-- Extract factual information only
-- Use null for unknown values
-- ANONYMIZE patient/family names
-- Convert units before calling functions
-
-════════════════════════════════════════════════════════════════════════════
-
-
-╔════════════════════════════════════════════════════════════════════════════╗
-║                    CLINICAL TEXT (PRIMARY SOURCE)                       ║
-╚════════════════════════════════════════════════════════════════════════════╝
-
- CRITICAL: Extract from THIS clinical note.
-    Supporting info provided below.
-
+[CLINICAL TEXT]
 {clinical_text}
 
-════════════════════════════════════════════════════════════════════════════
-
-
-CLASSIFICATION:
+[CONTEXT]
 {label_context}
 
 {rag_outputs}
@@ -123,53 +57,47 @@ CLASSIFICATION:
 
 {json_schema_instructions}"""
 
-DEFAULT_RAG_REFINEMENT_PROMPT = """[RAG REFINEMENT TASK]
+DEFAULT_MINIMAL_PROMPT = """[EXTRACTION - MINIMAL]
 
-You are refining a preliminary extraction using evidence from authoritative sources.
+Extract clinical info per schema. Use null for unknowns. ANONYMIZE names.
 
-CRITICAL ANONYMIZATION:
-- NEVER use patient or family names
-- ALWAYS use: "the patient", "the [age]-year-old", "the family"
-
-REFINEMENT OBJECTIVES:
-
-1. VALIDATE: Confirm interpretations against guideline criteria, verify accuracy
-
-2. CORRECT: Adjust misclassifications with citations, align with evidence-based practice
-
-3. ENHANCE: Add guideline interpretations, prognostic information, diagnostic criteria
-
-4. FILL GAPS: Complete missing but important details supported by evidence
-
-5. ENSURE CONSISTENCY: Verify assessments align with findings and support classification
-
-6. HANDLE MISSING DATA: For null/not documented fields, provide appropriate clinical reasoning
-
-CRITICAL PRINCIPLES:
-- Preserve fidelity: Never remove correct data or fabricate information
-- Quote sources when correcting: "Per [guideline/source]..."
-- Flag discrepancies clearly
-- Add value only when evidence clearly applies
-- Maintain expert clinical tone
-- ANONYMIZE always
-
-[END RAG REFINEMENT TASK]
-
-ORIGINAL TEXT:
+TEXT:
 {clinical_text}
 
-CLASSIFICATION CONTEXT:
-{label_context}
+CONTEXT: {label_context}
 
-INITIAL EXTRACTION:
-{stage3_json_output}
+{rag_outputs}
 
-EVIDENCE BASE:
-{retrieved_evidence_chunks}
+{function_outputs}
+
+{extras_outputs}
+
+{json_schema_instructions}"""
+
+DEFAULT_RAG_REFINEMENT_PROMPT = """[RAG REFINEMENT]
+
+Refine extraction using evidence. ANONYMIZE: "the patient", "the [age]-year-old".
+
+OBJECTIVES:
+1. VALIDATE against guideline criteria
+2. CORRECT misclassifications with citations ("Per [source]...")
+3. ENHANCE with guideline interpretations
+4. FILL GAPS where evidence supports
+5. ENSURE consistency with findings
+
+RULES: Preserve correct data. Never fabricate. Quote sources.
+
+TEXT: {clinical_text}
+
+CONTEXT: {label_context}
+
+INITIAL: {stage3_json_output}
+
+EVIDENCE: {retrieved_evidence_chunks}
 
 {json_schema_instructions}
 
-Return ONLY JSON in the exact schema format. No markdown. Use evidence to refine extraction."""
+Return ONLY JSON. No markdown."""
 
 # ============================================================================
 # EXAMPLE TEMPLATE 1: MALNUTRITION ASSESSMENT
@@ -532,77 +460,35 @@ ICD CLASSIFICATION:
 # STAGE 1 ANALYSIS PROMPT TEMPLATE
 # ============================================================================
 
-STAGE1_ANALYSIS_PROMPT = """[SYSTEM INSTRUCTION]
-You are an intelligent task analyst for clinical data extraction. Your job: understand the extraction task, analyze available data, and determine which tools would help complete the task.
+STAGE1_ANALYSIS_PROMPT = """[TASK ANALYSIS]
+Analyze extraction task and determine required tools.
 
-[EXTRACTION TASK]
-{task_description}
+TASK: {task_description}
+SCHEMA: {json_schema}
+TOOLS: {available_tools_description}
 
-OUTPUT SCHEMA:
-{json_schema}
-
-[AVAILABLE TOOLS]
-{available_tools_description}
-
-[YOUR ANALYSIS TASK]
-
-**STEP 1 - UNDERSTAND REQUIREMENTS:**
-- Review task description → understand WHAT to extract and HOW
-- Review output schema → understand required fields and structure
-
-**STEP 2 - ANALYZE AVAILABLE DATA:**
-- Read clinical text → identify what information is currently available
-- Identify available values, measurements, and mentions
-
-**STEP 3 - GAP ANALYSIS:**
-Determine what's missing or needs transformation:
-- Calculations needed? (e.g., available values need to be computed/converted)
-- Guidelines/criteria needed? (e.g., task mentions standards to apply)
-- Context/hints needed? (e.g., domain knowledge would clarify interpretation)
-
-**STEP 4 - SELECT TOOLS:**
-Based on gaps, determine which tools are REQUIRED:
-- **Functions**: Call when calculations, conversions, or computations are needed
-- **RAG**: Call when guidelines, criteria, or evidence-based standards would help
-- **Extras**: Call when supplementary context or domain knowledge would assist
-
-[CLINICAL TEXT TO ANALYZE]
+CLINICAL TEXT:
 {clinical_text}
 
-[CLASSIFICATION/LABEL CONTEXT]
-{label_context}
+CONTEXT: {label_context}
 
-[OUTPUT FORMAT]
-Return JSON with this EXACT structure:
+[WORKFLOW]
+1. Review schema requirements
+2. Identify available data in text
+3. Gap analysis: what's missing/needs transformation
+4. Select tools: Functions (calculations), RAG (guidelines), Extras (hints)
+
+[OUTPUT JSON]
 {{
-  "analysis": "Brief analysis of required information and tools that will help",
+  "analysis": "Brief gap analysis",
   "tool_requests": [
-    {{
-      "tool": "function",
-      "name": "<function_name>",
-      "arguments": {{"param1": value1, "param2": value2}},
-      "reasoning": "Why this function is needed to complete the task"
-    }},
-    {{
-      "tool": "rag",
-      "keywords": ["<keyword1>", "<keyword2>", "<keyword3>"],
-      "reasoning": "What guidelines/evidence this will retrieve and why needed"
-    }},
-    {{
-      "tool": "extras",
-      "keywords": ["<keyword1>", "<keyword2>", "<keyword3>"],
-      "reasoning": "What contextual information this will provide"
-    }}
+    {{"tool": "function", "name": "<name>", "arguments": {{}}, "reasoning": "why needed"}},
+    {{"tool": "rag", "keywords": ["<kw1>", "<kw2>"], "reasoning": "what to retrieve"}},
+    {{"tool": "extras", "keywords": ["<kw1>", "<kw2>"], "reasoning": "what context"}}
   ]
 }}
 
-CRITICAL PRINCIPLES:
-- Extract parameters from clinical text (ages, weights, measurements, dates, etc.)
-- Build queries from task requirements and schema fields
-- Select tools that DIRECTLY support completing the required output
-- Tools must serve the task requirements, not unrelated exploration
-- For RAG/Extras: Use RELEVANT keywords that will find NEW information to fill gaps
-- DO NOT repeat the same keywords that were used before - vary terms to get diverse results"""
+RULES: Extract params from text. Tools must serve task requirements. Vary keywords."""
 
 # ============================================================================
 # TEMPLATE REGISTRY - Your Starting Points
@@ -1312,179 +1198,46 @@ def get_agentic_extraction_prompt(clinical_text: str, label_context: str,
         # Build the complete prompt: USER'S TASK PROMPT + AGENTIC FRAMEWORK
         prompt = f"""{user_prompt_filled}
 
-{"=" * 80}
-AGENTIC TOOL-CALLING EXECUTION FRAMEWORK
-{"=" * 80}
+[AGENTIC TOOLS]
+1. query_rag(query, purpose) - Retrieve guidelines/evidence. Use varied terms.
+2. call_[function_name](params) - Calculate z-scores, BMI, etc.
+3. query_extras(keywords) - Get domain hints.
 
-The task description above defines WHAT to extract and HOW to synthesize the information.
-This section defines HOW to use tools ITERATIVELY to gather the information you need.
+[WORKFLOW]
+1. Analyze text → identify available data
+2. Gap analysis → what's missing/needs calculation
+3. Call tools (run in parallel)
+4. Review results → call more if needed
+5. Complete extraction → output JSON
 
-**AVAILABLE TOOLS (call as many times as needed):**
+RULES: Tools serve task. Support ground truth. Output JSON per schema.
 
-1. **query_rag(query, purpose)** - Retrieve clinical guidelines with SEARCH STRATEGY
-   - Use TERM VARIATIONS for better recall:
-     • Include: synonyms, abbreviations, related terms, alternative phrasings
-     • Build expanded query: "[primary term]" → add "[synonym1]", "[abbrev]", "[related1]", "[related2]"
-   - Build multi-term queries combining primary keywords with variations
-   - Call MULTIPLE times with DIFFERENT terminology angles
-   - Format: query_rag("[organization] [domain] [condition] [synonym] [abbrev] [criteria]", "purpose description")
-
-2. **call_[function_name](parameters)**
-   - Perform medical calculations: z-scores, BMI, percentiles, growth calculations, lab interpretations
-   - Call same function multiple times for serial measurements at different time points
-   - Available functions are dynamically listed based on your registry
-   - Example: call_percentile_to_zscore({{"percentile": 3}})
-
-3. **query_extras(keywords)** - Get hints with TERM EXPANSION
-   - Expand each concept with variations:
-     • Core + synonyms + abbreviations + related terms
-     • Add qualifiers: age group, specialty, system
-   - Format: ["[core_term]", "[synonym]", "[abbrev]", "[qualified_term]", "[related_concept]"]
-   - Use VARIED terminology for better recall
-
-**AUTONOMOUS TASK-DRIVEN EXECUTION WORKFLOW:**
-
-**PHASE 1 - UNDERSTAND REQUIREMENTS & ANALYZE DATA:**
-1. Read the task description above → Understand WHAT needs to be extracted and HOW
-2. Read the clinical text → Identify WHAT data is currently available
-3. Perform gap analysis between available data and required output:
-   - Available format vs. required format (e.g., percentile available, z-score required)
-   - Guidelines mentioned in task vs. knowledge needed (e.g., "ASPEN criteria" mentioned)
-   - Calculations needed to complete schema fields
-
-**PHASE 2 - EXECUTE TOOLS WITH SEARCH STRATEGY:**
-4. Based on gap analysis, determine required tools and USE SEARCH STRATEGY:
-   - Functions: Call for calculations/conversions as usual
-   - RAG: Use MULTI-TERM queries with variations
-     • Build: "primary keywords + synonyms + abbreviations + related terms"
-     • Format: "[standard] [condition] [synonym] [abbrev] [criteria] [domain] [assessment]"
-     • Leniency: Include broader/narrower terms, alternative phrasings
-   - Extras: Expand keywords with variations
-     • Core concept + domain synonyms + abbreviations + qualifiers
-     • Format: ["[core]", "[synonym]", "[abbrev]", "[related]", "[qualified_term]"]
-5. Execute all tool calls (tools run in parallel for performance)
-
-**PHASE 3 - ASSESS & REFINE (ITERATIVE):**
-6. Review tool results and assess current extraction state
-7. Determine if additional tools would improve extraction:
-   - Would clarify ambiguous findings?
-   - Would fix inconsistencies or errors?
-   - Would ascertain missing but important details?
-   - Would improve completeness or quality?
-8. If yes: Call additional tools with DIFFERENT term variations
-   - Use NEW terminology angles (synonyms, related concepts not yet tried)
-   - Expand search with broader/narrower terms
-   - Return to Phase 3
-9. If no: Proceed to Phase 4
-
-**PHASE 4 - COMPLETE EXTRACTION:**
-10. Use all tool results to fill schema fields
-11. Extract remaining fields directly from clinical text
-12. Output final JSON matching the exact schema structure
-
- CRITICAL: You autonomously determine which tools are REQUIRED to fulfill the task.
-Tools must serve the TASK requirements, not unrelated exploration.
-
-**CRITICAL PRINCIPLES:**
-
-- **Understand the Task**: Read task description to understand WHAT to extract, not just schema structure
-- **Autonomous Gap Analysis**: Analyze available data vs. required output, determine tools needed to close gaps
-- **Tools Serve the Task**: Call tools that are REQUIRED to fulfill task, not for unrelated exploration
-- **Iterative Refinement**: After initial tools, assess if additional tools would clarify/fix/improve extraction
-- **Multiple Tool Calls**: Call same function multiple times for serial measurements or different parameters
-- **Parallel Execution**: Tools execute in parallel (async) for performance - request multiple at once when possible
-- **Support Ground Truth**: Ensure extraction supports the ground truth diagnosis with evidence
-- **Complete Extraction**: Output JSON with all required schema fields filled
-
-**EXAMPLE AUTONOMOUS TASK-DRIVEN EXECUTION:**
-
-```
-[PHASE 1 - Understand Requirements & Analyze Data]
-"Reading task: Extract malnutrition assessment with growth anthropometrics per ASPEN criteria"
-"Schema requires: growth_and_anthropometrics field with z-scores and ASPEN classification"
-"Clinical text shows: 3-year-old, weight 12.5kg (10th percentile), height 92cm (25th percentile)"
-
-"Gap analysis:"
-"- Available: percentiles (10th, 25th)"
-"- Required: z-scores"
-"- Gap: Need to convert percentile → z-score"
-"- Task mentions 'ASPEN criteria' but I need the actual criteria to apply"
-"- Gap: Need to retrieve ASPEN classification guidelines"
-
-[PHASE 2 - Autonomously Determine & Execute Tools]
-"Based on gap analysis, I need these tools:"
-→ Call: call_percentile_to_zscore({{"percentile": 10}})  # Convert weight percentile
-→ Call: call_percentile_to_zscore({{"percentile": 25}})  # Convert height percentile
-→ Call: query_rag("ASPEN pediatric malnutrition classification criteria z-scores", "Need ASPEN criteria to classify")
-
-[Tools return: 10th %ile = -1.28 z-score, 25th %ile = -0.67 z-score, ASPEN criteria retrieved]
-
-[PHASE 3 - Assess & Refine]
-"Reviewing results:"
-"- Have z-scores: weight -1.28, height -0.67"
-"- Have ASPEN criteria from RAG"
-"- Can now classify per ASPEN (mild risk based on z-scores)"
-
-"Do I need additional tools to improve extraction?"
-"- Text mentions 'poor intake' but no quantification → Could query RAG for intake assessment criteria"
-"- Text has exam findings that support malnutrition → Sufficient for classification"
-"Decision: Have sufficient information to complete task"
-
-[PHASE 4 - Complete Extraction]
-"Mapping results to schema:"
-"- growth_and_anthropometrics: Weight z-score -1.28 (mild risk per ASPEN), Height z-score -0.67 (normal)"
-"- diagnosis: Mild malnutrition risk per ASPEN anthropometric criteria"
-"- All required fields complete"
-
-→ Output JSON
-```
-
-**EXPECTED OUTPUT SCHEMA:**
+SCHEMA:
 {json_schema}
 
 {schema_instructions}
 
-**CRITICAL RULES:**
-- Follow the task-specific requirements and synthesis structure defined at the top
-- Use tools iteratively to gather needed information
-- Support the ground truth diagnosis with evidence
-- Output JSON only when you have completed the task requirements
-
-**Begin your analysis. Call tools as needed to gather information. When ready, provide the final JSON in the exact schema format specified above.**
+Begin analysis. Call tools. Output final JSON.
 """
 
     else:
         # Fallback: If no user prompt provided, use generic agentic prompt
-        prompt = f"""You are a board-certified clinical expert performing structured information extraction from medical text.
+        prompt = f"""[CLINICAL EXTRACTION]
 
-**GROUND TRUTH DIAGNOSIS (YOU MUST SUPPORT THIS):**
-{label_context}
+CONTEXT: {label_context}
 
-**CLINICAL TEXT TO ANALYZE:**
-{clinical_text}
+TEXT: {clinical_text}
 
-**YOUR TASK:**
-Extract structured clinical information to create comprehensive, expert-level annotations.
-Your extraction must support the ground truth diagnosis using evidence from the clinical text.
+TOOLS: query_rag(query), call_[function](params), query_extras(keywords)
 
-**AVAILABLE TOOLS (call as many times as needed):**
+WORKFLOW: Analyze → Gap analysis → Call tools → Review → Output JSON
 
-1. **query_rag(query, purpose)**: Retrieve clinical guidelines and evidence
-2. **call_[function_name](parameters)**: Perform medical calculations
-3. **query_extras(keywords)**: Get supplementary hints
-
-**AGENTIC WORKFLOW:**
-1. Analyze the clinical text and ground truth
-2. Call tools to gather needed information (iteratively!)
-3. Learn from results, call more tools if needed
-4. Complete extraction when you have sufficient information
-
-**EXPECTED OUTPUT SCHEMA:**
+SCHEMA:
 {json_schema}
 
 {schema_instructions}
 
-**Begin your analysis. Call tools as needed. Output final JSON when ready.**
+Begin. Call tools as needed. Output JSON when ready.
 """
 
     return prompt

@@ -1,0 +1,58 @@
+{
+  "type": "object",
+  "properties": {
+    "severity_level": {
+      "type": "string",
+      "enum": ["no_impairment", "MCI", "mild_dementia", "moderate_dementia", "severe_dementia", "insufficient_data"],
+      "description": "Step 1: Cognitive functional status - MCI requires preserved function, dementia requires impaired function"
+    },
+    "severity_rationale": {
+      "type": "string",
+      "description": "Brief rationale for severity determination based on functional assessment (CDR, IADL, ADL)"
+    },
+    "syndrome_pattern": {
+      "type": "string",
+      "enum": ["amnestic", "executive", "language", "visuospatial", "behavioral", "mixed", "insufficient_data"],
+      "description": "Step 2: Predominant cognitive-behavioral syndrome pattern"
+    },
+    "affected_domains": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "List of affected cognitive domains: memory, executive, visuospatial, language, behavior"
+    },
+    "syndrome_rationale": {
+      "type": "string",
+      "description": "Brief rationale for syndrome characterization and domain involvement"
+    },
+    "classification": {
+      "type": "string",
+      "enum": ["ADRD", "Non-ADRD"],
+      "description": "Step 3: Primary etiological classification"
+    },
+    "specific_type": {
+      "type": "string",
+      "enum": ["alzheimers_disease", "vascular_dementia", "lewy_body_disease", "frontotemporal_dementia", "mixed_dementia", "other_adrd", "delirium", "psychiatric", "medical_condition", "other_non_adrd"],
+      "description": "Specific ADRD type or Non-ADRD cause"
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "moderate", "low"],
+      "description": "Diagnostic confidence level"
+    },
+    "etiology_rationale": {
+      "type": "string",
+      "description": "Clinical rationale integrating all available information for etiological classification"
+    },
+    "differential": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Other diagnostic possibilities to consider"
+    }
+  },
+  "required": [
+    "severity_level",
+    "syndrome_pattern",
+    "classification",
+    "confidence"
+  ]
+}

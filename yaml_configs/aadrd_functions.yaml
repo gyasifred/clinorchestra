@@ -1,0 +1,125 @@
+functions:
+- name: interpret_moca
+  code: "def interpret_moca(score, years_education=None):\n    \"\"\"\n    Interpret MoCA score per AA 2024 Guidelines Table 5.\n    MoCA is a SCREENING tool (not diagnostic). Range 0-30.\n    Education adjustment: Add 1 point if <=12 years education.\n    Screening threshold: <26 suggests possible cognitive impairment.\n    \"\"\"\n    if not isinstance(score, (int, float)):\n        return {\"error\": True, \"interpretation_note\": \"Invalid MoCA score\"}\n    score = float(score)\n    if score < 0 or score > 30:\n        return {\"error\": True, \"interpretation_note\": \"MoCA score must be 0-30\"}\n    adjusted_score = score\n    education_adjustment = False\n    if years_education is not None and years_education <= 12 and score < 30:\n        adjusted_score = min(score + 1, 30)\n        education_adjustment = True\n    below_threshold = adjusted_score < 26\n    return {\n        \"raw_score\": score,\n        \"adjusted_score\": adjusted_score,\n        \"education_adjustment_applied\": education_adjustment,\n        \"screening_threshold\": 26,\n        \"below_threshold\": below_threshold,\n        \"interpretation_note\": f\"MoCA {adjusted_score}/30 {'BELOW' if below_threshold else 'AT/ABOVE'} threshold (<26)\"\n    }\n"
+  description: Interpret MoCA score with education correction per AA 2024 Guidelines Table 5
+  parameters:
+    score:
+      type: number
+      description: MoCA raw score (0-30)
+      required: true
+    years_education:
+      type: number
+      description: Years of education (add 1 point if <=12 years)
+      required: false
+  returns: dict with raw_score, adjusted_score, below_threshold, interpretation_note
+  enabled: true
+  signature: (score, years_education=None)
+- name: interpret_mmse
+  code: "def interpret_mmse(score):\n    \"\"\"\n    Interpret MMSE score per AA 2024 Guidelines Table 5.\n    MMSE is a SCREENING tool (not diagnostic). Range 0-30.\n    Screening threshold: <26 suggests possible cognitive impairment.\n    NOTE: MMSE has low sensitivity for MCI.\n    \"\"\"\n    if not isinstance(score, (int, float)):\n        return {\"error\": True, \"interpretation_note\": \"Invalid MMSE score\"}\n    score = float(score)\n    if score < 0 or score > 30:\n        return {\"error\": True, \"interpretation_note\": \"MMSE score must be 0-30\"}\n    below_threshold = score < 26\n    return {\n        \"score\": score,\n        \"screening_threshold\": 26,\n        \"below_threshold\": below_threshold,\n        \"interpretation_note\": f\"MMSE {score}/30 {'BELOW' if below_threshold else 'AT/ABOVE'} threshold (<26). MMSE has low sensitivity for MCI.\"\n    }\n"
+  description: Interpret MMSE score per AA 2024 Guidelines Table 5 (low sensitivity for MCI)
+  parameters:
+    score:
+      type: number
+      description: MMSE score (0-30)
+      required: true
+  returns: dict with score, screening_threshold, below_threshold, interpretation_note
+  enabled: true
+  signature: (score)
+- name: interpret_mini_cog
+  code: "def interpret_mini_cog(score):\n    \"\"\"\n    Interpret Mini-Cog score per AA 2024 Guidelines Table 5.\n    Mini-Cog is a brief SCREENING tool (not diagnostic). Range 0-5.\n    Screening threshold: <=3 suggests possible cognitive impairment.\n    \"\"\"\n    if not isinstance(score, (int, float)):\n        return {\"error\": True, \"interpretation_note\": \"Invalid Mini-Cog score\"}\n    score = float(score)\n    if score < 0 or score > 5:\n        return {\"error\": True, \"interpretation_note\": \"Mini-Cog score must be 0-5\"}\n    at_or_below = score <= 3\n    return {\n        \"score\": score,\n        \"screening_threshold\": 3,\n        \"at_or_below_threshold\": at_or_below,\n        \"interpretation_note\": f\"Mini-Cog {score}/5 {'AT/BELOW' if at_or_below else 'ABOVE'} threshold (<=3)\"\n    }\n"
+  description: Interpret Mini-Cog score per AA 2024 Guidelines Table 5
+  parameters:
+    score:
+      type: number
+      description: Mini-Cog score (0-5)
+      required: true
+  returns: dict with score, screening_threshold, at_or_below_threshold, interpretation_note
+  enabled: true
+  signature: (score)
+- name: interpret_katz_adl
+  code: "def interpret_katz_adl(score):\n    \"\"\"\n    Interpret Katz ADL score for functional assessment.\n    Measures BASIC self-care: bathing, dressing, toileting, transferring, continence, feeding.\n    Range 0-6 where 6 = fully independent.\n    \"\"\"\n    if not isinstance(score, (int, float)):\n        return {\"error\": True, \"interpretation_note\": \"Invalid Katz ADL score\"}\n    score = float(score)\n    if score < 0 or score > 6:\n        return {\"error\": True, \"interpretation_note\": \"Katz ADL score must be 0-6\"}\n    impaired = score < 6\n    if score == 6:\n        status = \"Full independence in basic ADLs\"\n    elif score >= 4:\n        status = \"Mild impairment (needs assistance with 1-2 activities)\"\n    elif score >= 2:\n        status = \"Moderate impairment (needs assistance with 3-4 activities)\"\n    else:\n        status = \"Severe impairment (needs assistance with 5-6 activities)\"\n    return {\n        \"score\": score,\n        \"maximum_score\": 6,\n        \"functional_status\": status,\n        \"basic_adl_impaired\": impaired\n    }\n"
+  description: Interpret Katz ADL score for basic functional assessment (bathing, dressing, toileting, transferring, continence, feeding)
+  parameters:
+    score:
+      type: number
+      description: Katz ADL score (0-6, where 6=independent)
+      required: true
+  returns: dict with score, functional_status, basic_adl_impaired
+  enabled: true
+  signature: (score)
+- name: interpret_lawton_iadl
+  code: "def interpret_lawton_iadl(score):\n    \"\"\"\n    Interpret Lawton IADL score for functional assessment.\n    Measures INSTRUMENTAL activities: phone, shopping, food, housekeeping, laundry, transport, meds, finances.\n    Range 0-8 where 8 = fully independent.\n    CRITICAL FOR MCI VS DEMENTIA: MCI = IADLs preserved, Dementia = IADLs impaired.\n    \"\"\"\n    if not isinstance(score, (int, float)):\n        return {\"error\": True, \"interpretation_note\": \"Invalid Lawton IADL score\"}\n    score = float(score)\n    if score < 0 or score > 8:\n        return {\"error\": True, \"interpretation_note\": \"Lawton IADL score must be 0-8\"}\n    impaired = score < 8\n    if score == 8:\n        status = \"Full independence in IADLs\"\n        significance = \"IADL independence supports MCI (not dementia) if cognitive impairment present\"\n    elif score >= 6:\n        status = \"Mild IADL impairment (difficulty with 1-2 activities)\"\n        significance = \"Mild IADL difficulty may be MCI or very early dementia\"\n    elif score >= 4:\n        status = \"Moderate IADL impairment (difficulty with 3-4 activities)\"\n        significance = \"Moderate IADL impairment suggests dementia rather than MCI\"\n    else:\n        status = \"Severe IADL impairment (difficulty with 5-8 activities)\"\n        significance = \"Severe IADL impairment consistent with dementia\"\n    return {\n        \"score\": score,\n        \"maximum_score\": 8,\n        \"functional_status\": status,\n        \"instrumental_adl_impaired\": impaired,\n        \"clinical_significance\": significance\n    }\n"
+  description: Interpret Lawton IADL score - CRITICAL for MCI vs dementia distinction (MCI=preserved, Dementia=impaired)
+  parameters:
+    score:
+      type: number
+      description: Lawton IADL score (0-8, where 8=independent)
+      required: true
+  returns: dict with score, functional_status, instrumental_adl_impaired, clinical_significance
+  enabled: true
+  signature: (score)
+- name: interpret_cdr
+  code: "def interpret_cdr(global_score):\n    \"\"\"\n    Interpret CDR global score per Morris 1993.\n    0=no impairment, 0.5=MCI (functional independence PRESERVED), 1=mild dementia, 2=moderate, 3=severe.\n    CDR 0.5 vs 1.0 is the MCI/dementia boundary based on functional impairment.\n    \"\"\"\n    valid_scores = [0, 0.5, 1, 2, 3]\n    if global_score not in valid_scores:\n        return {\"error\": True, \"interpretation_note\": f\"CDR must be one of {valid_scores}\"}\n    interpretations = {\n        0: {\"staging\": \"no_impairment\", \"functional_impairment\": False, \"clinical_meaning\": \"No cognitive impairment\"},\n        0.5: {\"staging\": \"MCI\", \"functional_impairment\": False, \"clinical_meaning\": \"MCI - functional independence PRESERVED. This is NOT dementia.\"},\n        1: {\"staging\": \"mild_dementia\", \"functional_impairment\": True, \"clinical_meaning\": \"Mild dementia - functional impairment PRESENT\"},\n        2: {\"staging\": \"moderate_dementia\", \"functional_impairment\": True, \"clinical_meaning\": \"Moderate dementia - significant functional impairment\"},\n        3: {\"staging\": \"severe_dementia\", \"functional_impairment\": True, \"clinical_meaning\": \"Severe dementia - total dependence\"}\n    }\n    result = interpretations[global_score]\n    result[\"global_score\"] = global_score\n    return result\n"
+  description: Interpret CDR global score - CDR 0.5 vs 1.0 distinguishes MCI from dementia based on functional impairment
+  parameters:
+    global_score:
+      type: number
+      description: CDR global score (0, 0.5, 1, 2, or 3)
+      required: true
+  returns: dict with staging, functional_impairment, clinical_meaning
+  enabled: true
+  signature: (global_score)
+- name: count_cognitive_domains
+  code: "def count_cognitive_domains(memory=None, executive=None, visuospatial=None, language=None, behavior=None):\n    \"\"\"\n    Count affected cognitive domains per NIA-AA criteria (AA 2024 Guidelines Table 1).\n    NIA-AA dementia requires >=2 of 5 domains affected.\n    Domains: memory, executive, visuospatial, language, behavior.\n    Pass true if impaired, false if not, None if not documented.\n    \"\"\"\n    domains = {\"memory\": memory, \"executive\": executive, \"visuospatial\": visuospatial, \"language\": language, \"behavior\": behavior}\n    affected = [d for d, v in domains.items() if v is True]\n    unaffected = [d for d, v in domains.items() if v is False]\n    unassessed = [d for d, v in domains.items() if v is None]\n    count = len(affected)\n    total_assessed = len(affected) + len(unaffected)\n    if count >= 2:\n        meets_criterion = True\n    elif total_assessed >= 4 and count < 2:\n        meets_criterion = False\n    else:\n        meets_criterion = None\n    return {\n        \"count\": count,\n        \"affected_domains\": affected,\n        \"unassessed_domains\": unassessed,\n        \"meets_two_domain_criterion\": meets_criterion,\n        \"note\": \"NIA-AA dementia requires >=2 of 5 domains affected\"\n    }\n"
+  description: Count affected cognitive domains per NIA-AA criteria - dementia requires >=2 of 5 domains
+  parameters:
+    memory:
+      type: boolean
+      description: Memory impaired? true/false/null
+      required: false
+    executive:
+      type: boolean
+      description: Executive impaired? true/false/null
+      required: false
+    visuospatial:
+      type: boolean
+      description: Visuospatial impaired? true/false/null
+      required: false
+    language:
+      type: boolean
+      description: Language impaired? true/false/null
+      required: false
+    behavior:
+      type: boolean
+      description: Behavior impaired? true/false/null
+      required: false
+  returns: dict with count, affected_domains, meets_two_domain_criterion
+  enabled: true
+  signature: (memory=None, executive=None, visuospatial=None, language=None, behavior=None)
+- name: check_nia_aa_criteria
+  code: "def check_nia_aa_criteria(interferes_function=None, represents_decline=None, delirium_excluded=None, psychiatric_excluded=None, domain_count=None):\n    \"\"\"\n    Check NIA-AA dementia criteria per AA 2024 Guidelines Table 1.\n    Requires ALL: (1) interferes with function, (2) represents decline, (3) delirium excluded,\n    (4) psychiatric excluded as PRIMARY cause, PLUS >=2 domains affected.\n    \"\"\"\n    two_domains = None if domain_count is None else (domain_count >= 2)\n    criteria = {\n        \"interferes_function\": interferes_function,\n        \"represents_decline\": represents_decline,\n        \"delirium_excluded\": delirium_excluded,\n        \"psychiatric_excluded\": psychiatric_excluded,\n        \"two_domains_affected\": two_domains\n    }\n    values = list(criteria.values())\n    met_count = sum(1 for v in values if v is True)\n    not_met = [k for k, v in criteria.items() if v is False]\n    unassessed = [k for k, v in criteria.items() if v is None]\n    if all(v is True for v in values):\n        all_met = True\n    elif any(v is False for v in values):\n        all_met = False\n    else:\n        all_met = None\n    return {\n        \"criteria_status\": criteria,\n        \"criteria_met_count\": met_count,\n        \"criteria_not_met\": not_met,\n        \"all_criteria_met\": all_met,\n        \"unassessed_criteria\": unassessed\n    }\n"
+  description: Check NIA-AA dementia criteria - requires all 5 criteria met for dementia diagnosis
+  parameters:
+    interferes_function:
+      type: boolean
+      description: Symptoms interfere with work/daily activities?
+      required: false
+    represents_decline:
+      type: boolean
+      description: Represents decline from previous level?
+      required: false
+    delirium_excluded:
+      type: boolean
+      description: Delirium ruled out?
+      required: false
+    psychiatric_excluded:
+      type: boolean
+      description: Major psychiatric disorder ruled out as PRIMARY cause?
+      required: false
+    domain_count:
+      type: integer
+      description: Number of cognitive domains affected
+      required: false
+  returns: dict with criteria_status, all_criteria_met, unassessed_criteria
+  enabled: true
+  signature: (interferes_function=None, represents_decline=None, delirium_excluded=None, psychiatric_excluded=None, domain_count=None)
