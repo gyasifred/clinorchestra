@@ -161,18 +161,15 @@ To isolate component contributions:
 
 ### Output Schema
 
-All arms produce the same 4-key JSON output for fair comparison:
+All arms produce the same 5-key flat JSON output for fair comparison:
 
 ```json
 {
+  "adrd_status": "ADRD | Non-ADRD",
   "severity": "no_impairment | MCI | mild_dementia | moderate_dementia | severe_dementia",
-  "syndrome": "amnestic | executive | language | visuospatial | behavioral | mixed",
-  "diagnosis": {
-    "classification": "ADRD | Non-ADRD",
-    "specific_type": "Probable AD | Possible AD | DLB | VaD | FTD | Mixed | ...",
-    "confidence": "high | moderate | low"
-  },
-  "clinical_summary": "Integrated reasoning narrative"
+  "etiology": "alzheimers | vascular | lewy_body | frontotemporal | mixed | other_adrd | delirium | psychiatric | medical | none",
+  "confidence": "high | moderate | low",
+  "summary": "Brief clinical reasoning"
 }
 ```
 
@@ -198,11 +195,7 @@ DEMENTIA requires ALL:
 MCI: Cognitive impairment + PRESERVED function.
 CDR: 0.5=MCI, >=1=Dementia.
 
-OUTPUT:
-- severity: no_impairment/MCI/mild_dementia/moderate_dementia/severe_dementia
-- syndrome: amnestic/executive/language/visuospatial/behavioral/mixed
-- diagnosis: {classification, specific_type, confidence}
-- clinical_summary: Integrated reasoning
+OUTPUT: {adrd_status, severity, etiology, confidence, summary}
 
 Return JSON only.
 ```
@@ -236,7 +229,7 @@ WORKFLOW:
 4. Query RAG/extras if needed
 5. Output classification
 
-OUTPUT: {severity, syndrome, diagnosis: {classification, specific_type, confidence}, clinical_summary}
+OUTPUT: {adrd_status, severity, etiology, confidence, summary}
 
 Call tools. Output JSON.
 ```

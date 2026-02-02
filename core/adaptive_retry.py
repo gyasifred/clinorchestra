@@ -58,6 +58,7 @@ class RetryContext:
     history_reduction_level: int = 0
     tool_context_reduction_level: int = 0
     switched_to_minimal: bool = False
+    switched_to_lastresort: bool = False  # Key-value format on final retry
     last_error: Optional[str] = None
 
     # Metrics tracking
@@ -360,6 +361,11 @@ class AdaptiveRetryManager:
             if attempt >= self.max_retries - 1:
                 logger.warning(f"  → EMERGENCY FALLBACK MODE")
                 logger.warning(f"  → Maximum context reduction applied")
+
+            # Last resort: switch to key-value format on final attempt
+            if attempt >= self.max_retries and not context.switched_to_lastresort:
+                context.switched_to_lastresort = True
+                logger.warning(f"  → Switching to LAST RESORT (key-value format)")
 
     def _truncate_clinical_text(
         self,

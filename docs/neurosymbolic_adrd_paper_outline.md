@@ -73,18 +73,15 @@
 - **Arm 1 (Control):** Pure LLM with NIA-AA prompt only
 - **Arm 2 (Treatment):** Knowledge-Integrated (LLM + Functions + RAG + Extras)
 
-### 2.4 Output Schema (4 Keys)
+### 2.4 Output Schema (5 Flat Keys)
 
 ```json
 {
+  "adrd_status": "ADRD | Non-ADRD",
   "severity": "no_impairment | MCI | mild_dementia | moderate_dementia | severe_dementia",
-  "syndrome": "amnestic | executive | language | visuospatial | behavioral | mixed",
-  "diagnosis": {
-    "classification": "ADRD | Non-ADRD",
-    "specific_type": "...",
-    "confidence": "high | moderate | low"
-  },
-  "clinical_summary": "Integrated reasoning"
+  "etiology": "alzheimers | vascular | lewy_body | frontotemporal | mixed | other_adrd | delirium | psychiatric | medical | none",
+  "confidence": "high | moderate | low",
+  "summary": "Brief clinical reasoning"
 }
 ```
 
@@ -168,11 +165,7 @@ DEMENTIA requires ALL:
 MCI: Cognitive impairment + PRESERVED function.
 CDR: 0.5=MCI, >=1=Dementia.
 
-OUTPUT:
-- severity: no_impairment/MCI/mild_dementia/moderate_dementia/severe_dementia
-- syndrome: amnestic/executive/language/visuospatial/behavioral/mixed
-- diagnosis: {classification, specific_type, confidence}
-- clinical_summary: Integrated reasoning
+OUTPUT: {adrd_status, severity, etiology, confidence, summary}
 
 Return JSON only.
 ```
@@ -206,11 +199,7 @@ WORKFLOW:
 4. Query RAG/extras if needed
 5. Output classification
 
-OUTPUT:
-- severity: no_impairment/MCI/mild_dementia/moderate_dementia/severe_dementia
-- syndrome: amnestic/executive/language/visuospatial/behavioral/mixed
-- diagnosis: {classification, specific_type, confidence}
-- clinical_summary: Reasoning with function results
+OUTPUT: {adrd_status, severity, etiology, confidence, summary}
 
 Call tools. Output JSON.
 ```
@@ -224,7 +213,7 @@ TEXT: {clinical_text}
 
 Key: MCI=preserved function, Dementia=impaired, >=2 domains.
 
-OUTPUT: {severity, syndrome, diagnosis: {classification, specific_type, confidence}, clinical_summary}
+OUTPUT: {adrd_status, severity, etiology, confidence, summary}
 ```
 
 ## Prompt 4: RAG Refinement

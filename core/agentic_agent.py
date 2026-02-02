@@ -108,9 +108,10 @@ class AgenticContext:
     stall_counter: int = 0
     consecutive_no_progress: int = 0
 
-    # JSON failure tracking - for minimal prompt fallback
+    # JSON failure tracking - for minimal/lastresort prompt fallback
     consecutive_json_failures: int = 0  # Track failed JSON parsing attempts
     switched_to_minimal: bool = False  # Flag to track if we switched to minimal prompt
+    switched_to_lastresort: bool = False  # Flag to track if we switched to key-value format
 
     # PERFORMANCE: Conversation history management
     conversation_window_size: int = 20  # Keep only last 20 messages for context
@@ -495,6 +496,32 @@ OUTPUT VALID JSON matching the schema. Be more concise and focus on directly ext
                             )
                         )
                         logger.info(" Minimal prompt injected - continuing with simpler task definition")
+
+                    # LAST RESORT: If already on minimal and still failing, try key-value format
+                    elif (self.context.consecutive_json_failures >= self.app_state.processing_config.max_retries + 2
+                          and self.context.switched_to_minimal
+                          and not self.context.switched_to_lastresort):
+                        logger.warning(f"🚨 SWITCHING TO LAST RESORT (key-value format): {self.context.consecutive_json_failures} JSON failures")
+                        self.context.switched_to_lastresort = True
+
+                        # Get schema keys
+                        schema = self.app_state.prompt_config.json_schema or {}
+                        schema_keys = "\n".join([f"- {k}" for k in schema.keys()])
+
+                        self.context.conversation_history.append(
+                            ConversationMessage(
+                                role='user',
+                                content=f"""JSON failed. Output as key: value pairs instead.
+
+TEXT: {self.context.clinical_text[:2000]}
+
+Fields needed:
+{schema_keys}
+
+Output each on new line as: field_name: value"""
+                            )
+                        )
+                        logger.info(" Last resort prompt injected - using key-value format")
 
                     # If too many iterations with no progress OR near max iterations, force completion
                     elif self.context.consecutive_no_progress >= 2 or remaining_iters <= 1:
