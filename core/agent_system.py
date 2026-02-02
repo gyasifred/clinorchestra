@@ -1345,8 +1345,11 @@ class ExtractionAgent:
                 # Update clinical text from retry context (may be truncated)
                 self.context.clinical_text = retry_context.clinical_text
 
-                # Build extraction prompt (switches to minimal if needed)
-                if retry_context.switched_to_minimal:
+                # Build extraction prompt (switches to minimal/lastresort if needed)
+                if retry_context.switched_to_lastresort:
+                    logger.info("🚨 Using LAST RESORT PROMPT (key-value format)")
+                    extraction_prompt = self._build_lastresort_extraction_prompt()
+                elif retry_context.switched_to_minimal:
                     logger.info("🔄 Using MINIMAL PROMPT due to retries")
                     extraction_prompt = self._build_minimal_extraction_prompt()
                 else:
@@ -2432,7 +2435,24 @@ TASK:
 Extract the required information and respond with ONLY a JSON object."""
 
         return prompt
-    
+
+    def _build_minimal_extraction_prompt(self) -> str:
+        """Build minimal prompt for retries"""
+        return self._build_stage3_main_extraction_prompt()
+
+    def _build_lastresort_extraction_prompt(self) -> str:
+        """Build last resort prompt - simple key-value format when JSON keeps failing"""
+        from core.prompt_templates import DEFAULT_LASTRESORT_PROMPT
+
+        # Get schema keys as simple list
+        schema = self.app_state.prompt_config.json_schema or {}
+        schema_keys = "\n".join([f"- {k}" for k in schema.keys()])
+
+        prompt = DEFAULT_LASTRESORT_PROMPT.format(
+            clinical_text=self.context.clinical_text[:2000],  # Truncate for last resort
+            schema_keys=schema_keys
+        )
+        return prompt
 
     def _build_stage4_rag_refinement_prompt(self) -> str:
         """

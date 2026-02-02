@@ -74,6 +74,15 @@ CONTEXT: {label_context}
 
 {json_schema_instructions}"""
 
+# Last resort prompt when JSON fails repeatedly - asks for key-value format
+DEFAULT_LASTRESORT_PROMPT = """Extract from text. Output as key: value pairs.
+
+TEXT: {clinical_text}
+
+{schema_keys}
+
+Output each field on new line as: field_name: value"""
+
 DEFAULT_RAG_REFINEMENT_PROMPT = """[RAG REFINEMENT]
 
 Refine extraction using evidence. ANONYMIZE: "the patient", "the [age]-year-old".
@@ -506,6 +515,7 @@ PROMPT_TEMPLATE_REGISTRY_V1 = {
     "blank": {
         "main": DEFAULT_MAIN_PROMPT,
         "minimal": DEFAULT_MINIMAL_PROMPT,
+        "lastresort": DEFAULT_LASTRESORT_PROMPT,
         "rag_prompt": DEFAULT_RAG_REFINEMENT_PROMPT,
         "description": "⭐ Universal template - Customize for ANY clinical task",
         "version": "1.0.0",

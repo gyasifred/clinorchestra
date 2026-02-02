@@ -1,38 +1,30 @@
 {
   "type": "object",
   "properties": {
+    "adrd_status": {
+      "type": "string",
+      "enum": ["ADRD", "Non-ADRD"],
+      "description": "Primary classification: ADRD (dementia/MCI) vs Non-ADRD"
+    },
     "severity": {
       "type": "string",
-      "enum": ["no_impairment", "MCI", "mild_dementia", "moderate_dementia", "severe_dementia", "insufficient_data"],
-      "description": "Cognitive functional status per NIA-AA: MCI = preserved function (CDR 0.5), dementia = impaired function (CDR ≥1)"
+      "enum": ["no_impairment", "MCI", "mild_dementia", "moderate_dementia", "severe_dementia"],
+      "description": "Severity per NIA-AA: MCI=preserved function (CDR 0.5), dementia=impaired (CDR>=1)"
     },
-    "syndrome": {
+    "etiology": {
       "type": "string",
-      "enum": ["amnestic", "executive", "language", "visuospatial", "behavioral", "mixed", "insufficient_data"],
-      "description": "Predominant cognitive-behavioral syndrome pattern based on affected domains"
+      "enum": ["alzheimers", "vascular", "lewy_body", "frontotemporal", "mixed", "other_adrd", "delirium", "psychiatric", "medical", "none"],
+      "description": "Specific etiology if ADRD, or cause if Non-ADRD"
     },
-    "diagnosis": {
-      "type": "object",
-      "properties": {
-        "classification": {
-          "type": "string",
-          "enum": ["ADRD", "Non-ADRD"]
-        },
-        "specific_type": {
-          "type": "string",
-          "enum": ["alzheimers_disease", "vascular_dementia", "lewy_body_disease", "frontotemporal_dementia", "mixed_dementia", "other_adrd", "delirium", "psychiatric", "medical_condition", "other_non_adrd"]
-        },
-        "confidence": {
-          "type": "string",
-          "enum": ["high", "moderate", "low"]
-        }
-      },
-      "description": "Etiological diagnosis with classification, specific type, and confidence level"
-    },
-    "clinical_summary": {
+    "confidence": {
       "type": "string",
-      "description": "Integrated clinical narrative: severity rationale (functional assessment), syndrome characterization (affected domains), etiology reasoning, and differential considerations"
+      "enum": ["high", "moderate", "low"],
+      "description": "Confidence in classification"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Brief clinical reasoning: key findings, functional status, domains affected"
     }
   },
-  "required": ["severity", "syndrome", "diagnosis", "clinical_summary"]
+  "required": ["adrd_status", "severity", "etiology", "confidence", "summary"]
 }
