@@ -2437,8 +2437,35 @@ Extract the required information and respond with ONLY a JSON object."""
         return prompt
 
     def _build_minimal_extraction_prompt(self) -> str:
-        """Build minimal prompt for retries"""
-        return self._build_stage3_main_extraction_prompt()
+        """Build minimal prompt for retries - uses minimal prompt directly if available"""
+        schema_instructions = format_schema_as_instructions(
+            self.app_state.prompt_config.json_schema
+        )
+        tool_outputs = format_tool_outputs_for_prompt(self.context.tool_results)
+
+        # Use minimal prompt if available, otherwise use main prompt
+        minimal = self.app_state.prompt_config.minimal_prompt
+        if not minimal:
+            minimal = self.app_state.prompt_config.main_prompt or ""
+
+        try:
+            return minimal.format(
+                clinical_text=self.context.clinical_text,
+                label_context=self.context.label_context or "",
+                rag_outputs=tool_outputs.get('rag_outputs', ''),
+                function_outputs=tool_outputs.get('function_outputs', ''),
+                extras_outputs=tool_outputs.get('extras_outputs', ''),
+                json_schema_instructions=schema_instructions
+            )
+        except KeyError:
+            # Fallback layout if template doesn't use placeholders
+            return f"""{minimal}
+
+TEXT: {self.context.clinical_text[:3000]}
+
+{schema_instructions}
+
+Return JSON only."""
 
     def _build_lastresort_extraction_prompt(self) -> str:
         """Build last resort prompt - simple key-value format when JSON keeps failing"""
