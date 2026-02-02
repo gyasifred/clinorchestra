@@ -169,7 +169,15 @@ def create_rag_tab(app_state) -> Dict[str, Any]:
     components['rag_config_panel'] = rag_config_panel
     
     def toggle_rag_panel(enabled):
-        """Toggle RAG panel visibility"""
+        """Toggle RAG panel visibility AND update app_state"""
+        # CRITICAL: Update app_state when checkbox changes
+        app_state.rag_config.enabled = enabled
+        if not enabled:
+            # Clear the RAG engine when disabled
+            app_state.set_rag_engine(None)
+            logger.info("RAG disabled - RAG engine cleared")
+        else:
+            logger.info("RAG enabled")
         return gr.update(visible=enabled)
     
     def get_cache_info():
