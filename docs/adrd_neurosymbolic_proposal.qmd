@@ -1,0 +1,708 @@
+---
+title: "ADRD Phenotyping Using Large Language Models with Clinical Knowledge Integration"
+subtitle: "Research Proposal: ClinOrchestra ADAPTIVE Pipeline for Dementia Classification"
+author:
+  - name: "[Your Name]"
+    affiliation: "Medical University of South Carolina, Biomedical Informatics Center"
+date: "2026-02-01"
+format:
+  pdf:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    documentclass: article
+    papersize: letter
+    fontsize: 11pt
+    geometry:
+      - margin=1in
+    include-in-header:
+      text: |
+        \usepackage{booktabs}
+        \usepackage{longtable}
+bibliography: references.bib
+csl: apa.csl
+---
+
+# Executive Summary
+
+Alzheimer's Disease and Related Dementias (ADRD) affect over 6.7 million Americans, with prevalence projected to reach 12.7 million by 2050 [@alzassoc2024]. Accurate phenotyping from clinical notes is essential for patient care, clinical research, and epidemiological surveillance. While Large Language Models (LLMs) show promise in clinical natural language processing (NLP), their inconsistent application of diagnostic criteria and opaque reasoning raise concerns for high-stakes medical decisions.
+
+This proposal presents a comparative evaluation of pure LLM-based phenotyping versus a **knowledge-integrated approach** that combines LLM reasoning with computational functions, retrieval-augmented generation (RAG), and domain knowledge. Using ClinOrchestra—a configurable clinical NLP platform—we will evaluate both approaches on clinical notes with ground-truth ADRD labels, following NIA-AA 2024 diagnostic guidelines [@atri2024aa].
+
+**Hypothesis:** The knowledge-integrated approach will achieve higher classification accuracy and more interpretable reasoning than pure LLM methods by ensuring correct interpretation of cognitive assessments and systematic application of diagnostic criteria.
+
+# Background and Significance
+
+## The ADRD Phenotyping Challenge
+
+ADRD phenotyping from clinical notes requires integration of:
+
+1. **Cognitive screening scores** (MoCA, MMSE, Mini-Cog) with specific thresholds
+2. **Functional assessments** (Lawton IADL, Katz ADL) that distinguish MCI from dementia
+3. **Staging instruments** (CDR) with clinical significance for each score
+4. **Differential diagnosis** across AD, Vascular Dementia, DLB, FTD, and mixed pathologies
+5. **Exclusion criteria** for delirium, psychiatric disorders, and reversible causes
+
+The NIA-AA 2024 guidelines provide standardized criteria, but applying these criteria to unstructured clinical text is error-prone [@atri2024aa].
+
+## Limitations of Pure LLM Approaches
+
+While LLMs demonstrate remarkable language understanding, they exhibit critical limitations for ADRD phenotyping:
+
+| Limitation | Clinical Impact | Example |
+|------------|-----------------|---------|
+| Inconsistent score interpretation | Misclassification | MoCA 24 sometimes classified as normal |
+| CDR 0.5 ambiguity | MCI/dementia confusion | CDR 0.5 incorrectly staged as dementia |
+| Functional assessment gaps | Boundary errors | IADL impairment missed for MCI/dementia distinction |
+| Criteria drift | Guideline non-adherence | Applying outdated or incorrect diagnostic thresholds |
+
+: Limitations of Pure LLM Classification {#tbl-limitations}
+
+## Knowledge-Integrated LLM Approach
+
+We propose integrating LLMs with external clinical knowledge to address these limitations:
+
+- **Computational functions:** Provide deterministic score interpretation per guidelines
+- **RAG:** Ground responses in authoritative guideline documents
+- **Domain knowledge extras:** Supply clinical criteria and decision rules
+
+For ADRD phenotyping, this means:
+
+- LLMs extract clinical information from unstructured text
+- Functions ensure correct score interpretation per guidelines
+- RAG retrieval provides authoritative guideline content
+- Domain knowledge hints guide clinical reasoning
+
+# Research Questions and Hypotheses
+
+## Research Questions
+
+1. **RQ1:** How does pure LLM phenotyping compare to knowledge-integrated approaches for ADRD detection accuracy?
+2. **RQ2:** Does integrating computational functions for score interpretation reduce classification errors?
+3. **RQ3:** What role does RAG-based guideline retrieval play in guideline adherence?
+4. **RQ4:** Can knowledge-integrated approaches provide more interpretable reasoning chains?
+
+## Hypotheses
+
+- **H1:** Knowledge-integrated approach achieves higher accuracy than pure LLM (primary hypothesis)
+- **H2:** Computational functions reduce score interpretation errors by >50%
+- **H3:** RAG improves NIA-AA criteria adherence
+- **H4:** Knowledge-integrated reasoning chains are rated more interpretable by clinicians
+
+# Methods
+
+## ClinOrchestra Platform
+
+**ClinOrchestra** is a configurable clinical NLP platform designed for structured information extraction. It is task-agnostic by design—configurable for any clinical extraction task by changing the schema, prompts, functions, and RAG documents.
+
+For this study, we configure ClinOrchestra with:
+
+- **8 ADRD-specific computational functions** (see @sec-functions)
+- **12 domain knowledge extras** (see @sec-extras)
+- **RAG documents:** AA 2024 clinical practice guidelines [@atri2024aa]
+- **Output schema:** 4-key structured classification
+
+## ADAPTIVE Pipeline Architecture
+
+ClinOrchestra's ADAPTIVE pipeline provides iterative, agentic execution:
+
+```
+         ┌──────────────────────────────────────┐
+         │      LLM Agent (Autonomous)          │
+         │  • Analyzes clinical text            │
+         │  • Calls tools iteratively           │◄────┐
+         │  • Self-corrects on errors           │     │
+         └──────────────────────────────────────┘     │
+                    │                                 │
+         ┌──────────┼──────────┬──────────┐          │
+         │          │          │          │          │
+         ▼          ▼          ▼          ▼          │
+    ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐  │
+    │Functions│ │  RAG    │ │ Extras  │ │Schema   │  │
+    │(8 ADRD) │ │ Engine  │ │(12 ADRD)│ │Validate │  │
+    └─────────┘ └─────────┘ └─────────┘ └─────────┘  │
+         │          │          │          │          │
+         └──────────┴──────────┴──────────┘          │
+                    │                                 │
+                    ▼                                 │
+         ┌──────────────────────────────────────┐    │
+         │  Need More Tools? YES ───────────────────┘
+         │                   NO → Output JSON   │
+         └──────────────────────────────────────┘
+```
+
+Unlike fixed-stage pipelines, ADAPTIVE allows the LLM agent to:
+
+- Decide which tools to call based on extracted information
+- Iterate until confident in classification
+- Self-correct when encountering errors or inconsistencies
+
+## Study Design
+
+### Experimental Arms
+
+| Arm | Description | Components |
+|-----|-------------|------------|
+| **Arm 1 (Control)** | Pure LLM | NIA-AA prompt only |
+| **Arm 2 (Treatment)** | Knowledge-Integrated | LLM + Functions + RAG + Extras |
+
+### Ablation Study
+
+To isolate component contributions:
+
+| Configuration | Functions | RAG | Extras |
+|--------------|-----------|-----|--------|
+| LLM only (baseline) | ✗ | ✗ | ✗ |
+| LLM + Functions | ✓ | ✗ | ✗ |
+| LLM + RAG | ✗ | ✓ | ✗ |
+| LLM + Extras | ✗ | ✗ | ✓ |
+| LLM + Functions + RAG | ✓ | ✓ | ✗ |
+| Full Knowledge-Integrated | ✓ | ✓ | ✓ |
+
+### Output Schema
+
+All arms produce the same 4-key JSON output for fair comparison:
+
+```json
+{
+  "severity": "no_impairment | MCI | mild_dementia | moderate_dementia | severe_dementia",
+  "syndrome": "amnestic | executive | language | visuospatial | behavioral | mixed",
+  "diagnosis": {
+    "classification": "ADRD | Non-ADRD",
+    "specific_type": "Probable AD | Possible AD | DLB | VaD | FTD | Mixed | ...",
+    "confidence": "high | moderate | low"
+  },
+  "clinical_summary": "Integrated reasoning narrative"
+}
+```
+
+## Prompts {#sec-prompts}
+
+### Arm 1: Pure LLM Prompt
+
+```
+ADRD specialist per AA 2024 Guidelines.
+
+TEXT:
+{clinical_text}
+
+TASK: Classify ADRD vs Non-ADRD.
+
+DEMENTIA requires ALL:
+1. Interferes with function
+2. Represents decline
+3. Delirium excluded
+4. Psychiatric excluded
+5. >=2 domains (memory, executive, visuospatial, language, behavior)
+
+MCI: Cognitive impairment + PRESERVED function.
+CDR: 0.5=MCI, >=1=Dementia.
+
+OUTPUT:
+- severity: no_impairment/MCI/mild_dementia/moderate_dementia/severe_dementia
+- syndrome: amnestic/executive/language/visuospatial/behavioral/mixed
+- diagnosis: {classification, specific_type, confidence}
+- clinical_summary: Integrated reasoning
+
+Return JSON only.
+```
+
+### Arm 2: Knowledge-Integrated Prompt
+
+```
+ADRD specialist per AA 2024 Guidelines.
+
+TEXT:
+{clinical_text}
+
+TASK: Classify ADRD vs Non-ADRD.
+
+TOOLS:
+1. interpret_moca(score, years_education) - <26 threshold
+2. interpret_mmse(score) - <26 threshold
+3. interpret_mini_cog(score) - <=3 threshold
+4. interpret_katz_adl(score) - Basic ADL (6=indep)
+5. interpret_lawton_iadl(score) - IADL (8=indep) - MCI vs Dementia key
+6. interpret_cdr(global_score) - 0.5=MCI, >=1=Dementia
+7. count_cognitive_domains(memory, exec, visuo, lang, behav) - >=2 for dementia
+8. check_nia_aa_criteria(...) - All 5 for dementia
+9. query_rag(query) - Guidelines
+10. query_extras(keywords) - Domain hints
+
+WORKFLOW:
+1. Identify scores in text
+2. Call interpretation functions
+3. Count domains, check criteria
+4. Query RAG/extras if needed
+5. Output classification
+
+OUTPUT: {severity, syndrome, diagnosis: {classification, specific_type, confidence}, clinical_summary}
+
+Call tools. Output JSON.
+```
+
+## Evaluation Metrics
+
+### Primary Outcome
+
+- **Accuracy** for ADRD vs Non-ADRD binary classification
+- **F1 Score** (macro-averaged across severity levels)
+
+### Secondary Outcomes
+
+- **MCI/Dementia boundary accuracy:** Correct classification at CDR 0.5 vs ≥1.0
+- **Score interpretation accuracy:** Correct application of MoCA, MMSE, CDR thresholds
+- **NIA-AA criteria adherence:** Proportion of cases where all 5 criteria evaluated
+- **Interpretability rating:** Clinician evaluation of reasoning chains (1-5 Likert)
+
+## Data
+
+Clinical notes with ground-truth ADRD labels from [Data source to be determined based on IRB approval].
+
+Inclusion criteria:
+
+- Adults ≥65 years
+- Clinical notes containing cognitive assessment results
+- Ground-truth diagnosis confirmed by clinician review or established cohort labels
+
+# Expected Outcomes and Impact
+
+## Expected Results
+
+Based on preliminary analysis and literature, we anticipate:
+
+1. **5-15% accuracy improvement** with knowledge-integrated over pure LLM
+2. **>50% reduction** in score interpretation errors
+3. **Improved MCI/dementia boundary classification** due to explicit functional assessment
+4. **Higher clinician ratings** for interpretability
+
+## Clinical Impact
+
+Accurate ADRD phenotyping from clinical notes enables:
+
+- **Patient care:** Earlier identification for intervention
+- **Research:** Cohort identification for clinical trials
+- **Surveillance:** Population-level dementia monitoring
+- **Quality improvement:** Standardized application of diagnostic criteria
+
+## Methodological Contribution
+
+This study contributes:
+
+1. **ClinOrchestra:** Open-source platform for clinical NLP
+2. **Reproducible comparison:** Controlled evaluation of LLM vs knowledge-integrated
+3. **ADRD-specific toolkit:** Validated functions and knowledge resources
+4. **Best practices:** Guidance for clinical AI development
+
+# Timeline
+
+| Phase | Activities | Duration |
+|-------|------------|----------|
+| 1 | IRB approval, data acquisition | 2 months |
+| 2 | Platform configuration, prompt refinement | 1 month |
+| 3 | Arm 1 (Pure LLM) experiments | 1 month |
+| 4 | Arm 2 (Knowledge-Integrated) experiments | 1 month |
+| 5 | Ablation studies | 2 months |
+| 6 | Clinician evaluation of interpretability | 1 month |
+| 7 | Analysis and manuscript preparation | 2 months |
+
+# References
+
+::: {#refs}
+:::
+
+\newpage
+
+# Appendix A: Computational Functions {#sec-functions}
+
+## A.1 interpret_moca
+
+**Purpose:** Interpret MoCA score per AA 2024 Guidelines Table 5
+
+**Parameters:**
+
+- `score` (number, required): MoCA raw score (0-30)
+- `years_education` (number, optional): Years of education for adjustment
+
+**Returns:** `{raw_score, adjusted_score, education_adjustment_applied, screening_threshold, below_threshold, interpretation_note}`
+
+```python
+def interpret_moca(score, years_education=None):
+    """
+    Interpret MoCA score per AA 2024 Guidelines Table 5.
+    MoCA is a SCREENING tool (not diagnostic). Range 0-30.
+    Education adjustment: Add 1 point if <=12 years education.
+    Screening threshold: <26 suggests possible cognitive impairment.
+    """
+    if not isinstance(score, (int, float)):
+        return {"error": True, "interpretation_note": "Invalid MoCA score"}
+    score = float(score)
+    if score < 0 or score > 30:
+        return {"error": True, "interpretation_note": "MoCA score must be 0-30"}
+    adjusted_score = score
+    education_adjustment = False
+    if years_education is not None and years_education <= 12 and score < 30:
+        adjusted_score = min(score + 1, 30)
+        education_adjustment = True
+    below_threshold = adjusted_score < 26
+    return {
+        "raw_score": score,
+        "adjusted_score": adjusted_score,
+        "education_adjustment_applied": education_adjustment,
+        "screening_threshold": 26,
+        "below_threshold": below_threshold,
+        "interpretation_note": f"MoCA {adjusted_score}/30 {'BELOW' if below_threshold else 'AT/ABOVE'} threshold (<26)"
+    }
+```
+
+## A.2 interpret_mmse
+
+**Purpose:** Interpret MMSE score per AA 2024 Guidelines Table 5 (note: low sensitivity for MCI)
+
+```python
+def interpret_mmse(score):
+    """
+    Interpret MMSE score per AA 2024 Guidelines Table 5.
+    MMSE is a SCREENING tool (not diagnostic). Range 0-30.
+    Screening threshold: <26 suggests possible cognitive impairment.
+    NOTE: MMSE has low sensitivity for MCI.
+    """
+    if not isinstance(score, (int, float)):
+        return {"error": True, "interpretation_note": "Invalid MMSE score"}
+    score = float(score)
+    if score < 0 or score > 30:
+        return {"error": True, "interpretation_note": "MMSE score must be 0-30"}
+    below_threshold = score < 26
+    return {
+        "score": score,
+        "screening_threshold": 26,
+        "below_threshold": below_threshold,
+        "interpretation_note": f"MMSE {score}/30 {'BELOW' if below_threshold else 'AT/ABOVE'} threshold (<26). MMSE has low sensitivity for MCI."
+    }
+```
+
+## A.3 interpret_mini_cog
+
+**Purpose:** Interpret Mini-Cog score per AA 2024 Guidelines Table 5
+
+```python
+def interpret_mini_cog(score):
+    """
+    Interpret Mini-Cog score per AA 2024 Guidelines Table 5.
+    Mini-Cog is a brief SCREENING tool (not diagnostic). Range 0-5.
+    Screening threshold: <=3 suggests possible cognitive impairment.
+    """
+    if not isinstance(score, (int, float)):
+        return {"error": True, "interpretation_note": "Invalid Mini-Cog score"}
+    score = float(score)
+    if score < 0 or score > 5:
+        return {"error": True, "interpretation_note": "Mini-Cog score must be 0-5"}
+    at_or_below = score <= 3
+    return {
+        "score": score,
+        "screening_threshold": 3,
+        "at_or_below_threshold": at_or_below,
+        "interpretation_note": f"Mini-Cog {score}/5 {'AT/BELOW' if at_or_below else 'ABOVE'} threshold (<=3)"
+    }
+```
+
+## A.4 interpret_katz_adl
+
+**Purpose:** Interpret Katz ADL score for basic functional assessment
+
+```python
+def interpret_katz_adl(score):
+    """
+    Interpret Katz ADL score for functional assessment.
+    Measures BASIC self-care: bathing, dressing, toileting, transferring, continence, feeding.
+    Range 0-6 where 6 = fully independent.
+    """
+    if not isinstance(score, (int, float)):
+        return {"error": True, "interpretation_note": "Invalid Katz ADL score"}
+    score = float(score)
+    if score < 0 or score > 6:
+        return {"error": True, "interpretation_note": "Katz ADL score must be 0-6"}
+    impaired = score < 6
+    if score == 6:
+        status = "Full independence in basic ADLs"
+    elif score >= 4:
+        status = "Mild impairment (needs assistance with 1-2 activities)"
+    elif score >= 2:
+        status = "Moderate impairment (needs assistance with 3-4 activities)"
+    else:
+        status = "Severe impairment (needs assistance with 5-6 activities)"
+    return {
+        "score": score,
+        "maximum_score": 6,
+        "functional_status": status,
+        "basic_adl_impaired": impaired
+    }
+```
+
+## A.5 interpret_lawton_iadl (CRITICAL for MCI vs Dementia)
+
+**Purpose:** Interpret Lawton IADL score—**CRITICAL for distinguishing MCI from dementia**
+
+```python
+def interpret_lawton_iadl(score):
+    """
+    Interpret Lawton IADL score for functional assessment.
+    Measures INSTRUMENTAL activities: phone, shopping, food, housekeeping, laundry, transport, meds, finances.
+    Range 0-8 where 8 = fully independent.
+    CRITICAL FOR MCI VS DEMENTIA: MCI = IADLs preserved, Dementia = IADLs impaired.
+    """
+    if not isinstance(score, (int, float)):
+        return {"error": True, "interpretation_note": "Invalid Lawton IADL score"}
+    score = float(score)
+    if score < 0 or score > 8:
+        return {"error": True, "interpretation_note": "Lawton IADL score must be 0-8"}
+    impaired = score < 8
+    if score == 8:
+        status = "Full independence in IADLs"
+        significance = "IADL independence supports MCI (not dementia) if cognitive impairment present"
+    elif score >= 6:
+        status = "Mild IADL impairment (difficulty with 1-2 activities)"
+        significance = "Mild IADL difficulty may be MCI or very early dementia"
+    elif score >= 4:
+        status = "Moderate IADL impairment (difficulty with 3-4 activities)"
+        significance = "Moderate IADL impairment suggests dementia rather than MCI"
+    else:
+        status = "Severe IADL impairment (difficulty with 5-8 activities)"
+        significance = "Severe IADL impairment consistent with dementia"
+    return {
+        "score": score,
+        "maximum_score": 8,
+        "functional_status": status,
+        "instrumental_adl_impaired": impaired,
+        "clinical_significance": significance
+    }
+```
+
+## A.6 interpret_cdr
+
+**Purpose:** Interpret CDR global score—CDR 0.5 vs 1.0 distinguishes MCI from dementia
+
+```python
+def interpret_cdr(global_score):
+    """
+    Interpret CDR global score per Morris 1993.
+    0=no impairment, 0.5=MCI (functional independence PRESERVED), 1=mild dementia, 2=moderate, 3=severe.
+    CDR 0.5 vs 1.0 is the MCI/dementia boundary based on functional impairment.
+    """
+    valid_scores = [0, 0.5, 1, 2, 3]
+    if global_score not in valid_scores:
+        return {"error": True, "interpretation_note": f"CDR must be one of {valid_scores}"}
+    interpretations = {
+        0: {"staging": "no_impairment", "functional_impairment": False, "clinical_meaning": "No cognitive impairment"},
+        0.5: {"staging": "MCI", "functional_impairment": False, "clinical_meaning": "MCI - functional independence PRESERVED. This is NOT dementia."},
+        1: {"staging": "mild_dementia", "functional_impairment": True, "clinical_meaning": "Mild dementia - functional impairment PRESENT"},
+        2: {"staging": "moderate_dementia", "functional_impairment": True, "clinical_meaning": "Moderate dementia - significant functional impairment"},
+        3: {"staging": "severe_dementia", "functional_impairment": True, "clinical_meaning": "Severe dementia - total dependence"}
+    }
+    result = interpretations[global_score]
+    result["global_score"] = global_score
+    return result
+```
+
+## A.7 count_cognitive_domains
+
+**Purpose:** Count affected cognitive domains per NIA-AA criteria—dementia requires ≥2 of 5 domains
+
+```python
+def count_cognitive_domains(memory=None, executive=None, visuospatial=None, language=None, behavior=None):
+    """
+    Count affected cognitive domains per NIA-AA criteria (AA 2024 Guidelines Table 1).
+    NIA-AA dementia requires >=2 of 5 domains affected.
+    Domains: memory, executive, visuospatial, language, behavior.
+    Pass true if impaired, false if not, None if not documented.
+    """
+    domains = {"memory": memory, "executive": executive, "visuospatial": visuospatial, "language": language, "behavior": behavior}
+    affected = [d for d, v in domains.items() if v is True]
+    unaffected = [d for d, v in domains.items() if v is False]
+    unassessed = [d for d, v in domains.items() if v is None]
+    count = len(affected)
+    total_assessed = len(affected) + len(unaffected)
+    if count >= 2:
+        meets_criterion = True
+    elif total_assessed >= 4 and count < 2:
+        meets_criterion = False
+    else:
+        meets_criterion = None
+    return {
+        "count": count,
+        "affected_domains": affected,
+        "unassessed_domains": unassessed,
+        "meets_two_domain_criterion": meets_criterion,
+        "note": "NIA-AA dementia requires >=2 of 5 domains affected"
+    }
+```
+
+## A.8 check_nia_aa_criteria
+
+**Purpose:** Check all NIA-AA dementia criteria—all 5 must be met for dementia diagnosis
+
+```python
+def check_nia_aa_criteria(interferes_function=None, represents_decline=None, delirium_excluded=None, psychiatric_excluded=None, domain_count=None):
+    """
+    Check NIA-AA dementia criteria per AA 2024 Guidelines Table 1.
+    Requires ALL: (1) interferes with function, (2) represents decline, (3) delirium excluded,
+    (4) psychiatric excluded as PRIMARY cause, PLUS >=2 domains affected.
+    """
+    two_domains = None if domain_count is None else (domain_count >= 2)
+    criteria = {
+        "interferes_function": interferes_function,
+        "represents_decline": represents_decline,
+        "delirium_excluded": delirium_excluded,
+        "psychiatric_excluded": psychiatric_excluded,
+        "two_domains_affected": two_domains
+    }
+    values = list(criteria.values())
+    met_count = sum(1 for v in values if v is True)
+    not_met = [k for k, v in criteria.items() if v is False]
+    unassessed = [k for k, v in criteria.items() if v is None]
+    if all(v is True for v in values):
+        all_met = True
+    elif any(v is False for v in values):
+        all_met = False
+    else:
+        all_met = None
+    return {
+        "criteria_status": criteria,
+        "criteria_met_count": met_count,
+        "criteria_not_met": not_met,
+        "all_criteria_met": all_met,
+        "unassessed_criteria": unassessed
+    }
+```
+
+\newpage
+
+# Appendix B: Domain Knowledge Extras {#sec-extras}
+
+## B.1 NIA-AA Dementia Criteria (CRITICAL)
+
+**ID:** `aadrd_nia_aa_dementia_criteria`
+
+> NIA-AA DEMENTIA CRITERIA (AA 2024 Table 1): Dementia requires cognitive/behavioral symptoms that: (1) Interfere with function at work or usual activities, (2) Represent decline from previous level, (3) Not explained by delirium, (4) Not explained by major psychiatric disorder as PRIMARY cause. PLUS >=2 of 5 domains affected: Memory, Executive, Visuospatial, Language, Behavior.
+
+## B.2 NIA-AA MCI Criteria (CRITICAL)
+
+**ID:** `aadrd_nia_aa_mci_criteria`
+
+> NIA-AA MCI CRITERIA: (1) Cognitive concern from patient/informant/clinician, (2) Objective evidence of impairment in >=1 cognitive domain, (3) PRESERVATION OF INDEPENDENCE in functional abilities (KEY distinction from dementia), (4) Not demented. CRITICAL: MCI = cognitive impairment + functional independence PRESERVED. Dementia = cognitive impairment + functional IMPAIRMENT.
+
+## B.3 Functional Assessment for MCI vs Dementia (CRITICAL)
+
+**ID:** `aadrd_functional_assessment`
+
+> FUNCTIONAL ASSESSMENT - KEY FOR MCI VS DEMENTIA: Lawton IADL (0-8, 8=independent) measures instrumental activities (phone, shopping, food prep, housekeeping, laundry, transport, meds, finances). IADL impairment = dementia (not MCI). Katz ADL (0-6, 6=independent) measures basic self-care. Basic ADL impairment indicates more advanced disease.
+
+## B.4 CDR Staging (CRITICAL)
+
+**ID:** `aadrd_cdr_staging`
+
+> CDR STAGING (Morris 1993): 0=no impairment, 0.5=MCI (functional independence PRESERVED - NOT dementia), 1=mild dementia (functional impairment PRESENT), 2=moderate dementia, 3=severe dementia. CRITICAL: CDR 0.5 vs 1.0 is the MCI/dementia boundary based on FUNCTIONAL IMPAIRMENT.
+
+## B.5 Cognitive Screening Thresholds
+
+**ID:** `aadrd_screening_thresholds`
+
+> COGNITIVE SCREENING THRESHOLDS (AA 2024 Table 5) - SCREENING only, NOT diagnostic: MoCA <26, MMSE <26, Mini-Cog <=3. These are thresholds for SCREENING, not diagnosis.
+
+## B.6 Probable Alzheimer Disease Criteria
+
+**ID:** `aadrd_probable_ad_criteria`
+
+> PROBABLE AD (McKhann 2011): Meets dementia criteria + insidious onset + clear worsening + initial/prominent deficits in one pattern: Amnestic, Language, Visuospatial, or Executive.
+
+## B.7 Dementia with Lewy Bodies Criteria
+
+**ID:** `aadrd_dlb_criteria`
+
+> DLB CRITERIA (McKeith 2017): >=2 core features = probable DLB. CORE FEATURES: (1) Fluctuating cognition, (2) Recurrent visual hallucinations, (3) REM sleep behavior disorder, (4) Spontaneous parkinsonism.
+
+## B.8 Vascular Dementia Criteria
+
+**ID:** `aadrd_vascular_dementia_criteria`
+
+> VASCULAR DEMENTIA (NINDS-AIREN): Requires (1) dementia established, (2) cerebrovascular disease present, (3) relationship between dementia and CVD.
+
+## B.9 Frontotemporal Dementia Criteria
+
+**ID:** `aadrd_ftd_criteria`
+
+> bvFTD CRITERIA (Rascovsky 2011): Progressive deterioration + THREE of six features: behavioral disinhibition, apathy, loss of empathy, perseverative behaviors, hyperorality, executive deficits.
+
+## B.10 Non-ADRD Causes to Exclude (CRITICAL)
+
+**ID:** `aadrd_non_adrd_exclusions`
+
+> NON-ADRD CAUSES TO EXCLUDE: DELIRIUM (acute onset, fluctuating, inattention). PSYCHIATRIC (depression/pseudodementia). MEDICAL (hypothyroidism, B12 deficiency, infections, medications).
+
+## B.11 Mixed Dementia
+
+**ID:** `aadrd_mixed_dementia`
+
+> MIXED DEMENTIA: Multiple pathologies VERY COMMON in elderly (>50% over age 85). Common combinations: AD + vascular, AD + Lewy body.
+
+## B.12 Clinical Judgment Principles (CRITICAL)
+
+**ID:** `aadrd_clinical_judgment`
+
+> CLINICAL JUDGMENT PRINCIPLES: (1) Screening thresholds are NOT diagnostic cutoffs, (2) Missing documentation does NOT equal absence, (3) Functional impairment distinguishes MCI from dementia, (4) Integrate ALL clinical information.
+
+\newpage
+
+# Appendix C: RAG Document Sources {#sec-rag}
+
+| # | Document | Citation |
+|---|----------|----------|
+| 1 | AA 2024 Clinical Practice Guideline, Part 1 | Atri et al. (2024) |
+| 2 | AA 2024 Clinical Practice Guideline, Part 2 | Atri et al. (2024) |
+| 3 | AA 2024 Supplementary Tables | Atri et al. (2024) |
+
+**Key Tables:**
+
+- Table 1: NIA-AA Dementia Diagnostic Criteria
+- Table 5: Cognitive Screening Instrument Thresholds
+- Table 6: Functional Assessment Instruments
+
+\newpage
+
+# Appendix D: Key Clinical Distinctions
+
+## MCI vs Dementia Decision Matrix
+
+| Feature | MCI | Dementia |
+|---------|-----|----------|
+| Cognitive impairment | Present | Present |
+| Functional independence | **PRESERVED** | **IMPAIRED** |
+| CDR Global Score | 0.5 | ≥1.0 |
+| Lawton IADL | 8/8 (or minimal) | <8/8 |
+| Domain count required | ≥1 | ≥2 |
+
+## Why Functions Address LLM Limitations
+
+| LLM Limitation | Function Solution |
+|----------------|-------------------|
+| Inconsistent MoCA threshold | `interpret_moca()` provides <26 with education adjustment |
+| CDR 0.5 misclassified | `interpret_cdr()` explicitly maps 0.5 to MCI |
+| IADL not integrated | `interpret_lawton_iadl()` provides clinical significance |
+| Domain counting errors | `count_cognitive_domains()` systematic evaluation |
+| Incomplete criteria | `check_nia_aa_criteria()` ensures all 5 assessed |
+
+\newpage
+
+# References {.unnumbered}
+
+Alzheimer's Association. (2024). 2024 Alzheimer's Disease Facts and Figures. *Alzheimer's & Dementia*, 20(5), 3708-3821.
+
+Atri, A., et al. (2024). The Alzheimer's Association clinical practice guideline for the diagnostic evaluation of adults with cognitive symptoms. *Alzheimer's & Dementia*, 20(8), 5682-5704.
+
+McKeith, I. G., et al. (2017). Diagnosis and management of dementia with Lewy bodies. *Neurology*, 89(1), 88-100.
+
+McKhann, G. M., et al. (2011). The diagnosis of dementia due to Alzheimer's disease. *Alzheimer's & Dementia*, 7(3), 263-269.
+
+Morris, J. C. (1993). The Clinical Dementia Rating (CDR). *Neurology*, 43(11), 2412-2414.
+
+Rascovsky, K., et al. (2011). Sensitivity of revised diagnostic criteria for bvFTD. *Brain*, 134(9), 2456-2477.

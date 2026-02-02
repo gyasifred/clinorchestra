@@ -1,4 +1,4 @@
-# Neurosymbolic AI for ADRD Classification: Comparing Pure LLM vs. Hybrid Approaches
+# ADRD Phenotyping Using LLMs: Comparing Pure LLM vs. Knowledge-Integrated Approaches
 
 ## Using ClinOrchestra's ADAPTIVE Pipeline
 
@@ -10,9 +10,9 @@
 
 **Background:** Alzheimer's Disease and Related Dementias (ADRD) classification from clinical notes remains challenging due to complex diagnostic criteria requiring integration of cognitive assessments, functional status, and differential diagnosis. While Large Language Models (LLMs) show promise in clinical NLP tasks, their "black-box" reasoning raises concerns about reliability and interpretability in high-stakes medical decisions.
 
-**Objective:** To compare pure LLM-based classification versus a neurosymbolic AI approach that integrates LLM reasoning with deterministic symbolic computation and knowledge retrieval for ADRD classification using NIA-AA 2024 criteria.
+**Objective:** To compare pure LLM-based classification versus a knowledge-integrated approach that augments LLM reasoning with computational functions, retrieval-augmented generation (RAG), and domain knowledge for ADRD classification using NIA-AA 2024 criteria.
 
-**Methods:** We developed ClinOrchestra, a universal neurosymbolic orchestration platform combining: (1) LLM reasoning for natural language understanding, (2) symbolic functions for deterministic clinical score interpretation, (3) RAG-based guideline retrieval, and (4) domain-specific knowledge hints. Using ClinOrchestra's ADAPTIVE pipeline with 8 ADRD-specific functions and 12 clinical extras, we evaluated both approaches on clinical notes with ground-truth ADRD labels.
+**Methods:** We developed ClinOrchestra, a configurable clinical NLP platform combining: (1) LLM reasoning for natural language understanding, (2) computational functions for score interpretation, (3) RAG-based guideline retrieval, and (4) domain-specific knowledge hints. Using ClinOrchestra's ADAPTIVE pipeline with 8 ADRD-specific functions and 12 clinical extras, we evaluated both approaches on clinical notes with ground-truth ADRD labels.
 
 **Results:** [To be completed after experiments]
 
@@ -23,15 +23,15 @@
 ## 1. Introduction
 
 ### 1.1 Research Questions
-1. **RQ1:** How does pure LLM classification compare to neurosymbolic approaches for ADRD detection?
-2. **RQ2:** Does integrating symbolic functions for score interpretation improve classification accuracy?
+1. **RQ1:** How does pure LLM classification compare to knowledge-integrated approaches for ADRD detection?
+2. **RQ2:** Does integrating computational functions for score interpretation improve classification accuracy?
 3. **RQ3:** What role does RAG-based guideline retrieval play in classification performance?
-4. **RQ4:** Can neurosymbolic approaches provide more interpretable reasoning chains?
+4. **RQ4:** Can knowledge-integrated approaches provide more interpretable reasoning chains?
 
 ### 1.2 Contributions
-1. **ClinOrchestra:** Universal neurosymbolic AI platform (applicable to ANY clinical task)
-2. Comparative evaluation of LLM-only vs. neurosymbolic ADRD classification
-3. 8 domain-specific symbolic functions for NIA-AA criteria evaluation
+1. **ClinOrchestra:** Configurable clinical NLP platform (applicable to ANY clinical task)
+2. Comparative evaluation of LLM-only vs. knowledge-integrated ADRD classification
+3. 8 domain-specific computational functions for NIA-AA criteria evaluation
 4. 12 task-specific clinical extras (knowledge hints)
 
 ---
@@ -40,7 +40,7 @@
 
 ### 2.1 ClinOrchestra Platform
 
-**ClinOrchestra is a UNIVERSAL neurosymbolic AI platform** - task-agnostic by design. While applied here to ADRD classification, it can be configured for ANY clinical extraction task by changing the schema, prompts, functions, and RAG documents.
+**ClinOrchestra is a UNIVERSAL clinical NLP platform** - task-agnostic by design. While applied here to ADRD classification, it can be configured for ANY clinical extraction task by changing the schema, prompts, functions, and RAG documents.
 
 ### 2.2 ADAPTIVE Pipeline Architecture
 
@@ -71,7 +71,7 @@
 
 ### 2.3 Study Design
 - **Arm 1 (Control):** Pure LLM with NIA-AA prompt only
-- **Arm 2 (Treatment):** Neurosymbolic (LLM + Functions + RAG + Extras)
+- **Arm 2 (Treatment):** Knowledge-Integrated (LLM + Functions + RAG + Extras)
 
 ### 2.4 Output Schema (4 Keys)
 
@@ -90,7 +90,7 @@
 
 ---
 
-## 3. Symbolic Functions (8 Total)
+## 3. Computational Functions (8 Total)
 
 | # | Function | Purpose | Key Logic |
 |---|----------|---------|-----------|
@@ -126,10 +126,10 @@
 
 ## 5. Hypotheses
 
-- **H1:** Neurosymbolic achieves higher accuracy than pure LLM
-- **H2:** Symbolic functions reduce score interpretation errors
+- **H1:** Knowledge-integrated achieves higher accuracy than pure LLM
+- **H2:** Computational functions reduce score interpretation errors
 - **H3:** RAG improves guideline adherence
-- **H4:** Neurosymbolic reasoning is more interpretable
+- **H4:** Knowledge-integrated reasoning is more interpretable
 
 ---
 
@@ -142,7 +142,7 @@
 | LLM + RAG | ✗ | ✓ | ✗ |
 | LLM + Extras | ✗ | ✗ | ✓ |
 | LLM + Functions + RAG | ✓ | ✓ | ✗ |
-| Full Neurosymbolic | ✓ | ✓ | ✓ |
+| Full Knowledge-Integrated | ✓ | ✓ | ✓ |
 
 ---
 
@@ -177,7 +177,7 @@ OUTPUT:
 Return JSON only.
 ```
 
-## Prompt 2: Neurosymbolic (Arm 2 - Treatment)
+## Prompt 2: Knowledge-Integrated (Arm 2 - Treatment)
 
 ```
 ADRD specialist per AA 2024 Guidelines.
@@ -490,7 +490,7 @@ CLINICAL JUDGMENT PRINCIPLES:
 | Lawton IADL | 8/8 | <8/8 |
 | Domain count | ≥1 | ≥2 |
 
-## Why Symbolic Functions Matter
+## Why Computational Functions Matter
 
 1. **Score Interpretation:** LLMs inconsistent with MoCA 24 vs 26 cutoffs
 2. **CDR 0.5 Ambiguity:** Pure LLM may misclassify as dementia
@@ -500,5 +500,5 @@ CLINICAL JUDGMENT PRINCIPLES:
 
 ---
 
-*ClinOrchestra: Universal Neurosymbolic AI Platform for Clinical NLP*
+*ClinOrchestra: Configurable Clinical NLP Platform*
 *Medical University of South Carolina, Biomedical Informatics Center*
